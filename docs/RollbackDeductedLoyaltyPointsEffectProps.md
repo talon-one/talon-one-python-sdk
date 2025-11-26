@@ -1,0 +1,37 @@
+# RollbackDeductedLoyaltyPointsEffectProps
+
+The properties specific to the \"rollbackDeductedLoyaltyPoints\" effect. This effect is triggered whenever a previously closed session is cancelled and a deductLoyaltyPoints effect was revoked.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**program_id** | **int** | The ID of the loyalty program where these points were reimbursed. | 
+**sub_ledger_id** | **str** | The ID of the subledger within the loyalty program where these points were reimbursed. | 
+**value** | **float** | The amount of reimbursed points that were added. | 
+**recipient_integration_id** | **str** | The user for whom these points were reimbursed. | 
+**start_date** | **datetime** | Date after which the reimbursed points will be valid. | [optional] 
+**expiry_date** | **datetime** | Date after which the reimbursed points will expire. | [optional] 
+**transaction_uuid** | **str** | The identifier of &#39;addition&#39; entries added to the ledger as the &#x60;deductLoyaltyPoints&#x60; effect is rolled back. | 
+**card_identifier** | **str** | The alphanumeric identifier of the loyalty card.  | [optional] 
+
+## Example
+
+```python
+from talon_one.models.rollback_deducted_loyalty_points_effect_props import RollbackDeductedLoyaltyPointsEffectProps
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of RollbackDeductedLoyaltyPointsEffectProps from a JSON string
+rollback_deducted_loyalty_points_effect_props_instance = RollbackDeductedLoyaltyPointsEffectProps.from_json(json)
+# print the JSON string representation of the object
+print(RollbackDeductedLoyaltyPointsEffectProps.to_json())
+
+# convert the object into a dict
+rollback_deducted_loyalty_points_effect_props_dict = rollback_deducted_loyalty_points_effect_props_instance.to_dict()
+# create an instance of RollbackDeductedLoyaltyPointsEffectProps from a dict
+rollback_deducted_loyalty_points_effect_props_from_dict = RollbackDeductedLoyaltyPointsEffectProps.from_dict(rollback_deducted_loyalty_points_effect_props_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
