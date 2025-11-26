@@ -36,7 +36,7 @@ setup(
     description="Talon.One API",
     author="OpenAPI Generator community",
     author_email="team@openapitools.org",
-    url="https://github.com/talon-one/talon_one.py/",
+    url="https://github.com/talon-one/talon-one-python-sdk/",
     keywords=["OpenAPI", "OpenAPI-Generator", "Talon.One API"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
