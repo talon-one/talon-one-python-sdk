@@ -73,8 +73,7 @@ class TestStrikethroughLabelingNotification(unittest.TestCase):
                                     ], )
                             ], )
                     ],
-                notification_type = 'StrikethroughPrice',
-                sent_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+                notification_type = 'StrikethroughPrice'
             )
         else:
             return StrikethroughLabelingNotification(
@@ -115,7 +114,6 @@ class TestStrikethroughLabelingNotification(unittest.TestCase):
                             ], )
                     ],
                 notification_type = 'StrikethroughPrice',
-                sent_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
         )
         """
 

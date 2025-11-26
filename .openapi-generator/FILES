@@ -25,8 +25,6 @@ docs/AchievementBase.md
 docs/AchievementProgress.md
 docs/AchievementProgressWithDefinition.md
 docs/AchievementStatusEntry.md
-docs/ActivateLoyaltyPoints.md
-docs/ActivateLoyaltyPointsResponse.md
 docs/ActivateUserRequest.md
 docs/AddFreeItemEffectProps.md
 docs/AddItemCatalogAction.md
@@ -464,9 +462,6 @@ docs/PriceDetail.md
 docs/PriceType.md
 docs/PriceTypeReferenceDetail.md
 docs/PriceTypeReferences.md
-docs/PrismaticFlow.md
-docs/PrismaticFlowConfig.md
-docs/PrismaticFlowWithConfig.md
 docs/Product.md
 docs/ProductSearchMatch.md
 docs/ProductUnitAnalytics.md
@@ -654,8 +649,6 @@ talon_one/models/achievement_base.py
 talon_one/models/achievement_progress.py
 talon_one/models/achievement_progress_with_definition.py
 talon_one/models/achievement_status_entry.py
-talon_one/models/activate_loyalty_points.py
-talon_one/models/activate_loyalty_points_response.py
 talon_one/models/activate_user_request.py
 talon_one/models/add_free_item_effect_props.py
 talon_one/models/add_item_catalog_action.py
@@ -1092,9 +1085,6 @@ talon_one/models/price_detail.py
 talon_one/models/price_type.py
 talon_one/models/price_type_reference_detail.py
 talon_one/models/price_type_references.py
-talon_one/models/prismatic_flow.py
-talon_one/models/prismatic_flow_config.py
-talon_one/models/prismatic_flow_with_config.py
 talon_one/models/product.py
 talon_one/models/product_search_match.py
 talon_one/models/product_unit_analytics.py
@@ -1272,8 +1262,6 @@ test/test_achievement_base.py
 test/test_achievement_progress.py
 test/test_achievement_progress_with_definition.py
 test/test_achievement_status_entry.py
-test/test_activate_loyalty_points.py
-test/test_activate_loyalty_points_response.py
 test/test_activate_user_request.py
 test/test_add_free_item_effect_props.py
 test/test_add_item_catalog_action.py
@@ -1712,9 +1700,6 @@ test/test_price_detail.py
 test/test_price_type.py
 test/test_price_type_reference_detail.py
 test/test_price_type_references.py
-test/test_prismatic_flow.py
-test/test_prismatic_flow_config.py
-test/test_prismatic_flow_with_config.py
 test/test_product.py
 test/test_product_search_match.py
 test/test_product_unit_analytics.py

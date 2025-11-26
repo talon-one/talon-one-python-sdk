@@ -35,8 +35,6 @@ from talon_one.models.achievement_base import AchievementBase
 from talon_one.models.achievement_progress import AchievementProgress
 from talon_one.models.achievement_progress_with_definition import AchievementProgressWithDefinition
 from talon_one.models.achievement_status_entry import AchievementStatusEntry
-from talon_one.models.activate_loyalty_points import ActivateLoyaltyPoints
-from talon_one.models.activate_loyalty_points_response import ActivateLoyaltyPointsResponse
 from talon_one.models.activate_user_request import ActivateUserRequest
 from talon_one.models.add_free_item_effect_props import AddFreeItemEffectProps
 from talon_one.models.add_item_catalog_action import AddItemCatalogAction
@@ -472,9 +470,6 @@ from talon_one.models.price_detail import PriceDetail
 from talon_one.models.price_type import PriceType
 from talon_one.models.price_type_reference_detail import PriceTypeReferenceDetail
 from talon_one.models.price_type_references import PriceTypeReferences
-from talon_one.models.prismatic_flow import PrismaticFlow
-from talon_one.models.prismatic_flow_config import PrismaticFlowConfig
-from talon_one.models.prismatic_flow_with_config import PrismaticFlowWithConfig
 from talon_one.models.product import Product
 from talon_one.models.product_search_match import ProductSearchMatch
 from talon_one.models.product_unit_analytics import ProductUnitAnalytics

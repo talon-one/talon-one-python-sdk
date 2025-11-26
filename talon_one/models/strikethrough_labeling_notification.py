@@ -36,9 +36,8 @@ class StrikethroughLabelingNotification(BaseModel):
     total_batches: StrictInt = Field(description="The total number of batches for the notification.", alias="totalBatches")
     trigger: StrikethroughTrigger
     changed_items: List[StrikethroughChangedItem] = Field(alias="changedItems")
-    notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
-    sent_at: datetime = Field(description="Timestamp at which the notification was sent.", alias="sentAt")
-    __properties: ClassVar[List[str]] = ["version", "validFrom", "applicationId", "currentBatch", "totalBatches", "trigger", "changedItems", "NotificationType", "sentAt"]
+    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType")
+    __properties: ClassVar[List[str]] = ["version", "validFrom", "applicationId", "currentBatch", "totalBatches", "trigger", "changedItems", "NotificationType"]
 
     @field_validator('version')
     def version_validate_enum(cls, value):
@@ -125,8 +124,7 @@ class StrikethroughLabelingNotification(BaseModel):
             "totalBatches": obj.get("totalBatches"),
             "trigger": StrikethroughTrigger.from_dict(obj["trigger"]) if obj.get("trigger") is not None else None,
             "changedItems": [StrikethroughChangedItem.from_dict(_item) for _item in obj["changedItems"]] if obj.get("changedItems") is not None else None,
-            "NotificationType": obj.get("NotificationType"),
-            "sentAt": obj.get("sentAt")
+            "NotificationType": obj.get("NotificationType")
         })
         return _obj
 

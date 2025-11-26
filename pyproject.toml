@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "talon_one"
-version = "25.27"
+version = "25.26"
 description = "Talon.One API"
 authors = ["OpenAPI Generator Community <team@openapitools.org>"]
 license = "NoLicense"

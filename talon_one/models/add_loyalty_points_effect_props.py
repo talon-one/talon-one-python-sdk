@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -42,9 +42,7 @@ class AddLoyaltyPointsEffectProps(BaseModel):
     card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="cardIdentifier")
     bundle_index: Optional[StrictInt] = Field(default=None, description="The position of the bundle in a list of item bundles created from the same bundle definition.", alias="bundleIndex")
     bundle_name: Optional[StrictStr] = Field(default=None, description="The name of the bundle definition.", alias="bundleName")
-    awaits_activation: Optional[StrictBool] = Field(default=None, description="If `true`, the loyalty points are pending until  action-based activation takes place. The `startDate` parameter automatically  defaults to `on_action`. ", alias="awaitsActivation")
-    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date. Example: `30D`.   **Note**: This value is only returned if `awaitsActivation` is `true`  and `expiryDate` is not set. ", alias="validityDuration")
-    __properties: ClassVar[List[str]] = ["name", "programId", "subLedgerId", "value", "desiredValue", "recipientIntegrationId", "startDate", "expiryDate", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier", "bundleIndex", "bundleName", "awaitsActivation", "validityDuration"]
+    __properties: ClassVar[List[str]] = ["name", "programId", "subLedgerId", "value", "desiredValue", "recipientIntegrationId", "startDate", "expiryDate", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier", "bundleIndex", "bundleName"]
 
     @field_validator('card_identifier')
     def card_identifier_validate_regular_expression(cls, value):
@@ -120,9 +118,7 @@ class AddLoyaltyPointsEffectProps(BaseModel):
             "cartItemSubPosition": obj.get("cartItemSubPosition"),
             "cardIdentifier": obj.get("cardIdentifier"),
             "bundleIndex": obj.get("bundleIndex"),
-            "bundleName": obj.get("bundleName"),
-            "awaitsActivation": obj.get("awaitsActivation"),
-            "validityDuration": obj.get("validityDuration")
+            "bundleName": obj.get("bundleName")
         })
         return _obj
 
