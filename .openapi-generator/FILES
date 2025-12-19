@@ -1,8 +1,10 @@
-.github/workflows/python.yml
+.github/workflows/autorelease.yml
+.github/workflows/publish_to_pypi.yml
+.github/workflows/test.yml
 .gitignore
 .gitlab-ci.yml
-.openapi-generator-ignore
 .travis.yml
+Makefile
 README.md
 docs/APIError.md
 docs/AcceptCouponEffectProps.md
@@ -615,6 +617,7 @@ docs/WebhookAuthenticationDataCustom.md
 docs/WebhookAuthenticationWebhookRef.md
 docs/WebhookWithOutgoingIntegrationDetails.md
 docs/WillAwardGiveawayEffectProps.md
+example.py
 git_push.sh
 pyproject.toml
 requirements.txt
