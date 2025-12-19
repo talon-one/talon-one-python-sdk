@@ -464,7 +464,7 @@ class ApiClient:
         elif issubclass(klass, Enum):
             return self.__deserialize_enum(data, klass)
         else:
-            return self.__deserialize_model(data, klass)
+            return self.deserialize_model(data, klass)
 
     def parameters_to_tuples(self, params, collection_formats):
         """Get parameters as list of tuples, formatting collections.
@@ -786,7 +786,7 @@ class ApiClient:
                 )
             )
 
-    def __deserialize_model(self, data, klass):
+    def deserialize_model(self, data, klass):
         """Deserializes list or dict to model.
 
         :param data: dict, list.
