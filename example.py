@@ -20,7 +20,7 @@ integration_api = talon_one.IntegrationApi(talon_one.ApiClient(configuration))
 
 # Preparing a NewCustomerSessionV2 object
 customer_session = talon_one.NewCustomerSessionV2(
-  "PROFILE_ID"
+    profile_id="PROFILE_ID"
 )
 customer_session.cart_items = [
     talon_one.CartItem(name="Red Spring Blouse",
@@ -40,7 +40,7 @@ customer_session.coupon_codes = [
 
 # Instantiating a new IntegrationRequest object
 integration_request = talon_one.IntegrationRequest(
-    customer_session,
+    customer_session=customer_session,
     # Optional list of requested information to be present on the response.
     # See models/integration_request.py for full list
     # ["customerSession", "loyalty"]
