@@ -8,10 +8,10 @@ import os
 configuration = talon_one.Configuration(
     host = "http://localhost:9000",
     api_key_prefix = {
-        "Authorization": "ApiKey-v1"
+        "api_key_v1": "ApiKey-v1"
     },
     api_key = {
-        "Authorization": os.environ["TALON_API_KEY"]
+        "api_key_v1": os.environ["TALON_API_KEY"]
     }
 )
 
