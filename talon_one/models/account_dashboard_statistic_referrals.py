@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
+import datetime as datetime_module
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
@@ -28,7 +28,7 @@ class AccountDashboardStatisticReferrals(BaseModel):
     AccountDashboardStatisticReferrals
     """ # noqa: E501
     total: Union[StrictFloat, StrictInt] = Field(description="Total number of referrals initiated by users.")
-    datetime: datetime = Field(description="Values aggregated for the specified date.")
+    datetime: datetime_module.datetime = Field(description="Values aggregated for the specified date.")
     __properties: ClassVar[List[str]] = ["total", "datetime"]
 
     model_config = ConfigDict(
