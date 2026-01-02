@@ -30,7 +30,7 @@ class CouponsNotificationPolicy(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.")
     scopes: Annotated[List[StrictStr], Field(min_length=1, max_length=4)]
     batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled")
-    include_data: Optional[StrictBool] = Field(default=False, description="Indicates whether to include all generated coupons. If `false`, only the `batchId` of the generated coupons is included.", alias="includeData")
+    include_data: Optional[StrictBool] = Field(default=None, description="Indicates whether to include all generated coupons. If `false`, only the `batchId` of the generated coupons is included.", alias="includeData")
     batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize")
     __properties: ClassVar[List[str]] = ["name", "scopes", "batchingEnabled", "includeData", "batchSize"]
 
@@ -96,7 +96,7 @@ class CouponsNotificationPolicy(BaseModel):
             "name": obj.get("name"),
             "scopes": obj.get("scopes"),
             "batchingEnabled": obj.get("batchingEnabled") if obj.get("batchingEnabled") is not None else True,
-            "includeData": obj.get("includeData") if obj.get("includeData") is not None else False,
+            "includeData": obj.get("includeData"),
             "batchSize": obj.get("batchSize") if obj.get("batchSize") is not None else 1000
         })
         return _obj

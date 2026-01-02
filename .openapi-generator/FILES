@@ -6,6 +6,7 @@
 .travis.yml
 Makefile
 README.md
+docker-compose.yml
 docs/APIError.md
 docs/AcceptCouponEffectProps.md
 docs/AcceptReferralEffectProps.md
