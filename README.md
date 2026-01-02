@@ -51,10 +51,10 @@ import json
 configuration = talon_one.Configuration(
     host = "https://yourbaseurl.talon.one", # No trailing slash!
     api_key_prefix = {
-        "Authorization": "ApiKey-v1"
+        "api_key_v1": "ApiKey-v1"
     },
     api_key = {
-        "Authorization": "e18149e88f42247f0123456789abcdef9302722577ad60cebc86c4333b6fb70"
+        "api_key_v1": "e18149e88f42247f0123456789abcdef9302722577ad60cebc86c4333b6fb70"
     }
 )
 
@@ -128,10 +128,10 @@ import json
 configuration = talon_one.Configuration(
     host = "https://yourbaseurl.talon.one", # No trailing slash!
     api_key_prefix = {
-        "Authorization": "ManagementKey-v1"
+        "api_key_v1": "ManagementKey-v1"
     },
     api_key = {
-        "Authorization": "2f0dce055da01ae595005d7d79154bae7448d319d5fc7c5b2951fadd6ba1ea07"
+        "api_key_v1": "2f0dce055da01ae595005d7d79154bae7448d319d5fc7c5b2951fadd6ba1ea07"
     }
 )
 
