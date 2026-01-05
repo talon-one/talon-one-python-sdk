@@ -13,10 +13,10 @@ This SDK supports all of the operations of Talon.One's Integration API and Manag
 The SDK is available on [PyPi](https://pypi.org/project/talon-one-python-sdk/):
 
 ```sh
-pip install talon-one-python-sdk
+pip install talon-one-sdk
 ```
 
-**Note**: You may need to run `pip` with root permissions: `sudo pip install talon-one-python-sdk`.
+**Note**: You may need to run `pip` with root permissions: `sudo pip install talon-one-sdk`.
 
 ### Setuptools
 
