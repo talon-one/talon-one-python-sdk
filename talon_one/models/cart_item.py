@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from talon_one.models.additional_cost import AdditionalCost
 from talon_one.models.price_detail import PriceDetail
 from talon_one.models.product import Product
@@ -48,7 +49,7 @@ class CartItem(BaseModel):
     additional_costs: Optional[Dict[str, AdditionalCost]] = Field(default=None, description="Use this property to set a value for the additional costs of this item, such as a shipping cost. They must be created in the Campaign Manager before you set them with this property. See [Managing additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs). ", alias="additionalCosts")
     catalog_item_id: Optional[StrictInt] = Field(default=None, description="The catalog item ID.", alias="catalogItemID")
     selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for this cart item (e.g. the price for members only).", alias="selectedPriceType")
-    adjustment_reference_id: Optional[StrictStr] = Field(default=None, description="The reference ID of the selected price adjustment for this cart item. Only returned if the selected price resulted from a price adjustment.", alias="adjustmentReferenceId")
+    adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference ID of the selected price adjustment for this cart item. Only returned if the selected price resulted from a price adjustment.", alias="adjustmentReferenceId")
     adjustment_effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective. Only returned if the selected price resulted from a price adjustment that contains this field.", alias="adjustmentEffectiveFrom")
     adjustment_effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective. Only returned if the selected price resulted from a price adjustment that contains this field.", alias="adjustmentEffectiveUntil")
     prices: Optional[Dict[str, PriceDetail]] = Field(default=None, description="A map of keys and values representing the price types and related price adjustment details for this cart item. The keys correspond to the `priceType` names. ")

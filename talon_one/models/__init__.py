@@ -12,7 +12,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 # import models into model package
 from talon_one.models.api_error import APIError
 from talon_one.models.accept_coupon_effect_props import AcceptCouponEffectProps
@@ -623,3 +622,4 @@ from talon_one.models.webhook_authentication_data_custom import WebhookAuthentic
 from talon_one.models.webhook_authentication_webhook_ref import WebhookAuthenticationWebhookRef
 from talon_one.models.webhook_with_outgoing_integration_details import WebhookWithOutgoingIntegrationDetails
 from talon_one.models.will_award_giveaway_effect_props import WillAwardGiveawayEffectProps
+

@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from talon_one.models.binding import Binding
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,8 +29,8 @@ class Rule(BaseModel):
     """
     Rule
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="A unique identifier for the rule.")
-    parent_id: Optional[StrictStr] = Field(default=None, description="The ID of the rule that was copied to create this rule.", alias="parentId")
+    id: Optional[UUID] = Field(default=None, description="A unique identifier for the rule.")
+    parent_id: Optional[UUID] = Field(default=None, description="The ID of the rule that was copied to create this rule.", alias="parentId")
     title: StrictStr = Field(description="A short description of the rule.")
     description: Optional[StrictStr] = Field(default=None, description="A longer, more detailed description of the rule.")
     bindings: Optional[List[Binding]] = Field(default=None, description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.")

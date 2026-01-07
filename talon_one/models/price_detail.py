@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +30,7 @@ class PriceDetail(BaseModel):
     """ # noqa: E501
     price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of this price type.")
     adjustment_context_id: Optional[StrictStr] = Field(default=None, description="The context identifier of the selected price adjustment.", alias="adjustmentContextId")
-    adjustment_reference_id: Optional[StrictStr] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU.", alias="adjustmentReferenceId")
+    adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU.", alias="adjustmentReferenceId")
     adjustment_effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective.", alias="adjustmentEffectiveFrom")
     adjustment_effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective.", alias="adjustmentEffectiveUntil")
     __properties: ClassVar[List[str]] = ["price", "adjustmentContextId", "adjustmentReferenceId", "adjustmentEffectiveFrom", "adjustmentEffectiveUntil"]

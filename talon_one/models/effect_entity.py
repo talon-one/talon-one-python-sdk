@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -40,7 +41,7 @@ class EffectEntity(BaseModel):
     campaign_revision_version_id: Optional[StrictInt] = Field(default=None, description="The revision version ID of the campaign that was used when triggering the effect.", alias="campaignRevisionVersionId")
     selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType")
     selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice")
-    adjustment_reference_id: Optional[StrictStr] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId")
+    adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId")
     __properties: ClassVar[List[str]] = ["campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId"]
 
     model_config = ConfigDict(

@@ -41,9 +41,10 @@ class CustomerSession(BaseModel):
     total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total sum of the cart in one session.")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="A key-value map of the sessions attributes. The potentially valid attributes are configured in your accounts developer settings. ")
     first_session: StrictBool = Field(description="Indicates whether this is the first session for the customer's profile. Will always be true for anonymous sessions.", alias="firstSession")
+    update_count: StrictInt = Field(description="The number of times the session was updated. When the session is created, this value is initialized to `1`.", alias="updateCount")
     discounts: Dict[str, Union[StrictFloat, StrictInt]] = Field(description="A map of labelled discount values, values will be in the same currency as the application associated with the session.")
     updated: datetime = Field(description="Timestamp of the most recent event received on this session.")
-    __properties: ClassVar[List[str]] = ["integrationId", "created", "applicationId", "profileId", "coupon", "referral", "state", "cartItems", "identifiers", "total", "attributes", "firstSession", "discounts", "updated"]
+    __properties: ClassVar[List[str]] = ["integrationId", "created", "applicationId", "profileId", "coupon", "referral", "state", "cartItems", "identifiers", "total", "attributes", "firstSession", "updateCount", "discounts", "updated"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -125,6 +126,7 @@ class CustomerSession(BaseModel):
             "total": obj.get("total"),
             "attributes": obj.get("attributes"),
             "firstSession": obj.get("firstSession"),
+            "updateCount": obj.get("updateCount"),
             "discounts": obj.get("discounts"),
             "updated": obj.get("updated")
         })

@@ -46,11 +46,12 @@ class CustomerSessionV2(BaseModel):
     identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers).  **Important**: Ensure the session contains an identifier by the time you close it if: - You [create a unique identifier budget](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-budgets/#budget-types) for your campaign. - Your campaign has [coupons](https://docs.talon.one/docs/product/campaigns/coupons/coupon-page-overview). - We recommend passing an anonymized (hashed) version of the identifier value. ")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Use this property to set a value for the attributes of your choice. Attributes represent any information to attach to your session, like the shipping city.  You can use [built-in attributes](https://docs.talon.one/docs/dev/concepts/attributes#built-in-attributes) or [custom ones](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes). Custom attributes must be created in the Campaign Manager before you set them with this property. ")
     first_session: StrictBool = Field(description="Indicates whether this is the first session for the customer's profile. It's always `true` for anonymous sessions.", alias="firstSession")
+    update_count: StrictInt = Field(description="The number of times the session was updated. When the session is created, this value is initialized to `1`.", alias="updateCount")
     total: Union[StrictFloat, StrictInt] = Field(description="The total value of cart items and additional costs in the session, before any discounts are applied.")
     cart_item_total: Union[StrictFloat, StrictInt] = Field(description="The total value of cart items, before any discounts are applied.", alias="cartItemTotal")
     additional_cost_total: Union[StrictFloat, StrictInt] = Field(description="The total value of additional costs, before any discounts are applied.", alias="additionalCostTotal")
     updated: datetime = Field(description="Timestamp of the most recent event received on this session.")
-    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "state", "cartItems", "additionalCosts", "identifiers", "attributes", "firstSession", "total", "cartItemTotal", "additionalCostTotal", "updated"]
+    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "state", "cartItems", "additionalCosts", "identifiers", "attributes", "firstSession", "updateCount", "total", "cartItemTotal", "additionalCostTotal", "updated"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -148,6 +149,7 @@ class CustomerSessionV2(BaseModel):
             "identifiers": obj.get("identifiers"),
             "attributes": obj.get("attributes"),
             "firstSession": obj.get("firstSession"),
+            "updateCount": obj.get("updateCount"),
             "total": obj.get("total"),
             "cartItemTotal": obj.get("cartItemTotal"),
             "additionalCostTotal": obj.get("additionalCostTotal"),

@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +28,7 @@ class LoyaltyLedgerEntryExpiryDateChange(BaseModel):
     """
     The properties specific to effects for changing the expiry dates of loyalty ledger entries.
     """ # noqa: E501
-    transaction_uuid: StrictStr = Field(description="The identifier of the transaction affected by the extension or update.", alias="transactionUUID")
+    transaction_uuid: UUID = Field(description="The identifier of the transaction affected by the extension or update.", alias="transactionUUID")
     previous_expiry_date: Optional[datetime] = Field(default=None, description="Expiry date of the transactions before applying the extension or update.", alias="previousExpiryDate")
     new_expiry_date: datetime = Field(description="Expiry date of the transaction after applying the extension or update.", alias="newExpiryDate")
     __properties: ClassVar[List[str]] = ["transactionUUID", "previousExpiryDate", "newExpiryDate"]

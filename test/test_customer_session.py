@@ -71,6 +71,7 @@ class TestCustomerSession(unittest.TestCase):
                 total = 1.337,
                 attributes = None,
                 first_session = True,
+                update_count = 3,
                 discounts = {
                     'key' : 1.337
                     },
@@ -82,6 +83,7 @@ class TestCustomerSession(unittest.TestCase):
                 created = '2020-02-07T08:15:22Z',
                 application_id = 322,
                 first_session = True,
+                update_count = 3,
                 discounts = {
                     'key' : 1.337
                     },
