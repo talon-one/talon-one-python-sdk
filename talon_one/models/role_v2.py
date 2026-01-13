@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.role_v2_permissions import RoleV2Permissions
 from typing import Optional, Set
@@ -36,7 +36,8 @@ class RoleV2(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="Description of the role.")
     permissions: Optional[RoleV2Permissions] = Field(default=None, description="The permissions that this role gives.")
     members: Optional[List[StrictInt]] = Field(default=None, description="A list of user IDs the role is assigned to.")
-    __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "name", "description", "permissions", "members"]
+    is_readonly: Optional[StrictBool] = Field(default=False, description="Identifies if the role is read-only. For read-only roles, you can only assign or unassign users. You cannot edit any other properties, such as the name, description, or permissions. The 'isReadonly' property cannot be set for new or existing roles. It is reserved for predefined roles, such as the Talon.One support role.", alias="isReadonly")
+    __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "name", "description", "permissions", "members", "isReadonly"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,7 +100,8 @@ class RoleV2(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "permissions": RoleV2Permissions.from_dict(obj["permissions"]) if obj.get("permissions") is not None else None,
-            "members": obj.get("members")
+            "members": obj.get("members"),
+            "isReadonly": obj.get("isReadonly") if obj.get("isReadonly") is not None else False
         })
         return _obj
 

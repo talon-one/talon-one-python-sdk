@@ -43,8 +43,8 @@ class LoyaltyCard(BaseModel):
     ledger: Optional[LedgerInfo] = Field(default=None, description="Displays point balances of the card in the main ledger of the loyalty program.")
     subledgers: Optional[Dict[str, LedgerInfo]] = Field(default=None, description="Displays point balances of the card in the subledgers of the loyalty program.")
     modified: Optional[datetime] = Field(default=None, description="Timestamp of the most recent update of the loyalty card.")
-    old_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="oldCardIdentifier")
-    new_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="newCardIdentifier")
+    old_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card from which the points were transferred.", alias="oldCardIdentifier")
+    new_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card to which the points were transferred.", alias="newCardIdentifier")
     batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch in which the loyalty card was created.", alias="batchId")
     __properties: ClassVar[List[str]] = ["id", "created", "programID", "programName", "programTitle", "status", "blockReason", "identifier", "usersPerCardLimit", "profiles", "ledger", "subledgers", "modified", "oldCardIdentifier", "newCardIdentifier", "batchId"]
 

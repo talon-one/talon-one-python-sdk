@@ -5423,7 +5423,6 @@ class IntegrationApi:
         transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5461,8 +5460,6 @@ class IntegrationApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. 
-        :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5496,7 +5493,6 @@ class IntegrationApi:
             transaction_uuids=transaction_uuids,
             page_size=page_size,
             skip=skip,
-            awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5533,7 +5529,6 @@ class IntegrationApi:
         transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5571,8 +5566,6 @@ class IntegrationApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. 
-        :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5606,7 +5599,6 @@ class IntegrationApi:
             transaction_uuids=transaction_uuids,
             page_size=page_size,
             skip=skip,
-            awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5643,7 +5635,6 @@ class IntegrationApi:
         transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5681,8 +5672,6 @@ class IntegrationApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. 
-        :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5716,7 +5705,6 @@ class IntegrationApi:
             transaction_uuids=transaction_uuids,
             page_size=page_size,
             skip=skip,
-            awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5748,7 +5736,6 @@ class IntegrationApi:
         transaction_uuids,
         page_size,
         skip,
-        awaits_activation,
         _request_auth,
         _content_type,
         _headers,
@@ -5827,10 +5814,6 @@ class IntegrationApi:
         if skip is not None:
             
             _query_params.append(('skip', skip))
-            
-        if awaits_activation is not None:
-            
-            _query_params.append(('awaitsActivation', awaits_activation))
             
         # process the header parameters
         # process the form parameters
@@ -6288,7 +6271,6 @@ class IntegrationApi:
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6326,8 +6308,6 @@ class IntegrationApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. 
-        :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6361,7 +6341,6 @@ class IntegrationApi:
             end_date=end_date,
             page_size=page_size,
             skip=skip,
-            awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6398,7 +6377,6 @@ class IntegrationApi:
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6436,8 +6414,6 @@ class IntegrationApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. 
-        :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6471,7 +6447,6 @@ class IntegrationApi:
             end_date=end_date,
             page_size=page_size,
             skip=skip,
-            awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6508,7 +6483,6 @@ class IntegrationApi:
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6546,8 +6520,6 @@ class IntegrationApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error. 
-        :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6581,7 +6553,6 @@ class IntegrationApi:
             end_date=end_date,
             page_size=page_size,
             skip=skip,
-            awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6613,7 +6584,6 @@ class IntegrationApi:
         end_date,
         page_size,
         skip,
-        awaits_activation,
         _request_auth,
         _content_type,
         _headers,
@@ -6691,10 +6661,6 @@ class IntegrationApi:
         if skip is not None:
             
             _query_params.append(('skip', skip))
-            
-        if awaits_activation is not None:
-            
-            _query_params.append(('awaitsActivation', awaits_activation))
             
         # process the header parameters
         # process the form parameters

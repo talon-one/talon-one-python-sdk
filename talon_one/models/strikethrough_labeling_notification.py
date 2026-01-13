@@ -21,7 +21,6 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.strikethrough_changed_item import StrikethroughChangedItem
-from talon_one.models.strikethrough_trigger import StrikethroughTrigger
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,10 +33,11 @@ class StrikethroughLabelingNotification(BaseModel):
     application_id: StrictInt = Field(description="The ID of the Application to which the catalog items labels belongs.", alias="applicationId")
     current_batch: StrictInt = Field(description="The batch number of the notification. Notifications might be sent in different batches.", alias="currentBatch")
     total_batches: StrictInt = Field(description="The total number of batches for the notification.", alias="totalBatches")
-    trigger: StrikethroughTrigger
+    trigger: Dict[str, Any]
     changed_items: List[StrikethroughChangedItem] = Field(alias="changedItems")
-    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType")
-    __properties: ClassVar[List[str]] = ["version", "validFrom", "applicationId", "currentBatch", "totalBatches", "trigger", "changedItems", "NotificationType"]
+    notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
+    sent_at: datetime = Field(description="Timestamp at which the notification was sent.", alias="sentAt")
+    __properties: ClassVar[List[str]] = ["version", "validFrom", "applicationId", "currentBatch", "totalBatches", "trigger", "changedItems", "NotificationType", "sentAt"]
 
     @field_validator('version')
     def version_validate_enum(cls, value):
@@ -124,7 +124,8 @@ class StrikethroughLabelingNotification(BaseModel):
             "totalBatches": obj.get("totalBatches"),
             "trigger": StrikethroughTrigger.from_dict(obj["trigger"]) if obj.get("trigger") is not None else None,
             "changedItems": [StrikethroughChangedItem.from_dict(_item) for _item in obj["changedItems"]] if obj.get("changedItems") is not None else None,
-            "NotificationType": obj.get("NotificationType")
+            "NotificationType": obj.get("NotificationType"),
+            "sentAt": obj.get("sentAt")
         })
         return _obj
 

@@ -34,7 +34,7 @@ class RollbackAddedLoyaltyPointsEffectProps(BaseModel):
     transaction_uuid: StrictStr = Field(description="The identifier of 'deduction' entry added to the ledger as the `addLoyaltyPoints` effect is rolled back.", alias="transactionUUID")
     cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item in the cart items for which the loyalty points were rolled back.", alias="cartItemPosition")
     cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="For cart items with `quantity` > 1, the sub-position indicates to which item the loyalty points were rolled back. ", alias="cartItemSubPosition")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="cardIdentifier")
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The card on which these points were originally added.", alias="cardIdentifier")
     __properties: ClassVar[List[str]] = ["programId", "subLedgerId", "value", "recipientIntegrationId", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier"]
 
     @field_validator('card_identifier')

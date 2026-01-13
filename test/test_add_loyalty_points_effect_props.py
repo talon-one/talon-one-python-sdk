@@ -48,7 +48,9 @@ class TestAddLoyaltyPointsEffectProps(unittest.TestCase):
                 cart_item_sub_position = 1.337,
                 card_identifier = 'summer-loyalty-card-0543',
                 bundle_index = 56,
-                bundle_name = ''
+                bundle_name = '',
+                awaits_activation = True,
+                validity_duration = ''
             )
         else:
             return AddLoyaltyPointsEffectProps(

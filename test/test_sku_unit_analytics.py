@@ -39,15 +39,11 @@ class TestSkuUnitAnalytics(unittest.TestCase):
                     talon_one.models.sku_unit_analytics_data_point.SkuUnitAnalyticsDataPoint(
                         start_time = '2024-02-01T00:00:00Z', 
                         end_time = '2024-02-01T23:59:99Z', 
-                        units_sold = talon_one.models.analytics_data_point_with_trend.AnalyticsDataPointWithTrend(
-                            value = 12, 
-                            trend = 3.25, ), 
+                        units_sold = talon_one.models.units_sold.unitsSold(), 
                         sku = 'SKU-123', )
                     ],
                 totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
-                    units_sold = talon_one.models.analytics_data_point_with_trend.AnalyticsDataPointWithTrend(
-                        value = 12, 
-                        trend = 3.25, ), )
+                    units_sold = talon_one.models.units_sold.unitsSold(), )
             )
         else:
             return SkuUnitAnalytics(
@@ -55,15 +51,11 @@ class TestSkuUnitAnalytics(unittest.TestCase):
                     talon_one.models.sku_unit_analytics_data_point.SkuUnitAnalyticsDataPoint(
                         start_time = '2024-02-01T00:00:00Z', 
                         end_time = '2024-02-01T23:59:99Z', 
-                        units_sold = talon_one.models.analytics_data_point_with_trend.AnalyticsDataPointWithTrend(
-                            value = 12, 
-                            trend = 3.25, ), 
+                        units_sold = talon_one.models.units_sold.unitsSold(), 
                         sku = 'SKU-123', )
                     ],
                 totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
-                    units_sold = talon_one.models.analytics_data_point_with_trend.AnalyticsDataPointWithTrend(
-                        value = 12, 
-                        trend = 3.25, ), ),
+                    units_sold = talon_one.models.units_sold.unitsSold(), ),
         )
         """
 

@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **additional_costs** | [**Dict[str, AdditionalCost]**](AdditionalCost.md) | Use this property to set a value for the additional costs of this item, such as a shipping cost. They must be created in the Campaign Manager before you set them with this property. See [Managing additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs).  | [optional] 
 **catalog_item_id** | **int** | The catalog item ID. | [optional] 
 **selected_price_type** | **str** | The selected price type for this cart item (e.g. the price for members only). | [optional] 
-**adjustment_reference_id** | **str** | The reference ID of the selected price adjustment for this cart item. Only returned if the selected price resulted from a price adjustment. | [optional] 
+**adjustment_reference_id** | **UUID** | The reference ID of the selected price adjustment for this cart item. Only returned if the selected price resulted from a price adjustment. | [optional] 
 **adjustment_effective_from** | **datetime** | The date and time from which the price adjustment is effective. Only returned if the selected price resulted from a price adjustment that contains this field. | [optional] 
 **adjustment_effective_until** | **datetime** | The date and time until which the price adjustment is effective. Only returned if the selected price resulted from a price adjustment that contains this field. | [optional] 
 **prices** | [**Dict[str, PriceDetail]**](PriceDetail.md) | A map of keys and values representing the price types and related price adjustment details for this cart item. The keys correspond to the &#x60;priceType&#x60; names.  | [optional] 

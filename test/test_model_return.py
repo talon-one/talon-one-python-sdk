@@ -42,7 +42,8 @@ class TestModelReturn(unittest.TestCase):
                 returned_cart_items = [
                     talon_one.models.returned_cart_item.ReturnedCartItem(
                         position = 2, 
-                        quantity = 1, )
+                        quantity = 1, 
+                        sku = 'SKU1241028', )
                     ],
                 event_id = 123,
                 session_id = 123,
@@ -60,7 +61,8 @@ class TestModelReturn(unittest.TestCase):
                 returned_cart_items = [
                     talon_one.models.returned_cart_item.ReturnedCartItem(
                         position = 2, 
-                        quantity = 1, )
+                        quantity = 1, 
+                        sku = 'SKU1241028', )
                     ],
                 event_id = 123,
                 session_id = 123,

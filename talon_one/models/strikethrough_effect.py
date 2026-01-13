@@ -32,7 +32,7 @@ class StrikethroughEffect(BaseModel):
     rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex")
     rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName")
     type: StrictStr = Field(description="The type of this effect.")
-    props: Dict[str, Any]
+    props: Dict[str, Any] = Field(description="Arbitrary properties associated with this effect type.")
     start_time: Optional[datetime] = Field(default=None, description="The start of the time frame where the effect is active in UTC.", alias="startTime")
     end_time: Optional[datetime] = Field(default=None, description="The end of the time frame where the effect is active in UTC.", alias="endTime")
     selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for this cart item (e.g. the price for members only).", alias="selectedPriceType")

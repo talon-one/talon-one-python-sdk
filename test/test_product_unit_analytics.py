@@ -39,16 +39,12 @@ class TestProductUnitAnalytics(unittest.TestCase):
                     talon_one.models.product_unit_analytics_data_point.ProductUnitAnalyticsDataPoint(
                         start_time = '2024-02-01T00:00:00Z', 
                         end_time = '2024-02-01T23:59:99Z', 
-                        units_sold = talon_one.models.analytics_data_point_with_trend.AnalyticsDataPointWithTrend(
-                            value = 12, 
-                            trend = 3.25, ), 
+                        units_sold = talon_one.models.units_sold.unitsSold(), 
                         product_id = 1, 
                         product_name = 'MyProduct', )
                     ],
                 totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
-                    units_sold = talon_one.models.analytics_data_point_with_trend.AnalyticsDataPointWithTrend(
-                        value = 12, 
-                        trend = 3.25, ), )
+                    units_sold = talon_one.models.units_sold.unitsSold(), )
             )
         else:
             return ProductUnitAnalytics(
@@ -56,16 +52,12 @@ class TestProductUnitAnalytics(unittest.TestCase):
                     talon_one.models.product_unit_analytics_data_point.ProductUnitAnalyticsDataPoint(
                         start_time = '2024-02-01T00:00:00Z', 
                         end_time = '2024-02-01T23:59:99Z', 
-                        units_sold = talon_one.models.analytics_data_point_with_trend.AnalyticsDataPointWithTrend(
-                            value = 12, 
-                            trend = 3.25, ), 
+                        units_sold = talon_one.models.units_sold.unitsSold(), 
                         product_id = 1, 
                         product_name = 'MyProduct', )
                     ],
                 totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
-                    units_sold = talon_one.models.analytics_data_point_with_trend.AnalyticsDataPointWithTrend(
-                        value = 12, 
-                        trend = 3.25, ), ),
+                    units_sold = talon_one.models.units_sold.unitsSold(), ),
         )
         """
 

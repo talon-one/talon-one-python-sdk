@@ -18,8 +18,8 @@ Name | Type | Description | Notes
 **ledger** | [**LedgerInfo**](LedgerInfo.md) | Displays point balances of the card in the main ledger of the loyalty program. | [optional] 
 **subledgers** | [**Dict[str, LedgerInfo]**](LedgerInfo.md) | Displays point balances of the card in the subledgers of the loyalty program. | [optional] 
 **modified** | **datetime** | Timestamp of the most recent update of the loyalty card. | [optional] 
-**old_card_identifier** | **str** | The alphanumeric identifier of the loyalty card.  | [optional] 
-**new_card_identifier** | **str** | The alphanumeric identifier of the loyalty card.  | [optional] 
+**old_card_identifier** | **str** | The identifier of the card from which the points were transferred. | [optional] 
+**new_card_identifier** | **str** | The identifier of the card to which the points were transferred. | [optional] 
 **batch_id** | **str** | The ID of the batch in which the loyalty card was created. | [optional] 
 
 ## Example

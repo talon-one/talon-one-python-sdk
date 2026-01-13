@@ -39,7 +39,8 @@ class TestReturnIntegrationRequest(unittest.TestCase):
                     returned_cart_items = [
                         talon_one.models.returned_cart_item.ReturnedCartItem(
                             position = 2, 
-                            quantity = 1, )
+                            quantity = 1, 
+                            sku = 'SKU1241028', )
                         ], ),
                 response_content = [customerSession, customerProfile]
             )
@@ -49,7 +50,8 @@ class TestReturnIntegrationRequest(unittest.TestCase):
                     returned_cart_items = [
                         talon_one.models.returned_cart_item.ReturnedCartItem(
                             position = 2, 
-                            quantity = 1, )
+                            quantity = 1, 
+                            sku = 'SKU1241028', )
                         ], ),
         )
         """

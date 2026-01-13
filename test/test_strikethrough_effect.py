@@ -40,14 +40,14 @@ class TestStrikethroughEffect(unittest.TestCase):
                 rule_index = 2,
                 rule_name = 'Add 2 points',
                 type = 'setDiscountPerItem',
-                props = talon_one.models.strikethrough_effect_props.StrikethroughEffectProps(),
+                props = talon_one.models.label_target.LabelTarget(),
                 start_time = '2021-07-20T22:00:00Z',
                 end_time = '2021-10-01T02:00:00Z',
                 selected_price_type = 'member',
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 targets = [
-                    talon_one.models.strikethrough_effect_props.StrikethroughEffectProps()
+                    talon_one.models.label_target.LabelTarget()
                     ]
             )
         else:
@@ -57,7 +57,7 @@ class TestStrikethroughEffect(unittest.TestCase):
                 rule_index = 2,
                 rule_name = 'Add 2 points',
                 type = 'setDiscountPerItem',
-                props = talon_one.models.strikethrough_effect_props.StrikethroughEffectProps(),
+                props = talon_one.models.label_target.LabelTarget(),
         )
         """
 

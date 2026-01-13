@@ -11,7 +11,7 @@ import pathlib
 # http://pypi.python.org/pypi/setuptools
 
 NAME = "talon-one-sdk"
-VERSION = "25.26"
+VERSION = "26.01"
 
 # Get the long description from the README.md file
 here = pathlib.Path(__file__).parent.resolve()
@@ -25,7 +25,7 @@ setup(
     description="Talon.One Python SDK",
     author="Talon.One GmbH",
     author_email="devs@talon.one",
-    url="https://github.com/talon-one/talon-one-python-sdk/",
+    url="https://github.com/talon-one/talon-one-sdk/",
     keywords=["talon","one","sdk"],
     install_requires=REQUIRES,
     license="MIT",

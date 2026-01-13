@@ -19,7 +19,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.list_campaign_store_budgets_store import ListCampaignStoreBudgetsStore
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +26,7 @@ class ListCampaignStoreBudgets(BaseModel):
     """
     ListCampaignStoreBudgets
     """ # noqa: E501
-    store: ListCampaignStoreBudgetsStore
+    store: Dict[str, Any]
     limit: StrictInt
     action: StrictStr
     period: Optional[StrictStr] = None

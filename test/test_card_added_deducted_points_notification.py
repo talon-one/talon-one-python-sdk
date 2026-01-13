@@ -35,37 +35,37 @@ class TestCardAddedDeductedPointsNotification(unittest.TestCase):
         model = CardAddedDeductedPointsNotification()
         if include_optional:
             return CardAddedDeductedPointsNotification(
-                profile_integration_ids = ["yJSObdNNtOetCHWHPFuz","test-user-4zoj1c"],
-                loyalty_program_id = 5,
-                subledger_id = 'sub-123',
-                amount = 10.99,
-                reason = 'Compensation',
-                type_of_change = 'campaign_manager',
-                employee_name = 'Franziska Schneider',
-                user_id = 25,
-                operation = 'addition',
-                start_date = '2023-01-24T14:15:22Z',
-                expiry_date = '2024-01-24T14:15:22Z',
-                session_integration_id = 'cc53e4fa-547f-4f5e-8333-76e05c381f67',
-                notification_type = 'LoyaltyCardPointsDeducted',
                 card_identifier = '123-456-789ATBC',
-                users_per_card_limit = 10
+                employee_name = 'Franziska Schneider',
+                loyalty_program_id = 5,
+                notification_type = 'LoyaltyCardPointsDeducted',
+                profile_integration_ids = ["yJSObdNNtOetCHWHPFuz","test-user-4zoj1c"],
+                session_integration_id = 'cc53e4fa-547f-4f5e-8333-76e05c381f67',
+                subledger_id = 'sub-123',
+                type_of_change = 'campaign_manager',
+                user_id = 25,
+                users_per_card_limit = 10,
+                amount = 10.99,
+                expiry_date = '2024-01-24T14:15:22Z',
+                operation = 'addition',
+                reason = 'Compensation',
+                start_date = '2023-01-24T14:15:22Z'
             )
         else:
             return CardAddedDeductedPointsNotification(
-                profile_integration_ids = ["yJSObdNNtOetCHWHPFuz","test-user-4zoj1c"],
-                loyalty_program_id = 5,
-                subledger_id = 'sub-123',
-                amount = 10.99,
-                reason = 'Compensation',
-                type_of_change = 'campaign_manager',
-                employee_name = 'Franziska Schneider',
-                user_id = 25,
-                operation = 'addition',
-                session_integration_id = 'cc53e4fa-547f-4f5e-8333-76e05c381f67',
-                notification_type = 'LoyaltyCardPointsDeducted',
                 card_identifier = '123-456-789ATBC',
+                employee_name = 'Franziska Schneider',
+                loyalty_program_id = 5,
+                notification_type = 'LoyaltyCardPointsDeducted',
+                profile_integration_ids = ["yJSObdNNtOetCHWHPFuz","test-user-4zoj1c"],
+                session_integration_id = 'cc53e4fa-547f-4f5e-8333-76e05c381f67',
+                subledger_id = 'sub-123',
+                type_of_change = 'campaign_manager',
+                user_id = 25,
                 users_per_card_limit = 10,
+                amount = 10.99,
+                operation = 'addition',
+                reason = 'Compensation',
         )
         """
 

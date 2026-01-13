@@ -28,20 +28,27 @@ class AddedDeductedPointsNotification(BaseModel):
     """
     AddedDeductedPointsNotification
     """ # noqa: E501
-    profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile to whom points were added or deducted.", alias="ProfileIntegrationID")
-    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID")
-    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="SubledgerID")
-    amount: Union[StrictFloat, StrictInt] = Field(description="The amount of added or deducted loyalty points.", alias="Amount")
-    reason: StrictStr = Field(description="The reason for the points addition or deduction.", alias="Reason")
-    type_of_change: StrictStr = Field(description="The notification source, that is, it indicates whether the points were added or deducted via one of the following routes:  - [The Campaign Manager](/docs/product/getting-started)  - [Management API](/management-api#tag/Loyalty)  - [Rule Engine](/docs/product/applications/evaluation-order-for-rules-and-filters) ", alias="TypeOfChange")
     employee_name: StrictStr = Field(description="The name of the employee who added or deducted points.", alias="EmployeeName")
-    user_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the employee who added or deducted points.", alias="UserID")
-    operation: StrictStr = Field(description="The action (addition or deduction) made with loyalty points.", alias="Operation")
-    start_date: Optional[datetime] = Field(default=None, description="The start date for loyalty points.", alias="StartDate")
-    expiry_date: Optional[datetime] = Field(default=None, description="The expiration date for loyalty points.", alias="ExpiryDate")
-    session_integration_id: StrictStr = Field(description="The integration ID of the session through which the points were earned or lost.", alias="SessionIntegrationID")
+    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID")
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
-    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "SubledgerID", "Amount", "Reason", "TypeOfChange", "EmployeeName", "UserID", "Operation", "StartDate", "ExpiryDate", "SessionIntegrationID", "NotificationType"]
+    profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile to whom points were added or deducted.", alias="ProfileIntegrationID")
+    session_integration_id: StrictStr = Field(description="The integration ID of the session through which the points were earned or lost.", alias="SessionIntegrationID")
+    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="SubledgerID")
+    type_of_change: StrictStr = Field(description="The notification source, that is, it indicates whether the points were added or deducted via one of the following routes:  - [The Campaign Manager](/docs/product/getting-started)  - [Management API](/management-api#tag/Loyalty)  - [Rule Engine](/docs/product/applications/evaluation-order-for-rules-and-filters) ", alias="TypeOfChange")
+    user_id: StrictInt = Field(description="The ID of the employee who added or deducted points.", alias="UserID")
+    amount: Union[StrictFloat, StrictInt] = Field(description="The amount of added or deducted loyalty points.", alias="Amount")
+    expiry_date: Optional[datetime] = Field(default=None, description="The expiration date for loyalty points.", alias="ExpiryDate")
+    operation: StrictStr = Field(description="The action (addition or deduction) made with loyalty points.", alias="Operation")
+    reason: StrictStr = Field(description="The reason for the points addition or deduction.", alias="Reason")
+    start_date: Optional[datetime] = Field(default=None, description="The start date for loyalty points.", alias="StartDate")
+    __properties: ClassVar[List[str]] = ["EmployeeName", "LoyaltyProgramID", "NotificationType", "ProfileIntegrationID", "SessionIntegrationID", "SubledgerID", "TypeOfChange", "UserID", "Amount", "ExpiryDate", "Operation", "Reason", "StartDate"]
+
+    @field_validator('notification_type')
+    def notification_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['LoyaltyPointsDeducted', 'LoyaltyPointsAdded']):
+            raise ValueError("must be one of enum values ('LoyaltyPointsDeducted', 'LoyaltyPointsAdded')")
+        return value
 
     @field_validator('type_of_change')
     def type_of_change_validate_enum(cls, value):
@@ -55,13 +62,6 @@ class AddedDeductedPointsNotification(BaseModel):
         """Validates the enum"""
         if value not in set(['addition', 'deduction']):
             raise ValueError("must be one of enum values ('addition', 'deduction')")
-        return value
-
-    @field_validator('notification_type')
-    def notification_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['LoyaltyPointsDeducted', 'LoyaltyPointsAdded']):
-            raise ValueError("must be one of enum values ('LoyaltyPointsDeducted', 'LoyaltyPointsAdded')")
         return value
 
     model_config = ConfigDict(
@@ -115,19 +115,19 @@ class AddedDeductedPointsNotification(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ProfileIntegrationID": obj.get("ProfileIntegrationID"),
-            "LoyaltyProgramID": obj.get("LoyaltyProgramID"),
-            "SubledgerID": obj.get("SubledgerID"),
-            "Amount": obj.get("Amount"),
-            "Reason": obj.get("Reason"),
-            "TypeOfChange": obj.get("TypeOfChange"),
             "EmployeeName": obj.get("EmployeeName"),
-            "UserID": obj.get("UserID"),
-            "Operation": obj.get("Operation"),
-            "StartDate": obj.get("StartDate"),
-            "ExpiryDate": obj.get("ExpiryDate"),
+            "LoyaltyProgramID": obj.get("LoyaltyProgramID"),
+            "NotificationType": obj.get("NotificationType"),
+            "ProfileIntegrationID": obj.get("ProfileIntegrationID"),
             "SessionIntegrationID": obj.get("SessionIntegrationID"),
-            "NotificationType": obj.get("NotificationType")
+            "SubledgerID": obj.get("SubledgerID"),
+            "TypeOfChange": obj.get("TypeOfChange"),
+            "UserID": obj.get("UserID"),
+            "Amount": obj.get("Amount"),
+            "ExpiryDate": obj.get("ExpiryDate"),
+            "Operation": obj.get("Operation"),
+            "Reason": obj.get("Reason"),
+            "StartDate": obj.get("StartDate")
         })
         return _obj
 

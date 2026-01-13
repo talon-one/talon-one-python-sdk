@@ -28,6 +28,8 @@ docs/AchievementBase.md
 docs/AchievementProgress.md
 docs/AchievementProgressWithDefinition.md
 docs/AchievementStatusEntry.md
+docs/ActivateLoyaltyPoints.md
+docs/ActivateLoyaltyPointsResponse.md
 docs/ActivateUserRequest.md
 docs/AddFreeItemEffectProps.md
 docs/AddItemCatalogAction.md
@@ -35,6 +37,8 @@ docs/AddLoyaltyPoints.md
 docs/AddLoyaltyPointsEffectProps.md
 docs/AddPriceAdjustmentCatalogAction.md
 docs/AddToAudienceEffectProps.md
+docs/AddedDeductedPointsBalancesAction.md
+docs/AddedDeductedPointsBalancesNotification.md
 docs/AddedDeductedPointsBalancesNotificationPolicy.md
 docs/AddedDeductedPointsNotification.md
 docs/AddedDeductedPointsNotificationPolicy.md
@@ -136,6 +140,7 @@ docs/CampaignTemplateCollection.md
 docs/CampaignTemplateCouponReservationSettings.md
 docs/CampaignTemplateParams.md
 docs/CampaignVersions.md
+docs/CardAddedDeductedPointsBalancesNotification.md
 docs/CardAddedDeductedPointsBalancesNotificationPolicy.md
 docs/CardAddedDeductedPointsNotification.md
 docs/CardAddedDeductedPointsNotificationPolicy.md
@@ -164,8 +169,10 @@ docs/CouponCreationJob.md
 docs/CouponDeletionFilters.md
 docs/CouponDeletionJob.md
 docs/CouponEntity.md
+docs/CouponFailureSummary.md
 docs/CouponLimitConfigs.md
 docs/CouponRejectionReason.md
+docs/CouponRejections.md
 docs/CouponReservations.md
 docs/CouponSearch.md
 docs/CouponValue.md
@@ -234,6 +241,7 @@ docs/FuncArgDef.md
 docs/FunctionDef.md
 docs/GenerateAuditLogSummary.md
 docs/GenerateCampaignDescription.md
+docs/GenerateCampaignSummary.md
 docs/GenerateCampaignTags.md
 docs/GenerateCouponFailureDetailedSummary.md
 docs/GenerateCouponFailureSummary.md
@@ -310,7 +318,6 @@ docs/IntegrationStoreEntity.md
 docs/InventoryCoupon.md
 docs/InventoryReferral.md
 docs/ItemAttribute.md
-docs/JWT.md
 docs/LabelTargetAudience.md
 docs/LabelTargetNone.md
 docs/LedgerEntry.md
@@ -465,6 +472,15 @@ docs/PriceDetail.md
 docs/PriceType.md
 docs/PriceTypeReferenceDetail.md
 docs/PriceTypeReferences.md
+docs/PrismaticConfig.md
+docs/PrismaticEventPayloadCouponBasedNotifications.md
+docs/PrismaticEventPayloadCouponBasedNotificationsLimits.md
+docs/PrismaticEventPayloadLoyaltyProfileBasedNotifications.md
+docs/PrismaticEventPayloadLoyaltyProfileBasedNotificationsAction.md
+docs/PrismaticFlow.md
+docs/PrismaticFlowConfig.md
+docs/PrismaticFlowWithConfig.md
+docs/PrismaticPaginatedEventPayload.md
 docs/Product.md
 docs/ProductSearchMatch.md
 docs/ProductUnitAnalytics.md
@@ -498,6 +514,7 @@ docs/RoleV2ApplicationDetails.md
 docs/RoleV2Base.md
 docs/RoleV2PermissionSet.md
 docs/RoleV2Permissions.md
+docs/RoleV2Readonly.md
 docs/RoleV2RolesGroup.md
 docs/RollbackAddedLoyaltyPointsEffectProps.md
 docs/RollbackCouponEffectProps.md
@@ -536,6 +553,7 @@ docs/ScimUser.md
 docs/ScimUsersListResponse.md
 docs/SecondaryDeployment.md
 docs/Session.md
+docs/SessionCoupons.md
 docs/SetDiscountEffectProps.md
 docs/SetDiscountPerAdditionalCostEffectProps.md
 docs/SetDiscountPerAdditionalCostPerItemEffectProps.md
@@ -553,6 +571,7 @@ docs/StrikethroughDebugResponse.md
 docs/StrikethroughEffect.md
 docs/StrikethroughLabelingNotification.md
 docs/StrikethroughSetDiscountPerItemEffectProps.md
+docs/StrikethroughSetDiscountPerItemMemberEffectProps.md
 docs/StrikethroughTrigger.md
 docs/SummarizeCampaignStoreBudget200Response.md
 docs/SummaryCampaignStoreBudget.md
@@ -653,6 +672,8 @@ talon_one/models/achievement_base.py
 talon_one/models/achievement_progress.py
 talon_one/models/achievement_progress_with_definition.py
 talon_one/models/achievement_status_entry.py
+talon_one/models/activate_loyalty_points.py
+talon_one/models/activate_loyalty_points_response.py
 talon_one/models/activate_user_request.py
 talon_one/models/add_free_item_effect_props.py
 talon_one/models/add_item_catalog_action.py
@@ -660,6 +681,8 @@ talon_one/models/add_loyalty_points.py
 talon_one/models/add_loyalty_points_effect_props.py
 talon_one/models/add_price_adjustment_catalog_action.py
 talon_one/models/add_to_audience_effect_props.py
+talon_one/models/added_deducted_points_balances_action.py
+talon_one/models/added_deducted_points_balances_notification.py
 talon_one/models/added_deducted_points_balances_notification_policy.py
 talon_one/models/added_deducted_points_notification.py
 talon_one/models/added_deducted_points_notification_policy.py
@@ -762,6 +785,7 @@ talon_one/models/campaign_template_collection.py
 talon_one/models/campaign_template_coupon_reservation_settings.py
 talon_one/models/campaign_template_params.py
 talon_one/models/campaign_versions.py
+talon_one/models/card_added_deducted_points_balances_notification.py
 talon_one/models/card_added_deducted_points_balances_notification_policy.py
 talon_one/models/card_added_deducted_points_notification.py
 talon_one/models/card_added_deducted_points_notification_policy.py
@@ -790,8 +814,10 @@ talon_one/models/coupon_creation_job.py
 talon_one/models/coupon_deletion_filters.py
 talon_one/models/coupon_deletion_job.py
 talon_one/models/coupon_entity.py
+talon_one/models/coupon_failure_summary.py
 talon_one/models/coupon_limit_configs.py
 talon_one/models/coupon_rejection_reason.py
+talon_one/models/coupon_rejections.py
 talon_one/models/coupon_reservations.py
 talon_one/models/coupon_search.py
 talon_one/models/coupon_value.py
@@ -860,6 +886,7 @@ talon_one/models/func_arg_def.py
 talon_one/models/function_def.py
 talon_one/models/generate_audit_log_summary.py
 talon_one/models/generate_campaign_description.py
+talon_one/models/generate_campaign_summary.py
 talon_one/models/generate_campaign_tags.py
 talon_one/models/generate_coupon_failure_detailed_summary.py
 talon_one/models/generate_coupon_failure_summary.py
@@ -935,7 +962,6 @@ talon_one/models/integration_store_entity.py
 talon_one/models/inventory_coupon.py
 talon_one/models/inventory_referral.py
 talon_one/models/item_attribute.py
-talon_one/models/jwt.py
 talon_one/models/label_target_audience.py
 talon_one/models/label_target_none.py
 talon_one/models/ledger_entry.py
@@ -1089,6 +1115,15 @@ talon_one/models/price_detail.py
 talon_one/models/price_type.py
 talon_one/models/price_type_reference_detail.py
 talon_one/models/price_type_references.py
+talon_one/models/prismatic_config.py
+talon_one/models/prismatic_event_payload_coupon_based_notifications.py
+talon_one/models/prismatic_event_payload_coupon_based_notifications_limits.py
+talon_one/models/prismatic_event_payload_loyalty_profile_based_notifications.py
+talon_one/models/prismatic_event_payload_loyalty_profile_based_notifications_action.py
+talon_one/models/prismatic_flow.py
+talon_one/models/prismatic_flow_config.py
+talon_one/models/prismatic_flow_with_config.py
+talon_one/models/prismatic_paginated_event_payload.py
 talon_one/models/product.py
 talon_one/models/product_search_match.py
 talon_one/models/product_unit_analytics.py
@@ -1122,6 +1157,7 @@ talon_one/models/role_v2_application_details.py
 talon_one/models/role_v2_base.py
 talon_one/models/role_v2_permission_set.py
 talon_one/models/role_v2_permissions.py
+talon_one/models/role_v2_readonly.py
 talon_one/models/role_v2_roles_group.py
 talon_one/models/rollback_added_loyalty_points_effect_props.py
 talon_one/models/rollback_coupon_effect_props.py
@@ -1159,6 +1195,7 @@ talon_one/models/scim_user.py
 talon_one/models/scim_users_list_response.py
 talon_one/models/secondary_deployment.py
 talon_one/models/session.py
+talon_one/models/session_coupons.py
 talon_one/models/set_discount_effect_props.py
 talon_one/models/set_discount_per_additional_cost_effect_props.py
 talon_one/models/set_discount_per_additional_cost_per_item_effect_props.py
@@ -1177,6 +1214,7 @@ talon_one/models/strikethrough_debug_response.py
 talon_one/models/strikethrough_effect.py
 talon_one/models/strikethrough_labeling_notification.py
 talon_one/models/strikethrough_set_discount_per_item_effect_props.py
+talon_one/models/strikethrough_set_discount_per_item_member_effect_props.py
 talon_one/models/strikethrough_trigger.py
 talon_one/models/summarize_campaign_store_budget200_response.py
 talon_one/models/summary_campaign_store_budget.py
@@ -1266,6 +1304,8 @@ test/test_achievement_base.py
 test/test_achievement_progress.py
 test/test_achievement_progress_with_definition.py
 test/test_achievement_status_entry.py
+test/test_activate_loyalty_points.py
+test/test_activate_loyalty_points_response.py
 test/test_activate_user_request.py
 test/test_add_free_item_effect_props.py
 test/test_add_item_catalog_action.py
@@ -1273,6 +1313,8 @@ test/test_add_loyalty_points.py
 test/test_add_loyalty_points_effect_props.py
 test/test_add_price_adjustment_catalog_action.py
 test/test_add_to_audience_effect_props.py
+test/test_added_deducted_points_balances_action.py
+test/test_added_deducted_points_balances_notification.py
 test/test_added_deducted_points_balances_notification_policy.py
 test/test_added_deducted_points_notification.py
 test/test_added_deducted_points_notification_policy.py
@@ -1375,6 +1417,7 @@ test/test_campaign_template_collection.py
 test/test_campaign_template_coupon_reservation_settings.py
 test/test_campaign_template_params.py
 test/test_campaign_versions.py
+test/test_card_added_deducted_points_balances_notification.py
 test/test_card_added_deducted_points_balances_notification_policy.py
 test/test_card_added_deducted_points_notification.py
 test/test_card_added_deducted_points_notification_policy.py
@@ -1403,8 +1446,10 @@ test/test_coupon_creation_job.py
 test/test_coupon_deletion_filters.py
 test/test_coupon_deletion_job.py
 test/test_coupon_entity.py
+test/test_coupon_failure_summary.py
 test/test_coupon_limit_configs.py
 test/test_coupon_rejection_reason.py
+test/test_coupon_rejections.py
 test/test_coupon_reservations.py
 test/test_coupon_search.py
 test/test_coupon_value.py
@@ -1473,6 +1518,7 @@ test/test_func_arg_def.py
 test/test_function_def.py
 test/test_generate_audit_log_summary.py
 test/test_generate_campaign_description.py
+test/test_generate_campaign_summary.py
 test/test_generate_campaign_tags.py
 test/test_generate_coupon_failure_detailed_summary.py
 test/test_generate_coupon_failure_summary.py
@@ -1549,7 +1595,6 @@ test/test_integration_store_entity.py
 test/test_inventory_coupon.py
 test/test_inventory_referral.py
 test/test_item_attribute.py
-test/test_jwt.py
 test/test_label_target_audience.py
 test/test_label_target_none.py
 test/test_ledger_entry.py
@@ -1704,6 +1749,15 @@ test/test_price_detail.py
 test/test_price_type.py
 test/test_price_type_reference_detail.py
 test/test_price_type_references.py
+test/test_prismatic_config.py
+test/test_prismatic_event_payload_coupon_based_notifications.py
+test/test_prismatic_event_payload_coupon_based_notifications_limits.py
+test/test_prismatic_event_payload_loyalty_profile_based_notifications.py
+test/test_prismatic_event_payload_loyalty_profile_based_notifications_action.py
+test/test_prismatic_flow.py
+test/test_prismatic_flow_config.py
+test/test_prismatic_flow_with_config.py
+test/test_prismatic_paginated_event_payload.py
 test/test_product.py
 test/test_product_search_match.py
 test/test_product_unit_analytics.py
@@ -1737,6 +1791,7 @@ test/test_role_v2_application_details.py
 test/test_role_v2_base.py
 test/test_role_v2_permission_set.py
 test/test_role_v2_permissions.py
+test/test_role_v2_readonly.py
 test/test_role_v2_roles_group.py
 test/test_rollback_added_loyalty_points_effect_props.py
 test/test_rollback_coupon_effect_props.py
@@ -1774,6 +1829,7 @@ test/test_scim_user.py
 test/test_scim_users_list_response.py
 test/test_secondary_deployment.py
 test/test_session.py
+test/test_session_coupons.py
 test/test_set_discount_effect_props.py
 test/test_set_discount_per_additional_cost_effect_props.py
 test/test_set_discount_per_additional_cost_per_item_effect_props.py
@@ -1792,6 +1848,7 @@ test/test_strikethrough_debug_response.py
 test/test_strikethrough_effect.py
 test/test_strikethrough_labeling_notification.py
 test/test_strikethrough_set_discount_per_item_effect_props.py
+test/test_strikethrough_set_discount_per_item_member_effect_props.py
 test/test_strikethrough_trigger.py
 test/test_summarize_campaign_store_budget200_response.py
 test/test_summary_campaign_store_budget.py

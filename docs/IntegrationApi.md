@@ -1621,7 +1621,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_loyalty_card_transactions**
-> GetLoyaltyCardTransactions200Response get_loyalty_card_transactions(loyalty_program_id, loyalty_card_id, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
+> GetLoyaltyCardTransactions200Response get_loyalty_card_transactions(loyalty_program_id, loyalty_card_id, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, page_size=page_size, skip=skip)
 
 List card's transactions
 
@@ -1670,11 +1670,10 @@ with talon_one.ApiClient(configuration) as api_client:
     transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
-    awaits_activation = True # bool | If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error.  (optional)
 
     try:
         # List card's transactions
-        api_response = api_instance.get_loyalty_card_transactions(loyalty_program_id, loyalty_card_id, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
+        api_response = api_instance.get_loyalty_card_transactions(loyalty_program_id, loyalty_card_id, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, page_size=page_size, skip=skip)
         print("The response of IntegrationApi->get_loyalty_card_transactions:\n")
         pprint(api_response)
     except Exception as e:
@@ -1698,7 +1697,6 @@ Name | Type | Description  | Notes
  **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
- **awaits_activation** | **bool**| If &#x60;true&#x60;: Filters results to include only point transactions that have action-based activation and have not expired. If &#x60;false&#x60;: Returns an error.  | [optional] 
 
 ### Return type
 
@@ -1829,7 +1827,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_loyalty_program_profile_transactions**
-> GetLoyaltyProgramProfileTransactions200Response get_loyalty_program_profile_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
+> GetLoyaltyProgramProfileTransactions200Response get_loyalty_program_profile_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip)
 
 List customer's loyalty transactions
 
@@ -1882,11 +1880,10 @@ with talon_one.ApiClient(configuration) as api_client:
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
-    awaits_activation = True # bool | If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error.  (optional)
 
     try:
         # List customer's loyalty transactions
-        api_response = api_instance.get_loyalty_program_profile_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
+        api_response = api_instance.get_loyalty_program_profile_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip)
         print("The response of IntegrationApi->get_loyalty_program_profile_transactions:\n")
         pprint(api_response)
     except Exception as e:
@@ -1910,7 +1907,6 @@ Name | Type | Description  | Notes
  **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
- **awaits_activation** | **bool**| If &#x60;true&#x60;: Filters results to include only point transactions that have action-based activation and have not expired. If &#x60;false&#x60;: Returns an error.  | [optional] 
 
 ### Return type
 

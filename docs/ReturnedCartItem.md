@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**position** | **int** | The index of the cart item in the provided customer session&#39;s &#x60;cartItems&#x60; property. | 
+**position** | **int** | The index of the cart item in the provided customer session&#39;s &#x60;cartItems&#x60; property. | [optional] 
 **quantity** | **int** | Number of cart items to return.  | [optional] 
+**sku** | **str** | The SKU of the cart item in the provided customer session&#39;s &#x60;cartItems&#x60; property. | [optional] 
 
 ## Example
 

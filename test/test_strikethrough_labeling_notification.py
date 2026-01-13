@@ -52,7 +52,7 @@ class TestStrikethroughLabelingNotification(unittest.TestCase):
                         catalog_id = 10, 
                         sku = 'SKU1241028', 
                         version = 6, 
-                        price = 99.99, 
+                        price = 100, 
                         prices = {member={price=90, adjustmentReferenceId=68851723-e6fa-488f-ace9-112581e6c19b, adjustmentEffectiveFrom=2025-05-25T00:00:00Z, adjustmentEffectiveUntil=2025-05-30T00:00:00Z}, base={price=100}}, 
                         evaluated_at = '2020-06-10T09:05:27.993483Z', 
                         effects = [
@@ -62,18 +62,19 @@ class TestStrikethroughLabelingNotification(unittest.TestCase):
                                 rule_index = 2, 
                                 rule_name = 'Add 2 points', 
                                 type = 'setDiscountPerItem', 
-                                props = talon_one.models.strikethrough_effect_props.StrikethroughEffectProps(), 
+                                props = null, 
                                 start_time = '2021-07-20T22:00:00Z', 
                                 end_time = '2021-10-01T02:00:00Z', 
                                 selected_price_type = 'member', 
                                 selected_price = 100, 
                                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b', 
                                 targets = [
-                                    talon_one.models.strikethrough_effect_props.StrikethroughEffectProps()
+                                    talon_one.models.label_target.LabelTarget()
                                     ], )
                             ], )
                     ],
-                notification_type = 'StrikethroughPrice'
+                notification_type = 'StrikethroughPrice',
+                sent_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else:
             return StrikethroughLabelingNotification(
@@ -92,7 +93,7 @@ class TestStrikethroughLabelingNotification(unittest.TestCase):
                         catalog_id = 10, 
                         sku = 'SKU1241028', 
                         version = 6, 
-                        price = 99.99, 
+                        price = 100, 
                         prices = {member={price=90, adjustmentReferenceId=68851723-e6fa-488f-ace9-112581e6c19b, adjustmentEffectiveFrom=2025-05-25T00:00:00Z, adjustmentEffectiveUntil=2025-05-30T00:00:00Z}, base={price=100}}, 
                         evaluated_at = '2020-06-10T09:05:27.993483Z', 
                         effects = [
@@ -102,18 +103,19 @@ class TestStrikethroughLabelingNotification(unittest.TestCase):
                                 rule_index = 2, 
                                 rule_name = 'Add 2 points', 
                                 type = 'setDiscountPerItem', 
-                                props = talon_one.models.strikethrough_effect_props.StrikethroughEffectProps(), 
+                                props = null, 
                                 start_time = '2021-07-20T22:00:00Z', 
                                 end_time = '2021-10-01T02:00:00Z', 
                                 selected_price_type = 'member', 
                                 selected_price = 100, 
                                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b', 
                                 targets = [
-                                    talon_one.models.strikethrough_effect_props.StrikethroughEffectProps()
+                                    talon_one.models.label_target.LabelTarget()
                                     ], )
                             ], )
                     ],
                 notification_type = 'StrikethroughPrice',
+                sent_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
         )
         """
 

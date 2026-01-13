@@ -44,7 +44,7 @@ class TestBestPriorPrice(unittest.TestCase):
                         56
                         ], 
                     adjustment_reference_id = '', ),
-                target = talon_one.models.strikethrough_effect_props.StrikethroughEffectProps()
+                target = talon_one.models.label_target.LabelTarget()
             )
         else:
             return BestPriorPrice(
@@ -57,7 +57,7 @@ class TestBestPriorPrice(unittest.TestCase):
                         56
                         ], 
                     adjustment_reference_id = '', ),
-                target = talon_one.models.strikethrough_effect_props.StrikethroughEffectProps(),
+                target = talon_one.models.label_target.LabelTarget(),
         )
         """
 

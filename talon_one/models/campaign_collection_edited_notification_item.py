@@ -19,9 +19,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.campaign import Campaign
-from talon_one.models.collection_without_payload import CollectionWithoutPayload
-from talon_one.models.ruleset import Ruleset
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,9 +27,9 @@ class CampaignCollectionEditedNotificationItem(BaseModel):
     CampaignCollectionEditedNotificationItem
     """ # noqa: E501
     event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
-    campaign: Campaign = Field(description="The current campaign.")
-    ruleset: Optional[Ruleset] = Field(default=None, description="The current ruleset.")
-    collection: CollectionWithoutPayload = Field(description="The collection that was edited.")
+    campaign: Optional[Any] = Field(description="The current campaign.")
+    ruleset: Optional[Any] = Field(default=None, description="The current ruleset.")
+    collection: Optional[Any] = Field(description="The collection that was edited.")
     __properties: ClassVar[List[str]] = ["Event", "campaign", "ruleset", "collection"]
 
     model_config = ConfigDict(
@@ -74,15 +71,21 @@ class CampaignCollectionEditedNotificationItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of campaign
-        if self.campaign:
-            _dict['campaign'] = self.campaign.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of ruleset
-        if self.ruleset:
-            _dict['ruleset'] = self.ruleset.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of collection
-        if self.collection:
-            _dict['collection'] = self.collection.to_dict()
+        # set to None if campaign (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign is None and "campaign" in self.model_fields_set:
+            _dict['campaign'] = None
+
+        # set to None if ruleset (nullable) is None
+        # and model_fields_set contains the field
+        if self.ruleset is None and "ruleset" in self.model_fields_set:
+            _dict['ruleset'] = None
+
+        # set to None if collection (nullable) is None
+        # and model_fields_set contains the field
+        if self.collection is None and "collection" in self.model_fields_set:
+            _dict['collection'] = None
+
         return _dict
 
     @classmethod
@@ -96,9 +99,9 @@ class CampaignCollectionEditedNotificationItem(BaseModel):
 
         _obj = cls.model_validate({
             "Event": obj.get("Event"),
-            "campaign": Campaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
-            "ruleset": Ruleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
-            "collection": CollectionWithoutPayload.from_dict(obj["collection"]) if obj.get("collection") is not None else None
+            "campaign": obj.get("campaign"),
+            "ruleset": obj.get("ruleset"),
+            "collection": obj.get("collection")
         })
         return _obj
 

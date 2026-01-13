@@ -46,12 +46,8 @@ class TestGetDashboardStatistics200Response(unittest.TestCase):
                         total_negative_points = 32, 
                         total_members = 2582, 
                         new_members = 3, 
-                        spent_points = talon_one.models.loyalty_dashboard_points_breakdown.LoyaltyDashboardPointsBreakdown(
-                            created_manually = 125, 
-                            created_via_rule_engine = 9631, ), 
-                        earned_points = talon_one.models.loyalty_dashboard_points_breakdown.LoyaltyDashboardPointsBreakdown(
-                            created_manually = 125, 
-                            created_via_rule_engine = 9631, ), )
+                        spent_points = null, 
+                        earned_points = null, )
                     ]
             )
         else:
@@ -67,12 +63,8 @@ class TestGetDashboardStatistics200Response(unittest.TestCase):
                         total_negative_points = 32, 
                         total_members = 2582, 
                         new_members = 3, 
-                        spent_points = talon_one.models.loyalty_dashboard_points_breakdown.LoyaltyDashboardPointsBreakdown(
-                            created_manually = 125, 
-                            created_via_rule_engine = 9631, ), 
-                        earned_points = talon_one.models.loyalty_dashboard_points_breakdown.LoyaltyDashboardPointsBreakdown(
-                            created_manually = 125, 
-                            created_via_rule_engine = 9631, ), )
+                        spent_points = null, 
+                        earned_points = null, )
                     ],
         )
         """

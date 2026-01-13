@@ -60,7 +60,6 @@ class TestLoyaltyProgram(unittest.TestCase):
                 timezone = 'Europe/Berlin',
                 card_based = True,
                 can_update_tiers = True,
-                can_update_join_policy = True,
                 can_update_tier_expiration_policy = True,
                 can_upgrade_to_advanced_tiers = True,
                 can_update_subledgers = True

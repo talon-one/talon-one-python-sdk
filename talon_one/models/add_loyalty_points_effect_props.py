@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -39,10 +39,12 @@ class AddLoyaltyPointsEffectProps(BaseModel):
     transaction_uuid: StrictStr = Field(description="The identifier of this addition in the loyalty ledger.", alias="transactionUUID")
     cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item in the cart items list on which the loyal points addition should be applied.", alias="cartItemPosition")
     cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="For cart items with `quantity` > 1, the sub position indicates to which item the loyalty points addition is applied. ", alias="cartItemSubPosition")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="cardIdentifier")
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The card on which these points were added.", alias="cardIdentifier")
     bundle_index: Optional[StrictInt] = Field(default=None, description="The position of the bundle in a list of item bundles created from the same bundle definition.", alias="bundleIndex")
     bundle_name: Optional[StrictStr] = Field(default=None, description="The name of the bundle definition.", alias="bundleName")
-    __properties: ClassVar[List[str]] = ["name", "programId", "subLedgerId", "value", "desiredValue", "recipientIntegrationId", "startDate", "expiryDate", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier", "bundleIndex", "bundleName"]
+    awaits_activation: Optional[StrictBool] = Field(default=None, description="If `true`, the loyalty points remain pending until a specific action is complete. The `startDate` parameter automatically sets to `on_action`. ", alias="awaitsActivation")
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, calculated relative to the  activation date.    **Note**: This value is returned only if `awaitsActivation` is `true`  and `expiryDate` is not set. ", alias="validityDuration")
+    __properties: ClassVar[List[str]] = ["name", "programId", "subLedgerId", "value", "desiredValue", "recipientIntegrationId", "startDate", "expiryDate", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier", "bundleIndex", "bundleName", "awaitsActivation", "validityDuration"]
 
     @field_validator('card_identifier')
     def card_identifier_validate_regular_expression(cls, value):
@@ -118,7 +120,9 @@ class AddLoyaltyPointsEffectProps(BaseModel):
             "cartItemSubPosition": obj.get("cartItemSubPosition"),
             "cardIdentifier": obj.get("cardIdentifier"),
             "bundleIndex": obj.get("bundleIndex"),
-            "bundleName": obj.get("bundleName")
+            "bundleName": obj.get("bundleName"),
+            "awaitsActivation": obj.get("awaitsActivation"),
+            "validityDuration": obj.get("validityDuration")
         })
         return _obj
 

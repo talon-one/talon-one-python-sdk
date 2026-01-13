@@ -47,9 +47,7 @@ class TestExpiringCouponsNotification(unittest.TestCase):
                         usage_limit = 100, 
                         usage_counter = 10, 
                         batch_id = '32535-43255', 
-                        attributes = {
-                            'key' : null
-                            }, )
+                        attributes = { }, )
                     ],
                 notification_type = 'CouponCodeExpiring'
             )
@@ -67,9 +65,7 @@ class TestExpiringCouponsNotification(unittest.TestCase):
                         usage_limit = 100, 
                         usage_counter = 10, 
                         batch_id = '32535-43255', 
-                        attributes = {
-                            'key' : null
-                            }, )
+                        attributes = { }, )
                     ],
                 notification_type = 'CouponCodeExpiring',
         )
