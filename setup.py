@@ -25,7 +25,7 @@ setup(
     description="Talon.One Python SDK",
     author="Talon.One GmbH",
     author_email="devs@talon.one",
-    url="https://github.com/talon-one/talon-one-sdk/",
+    url="https://github.com/talon-one/talon-one-python-sdk/",
     keywords=["talon","one","sdk"],
     install_requires=REQUIRES,
     license="MIT",
