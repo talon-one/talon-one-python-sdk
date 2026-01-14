@@ -35,7 +35,7 @@ class RollbackDeductedLoyaltyPointsEffectProps(BaseModel):
     start_date: Optional[datetime] = Field(default=None, description="Date after which the reimbursed points will be valid.", alias="startDate")
     expiry_date: Optional[datetime] = Field(default=None, description="Date after which the reimbursed points will expire.", alias="expiryDate")
     transaction_uuid: StrictStr = Field(description="The identifier of 'addition' entries added to the ledger as the `deductLoyaltyPoints` effect is rolled back.", alias="transactionUUID")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="cardIdentifier")
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The card on which these points were added.", alias="cardIdentifier")
     __properties: ClassVar[List[str]] = ["programId", "subLedgerId", "value", "recipientIntegrationId", "startDate", "expiryDate", "transactionUUID", "cardIdentifier"]
 
     @field_validator('card_identifier')

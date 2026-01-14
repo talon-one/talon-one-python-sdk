@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.jwt import JWT
+from talon_one.models.prismatic_paginated_event_payload import PrismaticPaginatedEventPayload
 
-class TestJWT(unittest.TestCase):
-    """JWT unit test stubs"""
+class TestPrismaticPaginatedEventPayload(unittest.TestCase):
+    """PrismaticPaginatedEventPayload unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,28 +25,34 @@ class TestJWT(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> JWT:
-        """Test JWT
+    def make_instance(self, include_optional) -> PrismaticPaginatedEventPayload:
+        """Test PrismaticPaginatedEventPayload
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `JWT`
+        # uncomment below to create an instance of `PrismaticPaginatedEventPayload`
         """
-        model = JWT()
+        model = PrismaticPaginatedEventPayload()
         if include_optional:
-            return JWT(
-                access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
-                expires_in = 1000
+            return PrismaticPaginatedEventPayload(
+                total_result_size = 56,
+                event_type = 'LoyaltyPointsChanged',
+                data = [
+                    null
+                    ]
             )
         else:
-            return JWT(
-                access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
-                expires_in = 1000,
+            return PrismaticPaginatedEventPayload(
+                total_result_size = 56,
+                event_type = 'LoyaltyPointsChanged',
+                data = [
+                    null
+                    ],
         )
         """
 
-    def testJWT(self):
-        """Test JWT"""
+    def testPrismaticPaginatedEventPayload(self):
+        """Test PrismaticPaginatedEventPayload"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

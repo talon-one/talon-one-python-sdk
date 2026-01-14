@@ -36,11 +36,11 @@ class TestReturnedCartItem(unittest.TestCase):
         if include_optional:
             return ReturnedCartItem(
                 position = 2,
-                quantity = 1
+                quantity = 1,
+                sku = 'SKU1241028'
             )
         else:
             return ReturnedCartItem(
-                position = 2,
         )
         """
 

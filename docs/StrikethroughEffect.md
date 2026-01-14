@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **rule_index** | **int** | The position of the rule that triggered this effect within the ruleset. | 
 **rule_name** | **str** | The name of the rule that triggered this effect. | 
 **type** | **str** | The type of this effect. | 
-**props** | **object** |  | 
+**props** | **object** | Arbitrary properties associated with this effect type. | 
 **start_time** | **datetime** | The start of the time frame where the effect is active in UTC. | [optional] 
 **end_time** | **datetime** | The end of the time frame where the effect is active in UTC. | [optional] 
 **selected_price_type** | **str** | The selected price type for this cart item (e.g. the price for members only). | [optional] 

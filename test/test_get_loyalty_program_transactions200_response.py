@@ -57,8 +57,7 @@ class TestGetLoyaltyProgramTransactions200Response(unittest.TestCase):
                         user_email = 'john.doe@example.com', 
                         ruleset_id = 11, 
                         rule_name = '10 points for every $100 spent', 
-                        flags = talon_one.models.loyalty_ledger_entry_flags.LoyaltyLedgerEntryFlags(
-                            creates_negative_balance = True, ), )
+                        flags = null, )
                     ]
             )
         else:
@@ -85,8 +84,7 @@ class TestGetLoyaltyProgramTransactions200Response(unittest.TestCase):
                         user_email = 'john.doe@example.com', 
                         ruleset_id = 11, 
                         rule_name = '10 points for every $100 spent', 
-                        flags = talon_one.models.loyalty_ledger_entry_flags.LoyaltyLedgerEntryFlags(
-                            creates_negative_balance = True, ), )
+                        flags = null, )
                     ],
         )
         """

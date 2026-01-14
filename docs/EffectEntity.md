@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **campaign_revision_version_id** | **int** | The revision version ID of the campaign that was used when triggering the effect. | [optional] 
 **selected_price_type** | **str** | The selected price type for the SKU targeted by this effect. | [optional] 
 **selected_price** | **float** | The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied. | [optional] 
-**adjustment_reference_id** | **str** | The reference identifier of the selected price adjustment for this SKU. This is only returned if the &#x60;selectedPrice&#x60; resulted from a price adjustment. | [optional] 
+**adjustment_reference_id** | **UUID** | The reference identifier of the selected price adjustment for this SKU. This is only returned if the &#x60;selectedPrice&#x60; resulted from a price adjustment. | [optional] 
 
 ## Example
 

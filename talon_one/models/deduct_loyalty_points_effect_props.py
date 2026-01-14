@@ -33,7 +33,7 @@ class DeductLoyaltyPointsEffectProps(BaseModel):
     value: Union[StrictFloat, StrictInt] = Field(description="The amount of points that were deducted.")
     transaction_uuid: StrictStr = Field(description="The identifier of this deduction in the loyalty ledger.", alias="transactionUUID")
     name: StrictStr = Field(description="The name property gets one of the following two values. It can be the loyalty program name or it can represent a reason for the respective deduction of loyalty points. The latter is an optional value defined in a deduction rule. ")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="cardIdentifier")
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The card on which these points were added.", alias="cardIdentifier")
     __properties: ClassVar[List[str]] = ["ruleTitle", "programId", "subLedgerId", "value", "transactionUUID", "name", "cardIdentifier"]
 
     @field_validator('card_identifier')

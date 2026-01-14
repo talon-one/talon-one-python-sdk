@@ -53,11 +53,10 @@ class LoyaltyProgram(BaseModel):
     timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
     card_based: StrictBool = Field(description="Defines the type of loyalty program: - `true`: the program is a card-based. - `false`: the program is profile-based. ", alias="cardBased")
     can_update_tiers: Optional[StrictBool] = Field(default=False, description="`True` if the tier definitions can be updated. ", alias="canUpdateTiers")
-    can_update_join_policy: Optional[StrictBool] = Field(default=None, description="`True` if the program join policy can be updated. ", alias="canUpdateJoinPolicy")
     can_update_tier_expiration_policy: Optional[StrictBool] = Field(default=None, description="`True` if the tier expiration policy can be updated. ", alias="canUpdateTierExpirationPolicy")
     can_upgrade_to_advanced_tiers: Optional[StrictBool] = Field(default=False, description="`True` if the program can be upgraded to use the `tiersExpireIn` and `tiersDowngradePolicy` properties. ", alias="canUpgradeToAdvancedTiers")
     can_update_subledgers: Optional[StrictBool] = Field(default=False, description="`True` if the `allowSubledger` property can be updated in the loyalty program. ", alias="canUpdateSubledgers")
-    __properties: ClassVar[List[str]] = ["id", "created", "title", "description", "subscribedApplications", "defaultValidity", "defaultPending", "allowSubledger", "usersPerCardLimit", "sandbox", "programJoinPolicy", "tiersExpirationPolicy", "tierCycleStartDate", "tiersExpireIn", "tiersDowngradePolicy", "cardCodeSettings", "returnPolicy", "accountID", "name", "tiers", "timezone", "cardBased", "canUpdateTiers", "canUpdateJoinPolicy", "canUpdateTierExpirationPolicy", "canUpgradeToAdvancedTiers", "canUpdateSubledgers"]
+    __properties: ClassVar[List[str]] = ["id", "created", "title", "description", "subscribedApplications", "defaultValidity", "defaultPending", "allowSubledger", "usersPerCardLimit", "sandbox", "programJoinPolicy", "tiersExpirationPolicy", "tierCycleStartDate", "tiersExpireIn", "tiersDowngradePolicy", "cardCodeSettings", "returnPolicy", "accountID", "name", "tiers", "timezone", "cardBased", "canUpdateTiers", "canUpdateTierExpirationPolicy", "canUpgradeToAdvancedTiers", "canUpdateSubledgers"]
 
     @field_validator('program_join_policy')
     def program_join_policy_validate_enum(cls, value):
@@ -183,7 +182,6 @@ class LoyaltyProgram(BaseModel):
             "timezone": obj.get("timezone"),
             "cardBased": obj.get("cardBased") if obj.get("cardBased") is not None else False,
             "canUpdateTiers": obj.get("canUpdateTiers") if obj.get("canUpdateTiers") is not None else False,
-            "canUpdateJoinPolicy": obj.get("canUpdateJoinPolicy"),
             "canUpdateTierExpirationPolicy": obj.get("canUpdateTierExpirationPolicy"),
             "canUpgradeToAdvancedTiers": obj.get("canUpgradeToAdvancedTiers") if obj.get("canUpgradeToAdvancedTiers") is not None else False,
             "canUpdateSubledgers": obj.get("canUpdateSubledgers") if obj.get("canUpdateSubledgers") is not None else False

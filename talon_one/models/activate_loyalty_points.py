@@ -17,18 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
-class JWT(BaseModel):
+class ActivateLoyaltyPoints(BaseModel):
     """
-    JSON web token used for accessing integrations in Prismatic
+    Activate loyalty points
     """ # noqa: E501
-    access_token: StrictStr = Field(description="Access token used to authenticate a user in Talon.One.", alias="accessToken")
-    expires_in: StrictInt = Field(description="Time until the token expires (in seconds).", alias="expiresIn")
-    __properties: ClassVar[List[str]] = ["accessToken", "expiresIn"]
+    transaction_uuids: Optional[Annotated[List[UUID], Field(min_length=1, max_length=50)]] = Field(default=None, description="An array of transaction UUIDs used to activate specific pending point transactions.   If provided, do not include the `sessionId` parameter. ", alias="transactionUUIDs")
+    session_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The ID of the session containing the pending point transactions to activate.  If provided, do not include the `transactionUUIDs` parameter. ", alias="sessionId")
+    __properties: ClassVar[List[str]] = ["transactionUUIDs", "sessionId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -48,7 +50,7 @@ class JWT(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of JWT from a JSON string"""
+        """Create an instance of ActivateLoyaltyPoints from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,7 +75,7 @@ class JWT(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of JWT from a dict"""
+        """Create an instance of ActivateLoyaltyPoints from a dict"""
         if obj is None:
             return None
 
@@ -81,8 +83,8 @@ class JWT(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "accessToken": obj.get("accessToken"),
-            "expiresIn": obj.get("expiresIn")
+            "transactionUUIDs": obj.get("transactionUUIDs"),
+            "sessionId": obj.get("sessionId")
         })
         return _obj
 

@@ -8734,7 +8734,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_campaigns**
-> GetCampaigns200Response get_campaigns(application_id, page_size=page_size, skip=skip, sort=sort, campaign_state=campaign_state, name=name, tags=tags, created_before=created_before, created_after=created_after, campaign_group_id=campaign_group_id, template_id=template_id, store_id=store_id)
+> GetCampaigns200Response get_campaigns(application_id, page_size=page_size, skip=skip, sort=sort, campaign_state=campaign_state, name=name, tags=tags, created_before=created_before, created_after=created_after, start_before=start_before, start_after=start_after, end_before=end_before, end_after=end_after, campaign_group_id=campaign_group_id, template_id=template_id, store_id=store_id)
 
 List campaigns
 
@@ -8795,13 +8795,17 @@ with talon_one.ApiClient(configuration) as api_client:
     tags = 'tags_example' # str | Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \"name\" query parameter, a logical OR will be performed to search both tags and name for the provided values  (optional)
     created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
     created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
+    start_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
+    start_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
+    end_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign end time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
+    end_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign end time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
     campaign_group_id = 56 # int | Filter results to campaigns owned by the specified campaign access group ID. (optional)
     template_id = 56 # int | The ID of the campaign template this campaign was created from. (optional)
     store_id = 56 # int | Filter results to campaigns linked to the specified store ID. (optional)
 
     try:
         # List campaigns
-        api_response = api_instance.get_campaigns(application_id, page_size=page_size, skip=skip, sort=sort, campaign_state=campaign_state, name=name, tags=tags, created_before=created_before, created_after=created_after, campaign_group_id=campaign_group_id, template_id=template_id, store_id=store_id)
+        api_response = api_instance.get_campaigns(application_id, page_size=page_size, skip=skip, sort=sort, campaign_state=campaign_state, name=name, tags=tags, created_before=created_before, created_after=created_after, start_before=start_before, start_after=start_after, end_before=end_before, end_after=end_after, campaign_group_id=campaign_group_id, template_id=template_id, store_id=store_id)
         print("The response of ManagementApi->get_campaigns:\n")
         pprint(api_response)
     except Exception as e:
@@ -8824,6 +8828,10 @@ Name | Type | Description  | Notes
  **tags** | **str**| Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \&quot;name\&quot; query parameter, a logical OR will be performed to search both tags and name for the provided values  | [optional] 
  **created_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
  **created_after** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
+ **start_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
+ **start_after** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
+ **end_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign end time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
+ **end_after** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign end time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
  **campaign_group_id** | **int**| Filter results to campaigns owned by the specified campaign access group ID. | [optional] 
  **template_id** | **int**| The ID of the campaign template this campaign was created from. | [optional] 
  **store_id** | **int**| Filter results to campaigns linked to the specified store ID. | [optional] 
@@ -10851,7 +10859,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_loyalty_program_transactions**
-> GetLoyaltyProgramTransactions200Response get_loyalty_program_transactions(loyalty_program_id, loyalty_transaction_type=loyalty_transaction_type, subledger_id=subledger_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
+> GetLoyaltyProgramTransactions200Response get_loyalty_program_transactions(loyalty_program_id, loyalty_transaction_type=loyalty_transaction_type, subledger_id=subledger_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip)
 
 List loyalty program transactions
 
@@ -10916,11 +10924,10 @@ with talon_one.ApiClient(configuration) as api_client:
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
-    awaits_activation = True # bool | If `true`: Filters results to include only point transactions that have action-based activation and have not expired. If `false`: Returns an error.  (optional)
 
     try:
         # List loyalty program transactions
-        api_response = api_instance.get_loyalty_program_transactions(loyalty_program_id, loyalty_transaction_type=loyalty_transaction_type, subledger_id=subledger_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
+        api_response = api_instance.get_loyalty_program_transactions(loyalty_program_id, loyalty_transaction_type=loyalty_transaction_type, subledger_id=subledger_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip)
         print("The response of ManagementApi->get_loyalty_program_transactions:\n")
         pprint(api_response)
     except Exception as e:
@@ -10943,7 +10950,6 @@ Name | Type | Description  | Notes
  **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
- **awaits_activation** | **bool**| If &#x60;true&#x60;: Filters results to include only point transactions that have action-based activation and have not expired. If &#x60;false&#x60;: Returns an error.  | [optional] 
 
 ### Return type
 
@@ -13261,6 +13267,36 @@ The CSV file contains the following columns:
 - `expirydate` (optional): The latest date when the points can be redeemed. The points are `expired` after this date.
 
   **Note**: It must be an RFC3339 timestamp string or string `unlimited`. Empty or missing values are considered `unlimited`.
+  
+  If passed, `validityDuration` should be omitted.
+- `validityDuration` (optional): The duration for which the points remain active, relative to the 
+  activation date.
+
+  The time format is an **integer** followed by one letter indicating the time unit.
+
+
+  Examples: `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.
+
+
+  Available units:
+
+
+  - `s`: seconds
+  - `m`: minutes
+  - `h`: hours
+  - `D`: days
+  - `W`: weeks
+  - `M`: months
+  - `Y`: years
+
+
+  You can round certain units up or down:
+
+  - `_D` for rounding down days only. Signifies the start of the day.
+  - `_U` for rounding up days, weeks, months and years. Signifies the end of
+  the day, week, month or year.
+
+  If passed, `expirydate` should be omitted.
 - `subledgerid` (optional): The ID of the subledger that should received the points.
 - `reason` (optional): The reason why these points are awarded.
 

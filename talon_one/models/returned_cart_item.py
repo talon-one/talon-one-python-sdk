@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +27,10 @@ class ReturnedCartItem(BaseModel):
     """
     ReturnedCartItem
     """ # noqa: E501
-    position: StrictInt = Field(description="The index of the cart item in the provided customer session's `cartItems` property.")
+    position: Optional[StrictInt] = Field(default=None, description="The index of the cart item in the provided customer session's `cartItems` property.")
     quantity: Optional[StrictInt] = Field(default=None, description="Number of cart items to return. ")
-    __properties: ClassVar[List[str]] = ["position", "quantity"]
+    sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The SKU of the cart item in the provided customer session's `cartItems` property.")
+    __properties: ClassVar[List[str]] = ["position", "quantity", "sku"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,7 +84,8 @@ class ReturnedCartItem(BaseModel):
 
         _obj = cls.model_validate({
             "position": obj.get("position"),
-            "quantity": obj.get("quantity")
+            "quantity": obj.get("quantity"),
+            "sku": obj.get("sku")
         })
         return _obj
 

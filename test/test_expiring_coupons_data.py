@@ -44,9 +44,7 @@ class TestExpiringCouponsData(unittest.TestCase):
                 usage_limit = 100,
                 usage_counter = 10,
                 batch_id = '32535-43255',
-                attributes = {
-                    'key' : null
-                    }
+                attributes = { }
             )
         else:
             return ExpiringCouponsData(
@@ -54,9 +52,7 @@ class TestExpiringCouponsData(unittest.TestCase):
                 campaign_id = 3,
                 usage_limit = 100,
                 usage_counter = 10,
-                attributes = {
-                    'key' : null
-                    },
+                attributes = { },
         )
         """
 

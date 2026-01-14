@@ -48,7 +48,8 @@ class TestRoleV2(unittest.TestCase):
                         loyalty_programs = {10=Loyalty program manager permission set}, 
                         campaign_access_groups = {5=Campaign access group manager permission set}, 
                         account = '', ), ),
-                members = [10, 12]
+                members = [10, 12],
+                is_readonly = False
             )
         else:
             return RoleV2(
