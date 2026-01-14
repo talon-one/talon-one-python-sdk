@@ -1,5 +1,5 @@
 [project]
-name = "talon_one"
+name = "talon-one-sdk"
 version = "26.01"
 description = "Talon.One API"
 authors = [
