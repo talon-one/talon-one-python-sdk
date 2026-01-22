@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.coupon_rejections import CouponRejections
+from talon_one.models.catalog_rule import CatalogRule
 
-class TestCouponRejections(unittest.TestCase):
-    """CouponRejections unit test stubs"""
+class TestCatalogRule(unittest.TestCase):
+    """CatalogRule unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,37 +25,41 @@ class TestCouponRejections(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> CouponRejections:
-        """Test CouponRejections
+    def make_instance(self, include_optional) -> CatalogRule:
+        """Test CatalogRule
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `CouponRejections`
+        # uncomment below to create an instance of `CatalogRule`
         """
-        model = CouponRejections()
+        model = CatalogRule()
         if include_optional:
-            return CouponRejections(
-                session_details = [
-                    talon_one.models.session_coupons.SessionCoupons(
-                        session_integration_id = 'cc53e4fa-547f-4f5e-8333-76e05c381f67', 
-                        coupon_code = 'SUMMER2025', )
+            return CatalogRule(
+                title = 'Give discount via coupon',
+                bindings = [
+                    talon_one.models.binding.Binding(
+                        name = 'my property', 
+                        type = 'templateParameter', 
+                        expression = [string1, string2], 
+                        value_type = 'string', 
+                        min_value = 0, 
+                        max_value = 19.9, 
+                        attribute_id = 100, 
+                        description = 'This is a template parameter of type `number`.', )
                     ],
-                application_id = 123,
-                language = 'en'
+                condition = [and, [couponValid]],
+                effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]]
             )
         else:
-            return CouponRejections(
-                session_details = [
-                    talon_one.models.session_coupons.SessionCoupons(
-                        session_integration_id = 'cc53e4fa-547f-4f5e-8333-76e05c381f67', 
-                        coupon_code = 'SUMMER2025', )
-                    ],
-                application_id = 123,
+            return CatalogRule(
+                title = 'Give discount via coupon',
+                condition = [and, [couponValid]],
+                effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]],
         )
         """
 
-    def testCouponRejections(self):
-        """Test CouponRejections"""
+    def testCatalogRule(self):
+        """Test CatalogRule"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

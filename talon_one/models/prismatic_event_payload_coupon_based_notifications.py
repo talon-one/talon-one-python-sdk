@@ -46,7 +46,9 @@ class PrismaticEventPayloadCouponBasedNotifications(BaseModel):
     batch_id: Optional[StrictStr] = Field(default=None, alias="BatchId")
     attributes: Optional[Dict[str, Any]] = Field(default=None, alias="Attributes")
     limits: Optional[List[PrismaticEventPayloadCouponBasedNotificationsLimits]] = Field(default=None, alias="Limits")
-    __properties: ClassVar[List[str]] = ["Id", "Created", "CampaignId", "Value", "UsageLimit", "DiscountLimit", "ReservationLimit", "StartDate", "ExpiryDate", "UsageCounter", "DiscountCounter", "DiscountRemainder", "ReferralId", "RecipientIntegrationId", "ImportId", "BatchId", "Attributes", "Limits"]
+    source_of_event: StrictStr = Field(alias="SourceOfEvent")
+    employee_name: StrictStr = Field(alias="EmployeeName")
+    __properties: ClassVar[List[str]] = ["Id", "Created", "CampaignId", "Value", "UsageLimit", "DiscountLimit", "ReservationLimit", "StartDate", "ExpiryDate", "UsageCounter", "DiscountCounter", "DiscountRemainder", "ReferralId", "RecipientIntegrationId", "ImportId", "BatchId", "Attributes", "Limits", "SourceOfEvent", "EmployeeName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -123,7 +125,9 @@ class PrismaticEventPayloadCouponBasedNotifications(BaseModel):
             "ImportId": obj.get("ImportId"),
             "BatchId": obj.get("BatchId"),
             "Attributes": obj.get("Attributes"),
-            "Limits": [PrismaticEventPayloadCouponBasedNotificationsLimits.from_dict(_item) for _item in obj["Limits"]] if obj.get("Limits") is not None else None
+            "Limits": [PrismaticEventPayloadCouponBasedNotificationsLimits.from_dict(_item) for _item in obj["Limits"]] if obj.get("Limits") is not None else None,
+            "SourceOfEvent": obj.get("SourceOfEvent"),
+            "EmployeeName": obj.get("EmployeeName")
         })
         return _obj
 

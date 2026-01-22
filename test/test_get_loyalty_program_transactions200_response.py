@@ -57,7 +57,8 @@ class TestGetLoyaltyProgramTransactions200Response(unittest.TestCase):
                         user_email = 'john.doe@example.com', 
                         ruleset_id = 11, 
                         rule_name = '10 points for every $100 spent', 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ]
             )
         else:
@@ -84,7 +85,8 @@ class TestGetLoyaltyProgramTransactions200Response(unittest.TestCase):
                         user_email = 'john.doe@example.com', 
                         ruleset_id = 11, 
                         rule_name = '10 points for every $100 spent', 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ],
         )
         """

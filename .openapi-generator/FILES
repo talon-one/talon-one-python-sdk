@@ -91,7 +91,7 @@ docs/BaseSamlConnection.md
 docs/BestPriorPrice.md
 docs/BestPriorPriceMetadata.md
 docs/BestPriorPriceRequest.md
-docs/BestPriorPriceRequestTarget.md
+docs/BestPriorTarget.md
 docs/Binding.md
 docs/BulkApplicationNotification.md
 docs/BulkOperationOnCampaigns.md
@@ -150,9 +150,11 @@ docs/CardLedgerPointsEntryIntegrationAPI.md
 docs/CardLedgerTransactionLogEntry.md
 docs/CardLedgerTransactionLogEntryIntegrationAPI.md
 docs/CartItem.md
+docs/CartItemFilterTemplate.md
 docs/Catalog.md
 docs/CatalogActionFilter.md
 docs/CatalogItem.md
+docs/CatalogRule.md
 docs/CatalogSyncRequest.md
 docs/CatalogsStrikethroughNotificationPolicy.md
 docs/Change.md
@@ -162,6 +164,7 @@ docs/CodeGeneratorSettings.md
 docs/Collection.md
 docs/CollectionItem.md
 docs/CollectionWithoutPayload.md
+docs/CollectionsCatalog.md
 docs/Coupon.md
 docs/CouponConstraints.md
 docs/CouponCreatedEffectProps.md
@@ -172,7 +175,6 @@ docs/CouponEntity.md
 docs/CouponFailureSummary.md
 docs/CouponLimitConfigs.md
 docs/CouponRejectionReason.md
-docs/CouponRejections.md
 docs/CouponReservations.md
 docs/CouponSearch.md
 docs/CouponValue.md
@@ -205,6 +207,7 @@ docs/DeactivateUserRequest.md
 docs/DeductLoyaltyPoints.md
 docs/DeductLoyaltyPointsEffectProps.md
 docs/DeleteCouponsData.md
+docs/DeleteLoyaltyTransactionsRequest.md
 docs/DeleteUserRequest.md
 docs/Effect.md
 docs/EffectEntity.md
@@ -245,6 +248,7 @@ docs/GenerateCampaignSummary.md
 docs/GenerateCampaignTags.md
 docs/GenerateCouponFailureDetailedSummary.md
 docs/GenerateCouponFailureSummary.md
+docs/GenerateCouponRejections200Response.md
 docs/GenerateItemFilterDescription.md
 docs/GenerateLoyaltyCard.md
 docs/GenerateRuleTitle.md
@@ -404,6 +408,7 @@ docs/NewCampaignStoreBudgetStoreLimit.md
 docs/NewCampaignTemplate.md
 docs/NewCatalog.md
 docs/NewCollection.md
+docs/NewCollectionsCatalog.md
 docs/NewCouponCreationJob.md
 docs/NewCouponDeletionJob.md
 docs/NewCoupons.md
@@ -553,7 +558,6 @@ docs/ScimUser.md
 docs/ScimUsersListResponse.md
 docs/SecondaryDeployment.md
 docs/Session.md
-docs/SessionCoupons.md
 docs/SetDiscountEffectProps.md
 docs/SetDiscountPerAdditionalCostEffectProps.md
 docs/SetDiscountPerAdditionalCostPerItemEffectProps.md
@@ -610,6 +614,7 @@ docs/UpdateCampaignGroup.md
 docs/UpdateCampaignTemplate.md
 docs/UpdateCatalog.md
 docs/UpdateCollection.md
+docs/UpdateCollectionsCatalog.md
 docs/UpdateCoupon.md
 docs/UpdateCouponBatch.md
 docs/UpdateCouponsData.md
@@ -631,7 +636,6 @@ docs/UserEntity.md
 docs/ValueMap.md
 docs/Webhook.md
 docs/WebhookAuthentication.md
-docs/WebhookAuthenticationBase.md
 docs/WebhookAuthenticationDataBasic.md
 docs/WebhookAuthenticationDataCustom.md
 docs/WebhookAuthenticationWebhookRef.md
@@ -736,7 +740,7 @@ talon_one/models/base_saml_connection.py
 talon_one/models/best_prior_price.py
 talon_one/models/best_prior_price_metadata.py
 talon_one/models/best_prior_price_request.py
-talon_one/models/best_prior_price_request_target.py
+talon_one/models/best_prior_target.py
 talon_one/models/binding.py
 talon_one/models/bulk_application_notification.py
 talon_one/models/bulk_operation_on_campaigns.py
@@ -795,9 +799,11 @@ talon_one/models/card_ledger_points_entry_integration_api.py
 talon_one/models/card_ledger_transaction_log_entry.py
 talon_one/models/card_ledger_transaction_log_entry_integration_api.py
 talon_one/models/cart_item.py
+talon_one/models/cart_item_filter_template.py
 talon_one/models/catalog.py
 talon_one/models/catalog_action_filter.py
 talon_one/models/catalog_item.py
+talon_one/models/catalog_rule.py
 talon_one/models/catalog_sync_request.py
 talon_one/models/catalogs_strikethrough_notification_policy.py
 talon_one/models/change.py
@@ -807,6 +813,7 @@ talon_one/models/code_generator_settings.py
 talon_one/models/collection.py
 talon_one/models/collection_item.py
 talon_one/models/collection_without_payload.py
+talon_one/models/collections_catalog.py
 talon_one/models/coupon.py
 talon_one/models/coupon_constraints.py
 talon_one/models/coupon_created_effect_props.py
@@ -817,7 +824,6 @@ talon_one/models/coupon_entity.py
 talon_one/models/coupon_failure_summary.py
 talon_one/models/coupon_limit_configs.py
 talon_one/models/coupon_rejection_reason.py
-talon_one/models/coupon_rejections.py
 talon_one/models/coupon_reservations.py
 talon_one/models/coupon_search.py
 talon_one/models/coupon_value.py
@@ -850,6 +856,7 @@ talon_one/models/deactivate_user_request.py
 talon_one/models/deduct_loyalty_points.py
 talon_one/models/deduct_loyalty_points_effect_props.py
 talon_one/models/delete_coupons_data.py
+talon_one/models/delete_loyalty_transactions_request.py
 talon_one/models/delete_user_request.py
 talon_one/models/effect.py
 talon_one/models/effect_entity.py
@@ -890,6 +897,7 @@ talon_one/models/generate_campaign_summary.py
 talon_one/models/generate_campaign_tags.py
 talon_one/models/generate_coupon_failure_detailed_summary.py
 talon_one/models/generate_coupon_failure_summary.py
+talon_one/models/generate_coupon_rejections200_response.py
 talon_one/models/generate_item_filter_description.py
 talon_one/models/generate_loyalty_card.py
 talon_one/models/generate_rule_title.py
@@ -1047,6 +1055,7 @@ talon_one/models/new_campaign_store_budget_store_limit.py
 talon_one/models/new_campaign_template.py
 talon_one/models/new_catalog.py
 talon_one/models/new_collection.py
+talon_one/models/new_collections_catalog.py
 talon_one/models/new_coupon_creation_job.py
 talon_one/models/new_coupon_deletion_job.py
 talon_one/models/new_coupons.py
@@ -1195,7 +1204,6 @@ talon_one/models/scim_user.py
 talon_one/models/scim_users_list_response.py
 talon_one/models/secondary_deployment.py
 talon_one/models/session.py
-talon_one/models/session_coupons.py
 talon_one/models/set_discount_effect_props.py
 talon_one/models/set_discount_per_additional_cost_effect_props.py
 talon_one/models/set_discount_per_additional_cost_per_item_effect_props.py
@@ -1253,6 +1261,7 @@ talon_one/models/update_campaign_group.py
 talon_one/models/update_campaign_template.py
 talon_one/models/update_catalog.py
 talon_one/models/update_collection.py
+talon_one/models/update_collections_catalog.py
 talon_one/models/update_coupon.py
 talon_one/models/update_coupon_batch.py
 talon_one/models/update_coupons_data.py
@@ -1274,7 +1283,6 @@ talon_one/models/user_entity.py
 talon_one/models/value_map.py
 talon_one/models/webhook.py
 talon_one/models/webhook_authentication.py
-talon_one/models/webhook_authentication_base.py
 talon_one/models/webhook_authentication_data_basic.py
 talon_one/models/webhook_authentication_data_custom.py
 talon_one/models/webhook_authentication_webhook_ref.py
@@ -1368,7 +1376,7 @@ test/test_base_saml_connection.py
 test/test_best_prior_price.py
 test/test_best_prior_price_metadata.py
 test/test_best_prior_price_request.py
-test/test_best_prior_price_request_target.py
+test/test_best_prior_target.py
 test/test_binding.py
 test/test_bulk_application_notification.py
 test/test_bulk_operation_on_campaigns.py
@@ -1427,9 +1435,11 @@ test/test_card_ledger_points_entry_integration_api.py
 test/test_card_ledger_transaction_log_entry.py
 test/test_card_ledger_transaction_log_entry_integration_api.py
 test/test_cart_item.py
+test/test_cart_item_filter_template.py
 test/test_catalog.py
 test/test_catalog_action_filter.py
 test/test_catalog_item.py
+test/test_catalog_rule.py
 test/test_catalog_sync_request.py
 test/test_catalogs_strikethrough_notification_policy.py
 test/test_change.py
@@ -1439,6 +1449,7 @@ test/test_code_generator_settings.py
 test/test_collection.py
 test/test_collection_item.py
 test/test_collection_without_payload.py
+test/test_collections_catalog.py
 test/test_coupon.py
 test/test_coupon_constraints.py
 test/test_coupon_created_effect_props.py
@@ -1449,7 +1460,6 @@ test/test_coupon_entity.py
 test/test_coupon_failure_summary.py
 test/test_coupon_limit_configs.py
 test/test_coupon_rejection_reason.py
-test/test_coupon_rejections.py
 test/test_coupon_reservations.py
 test/test_coupon_search.py
 test/test_coupon_value.py
@@ -1482,6 +1492,7 @@ test/test_deactivate_user_request.py
 test/test_deduct_loyalty_points.py
 test/test_deduct_loyalty_points_effect_props.py
 test/test_delete_coupons_data.py
+test/test_delete_loyalty_transactions_request.py
 test/test_delete_user_request.py
 test/test_effect.py
 test/test_effect_entity.py
@@ -1522,6 +1533,7 @@ test/test_generate_campaign_summary.py
 test/test_generate_campaign_tags.py
 test/test_generate_coupon_failure_detailed_summary.py
 test/test_generate_coupon_failure_summary.py
+test/test_generate_coupon_rejections200_response.py
 test/test_generate_item_filter_description.py
 test/test_generate_loyalty_card.py
 test/test_generate_rule_title.py
@@ -1681,6 +1693,7 @@ test/test_new_campaign_store_budget_store_limit.py
 test/test_new_campaign_template.py
 test/test_new_catalog.py
 test/test_new_collection.py
+test/test_new_collections_catalog.py
 test/test_new_coupon_creation_job.py
 test/test_new_coupon_deletion_job.py
 test/test_new_coupons.py
@@ -1829,7 +1842,6 @@ test/test_scim_user.py
 test/test_scim_users_list_response.py
 test/test_secondary_deployment.py
 test/test_session.py
-test/test_session_coupons.py
 test/test_set_discount_effect_props.py
 test/test_set_discount_per_additional_cost_effect_props.py
 test/test_set_discount_per_additional_cost_per_item_effect_props.py
@@ -1887,6 +1899,7 @@ test/test_update_campaign_group.py
 test/test_update_campaign_template.py
 test/test_update_catalog.py
 test/test_update_collection.py
+test/test_update_collections_catalog.py
 test/test_update_coupon.py
 test/test_update_coupon_batch.py
 test/test_update_coupons_data.py
@@ -1908,7 +1921,6 @@ test/test_user_entity.py
 test/test_value_map.py
 test/test_webhook.py
 test/test_webhook_authentication.py
-test/test_webhook_authentication_base.py
 test/test_webhook_authentication_data_basic.py
 test/test_webhook_authentication_data_custom.py
 test/test_webhook_authentication_webhook_ref.py

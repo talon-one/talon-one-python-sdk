@@ -17,20 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.session_coupons import SessionCoupons
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CouponRejections(BaseModel):
+class DeleteLoyaltyTransactionsRequest(BaseModel):
     """
-    CouponRejections
+    Request to delete transactions based on the specified scope.
     """ # noqa: E501
-    session_details: List[SessionCoupons] = Field(description="Array containing details from session like session id and optional coupon code used in the session. Only the first 15 entries will be processed.", alias="sessionDetails")
-    application_id: StrictInt = Field(description="The application ID for which the coupon was used.", alias="applicationId")
-    language: Optional[StrictStr] = Field(default=None, description="The language the summary will be generated in.")
-    __properties: ClassVar[List[str]] = ["sessionDetails", "applicationId", "language"]
+    scope: StrictStr = Field(description="`AllSubledgers` deletes all transactions for the specified customer profile from all ledgers in the loyalty program.  `SelectedSubledgers` deletes all transactions for the specified customer profile only from the given ledgers in the loyalty program. ")
+    subledger_ids: Optional[List[StrictStr]] = Field(default=None, description="The IDs of the ledgers from which to delete the customer's transactions. This parameter is required if the `scope` is set to `SelectedSubledgers`.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerIds")
+    __properties: ClassVar[List[str]] = ["scope", "subledgerIds"]
+
+    @field_validator('scope')
+    def scope_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['AllSubledgers', 'SelectedSubledgers']):
+            raise ValueError("must be one of enum values ('AllSubledgers', 'SelectedSubledgers')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +55,7 @@ class CouponRejections(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CouponRejections from a JSON string"""
+        """Create an instance of DeleteLoyaltyTransactionsRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,18 +76,16 @@ class CouponRejections(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in session_details (list)
-        _items = []
-        if self.session_details:
-            for _item_session_details in self.session_details:
-                if _item_session_details:
-                    _items.append(_item_session_details.to_dict())
-            _dict['sessionDetails'] = _items
+        # set to None if subledger_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.subledger_ids is None and "subledger_ids" in self.model_fields_set:
+            _dict['subledgerIds'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CouponRejections from a dict"""
+        """Create an instance of DeleteLoyaltyTransactionsRequest from a dict"""
         if obj is None:
             return None
 
@@ -90,9 +93,8 @@ class CouponRejections(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sessionDetails": [SessionCoupons.from_dict(_item) for _item in obj["sessionDetails"]] if obj.get("sessionDetails") is not None else None,
-            "applicationId": obj.get("applicationId"),
-            "language": obj.get("language")
+            "scope": obj.get("scope"),
+            "subledgerIds": obj.get("subledgerIds")
         })
         return _obj
 

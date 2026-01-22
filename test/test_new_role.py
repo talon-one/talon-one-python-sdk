@@ -37,13 +37,13 @@ class TestNewRole(unittest.TestCase):
             return NewRole(
                 name = 'Campaign Manager',
                 description = 'Manages the campaigns',
-                acl = '{Role=128, Applications=null}',
+                acl = '{Role=128}',
                 members = [48, 562, 475, 18]
             )
         else:
             return NewRole(
                 name = 'Campaign Manager',
-                acl = '{Role=128, Applications=null}',
+                acl = '{Role=128}',
                 members = [48, 562, 475, 18],
         )
         """

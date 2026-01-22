@@ -42,7 +42,8 @@ class CardLedgerTransactionLogEntryIntegrationAPI(BaseModel):
     id: StrictInt = Field(description="ID of the loyalty ledger transaction.")
     ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset containing the rule that triggered this effect.", alias="rulesetId")
     rule_name: Optional[StrictStr] = Field(default=None, description="The name of the rule that triggered this effect.", alias="ruleName")
-    __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "cardIdentifier", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName"]
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration")
+    __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "cardIdentifier", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "validityDuration"]
 
     @field_validator('card_identifier')
     def card_identifier_validate_regular_expression(cls, value):
@@ -122,7 +123,8 @@ class CardLedgerTransactionLogEntryIntegrationAPI(BaseModel):
             "amount": obj.get("amount"),
             "id": obj.get("id"),
             "rulesetId": obj.get("rulesetId"),
-            "ruleName": obj.get("ruleName")
+            "ruleName": obj.get("ruleName"),
+            "validityDuration": obj.get("validityDuration")
         })
         return _obj
 

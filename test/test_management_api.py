@@ -411,6 +411,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_generate_coupon_rejections(self) -> None:
+        """Test case for generate_coupon_rejections
+
+        Summarize coupon redemption failures in session
+        """
+        pass
+
     def test_get_access_logs_without_total_count(self) -> None:
         """Test case for get_access_logs_without_total_count
 
@@ -740,6 +747,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_get_loyalty_ledger_balances(self) -> None:
+        """Test case for get_loyalty_ledger_balances
+
+        Get customer's loyalty balances
+        """
+        pass
+
     def test_get_loyalty_points(self) -> None:
         """Test case for get_loyalty_points
 
@@ -751,6 +765,13 @@ class TestManagementApi(unittest.TestCase):
         """Test case for get_loyalty_program
 
         Get loyalty program
+        """
+        pass
+
+    def test_get_loyalty_program_profile_ledger_transactions(self) -> None:
+        """Test case for get_loyalty_program_profile_ledger_transactions
+
+        List customer's loyalty transactions
         """
         pass
 

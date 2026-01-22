@@ -43,7 +43,8 @@ class LoyaltyLedgerEntry(BaseModel):
     user_id: Optional[StrictInt] = Field(default=None, description="This is the ID of the user who created this entry, if the addition or subtraction was done manually.", alias="userID")
     archived: Optional[StrictBool] = Field(default=None, description="Indicates if the entry belongs to the archived session.")
     flags: Optional[LoyaltyLedgerEntryFlags] = Field(default=None, description="A map of flags providing additional details about the entry.")
-    __properties: ClassVar[List[str]] = ["created", "programID", "customerProfileID", "cardID", "customerSessionID", "eventID", "type", "amount", "startDate", "expiryDate", "name", "subLedgerID", "userID", "archived", "flags"]
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration")
+    __properties: ClassVar[List[str]] = ["created", "programID", "customerProfileID", "cardID", "customerSessionID", "eventID", "type", "amount", "startDate", "expiryDate", "name", "subLedgerID", "userID", "archived", "flags", "validityDuration"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -113,7 +114,8 @@ class LoyaltyLedgerEntry(BaseModel):
             "subLedgerID": obj.get("subLedgerID"),
             "userID": obj.get("userID"),
             "archived": obj.get("archived"),
-            "flags": LoyaltyLedgerEntryFlags.from_dict(obj["flags"]) if obj.get("flags") is not None else None
+            "flags": LoyaltyLedgerEntryFlags.from_dict(obj["flags"]) if obj.get("flags") is not None else None,
+            "validityDuration": obj.get("validityDuration")
         })
         return _obj
 

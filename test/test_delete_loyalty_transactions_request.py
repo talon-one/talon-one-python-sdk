@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.session_coupons import SessionCoupons
+from talon_one.models.delete_loyalty_transactions_request import DeleteLoyaltyTransactionsRequest
 
-class TestSessionCoupons(unittest.TestCase):
-    """SessionCoupons unit test stubs"""
+class TestDeleteLoyaltyTransactionsRequest(unittest.TestCase):
+    """DeleteLoyaltyTransactionsRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,27 +25,27 @@ class TestSessionCoupons(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> SessionCoupons:
-        """Test SessionCoupons
+    def make_instance(self, include_optional) -> DeleteLoyaltyTransactionsRequest:
+        """Test DeleteLoyaltyTransactionsRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `SessionCoupons`
+        # uncomment below to create an instance of `DeleteLoyaltyTransactionsRequest`
         """
-        model = SessionCoupons()
+        model = DeleteLoyaltyTransactionsRequest()
         if include_optional:
-            return SessionCoupons(
-                session_integration_id = 'cc53e4fa-547f-4f5e-8333-76e05c381f67',
-                coupon_code = 'SUMMER2025'
+            return DeleteLoyaltyTransactionsRequest(
+                scope = 'SelectedSubledgers',
+                subledger_ids = [subledger1, subledger2]
             )
         else:
-            return SessionCoupons(
-                session_integration_id = 'cc53e4fa-547f-4f5e-8333-76e05c381f67',
+            return DeleteLoyaltyTransactionsRequest(
+                scope = 'SelectedSubledgers',
         )
         """
 
-    def testSessionCoupons(self):
-        """Test SessionCoupons"""
+    def testDeleteLoyaltyTransactionsRequest(self):
+        """Test DeleteLoyaltyTransactionsRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

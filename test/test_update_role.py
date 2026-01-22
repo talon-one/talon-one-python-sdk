@@ -37,7 +37,7 @@ class TestUpdateRole(unittest.TestCase):
             return UpdateRole(
                 name = 'Campaign Manager',
                 description = 'Manages the campaigns',
-                acl = '{Role=128, Applications=null}',
+                acl = '{Role=128}',
                 members = [48, 562, 475, 18]
             )
         else:

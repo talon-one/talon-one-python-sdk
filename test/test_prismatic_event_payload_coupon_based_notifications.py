@@ -60,7 +60,9 @@ class TestPrismaticEventPayloadCouponBasedNotifications(unittest.TestCase):
                         entities = [
                             ''
                             ], )
-                    ]
+                    ],
+                source_of_event = '',
+                employee_name = ''
             )
         else:
             return PrismaticEventPayloadCouponBasedNotifications(
@@ -70,6 +72,8 @@ class TestPrismaticEventPayloadCouponBasedNotifications(unittest.TestCase):
                 value = '',
                 usage_limit = 56,
                 usage_counter = 56,
+                source_of_event = '',
+                employee_name = '',
         )
         """
 

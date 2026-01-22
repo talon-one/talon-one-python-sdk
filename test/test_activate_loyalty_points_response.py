@@ -51,7 +51,8 @@ class TestActivateLoyaltyPointsResponse(unittest.TestCase):
                         sub_ledger_id = 'mysubledger', 
                         user_id = 499, 
                         archived = False, 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ]
             )
         else:

@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.best_prior_price_request_target import BestPriorPriceRequestTarget
+from talon_one.models.best_prior_target import BestPriorTarget
 
-class TestBestPriorPriceRequestTarget(unittest.TestCase):
-    """BestPriorPriceRequestTarget unit test stubs"""
+class TestBestPriorTarget(unittest.TestCase):
+    """BestPriorTarget unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,27 +25,27 @@ class TestBestPriorPriceRequestTarget(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> BestPriorPriceRequestTarget:
-        """Test BestPriorPriceRequestTarget
+    def make_instance(self, include_optional) -> BestPriorTarget:
+        """Test BestPriorTarget
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `BestPriorPriceRequestTarget`
+        # uncomment below to create an instance of `BestPriorTarget`
         """
-        model = BestPriorPriceRequestTarget()
+        model = BestPriorTarget()
         if include_optional:
-            return BestPriorPriceRequestTarget(
+            return BestPriorTarget(
                 target_type = 'AUDIENCE',
                 audience_id = 4
             )
         else:
-            return BestPriorPriceRequestTarget(
+            return BestPriorTarget(
                 target_type = 'AUDIENCE',
         )
         """
 
-    def testBestPriorPriceRequestTarget(self):
-        """Test BestPriorPriceRequestTarget"""
+    def testBestPriorTarget(self):
+        """Test BestPriorTarget"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

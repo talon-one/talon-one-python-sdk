@@ -42,8 +42,7 @@ class TestCouponFailureSummary(unittest.TestCase):
                 status = 'rejected',
                 coupon_code = 'ABC123',
                 language = 'en',
-                short_summary = 'Session total was less than the required total.',
-                long_summary = 'There were 5 items in the cart with SKUs 1,2,3,4,5 and the total is $60 which is less than the required cart total.',
+                summary = 'Session total was less than the required total.',
                 created_at = '2021-07-20T21:59:00Z',
                 updated_at = '2021-07-20T21:59:00Z'
             )
@@ -54,8 +53,7 @@ class TestCouponFailureSummary(unittest.TestCase):
                 status = 'rejected',
                 coupon_code = 'ABC123',
                 language = 'en',
-                short_summary = 'Session total was less than the required total.',
-                long_summary = 'There were 5 items in the cart with SKUs 1,2,3,4,5 and the total is $60 which is less than the required cart total.',
+                summary = 'Session total was less than the required total.',
                 created_at = '2021-07-20T21:59:00Z',
                 updated_at = '2021-07-20T21:59:00Z',
         )

@@ -97,7 +97,7 @@ from talon_one.models.base_saml_connection import BaseSamlConnection
 from talon_one.models.best_prior_price import BestPriorPrice
 from talon_one.models.best_prior_price_metadata import BestPriorPriceMetadata
 from talon_one.models.best_prior_price_request import BestPriorPriceRequest
-from talon_one.models.best_prior_price_request_target import BestPriorPriceRequestTarget
+from talon_one.models.best_prior_target import BestPriorTarget
 from talon_one.models.binding import Binding
 from talon_one.models.bulk_application_notification import BulkApplicationNotification
 from talon_one.models.bulk_operation_on_campaigns import BulkOperationOnCampaigns
@@ -156,9 +156,11 @@ from talon_one.models.card_ledger_points_entry_integration_api import CardLedger
 from talon_one.models.card_ledger_transaction_log_entry import CardLedgerTransactionLogEntry
 from talon_one.models.card_ledger_transaction_log_entry_integration_api import CardLedgerTransactionLogEntryIntegrationAPI
 from talon_one.models.cart_item import CartItem
+from talon_one.models.cart_item_filter_template import CartItemFilterTemplate
 from talon_one.models.catalog import Catalog
 from talon_one.models.catalog_action_filter import CatalogActionFilter
 from talon_one.models.catalog_item import CatalogItem
+from talon_one.models.catalog_rule import CatalogRule
 from talon_one.models.catalog_sync_request import CatalogSyncRequest
 from talon_one.models.catalogs_strikethrough_notification_policy import CatalogsStrikethroughNotificationPolicy
 from talon_one.models.change import Change
@@ -168,6 +170,7 @@ from talon_one.models.code_generator_settings import CodeGeneratorSettings
 from talon_one.models.collection import Collection
 from talon_one.models.collection_item import CollectionItem
 from talon_one.models.collection_without_payload import CollectionWithoutPayload
+from talon_one.models.collections_catalog import CollectionsCatalog
 from talon_one.models.coupon import Coupon
 from talon_one.models.coupon_constraints import CouponConstraints
 from talon_one.models.coupon_created_effect_props import CouponCreatedEffectProps
@@ -178,7 +181,6 @@ from talon_one.models.coupon_entity import CouponEntity
 from talon_one.models.coupon_failure_summary import CouponFailureSummary
 from talon_one.models.coupon_limit_configs import CouponLimitConfigs
 from talon_one.models.coupon_rejection_reason import CouponRejectionReason
-from talon_one.models.coupon_rejections import CouponRejections
 from talon_one.models.coupon_reservations import CouponReservations
 from talon_one.models.coupon_search import CouponSearch
 from talon_one.models.coupon_value import CouponValue
@@ -211,6 +213,7 @@ from talon_one.models.deactivate_user_request import DeactivateUserRequest
 from talon_one.models.deduct_loyalty_points import DeductLoyaltyPoints
 from talon_one.models.deduct_loyalty_points_effect_props import DeductLoyaltyPointsEffectProps
 from talon_one.models.delete_coupons_data import DeleteCouponsData
+from talon_one.models.delete_loyalty_transactions_request import DeleteLoyaltyTransactionsRequest
 from talon_one.models.delete_user_request import DeleteUserRequest
 from talon_one.models.effect import Effect
 from talon_one.models.effect_entity import EffectEntity
@@ -251,6 +254,7 @@ from talon_one.models.generate_campaign_summary import GenerateCampaignSummary
 from talon_one.models.generate_campaign_tags import GenerateCampaignTags
 from talon_one.models.generate_coupon_failure_detailed_summary import GenerateCouponFailureDetailedSummary
 from talon_one.models.generate_coupon_failure_summary import GenerateCouponFailureSummary
+from talon_one.models.generate_coupon_rejections200_response import GenerateCouponRejections200Response
 from talon_one.models.generate_item_filter_description import GenerateItemFilterDescription
 from talon_one.models.generate_loyalty_card import GenerateLoyaltyCard
 from talon_one.models.generate_rule_title import GenerateRuleTitle
@@ -408,6 +412,7 @@ from talon_one.models.new_campaign_store_budget_store_limit import NewCampaignSt
 from talon_one.models.new_campaign_template import NewCampaignTemplate
 from talon_one.models.new_catalog import NewCatalog
 from talon_one.models.new_collection import NewCollection
+from talon_one.models.new_collections_catalog import NewCollectionsCatalog
 from talon_one.models.new_coupon_creation_job import NewCouponCreationJob
 from talon_one.models.new_coupon_deletion_job import NewCouponDeletionJob
 from talon_one.models.new_coupons import NewCoupons
@@ -557,7 +562,6 @@ from talon_one.models.scim_user import ScimUser
 from talon_one.models.scim_users_list_response import ScimUsersListResponse
 from talon_one.models.secondary_deployment import SecondaryDeployment
 from talon_one.models.session import Session
-from talon_one.models.session_coupons import SessionCoupons
 from talon_one.models.set_discount_effect_props import SetDiscountEffectProps
 from talon_one.models.set_discount_per_additional_cost_effect_props import SetDiscountPerAdditionalCostEffectProps
 from talon_one.models.set_discount_per_additional_cost_per_item_effect_props import SetDiscountPerAdditionalCostPerItemEffectProps
@@ -614,6 +618,7 @@ from talon_one.models.update_campaign_group import UpdateCampaignGroup
 from talon_one.models.update_campaign_template import UpdateCampaignTemplate
 from talon_one.models.update_catalog import UpdateCatalog
 from talon_one.models.update_collection import UpdateCollection
+from talon_one.models.update_collections_catalog import UpdateCollectionsCatalog
 from talon_one.models.update_coupon import UpdateCoupon
 from talon_one.models.update_coupon_batch import UpdateCouponBatch
 from talon_one.models.update_coupons_data import UpdateCouponsData
@@ -635,7 +640,6 @@ from talon_one.models.user_entity import UserEntity
 from talon_one.models.value_map import ValueMap
 from talon_one.models.webhook import Webhook
 from talon_one.models.webhook_authentication import WebhookAuthentication
-from talon_one.models.webhook_authentication_base import WebhookAuthenticationBase
 from talon_one.models.webhook_authentication_data_basic import WebhookAuthenticationDataBasic
 from talon_one.models.webhook_authentication_data_custom import WebhookAuthenticationDataCustom
 from talon_one.models.webhook_authentication_webhook_ref import WebhookAuthenticationWebhookRef

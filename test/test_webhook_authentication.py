@@ -35,26 +35,6 @@ class TestWebhookAuthentication(unittest.TestCase):
         model = WebhookAuthentication()
         if include_optional:
             return WebhookAuthentication(
-                name = 'My basic auth',
-                type = 'basic',
-                data = None,
-                id = 6,
-                created = '2020-06-10T09:05:27.993483Z',
-                modified = '2021-09-12T10:12:42Z',
-                created_by = '',
-                modified_by = '',
-                webhooks = [
-                    talon_one.models.webhook_authentication_webhook_ref.WebhookAuthenticationWebhookRef(
-                        id = 6, 
-                        title = 'Send message', 
-                        description = 'A webhook to send a coupon to the user.', )
-                    ]
-            )
-        else:
-            return WebhookAuthentication(
-                name = 'My basic auth',
-                type = 'basic',
-                data = None,
                 id = 6,
                 created = '2020-06-10T09:05:27.993483Z',
                 modified = '2021-09-12T10:12:42Z',
@@ -66,6 +46,26 @@ class TestWebhookAuthentication(unittest.TestCase):
                         title = 'Send message', 
                         description = 'A webhook to send a coupon to the user.', )
                     ],
+                name = 'My basic auth',
+                type = 'basic',
+                data = None
+            )
+        else:
+            return WebhookAuthentication(
+                id = 6,
+                created = '2020-06-10T09:05:27.993483Z',
+                modified = '2021-09-12T10:12:42Z',
+                created_by = '',
+                modified_by = '',
+                webhooks = [
+                    talon_one.models.webhook_authentication_webhook_ref.WebhookAuthenticationWebhookRef(
+                        id = 6, 
+                        title = 'Send message', 
+                        description = 'A webhook to send a coupon to the user.', )
+                    ],
+                name = 'My basic auth',
+                type = 'basic',
+                data = None,
         )
         """
 

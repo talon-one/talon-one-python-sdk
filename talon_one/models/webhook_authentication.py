@@ -28,16 +28,16 @@ class WebhookAuthentication(BaseModel):
     """
     WebhookAuthentication
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the webhook authentication.")
-    type: StrictStr
-    data: Optional[Any]
     id: StrictInt = Field(description="The internal ID of this entity.")
     created: datetime = Field(description="The time this entity was created.")
     modified: datetime = Field(description="The time this entity was last modified.")
     created_by: StrictStr = Field(description="The name of the user who created the webhook authentication.", alias="createdBy")
     modified_by: StrictStr = Field(description="The name of the user who last modified the webhook authentication.", alias="modifiedBy")
     webhooks: List[WebhookAuthenticationWebhookRef]
-    __properties: ClassVar[List[str]] = ["name", "type", "data", "id", "created", "modified", "createdBy", "modifiedBy", "webhooks"]
+    name: StrictStr = Field(description="The name of the webhook authentication.")
+    type: StrictStr
+    data: Optional[Any]
+    __properties: ClassVar[List[str]] = ["id", "created", "modified", "createdBy", "modifiedBy", "webhooks", "name", "type", "data"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -109,15 +109,15 @@ class WebhookAuthentication(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "type": obj.get("type"),
-            "data": obj.get("data"),
             "id": obj.get("id"),
             "created": obj.get("created"),
             "modified": obj.get("modified"),
             "createdBy": obj.get("createdBy"),
             "modifiedBy": obj.get("modifiedBy"),
-            "webhooks": [WebhookAuthenticationWebhookRef.from_dict(_item) for _item in obj["webhooks"]] if obj.get("webhooks") is not None else None
+            "webhooks": [WebhookAuthenticationWebhookRef.from_dict(_item) for _item in obj["webhooks"]] if obj.get("webhooks") is not None else None,
+            "name": obj.get("name"),
+            "type": obj.get("type"),
+            "data": obj.get("data")
         })
         return _obj
 

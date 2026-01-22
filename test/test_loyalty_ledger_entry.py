@@ -50,7 +50,8 @@ class TestLoyaltyLedgerEntry(unittest.TestCase):
                 user_id = 499,
                 archived = False,
                 flags = talon_one.models.loyalty_ledger_entry_flags.LoyaltyLedgerEntryFlags(
-                    creates_negative_balance = True, )
+                    creates_negative_balance = True, ),
+                validity_duration = '30D'
             )
         else:
             return LoyaltyLedgerEntry(

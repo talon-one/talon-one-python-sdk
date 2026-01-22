@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **ruleset_id** | **int** | The ID of the ruleset containing the rule that triggered this effect. | [optional] 
 **rule_name** | **str** | The name of the rule that triggered this effect. | [optional] 
 **flags** | [**LoyaltyLedgerEntryFlags**](LoyaltyLedgerEntryFlags.md) | The flags of the transaction, when applicable. The &#x60;createsNegativeBalance&#x60;  flag indicates whether the transaction results in a negative balance. | [optional] 
+**validity_duration** | **str** | The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which &#x60;awaitsActivation&#x60; is &#x60;true&#x60; and &#x60;expiryDate&#x60; is not set.  | [optional] 
 
 ## Example
 

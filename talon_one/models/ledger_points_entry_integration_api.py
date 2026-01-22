@@ -38,7 +38,8 @@ class LedgerPointsEntryIntegrationAPI(BaseModel):
     expiry_date: StrictStr = Field(description="Date when points expire. Possible values are:   - `unlimited`: Points have no expiration date.   - `timestamp value`: Points expire on the given date and time. ", alias="expiryDate")
     subledger_id: Annotated[str, Field(strict=True, max_length=64)] = Field(description="ID of the subledger.", alias="subledgerId")
     amount: Union[StrictFloat, StrictInt] = Field(description="Amount of loyalty points added in the transaction.")
-    __properties: ClassVar[List[str]] = ["id", "transactionUUID", "created", "programId", "customerSessionId", "name", "startDate", "expiryDate", "subledgerId", "amount"]
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration")
+    __properties: ClassVar[List[str]] = ["id", "transactionUUID", "created", "programId", "customerSessionId", "name", "startDate", "expiryDate", "subledgerId", "amount", "validityDuration"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -100,7 +101,8 @@ class LedgerPointsEntryIntegrationAPI(BaseModel):
             "startDate": obj.get("startDate"),
             "expiryDate": obj.get("expiryDate"),
             "subledgerId": obj.get("subledgerId"),
-            "amount": obj.get("amount")
+            "amount": obj.get("amount"),
+            "validityDuration": obj.get("validityDuration")
         })
         return _obj
 
