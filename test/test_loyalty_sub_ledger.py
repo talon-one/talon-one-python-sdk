@@ -57,7 +57,8 @@ class TestLoyaltySubLedger(unittest.TestCase):
                         sub_ledger_id = 'mysubledger', 
                         user_id = 499, 
                         archived = False, 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ],
                 expiring_points = [
                     talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
@@ -75,7 +76,8 @@ class TestLoyaltySubLedger(unittest.TestCase):
                         sub_ledger_id = 'mysubledger', 
                         user_id = 499, 
                         archived = False, 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ],
                 active_points = [
                     talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
@@ -93,7 +95,8 @@ class TestLoyaltySubLedger(unittest.TestCase):
                         sub_ledger_id = 'mysubledger', 
                         user_id = 499, 
                         archived = False, 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ],
                 pending_points = [
                     talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
@@ -111,7 +114,8 @@ class TestLoyaltySubLedger(unittest.TestCase):
                         sub_ledger_id = 'mysubledger', 
                         user_id = 499, 
                         archived = False, 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ],
                 expired_points = [
                     talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
@@ -129,7 +133,8 @@ class TestLoyaltySubLedger(unittest.TestCase):
                         sub_ledger_id = 'mysubledger', 
                         user_id = 499, 
                         archived = False, 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ],
                 current_tier = talon_one.models.tier.Tier(
                     id = 11, 

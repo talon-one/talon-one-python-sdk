@@ -22,7 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BestPriorPriceRequestTarget(BaseModel):
+class BestPriorTarget(BaseModel):
     """
     Specifies the target for which the best prior price calculation is taken into consideration.
     """ # noqa: E501
@@ -55,7 +55,7 @@ class BestPriorPriceRequestTarget(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BestPriorPriceRequestTarget from a JSON string"""
+        """Create an instance of BestPriorTarget from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -80,7 +80,7 @@ class BestPriorPriceRequestTarget(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BestPriorPriceRequestTarget from a dict"""
+        """Create an instance of BestPriorTarget from a dict"""
         if obj is None:
             return None
 

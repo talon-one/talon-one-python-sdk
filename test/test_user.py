@@ -44,7 +44,7 @@ class TestUser(unittest.TestCase):
                 state = 'invited',
                 invite_token = 'Gy9b8w1irmQtEPo5RmbMmSPheL5h4',
                 is_admin = False,
-                policy = {Role=127, Applications=null},
+                policy = {Role=127},
                 roles = [71],
                 auth_method = 'basic_auth',
                 application_notification_subscriptions = {},
@@ -63,7 +63,7 @@ class TestUser(unittest.TestCase):
                 name = 'John Doe',
                 state = 'invited',
                 invite_token = 'Gy9b8w1irmQtEPo5RmbMmSPheL5h4',
-                policy = {Role=127, Applications=null},
+                policy = {Role=127},
         )
         """
 

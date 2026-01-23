@@ -43,7 +43,8 @@ class LedgerTransactionLogEntryIntegrationAPI(BaseModel):
     ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset containing the rule that triggered this effect.", alias="rulesetId")
     rule_name: Optional[StrictStr] = Field(default=None, description="The name of the rule that triggered this effect.", alias="ruleName")
     flags: Optional[LoyaltyLedgerEntryFlags] = Field(default=None, description="The flags of the transaction, when applicable. The `createsNegativeBalance`  flag indicates whether the transaction results in a negative balance.")
-    __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "flags"]
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration")
+    __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "flags", "validityDuration"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -119,7 +120,8 @@ class LedgerTransactionLogEntryIntegrationAPI(BaseModel):
             "id": obj.get("id"),
             "rulesetId": obj.get("rulesetId"),
             "ruleName": obj.get("ruleName"),
-            "flags": LoyaltyLedgerEntryFlags.from_dict(obj["flags"]) if obj.get("flags") is not None else None
+            "flags": LoyaltyLedgerEntryFlags.from_dict(obj["flags"]) if obj.get("flags") is not None else None,
+            "validityDuration": obj.get("validityDuration")
         })
         return _obj
 

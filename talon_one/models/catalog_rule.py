@@ -17,24 +17,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
-from talon_one.models.best_prior_target import BestPriorTarget
+from talon_one.models.binding import Binding
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BestPriorPriceRequest(BaseModel):
+class CatalogRule(BaseModel):
     """
-    BestPriorPriceRequest
+    A rule template stored in a catalog entry. Rules in catalog entries only contain title (no description, as description is at the catalog entry level).
     """ # noqa: E501
-    skus: Annotated[List[StrictStr], Field(min_length=1)] = Field(description="List of product SKUs to check when determining the best prior price.")
-    timeframe_end_date: datetime = Field(description="The end date and time that defines the latest time for retrieving historical SKU prices.", alias="timeframeEndDate")
-    timeframe: StrictStr = Field(description="The number of days prior to the timeframeEndDate. Only prices within this look back period are considered for the best prior price evaluation.")
-    strict_end_date: StrictBool = Field(description="Indicates whether the timeframe includes the start of the current sale. - When `false`, the timeframe includes the start date of the current sale. - When `true`, the timeframe striclty uses the number of days specified in `timeframe`. ", alias="strictEndDate")
-    target: Optional[BestPriorTarget] = None
-    __properties: ClassVar[List[str]] = ["skus", "timeframeEndDate", "timeframe", "strictEndDate", "target"]
+    title: StrictStr = Field(description="A short description of the rule.")
+    bindings: Optional[List[Binding]] = Field(default=None, description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.")
+    condition: Annotated[List[Any], Field(min_length=1)] = Field(description="A Talang expression that will be evaluated in the context of the given event.")
+    effects: List[Dict[str, Any]] = Field(description="An array of effectful Talang expressions in arrays that will be evaluated when a rule matches.")
+    __properties: ClassVar[List[str]] = ["title", "bindings", "condition", "effects"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -54,7 +52,7 @@ class BestPriorPriceRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BestPriorPriceRequest from a JSON string"""
+        """Create an instance of CatalogRule from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,14 +73,18 @@ class BestPriorPriceRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of target
-        if self.target:
-            _dict['target'] = self.target.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in bindings (list)
+        _items = []
+        if self.bindings:
+            for _item_bindings in self.bindings:
+                if _item_bindings:
+                    _items.append(_item_bindings.to_dict())
+            _dict['bindings'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BestPriorPriceRequest from a dict"""
+        """Create an instance of CatalogRule from a dict"""
         if obj is None:
             return None
 
@@ -90,11 +92,10 @@ class BestPriorPriceRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "skus": obj.get("skus"),
-            "timeframeEndDate": obj.get("timeframeEndDate"),
-            "timeframe": obj.get("timeframe"),
-            "strictEndDate": obj.get("strictEndDate"),
-            "target": BestPriorTarget.from_dict(obj["target"]) if obj.get("target") is not None else None
+            "title": obj.get("title"),
+            "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None,
+            "condition": obj.get("condition"),
+            "effects": obj.get("effects")
         })
         return _obj
 

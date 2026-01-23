@@ -13,8 +13,7 @@ Name | Type | Description | Notes
 **status** | **str** | Status defines if the coupon code was applied or rejected. | 
 **coupon_code** | **str** | Coupon code passed for evaluation. | 
 **language** | **str** | Language of the summary. | 
-**short_summary** | **str** | A summary of the reasons for coupon redemption failure. | 
-**long_summary** | **str** | A detailed summary of the reasons for coupon redemption failure based on events of the entire session. | 
+**summary** | **str** | A summary of the reasons for coupon redemption failure. | 
 **created_at** | **datetime** | Timestamp when the request was made. | 
 **updated_at** | **datetime** | Timestamp when the request was last updated. | 
 

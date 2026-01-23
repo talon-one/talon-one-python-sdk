@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.webhook_authentication_base import WebhookAuthenticationBase
+from talon_one.models.cart_item_filter_template import CartItemFilterTemplate
 
-class TestWebhookAuthenticationBase(unittest.TestCase):
-    """WebhookAuthenticationBase unit test stubs"""
+class TestCartItemFilterTemplate(unittest.TestCase):
+    """CartItemFilterTemplate unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,30 +25,28 @@ class TestWebhookAuthenticationBase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> WebhookAuthenticationBase:
-        """Test WebhookAuthenticationBase
+    def make_instance(self, include_optional) -> CartItemFilterTemplate:
+        """Test CartItemFilterTemplate
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `WebhookAuthenticationBase`
+        # uncomment below to create an instance of `CartItemFilterTemplate`
         """
-        model = WebhookAuthenticationBase()
+        model = CartItemFilterTemplate()
         if include_optional:
-            return WebhookAuthenticationBase(
-                name = 'My basic auth',
-                type = 'basic',
-                data = None
+            return CartItemFilterTemplate(
+                name = 'Filter items by product',
+                expression = [filter, [., Session, CartItems], [[Item], [catch, false, [=, [., Item, Category], Kitchen]]]]
             )
         else:
-            return WebhookAuthenticationBase(
-                name = 'My basic auth',
-                type = 'basic',
-                data = None,
+            return CartItemFilterTemplate(
+                name = 'Filter items by product',
+                expression = [filter, [., Session, CartItems], [[Item], [catch, false, [=, [., Item, Category], Kitchen]]]],
         )
         """
 
-    def testWebhookAuthenticationBase(self):
-        """Test WebhookAuthenticationBase"""
+    def testCartItemFilterTemplate(self):
+        """Test CartItemFilterTemplate"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

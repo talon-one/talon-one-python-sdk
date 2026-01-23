@@ -51,7 +51,8 @@ class TestGetLoyaltyProgramProfileTransactions200Response(unittest.TestCase):
                         id = 123, 
                         ruleset_id = 11, 
                         rule_name = 'Add 2 points', 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ]
             )
         else:
@@ -72,7 +73,8 @@ class TestGetLoyaltyProgramProfileTransactions200Response(unittest.TestCase):
                         id = 123, 
                         ruleset_id = 11, 
                         rule_name = 'Add 2 points', 
-                        flags = null, )
+                        flags = null, 
+                        validity_duration = '30D', )
                     ],
         )
         """

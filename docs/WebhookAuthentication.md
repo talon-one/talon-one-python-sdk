@@ -5,15 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | The name of the webhook authentication. | 
-**type** | **str** |  | 
-**data** | **object** |  | 
 **id** | **int** | The internal ID of this entity. | 
 **created** | **datetime** | The time this entity was created. | 
 **modified** | **datetime** | The time this entity was last modified. | 
 **created_by** | **str** | The name of the user who created the webhook authentication. | 
 **modified_by** | **str** | The name of the user who last modified the webhook authentication. | 
 **webhooks** | [**List[WebhookAuthenticationWebhookRef]**](WebhookAuthenticationWebhookRef.md) |  | 
+**name** | **str** | The name of the webhook authentication. | 
+**type** | **str** |  | 
+**data** | **object** |  | 
 
 ## Example
 

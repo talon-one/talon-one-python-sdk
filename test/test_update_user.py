@@ -38,7 +38,7 @@ class TestUpdateUser(unittest.TestCase):
                 name = 'John Doe',
                 state = 'deactivated',
                 is_admin = False,
-                policy = '{Role=127, Applications=null}',
+                policy = '{Role=127}',
                 roles = [1, 3],
                 application_notification_subscriptions = None
             )

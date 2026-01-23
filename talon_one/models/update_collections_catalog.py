@@ -17,27 +17,32 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from talon_one.models.cart_item_filter_template import CartItemFilterTemplate
+from talon_one.models.catalog_rule import CatalogRule
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CampaignTemplateParams(BaseModel):
+class UpdateCollectionsCatalog(BaseModel):
     """
-    CampaignTemplateParams
+    UpdateCollectionsCatalog
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Name of the campaign template parameter.")
-    type: StrictStr = Field(description="Defines the type of parameter value.")
-    description: StrictStr = Field(description="Explains the meaning of this template parameter and the placeholder value that will define it. It is used on campaign creation from this template.")
-    attribute_id: Optional[StrictInt] = Field(default=None, description="ID of the corresponding attribute.", alias="attributeId")
-    __properties: ClassVar[List[str]] = ["name", "type", "description", "attributeId"]
+    title: Optional[StrictStr] = Field(default=None, description="The display name for the collection catalog.")
+    description: Optional[StrictStr] = Field(default=None, description="A longer, more detailed description of the collection catalog.")
+    category: Optional[StrictStr] = Field(default=None, description="Category used to group collection catalogs.")
+    rules: Optional[List[CatalogRule]] = Field(default=None, description="Replaces the stored rules. Rules should only contain title (no description, as description is at the collection catalog level).")
+    cart_item_filters: Optional[List[CartItemFilterTemplate]] = Field(default=None, description="Replaces the stored cart item filters. Cart item filters should only contain name (no description, as description is at the collection catalog level).", alias="cartItemFilters")
+    __properties: ClassVar[List[str]] = ["title", "description", "category", "rules", "cartItemFilters"]
 
-    @field_validator('type')
-    def type_validate_enum(cls, value):
+    @field_validator('category')
+    def category_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['string', 'number', 'boolean', 'percent', '(list string)', '(list number)', 'time']):
-            raise ValueError("must be one of enum values ('string', 'number', 'boolean', 'percent', '(list string)', '(list number)', 'time')")
+        if value is None:
+            return value
+
+        if value not in set(['promotions', 'pricing', 'loyalty', 'custom']):
+            raise ValueError("must be one of enum values ('promotions', 'pricing', 'loyalty', 'custom')")
         return value
 
     model_config = ConfigDict(
@@ -58,7 +63,7 @@ class CampaignTemplateParams(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CampaignTemplateParams from a JSON string"""
+        """Create an instance of UpdateCollectionsCatalog from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -79,11 +84,25 @@ class CampaignTemplateParams(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in rules (list)
+        _items = []
+        if self.rules:
+            for _item_rules in self.rules:
+                if _item_rules:
+                    _items.append(_item_rules.to_dict())
+            _dict['rules'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in cart_item_filters (list)
+        _items = []
+        if self.cart_item_filters:
+            for _item_cart_item_filters in self.cart_item_filters:
+                if _item_cart_item_filters:
+                    _items.append(_item_cart_item_filters.to_dict())
+            _dict['cartItemFilters'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CampaignTemplateParams from a dict"""
+        """Create an instance of UpdateCollectionsCatalog from a dict"""
         if obj is None:
             return None
 
@@ -91,10 +110,11 @@ class CampaignTemplateParams(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "type": obj.get("type"),
+            "title": obj.get("title"),
             "description": obj.get("description"),
-            "attributeId": obj.get("attributeId")
+            "category": obj.get("category"),
+            "rules": [CatalogRule.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None,
+            "cartItemFilters": [CartItemFilterTemplate.from_dict(_item) for _item in obj["cartItemFilters"]] if obj.get("cartItemFilters") is not None else None
         })
         return _obj
 

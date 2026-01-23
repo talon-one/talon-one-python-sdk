@@ -44,7 +44,8 @@ class TestLedgerPointsEntryIntegrationAPI(unittest.TestCase):
                 start_date = '2022-01-02T15:04:05Z07:00',
                 expiry_date = '2022-08-02T15:04:05Z07:00',
                 subledger_id = 'sub-123',
-                amount = 10.25
+                amount = 10.25,
+                validity_duration = '30D'
             )
         else:
             return LedgerPointsEntryIntegrationAPI(

@@ -34,11 +34,10 @@ class CouponFailureSummary(BaseModel):
     status: StrictStr = Field(description="Status defines if the coupon code was applied or rejected.")
     coupon_code: StrictStr = Field(description="Coupon code passed for evaluation.", alias="couponCode")
     language: StrictStr = Field(description="Language of the summary.")
-    short_summary: StrictStr = Field(description="A summary of the reasons for coupon redemption failure.", alias="shortSummary")
-    long_summary: StrictStr = Field(description="A detailed summary of the reasons for coupon redemption failure based on events of the entire session.", alias="longSummary")
+    summary: StrictStr = Field(description="A summary of the reasons for coupon redemption failure.")
     created_at: datetime = Field(description="Timestamp when the request was made.", alias="createdAt")
     updated_at: datetime = Field(description="Timestamp when the request was last updated.", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "eventID", "sessionID", "profileID", "status", "couponCode", "language", "shortSummary", "longSummary", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "eventID", "sessionID", "profileID", "status", "couponCode", "language", "summary", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -98,8 +97,7 @@ class CouponFailureSummary(BaseModel):
             "status": obj.get("status"),
             "couponCode": obj.get("couponCode"),
             "language": obj.get("language"),
-            "shortSummary": obj.get("shortSummary"),
-            "longSummary": obj.get("longSummary"),
+            "summary": obj.get("summary"),
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")
         })

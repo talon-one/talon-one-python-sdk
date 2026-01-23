@@ -26,6 +26,13 @@ class TestIntegrationApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_activate_loyalty_points(self) -> None:
+        """Test case for activate_loyalty_points
+
+        Activate loyalty points
+        """
+        pass
+
     def test_best_prior_price(self) -> None:
         """Test case for best_prior_price
 
@@ -86,6 +93,13 @@ class TestIntegrationApi(unittest.TestCase):
         """Test case for delete_customer_data
 
         Delete customer's personal data
+        """
+        pass
+
+    def test_delete_loyalty_transactions_from_ledgers(self) -> None:
+        """Test case for delete_loyalty_transactions_from_ledgers
+
+        Delete customer's transactions from loyalty ledgers
         """
         pass
 
@@ -205,6 +219,13 @@ class TestIntegrationApi(unittest.TestCase):
         """Test case for track_event_v2
 
         Track event
+        """
+        pass
+
+    def test_unlink_loyalty_card_from_profile(self) -> None:
+        """Test case for unlink_loyalty_card_from_profile
+
+        Unlink customer profile from a loyalty card
         """
         pass
 

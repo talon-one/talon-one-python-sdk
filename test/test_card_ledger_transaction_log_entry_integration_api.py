@@ -48,7 +48,8 @@ class TestCardLedgerTransactionLogEntryIntegrationAPI(unittest.TestCase):
                 amount = 10.25,
                 id = 123,
                 ruleset_id = 11,
-                rule_name = 'Add 2 points'
+                rule_name = 'Add 2 points',
+                validity_duration = '30D'
             )
         else:
             return CardLedgerTransactionLogEntryIntegrationAPI(
