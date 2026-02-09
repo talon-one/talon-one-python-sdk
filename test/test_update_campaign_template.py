@@ -43,6 +43,7 @@ class TestUpdateCampaignTemplate(unittest.TestCase):
                 state = 'draft',
                 active_ruleset_id = 5,
                 tags = [discount],
+                reevaluate_on_return = True,
                 features = [
                     'coupons'
                     ],

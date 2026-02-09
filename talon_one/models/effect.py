@@ -27,6 +27,7 @@ class Effect(BaseModel):
     """
     Effect
     """ # noqa: E501
+    experiment_id: Optional[StrictInt] = Field(default=None, description="The ID of the experiment that campaign belongs to.", alias="experimentId")
     campaign_id: StrictInt = Field(description="The ID of the campaign that triggered this effect.", alias="campaignId")
     ruleset_id: StrictInt = Field(description="The ID of the ruleset that was active in the campaign when this effect was triggered.", alias="rulesetId")
     rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex")
@@ -43,7 +44,7 @@ class Effect(BaseModel):
     selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice")
     adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId")
     props: Optional[Any]
-    __properties: ClassVar[List[str]] = ["campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "props"]
+    __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "props"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,6 +102,7 @@ class Effect(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "experimentId": obj.get("experimentId"),
             "campaignId": obj.get("campaignId"),
             "rulesetId": obj.get("rulesetId"),
             "ruleIndex": obj.get("ruleIndex"),

@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.02"
+__version__ = "26.03"
 
 # Define package exports
 __all__ = [
@@ -66,6 +66,7 @@ __all__ = [
     "AddedDeductedPointsNotificationPolicy",
     "AdditionalCampaignProperties",
     "AdditionalCost",
+    "AdjustmentDetails",
     "AnalyticsDataPoint",
     "AnalyticsDataPointWithTrend",
     "AnalyticsDataPointWithTrendAndInfluencedRate",
@@ -247,6 +248,12 @@ __all__ = [
     "EventType",
     "EventV2",
     "EventV3",
+    "Experiment",
+    "ExperimentResults",
+    "ExperimentVariant",
+    "ExperimentVariantAllocation",
+    "ExperimentVariantResult",
+    "ExperimentVariantResultConfidence",
     "ExpiringCardPointsData",
     "ExpiringCardPointsNotification",
     "ExpiringCouponsData",
@@ -325,6 +332,7 @@ __all__ = [
     "IdentifiableEntity",
     "ImportEntity",
     "IncreaseAchievementProgressEffectProps",
+    "InfluencingCampaignDetails",
     "IntegrationCoupon",
     "IntegrationCustomerProfileAudienceRequest",
     "IntegrationCustomerProfileAudienceRequestItem",
@@ -439,6 +447,9 @@ __all__ = [
     "NewCustomerSessionV2",
     "NewEvent",
     "NewEventType",
+    "NewExperiment",
+    "NewExperimentVariant",
+    "NewExperimentVariantArray",
     "NewExternalInvitation",
     "NewGiveawaysPool",
     "NewInternalAudience",
@@ -641,6 +652,9 @@ __all__ = [
     "UpdateCustomEffect",
     "UpdateCustomerProfileV2409Response",
     "UpdateCustomerSessionV2409Response",
+    "UpdateExperiment",
+    "UpdateExperimentVariant",
+    "UpdateExperimentVariantArray",
     "UpdateLoyaltyCard",
     "UpdateLoyaltyProgram",
     "UpdateLoyaltyProgramTier",
@@ -716,6 +730,7 @@ from talon_one.models.added_deducted_points_notification import AddedDeductedPoi
 from talon_one.models.added_deducted_points_notification_policy import AddedDeductedPointsNotificationPolicy as AddedDeductedPointsNotificationPolicy
 from talon_one.models.additional_campaign_properties import AdditionalCampaignProperties as AdditionalCampaignProperties
 from talon_one.models.additional_cost import AdditionalCost as AdditionalCost
+from talon_one.models.adjustment_details import AdjustmentDetails as AdjustmentDetails
 from talon_one.models.analytics_data_point import AnalyticsDataPoint as AnalyticsDataPoint
 from talon_one.models.analytics_data_point_with_trend import AnalyticsDataPointWithTrend as AnalyticsDataPointWithTrend
 from talon_one.models.analytics_data_point_with_trend_and_influenced_rate import AnalyticsDataPointWithTrendAndInfluencedRate as AnalyticsDataPointWithTrendAndInfluencedRate
@@ -897,6 +912,12 @@ from talon_one.models.event import Event as Event
 from talon_one.models.event_type import EventType as EventType
 from talon_one.models.event_v2 import EventV2 as EventV2
 from talon_one.models.event_v3 import EventV3 as EventV3
+from talon_one.models.experiment import Experiment as Experiment
+from talon_one.models.experiment_results import ExperimentResults as ExperimentResults
+from talon_one.models.experiment_variant import ExperimentVariant as ExperimentVariant
+from talon_one.models.experiment_variant_allocation import ExperimentVariantAllocation as ExperimentVariantAllocation
+from talon_one.models.experiment_variant_result import ExperimentVariantResult as ExperimentVariantResult
+from talon_one.models.experiment_variant_result_confidence import ExperimentVariantResultConfidence as ExperimentVariantResultConfidence
 from talon_one.models.expiring_card_points_data import ExpiringCardPointsData as ExpiringCardPointsData
 from talon_one.models.expiring_card_points_notification import ExpiringCardPointsNotification as ExpiringCardPointsNotification
 from talon_one.models.expiring_coupons_data import ExpiringCouponsData as ExpiringCouponsData
@@ -975,6 +996,7 @@ from talon_one.models.hidden_conditions_effects import HiddenConditionsEffects a
 from talon_one.models.identifiable_entity import IdentifiableEntity as IdentifiableEntity
 from talon_one.models.import_entity import ImportEntity as ImportEntity
 from talon_one.models.increase_achievement_progress_effect_props import IncreaseAchievementProgressEffectProps as IncreaseAchievementProgressEffectProps
+from talon_one.models.influencing_campaign_details import InfluencingCampaignDetails as InfluencingCampaignDetails
 from talon_one.models.integration_coupon import IntegrationCoupon as IntegrationCoupon
 from talon_one.models.integration_customer_profile_audience_request import IntegrationCustomerProfileAudienceRequest as IntegrationCustomerProfileAudienceRequest
 from talon_one.models.integration_customer_profile_audience_request_item import IntegrationCustomerProfileAudienceRequestItem as IntegrationCustomerProfileAudienceRequestItem
@@ -1089,6 +1111,9 @@ from talon_one.models.new_customer_session import NewCustomerSession as NewCusto
 from talon_one.models.new_customer_session_v2 import NewCustomerSessionV2 as NewCustomerSessionV2
 from talon_one.models.new_event import NewEvent as NewEvent
 from talon_one.models.new_event_type import NewEventType as NewEventType
+from talon_one.models.new_experiment import NewExperiment as NewExperiment
+from talon_one.models.new_experiment_variant import NewExperimentVariant as NewExperimentVariant
+from talon_one.models.new_experiment_variant_array import NewExperimentVariantArray as NewExperimentVariantArray
 from talon_one.models.new_external_invitation import NewExternalInvitation as NewExternalInvitation
 from talon_one.models.new_giveaways_pool import NewGiveawaysPool as NewGiveawaysPool
 from talon_one.models.new_internal_audience import NewInternalAudience as NewInternalAudience
@@ -1291,6 +1316,9 @@ from talon_one.models.update_coupons_data import UpdateCouponsData as UpdateCoup
 from talon_one.models.update_custom_effect import UpdateCustomEffect as UpdateCustomEffect
 from talon_one.models.update_customer_profile_v2409_response import UpdateCustomerProfileV2409Response as UpdateCustomerProfileV2409Response
 from talon_one.models.update_customer_session_v2409_response import UpdateCustomerSessionV2409Response as UpdateCustomerSessionV2409Response
+from talon_one.models.update_experiment import UpdateExperiment as UpdateExperiment
+from talon_one.models.update_experiment_variant import UpdateExperimentVariant as UpdateExperimentVariant
+from talon_one.models.update_experiment_variant_array import UpdateExperimentVariantArray as UpdateExperimentVariantArray
 from talon_one.models.update_loyalty_card import UpdateLoyaltyCard as UpdateLoyaltyCard
 from talon_one.models.update_loyalty_program import UpdateLoyaltyProgram as UpdateLoyaltyProgram
 from talon_one.models.update_loyalty_program_tier import UpdateLoyaltyProgramTier as UpdateLoyaltyProgramTier

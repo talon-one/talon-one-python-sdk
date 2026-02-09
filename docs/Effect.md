@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**experiment_id** | **int** | The ID of the experiment that campaign belongs to. | [optional] 
 **campaign_id** | **int** | The ID of the campaign that triggered this effect. | 
 **ruleset_id** | **int** | The ID of the ruleset that was active in the campaign when this effect was triggered. | 
 **rule_index** | **int** | The position of the rule that triggered this effect within the ruleset. | 

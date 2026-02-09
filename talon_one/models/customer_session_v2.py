@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from talon_one.models.additional_cost import AdditionalCost
 from talon_one.models.cart_item import CartItem
+from talon_one.models.experiment_variant_allocation import ExperimentVariantAllocation
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -42,6 +43,7 @@ class CustomerSessionV2(BaseModel):
     loyalty_cards: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Identifier of a loyalty card.", alias="loyaltyCards")
     state: Optional[StrictStr] = Field(default='open', description="Indicates the current state of the session. Sessions can be created as `open` or `closed`. The state transitions are:  1. `open` → `closed` 2. `open` → `cancelled` 3. Either:    - `closed` → `cancelled` (**only** via [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2)) or    - `closed` → `partially_returned` (**only** via [Return cart items](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/returnCartItems))    - `closed` → `open` (**only** via [Reopen customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/reopenCustomerSession)) 4. `partially_returned` → `cancelled`  For more information, see [Customer session states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions). ")
     cart_items: Optional[List[CartItem]] = Field(default=None, description="The items to add to this session. **Do not exceed 1000 items** and ensure the sum of all cart item's `quantity` **does not exceed 10.000** per request. ", alias="cartItems")
+    experiment_variant_allocations: Optional[List[ExperimentVariantAllocation]] = Field(default=None, description="The experiment variant allocations to add to this session. ", alias="experimentVariantAllocations")
     additional_costs: Optional[Dict[str, AdditionalCost]] = Field(default=None, description="Use this property to set a value for the additional costs of this session, such as a shipping cost.  They must be created in the Campaign Manager before you set them with this property. See [Managing additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs). ", alias="additionalCosts")
     identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers).  **Important**: Ensure the session contains an identifier by the time you close it if: - You [create a unique identifier budget](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-budgets/#budget-types) for your campaign. - Your campaign has [coupons](https://docs.talon.one/docs/product/campaigns/coupons/coupon-page-overview). - We recommend passing an anonymized (hashed) version of the identifier value. ")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Use this property to set a value for the attributes of your choice. Attributes represent any information to attach to your session, like the shipping city.  You can use [built-in attributes](https://docs.talon.one/docs/dev/concepts/attributes#built-in-attributes) or [custom ones](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes). Custom attributes must be created in the Campaign Manager before you set them with this property. ")
@@ -51,7 +53,7 @@ class CustomerSessionV2(BaseModel):
     cart_item_total: Union[StrictFloat, StrictInt] = Field(description="The total value of cart items, before any discounts are applied.", alias="cartItemTotal")
     additional_cost_total: Union[StrictFloat, StrictInt] = Field(description="The total value of additional costs, before any discounts are applied.", alias="additionalCostTotal")
     updated: datetime = Field(description="Timestamp of the most recent event received on this session.")
-    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "state", "cartItems", "additionalCosts", "identifiers", "attributes", "firstSession", "updateCount", "total", "cartItemTotal", "additionalCostTotal", "updated"]
+    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "state", "cartItems", "experimentVariantAllocations", "additionalCosts", "identifiers", "attributes", "firstSession", "updateCount", "total", "cartItemTotal", "additionalCostTotal", "updated"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -109,6 +111,13 @@ class CustomerSessionV2(BaseModel):
                 if _item_cart_items:
                     _items.append(_item_cart_items.to_dict())
             _dict['cartItems'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in experiment_variant_allocations (list)
+        _items = []
+        if self.experiment_variant_allocations:
+            for _item_experiment_variant_allocations in self.experiment_variant_allocations:
+                if _item_experiment_variant_allocations:
+                    _items.append(_item_experiment_variant_allocations.to_dict())
+            _dict['experimentVariantAllocations'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in additional_costs (dict)
         _field_dict = {}
         if self.additional_costs:
@@ -140,6 +149,7 @@ class CustomerSessionV2(BaseModel):
             "loyaltyCards": obj.get("loyaltyCards"),
             "state": obj.get("state") if obj.get("state") is not None else 'open',
             "cartItems": [CartItem.from_dict(_item) for _item in obj["cartItems"]] if obj.get("cartItems") is not None else None,
+            "experimentVariantAllocations": [ExperimentVariantAllocation.from_dict(_item) for _item in obj["experimentVariantAllocations"]] if obj.get("experimentVariantAllocations") is not None else None,
             "additionalCosts": dict(
                 (_k, AdditionalCost.from_dict(_v))
                 for _k, _v in obj["additionalCosts"].items()

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from talon_one.models.code_generator_settings import CodeGeneratorSettings
@@ -37,7 +37,8 @@ class NewCouponCreationJob(BaseModel):
     number_of_coupons: Annotated[int, Field(le=5000000, strict=True, ge=1)] = Field(description="The number of new coupon codes to generate for the campaign.", alias="numberOfCoupons")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with coupons.")
-    __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "numberOfCoupons", "couponSettings", "attributes"]
+    is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory")
+    __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "numberOfCoupons", "couponSettings", "attributes", "isReservationMandatory"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -100,7 +101,8 @@ class NewCouponCreationJob(BaseModel):
             "expiryDate": obj.get("expiryDate"),
             "numberOfCoupons": obj.get("numberOfCoupons"),
             "couponSettings": CodeGeneratorSettings.from_dict(obj["couponSettings"]) if obj.get("couponSettings") is not None else None,
-            "attributes": obj.get("attributes")
+            "attributes": obj.get("attributes"),
+            "isReservationMandatory": obj.get("isReservationMandatory") if obj.get("isReservationMandatory") is not None else False
         })
         return _obj
 

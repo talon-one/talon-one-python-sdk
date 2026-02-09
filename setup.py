@@ -11,13 +11,18 @@ import pathlib
 # http://pypi.python.org/pypi/setuptools
 
 NAME = "talon-one-sdk"
-VERSION = "26.02"
+VERSION = "26.03"
 
 # Get the long description from the README.md file
 here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
-REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
+REQUIRES = [
+    "urllib3 >= 2.1.0, < 3.0.0",
+    "python-dateutil >= 2.8.2",
+    "pydantic >= 2",
+    "typing-extensions >= 4.7.1"
+]
 
 setup(
     name=NAME,

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.code_generator_settings import CodeGeneratorSettings
@@ -36,12 +36,13 @@ class RevisionVersion(BaseModel):
     end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
     description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
-    active_ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset this campaign template will use.", alias="activeRulesetId")
-    tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign template.")
+    active_ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset this campaign will use.", alias="activeRulesetId")
+    tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign.")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     referral_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="referralSettings")
     limits: Optional[List[LimitConfig]] = Field(default=None, description="The set of limits that will operate for this campaign version.")
-    features: Optional[List[StrictStr]] = Field(default=None, description="A list of features for the campaign template.")
+    reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether this campaign should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn")
+    features: Optional[List[StrictStr]] = Field(default=None, description="A list of features for the campaign.")
     account_id: StrictInt = Field(alias="accountId")
     application_id: StrictInt = Field(alias="applicationId")
     campaign_id: StrictInt = Field(alias="campaignId")
@@ -49,7 +50,7 @@ class RevisionVersion(BaseModel):
     created_by: StrictInt = Field(alias="createdBy")
     revision_id: StrictInt = Field(alias="revisionId")
     version: StrictInt
-    __properties: ClassVar[List[str]] = ["id", "name", "startTime", "endTime", "attributes", "description", "activeRulesetId", "tags", "couponSettings", "referralSettings", "limits", "features", "accountId", "applicationId", "campaignId", "created", "createdBy", "revisionId", "version"]
+    __properties: ClassVar[List[str]] = ["id", "name", "startTime", "endTime", "attributes", "description", "activeRulesetId", "tags", "couponSettings", "referralSettings", "limits", "reevaluateOnReturn", "features", "accountId", "applicationId", "campaignId", "created", "createdBy", "revisionId", "version"]
 
     @field_validator('features')
     def features_validate_enum(cls, value):
@@ -137,6 +138,7 @@ class RevisionVersion(BaseModel):
             "couponSettings": CodeGeneratorSettings.from_dict(obj["couponSettings"]) if obj.get("couponSettings") is not None else None,
             "referralSettings": CodeGeneratorSettings.from_dict(obj["referralSettings"]) if obj.get("referralSettings") is not None else None,
             "limits": [LimitConfig.from_dict(_item) for _item in obj["limits"]] if obj.get("limits") is not None else None,
+            "reevaluateOnReturn": obj.get("reevaluateOnReturn"),
             "features": obj.get("features"),
             "accountId": obj.get("accountId"),
             "applicationId": obj.get("applicationId"),

@@ -57,6 +57,7 @@ class TestNewRevisionVersion(unittest.TestCase):
                         period = 'yearly', 
                         entities = [Coupon], )
                     ],
+                reevaluate_on_return = True,
                 features = [
                     'coupons'
                     ]

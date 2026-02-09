@@ -45,6 +45,7 @@ class CampaignTemplate(BaseModel):
     state: StrictStr = Field(description="Only campaign templates in 'available' state may be used to create campaigns.")
     active_ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset this campaign template will use.", alias="activeRulesetId")
     tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign template.")
+    reevaluate_on_return: StrictBool = Field(description="Indicates whether campaigns created from this template should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn")
     features: Optional[List[StrictStr]] = Field(default=None, description="A list of features for the campaign template.")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     coupon_reservation_settings: Optional[CampaignTemplateCouponReservationSettings] = Field(default=None, alias="couponReservationSettings")
@@ -60,7 +61,7 @@ class CampaignTemplate(BaseModel):
     updated_by: Optional[StrictStr] = Field(default=None, description="Name of the user who last updated this campaign template, if available.", alias="updatedBy")
     valid_application_ids: List[StrictInt] = Field(description="The IDs of the Applications that are related to this entity.", alias="validApplicationIds")
     is_user_favorite: Optional[StrictBool] = Field(default=False, description="A flag indicating whether the user marked the template as a favorite.", alias="isUserFavorite")
-    __properties: ClassVar[List[str]] = ["id", "created", "accountId", "userId", "name", "description", "instructions", "campaignAttributes", "couponAttributes", "state", "activeRulesetId", "tags", "features", "couponSettings", "couponReservationSettings", "referralSettings", "limits", "templateParams", "applicationsIds", "campaignCollections", "defaultCampaignGroupId", "campaignType", "campaignsCount", "updated", "updatedBy", "validApplicationIds", "isUserFavorite"]
+    __properties: ClassVar[List[str]] = ["id", "created", "accountId", "userId", "name", "description", "instructions", "campaignAttributes", "couponAttributes", "state", "activeRulesetId", "tags", "reevaluateOnReturn", "features", "couponSettings", "couponReservationSettings", "referralSettings", "limits", "templateParams", "applicationsIds", "campaignCollections", "defaultCampaignGroupId", "campaignType", "campaignsCount", "updated", "updatedBy", "validApplicationIds", "isUserFavorite"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -183,6 +184,7 @@ class CampaignTemplate(BaseModel):
             "state": obj.get("state"),
             "activeRulesetId": obj.get("activeRulesetId"),
             "tags": obj.get("tags"),
+            "reevaluateOnReturn": obj.get("reevaluateOnReturn"),
             "features": obj.get("features"),
             "couponSettings": CodeGeneratorSettings.from_dict(obj["couponSettings"]) if obj.get("couponSettings") is not None else None,
             "couponReservationSettings": CampaignTemplateCouponReservationSettings.from_dict(obj["couponReservationSettings"]) if obj.get("couponReservationSettings") is not None else None,

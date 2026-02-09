@@ -43,6 +43,7 @@ class Campaign(BaseModel):
     state: StrictStr = Field(description="A disabled or archived campaign is not evaluated for rules or coupons. ")
     active_ruleset_id: Optional[StrictInt] = Field(default=None, description="[ID of Ruleset](https://docs.talon.one/management-api#operation/getRulesets) this campaign applies on customer session evaluation. ", alias="activeRulesetId")
     tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.")
+    reevaluate_on_return: StrictBool = Field(description="Indicates whether this campaign should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn")
     features: List[StrictStr] = Field(description="The features enabled in this campaign.")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     referral_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="referralSettings")
@@ -74,6 +75,7 @@ class Campaign(BaseModel):
     frontend_state: StrictStr = Field(description="The campaign state displayed in the Campaign Manager.", alias="frontendState")
     stores_imported: StrictBool = Field(description="Indicates whether the linked stores were imported via a CSV file.", alias="storesImported")
     value_maps_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of value map IDs for the campaign.", alias="valueMapsIds")
+    experiment_id: Optional[StrictInt] = Field(default=None, description="The ID of the Experiment this Campaign is part of.", alias="experimentId")
     revision_frontend_state: Optional[StrictStr] = Field(default=None, description="The campaign revision state displayed in the Campaign Manager.", alias="revisionFrontendState")
     active_revision_id: Optional[StrictInt] = Field(default=None, description="ID of the revision that was last activated on this campaign. ", alias="activeRevisionId")
     active_revision_version_id: Optional[StrictInt] = Field(default=None, description="ID of the revision version that is active on the campaign. ", alias="activeRevisionVersionId")
@@ -81,7 +83,7 @@ class Campaign(BaseModel):
     current_revision_id: Optional[StrictInt] = Field(default=None, description="ID of the revision currently being modified for the campaign. ", alias="currentRevisionId")
     current_revision_version_id: Optional[StrictInt] = Field(default=None, description="ID of the latest version applied on the current revision. ", alias="currentRevisionVersionId")
     stage_revision: Optional[StrictBool] = Field(default=False, description="Flag for determining whether we use current revision when sending requests with staging API key. ", alias="stageRevision")
-    __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "userId", "name", "description", "startTime", "endTime", "attributes", "state", "activeRulesetId", "tags", "features", "couponSettings", "referralSettings", "limits", "campaignGroups", "type", "linkedStoreIds", "budgets", "couponRedemptionCount", "referralRedemptionCount", "discountCount", "discountEffectCount", "couponCreationCount", "customEffectCount", "referralCreationCount", "addFreeItemEffectCount", "awardedGiveawaysCount", "createdLoyaltyPointsCount", "createdLoyaltyPointsEffectCount", "redeemedLoyaltyPointsCount", "redeemedLoyaltyPointsEffectCount", "callApiEffectCount", "reservecouponEffectCount", "lastActivity", "updated", "createdBy", "updatedBy", "templateId", "frontendState", "storesImported", "valueMapsIds", "revisionFrontendState", "activeRevisionId", "activeRevisionVersionId", "version", "currentRevisionId", "currentRevisionVersionId", "stageRevision"]
+    __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "userId", "name", "description", "startTime", "endTime", "attributes", "state", "activeRulesetId", "tags", "reevaluateOnReturn", "features", "couponSettings", "referralSettings", "limits", "campaignGroups", "type", "linkedStoreIds", "budgets", "couponRedemptionCount", "referralRedemptionCount", "discountCount", "discountEffectCount", "couponCreationCount", "customEffectCount", "referralCreationCount", "addFreeItemEffectCount", "awardedGiveawaysCount", "createdLoyaltyPointsCount", "createdLoyaltyPointsEffectCount", "redeemedLoyaltyPointsCount", "redeemedLoyaltyPointsEffectCount", "callApiEffectCount", "reservecouponEffectCount", "lastActivity", "updated", "createdBy", "updatedBy", "templateId", "frontendState", "storesImported", "valueMapsIds", "experimentId", "revisionFrontendState", "activeRevisionId", "activeRevisionVersionId", "version", "currentRevisionId", "currentRevisionVersionId", "stageRevision"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -208,6 +210,7 @@ class Campaign(BaseModel):
             "state": obj.get("state") if obj.get("state") is not None else 'enabled',
             "activeRulesetId": obj.get("activeRulesetId"),
             "tags": obj.get("tags"),
+            "reevaluateOnReturn": obj.get("reevaluateOnReturn"),
             "features": obj.get("features"),
             "couponSettings": CodeGeneratorSettings.from_dict(obj["couponSettings"]) if obj.get("couponSettings") is not None else None,
             "referralSettings": CodeGeneratorSettings.from_dict(obj["referralSettings"]) if obj.get("referralSettings") is not None else None,
@@ -239,6 +242,7 @@ class Campaign(BaseModel):
             "frontendState": obj.get("frontendState"),
             "storesImported": obj.get("storesImported"),
             "valueMapsIds": obj.get("valueMapsIds"),
+            "experimentId": obj.get("experimentId"),
             "revisionFrontendState": obj.get("revisionFrontendState"),
             "activeRevisionId": obj.get("activeRevisionId"),
             "activeRevisionVersionId": obj.get("activeRevisionVersionId"),

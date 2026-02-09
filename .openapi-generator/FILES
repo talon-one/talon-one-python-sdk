@@ -4,6 +4,7 @@
 .gitignore
 .gitlab-ci.yml
 .travis.yml
+MIGRATION.md
 Makefile
 README.md
 docker-compose.yml
@@ -44,6 +45,7 @@ docs/AddedDeductedPointsNotification.md
 docs/AddedDeductedPointsNotificationPolicy.md
 docs/AdditionalCampaignProperties.md
 docs/AdditionalCost.md
+docs/AdjustmentDetails.md
 docs/AnalyticsDataPoint.md
 docs/AnalyticsDataPointWithTrend.md
 docs/AnalyticsDataPointWithTrendAndInfluencedRate.md
@@ -225,6 +227,12 @@ docs/Event.md
 docs/EventType.md
 docs/EventV2.md
 docs/EventV3.md
+docs/Experiment.md
+docs/ExperimentResults.md
+docs/ExperimentVariant.md
+docs/ExperimentVariantAllocation.md
+docs/ExperimentVariantResult.md
+docs/ExperimentVariantResultConfidence.md
 docs/ExpiringCardPointsData.md
 docs/ExpiringCardPointsNotification.md
 docs/ExpiringCouponsData.md
@@ -303,6 +311,7 @@ docs/HiddenConditionsEffects.md
 docs/IdentifiableEntity.md
 docs/ImportEntity.md
 docs/IncreaseAchievementProgressEffectProps.md
+docs/InfluencingCampaignDetails.md
 docs/IntegrationApi.md
 docs/IntegrationCoupon.md
 docs/IntegrationCustomerProfileAudienceRequest.md
@@ -419,6 +428,9 @@ docs/NewCustomerSession.md
 docs/NewCustomerSessionV2.md
 docs/NewEvent.md
 docs/NewEventType.md
+docs/NewExperiment.md
+docs/NewExperimentVariant.md
+docs/NewExperimentVariantArray.md
 docs/NewExternalInvitation.md
 docs/NewGiveawaysPool.md
 docs/NewInternalAudience.md
@@ -621,6 +633,9 @@ docs/UpdateCouponsData.md
 docs/UpdateCustomEffect.md
 docs/UpdateCustomerProfileV2409Response.md
 docs/UpdateCustomerSessionV2409Response.md
+docs/UpdateExperiment.md
+docs/UpdateExperimentVariant.md
+docs/UpdateExperimentVariantArray.md
 docs/UpdateLoyaltyCard.md
 docs/UpdateLoyaltyProgram.md
 docs/UpdateLoyaltyProgramTier.md
@@ -692,6 +707,7 @@ talon_one/models/added_deducted_points_notification.py
 talon_one/models/added_deducted_points_notification_policy.py
 talon_one/models/additional_campaign_properties.py
 talon_one/models/additional_cost.py
+talon_one/models/adjustment_details.py
 talon_one/models/analytics_data_point.py
 talon_one/models/analytics_data_point_with_trend.py
 talon_one/models/analytics_data_point_with_trend_and_influenced_rate.py
@@ -874,6 +890,12 @@ talon_one/models/event.py
 talon_one/models/event_type.py
 talon_one/models/event_v2.py
 talon_one/models/event_v3.py
+talon_one/models/experiment.py
+talon_one/models/experiment_results.py
+talon_one/models/experiment_variant.py
+talon_one/models/experiment_variant_allocation.py
+talon_one/models/experiment_variant_result.py
+talon_one/models/experiment_variant_result_confidence.py
 talon_one/models/expiring_card_points_data.py
 talon_one/models/expiring_card_points_notification.py
 talon_one/models/expiring_coupons_data.py
@@ -952,6 +974,7 @@ talon_one/models/hidden_conditions_effects.py
 talon_one/models/identifiable_entity.py
 talon_one/models/import_entity.py
 talon_one/models/increase_achievement_progress_effect_props.py
+talon_one/models/influencing_campaign_details.py
 talon_one/models/integration_coupon.py
 talon_one/models/integration_customer_profile_audience_request.py
 talon_one/models/integration_customer_profile_audience_request_item.py
@@ -1066,6 +1089,9 @@ talon_one/models/new_customer_session.py
 talon_one/models/new_customer_session_v2.py
 talon_one/models/new_event.py
 talon_one/models/new_event_type.py
+talon_one/models/new_experiment.py
+talon_one/models/new_experiment_variant.py
+talon_one/models/new_experiment_variant_array.py
 talon_one/models/new_external_invitation.py
 talon_one/models/new_giveaways_pool.py
 talon_one/models/new_internal_audience.py
@@ -1268,6 +1294,9 @@ talon_one/models/update_coupons_data.py
 talon_one/models/update_custom_effect.py
 talon_one/models/update_customer_profile_v2409_response.py
 talon_one/models/update_customer_session_v2409_response.py
+talon_one/models/update_experiment.py
+talon_one/models/update_experiment_variant.py
+talon_one/models/update_experiment_variant_array.py
 talon_one/models/update_loyalty_card.py
 talon_one/models/update_loyalty_program.py
 talon_one/models/update_loyalty_program_tier.py
@@ -1328,6 +1357,7 @@ test/test_added_deducted_points_notification.py
 test/test_added_deducted_points_notification_policy.py
 test/test_additional_campaign_properties.py
 test/test_additional_cost.py
+test/test_adjustment_details.py
 test/test_analytics_data_point.py
 test/test_analytics_data_point_with_trend.py
 test/test_analytics_data_point_with_trend_and_influenced_rate.py
@@ -1510,6 +1540,12 @@ test/test_event.py
 test/test_event_type.py
 test/test_event_v2.py
 test/test_event_v3.py
+test/test_experiment.py
+test/test_experiment_results.py
+test/test_experiment_variant.py
+test/test_experiment_variant_allocation.py
+test/test_experiment_variant_result.py
+test/test_experiment_variant_result_confidence.py
 test/test_expiring_card_points_data.py
 test/test_expiring_card_points_notification.py
 test/test_expiring_coupons_data.py
@@ -1588,6 +1624,7 @@ test/test_hidden_conditions_effects.py
 test/test_identifiable_entity.py
 test/test_import_entity.py
 test/test_increase_achievement_progress_effect_props.py
+test/test_influencing_campaign_details.py
 test/test_integration_api.py
 test/test_integration_coupon.py
 test/test_integration_customer_profile_audience_request.py
@@ -1704,6 +1741,9 @@ test/test_new_customer_session.py
 test/test_new_customer_session_v2.py
 test/test_new_event.py
 test/test_new_event_type.py
+test/test_new_experiment.py
+test/test_new_experiment_variant.py
+test/test_new_experiment_variant_array.py
 test/test_new_external_invitation.py
 test/test_new_giveaways_pool.py
 test/test_new_internal_audience.py
@@ -1906,6 +1946,9 @@ test/test_update_coupons_data.py
 test/test_update_custom_effect.py
 test/test_update_customer_profile_v2409_response.py
 test/test_update_customer_session_v2409_response.py
+test/test_update_experiment.py
+test/test_update_experiment_variant.py
+test/test_update_experiment_variant_array.py
 test/test_update_loyalty_card.py
 test/test_update_loyalty_program.py
 test/test_update_loyalty_program_tier.py

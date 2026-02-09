@@ -35,13 +35,23 @@ class TestBestPriorPriceMetadata(unittest.TestCase):
         model = BestPriorPriceMetadata()
         if include_optional:
             return BestPriorPriceMetadata(
-                influencing_campaign_ids = [
-                    56
+                influencing_campaign_details = [
+                    talon_one.models.influencing_campaign_details.InfluencingCampaignDetails(
+                        campaign_id = 56, 
+                        discount_value = 1.337, )
                     ],
-                adjustment_reference_id = ''
+                adjustment_details = talon_one.models.adjustment_details.AdjustmentDetails(
+                    reference_id = '68851723-e6fa-488f-ace9-112581e6c19b', 
+                    selected_price_type = 'member', 
+                    value = 1.337, )
             )
         else:
             return BestPriorPriceMetadata(
+                influencing_campaign_details = [
+                    talon_one.models.influencing_campaign_details.InfluencingCampaignDetails(
+                        campaign_id = 56, 
+                        discount_value = 1.337, )
+                    ],
         )
         """
 

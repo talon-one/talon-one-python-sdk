@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.code_generator_settings import CodeGeneratorSettings
@@ -38,6 +38,7 @@ class NewCampaign(BaseModel):
     state: StrictStr = Field(description="A disabled or archived campaign is not evaluated for rules or coupons. ")
     active_ruleset_id: Optional[StrictInt] = Field(default=None, description="[ID of Ruleset](https://docs.talon.one/management-api#operation/getRulesets) this campaign applies on customer session evaluation. ", alias="activeRulesetId")
     tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.")
+    reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether this campaign should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn")
     features: List[StrictStr] = Field(description="The features enabled in this campaign.")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     referral_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="referralSettings")
@@ -46,7 +47,7 @@ class NewCampaign(BaseModel):
     type: Optional[StrictStr] = Field(default='advanced', description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ")
     linked_store_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of store IDs that you want to link to the campaign.  **Note:** Campaigns with linked store IDs will only be evaluated when there is a [customer session update](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) that references a linked store. ", alias="linkedStoreIds")
     evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign evaluation group the campaign belongs to.", alias="evaluationGroupId")
-    __properties: ClassVar[List[str]] = ["name", "description", "startTime", "endTime", "attributes", "state", "activeRulesetId", "tags", "features", "couponSettings", "referralSettings", "limits", "campaignGroups", "type", "linkedStoreIds", "evaluationGroupId"]
+    __properties: ClassVar[List[str]] = ["name", "description", "startTime", "endTime", "attributes", "state", "activeRulesetId", "tags", "reevaluateOnReturn", "features", "couponSettings", "referralSettings", "limits", "campaignGroups", "type", "linkedStoreIds", "evaluationGroupId"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -145,6 +146,7 @@ class NewCampaign(BaseModel):
             "state": obj.get("state") if obj.get("state") is not None else 'enabled',
             "activeRulesetId": obj.get("activeRulesetId"),
             "tags": obj.get("tags"),
+            "reevaluateOnReturn": obj.get("reevaluateOnReturn"),
             "features": obj.get("features"),
             "couponSettings": CodeGeneratorSettings.from_dict(obj["couponSettings"]) if obj.get("couponSettings") is not None else None,
             "referralSettings": CodeGeneratorSettings.from_dict(obj["referralSettings"]) if obj.get("referralSettings") is not None else None,

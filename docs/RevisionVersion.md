@@ -11,12 +11,13 @@ Name | Type | Description | Notes
 **end_time** | **datetime** | Timestamp when the campaign will become inactive. | [optional] 
 **attributes** | **object** | Arbitrary properties associated with this campaign. | [optional] 
 **description** | **str** | A detailed description of the campaign. | [optional] 
-**active_ruleset_id** | **int** | The ID of the ruleset this campaign template will use. | [optional] 
-**tags** | **List[str]** | A list of tags for the campaign template. | [optional] 
+**active_ruleset_id** | **int** | The ID of the ruleset this campaign will use. | [optional] 
+**tags** | **List[str]** | A list of tags for the campaign. | [optional] 
 **coupon_settings** | [**CodeGeneratorSettings**](CodeGeneratorSettings.md) |  | [optional] 
 **referral_settings** | [**CodeGeneratorSettings**](CodeGeneratorSettings.md) |  | [optional] 
 **limits** | [**List[LimitConfig]**](LimitConfig.md) | The set of limits that will operate for this campaign version. | [optional] 
-**features** | **List[str]** | A list of features for the campaign template. | [optional] 
+**reevaluate_on_return** | **bool** | Indicates whether this campaign should be reevaluated when a customer returns an item. | [optional] 
+**features** | **List[str]** | A list of features for the campaign. | [optional] 
 **account_id** | **int** |  | 
 **application_id** | **int** |  | 
 **campaign_id** | **int** |  | 

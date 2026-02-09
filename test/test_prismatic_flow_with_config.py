@@ -39,14 +39,20 @@ class TestPrismaticFlowWithConfig(unittest.TestCase):
                 event_type = '',
                 prismatic_flow_url = '',
                 config = talon_one.models.prismatic_flow_config.PrismaticFlowConfig(
-                    api_key = '', )
+                    api_key = '', 
+                    worker_count = 1, 
+                    max_events_per_message = 1, 
+                    max_retries = 0, )
             )
         else:
             return PrismaticFlowWithConfig(
                 event_type = '',
                 prismatic_flow_url = '',
                 config = talon_one.models.prismatic_flow_config.PrismaticFlowConfig(
-                    api_key = '', ),
+                    api_key = '', 
+                    worker_count = 1, 
+                    max_events_per_message = 1, 
+                    max_retries = 0, ),
         )
         """
 

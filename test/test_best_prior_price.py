@@ -40,10 +40,12 @@ class TestBestPriorPrice(unittest.TestCase):
                 context_id = 'Summer Sale 2007',
                 price = 99.99,
                 metadata = talon_one.models.best_prior_price_metadata.BestPriorPriceMetadata(
-                    influencing_campaign_ids = [
-                        56
+                    influencing_campaign_details = [
+                        talon_one.models.influencing_campaign_details.InfluencingCampaignDetails(
+                            campaign_id = 56, 
+                            discount_value = 1.337, )
                         ], 
-                    adjustment_reference_id = '', ),
+                    adjustment_details = talon_one.models.adjustment_details.adjustmentDetails(), ),
                 target = talon_one.models.label_target.LabelTarget()
             )
         else:
@@ -53,10 +55,12 @@ class TestBestPriorPrice(unittest.TestCase):
                 context_id = 'Summer Sale 2007',
                 price = 99.99,
                 metadata = talon_one.models.best_prior_price_metadata.BestPriorPriceMetadata(
-                    influencing_campaign_ids = [
-                        56
+                    influencing_campaign_details = [
+                        talon_one.models.influencing_campaign_details.InfluencingCampaignDetails(
+                            campaign_id = 56, 
+                            discount_value = 1.337, )
                         ], 
-                    adjustment_reference_id = '', ),
+                    adjustment_details = talon_one.models.adjustment_details.adjustmentDetails(), ),
                 target = talon_one.models.label_target.LabelTarget(),
         )
         """

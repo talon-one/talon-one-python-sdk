@@ -70,6 +70,11 @@ class TestCustomerSessionV2(unittest.TestCase):
                         adjustment_effective_until = '2021-09-12T10:12:42Z', 
                         prices = {member={price=90, adjustmentReferenceId=68851723-e6fa-488f-ace9-112581e6c19b, effectiveFrom=2025-05-25T00:00:00Z, effectiveUntil=2025-05-30T00:00:00Z}, base={price=100}}, )
                     ],
+                experiment_variant_allocations = [
+                    talon_one.models.experiment_variant_allocation.ExperimentVariantAllocation(
+                        experiment_id = 1, 
+                        variant_id = 2, )
+                    ],
                 additional_costs = {shipping={price=9}},
                 identifiers = [d41306257915f83fe01e54092ae470f631161ea16fcf4415842eed41470386ea],
                 attributes = {ShippingCity=Berlin},

@@ -43,6 +43,7 @@ class TestNewCampaign(unittest.TestCase):
                 state = 'enabled',
                 active_ruleset_id = 6,
                 tags = [summer],
+                reevaluate_on_return = True,
                 features = [coupons, referrals],
                 coupon_settings = talon_one.models.code_generator_settings.CodeGeneratorSettings(
                     valid_characters = [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 

@@ -1,10 +1,13 @@
 # Talon.One Python SDK
 
-> [!WARNING]
-This project is in beta. Use is "AS IS" and at your own risk.
-The stable version of this SDK is available [here](https://github.com/talon-one/talon_one.py).
+> [!NOTE]
+The legacy version of this SDK is available [here](https://github.com/talon-one/talon_one.py).
 
 This SDK supports all of the operations of Talon.One's Integration API and Management API.
+
+## Migrating from legacy SDKs
+
+See our [migration guide](MIGRATION.md).
 
 ## Installation and usage
 
@@ -404,6 +407,7 @@ Class | Method | HTTP request | Description
 - [AddedDeductedPointsNotificationPolicy](docs/AddedDeductedPointsNotificationPolicy.md)
 - [AdditionalCampaignProperties](docs/AdditionalCampaignProperties.md)
 - [AdditionalCost](docs/AdditionalCost.md)
+- [AdjustmentDetails](docs/AdjustmentDetails.md)
 - [AnalyticsDataPoint](docs/AnalyticsDataPoint.md)
 - [AnalyticsDataPointWithTrend](docs/AnalyticsDataPointWithTrend.md)
 - [AnalyticsDataPointWithTrendAndInfluencedRate](docs/AnalyticsDataPointWithTrendAndInfluencedRate.md)
@@ -585,6 +589,12 @@ Class | Method | HTTP request | Description
 - [EventType](docs/EventType.md)
 - [EventV2](docs/EventV2.md)
 - [EventV3](docs/EventV3.md)
+- [Experiment](docs/Experiment.md)
+- [ExperimentResults](docs/ExperimentResults.md)
+- [ExperimentVariant](docs/ExperimentVariant.md)
+- [ExperimentVariantAllocation](docs/ExperimentVariantAllocation.md)
+- [ExperimentVariantResult](docs/ExperimentVariantResult.md)
+- [ExperimentVariantResultConfidence](docs/ExperimentVariantResultConfidence.md)
 - [ExpiringCardPointsData](docs/ExpiringCardPointsData.md)
 - [ExpiringCardPointsNotification](docs/ExpiringCardPointsNotification.md)
 - [ExpiringCouponsData](docs/ExpiringCouponsData.md)
@@ -663,6 +673,7 @@ Class | Method | HTTP request | Description
 - [IdentifiableEntity](docs/IdentifiableEntity.md)
 - [ImportEntity](docs/ImportEntity.md)
 - [IncreaseAchievementProgressEffectProps](docs/IncreaseAchievementProgressEffectProps.md)
+- [InfluencingCampaignDetails](docs/InfluencingCampaignDetails.md)
 - [IntegrationCoupon](docs/IntegrationCoupon.md)
 - [IntegrationCustomerProfileAudienceRequest](docs/IntegrationCustomerProfileAudienceRequest.md)
 - [IntegrationCustomerProfileAudienceRequestItem](docs/IntegrationCustomerProfileAudienceRequestItem.md)
@@ -777,6 +788,9 @@ Class | Method | HTTP request | Description
 - [NewCustomerSessionV2](docs/NewCustomerSessionV2.md)
 - [NewEvent](docs/NewEvent.md)
 - [NewEventType](docs/NewEventType.md)
+- [NewExperiment](docs/NewExperiment.md)
+- [NewExperimentVariant](docs/NewExperimentVariant.md)
+- [NewExperimentVariantArray](docs/NewExperimentVariantArray.md)
 - [NewExternalInvitation](docs/NewExternalInvitation.md)
 - [NewGiveawaysPool](docs/NewGiveawaysPool.md)
 - [NewInternalAudience](docs/NewInternalAudience.md)
@@ -979,6 +993,9 @@ Class | Method | HTTP request | Description
 - [UpdateCustomEffect](docs/UpdateCustomEffect.md)
 - [UpdateCustomerProfileV2409Response](docs/UpdateCustomerProfileV2409Response.md)
 - [UpdateCustomerSessionV2409Response](docs/UpdateCustomerSessionV2409Response.md)
+- [UpdateExperiment](docs/UpdateExperiment.md)
+- [UpdateExperimentVariant](docs/UpdateExperimentVariant.md)
+- [UpdateExperimentVariantArray](docs/UpdateExperimentVariantArray.md)
 - [UpdateLoyaltyCard](docs/UpdateLoyaltyCard.md)
 - [UpdateLoyaltyProgram](docs/UpdateLoyaltyProgram.md)
 - [UpdateLoyaltyProgramTier](docs/UpdateLoyaltyProgramTier.md)

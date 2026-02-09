@@ -35,6 +35,7 @@ class TestEffectEntity(unittest.TestCase):
         model = EffectEntity()
         if include_optional:
             return EffectEntity(
+                experiment_id = 12,
                 campaign_id = 244,
                 ruleset_id = 73,
                 rule_index = 2,
