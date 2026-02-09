@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.campaign_template_collection import CampaignTemplateCollection
@@ -39,6 +39,7 @@ class NewCampaignTemplate(BaseModel):
     coupon_attributes: Optional[Dict[str, Any]] = Field(default=None, description="The campaign attributes that coupons created from this template will have by default.", alias="couponAttributes")
     state: StrictStr = Field(description="Only Campaign Templates in 'available' state may be used to create Campaigns.")
     tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign template.")
+    reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether campaigns created from this template should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn")
     features: Optional[List[StrictStr]] = Field(default=None, description="A list of features for the campaign template.")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     coupon_reservation_settings: Optional[CampaignTemplateCouponReservationSettings] = Field(default=None, alias="couponReservationSettings")
@@ -48,7 +49,7 @@ class NewCampaignTemplate(BaseModel):
     campaign_collections: Optional[List[CampaignTemplateCollection]] = Field(default=None, description="The campaign collections from the blueprint campaign for the template.", alias="campaignCollections")
     default_campaign_group_id: Optional[StrictInt] = Field(default=None, description="The default campaign group ID.", alias="defaultCampaignGroupId")
     campaign_type: StrictStr = Field(description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", alias="campaignType")
-    __properties: ClassVar[List[str]] = ["name", "description", "instructions", "campaignAttributes", "couponAttributes", "state", "tags", "features", "couponSettings", "couponReservationSettings", "referralSettings", "limits", "templateParams", "campaignCollections", "defaultCampaignGroupId", "campaignType"]
+    __properties: ClassVar[List[str]] = ["name", "description", "instructions", "campaignAttributes", "couponAttributes", "state", "tags", "reevaluateOnReturn", "features", "couponSettings", "couponReservationSettings", "referralSettings", "limits", "templateParams", "campaignCollections", "defaultCampaignGroupId", "campaignType"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -163,6 +164,7 @@ class NewCampaignTemplate(BaseModel):
             "couponAttributes": obj.get("couponAttributes"),
             "state": obj.get("state"),
             "tags": obj.get("tags"),
+            "reevaluateOnReturn": obj.get("reevaluateOnReturn"),
             "features": obj.get("features"),
             "couponSettings": CodeGeneratorSettings.from_dict(obj["couponSettings"]) if obj.get("couponSettings") is not None else None,
             "couponReservationSettings": CampaignTemplateCouponReservationSettings.from_dict(obj["couponReservationSettings"]) if obj.get("couponReservationSettings") is not None else None,

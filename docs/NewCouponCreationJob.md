@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **number_of_coupons** | **int** | The number of new coupon codes to generate for the campaign. | 
 **coupon_settings** | [**CodeGeneratorSettings**](CodeGeneratorSettings.md) |  | [optional] 
 **attributes** | **object** | Arbitrary properties associated with coupons. | 
+**is_reservation_mandatory** | **bool** | An indication of whether the code can be redeemed only if it has been reserved first. | [optional] [default to False]
 
 ## Example
 

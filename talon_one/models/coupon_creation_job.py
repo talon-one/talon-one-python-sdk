@@ -42,6 +42,7 @@ class CouponCreationJob(BaseModel):
     number_of_coupons: Annotated[int, Field(le=5000000, strict=True, ge=1)] = Field(description="The number of new coupon codes to generate for the campaign.", alias="numberOfCoupons")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with coupons.")
+    is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory")
     batch_id: StrictStr = Field(description="The batch ID coupons created by this job will bear.", alias="batchId")
     status: StrictStr = Field(description="The current status of this request. Possible values: - `pending verification` - `pending` - `completed` - `failed` - `coupon pattern full` ")
     created_amount: StrictInt = Field(description="The number of coupon codes that were already created for this request.", alias="createdAmount")
@@ -51,7 +52,7 @@ class CouponCreationJob(BaseModel):
     communicated: StrictBool = Field(description="Whether or not the user that created this job was notified of its final state.")
     chunk_execution_count: StrictInt = Field(description="The number of times an attempt to create a chunk of coupons was made during the processing of the job.", alias="chunkExecutionCount")
     chunk_size: Optional[StrictInt] = Field(default=None, description="The number of coupons that will be created in a single transactions. Coupons will be created in chunks until arriving at the requested amount.", alias="chunkSize")
-    __properties: ClassVar[List[str]] = ["id", "created", "campaignId", "applicationId", "accountId", "usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "numberOfCoupons", "couponSettings", "attributes", "batchId", "status", "createdAmount", "failCount", "errors", "createdBy", "communicated", "chunkExecutionCount", "chunkSize"]
+    __properties: ClassVar[List[str]] = ["id", "created", "campaignId", "applicationId", "accountId", "usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "numberOfCoupons", "couponSettings", "attributes", "isReservationMandatory", "batchId", "status", "createdAmount", "failCount", "errors", "createdBy", "communicated", "chunkExecutionCount", "chunkSize"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -120,6 +121,7 @@ class CouponCreationJob(BaseModel):
             "numberOfCoupons": obj.get("numberOfCoupons"),
             "couponSettings": CodeGeneratorSettings.from_dict(obj["couponSettings"]) if obj.get("couponSettings") is not None else None,
             "attributes": obj.get("attributes"),
+            "isReservationMandatory": obj.get("isReservationMandatory") if obj.get("isReservationMandatory") is not None else False,
             "batchId": obj.get("batchId"),
             "status": obj.get("status"),
             "createdAmount": obj.get("createdAmount"),

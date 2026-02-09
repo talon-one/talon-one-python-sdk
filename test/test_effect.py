@@ -35,6 +35,7 @@ class TestEffect(unittest.TestCase):
         model = Effect()
         if include_optional:
             return Effect(
+                experiment_id = 12,
                 campaign_id = 244,
                 ruleset_id = 73,
                 rule_index = 2,

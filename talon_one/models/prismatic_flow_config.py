@@ -18,7 +18,8 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +28,10 @@ class PrismaticFlowConfig(BaseModel):
     PrismaticFlowConfig
     """ # noqa: E501
     api_key: StrictStr = Field(alias="ApiKey")
-    __properties: ClassVar[List[str]] = ["ApiKey"]
+    worker_count: Optional[Annotated[int, Field(le=500, strict=True, ge=1)]] = Field(default=10, description="Number of Prismatic workers to run in parallel for this flow (maximum 500).", alias="WorkerCount")
+    max_events_per_message: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=1000, description="Maximum number of events to send in a single message to Prismatic.", alias="MaxEventsPerMessage")
+    max_retries: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=10, description="Maximum number of retries for a Prismatic event before it is ignored.", alias="MaxRetries")
+    __properties: ClassVar[List[str]] = ["ApiKey", "WorkerCount", "MaxEventsPerMessage", "MaxRetries"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,7 +84,10 @@ class PrismaticFlowConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ApiKey": obj.get("ApiKey")
+            "ApiKey": obj.get("ApiKey"),
+            "WorkerCount": obj.get("WorkerCount") if obj.get("WorkerCount") is not None else 10,
+            "MaxEventsPerMessage": obj.get("MaxEventsPerMessage") if obj.get("MaxEventsPerMessage") is not None else 1000,
+            "MaxRetries": obj.get("MaxRetries") if obj.get("MaxRetries") is not None else 10
         })
         return _obj
 

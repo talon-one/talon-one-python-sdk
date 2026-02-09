@@ -47,6 +47,7 @@ class TestCampaignTemplate(unittest.TestCase):
                 state = 'draft',
                 active_ruleset_id = 5,
                 tags = [discount],
+                reevaluate_on_return = True,
                 features = [
                     'coupons'
                     ],
@@ -93,6 +94,7 @@ class TestCampaignTemplate(unittest.TestCase):
                 description = 'This is a template for a discount campaign.',
                 instructions = 'Use this template for discount campaigns. Set the campaign properties according to the campaign goals, and don't forget to set an end date.',
                 state = 'draft',
+                reevaluate_on_return = True,
                 applications_ids = [1, 2, 3],
                 valid_application_ids = [1, 2, 3],
         )

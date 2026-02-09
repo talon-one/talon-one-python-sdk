@@ -44,6 +44,7 @@ class TestNewCampaignTemplate(unittest.TestCase):
                 tags = [
                     '0'
                     ],
+                reevaluate_on_return = True,
                 features = [
                     'coupons'
                     ],

@@ -39,8 +39,8 @@ class TemplateArgDef(BaseModel):
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['string', 'boolean', 'number', 'time', '(list string)']):
-            raise ValueError("must be one of enum values ('string', 'boolean', 'number', 'time', '(list string)')")
+        if value not in set(['string', 'boolean', 'number', 'time', '(list string)', '(list number)']):
+            raise ValueError("must be one of enum values ('string', 'boolean', 'number', 'time', '(list string)', '(list number)')")
         return value
 
     model_config = ConfigDict(

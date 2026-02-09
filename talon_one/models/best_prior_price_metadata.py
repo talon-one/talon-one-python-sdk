@@ -17,8 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.adjustment_details import AdjustmentDetails
+from talon_one.models.influencing_campaign_details import InfluencingCampaignDetails
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +28,9 @@ class BestPriorPriceMetadata(BaseModel):
     """
     Auxiliary data for found price observation.
     """ # noqa: E501
-    influencing_campaign_ids: Optional[List[StrictInt]] = Field(default=None, alias="influencingCampaignIDs")
-    adjustment_reference_id: Optional[StrictStr] = Field(default=None, description="Identifier related to the `referenceId` used during a `ADD_PRICE_ADJUSTMENT` action  using the [Sync cart item catalog endpoint](https://docs.talon.one/integration-api#tag/Catalogs/operation/syncCatalog).", alias="adjustmentReferenceID")
-    __properties: ClassVar[List[str]] = ["influencingCampaignIDs", "adjustmentReferenceID"]
+    influencing_campaign_details: List[InfluencingCampaignDetails] = Field(description="Details about campaigns that influenced the final price.", alias="influencingCampaignDetails")
+    adjustment_details: Optional[AdjustmentDetails] = Field(default=None, description="Details about the applied price adjustment.", alias="adjustmentDetails")
+    __properties: ClassVar[List[str]] = ["influencingCampaignDetails", "adjustmentDetails"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,6 +71,16 @@ class BestPriorPriceMetadata(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in influencing_campaign_details (list)
+        _items = []
+        if self.influencing_campaign_details:
+            for _item_influencing_campaign_details in self.influencing_campaign_details:
+                if _item_influencing_campaign_details:
+                    _items.append(_item_influencing_campaign_details.to_dict())
+            _dict['influencingCampaignDetails'] = _items
+        # override the default output from pydantic by calling `to_dict()` of adjustment_details
+        if self.adjustment_details:
+            _dict['adjustmentDetails'] = self.adjustment_details.to_dict()
         return _dict
 
     @classmethod
@@ -81,8 +93,8 @@ class BestPriorPriceMetadata(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "influencingCampaignIDs": obj.get("influencingCampaignIDs"),
-            "adjustmentReferenceID": obj.get("adjustmentReferenceID")
+            "influencingCampaignDetails": [InfluencingCampaignDetails.from_dict(_item) for _item in obj["influencingCampaignDetails"]] if obj.get("influencingCampaignDetails") is not None else None,
+            "adjustmentDetails": AdjustmentDetails.from_dict(obj["adjustmentDetails"]) if obj.get("adjustmentDetails") is not None else None
         })
         return _obj
 

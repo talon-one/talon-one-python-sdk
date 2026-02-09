@@ -52,7 +52,8 @@ class AdditionalCampaignProperties(BaseModel):
     frontend_state: StrictStr = Field(description="The campaign state displayed in the Campaign Manager.", alias="frontendState")
     stores_imported: StrictBool = Field(description="Indicates whether the linked stores were imported via a CSV file.", alias="storesImported")
     value_maps_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of value map IDs for the campaign.", alias="valueMapsIds")
-    __properties: ClassVar[List[str]] = ["budgets", "couponRedemptionCount", "referralRedemptionCount", "discountCount", "discountEffectCount", "couponCreationCount", "customEffectCount", "referralCreationCount", "addFreeItemEffectCount", "awardedGiveawaysCount", "createdLoyaltyPointsCount", "createdLoyaltyPointsEffectCount", "redeemedLoyaltyPointsCount", "redeemedLoyaltyPointsEffectCount", "callApiEffectCount", "reservecouponEffectCount", "lastActivity", "updated", "createdBy", "updatedBy", "templateId", "frontendState", "storesImported", "valueMapsIds"]
+    experiment_id: Optional[StrictInt] = Field(default=None, description="The ID of the Experiment this Campaign is part of.", alias="experimentId")
+    __properties: ClassVar[List[str]] = ["budgets", "couponRedemptionCount", "referralRedemptionCount", "discountCount", "discountEffectCount", "couponCreationCount", "customEffectCount", "referralCreationCount", "addFreeItemEffectCount", "awardedGiveawaysCount", "createdLoyaltyPointsCount", "createdLoyaltyPointsEffectCount", "redeemedLoyaltyPointsCount", "redeemedLoyaltyPointsEffectCount", "callApiEffectCount", "reservecouponEffectCount", "lastActivity", "updated", "createdBy", "updatedBy", "templateId", "frontendState", "storesImported", "valueMapsIds", "experimentId"]
 
     @field_validator('frontend_state')
     def frontend_state_validate_enum(cls, value):
@@ -142,7 +143,8 @@ class AdditionalCampaignProperties(BaseModel):
             "templateId": obj.get("templateId"),
             "frontendState": obj.get("frontendState"),
             "storesImported": obj.get("storesImported"),
-            "valueMapsIds": obj.get("valueMapsIds")
+            "valueMapsIds": obj.get("valueMapsIds"),
+            "experimentId": obj.get("experimentId")
         })
         return _obj
 

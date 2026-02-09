@@ -35,7 +35,10 @@ class TestPrismaticFlowConfig(unittest.TestCase):
         model = PrismaticFlowConfig()
         if include_optional:
             return PrismaticFlowConfig(
-                api_key = ''
+                api_key = '',
+                worker_count = 1,
+                max_events_per_message = 1,
+                max_retries = 0
             )
         else:
             return PrismaticFlowConfig(

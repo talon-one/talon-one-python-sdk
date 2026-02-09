@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **frontend_state** | **str** | The campaign state displayed in the Campaign Manager. | 
 **stores_imported** | **bool** | Indicates whether the linked stores were imported via a CSV file. | 
 **value_maps_ids** | **List[int]** | A list of value map IDs for the campaign. | [optional] 
+**experiment_id** | **int** | The ID of the Experiment this Campaign is part of. | [optional] 
 
 ## Example
 

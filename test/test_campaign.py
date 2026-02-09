@@ -47,6 +47,7 @@ class TestCampaign(unittest.TestCase):
                 state = 'enabled',
                 active_ruleset_id = 6,
                 tags = [summer],
+                reevaluate_on_return = True,
                 features = [coupons, referrals],
                 coupon_settings = talon_one.models.code_generator_settings.CodeGeneratorSettings(
                     valid_characters = [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
@@ -93,6 +94,7 @@ class TestCampaign(unittest.TestCase):
                 frontend_state = 'running',
                 stores_imported = True,
                 value_maps_ids = [100, 215],
+                experiment_id = 1,
                 revision_frontend_state = 'revised',
                 active_revision_id = 6,
                 active_revision_version_id = 6,
@@ -110,6 +112,7 @@ class TestCampaign(unittest.TestCase):
                 name = 'Summer promotions',
                 state = 'enabled',
                 tags = [summer],
+                reevaluate_on_return = True,
                 features = [coupons, referrals],
                 limits = [
                     talon_one.models.limit_config.LimitConfig(
