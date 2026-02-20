@@ -1226,7 +1226,7 @@ class TestManagementApi(unittest.TestCase):
     def test_update_loyalty_card(self) -> None:
         """Test case for update_loyalty_card
 
-        Update loyalty card status
+        Update loyalty card
         """
         pass
 

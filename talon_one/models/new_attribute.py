@@ -45,8 +45,8 @@ class NewAttribute(BaseModel):
     @field_validator('entity')
     def entity_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['Application', 'Campaign', 'CustomerProfile', 'CustomerSession', 'CartItem', 'Coupon', 'Event', 'Giveaway', 'Referral', 'Store']):
-            raise ValueError("must be one of enum values ('Application', 'Campaign', 'CustomerProfile', 'CustomerSession', 'CartItem', 'Coupon', 'Event', 'Giveaway', 'Referral', 'Store')")
+        if value not in set(['Application', 'Campaign', 'CustomerProfile', 'CustomerSession', 'CartItem', 'Coupon', 'Event', 'Giveaway', 'LoyaltyCard', 'Referral', 'Store']):
+            raise ValueError("must be one of enum values ('Application', 'Campaign', 'CustomerProfile', 'CustomerSession', 'CartItem', 'Coupon', 'Event', 'Giveaway', 'LoyaltyCard', 'Referral', 'Store')")
         return value
 
     @field_validator('name')

@@ -19,7 +19,8 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
+from talon_one.models.campaign import Campaign
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +29,7 @@ class CampaignDeletedNotificationItem(BaseModel):
     CampaignDeletedNotificationItem
     """ # noqa: E501
     event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
-    campaign: Optional[Any] = Field(description="The campaign whose state changed.")
+    campaign: Campaign = Field(description="The campaign whose state changed.")
     deleted_at: datetime = Field(description="Time when the campaign was deleted.", alias="deletedAt")
     __properties: ClassVar[List[str]] = ["Event", "campaign", "deletedAt"]
 
@@ -71,11 +72,9 @@ class CampaignDeletedNotificationItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if campaign (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign is None and "campaign" in self.model_fields_set:
-            _dict['campaign'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of campaign
+        if self.campaign:
+            _dict['campaign'] = self.campaign.to_dict()
         return _dict
 
     @classmethod
@@ -89,7 +88,7 @@ class CampaignDeletedNotificationItem(BaseModel):
 
         _obj = cls.model_validate({
             "Event": obj.get("Event"),
-            "campaign": obj.get("campaign"),
+            "campaign": Campaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
             "deletedAt": obj.get("deletedAt")
         })
         return _obj

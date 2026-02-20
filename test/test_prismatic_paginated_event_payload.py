@@ -36,6 +36,7 @@ class TestPrismaticPaginatedEventPayload(unittest.TestCase):
         if include_optional:
             return PrismaticPaginatedEventPayload(
                 total_result_size = 56,
+                batched_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 event_type = 'LoyaltyPointsChanged',
                 data = [
                     null

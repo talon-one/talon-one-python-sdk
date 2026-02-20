@@ -38,13 +38,25 @@ class TestCampaignCreatedNotificationItem(unittest.TestCase):
                 event = 'campaign_state_changed',
                 campaign = None,
                 ruleset = None,
-                evaluation_position = None
+                placeholders = [
+                    talon_one.models.placeholder_details.PlaceholderDetails(
+                        name = 'my property', 
+                        type = 'list string', 
+                        value = [1, sku_value], )
+                    ],
+                evaluation_position = talon_one.models.campaign_evaluation_position.CampaignEvaluationPosition(
+                    group_id = 2, 
+                    group_name = 'Summer campaigns', 
+                    position = 2, )
             )
         else:
             return CampaignCreatedNotificationItem(
                 event = 'campaign_state_changed',
                 campaign = None,
-                evaluation_position = None,
+                evaluation_position = talon_one.models.campaign_evaluation_position.CampaignEvaluationPosition(
+                    group_id = 2, 
+                    group_name = 'Summer campaigns', 
+                    position = 2, ),
         )
         """
 

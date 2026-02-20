@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,9 +28,10 @@ class PrismaticPaginatedEventPayload(BaseModel):
     PrismaticPaginatedEventPayload
     """ # noqa: E501
     total_result_size: StrictInt = Field(alias="TotalResultSize")
+    batched_at: Optional[datetime] = Field(default=None, description="Timestamp when the batch was created.", alias="BatchedAt")
     event_type: StrictStr = Field(alias="EventType")
     data: List[Any] = Field(alias="Data")
-    __properties: ClassVar[List[str]] = ["TotalResultSize", "EventType", "Data"]
+    __properties: ClassVar[List[str]] = ["TotalResultSize", "BatchedAt", "EventType", "Data"]
 
     @field_validator('event_type')
     def event_type_validate_enum(cls, value):
@@ -90,6 +92,7 @@ class PrismaticPaginatedEventPayload(BaseModel):
 
         _obj = cls.model_validate({
             "TotalResultSize": obj.get("TotalResultSize"),
+            "BatchedAt": obj.get("BatchedAt"),
             "EventType": obj.get("EventType"),
             "Data": obj.get("Data")
         })

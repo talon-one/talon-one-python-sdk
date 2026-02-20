@@ -43,8 +43,8 @@ class TalangAttribute(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['AdvocateProfile', 'Account', 'Application', 'AwardedGiveaway', 'Bundle', 'Campaign', 'CartItem', 'Coupon', 'CustomerProfile', 'CustomerSession', 'Event', 'Item', 'Loyalty', 'Profile', 'Giveaway', 'Referral', 'Session', 'Store', 'Achievements']):
-            raise ValueError("must be one of enum values ('AdvocateProfile', 'Account', 'Application', 'AwardedGiveaway', 'Bundle', 'Campaign', 'CartItem', 'Coupon', 'CustomerProfile', 'CustomerSession', 'Event', 'Item', 'Loyalty', 'Profile', 'Giveaway', 'Referral', 'Session', 'Store', 'Achievements')")
+        if value not in set(['AdvocateProfile', 'Account', 'Application', 'AwardedGiveaway', 'Bundle', 'Campaign', 'CartItem', 'Coupon', 'CustomerProfile', 'CustomerSession', 'Event', 'Item', 'Loyalty', 'LoyaltyCard', 'Profile', 'Giveaway', 'Referral', 'Session', 'Store', 'Achievements']):
+            raise ValueError("must be one of enum values ('AdvocateProfile', 'Account', 'Application', 'AwardedGiveaway', 'Bundle', 'Campaign', 'CartItem', 'Coupon', 'CustomerProfile', 'CustomerSession', 'Event', 'Item', 'Loyalty', 'LoyaltyCard', 'Profile', 'Giveaway', 'Referral', 'Session', 'Store', 'Achievements')")
         return value
 
     @field_validator('kind')

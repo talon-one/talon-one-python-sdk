@@ -35,9 +35,7 @@ class TestIntegrationStateV2(unittest.TestCase):
         model = IntegrationStateV2()
         if include_optional:
             return IntegrationStateV2(
-                customer_session = None,
                 customer_profile = None,
-                event = None,
                 loyalty = talon_one.models.loyalty.Loyalty(
                     cards = [
                         null
@@ -53,10 +51,6 @@ class TestIntegrationStateV2(unittest.TestCase):
                                 'key' : null
                                 }, )
                         }, ),
-                referral = None,
-                coupons = [
-                    null
-                    ],
                 triggered_campaigns = [
                     null
                     ],
@@ -89,6 +83,13 @@ class TestIntegrationStateV2(unittest.TestCase):
                 awarded_giveaways = [
                     null
                     ],
+                referral = None,
+                coupons = [
+                    null
+                    ],
+                event = None,
+                advanced_event = None,
+                customer_session = None,
                 var_return = None,
                 previous_returns = [
                     null

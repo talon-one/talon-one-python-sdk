@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.role_v2_permission_set import RoleV2PermissionSet
+from talon_one.models.role_v2_roles_group import RoleV2RolesGroup
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +30,7 @@ class RoleV2Permissions(BaseModel):
     RoleV2Permissions
     """ # noqa: E501
     permission_sets: Optional[Annotated[List[RoleV2PermissionSet], Field(max_length=500)]] = Field(default=None, description="List of grouped logical operations referenced by roles.", alias="permissionSets")
-    roles: Optional[Dict[str, Any]] = None
+    roles: Optional[RoleV2RolesGroup] = None
     __properties: ClassVar[List[str]] = ["permissionSets", "roles"]
 
     model_config = ConfigDict(

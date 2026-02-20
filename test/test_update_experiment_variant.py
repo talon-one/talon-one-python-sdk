@@ -70,7 +70,7 @@ class TestUpdateExperimentVariant(unittest.TestCase):
                     bindings = [], 
                     rb_version = 'v2', 
                     activate = True, ),
-                weight = 12
+                weight = 13
             )
         else:
             return UpdateExperimentVariant(
@@ -109,7 +109,7 @@ class TestUpdateExperimentVariant(unittest.TestCase):
                     bindings = [], 
                     rb_version = 'v2', 
                     activate = True, ),
-                weight = 12,
+                weight = 13,
         )
         """
 

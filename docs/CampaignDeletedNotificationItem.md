@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event** | **str** | The type of the event. Can be one of the following: [&#39;campaign_state_changed&#39;, &#39;campaign_ruleset_changed&#39;, &#39;campaign_edited&#39;, &#39;campaign_created&#39;, &#39;campaign_deleted&#39;]  | 
-**campaign** | **object** | The campaign whose state changed. | 
+**campaign** | [**Campaign**](Campaign.md) | The campaign whose state changed. | 
 **deleted_at** | **datetime** | Time when the campaign was deleted. | 
 
 ## Example

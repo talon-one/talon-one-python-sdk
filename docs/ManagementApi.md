@@ -175,7 +175,7 @@ Method | HTTP request | Description
 [**update_collection**](ManagementApi.md#update_collection) | **PUT** /v1/applications/{applicationId}/campaigns/{campaignId}/collections/{collectionId} | Update campaign-level collection&#39;s description
 [**update_coupon**](ManagementApi.md#update_coupon) | **PUT** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons/{couponId} | Update coupon
 [**update_coupon_batch**](ManagementApi.md#update_coupon_batch) | **PUT** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons | Update coupons
-[**update_loyalty_card**](ManagementApi.md#update_loyalty_card) | **PUT** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId} | Update loyalty card status
+[**update_loyalty_card**](ManagementApi.md#update_loyalty_card) | **PUT** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId} | Update loyalty card
 [**update_referral**](ManagementApi.md#update_referral) | **PUT** /v1/applications/{applicationId}/campaigns/{campaignId}/referrals/{referralId} | Update referral
 [**update_role_v2**](ManagementApi.md#update_role_v2) | **PUT** /v2/roles/{roleId} | Update role
 [**update_store**](ManagementApi.md#update_store) | **PUT** /v1/applications/{applicationId}/stores/{storeId} | Update store
@@ -17891,11 +17891,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_loyalty_card**
-> LoyaltyCard update_loyalty_card(loyalty_program_id, loyalty_card_id, update_loyalty_card)
+> LoyaltyCard update_loyalty_card(loyalty_program_id, loyalty_card_id, update_loyalty_card_request)
 
-Update loyalty card status
+Update loyalty card
 
-Update the status of the given loyalty card. A card can be _active_ or _inactive_.
+Update the details of a specific loyalty card. You can set the card's status to `active` or `inactive` through this endpoint. At least one of `status` or `attributes` must be provided. 
 
 ### Example
 
@@ -17906,7 +17906,7 @@ Update the status of the given loyalty card. A card can be _active_ or _inactive
 ```python
 import talon_one
 from talon_one.models.loyalty_card import LoyaltyCard
-from talon_one.models.update_loyalty_card import UpdateLoyaltyCard
+from talon_one.models.update_loyalty_card_request import UpdateLoyaltyCardRequest
 from talon_one.rest import ApiException
 from pprint import pprint
 
@@ -17945,11 +17945,11 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     loyalty_card_id = 'loyalty_card_id_example' # str | Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint. 
-    update_loyalty_card = talon_one.UpdateLoyaltyCard() # UpdateLoyaltyCard | body
+    update_loyalty_card_request = talon_one.UpdateLoyaltyCardRequest() # UpdateLoyaltyCardRequest | body
 
     try:
-        # Update loyalty card status
-        api_response = api_instance.update_loyalty_card(loyalty_program_id, loyalty_card_id, update_loyalty_card)
+        # Update loyalty card
+        api_response = api_instance.update_loyalty_card(loyalty_program_id, loyalty_card_id, update_loyalty_card_request)
         print("The response of ManagementApi->update_loyalty_card:\n")
         pprint(api_response)
     except Exception as e:
@@ -17965,7 +17965,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **loyalty_card_id** | **str**| Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  | 
- **update_loyalty_card** | [**UpdateLoyaltyCard**](UpdateLoyaltyCard.md)| body | 
+ **update_loyalty_card_request** | [**UpdateLoyaltyCardRequest**](UpdateLoyaltyCardRequest.md)| body | 
 
 ### Return type
 

@@ -32,9 +32,9 @@ class IntegrationEventV2Request(BaseModel):
     evaluable_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="When using the `dry` query parameter, use this property to list the campaign to be evaluated by the Rule Engine.  These campaigns will be evaluated, even if they are disabled, allowing you to test specific campaigns before activating them. ", alias="evaluableCampaignIds")
     type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string representing the event name. Must not be a reserved event name. You create this value when you [create an attribute](https://docs.talon.one/docs/dev/concepts/entities/events#creating-a-custom-event) of type `event` in the Campaign Manager. ")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary additional JSON properties associated with the event. They must be created in the Campaign Manager before setting them with this property. See [creating custom attributes](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#creating-a-custom-attribute).")
-    loyalty_cards: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Identifier of the loyalty card used during this event.", alias="loyaltyCards")
-    response_content: Optional[List[StrictStr]] = Field(default=None, description="Optional list of requested information to be present on the response related to the tracking custom event. ", alias="responseContent")
-    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "loyaltyCards", "responseContent"]
+    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent")
+    loyalty_cards: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Identifiers of the loyalty cards used during this event.", alias="loyaltyCards")
+    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "responseContent", "loyaltyCards"]
 
     @field_validator('response_content')
     def response_content_validate_enum(cls, value):
@@ -103,8 +103,8 @@ class IntegrationEventV2Request(BaseModel):
             "evaluableCampaignIds": obj.get("evaluableCampaignIds"),
             "type": obj.get("type"),
             "attributes": obj.get("attributes"),
-            "loyaltyCards": obj.get("loyaltyCards"),
-            "responseContent": obj.get("responseContent")
+            "responseContent": obj.get("responseContent"),
+            "loyaltyCards": obj.get("loyaltyCards")
         })
         return _obj
 

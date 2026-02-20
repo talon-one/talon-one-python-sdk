@@ -19,6 +19,10 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.campaign import Campaign
+from talon_one.models.campaign_evaluation_position import CampaignEvaluationPosition
+from talon_one.models.placeholder_details import PlaceholderDetails
+from talon_one.models.ruleset import Ruleset
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,10 +31,11 @@ class CampaignCreatedNotificationItem(BaseModel):
     CampaignCreatedNotificationItem
     """ # noqa: E501
     event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
-    campaign: Optional[Any] = Field(description="The campaign whose state changed.")
-    ruleset: Optional[Any] = Field(default=None, description="The current ruleset.")
-    evaluation_position: Optional[Any] = Field(description="The campaign position within the evaluation tree.", alias="evaluationPosition")
-    __properties: ClassVar[List[str]] = ["Event", "campaign", "ruleset", "evaluationPosition"]
+    campaign: Campaign = Field(description="The campaign whose state changed.")
+    ruleset: Optional[Ruleset] = Field(default=None, description="The current ruleset.")
+    placeholders: Optional[List[PlaceholderDetails]] = Field(default=None, description="The current details of the [placeholders](https://docs.talon.one/docs/product/campaigns/templates/create-templates#use-placeholders) in the campaign.")
+    evaluation_position: CampaignEvaluationPosition = Field(description="The campaign position within the evaluation tree.", alias="evaluationPosition")
+    __properties: ClassVar[List[str]] = ["Event", "campaign", "ruleset", "placeholders", "evaluationPosition"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -71,21 +76,22 @@ class CampaignCreatedNotificationItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if campaign (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign is None and "campaign" in self.model_fields_set:
-            _dict['campaign'] = None
-
-        # set to None if ruleset (nullable) is None
-        # and model_fields_set contains the field
-        if self.ruleset is None and "ruleset" in self.model_fields_set:
-            _dict['ruleset'] = None
-
-        # set to None if evaluation_position (nullable) is None
-        # and model_fields_set contains the field
-        if self.evaluation_position is None and "evaluation_position" in self.model_fields_set:
-            _dict['evaluationPosition'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of campaign
+        if self.campaign:
+            _dict['campaign'] = self.campaign.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of ruleset
+        if self.ruleset:
+            _dict['ruleset'] = self.ruleset.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in placeholders (list)
+        _items = []
+        if self.placeholders:
+            for _item_placeholders in self.placeholders:
+                if _item_placeholders:
+                    _items.append(_item_placeholders.to_dict())
+            _dict['placeholders'] = _items
+        # override the default output from pydantic by calling `to_dict()` of evaluation_position
+        if self.evaluation_position:
+            _dict['evaluationPosition'] = self.evaluation_position.to_dict()
         return _dict
 
     @classmethod
@@ -99,9 +105,10 @@ class CampaignCreatedNotificationItem(BaseModel):
 
         _obj = cls.model_validate({
             "Event": obj.get("Event"),
-            "campaign": obj.get("campaign"),
-            "ruleset": obj.get("ruleset"),
-            "evaluationPosition": obj.get("evaluationPosition")
+            "campaign": Campaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
+            "ruleset": Ruleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
+            "placeholders": [PlaceholderDetails.from_dict(_item) for _item in obj["placeholders"]] if obj.get("placeholders") is not None else None,
+            "evaluationPosition": CampaignEvaluationPosition.from_dict(obj["evaluationPosition"]) if obj.get("evaluationPosition") is not None else None
         })
         return _obj
 

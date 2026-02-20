@@ -39,11 +39,11 @@ class TestSkuUnitAnalytics(unittest.TestCase):
                     talon_one.models.sku_unit_analytics_data_point.SkuUnitAnalyticsDataPoint(
                         start_time = '2024-02-01T00:00:00Z', 
                         end_time = '2024-02-01T23:59:99Z', 
-                        units_sold = talon_one.models.units_sold.unitsSold(), 
+                        units_sold = null, 
                         sku = 'SKU-123', )
                     ],
                 totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
-                    units_sold = talon_one.models.units_sold.unitsSold(), )
+                    units_sold = null, )
             )
         else:
             return SkuUnitAnalytics(
@@ -51,11 +51,11 @@ class TestSkuUnitAnalytics(unittest.TestCase):
                     talon_one.models.sku_unit_analytics_data_point.SkuUnitAnalyticsDataPoint(
                         start_time = '2024-02-01T00:00:00Z', 
                         end_time = '2024-02-01T23:59:99Z', 
-                        units_sold = talon_one.models.units_sold.unitsSold(), 
+                        units_sold = null, 
                         sku = 'SKU-123', )
                     ],
                 totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
-                    units_sold = talon_one.models.units_sold.unitsSold(), ),
+                    units_sold = null, ),
         )
         """
 

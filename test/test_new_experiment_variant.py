@@ -75,6 +75,7 @@ class TestNewExperimentVariant(unittest.TestCase):
         else:
             return NewExperimentVariant(
                 name = 'AXyB u   h9cRnacyv IL9 WTpJZ0',
+                weight = 13,
                 ruleset = talon_one.models.new_ruleset.NewRuleset(
                     rules = [
                         talon_one.models.rule.Rule(

@@ -61,6 +61,7 @@ class TestPrismaticEventPayloadCouponBasedNotifications(unittest.TestCase):
                             ''
                             ], )
                     ],
+                published_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 source_of_event = '',
                 employee_name = ''
             )
@@ -72,6 +73,7 @@ class TestPrismaticEventPayloadCouponBasedNotifications(unittest.TestCase):
                 value = '',
                 usage_limit = 56,
                 usage_counter = 56,
+                published_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 source_of_event = '',
                 employee_name = '',
         )

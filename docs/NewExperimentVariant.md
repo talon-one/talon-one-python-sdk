@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | The name of this variant. | 
-**weight** | **int** |  | [optional] 
+**weight** | **int** | The percentage split of this variant. The sum of all variant percentages must be 100. | 
 **ruleset** | [**NewRuleset**](NewRuleset.md) |  | 
 **is_primary** | **bool** |  | 
 

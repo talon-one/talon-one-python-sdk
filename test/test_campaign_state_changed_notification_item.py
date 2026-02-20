@@ -39,7 +39,13 @@ class TestCampaignStateChangedNotificationItem(unittest.TestCase):
                 campaign = None,
                 old_state = 'disabled',
                 new_state = 'running',
-                ruleset = None
+                ruleset = None,
+                placeholders = [
+                    talon_one.models.placeholder_details.PlaceholderDetails(
+                        name = 'my property', 
+                        type = 'list string', 
+                        value = [1, sku_value], )
+                    ]
             )
         else:
             return CampaignStateChangedNotificationItem(

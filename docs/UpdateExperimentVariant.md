@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **name** | **str** |  | 
 **ruleset** | [**NewRuleset**](NewRuleset.md) |  | 
-**weight** | **int** |  | 
+**weight** | **int** | The percentage split of this variant. The sum of all variant percentages must be 100. | 
 
 ## Example
 

@@ -36,7 +36,6 @@ class TestIntegrationEventV3Response(unittest.TestCase):
         if include_optional:
             return IntegrationEventV3Response(
                 customer_profile = None,
-                event = None,
                 loyalty = talon_one.models.loyalty.Loyalty(
                     cards = [
                         null
@@ -53,6 +52,9 @@ class TestIntegrationEventV3Response(unittest.TestCase):
                                 }, )
                         }, ),
                 triggered_campaigns = [
+                    null
+                    ],
+                effects = [
                     null
                     ],
                 rule_failure_reasons = [
@@ -72,18 +74,16 @@ class TestIntegrationEventV3Response(unittest.TestCase):
                         evaluation_group_id = 3, 
                         evaluation_group_mode = 'stackable', )
                     ],
-                awarded_giveaways = [
-                    null
-                    ],
-                effects = [
-                    null
-                    ],
                 created_coupons = [
                     null
                     ],
                 created_referrals = [
                     null
-                    ]
+                    ],
+                awarded_giveaways = [
+                    null
+                    ],
+                advanced_event = None
             )
         else:
             return IntegrationEventV3Response(

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Talon.One API
 
@@ -10,6 +8,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -142,7 +141,7 @@ from talon_one.models.update_campaign_collection import UpdateCampaignCollection
 from talon_one.models.update_collection import UpdateCollection
 from talon_one.models.update_coupon import UpdateCoupon
 from talon_one.models.update_coupon_batch import UpdateCouponBatch
-from talon_one.models.update_loyalty_card import UpdateLoyaltyCard
+from talon_one.models.update_loyalty_card_request import UpdateLoyaltyCardRequest
 from talon_one.models.update_referral import UpdateReferral
 from talon_one.models.update_user import UpdateUser
 from talon_one.models.user import User
@@ -54700,7 +54699,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         loyalty_card_id: Annotated[str, Field(min_length=4, strict=True, max_length=108, description="Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint. ")],
-        update_loyalty_card: Annotated[UpdateLoyaltyCard, Field(description="body")],
+        update_loyalty_card_request: Annotated[UpdateLoyaltyCardRequest, Field(description="body")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -54714,16 +54713,16 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltyCard:
-        """Update loyalty card status
+        """Update loyalty card
 
-        Update the status of the given loyalty card. A card can be _active_ or _inactive_.
+        Update the details of a specific loyalty card. You can set the card's status to `active` or `inactive` through this endpoint. At least one of `status` or `attributes` must be provided. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
         :param loyalty_card_id: Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  (required)
         :type loyalty_card_id: str
-        :param update_loyalty_card: body (required)
-        :type update_loyalty_card: UpdateLoyaltyCard
+        :param update_loyalty_card_request: body (required)
+        :type update_loyalty_card_request: UpdateLoyaltyCardRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -54749,7 +54748,7 @@ class ManagementApi:
         _param = self._update_loyalty_card_serialize(
             loyalty_program_id=loyalty_program_id,
             loyalty_card_id=loyalty_card_id,
-            update_loyalty_card=update_loyalty_card,
+            update_loyalty_card_request=update_loyalty_card_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -54778,7 +54777,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         loyalty_card_id: Annotated[str, Field(min_length=4, strict=True, max_length=108, description="Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint. ")],
-        update_loyalty_card: Annotated[UpdateLoyaltyCard, Field(description="body")],
+        update_loyalty_card_request: Annotated[UpdateLoyaltyCardRequest, Field(description="body")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -54792,16 +54791,16 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltyCard]:
-        """Update loyalty card status
+        """Update loyalty card
 
-        Update the status of the given loyalty card. A card can be _active_ or _inactive_.
+        Update the details of a specific loyalty card. You can set the card's status to `active` or `inactive` through this endpoint. At least one of `status` or `attributes` must be provided. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
         :param loyalty_card_id: Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  (required)
         :type loyalty_card_id: str
-        :param update_loyalty_card: body (required)
-        :type update_loyalty_card: UpdateLoyaltyCard
+        :param update_loyalty_card_request: body (required)
+        :type update_loyalty_card_request: UpdateLoyaltyCardRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -54827,7 +54826,7 @@ class ManagementApi:
         _param = self._update_loyalty_card_serialize(
             loyalty_program_id=loyalty_program_id,
             loyalty_card_id=loyalty_card_id,
-            update_loyalty_card=update_loyalty_card,
+            update_loyalty_card_request=update_loyalty_card_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -54856,7 +54855,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         loyalty_card_id: Annotated[str, Field(min_length=4, strict=True, max_length=108, description="Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint. ")],
-        update_loyalty_card: Annotated[UpdateLoyaltyCard, Field(description="body")],
+        update_loyalty_card_request: Annotated[UpdateLoyaltyCardRequest, Field(description="body")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -54870,16 +54869,16 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update loyalty card status
+        """Update loyalty card
 
-        Update the status of the given loyalty card. A card can be _active_ or _inactive_.
+        Update the details of a specific loyalty card. You can set the card's status to `active` or `inactive` through this endpoint. At least one of `status` or `attributes` must be provided. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
         :param loyalty_card_id: Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  (required)
         :type loyalty_card_id: str
-        :param update_loyalty_card: body (required)
-        :type update_loyalty_card: UpdateLoyaltyCard
+        :param update_loyalty_card_request: body (required)
+        :type update_loyalty_card_request: UpdateLoyaltyCardRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -54905,7 +54904,7 @@ class ManagementApi:
         _param = self._update_loyalty_card_serialize(
             loyalty_program_id=loyalty_program_id,
             loyalty_card_id=loyalty_card_id,
-            update_loyalty_card=update_loyalty_card,
+            update_loyalty_card_request=update_loyalty_card_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -54929,7 +54928,7 @@ class ManagementApi:
         self,
         loyalty_program_id,
         loyalty_card_id,
-        update_loyalty_card,
+        update_loyalty_card_request,
         _request_auth,
         _content_type,
         _headers,
@@ -54959,8 +54958,8 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if update_loyalty_card is not None:
-            _body_params = update_loyalty_card
+        if update_loyalty_card_request is not None:
+            _body_params = update_loyalty_card_request
 
 
         # set the HTTP header `Accept`
