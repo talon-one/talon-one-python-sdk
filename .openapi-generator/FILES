@@ -95,6 +95,7 @@ docs/BestPriorPriceMetadata.md
 docs/BestPriorPriceRequest.md
 docs/BestPriorTarget.md
 docs/Binding.md
+docs/Blueprint.md
 docs/BulkApplicationNotification.md
 docs/BulkOperationOnCampaigns.md
 docs/Campaign.md
@@ -166,7 +167,6 @@ docs/CodeGeneratorSettings.md
 docs/Collection.md
 docs/CollectionItem.md
 docs/CollectionWithoutPayload.md
-docs/CollectionsCatalog.md
 docs/Coupon.md
 docs/CouponConstraints.md
 docs/CouponCreatedEffectProps.md
@@ -180,6 +180,7 @@ docs/CouponRejectionReason.md
 docs/CouponReservations.md
 docs/CouponSearch.md
 docs/CouponValue.md
+docs/CouponWithApplication.md
 docs/CouponsNotificationData.md
 docs/CouponsNotificationPolicy.md
 docs/CreateAchievement.md
@@ -224,6 +225,7 @@ docs/ErrorResponseWithStatus.md
 docs/ErrorSource.md
 docs/EvaluableCampaignIds.md
 docs/Event.md
+docs/EventAttributesEntity.md
 docs/EventType.md
 docs/EventV2.md
 docs/EventV3.md
@@ -320,11 +322,13 @@ docs/IntegrationCustomerSessionResponse.md
 docs/IntegrationEntity.md
 docs/IntegrationEvent.md
 docs/IntegrationEventV2Request.md
+docs/IntegrationEventV2Response.md
 docs/IntegrationEventV3Request.md
 docs/IntegrationEventV3Response.md
 docs/IntegrationProfileEntity.md
 docs/IntegrationProfileEntityV3.md
 docs/IntegrationRequest.md
+docs/IntegrationResponse.md
 docs/IntegrationState.md
 docs/IntegrationStateV2.md
 docs/IntegrationStoreEntity.md
@@ -407,6 +411,7 @@ docs/NewApplicationCIFExpression.md
 docs/NewAttribute.md
 docs/NewAudience.md
 docs/NewBaseNotification.md
+docs/NewBlueprint.md
 docs/NewCampaign.md
 docs/NewCampaignCollection.md
 docs/NewCampaignEvaluationGroup.md
@@ -417,7 +422,6 @@ docs/NewCampaignStoreBudgetStoreLimit.md
 docs/NewCampaignTemplate.md
 docs/NewCatalog.md
 docs/NewCollection.md
-docs/NewCollectionsCatalog.md
 docs/NewCouponCreationJob.md
 docs/NewCouponDeletionJob.md
 docs/NewCoupons.md
@@ -485,6 +489,7 @@ docs/PendingActivePointsData.md
 docs/PendingActivePointsNotification.md
 docs/PendingPointsNotificationPolicy.md
 docs/Picklist.md
+docs/PlaceholderDetails.md
 docs/PriceDetail.md
 docs/PriceType.md
 docs/PriceTypeReferenceDetail.md
@@ -492,10 +497,16 @@ docs/PriceTypeReferences.md
 docs/PrismaticConfig.md
 docs/PrismaticEventPayloadCouponBasedNotifications.md
 docs/PrismaticEventPayloadCouponBasedNotificationsLimits.md
-docs/PrismaticEventPayloadLoyaltyProfileBasedNotifications.md
-docs/PrismaticEventPayloadLoyaltyProfileBasedNotificationsAction.md
+docs/PrismaticEventPayloadLoyaltyProfileBasedNotification.md
+docs/PrismaticEventPayloadLoyaltyProfileBasedPointsChangedNotification.md
+docs/PrismaticEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction.md
+docs/PrismaticEventPayloadLoyaltyProfileBasedTierDowngradeNotification.md
+docs/PrismaticEventPayloadLoyaltyProfileBasedTierUpgradeNotification.md
+docs/PrismaticEventRecord.md
 docs/PrismaticFlow.md
 docs/PrismaticFlowConfig.md
+docs/PrismaticFlowConfigResponse.md
+docs/PrismaticFlowResponse.md
 docs/PrismaticFlowWithConfig.md
 docs/PrismaticPaginatedEventPayload.md
 docs/Product.md
@@ -517,6 +528,7 @@ docs/RemoveItemCatalogAction.md
 docs/RemoveManyItemsCatalogAction.md
 docs/ReopenSessionResponse.md
 docs/ReserveCouponEffectProps.md
+docs/ResponseContentObject.md
 docs/ReturnIntegrationRequest.md
 docs/ReturnedCartItem.md
 docs/Revision.md
@@ -608,7 +620,6 @@ docs/TierWillDowngradeNotification.md
 docs/TierWillDowngradeNotificationPolicy.md
 docs/TierWillDowngradeNotificationTrigger.md
 docs/TimePoint.md
-docs/TrackEventV2Response.md
 docs/TransferLoyaltyCard.md
 docs/TriggerWebhookEffectProps.md
 docs/TwoFAConfig.md
@@ -619,6 +630,7 @@ docs/UpdateApplicationAPIKey.md
 docs/UpdateApplicationCIF.md
 docs/UpdateAttributeEffectProps.md
 docs/UpdateAudience.md
+docs/UpdateBlueprint.md
 docs/UpdateCampaign.md
 docs/UpdateCampaignCollection.md
 docs/UpdateCampaignEvaluationGroup.md
@@ -626,7 +638,6 @@ docs/UpdateCampaignGroup.md
 docs/UpdateCampaignTemplate.md
 docs/UpdateCatalog.md
 docs/UpdateCollection.md
-docs/UpdateCollectionsCatalog.md
 docs/UpdateCoupon.md
 docs/UpdateCouponBatch.md
 docs/UpdateCouponsData.md
@@ -636,7 +647,9 @@ docs/UpdateCustomerSessionV2409Response.md
 docs/UpdateExperiment.md
 docs/UpdateExperimentVariant.md
 docs/UpdateExperimentVariantArray.md
+docs/UpdateExperimentVariantName.md
 docs/UpdateLoyaltyCard.md
+docs/UpdateLoyaltyCardRequest.md
 docs/UpdateLoyaltyProgram.md
 docs/UpdateLoyaltyProgramTier.md
 docs/UpdatePicklist.md
@@ -758,6 +771,7 @@ talon_one/models/best_prior_price_metadata.py
 talon_one/models/best_prior_price_request.py
 talon_one/models/best_prior_target.py
 talon_one/models/binding.py
+talon_one/models/blueprint.py
 talon_one/models/bulk_application_notification.py
 talon_one/models/bulk_operation_on_campaigns.py
 talon_one/models/campaign.py
@@ -829,7 +843,6 @@ talon_one/models/code_generator_settings.py
 talon_one/models/collection.py
 talon_one/models/collection_item.py
 talon_one/models/collection_without_payload.py
-talon_one/models/collections_catalog.py
 talon_one/models/coupon.py
 talon_one/models/coupon_constraints.py
 talon_one/models/coupon_created_effect_props.py
@@ -843,6 +856,7 @@ talon_one/models/coupon_rejection_reason.py
 talon_one/models/coupon_reservations.py
 talon_one/models/coupon_search.py
 talon_one/models/coupon_value.py
+talon_one/models/coupon_with_application.py
 talon_one/models/coupons_notification_data.py
 talon_one/models/coupons_notification_policy.py
 talon_one/models/create_achievement.py
@@ -887,6 +901,7 @@ talon_one/models/error_response_with_status.py
 talon_one/models/error_source.py
 talon_one/models/evaluable_campaign_ids.py
 talon_one/models/event.py
+talon_one/models/event_attributes_entity.py
 talon_one/models/event_type.py
 talon_one/models/event_v2.py
 talon_one/models/event_v3.py
@@ -982,11 +997,13 @@ talon_one/models/integration_customer_session_response.py
 talon_one/models/integration_entity.py
 talon_one/models/integration_event.py
 talon_one/models/integration_event_v2_request.py
+talon_one/models/integration_event_v2_response.py
 talon_one/models/integration_event_v3_request.py
 talon_one/models/integration_event_v3_response.py
 talon_one/models/integration_profile_entity.py
 talon_one/models/integration_profile_entity_v3.py
 talon_one/models/integration_request.py
+talon_one/models/integration_response.py
 talon_one/models/integration_state.py
 talon_one/models/integration_state_v2.py
 talon_one/models/integration_store_entity.py
@@ -1068,6 +1085,7 @@ talon_one/models/new_application_cif_expression.py
 talon_one/models/new_attribute.py
 talon_one/models/new_audience.py
 talon_one/models/new_base_notification.py
+talon_one/models/new_blueprint.py
 talon_one/models/new_campaign.py
 talon_one/models/new_campaign_collection.py
 talon_one/models/new_campaign_evaluation_group.py
@@ -1078,7 +1096,6 @@ talon_one/models/new_campaign_store_budget_store_limit.py
 talon_one/models/new_campaign_template.py
 talon_one/models/new_catalog.py
 talon_one/models/new_collection.py
-talon_one/models/new_collections_catalog.py
 talon_one/models/new_coupon_creation_job.py
 talon_one/models/new_coupon_deletion_job.py
 talon_one/models/new_coupons.py
@@ -1146,6 +1163,7 @@ talon_one/models/pending_active_points_data.py
 talon_one/models/pending_active_points_notification.py
 talon_one/models/pending_points_notification_policy.py
 talon_one/models/picklist.py
+talon_one/models/placeholder_details.py
 talon_one/models/price_detail.py
 talon_one/models/price_type.py
 talon_one/models/price_type_reference_detail.py
@@ -1153,10 +1171,16 @@ talon_one/models/price_type_references.py
 talon_one/models/prismatic_config.py
 talon_one/models/prismatic_event_payload_coupon_based_notifications.py
 talon_one/models/prismatic_event_payload_coupon_based_notifications_limits.py
-talon_one/models/prismatic_event_payload_loyalty_profile_based_notifications.py
-talon_one/models/prismatic_event_payload_loyalty_profile_based_notifications_action.py
+talon_one/models/prismatic_event_payload_loyalty_profile_based_notification.py
+talon_one/models/prismatic_event_payload_loyalty_profile_based_points_changed_notification.py
+talon_one/models/prismatic_event_payload_loyalty_profile_based_points_changed_notification_action.py
+talon_one/models/prismatic_event_payload_loyalty_profile_based_tier_downgrade_notification.py
+talon_one/models/prismatic_event_payload_loyalty_profile_based_tier_upgrade_notification.py
+talon_one/models/prismatic_event_record.py
 talon_one/models/prismatic_flow.py
 talon_one/models/prismatic_flow_config.py
+talon_one/models/prismatic_flow_config_response.py
+talon_one/models/prismatic_flow_response.py
 talon_one/models/prismatic_flow_with_config.py
 talon_one/models/prismatic_paginated_event_payload.py
 talon_one/models/product.py
@@ -1178,6 +1202,7 @@ talon_one/models/remove_item_catalog_action.py
 talon_one/models/remove_many_items_catalog_action.py
 talon_one/models/reopen_session_response.py
 talon_one/models/reserve_coupon_effect_props.py
+talon_one/models/response_content_object.py
 talon_one/models/return_integration_request.py
 talon_one/models/returned_cart_item.py
 talon_one/models/revision.py
@@ -1269,7 +1294,6 @@ talon_one/models/tier_will_downgrade_notification.py
 talon_one/models/tier_will_downgrade_notification_policy.py
 talon_one/models/tier_will_downgrade_notification_trigger.py
 talon_one/models/time_point.py
-talon_one/models/track_event_v2_response.py
 talon_one/models/transfer_loyalty_card.py
 talon_one/models/trigger_webhook_effect_props.py
 talon_one/models/two_fa_config.py
@@ -1280,6 +1304,7 @@ talon_one/models/update_application_api_key.py
 talon_one/models/update_application_cif.py
 talon_one/models/update_attribute_effect_props.py
 talon_one/models/update_audience.py
+talon_one/models/update_blueprint.py
 talon_one/models/update_campaign.py
 talon_one/models/update_campaign_collection.py
 talon_one/models/update_campaign_evaluation_group.py
@@ -1287,7 +1312,6 @@ talon_one/models/update_campaign_group.py
 talon_one/models/update_campaign_template.py
 talon_one/models/update_catalog.py
 talon_one/models/update_collection.py
-talon_one/models/update_collections_catalog.py
 talon_one/models/update_coupon.py
 talon_one/models/update_coupon_batch.py
 talon_one/models/update_coupons_data.py
@@ -1297,7 +1321,9 @@ talon_one/models/update_customer_session_v2409_response.py
 talon_one/models/update_experiment.py
 talon_one/models/update_experiment_variant.py
 talon_one/models/update_experiment_variant_array.py
+talon_one/models/update_experiment_variant_name.py
 talon_one/models/update_loyalty_card.py
+talon_one/models/update_loyalty_card_request.py
 talon_one/models/update_loyalty_program.py
 talon_one/models/update_loyalty_program_tier.py
 talon_one/models/update_picklist.py
@@ -1408,6 +1434,7 @@ test/test_best_prior_price_metadata.py
 test/test_best_prior_price_request.py
 test/test_best_prior_target.py
 test/test_binding.py
+test/test_blueprint.py
 test/test_bulk_application_notification.py
 test/test_bulk_operation_on_campaigns.py
 test/test_campaign.py
@@ -1479,7 +1506,6 @@ test/test_code_generator_settings.py
 test/test_collection.py
 test/test_collection_item.py
 test/test_collection_without_payload.py
-test/test_collections_catalog.py
 test/test_coupon.py
 test/test_coupon_constraints.py
 test/test_coupon_created_effect_props.py
@@ -1493,6 +1519,7 @@ test/test_coupon_rejection_reason.py
 test/test_coupon_reservations.py
 test/test_coupon_search.py
 test/test_coupon_value.py
+test/test_coupon_with_application.py
 test/test_coupons_notification_data.py
 test/test_coupons_notification_policy.py
 test/test_create_achievement.py
@@ -1537,6 +1564,7 @@ test/test_error_response_with_status.py
 test/test_error_source.py
 test/test_evaluable_campaign_ids.py
 test/test_event.py
+test/test_event_attributes_entity.py
 test/test_event_type.py
 test/test_event_v2.py
 test/test_event_v3.py
@@ -1633,11 +1661,13 @@ test/test_integration_customer_session_response.py
 test/test_integration_entity.py
 test/test_integration_event.py
 test/test_integration_event_v2_request.py
+test/test_integration_event_v2_response.py
 test/test_integration_event_v3_request.py
 test/test_integration_event_v3_response.py
 test/test_integration_profile_entity.py
 test/test_integration_profile_entity_v3.py
 test/test_integration_request.py
+test/test_integration_response.py
 test/test_integration_state.py
 test/test_integration_state_v2.py
 test/test_integration_store_entity.py
@@ -1720,6 +1750,7 @@ test/test_new_application_cif_expression.py
 test/test_new_attribute.py
 test/test_new_audience.py
 test/test_new_base_notification.py
+test/test_new_blueprint.py
 test/test_new_campaign.py
 test/test_new_campaign_collection.py
 test/test_new_campaign_evaluation_group.py
@@ -1730,7 +1761,6 @@ test/test_new_campaign_store_budget_store_limit.py
 test/test_new_campaign_template.py
 test/test_new_catalog.py
 test/test_new_collection.py
-test/test_new_collections_catalog.py
 test/test_new_coupon_creation_job.py
 test/test_new_coupon_deletion_job.py
 test/test_new_coupons.py
@@ -1798,6 +1828,7 @@ test/test_pending_active_points_data.py
 test/test_pending_active_points_notification.py
 test/test_pending_points_notification_policy.py
 test/test_picklist.py
+test/test_placeholder_details.py
 test/test_price_detail.py
 test/test_price_type.py
 test/test_price_type_reference_detail.py
@@ -1805,10 +1836,16 @@ test/test_price_type_references.py
 test/test_prismatic_config.py
 test/test_prismatic_event_payload_coupon_based_notifications.py
 test/test_prismatic_event_payload_coupon_based_notifications_limits.py
-test/test_prismatic_event_payload_loyalty_profile_based_notifications.py
-test/test_prismatic_event_payload_loyalty_profile_based_notifications_action.py
+test/test_prismatic_event_payload_loyalty_profile_based_notification.py
+test/test_prismatic_event_payload_loyalty_profile_based_points_changed_notification.py
+test/test_prismatic_event_payload_loyalty_profile_based_points_changed_notification_action.py
+test/test_prismatic_event_payload_loyalty_profile_based_tier_downgrade_notification.py
+test/test_prismatic_event_payload_loyalty_profile_based_tier_upgrade_notification.py
+test/test_prismatic_event_record.py
 test/test_prismatic_flow.py
 test/test_prismatic_flow_config.py
+test/test_prismatic_flow_config_response.py
+test/test_prismatic_flow_response.py
 test/test_prismatic_flow_with_config.py
 test/test_prismatic_paginated_event_payload.py
 test/test_product.py
@@ -1830,6 +1867,7 @@ test/test_remove_item_catalog_action.py
 test/test_remove_many_items_catalog_action.py
 test/test_reopen_session_response.py
 test/test_reserve_coupon_effect_props.py
+test/test_response_content_object.py
 test/test_return_integration_request.py
 test/test_returned_cart_item.py
 test/test_revision.py
@@ -1921,7 +1959,6 @@ test/test_tier_will_downgrade_notification.py
 test/test_tier_will_downgrade_notification_policy.py
 test/test_tier_will_downgrade_notification_trigger.py
 test/test_time_point.py
-test/test_track_event_v2_response.py
 test/test_transfer_loyalty_card.py
 test/test_trigger_webhook_effect_props.py
 test/test_two_fa_config.py
@@ -1932,6 +1969,7 @@ test/test_update_application_api_key.py
 test/test_update_application_cif.py
 test/test_update_attribute_effect_props.py
 test/test_update_audience.py
+test/test_update_blueprint.py
 test/test_update_campaign.py
 test/test_update_campaign_collection.py
 test/test_update_campaign_evaluation_group.py
@@ -1939,7 +1977,6 @@ test/test_update_campaign_group.py
 test/test_update_campaign_template.py
 test/test_update_catalog.py
 test/test_update_collection.py
-test/test_update_collections_catalog.py
 test/test_update_coupon.py
 test/test_update_coupon_batch.py
 test/test_update_coupons_data.py
@@ -1949,7 +1986,9 @@ test/test_update_customer_session_v2409_response.py
 test/test_update_experiment.py
 test/test_update_experiment_variant.py
 test/test_update_experiment_variant_array.py
+test/test_update_experiment_variant_name.py
 test/test_update_loyalty_card.py
+test/test_update_loyalty_card_request.py
 test/test_update_loyalty_program.py
 test/test_update_loyalty_program_tier.py
 test/test_update_picklist.py

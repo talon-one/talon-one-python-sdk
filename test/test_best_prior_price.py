@@ -45,7 +45,7 @@ class TestBestPriorPrice(unittest.TestCase):
                             campaign_id = 56, 
                             discount_value = 1.337, )
                         ], 
-                    adjustment_details = talon_one.models.adjustment_details.adjustmentDetails(), ),
+                    adjustment_details = null, ),
                 target = talon_one.models.label_target.LabelTarget()
             )
         else:
@@ -60,7 +60,7 @@ class TestBestPriorPrice(unittest.TestCase):
                             campaign_id = 56, 
                             discount_value = 1.337, )
                         ], 
-                    adjustment_details = talon_one.models.adjustment_details.adjustmentDetails(), ),
+                    adjustment_details = null, ),
                 target = talon_one.models.label_target.LabelTarget(),
         )
         """

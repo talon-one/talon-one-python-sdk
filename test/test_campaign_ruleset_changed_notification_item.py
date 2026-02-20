@@ -38,7 +38,19 @@ class TestCampaignRulesetChangedNotificationItem(unittest.TestCase):
                 event = 'campaign_state_changed',
                 campaign = None,
                 old_ruleset = None,
-                ruleset = None
+                old_placeholders = [
+                    talon_one.models.placeholder_details.PlaceholderDetails(
+                        name = 'my property', 
+                        type = 'list string', 
+                        value = [1, sku_value], )
+                    ],
+                ruleset = None,
+                placeholders = [
+                    talon_one.models.placeholder_details.PlaceholderDetails(
+                        name = 'my property', 
+                        type = 'list string', 
+                        value = [1, sku_value], )
+                    ]
             )
         else:
             return CampaignRulesetChangedNotificationItem(

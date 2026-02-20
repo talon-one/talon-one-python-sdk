@@ -37,8 +37,10 @@ class TestCustomerProfileIntegrationRequestV2(unittest.TestCase):
             return CustomerProfileIntegrationRequestV2(
                 attributes = {Language=english, ShippingCountry=DE},
                 evaluable_campaign_ids = [10, 12],
-                audiences_changes = None,
-                response_content = [triggeredCampaigns, customerProfile]
+                response_content = [triggeredCampaigns, customerProfile],
+                audiences_changes = talon_one.models.profile_audiences_changes.ProfileAudiencesChanges(
+                    adds = [2, 4], 
+                    deletes = [7], )
             )
         else:
             return CustomerProfileIntegrationRequestV2(

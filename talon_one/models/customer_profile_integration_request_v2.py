@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.profile_audiences_changes import ProfileAudiencesChanges
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,9 +29,9 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
     """ # noqa: E501
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
     evaluable_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="When using the `dry` query parameter, use this property to list the campaign to be evaluated by the Rule Engine.  These campaigns will be evaluated, even if they are disabled, allowing you to test specific campaigns before activating them. ", alias="evaluableCampaignIds")
-    audiences_changes: Optional[Any] = Field(default=None, description="Audiences memberships changes for this profile.", alias="audiencesChanges")
-    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data as you need in one _Update customer profile_ request instead of sending extra requests to other endpoints. ", alias="responseContent")
-    __properties: ClassVar[List[str]] = ["attributes", "evaluableCampaignIds", "audiencesChanges", "responseContent"]
+    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent")
+    audiences_changes: Optional[ProfileAudiencesChanges] = Field(default=None, description="Audiences memberships changes for this profile.", alias="audiencesChanges")
+    __properties: ClassVar[List[str]] = ["attributes", "evaluableCampaignIds", "responseContent", "audiencesChanges"]
 
     @field_validator('response_content')
     def response_content_validate_enum(cls, value):
@@ -82,11 +83,9 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if audiences_changes (nullable) is None
-        # and model_fields_set contains the field
-        if self.audiences_changes is None and "audiences_changes" in self.model_fields_set:
-            _dict['audiencesChanges'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of audiences_changes
+        if self.audiences_changes:
+            _dict['audiencesChanges'] = self.audiences_changes.to_dict()
         return _dict
 
     @classmethod
@@ -101,8 +100,8 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
         _obj = cls.model_validate({
             "attributes": obj.get("attributes"),
             "evaluableCampaignIds": obj.get("evaluableCampaignIds"),
-            "audiencesChanges": obj.get("audiencesChanges"),
-            "responseContent": obj.get("responseContent")
+            "responseContent": obj.get("responseContent"),
+            "audiencesChanges": ProfileAudiencesChanges.from_dict(obj["audiencesChanges"]) if obj.get("audiencesChanges") is not None else None
         })
         return _obj
 

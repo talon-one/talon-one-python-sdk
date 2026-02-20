@@ -28,7 +28,7 @@ class AddLoyaltyPoints(BaseModel):
     """
     Points to add.
     """ # noqa: E501
-    points: Union[Annotated[float, Field(le=999999999999.99, strict=True)], Annotated[int, Field(le=2147483647, strict=True)]] = Field(description="Amount of loyalty points.")
+    points: Union[Annotated[float, Field(le=999999999999.99, strict=True, gt=0)], Annotated[int, Field(le=2147483647, strict=True, gt=0)]] = Field(description="Amount of loyalty points.")
     name: Optional[StrictStr] = Field(default=None, description="Name / reason for the point addition.")
     validity_duration: Optional[StrictStr] = Field(default=None, description="The time format is either: - `unlimited` or, - an **integer** followed by one letter indicating the time unit.  Examples: `unlimited`, `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `s`: seconds - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can round certain units up or down: - `_D` for rounding down days only. Signifies the start of the day. - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year.  If passed, `validUntil` should be omitted. ", alias="validityDuration")
     valid_until: Optional[datetime] = Field(default=None, description="Date and time when points should expire. The value should be provided in RFC 3339 format. If passed, `validityDuration` should be omitted. ", alias="validUntil")

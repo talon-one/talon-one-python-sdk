@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from talon_one.models.new_ruleset import NewRuleset
 from typing import Optional, Set
@@ -29,7 +29,7 @@ class NewExperimentVariant(BaseModel):
     NewExperimentVariant
     """ # noqa: E501
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this variant.")
-    weight: Optional[StrictInt] = None
+    weight: Annotated[int, Field(le=99, strict=True, ge=1)] = Field(description="The percentage split of this variant. The sum of all variant percentages must be 100.")
     ruleset: NewRuleset
     is_primary: StrictBool = Field(alias="isPrimary")
     __properties: ClassVar[List[str]] = ["name", "weight", "ruleset", "isPrimary"]

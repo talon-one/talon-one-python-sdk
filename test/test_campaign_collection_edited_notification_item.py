@@ -38,6 +38,12 @@ class TestCampaignCollectionEditedNotificationItem(unittest.TestCase):
                 event = 'campaign_state_changed',
                 campaign = None,
                 ruleset = None,
+                placeholders = [
+                    talon_one.models.placeholder_details.PlaceholderDetails(
+                        name = 'my property', 
+                        type = 'list string', 
+                        value = [1, sku_value], )
+                    ],
                 collection = None
             )
         else:

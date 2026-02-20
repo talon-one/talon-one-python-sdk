@@ -46,8 +46,8 @@ class IntegrationEventV3Request(BaseModel):
             return value
 
         for i in value:
-            if i not in set(['customerProfile', 'triggeredCampaigns', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons']):
-                raise ValueError("each list item must be one of ('customerProfile', 'triggeredCampaigns', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons')")
+            if i not in set(['customerProfile', 'triggeredCampaigns', 'loyalty', 'advancedEvent', 'awardedGiveaways', 'ruleFailureReasons']):
+                raise ValueError("each list item must be one of ('customerProfile', 'triggeredCampaigns', 'loyalty', 'advancedEvent', 'awardedGiveaways', 'ruleFailureReasons')")
         return value
 
     model_config = ConfigDict(

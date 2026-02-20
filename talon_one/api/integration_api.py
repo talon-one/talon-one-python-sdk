@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Talon.One API
 
@@ -10,6 +8,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -45,6 +44,7 @@ from talon_one.models.get_loyalty_program_profile_transactions200_response impor
 from talon_one.models.get_reserved_customers200_response import GetReservedCustomers200Response
 from talon_one.models.integration_customer_session_response import IntegrationCustomerSessionResponse
 from talon_one.models.integration_event_v2_request import IntegrationEventV2Request
+from talon_one.models.integration_event_v2_response import IntegrationEventV2Response
 from talon_one.models.integration_request import IntegrationRequest
 from talon_one.models.integration_state_v2 import IntegrationStateV2
 from talon_one.models.loyalty_balances_with_tiers import LoyaltyBalancesWithTiers
@@ -59,7 +59,6 @@ from talon_one.models.new_referrals_for_multiple_advocates import NewReferralsFo
 from talon_one.models.referral import Referral
 from talon_one.models.reopen_session_response import ReopenSessionResponse
 from talon_one.models.return_integration_request import ReturnIntegrationRequest
-from talon_one.models.track_event_v2_response import TrackEventV2Response
 from talon_one.models.update_audience import UpdateAudience
 
 from talon_one.api_client import ApiClient, RequestSerialized
@@ -3250,7 +3249,7 @@ class IntegrationApi:
     ) -> LoyaltyCard:
         """Generate loyalty card
 
-        Generate a loyalty card in a specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview).  To link the card to one or more customer profiles, use the `customerProfileIds` parameter in the request body.  **Note:** - The number of customer profiles linked to the loyalty card cannot exceed the loyalty program's `usersPerCardLimit`. To find the program's limit, use the [Get loyalty program](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgram) endpoint. - If the loyalty program has a defined code format, it will be used for the loyalty card identifier. 
+        Generate a loyalty card in a specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview).  To link the card to one or more customer profiles, use the `customerProfileIds` parameter in the request body.  **Note:**  - The number of customer profiles linked to the loyalty card cannot exceed the loyalty program's `usersPerCardLimit`. To find the program's limit, use the [Get loyalty program](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgram) endpoint.  - If the loyalty program has a defined code format, it will be used for the loyalty card identifier. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -3323,7 +3322,7 @@ class IntegrationApi:
     ) -> ApiResponse[LoyaltyCard]:
         """Generate loyalty card
 
-        Generate a loyalty card in a specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview).  To link the card to one or more customer profiles, use the `customerProfileIds` parameter in the request body.  **Note:** - The number of customer profiles linked to the loyalty card cannot exceed the loyalty program's `usersPerCardLimit`. To find the program's limit, use the [Get loyalty program](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgram) endpoint. - If the loyalty program has a defined code format, it will be used for the loyalty card identifier. 
+        Generate a loyalty card in a specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview).  To link the card to one or more customer profiles, use the `customerProfileIds` parameter in the request body.  **Note:**  - The number of customer profiles linked to the loyalty card cannot exceed the loyalty program's `usersPerCardLimit`. To find the program's limit, use the [Get loyalty program](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgram) endpoint.  - If the loyalty program has a defined code format, it will be used for the loyalty card identifier. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -3396,7 +3395,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Generate loyalty card
 
-        Generate a loyalty card in a specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview).  To link the card to one or more customer profiles, use the `customerProfileIds` parameter in the request body.  **Note:** - The number of customer profiles linked to the loyalty card cannot exceed the loyalty program's `usersPerCardLimit`. To find the program's limit, use the [Get loyalty program](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgram) endpoint. - If the loyalty program has a defined code format, it will be used for the loyalty card identifier. 
+        Generate a loyalty card in a specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview).  To link the card to one or more customer profiles, use the `customerProfileIds` parameter in the request body.  **Note:**  - The number of customer profiles linked to the loyalty card cannot exceed the loyalty program's `usersPerCardLimit`. To find the program's limit, use the [Get loyalty program](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgram) endpoint.  - If the loyalty program has a defined code format, it will be used for the loyalty card identifier. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -8826,7 +8825,7 @@ class IntegrationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> TrackEventV2Response:
+    ) -> IntegrationEventV2Response:
         """Track event
 
         Triggers a custom event.  To use this endpoint: 1. Define a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#creating-a-custom-event) in the Campaign Manager. 1. Update or create a rule to check for this event. 1. Trigger the event with this endpoint. After you have successfully sent an event to Talon.One, you can list the received events in the **Events** view in the Campaign Manager.  Talon.One also offers a set of [built-in events](https://docs.talon.one/docs/dev/concepts/entities/events). Ensure you do not create a custom event when you can use a built-in event.  For example, use this endpoint to trigger an event when a customer shares a link to a product. See the [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).  <div class=\"redoc-section\">    <p class=\"title\">Important</p>    1. `profileId` is required even though the schema does not specify it.   1. If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered.   1. We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).   1. [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation.  </div> 
@@ -8873,7 +8872,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "TrackEventV2Response",
+            '200': "IntegrationEventV2Response",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '409': "UpdateCustomerProfileV2409Response",
@@ -8908,7 +8907,7 @@ class IntegrationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[TrackEventV2Response]:
+    ) -> ApiResponse[IntegrationEventV2Response]:
         """Track event
 
         Triggers a custom event.  To use this endpoint: 1. Define a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#creating-a-custom-event) in the Campaign Manager. 1. Update or create a rule to check for this event. 1. Trigger the event with this endpoint. After you have successfully sent an event to Talon.One, you can list the received events in the **Events** view in the Campaign Manager.  Talon.One also offers a set of [built-in events](https://docs.talon.one/docs/dev/concepts/entities/events). Ensure you do not create a custom event when you can use a built-in event.  For example, use this endpoint to trigger an event when a customer shares a link to a product. See the [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).  <div class=\"redoc-section\">    <p class=\"title\">Important</p>    1. `profileId` is required even though the schema does not specify it.   1. If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered.   1. We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).   1. [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation.  </div> 
@@ -8955,7 +8954,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "TrackEventV2Response",
+            '200': "IntegrationEventV2Response",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '409': "UpdateCustomerProfileV2409Response",
@@ -9037,7 +9036,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "TrackEventV2Response",
+            '200': "IntegrationEventV2Response",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '409': "UpdateCustomerProfileV2409Response",

@@ -19,6 +19,9 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.campaign import Campaign
+from talon_one.models.placeholder_details import PlaceholderDetails
+from talon_one.models.ruleset import Ruleset
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,11 +30,12 @@ class CampaignStateChangedNotificationItem(BaseModel):
     CampaignStateChangedNotificationItem
     """ # noqa: E501
     event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
-    campaign: Optional[Any] = Field(description="The campaign whose state changed.")
+    campaign: Campaign = Field(description="The campaign whose state changed.")
     old_state: StrictStr = Field(description="The campaign's old state. Can be one of the following: ['running', 'disabled', 'scheduled', 'expired', 'archived'] ", alias="oldState")
     new_state: StrictStr = Field(description="The campaign's new state. Can be one of the following: ['running', 'disabled', 'scheduled', 'expired', 'archived'] ", alias="newState")
-    ruleset: Optional[Any] = Field(default=None, description="The current ruleset.")
-    __properties: ClassVar[List[str]] = ["Event", "campaign", "oldState", "newState", "ruleset"]
+    ruleset: Optional[Ruleset] = Field(default=None, description="The current ruleset.")
+    placeholders: Optional[List[PlaceholderDetails]] = Field(default=None, description="The current details of the [placeholders](https://docs.talon.one/docs/product/campaigns/templates/create-templates#use-placeholders) in the campaign.")
+    __properties: ClassVar[List[str]] = ["Event", "campaign", "oldState", "newState", "ruleset", "placeholders"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,16 +76,19 @@ class CampaignStateChangedNotificationItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if campaign (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign is None and "campaign" in self.model_fields_set:
-            _dict['campaign'] = None
-
-        # set to None if ruleset (nullable) is None
-        # and model_fields_set contains the field
-        if self.ruleset is None and "ruleset" in self.model_fields_set:
-            _dict['ruleset'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of campaign
+        if self.campaign:
+            _dict['campaign'] = self.campaign.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of ruleset
+        if self.ruleset:
+            _dict['ruleset'] = self.ruleset.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in placeholders (list)
+        _items = []
+        if self.placeholders:
+            for _item_placeholders in self.placeholders:
+                if _item_placeholders:
+                    _items.append(_item_placeholders.to_dict())
+            _dict['placeholders'] = _items
         return _dict
 
     @classmethod
@@ -95,10 +102,11 @@ class CampaignStateChangedNotificationItem(BaseModel):
 
         _obj = cls.model_validate({
             "Event": obj.get("Event"),
-            "campaign": obj.get("campaign"),
+            "campaign": Campaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
             "oldState": obj.get("oldState"),
             "newState": obj.get("newState"),
-            "ruleset": obj.get("ruleset")
+            "ruleset": Ruleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
+            "placeholders": [PlaceholderDetails.from_dict(_item) for _item in obj["placeholders"]] if obj.get("placeholders") is not None else None
         })
         return _obj
 

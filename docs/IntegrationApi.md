@@ -1047,13 +1047,22 @@ void (empty response body)
 
 Generate loyalty card
 
-Generate a loyalty card in a specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview).
+Generate a loyalty card in a specified [card-based loyalty
+program](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview).
 
-To link the card to one or more customer profiles, use the `customerProfileIds` parameter in the request body.
+To link the card to one or more customer profiles, use the
+`customerProfileIds` parameter in the request body.
 
 **Note:**
-- The number of customer profiles linked to the loyalty card cannot exceed the loyalty program's `usersPerCardLimit`. To find the program's limit, use the [Get loyalty program](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgram) endpoint.
-- If the loyalty program has a defined code format, it will be used for the loyalty card identifier.
+
+- The number of customer profiles linked to the loyalty card cannot exceed
+the loyalty program's `usersPerCardLimit`. To find the program's limit, use
+the [Get loyalty
+program](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgram)
+endpoint.
+
+- If the loyalty program has a defined code format, it will be used for the
+loyalty card identifier.
 
 
 ### Example
@@ -2839,7 +2848,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **track_event_v2**
-> TrackEventV2Response track_event_v2(integration_event_v2_request, silent=silent, dry=dry, force_complete_evaluation=force_complete_evaluation)
+> IntegrationEventV2Response track_event_v2(integration_event_v2_request, silent=silent, dry=dry, force_complete_evaluation=force_complete_evaluation)
 
 Track event
 
@@ -2875,7 +2884,7 @@ See the [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incen
 ```python
 import talon_one
 from talon_one.models.integration_event_v2_request import IntegrationEventV2Request
-from talon_one.models.track_event_v2_response import TrackEventV2Response
+from talon_one.models.integration_event_v2_response import IntegrationEventV2Response
 from talon_one.rest import ApiException
 from pprint import pprint
 
@@ -2928,7 +2937,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrackEventV2Response**](TrackEventV2Response.md)
+[**IntegrationEventV2Response**](IntegrationEventV2Response.md)
 
 ### Authorization
 

@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.strikethrough_changed_item import StrikethroughChangedItem
+from talon_one.models.strikethrough_trigger import StrikethroughTrigger
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -33,7 +34,7 @@ class StrikethroughLabelingNotification(BaseModel):
     application_id: StrictInt = Field(description="The ID of the Application to which the catalog items labels belongs.", alias="applicationId")
     current_batch: StrictInt = Field(description="The batch number of the notification. Notifications might be sent in different batches.", alias="currentBatch")
     total_batches: StrictInt = Field(description="The total number of batches for the notification.", alias="totalBatches")
-    trigger: Dict[str, Any]
+    trigger: StrikethroughTrigger
     changed_items: List[StrikethroughChangedItem] = Field(alias="changedItems")
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
     sent_at: datetime = Field(description="Timestamp at which the notification was sent.", alias="sentAt")

@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **batch_id** | **str** |  | [optional] 
 **attributes** | **object** |  | [optional] 
 **limits** | [**List[PrismaticEventPayloadCouponBasedNotificationsLimits]**](PrismaticEventPayloadCouponBasedNotificationsLimits.md) |  | [optional] 
+**published_at** | **datetime** | Timestamp when the event was published. | 
 **source_of_event** | **str** |  | 
 **employee_name** | **str** |  | 
 

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **application_id** | **int** | The ID of the Application to which the catalog items labels belongs. | 
 **current_batch** | **int** | The batch number of the notification. Notifications might be sent in different batches. | 
 **total_batches** | **int** | The total number of batches for the notification. | 
-**trigger** | [**StrikethroughTrigger**](.md) |  | 
+**trigger** | [**StrikethroughTrigger**](StrikethroughTrigger.md) |  | 
 **changed_items** | [**List[StrikethroughChangedItem]**](StrikethroughChangedItem.md) |  | 
 **notification_type** | **str** | The type of notification. | 
 **sent_at** | **datetime** | Timestamp at which the notification was sent. | 

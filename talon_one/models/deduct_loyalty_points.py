@@ -27,7 +27,7 @@ class DeductLoyaltyPoints(BaseModel):
     """
     Points to deduct.
     """ # noqa: E501
-    points: Union[Annotated[float, Field(le=999999999999.99, strict=True)], Annotated[int, Field(le=2147483647, strict=True)]] = Field(description="Amount of loyalty points.")
+    points: Union[Annotated[float, Field(le=999999999999.99, strict=True, gt=0)], Annotated[int, Field(le=2147483647, strict=True, gt=0)]] = Field(description="Amount of loyalty points.")
     name: Optional[StrictStr] = Field(default=None, description="Name / reason for the point deduction.")
     subledger_id: Optional[StrictStr] = Field(default=None, description="ID of the subledger the points are deducted from.", alias="subledgerId")
     application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application that is connected to the loyalty program.", alias="applicationId")
