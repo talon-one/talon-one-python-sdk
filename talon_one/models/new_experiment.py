@@ -17,9 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
+from typing import Any, ClassVar, Dict, List
 from talon_one.models.new_campaign import NewCampaign
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,21 +27,9 @@ class NewExperiment(BaseModel):
     """
     NewExperiment
     """ # noqa: E501
-    is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The assignment to the variant is handled internally by the Talon.Oneandled internally by the Talon.One. - true - The assignment to the variant handled externally. ", alias="isVariantAssignmentExternal")
-    activated: Optional[datetime] = Field(default=None, description="The date and time the experiment was activated. ")
-    state: Optional[StrictStr] = Field(default='disabled', description="A disabled experiment is not evaluated for rules or coupons. ")
+    is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
     campaign: NewCampaign
-    __properties: ClassVar[List[str]] = ["isVariantAssignmentExternal", "activated", "state", "campaign"]
-
-    @field_validator('state')
-    def state_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['enabled', 'disabled']):
-            raise ValueError("must be one of enum values ('enabled', 'disabled')")
-        return value
+    __properties: ClassVar[List[str]] = ["isVariantAssignmentExternal", "campaign"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,8 +86,6 @@ class NewExperiment(BaseModel):
 
         _obj = cls.model_validate({
             "isVariantAssignmentExternal": obj.get("isVariantAssignmentExternal"),
-            "activated": obj.get("activated"),
-            "state": obj.get("state") if obj.get("state") is not None else 'disabled',
             "campaign": NewCampaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None
         })
         return _obj

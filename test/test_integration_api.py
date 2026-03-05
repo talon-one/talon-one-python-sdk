@@ -194,6 +194,13 @@ class TestIntegrationApi(unittest.TestCase):
         """
         pass
 
+    def test_price_history(self) -> None:
+        """Test case for price_history
+
+        Get summary of price history
+        """
+        pass
+
     def test_reopen_customer_session(self) -> None:
         """Test case for reopen_customer_session
 
