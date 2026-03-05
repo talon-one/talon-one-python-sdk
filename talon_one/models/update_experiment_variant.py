@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from talon_one.models.new_ruleset import NewRuleset
@@ -29,7 +29,7 @@ class UpdateExperimentVariant(BaseModel):
     UpdateExperimentVariant
     """ # noqa: E501
     id: StrictInt
-    name: StrictStr
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The name of this variant.")
     ruleset: NewRuleset
     weight: Annotated[int, Field(le=99, strict=True, ge=1)] = Field(description="The percentage split of this variant. The sum of all variant percentages must be 100.")
     __properties: ClassVar[List[str]] = ["id", "name", "ruleset", "weight"]

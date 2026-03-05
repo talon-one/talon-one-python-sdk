@@ -28,13 +28,14 @@ class BestPriorPrice(BaseModel):
     """
     BestPriorPrice
     """ # noqa: E501
+    id: StrictInt = Field(description="The ID of the historical price.")
     sku: StrictStr = Field(description="sku")
-    observed_at: datetime = Field(description="The date and time when the best price was observed.", alias="observedAt")
+    observed_at: datetime = Field(description="The date and time when the price was observed.", alias="observedAt")
     context_id: StrictStr = Field(description="The context ID of the context active at the time of observation. ", alias="contextId")
     price: Union[StrictFloat, StrictInt] = Field(description="Price of the item.")
     metadata: BestPriorPriceMetadata
     target: Dict[str, Any]
-    __properties: ClassVar[List[str]] = ["sku", "observedAt", "contextId", "price", "metadata", "target"]
+    __properties: ClassVar[List[str]] = ["id", "sku", "observedAt", "contextId", "price", "metadata", "target"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,6 +91,7 @@ class BestPriorPrice(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "sku": obj.get("sku"),
             "observedAt": obj.get("observedAt"),
             "contextId": obj.get("contextId"),

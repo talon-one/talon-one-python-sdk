@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.best_prior_target import BestPriorTarget
@@ -32,9 +32,20 @@ class BestPriorPriceRequest(BaseModel):
     skus: Annotated[List[StrictStr], Field(min_length=1)] = Field(description="List of product SKUs to check when determining the best prior price.")
     timeframe_end_date: datetime = Field(description="The end date and time that defines the latest time for retrieving historical SKU prices.", alias="timeframeEndDate")
     timeframe: StrictStr = Field(description="The number of days prior to the timeframeEndDate. Only prices within this look back period are considered for the best prior price evaluation.")
-    strict_end_date: StrictBool = Field(description="Indicates whether the timeframe includes the start of the current sale. - When `false`, the timeframe includes the start date of the current sale. - When `true`, the timeframe striclty uses the number of days specified in `timeframe`. ", alias="strictEndDate")
+    strict_end_date: StrictBool = Field(description="This property is **deprecated**. Use `timeframeEndDateType` instead.  Indicates whether the timeframe includes the start of the current sale. - When `false`, the timeframe includes the start date of the current sale. - When `true`, the timeframe strictly uses the number of days specified in `timeframe`. ", alias="strictEndDate")
+    timeframe_end_date_type: Optional[StrictStr] = Field(default=None, description="Sets the timeframe for retrieving historical pricing data. Can be one of the following values: - `strict`: The timeframe ends at the `timeframeEndDate` value. - `price`: The timeframe ends at the start of the current `contextId` with the current price value. Identical price records are merged. If there is no `contextId` for the most recent price, the most recent timestamp for the price is used.  - `sale`:  The timeframe ends at the start of current `contextId` and takes the prices prior to the start of the `contextId` into account. ", alias="timeframeEndDateType")
     target: Optional[BestPriorTarget] = None
-    __properties: ClassVar[List[str]] = ["skus", "timeframeEndDate", "timeframe", "strictEndDate", "target"]
+    __properties: ClassVar[List[str]] = ["skus", "timeframeEndDate", "timeframe", "strictEndDate", "timeframeEndDateType", "target"]
+
+    @field_validator('timeframe_end_date_type')
+    def timeframe_end_date_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['strict', 'price', 'sale']):
+            raise ValueError("must be one of enum values ('strict', 'price', 'sale')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,6 +105,7 @@ class BestPriorPriceRequest(BaseModel):
             "timeframeEndDate": obj.get("timeframeEndDate"),
             "timeframe": obj.get("timeframe"),
             "strictEndDate": obj.get("strictEndDate"),
+            "timeframeEndDateType": obj.get("timeframeEndDateType"),
             "target": BestPriorTarget.from_dict(obj["target"]) if obj.get("target") is not None else None
         })
         return _obj

@@ -32,10 +32,10 @@ class Experiment(BaseModel):
     id: StrictInt = Field(description="The internal ID of this entity.")
     created: datetime = Field(description="The time this entity was created.")
     application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    is_variant_assignment_external: Optional[StrictBool] = Field(default=None, description="The source of the assignment. - false - The assignment to the variant is handled internally by the Talon.Oneandled internally by the Talon.One. - true - The assignment to the variant handled externally. ", alias="isVariantAssignmentExternal")
+    is_variant_assignment_external: Optional[StrictBool] = Field(default=None, description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
     campaign: Optional[Campaign] = None
     activated: Optional[datetime] = Field(default=None, description="The date and time the experiment was activated. ")
-    state: Optional[StrictStr] = Field(default='disabled', description="A disabled experiment is not evaluated for rules or coupons. ")
+    state: StrictStr = Field(description="A disabled experiment is not evaluated for rules or coupons. ")
     variants: Optional[List[ExperimentVariant]] = None
     deletedat: Optional[datetime] = Field(default=None, description="The date and time the experiment was deleted. ")
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "isVariantAssignmentExternal", "campaign", "activated", "state", "variants", "deletedat"]
@@ -43,11 +43,8 @@ class Experiment(BaseModel):
     @field_validator('state')
     def state_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['enabled', 'disabled']):
-            raise ValueError("must be one of enum values ('enabled', 'disabled')")
+        if value not in set(['enabled', 'disabled', 'archived']):
+            raise ValueError("must be one of enum values ('enabled', 'disabled', 'archived')")
         return value
 
     model_config = ConfigDict(

@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 **id** | **int** | The internal ID of this entity. | 
 **created** | **datetime** | The time this entity was created. | 
 **application_id** | **int** | The ID of the Application that owns this entity. | 
-**is_variant_assignment_external** | **bool** | The source of the assignment. - false - The assignment to the variant is handled internally by the Talon.Oneandled internally by the Talon.One. - true - The assignment to the variant handled externally.  | [optional] 
+**is_variant_assignment_external** | **bool** | The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally.  | [optional] 
 **campaign** | [**Campaign**](Campaign.md) |  | [optional] 
 **activated** | **datetime** | The date and time the experiment was activated.  | [optional] 
-**state** | **str** | A disabled experiment is not evaluated for rules or coupons.  | [optional] [default to 'disabled']
+**state** | **str** | A disabled experiment is not evaluated for rules or coupons.  | [default to 'disabled']
 **variants** | [**List[ExperimentVariant]**](ExperimentVariant.md) |  | [optional] 
 **deletedat** | **datetime** | The date and time the experiment was deleted.  | [optional] 
 

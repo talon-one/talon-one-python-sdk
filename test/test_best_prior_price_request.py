@@ -39,6 +39,7 @@ class TestBestPriorPriceRequest(unittest.TestCase):
                 timeframe_end_date = '2020-11-10T23:00:00Z',
                 timeframe = '30',
                 strict_end_date = True,
+                timeframe_end_date_type = 'sale',
                 target = talon_one.models.best_prior_target.BestPriorTarget(
                     target_type = 'AUDIENCE', 
                     audience_id = 4, )

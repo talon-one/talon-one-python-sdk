@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.04"
+__version__ = "26.05"
 
 # Define package exports
 __all__ = [
@@ -191,7 +191,9 @@ __all__ = [
     "Coupon",
     "CouponConstraints",
     "CouponCreatedEffectProps",
+    "CouponCreatedEventRequest",
     "CouponCreationJob",
+    "CouponDeletedEventRequest",
     "CouponDeletionFilters",
     "CouponDeletionJob",
     "CouponEntity",
@@ -200,6 +202,7 @@ __all__ = [
     "CouponRejectionReason",
     "CouponReservations",
     "CouponSearch",
+    "CouponUpdatedEventRequest",
     "CouponValue",
     "CouponWithApplication",
     "CouponsNotificationData",
@@ -251,6 +254,9 @@ __all__ = [
     "EventV2",
     "EventV3",
     "Experiment",
+    "ExperimentCampaignCopy",
+    "ExperimentCopy",
+    "ExperimentCopyExperiment",
     "ExperimentResults",
     "ExperimentVariant",
     "ExperimentVariantAllocation",
@@ -331,6 +337,7 @@ __all__ = [
     "Giveaway",
     "GiveawaysPool",
     "HiddenConditionsEffects",
+    "History",
     "IdentifiableEntity",
     "ImportEntity",
     "IncreaseAchievementProgressEffectProps",
@@ -345,6 +352,21 @@ __all__ = [
     "IntegrationEventV2Response",
     "IntegrationEventV3Request",
     "IntegrationEventV3Response",
+    "IntegrationHubConfig",
+    "IntegrationHubEventPayloadCouponBasedNotifications",
+    "IntegrationHubEventPayloadCouponBasedNotificationsLimits",
+    "IntegrationHubEventPayloadLoyaltyProfileBasedNotification",
+    "IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification",
+    "IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction",
+    "IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification",
+    "IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification",
+    "IntegrationHubEventRecord",
+    "IntegrationHubFlow",
+    "IntegrationHubFlowConfig",
+    "IntegrationHubFlowConfigResponse",
+    "IntegrationHubFlowResponse",
+    "IntegrationHubFlowWithConfig",
+    "IntegrationHubPaginatedEventPayload",
     "IntegrationProfileEntity",
     "IntegrationProfileEntityV3",
     "IntegrationRequest",
@@ -371,6 +393,7 @@ __all__ = [
     "ListCampaignStoreBudgets",
     "ListCampaignStoreBudgetsStore",
     "ListCatalogItems200Response",
+    "ListExperiments200Response",
     "ListStores200Response",
     "LoginParams",
     "Loyalty",
@@ -392,6 +415,7 @@ __all__ = [
     "LoyaltyLedgerEntryFlags",
     "LoyaltyLedgerTransactions",
     "LoyaltyMembership",
+    "LoyaltyPointsChangedEventRequest",
     "LoyaltyProgram",
     "LoyaltyProgramBalance",
     "LoyaltyProgramEntity",
@@ -399,6 +423,8 @@ __all__ = [
     "LoyaltyProgramTransaction",
     "LoyaltySubLedger",
     "LoyaltyTier",
+    "LoyaltyTierDowngradeEventRequest",
+    "LoyaltyTierUpgradeEventRequest",
     "ManagementKey",
     "ManagerConfig",
     "MessageLogEntries",
@@ -510,24 +536,11 @@ __all__ = [
     "Picklist",
     "PlaceholderDetails",
     "PriceDetail",
+    "PriceHistoryRequest",
+    "PriceHistoryResponse",
     "PriceType",
     "PriceTypeReferenceDetail",
     "PriceTypeReferences",
-    "PrismaticConfig",
-    "PrismaticEventPayloadCouponBasedNotifications",
-    "PrismaticEventPayloadCouponBasedNotificationsLimits",
-    "PrismaticEventPayloadLoyaltyProfileBasedNotification",
-    "PrismaticEventPayloadLoyaltyProfileBasedPointsChangedNotification",
-    "PrismaticEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction",
-    "PrismaticEventPayloadLoyaltyProfileBasedTierDowngradeNotification",
-    "PrismaticEventPayloadLoyaltyProfileBasedTierUpgradeNotification",
-    "PrismaticEventRecord",
-    "PrismaticFlow",
-    "PrismaticFlowConfig",
-    "PrismaticFlowConfigResponse",
-    "PrismaticFlowResponse",
-    "PrismaticFlowWithConfig",
-    "PrismaticPaginatedEventPayload",
     "Product",
     "ProductSearchMatch",
     "ProductUnitAnalytics",
@@ -535,6 +548,7 @@ __all__ = [
     "ProductUnitAnalyticsTotals",
     "ProfileAudiencesChanges",
     "ProjectedTier",
+    "PromoteExperiment",
     "RedeemReferralEffectProps",
     "Referral",
     "ReferralConstraints",
@@ -868,7 +882,9 @@ from talon_one.models.collection_without_payload import CollectionWithoutPayload
 from talon_one.models.coupon import Coupon as Coupon
 from talon_one.models.coupon_constraints import CouponConstraints as CouponConstraints
 from talon_one.models.coupon_created_effect_props import CouponCreatedEffectProps as CouponCreatedEffectProps
+from talon_one.models.coupon_created_event_request import CouponCreatedEventRequest as CouponCreatedEventRequest
 from talon_one.models.coupon_creation_job import CouponCreationJob as CouponCreationJob
+from talon_one.models.coupon_deleted_event_request import CouponDeletedEventRequest as CouponDeletedEventRequest
 from talon_one.models.coupon_deletion_filters import CouponDeletionFilters as CouponDeletionFilters
 from talon_one.models.coupon_deletion_job import CouponDeletionJob as CouponDeletionJob
 from talon_one.models.coupon_entity import CouponEntity as CouponEntity
@@ -877,6 +893,7 @@ from talon_one.models.coupon_limit_configs import CouponLimitConfigs as CouponLi
 from talon_one.models.coupon_rejection_reason import CouponRejectionReason as CouponRejectionReason
 from talon_one.models.coupon_reservations import CouponReservations as CouponReservations
 from talon_one.models.coupon_search import CouponSearch as CouponSearch
+from talon_one.models.coupon_updated_event_request import CouponUpdatedEventRequest as CouponUpdatedEventRequest
 from talon_one.models.coupon_value import CouponValue as CouponValue
 from talon_one.models.coupon_with_application import CouponWithApplication as CouponWithApplication
 from talon_one.models.coupons_notification_data import CouponsNotificationData as CouponsNotificationData
@@ -928,6 +945,9 @@ from talon_one.models.event_type import EventType as EventType
 from talon_one.models.event_v2 import EventV2 as EventV2
 from talon_one.models.event_v3 import EventV3 as EventV3
 from talon_one.models.experiment import Experiment as Experiment
+from talon_one.models.experiment_campaign_copy import ExperimentCampaignCopy as ExperimentCampaignCopy
+from talon_one.models.experiment_copy import ExperimentCopy as ExperimentCopy
+from talon_one.models.experiment_copy_experiment import ExperimentCopyExperiment as ExperimentCopyExperiment
 from talon_one.models.experiment_results import ExperimentResults as ExperimentResults
 from talon_one.models.experiment_variant import ExperimentVariant as ExperimentVariant
 from talon_one.models.experiment_variant_allocation import ExperimentVariantAllocation as ExperimentVariantAllocation
@@ -1008,6 +1028,7 @@ from talon_one.models.get_webhooks200_response import GetWebhooks200Response as 
 from talon_one.models.giveaway import Giveaway as Giveaway
 from talon_one.models.giveaways_pool import GiveawaysPool as GiveawaysPool
 from talon_one.models.hidden_conditions_effects import HiddenConditionsEffects as HiddenConditionsEffects
+from talon_one.models.history import History as History
 from talon_one.models.identifiable_entity import IdentifiableEntity as IdentifiableEntity
 from talon_one.models.import_entity import ImportEntity as ImportEntity
 from talon_one.models.increase_achievement_progress_effect_props import IncreaseAchievementProgressEffectProps as IncreaseAchievementProgressEffectProps
@@ -1022,6 +1043,21 @@ from talon_one.models.integration_event_v2_request import IntegrationEventV2Requ
 from talon_one.models.integration_event_v2_response import IntegrationEventV2Response as IntegrationEventV2Response
 from talon_one.models.integration_event_v3_request import IntegrationEventV3Request as IntegrationEventV3Request
 from talon_one.models.integration_event_v3_response import IntegrationEventV3Response as IntegrationEventV3Response
+from talon_one.models.integration_hub_config import IntegrationHubConfig as IntegrationHubConfig
+from talon_one.models.integration_hub_event_payload_coupon_based_notifications import IntegrationHubEventPayloadCouponBasedNotifications as IntegrationHubEventPayloadCouponBasedNotifications
+from talon_one.models.integration_hub_event_payload_coupon_based_notifications_limits import IntegrationHubEventPayloadCouponBasedNotificationsLimits as IntegrationHubEventPayloadCouponBasedNotificationsLimits
+from talon_one.models.integration_hub_event_payload_loyalty_profile_based_notification import IntegrationHubEventPayloadLoyaltyProfileBasedNotification as IntegrationHubEventPayloadLoyaltyProfileBasedNotification
+from talon_one.models.integration_hub_event_payload_loyalty_profile_based_points_changed_notification import IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification as IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification
+from talon_one.models.integration_hub_event_payload_loyalty_profile_based_points_changed_notification_action import IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction as IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction
+from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification as IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
+from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification as IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification
+from talon_one.models.integration_hub_event_record import IntegrationHubEventRecord as IntegrationHubEventRecord
+from talon_one.models.integration_hub_flow import IntegrationHubFlow as IntegrationHubFlow
+from talon_one.models.integration_hub_flow_config import IntegrationHubFlowConfig as IntegrationHubFlowConfig
+from talon_one.models.integration_hub_flow_config_response import IntegrationHubFlowConfigResponse as IntegrationHubFlowConfigResponse
+from talon_one.models.integration_hub_flow_response import IntegrationHubFlowResponse as IntegrationHubFlowResponse
+from talon_one.models.integration_hub_flow_with_config import IntegrationHubFlowWithConfig as IntegrationHubFlowWithConfig
+from talon_one.models.integration_hub_paginated_event_payload import IntegrationHubPaginatedEventPayload as IntegrationHubPaginatedEventPayload
 from talon_one.models.integration_profile_entity import IntegrationProfileEntity as IntegrationProfileEntity
 from talon_one.models.integration_profile_entity_v3 import IntegrationProfileEntityV3 as IntegrationProfileEntityV3
 from talon_one.models.integration_request import IntegrationRequest as IntegrationRequest
@@ -1048,6 +1084,7 @@ from talon_one.models.list_campaign_store_budget_limits200_response import ListC
 from talon_one.models.list_campaign_store_budgets import ListCampaignStoreBudgets as ListCampaignStoreBudgets
 from talon_one.models.list_campaign_store_budgets_store import ListCampaignStoreBudgetsStore as ListCampaignStoreBudgetsStore
 from talon_one.models.list_catalog_items200_response import ListCatalogItems200Response as ListCatalogItems200Response
+from talon_one.models.list_experiments200_response import ListExperiments200Response as ListExperiments200Response
 from talon_one.models.list_stores200_response import ListStores200Response as ListStores200Response
 from talon_one.models.login_params import LoginParams as LoginParams
 from talon_one.models.loyalty import Loyalty as Loyalty
@@ -1069,6 +1106,7 @@ from talon_one.models.loyalty_ledger_entry_expiry_date_change import LoyaltyLedg
 from talon_one.models.loyalty_ledger_entry_flags import LoyaltyLedgerEntryFlags as LoyaltyLedgerEntryFlags
 from talon_one.models.loyalty_ledger_transactions import LoyaltyLedgerTransactions as LoyaltyLedgerTransactions
 from talon_one.models.loyalty_membership import LoyaltyMembership as LoyaltyMembership
+from talon_one.models.loyalty_points_changed_event_request import LoyaltyPointsChangedEventRequest as LoyaltyPointsChangedEventRequest
 from talon_one.models.loyalty_program import LoyaltyProgram as LoyaltyProgram
 from talon_one.models.loyalty_program_balance import LoyaltyProgramBalance as LoyaltyProgramBalance
 from talon_one.models.loyalty_program_entity import LoyaltyProgramEntity as LoyaltyProgramEntity
@@ -1076,6 +1114,8 @@ from talon_one.models.loyalty_program_ledgers import LoyaltyProgramLedgers as Lo
 from talon_one.models.loyalty_program_transaction import LoyaltyProgramTransaction as LoyaltyProgramTransaction
 from talon_one.models.loyalty_sub_ledger import LoyaltySubLedger as LoyaltySubLedger
 from talon_one.models.loyalty_tier import LoyaltyTier as LoyaltyTier
+from talon_one.models.loyalty_tier_downgrade_event_request import LoyaltyTierDowngradeEventRequest as LoyaltyTierDowngradeEventRequest
+from talon_one.models.loyalty_tier_upgrade_event_request import LoyaltyTierUpgradeEventRequest as LoyaltyTierUpgradeEventRequest
 from talon_one.models.management_key import ManagementKey as ManagementKey
 from talon_one.models.manager_config import ManagerConfig as ManagerConfig
 from talon_one.models.message_log_entries import MessageLogEntries as MessageLogEntries
@@ -1187,24 +1227,11 @@ from talon_one.models.pending_points_notification_policy import PendingPointsNot
 from talon_one.models.picklist import Picklist as Picklist
 from talon_one.models.placeholder_details import PlaceholderDetails as PlaceholderDetails
 from talon_one.models.price_detail import PriceDetail as PriceDetail
+from talon_one.models.price_history_request import PriceHistoryRequest as PriceHistoryRequest
+from talon_one.models.price_history_response import PriceHistoryResponse as PriceHistoryResponse
 from talon_one.models.price_type import PriceType as PriceType
 from talon_one.models.price_type_reference_detail import PriceTypeReferenceDetail as PriceTypeReferenceDetail
 from talon_one.models.price_type_references import PriceTypeReferences as PriceTypeReferences
-from talon_one.models.prismatic_config import PrismaticConfig as PrismaticConfig
-from talon_one.models.prismatic_event_payload_coupon_based_notifications import PrismaticEventPayloadCouponBasedNotifications as PrismaticEventPayloadCouponBasedNotifications
-from talon_one.models.prismatic_event_payload_coupon_based_notifications_limits import PrismaticEventPayloadCouponBasedNotificationsLimits as PrismaticEventPayloadCouponBasedNotificationsLimits
-from talon_one.models.prismatic_event_payload_loyalty_profile_based_notification import PrismaticEventPayloadLoyaltyProfileBasedNotification as PrismaticEventPayloadLoyaltyProfileBasedNotification
-from talon_one.models.prismatic_event_payload_loyalty_profile_based_points_changed_notification import PrismaticEventPayloadLoyaltyProfileBasedPointsChangedNotification as PrismaticEventPayloadLoyaltyProfileBasedPointsChangedNotification
-from talon_one.models.prismatic_event_payload_loyalty_profile_based_points_changed_notification_action import PrismaticEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction as PrismaticEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction
-from talon_one.models.prismatic_event_payload_loyalty_profile_based_tier_downgrade_notification import PrismaticEventPayloadLoyaltyProfileBasedTierDowngradeNotification as PrismaticEventPayloadLoyaltyProfileBasedTierDowngradeNotification
-from talon_one.models.prismatic_event_payload_loyalty_profile_based_tier_upgrade_notification import PrismaticEventPayloadLoyaltyProfileBasedTierUpgradeNotification as PrismaticEventPayloadLoyaltyProfileBasedTierUpgradeNotification
-from talon_one.models.prismatic_event_record import PrismaticEventRecord as PrismaticEventRecord
-from talon_one.models.prismatic_flow import PrismaticFlow as PrismaticFlow
-from talon_one.models.prismatic_flow_config import PrismaticFlowConfig as PrismaticFlowConfig
-from talon_one.models.prismatic_flow_config_response import PrismaticFlowConfigResponse as PrismaticFlowConfigResponse
-from talon_one.models.prismatic_flow_response import PrismaticFlowResponse as PrismaticFlowResponse
-from talon_one.models.prismatic_flow_with_config import PrismaticFlowWithConfig as PrismaticFlowWithConfig
-from talon_one.models.prismatic_paginated_event_payload import PrismaticPaginatedEventPayload as PrismaticPaginatedEventPayload
 from talon_one.models.product import Product as Product
 from talon_one.models.product_search_match import ProductSearchMatch as ProductSearchMatch
 from talon_one.models.product_unit_analytics import ProductUnitAnalytics as ProductUnitAnalytics
@@ -1212,6 +1239,7 @@ from talon_one.models.product_unit_analytics_data_point import ProductUnitAnalyt
 from talon_one.models.product_unit_analytics_totals import ProductUnitAnalyticsTotals as ProductUnitAnalyticsTotals
 from talon_one.models.profile_audiences_changes import ProfileAudiencesChanges as ProfileAudiencesChanges
 from talon_one.models.projected_tier import ProjectedTier as ProjectedTier
+from talon_one.models.promote_experiment import PromoteExperiment as PromoteExperiment
 from talon_one.models.redeem_referral_effect_props import RedeemReferralEffectProps as RedeemReferralEffectProps
 from talon_one.models.referral import Referral as Referral
 from talon_one.models.referral_constraints import ReferralConstraints as ReferralConstraints

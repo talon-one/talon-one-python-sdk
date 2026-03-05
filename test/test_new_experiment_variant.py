@@ -35,7 +35,7 @@ class TestNewExperimentVariant(unittest.TestCase):
         model = NewExperimentVariant()
         if include_optional:
             return NewExperimentVariant(
-                name = 'AXyB u   h9cRnacyv IL9 WTpJZ0',
+                name = 'Variant A',
                 weight = 13,
                 ruleset = talon_one.models.new_ruleset.NewRuleset(
                     rules = [
@@ -74,7 +74,7 @@ class TestNewExperimentVariant(unittest.TestCase):
             )
         else:
             return NewExperimentVariant(
-                name = 'AXyB u   h9cRnacyv IL9 WTpJZ0',
+                name = 'Variant A',
                 weight = 13,
                 ruleset = talon_one.models.new_ruleset.NewRuleset(
                     rules = [
