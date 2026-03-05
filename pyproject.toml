@@ -1,6 +1,6 @@
 [project]
 name = "talon-one-sdk"
-version = "26.04"
+version = "26.05"
 description = "Talon.One API"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},

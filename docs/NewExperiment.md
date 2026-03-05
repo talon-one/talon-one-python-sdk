@@ -5,9 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**is_variant_assignment_external** | **bool** | The source of the assignment. - false - The assignment to the variant is handled internally by the Talon.Oneandled internally by the Talon.One. - true - The assignment to the variant handled externally.  | 
-**activated** | **datetime** | The date and time the experiment was activated.  | [optional] 
-**state** | **str** | A disabled experiment is not evaluated for rules or coupons.  | [optional] [default to 'disabled']
+**is_variant_assignment_external** | **bool** | The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally.  | 
 **campaign** | [**NewCampaign**](NewCampaign.md) |  | 
 
 ## Example

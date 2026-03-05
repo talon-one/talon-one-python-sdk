@@ -35,9 +35,10 @@ class TestBestPriorPrice(unittest.TestCase):
         model = BestPriorPrice()
         if include_optional:
             return BestPriorPrice(
+                id = 1,
                 sku = 'NVR-GN-GV-UUP',
                 observed_at = '2020-11-10T23:00:00Z',
-                context_id = 'Summer Sale 2007',
+                context_id = 'Summer Sale 2025',
                 price = 99.99,
                 metadata = talon_one.models.best_prior_price_metadata.BestPriorPriceMetadata(
                     influencing_campaign_details = [
@@ -50,9 +51,10 @@ class TestBestPriorPrice(unittest.TestCase):
             )
         else:
             return BestPriorPrice(
+                id = 1,
                 sku = 'NVR-GN-GV-UUP',
                 observed_at = '2020-11-10T23:00:00Z',
-                context_id = 'Summer Sale 2007',
+                context_id = 'Summer Sale 2025',
                 price = 99.99,
                 metadata = talon_one.models.best_prior_price_metadata.BestPriorPriceMetadata(
                     influencing_campaign_details = [

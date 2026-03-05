@@ -299,6 +299,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_export_application_campaign_analytics(self) -> None:
+        """Test case for export_application_campaign_analytics
+
+        Export Application analytics aggregated by campaign
+        """
+        pass
+
     def test_export_audiences_memberships(self) -> None:
         """Test case for export_audiences_memberships
 
@@ -387,6 +394,13 @@ class TestManagementApi(unittest.TestCase):
         """Test case for export_loyalty_cards
 
         Export loyalty cards
+        """
+        pass
+
+    def test_export_loyalty_join_dates(self) -> None:
+        """Test case for export_loyalty_join_dates
+
+        Export customers' loyalty program join dates
         """
         pass
 
@@ -719,6 +733,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_get_experiment(self) -> None:
+        """Test case for get_experiment
+
+        Get experiment in Application
+        """
+        pass
+
     def test_get_exports(self) -> None:
         """Test case for get_exports
 
@@ -1003,6 +1024,13 @@ class TestManagementApi(unittest.TestCase):
         """Test case for list_collections_in_application
 
         List collections in Application
+        """
+        pass
+
+    def test_list_experiments(self) -> None:
+        """Test case for list_experiments
+
+        List experiments
         """
         pass
 

@@ -27,7 +27,7 @@ class UpdateExperiment(BaseModel):
     """
     UpdateExperiment
     """ # noqa: E501
-    is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The assignment to the variant is handled internally by the Talon.Oneandled internally by the Talon.One. - true - The assignment to the variant handled externally.       ", alias="isVariantAssignmentExternal")
+    is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
     campaign: UpdateCampaign
     __properties: ClassVar[List[str]] = ["isVariantAssignmentExternal", "campaign"]
 

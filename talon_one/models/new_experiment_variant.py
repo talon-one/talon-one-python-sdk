@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from talon_one.models.new_ruleset import NewRuleset
@@ -28,18 +28,11 @@ class NewExperimentVariant(BaseModel):
     """
     NewExperimentVariant
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this variant.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The name of this variant.")
     weight: Annotated[int, Field(le=99, strict=True, ge=1)] = Field(description="The percentage split of this variant. The sum of all variant percentages must be 100.")
     ruleset: NewRuleset
     is_primary: StrictBool = Field(alias="isPrimary")
     __properties: ClassVar[List[str]] = ["name", "weight", "ruleset", "isPrimary"]
-
-    @field_validator('name')
-    def name_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if not re.match(r"^[A-Za-z](\w|\s)*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z](\w|\s)*$/")
-        return value
 
     model_config = ConfigDict(
         populate_by_name=True,

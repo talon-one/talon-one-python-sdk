@@ -37,7 +37,7 @@ class TestNewExperimentVariantArray(unittest.TestCase):
             return NewExperimentVariantArray(
                 variants = [
                     talon_one.models.new_experiment_variant.NewExperimentVariant(
-                        name = 'AXyB u   h9cRnacyv IL9 WTpJZ0', 
+                        name = 'Variant A', 
                         weight = 13, 
                         ruleset = talon_one.models.new_ruleset.NewRuleset(
                             rules = [
@@ -79,7 +79,7 @@ class TestNewExperimentVariantArray(unittest.TestCase):
             return NewExperimentVariantArray(
                 variants = [
                     talon_one.models.new_experiment_variant.NewExperimentVariant(
-                        name = 'AXyB u   h9cRnacyv IL9 WTpJZ0', 
+                        name = 'Variant A', 
                         weight = 13, 
                         ruleset = talon_one.models.new_ruleset.NewRuleset(
                             rules = [

@@ -36,8 +36,6 @@ class TestNewExperiment(unittest.TestCase):
         if include_optional:
             return NewExperiment(
                 is_variant_assignment_external = True,
-                activated = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                state = 'disabled',
                 campaign = None
             )
         else:
