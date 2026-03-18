@@ -40,7 +40,7 @@ class LoyaltyProgramTransaction(BaseModel):
     start_date: Annotated[str, Field(strict=True, max_length=64)] = Field(description="When points become active. Possible values:   - `immediate`: Points are immediately active.   - `on_action`: Points become active based on the customer's action.   - a timestamp value: Points become active at a given date and time. ", alias="startDate")
     expiry_date: StrictStr = Field(description="When points expire. Possible values:   - `unlimited`: Points have no expiration date.   - a timestamp value: Points expire at a given date and time. ", alias="expiryDate")
     customer_profile_id: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Customer profile integration ID used in the loyalty program.", alias="customerProfileId")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="cardIdentifier")
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="cardIdentifier")
     subledger_id: Annotated[str, Field(strict=True, max_length=64)] = Field(description="ID of the subledger.", alias="subledgerId")
     customer_session_id: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="ID of the customer session where the transaction occurred.", alias="customerSessionId")
     import_id: Optional[StrictInt] = Field(default=None, description="ID of the import where the transaction occurred.", alias="importId")
@@ -65,8 +65,8 @@ class LoyaltyProgramTransaction(BaseModel):
         if value is None:
             return value
 
-        if not re.match(r"^[A-Za-z0-9_-]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]*$/")
+        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
     model_config = ConfigDict(

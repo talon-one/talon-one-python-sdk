@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **program_title** | **str** | The Campaign Manager-displayed name of the loyalty program that owns this entity. | [optional] 
 **status** | **str** | Status of the loyalty card. Can be &#x60;active&#x60; or &#x60;inactive&#x60;.  | 
 **block_reason** | **str** | Reason for transferring and blocking the loyalty card.  | [optional] 
-**identifier** | **str** | The alphanumeric identifier of the loyalty card.  | 
+**identifier** | **str** | The identifier of the loyalty card, which must match the regular expression &#x60;^[A-Za-z0-9._%+@-]+$&#x60;.  | 
 **users_per_card_limit** | **int** | The max amount of customer profiles that can be linked to the card. 0 means unlimited.  | 
 **profiles** | [**List[LoyaltyCardProfileRegistration]**](LoyaltyCardProfileRegistration.md) | Integration IDs of the customers profiles linked to the card. | [optional] 
 **ledger** | [**LedgerInfo**](LedgerInfo.md) | Displays point balances of the card in the main ledger of the loyalty program. | [optional] 

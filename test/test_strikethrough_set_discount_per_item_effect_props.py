@@ -36,7 +36,8 @@ class TestStrikethroughSetDiscountPerItemEffectProps(unittest.TestCase):
         if include_optional:
             return StrikethroughSetDiscountPerItemEffectProps(
                 name = '1EuroOff',
-                value = None
+                value = None,
+                exclude_from_best_prior_price_history = True
             )
         else:
             return StrikethroughSetDiscountPerItemEffectProps(

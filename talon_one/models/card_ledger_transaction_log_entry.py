@@ -31,7 +31,7 @@ class CardLedgerTransactionLogEntry(BaseModel):
     transaction_uuid: StrictStr = Field(description="Unique identifier of the transaction in the UUID format.", alias="transactionUUID")
     created: datetime = Field(description="Date and time the loyalty card transaction occurred.")
     program_id: StrictInt = Field(description="ID of the loyalty program.", alias="programId")
-    card_identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The alphanumeric identifier of the loyalty card. ", alias="cardIdentifier")
+    card_identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="cardIdentifier")
     application_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application that owns this entity.", alias="applicationId")
     session_id: Optional[StrictInt] = Field(default=None, description="The **internal** ID of the session. ", alias="sessionId")
     customer_session_id: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="ID of the customer session where the transaction occurred.", alias="customerSessionId")
@@ -47,8 +47,8 @@ class CardLedgerTransactionLogEntry(BaseModel):
     @field_validator('card_identifier')
     def card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not re.match(r"^[A-Za-z0-9_-]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]*$/")
+        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
     @field_validator('type')

@@ -25,10 +25,14 @@ docs/AccountEntity.md
 docs/AccountLimits.md
 docs/Achievement.md
 docs/AchievementAdditionalProperties.md
+docs/AchievementAdditionalPropertiesV2.md
 docs/AchievementBase.md
+docs/AchievementBaseV2.md
 docs/AchievementProgress.md
 docs/AchievementProgressWithDefinition.md
+docs/AchievementReference.md
 docs/AchievementStatusEntry.md
+docs/AchievementV2.md
 docs/ActivateLoyaltyPoints.md
 docs/ActivateLoyaltyPointsResponse.md
 docs/ActivateUserRequest.md
@@ -184,6 +188,7 @@ docs/CouponWithApplication.md
 docs/CouponsNotificationData.md
 docs/CouponsNotificationPolicy.md
 docs/CreateAchievement.md
+docs/CreateAchievementV2.md
 docs/CreateApplicationAPIKey.md
 docs/CreateCouponData.md
 docs/CreateCoupons200Response.md
@@ -319,6 +324,7 @@ docs/ImportEntity.md
 docs/IncreaseAchievementProgressEffectProps.md
 docs/InfluencingCampaignDetails.md
 docs/IntegrationApi.md
+docs/IntegrationCampaign.md
 docs/IntegrationCoupon.md
 docs/IntegrationCustomerProfileAudienceRequest.md
 docs/IntegrationCustomerProfileAudienceRequestItem.md
@@ -633,6 +639,7 @@ docs/TriggerWebhookEffectProps.md
 docs/TwoFAConfig.md
 docs/UpdateAccount.md
 docs/UpdateAchievement.md
+docs/UpdateAchievementV2.md
 docs/UpdateApplication.md
 docs/UpdateApplicationAPIKey.md
 docs/UpdateApplicationCIF.md
@@ -708,10 +715,14 @@ talon_one/models/account_entity.py
 talon_one/models/account_limits.py
 talon_one/models/achievement.py
 talon_one/models/achievement_additional_properties.py
+talon_one/models/achievement_additional_properties_v2.py
 talon_one/models/achievement_base.py
+talon_one/models/achievement_base_v2.py
 talon_one/models/achievement_progress.py
 talon_one/models/achievement_progress_with_definition.py
+talon_one/models/achievement_reference.py
 talon_one/models/achievement_status_entry.py
+talon_one/models/achievement_v2.py
 talon_one/models/activate_loyalty_points.py
 talon_one/models/activate_loyalty_points_response.py
 talon_one/models/activate_user_request.py
@@ -868,6 +879,7 @@ talon_one/models/coupon_with_application.py
 talon_one/models/coupons_notification_data.py
 talon_one/models/coupons_notification_policy.py
 talon_one/models/create_achievement.py
+talon_one/models/create_achievement_v2.py
 talon_one/models/create_application_api_key.py
 talon_one/models/create_coupon_data.py
 talon_one/models/create_coupons200_response.py
@@ -1002,6 +1014,7 @@ talon_one/models/identifiable_entity.py
 talon_one/models/import_entity.py
 talon_one/models/increase_achievement_progress_effect_props.py
 talon_one/models/influencing_campaign_details.py
+talon_one/models/integration_campaign.py
 talon_one/models/integration_coupon.py
 talon_one/models/integration_customer_profile_audience_request.py
 talon_one/models/integration_customer_profile_audience_request_item.py
@@ -1315,6 +1328,7 @@ talon_one/models/trigger_webhook_effect_props.py
 talon_one/models/two_fa_config.py
 talon_one/models/update_account.py
 talon_one/models/update_achievement.py
+talon_one/models/update_achievement_v2.py
 talon_one/models/update_application.py
 talon_one/models/update_application_api_key.py
 talon_one/models/update_application_cif.py
@@ -1379,10 +1393,14 @@ test/test_account_entity.py
 test/test_account_limits.py
 test/test_achievement.py
 test/test_achievement_additional_properties.py
+test/test_achievement_additional_properties_v2.py
 test/test_achievement_base.py
+test/test_achievement_base_v2.py
 test/test_achievement_progress.py
 test/test_achievement_progress_with_definition.py
+test/test_achievement_reference.py
 test/test_achievement_status_entry.py
+test/test_achievement_v2.py
 test/test_activate_loyalty_points.py
 test/test_activate_loyalty_points_response.py
 test/test_activate_user_request.py
@@ -1539,6 +1557,7 @@ test/test_coupon_with_application.py
 test/test_coupons_notification_data.py
 test/test_coupons_notification_policy.py
 test/test_create_achievement.py
+test/test_create_achievement_v2.py
 test/test_create_application_api_key.py
 test/test_create_coupon_data.py
 test/test_create_coupons200_response.py
@@ -1674,6 +1693,7 @@ test/test_import_entity.py
 test/test_increase_achievement_progress_effect_props.py
 test/test_influencing_campaign_details.py
 test/test_integration_api.py
+test/test_integration_campaign.py
 test/test_integration_coupon.py
 test/test_integration_customer_profile_audience_request.py
 test/test_integration_customer_profile_audience_request_item.py
@@ -1988,6 +2008,7 @@ test/test_trigger_webhook_effect_props.py
 test/test_two_fa_config.py
 test/test_update_account.py
 test/test_update_achievement.py
+test/test_update_achievement_v2.py
 test/test_update_application.py
 test/test_update_application_api_key.py
 test/test_update_application_cif.py

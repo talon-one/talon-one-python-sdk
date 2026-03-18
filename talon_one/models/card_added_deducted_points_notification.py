@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -40,10 +41,11 @@ class CardAddedDeductedPointsNotification(BaseModel):
     users_per_card_limit: StrictInt = Field(description="The max amount of user profiles with whom a card can be shared. This can be set to `0` for no limit.", alias="UsersPerCardLimit")
     amount: Union[StrictFloat, StrictInt] = Field(description="The amount of added or deducted loyalty points.", alias="Amount")
     expiry_date: Optional[datetime] = Field(default=None, description="The expiration date for loyalty points.", alias="ExpiryDate")
-    operation: StrictStr = Field(description="The action (addition or deduction) made with loyalty points.", alias="Operation")
+    operation: StrictStr = Field(description="The action (addition or subtraction) made with loyalty points.", alias="Operation")
     reason: StrictStr = Field(description="The reason for the points addition or deduction.", alias="Reason")
     start_date: Optional[datetime] = Field(default=None, description="The start date for loyalty points.", alias="StartDate")
-    __properties: ClassVar[List[str]] = ["CardIdentifier", "EmployeeName", "LoyaltyProgramID", "NotificationType", "ProfileIntegrationIDs", "SessionIntegrationID", "SubledgerID", "TypeOfChange", "UserID", "UsersPerCardLimit", "Amount", "ExpiryDate", "Operation", "Reason", "StartDate"]
+    transaction_uuid: UUID = Field(description="The identifier of the transaction in the loyalty ledger.", alias="TransactionUUID")
+    __properties: ClassVar[List[str]] = ["CardIdentifier", "EmployeeName", "LoyaltyProgramID", "NotificationType", "ProfileIntegrationIDs", "SessionIntegrationID", "SubledgerID", "TypeOfChange", "UserID", "UsersPerCardLimit", "Amount", "ExpiryDate", "Operation", "Reason", "StartDate", "TransactionUUID"]
 
     @field_validator('notification_type')
     def notification_type_validate_enum(cls, value):
@@ -62,8 +64,8 @@ class CardAddedDeductedPointsNotification(BaseModel):
     @field_validator('operation')
     def operation_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['addition', 'deduction']):
-            raise ValueError("must be one of enum values ('addition', 'deduction')")
+        if value not in set(['addition', 'subtraction']):
+            raise ValueError("must be one of enum values ('addition', 'subtraction')")
         return value
 
     model_config = ConfigDict(
@@ -131,7 +133,8 @@ class CardAddedDeductedPointsNotification(BaseModel):
             "ExpiryDate": obj.get("ExpiryDate"),
             "Operation": obj.get("Operation"),
             "Reason": obj.get("Reason"),
-            "StartDate": obj.get("StartDate")
+            "StartDate": obj.get("StartDate"),
+            "TransactionUUID": obj.get("TransactionUUID")
         })
         return _obj
 

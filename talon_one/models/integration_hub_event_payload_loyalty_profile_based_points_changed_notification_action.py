@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -32,13 +33,14 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationActi
     operation: StrictStr = Field(alias="Operation")
     start_date: Optional[datetime] = Field(default=None, alias="StartDate")
     expiry_date: Optional[datetime] = Field(default=None, alias="ExpiryDate")
-    __properties: ClassVar[List[str]] = ["Amount", "Reason", "Operation", "StartDate", "ExpiryDate"]
+    transaction_uuid: UUID = Field(description="The identifier of the transaction in the loyalty ledger.", alias="TransactionUUID")
+    __properties: ClassVar[List[str]] = ["Amount", "Reason", "Operation", "StartDate", "ExpiryDate", "TransactionUUID"]
 
     @field_validator('operation')
     def operation_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['addition', 'deduction']):
-            raise ValueError("must be one of enum values ('addition', 'deduction')")
+        if value not in set(['addition', 'subtraction']):
+            raise ValueError("must be one of enum values ('addition', 'subtraction')")
         return value
 
     model_config = ConfigDict(
@@ -96,7 +98,8 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationActi
             "Reason": obj.get("Reason"),
             "Operation": obj.get("Operation"),
             "StartDate": obj.get("StartDate"),
-            "ExpiryDate": obj.get("ExpiryDate")
+            "ExpiryDate": obj.get("ExpiryDate"),
+            "TransactionUUID": obj.get("TransactionUUID")
         })
         return _obj
 

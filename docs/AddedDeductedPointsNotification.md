@@ -15,9 +15,10 @@ Name | Type | Description | Notes
 **user_id** | **int** | The ID of the employee who added or deducted points. | 
 **amount** | **float** | The amount of added or deducted loyalty points. | 
 **expiry_date** | **datetime** | The expiration date for loyalty points. | [optional] 
-**operation** | **str** | The action (addition or deduction) made with loyalty points. | 
+**operation** | **str** | The action (addition or subtraction) made with loyalty points. | 
 **reason** | **str** | The reason for the points addition or deduction. | 
 **start_date** | **datetime** | The start date for loyalty points. | [optional] 
+**transaction_uuid** | **UUID** | The identifier of the transaction in the loyalty ledger. | 
 
 ## Example
 
