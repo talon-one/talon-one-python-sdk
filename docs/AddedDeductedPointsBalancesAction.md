@@ -7,9 +7,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **amount** | **float** | The amount of added or deducted loyalty points. | 
 **reason** | **str** | The reason for the points addition or deduction. | 
-**operation** | **str** | The action (addition or deduction) made with loyalty points. | 
+**operation** | **str** | The action (addition or subtraction) made with loyalty points. | 
 **start_date** | **datetime** | The start date for loyalty points. | [optional] 
 **expiry_date** | **datetime** | The expiration date for loyalty points. | [optional] 
+**transaction_uuid** | **UUID** | The identifier of the transaction in the loyalty ledger. | 
 
 ## Example
 

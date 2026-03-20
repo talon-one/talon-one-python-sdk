@@ -39,13 +39,15 @@ class TestAddedDeductedPointsBalancesAction(unittest.TestCase):
                 reason = 'Compensation',
                 operation = 'addition',
                 start_date = '2023-01-24T14:15:22Z',
-                expiry_date = '2024-01-24T14:15:22Z'
+                expiry_date = '2024-01-24T14:15:22Z',
+                transaction_uuid = ''
             )
         else:
             return AddedDeductedPointsBalancesAction(
                 amount = 10.99,
                 reason = 'Compensation',
                 operation = 'addition',
+                transaction_uuid = '',
         )
         """
 

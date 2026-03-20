@@ -30,10 +30,14 @@ from talon_one.models.account_entity import AccountEntity
 from talon_one.models.account_limits import AccountLimits
 from talon_one.models.achievement import Achievement
 from talon_one.models.achievement_additional_properties import AchievementAdditionalProperties
+from talon_one.models.achievement_additional_properties_v2 import AchievementAdditionalPropertiesV2
 from talon_one.models.achievement_base import AchievementBase
+from talon_one.models.achievement_base_v2 import AchievementBaseV2
 from talon_one.models.achievement_progress import AchievementProgress
 from talon_one.models.achievement_progress_with_definition import AchievementProgressWithDefinition
+from talon_one.models.achievement_reference import AchievementReference
 from talon_one.models.achievement_status_entry import AchievementStatusEntry
+from talon_one.models.achievement_v2 import AchievementV2
 from talon_one.models.activate_loyalty_points import ActivateLoyaltyPoints
 from talon_one.models.activate_loyalty_points_response import ActivateLoyaltyPointsResponse
 from talon_one.models.activate_user_request import ActivateUserRequest
@@ -189,6 +193,7 @@ from talon_one.models.coupon_with_application import CouponWithApplication
 from talon_one.models.coupons_notification_data import CouponsNotificationData
 from talon_one.models.coupons_notification_policy import CouponsNotificationPolicy
 from talon_one.models.create_achievement import CreateAchievement
+from talon_one.models.create_achievement_v2 import CreateAchievementV2
 from talon_one.models.create_application_api_key import CreateApplicationAPIKey
 from talon_one.models.create_coupon_data import CreateCouponData
 from talon_one.models.create_coupons200_response import CreateCoupons200Response
@@ -323,6 +328,7 @@ from talon_one.models.identifiable_entity import IdentifiableEntity
 from talon_one.models.import_entity import ImportEntity
 from talon_one.models.increase_achievement_progress_effect_props import IncreaseAchievementProgressEffectProps
 from talon_one.models.influencing_campaign_details import InfluencingCampaignDetails
+from talon_one.models.integration_campaign import IntegrationCampaign
 from talon_one.models.integration_coupon import IntegrationCoupon
 from talon_one.models.integration_customer_profile_audience_request import IntegrationCustomerProfileAudienceRequest
 from talon_one.models.integration_customer_profile_audience_request_item import IntegrationCustomerProfileAudienceRequestItem
@@ -636,6 +642,7 @@ from talon_one.models.trigger_webhook_effect_props import TriggerWebhookEffectPr
 from talon_one.models.two_fa_config import TwoFAConfig
 from talon_one.models.update_account import UpdateAccount
 from talon_one.models.update_achievement import UpdateAchievement
+from talon_one.models.update_achievement_v2 import UpdateAchievementV2
 from talon_one.models.update_application import UpdateApplication
 from talon_one.models.update_application_api_key import UpdateApplicationAPIKey
 from talon_one.models.update_application_cif import UpdateApplicationCIF

@@ -29,7 +29,7 @@ class GenerateLoyaltyCard(BaseModel):
     """ # noqa: E501
     status: Optional[StrictStr] = Field(default='active', description="Status of the loyalty card.")
     customer_profile_ids: Optional[List[StrictStr]] = Field(default=None, description="Integration IDs of the customer profiles linked to the card.", alias="customerProfileIds")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The alphanumeric identifier of the loyalty card. ", alias="cardIdentifier")
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="cardIdentifier")
     __properties: ClassVar[List[str]] = ["status", "customerProfileIds", "cardIdentifier"]
 
     @field_validator('status')
@@ -48,8 +48,8 @@ class GenerateLoyaltyCard(BaseModel):
         if value is None:
             return value
 
-        if not re.match(r"^[A-Za-z0-9_-]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]*$/")
+        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
     model_config = ConfigDict(

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,8 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
     """ # noqa: E501
     name: StrictStr = Field(description="effect name.")
     value: Optional[Any]
-    __properties: ClassVar[List[str]] = ["name", "value"]
+    exclude_from_best_prior_price_history: Optional[StrictBool] = Field(default=None, alias="excludeFromBestPriorPriceHistory")
+    __properties: ClassVar[List[str]] = ["name", "value", "excludeFromBestPriorPriceHistory"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,7 +88,8 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "value": obj.get("value")
+            "value": obj.get("value"),
+            "excludeFromBestPriorPriceHistory": obj.get("excludeFromBestPriorPriceHistory")
         })
         return _obj
 

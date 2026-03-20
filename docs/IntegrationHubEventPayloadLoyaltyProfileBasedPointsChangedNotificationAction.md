@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **operation** | **str** |  | 
 **start_date** | **datetime** |  | [optional] 
 **expiry_date** | **datetime** |  | [optional] 
+**transaction_uuid** | **UUID** | The identifier of the transaction in the loyalty ledger. | 
 
 ## Example
 

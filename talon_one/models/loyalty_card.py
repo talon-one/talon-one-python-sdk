@@ -37,7 +37,7 @@ class LoyaltyCard(BaseModel):
     program_title: Optional[StrictStr] = Field(default=None, description="The Campaign Manager-displayed name of the loyalty program that owns this entity.", alias="programTitle")
     status: StrictStr = Field(description="Status of the loyalty card. Can be `active` or `inactive`. ")
     block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason")
-    identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The alphanumeric identifier of the loyalty card. ")
+    identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ")
     users_per_card_limit: Annotated[int, Field(strict=True, ge=0)] = Field(description="The max amount of customer profiles that can be linked to the card. 0 means unlimited. ", alias="usersPerCardLimit")
     profiles: Optional[List[LoyaltyCardProfileRegistration]] = Field(default=None, description="Integration IDs of the customers profiles linked to the card.")
     ledger: Optional[LedgerInfo] = Field(default=None, description="Displays point balances of the card in the main ledger of the loyalty program.")
@@ -51,8 +51,8 @@ class LoyaltyCard(BaseModel):
     @field_validator('identifier')
     def identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not re.match(r"^[A-Za-z0-9_-]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]*$/")
+        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
     @field_validator('old_card_identifier')
@@ -61,8 +61,8 @@ class LoyaltyCard(BaseModel):
         if value is None:
             return value
 
-        if not re.match(r"^[A-Za-z0-9_-]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]*$/")
+        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
     @field_validator('new_card_identifier')
@@ -71,8 +71,8 @@ class LoyaltyCard(BaseModel):
         if value is None:
             return value
 
-        if not re.match(r"^[A-Za-z0-9_-]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]*$/")
+        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
     model_config = ConfigDict(

@@ -47,7 +47,8 @@ class TestAddedDeductedPointsNotification(unittest.TestCase):
                 expiry_date = '2024-01-24T14:15:22Z',
                 operation = 'addition',
                 reason = 'Compensation',
-                start_date = '2023-01-24T14:15:22Z'
+                start_date = '2023-01-24T14:15:22Z',
+                transaction_uuid = ''
             )
         else:
             return AddedDeductedPointsNotification(
@@ -62,6 +63,7 @@ class TestAddedDeductedPointsNotification(unittest.TestCase):
                 amount = 10.99,
                 operation = 'addition',
                 reason = 'Compensation',
+                transaction_uuid = '',
         )
         """
 

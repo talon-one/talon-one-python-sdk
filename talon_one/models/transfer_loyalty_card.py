@@ -27,15 +27,15 @@ class TransferLoyaltyCard(BaseModel):
     """
     TransferLoyaltyCard
     """ # noqa: E501
-    new_card_identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The alphanumeric identifier of the loyalty card. ", alias="newCardIdentifier")
+    new_card_identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="newCardIdentifier")
     block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason")
     __properties: ClassVar[List[str]] = ["newCardIdentifier", "blockReason"]
 
     @field_validator('new_card_identifier')
     def new_card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not re.match(r"^[A-Za-z0-9_-]*$", value):
-            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]*$/")
+        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
     model_config = ConfigDict(

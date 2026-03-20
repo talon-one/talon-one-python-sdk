@@ -32,7 +32,7 @@ class ExpiringCardPointsData(BaseModel):
     loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID")
     amount_of_expiring_points: Union[StrictFloat, StrictInt] = Field(description="The amount of loyalty points that will be expired soon.", alias="AmountOfExpiringPoints")
     subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="SubledgerID")
-    card_identifier: StrictStr = Field(description="The alphanumeric identifier of the loyalty card.", alias="CardIdentifier")
+    card_identifier: StrictStr = Field(description="The identifier of the loyalty card, `which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="CardIdentifier")
     users_per_card_limit: Annotated[int, Field(strict=True, ge=0)] = Field(description="The maximum number of customer profiles with which a card can be shared. This can be set to `0` for no limit. ", alias="UsersPerCardLimit")
     profiles: List[StrictStr] = Field(description="The integration IDs of the customer profiles linked to the card.", alias="Profiles")
     __properties: ClassVar[List[str]] = ["ExpiryDate", "LoyaltyProgramID", "AmountOfExpiringPoints", "SubledgerID", "CardIdentifier", "UsersPerCardLimit", "Profiles"]
