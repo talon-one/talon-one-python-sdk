@@ -220,6 +220,9 @@ docs/DeleteUserRequest.md
 docs/Effect.md
 docs/EffectEntity.md
 docs/EmailEntity.md
+docs/EmbeddedAnalyticsConfiguration.md
+docs/EmbeddedAnalyticsConfigurationDashboards.md
+docs/EmbeddedDashboardConfiguration.md
 docs/Endpoint.md
 docs/Entity.md
 docs/EntityWithTalangVisibleID.md
@@ -238,6 +241,9 @@ docs/Experiment.md
 docs/ExperimentCampaignCopy.md
 docs/ExperimentCopy.md
 docs/ExperimentCopyExperiment.md
+docs/ExperimentListResults.md
+docs/ExperimentListResultsRequest.md
+docs/ExperimentResult.md
 docs/ExperimentResults.md
 docs/ExperimentVariant.md
 docs/ExperimentVariantAllocation.md
@@ -316,6 +322,8 @@ docs/GetRulesets200Response.md
 docs/GetUsers200Response.md
 docs/GetWebhooks200Response.md
 docs/Giveaway.md
+docs/GiveawayPoolNotification.md
+docs/GiveawayPoolNotificationData.md
 docs/GiveawaysPool.md
 docs/HiddenConditionsEffects.md
 docs/History.md
@@ -559,6 +567,7 @@ docs/RoleV2PermissionSet.md
 docs/RoleV2Permissions.md
 docs/RoleV2Readonly.md
 docs/RoleV2RolesGroup.md
+docs/RolesV2Thresholds.md
 docs/RollbackAddedLoyaltyPointsEffectProps.md
 docs/RollbackCouponEffectProps.md
 docs/RollbackDeductedLoyaltyPointsEffectProps.md
@@ -567,6 +576,7 @@ docs/RollbackIncreasedAchievementProgressEffectProps.md
 docs/RollbackReferralEffectProps.md
 docs/Rule.md
 docs/RuleFailureReason.md
+docs/RuleMetadata.md
 docs/Ruleset.md
 docs/SSOConfig.md
 docs/SamlConnection.md
@@ -911,6 +921,9 @@ talon_one/models/delete_user_request.py
 talon_one/models/effect.py
 talon_one/models/effect_entity.py
 talon_one/models/email_entity.py
+talon_one/models/embedded_analytics_configuration.py
+talon_one/models/embedded_analytics_configuration_dashboards.py
+talon_one/models/embedded_dashboard_configuration.py
 talon_one/models/endpoint.py
 talon_one/models/entity.py
 talon_one/models/entity_with_talang_visible_id.py
@@ -929,6 +942,9 @@ talon_one/models/experiment.py
 talon_one/models/experiment_campaign_copy.py
 talon_one/models/experiment_copy.py
 talon_one/models/experiment_copy_experiment.py
+talon_one/models/experiment_list_results.py
+talon_one/models/experiment_list_results_request.py
+talon_one/models/experiment_result.py
 talon_one/models/experiment_results.py
 talon_one/models/experiment_variant.py
 talon_one/models/experiment_variant_allocation.py
@@ -1007,6 +1023,8 @@ talon_one/models/get_rulesets200_response.py
 talon_one/models/get_users200_response.py
 talon_one/models/get_webhooks200_response.py
 talon_one/models/giveaway.py
+talon_one/models/giveaway_pool_notification.py
+talon_one/models/giveaway_pool_notification_data.py
 talon_one/models/giveaways_pool.py
 talon_one/models/hidden_conditions_effects.py
 talon_one/models/history.py
@@ -1248,6 +1266,7 @@ talon_one/models/role_v2_permission_set.py
 talon_one/models/role_v2_permissions.py
 talon_one/models/role_v2_readonly.py
 talon_one/models/role_v2_roles_group.py
+talon_one/models/roles_v2_thresholds.py
 talon_one/models/rollback_added_loyalty_points_effect_props.py
 talon_one/models/rollback_coupon_effect_props.py
 talon_one/models/rollback_deducted_loyalty_points_effect_props.py
@@ -1256,6 +1275,7 @@ talon_one/models/rollback_increased_achievement_progress_effect_props.py
 talon_one/models/rollback_referral_effect_props.py
 talon_one/models/rule.py
 talon_one/models/rule_failure_reason.py
+talon_one/models/rule_metadata.py
 talon_one/models/ruleset.py
 talon_one/models/saml_connection.py
 talon_one/models/saml_connection_internal.py
@@ -1589,6 +1609,9 @@ test/test_delete_user_request.py
 test/test_effect.py
 test/test_effect_entity.py
 test/test_email_entity.py
+test/test_embedded_analytics_configuration.py
+test/test_embedded_analytics_configuration_dashboards.py
+test/test_embedded_dashboard_configuration.py
 test/test_endpoint.py
 test/test_entity.py
 test/test_entity_with_talang_visible_id.py
@@ -1607,6 +1630,9 @@ test/test_experiment.py
 test/test_experiment_campaign_copy.py
 test/test_experiment_copy.py
 test/test_experiment_copy_experiment.py
+test/test_experiment_list_results.py
+test/test_experiment_list_results_request.py
+test/test_experiment_result.py
 test/test_experiment_results.py
 test/test_experiment_variant.py
 test/test_experiment_variant_allocation.py
@@ -1685,6 +1711,8 @@ test/test_get_rulesets200_response.py
 test/test_get_users200_response.py
 test/test_get_webhooks200_response.py
 test/test_giveaway.py
+test/test_giveaway_pool_notification.py
+test/test_giveaway_pool_notification_data.py
 test/test_giveaways_pool.py
 test/test_hidden_conditions_effects.py
 test/test_history.py
@@ -1928,6 +1956,7 @@ test/test_role_v2_permission_set.py
 test/test_role_v2_permissions.py
 test/test_role_v2_readonly.py
 test/test_role_v2_roles_group.py
+test/test_roles_v2_thresholds.py
 test/test_rollback_added_loyalty_points_effect_props.py
 test/test_rollback_coupon_effect_props.py
 test/test_rollback_deducted_loyalty_points_effect_props.py
@@ -1936,6 +1965,7 @@ test/test_rollback_increased_achievement_progress_effect_props.py
 test/test_rollback_referral_effect_props.py
 test/test_rule.py
 test/test_rule_failure_reason.py
+test/test_rule_metadata.py
 test/test_ruleset.py
 test/test_saml_connection.py
 test/test_saml_connection_internal.py

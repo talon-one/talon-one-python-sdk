@@ -7,7 +7,7 @@ Details of the response.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **created_at** | **datetime** | Timestamp when the response was received. | [optional] 
-**response** | **bytearray** | Raw response data. | [optional] 
+**response** | **bytes** | Raw response data. | [optional] 
 **status** | **int** | HTTP status code of the response. | [optional] 
 
 ## Example

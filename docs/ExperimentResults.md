@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**variants** | [**List[ExperimentVariantResult]**](ExperimentVariantResult.md) |  | [optional] 
+**variants** | [**List[ExperimentVariantResult]**](ExperimentVariantResult.md) |  | 
 **confidence** | [**ExperimentVariantResultConfidence**](ExperimentVariantResultConfidence.md) |  | 
 
 ## Example

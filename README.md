@@ -180,7 +180,6 @@ Class | Method | HTTP request | Description
 *IntegrationApi* | [**get_loyalty_program_profile_transactions**](docs/IntegrationApi.md#get_loyalty_program_profile_transactions) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/transactions | List customer&#39;s loyalty transactions
 *IntegrationApi* | [**get_reserved_customers**](docs/IntegrationApi.md#get_reserved_customers) | **GET** /v1/coupon_reservations/customerprofiles/{couponValue} | List customers that have this coupon reserved
 *IntegrationApi* | [**link_loyalty_card_to_profile**](docs/IntegrationApi.md#link_loyalty_card_to_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/link_profile | Link customer profile to card
-*IntegrationApi* | [**price_history**](docs/IntegrationApi.md#price_history) | **POST** /v1/best_prior_price_history | Get summary of price history
 *IntegrationApi* | [**reopen_customer_session**](docs/IntegrationApi.md#reopen_customer_session) | **PUT** /v2/customer_sessions/{customerSessionId}/reopen | Reopen customer session
 *IntegrationApi* | [**return_cart_items**](docs/IntegrationApi.md#return_cart_items) | **POST** /v2/customer_sessions/{customerSessionId}/returns | Return cart items
 *IntegrationApi* | [**sync_catalog**](docs/IntegrationApi.md#sync_catalog) | **PUT** /v1/catalogs/{catalogId}/sync | Sync cart item catalog
@@ -338,6 +337,7 @@ Class | Method | HTTP request | Description
 *ManagementApi* | [**list_experiments**](docs/ManagementApi.md#list_experiments) | **GET** /v1/applications/{applicationId}/experiments | List experiments
 *ManagementApi* | [**list_stores**](docs/ManagementApi.md#list_stores) | **GET** /v1/applications/{applicationId}/stores | List stores
 *ManagementApi* | [**okta_event_handler_challenge**](docs/ManagementApi.md#okta_event_handler_challenge) | **GET** /v1/provisioning/okta | Validate Okta API ownership
+*ManagementApi* | [**price_history**](docs/ManagementApi.md#price_history) | **POST** /v1/applications/{applicationId}/price_history | Get summary of price history
 *ManagementApi* | [**remove_loyalty_points**](docs/ManagementApi.md#remove_loyalty_points) | **PUT** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/deduct_points | Deduct points from customer profile
 *ManagementApi* | [**reset_password**](docs/ManagementApi.md#reset_password) | **POST** /v1/reset_password | Reset password
 *ManagementApi* | [**scim_create_group**](docs/ManagementApi.md#scim_create_group) | **POST** /v1/provisioning/scim/Groups | Create SCIM group
@@ -587,6 +587,9 @@ Class | Method | HTTP request | Description
 - [Effect](docs/Effect.md)
 - [EffectEntity](docs/EffectEntity.md)
 - [EmailEntity](docs/EmailEntity.md)
+- [EmbeddedAnalyticsConfiguration](docs/EmbeddedAnalyticsConfiguration.md)
+- [EmbeddedAnalyticsConfigurationDashboards](docs/EmbeddedAnalyticsConfigurationDashboards.md)
+- [EmbeddedDashboardConfiguration](docs/EmbeddedDashboardConfiguration.md)
 - [Endpoint](docs/Endpoint.md)
 - [Entity](docs/Entity.md)
 - [EntityWithTalangVisibleID](docs/EntityWithTalangVisibleID.md)
@@ -605,6 +608,9 @@ Class | Method | HTTP request | Description
 - [ExperimentCampaignCopy](docs/ExperimentCampaignCopy.md)
 - [ExperimentCopy](docs/ExperimentCopy.md)
 - [ExperimentCopyExperiment](docs/ExperimentCopyExperiment.md)
+- [ExperimentListResults](docs/ExperimentListResults.md)
+- [ExperimentListResultsRequest](docs/ExperimentListResultsRequest.md)
+- [ExperimentResult](docs/ExperimentResult.md)
 - [ExperimentResults](docs/ExperimentResults.md)
 - [ExperimentVariant](docs/ExperimentVariant.md)
 - [ExperimentVariantAllocation](docs/ExperimentVariantAllocation.md)
@@ -683,6 +689,8 @@ Class | Method | HTTP request | Description
 - [GetUsers200Response](docs/GetUsers200Response.md)
 - [GetWebhooks200Response](docs/GetWebhooks200Response.md)
 - [Giveaway](docs/Giveaway.md)
+- [GiveawayPoolNotification](docs/GiveawayPoolNotification.md)
+- [GiveawayPoolNotificationData](docs/GiveawayPoolNotificationData.md)
 - [GiveawaysPool](docs/GiveawaysPool.md)
 - [HiddenConditionsEffects](docs/HiddenConditionsEffects.md)
 - [History](docs/History.md)
@@ -924,6 +932,7 @@ Class | Method | HTTP request | Description
 - [RoleV2Permissions](docs/RoleV2Permissions.md)
 - [RoleV2Readonly](docs/RoleV2Readonly.md)
 - [RoleV2RolesGroup](docs/RoleV2RolesGroup.md)
+- [RolesV2Thresholds](docs/RolesV2Thresholds.md)
 - [RollbackAddedLoyaltyPointsEffectProps](docs/RollbackAddedLoyaltyPointsEffectProps.md)
 - [RollbackCouponEffectProps](docs/RollbackCouponEffectProps.md)
 - [RollbackDeductedLoyaltyPointsEffectProps](docs/RollbackDeductedLoyaltyPointsEffectProps.md)
@@ -932,6 +941,7 @@ Class | Method | HTTP request | Description
 - [RollbackReferralEffectProps](docs/RollbackReferralEffectProps.md)
 - [Rule](docs/Rule.md)
 - [RuleFailureReason](docs/RuleFailureReason.md)
+- [RuleMetadata](docs/RuleMetadata.md)
 - [Ruleset](docs/Ruleset.md)
 - [SSOConfig](docs/SSOConfig.md)
 - [SamlConnection](docs/SamlConnection.md)
@@ -1055,18 +1065,6 @@ Class | Method | HTTP request | Description
 Authentication schemes defined for the API:
 
 ### api_key_v1
-
-- **Type**: API key
-- **API key parameter name**: Authorization
-- **Location**: HTTP header
-
-### manager_auth
-
-- **Type**: API key
-- **API key parameter name**: Authorization
-- **Location**: HTTP header
-
-### management_key
 
 - **Type**: API key
 - **API key parameter name**: Authorization
