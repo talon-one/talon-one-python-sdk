@@ -150,6 +150,7 @@ Method | HTTP request | Description
 [**list_experiments**](ManagementApi.md#list_experiments) | **GET** /v1/applications/{applicationId}/experiments | List experiments
 [**list_stores**](ManagementApi.md#list_stores) | **GET** /v1/applications/{applicationId}/stores | List stores
 [**okta_event_handler_challenge**](ManagementApi.md#okta_event_handler_challenge) | **GET** /v1/provisioning/okta | Validate Okta API ownership
+[**price_history**](ManagementApi.md#price_history) | **POST** /v1/applications/{applicationId}/price_history | Get summary of price history
 [**remove_loyalty_points**](ManagementApi.md#remove_loyalty_points) | **PUT** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/deduct_points | Deduct points from customer profile
 [**reset_password**](ManagementApi.md#reset_password) | **POST** /v1/reset_password | Reset password
 [**scim_create_group**](ManagementApi.md#scim_create_group) | **POST** /v1/provisioning/scim/Groups | Create SCIM group
@@ -196,8 +197,6 @@ Enable a [disabled user](https://docs.talon.one/docs/product/account/account-set
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -216,18 +215,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -263,7 +250,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -288,8 +275,6 @@ Add points to the given loyalty card in the specified card-based loyalty program
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -308,18 +293,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -359,7 +332,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -385,13 +358,11 @@ Add points to customer profile
 Add points in the specified loyalty program for the given customer.
 
 To get the `integrationId` of the profile from a `sessionId`, use the
-[Update customer session](https://docs.talon.one/integration-api#operation/updateCustomerSessionV2) endpoint.
+[Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -410,18 +381,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -461,7 +420,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -488,8 +447,6 @@ Copy the campaign into all specified Applications.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -509,18 +466,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -562,7 +507,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -586,8 +531,6 @@ Create an account-level collection.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -607,18 +550,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -656,7 +587,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -683,8 +614,6 @@ Create a new achievement in a specific campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -704,18 +633,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -757,7 +674,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -787,8 +704,6 @@ These additional costs are shared across all applications in your account, and a
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -808,18 +723,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -857,7 +760,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -893,8 +796,6 @@ These attributes are shared across all Applications in your account and are neve
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -914,18 +815,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -963,7 +852,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -983,20 +872,20 @@ Name | Type | Description  | Notes
 
 Create loyalty cards
 
-Create a batch of loyalty cards in a specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types).
+Create a batch of loyalty cards in a specified [card-based loyalty
+program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types).
 
 Customers can use loyalty cards to collect and spend loyalty points.
 
-**Important:**
-
-- The specified card-based loyalty program must have a defined card code format that is used to generate the loyalty card codes.
-- Trying to create more than 20,000 loyalty cards in a single request returns an error message with a `400` status code.
+> [!important] **Note**
+> - The specified card-based loyalty program must have a defined card code
+>   format that is used to generate the loyalty card codes.
+> - Trying to create more than 20,000 loyalty cards in a single request
+>   returns an error message with a `400` status code.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1016,18 +905,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1067,7 +944,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1099,8 +976,6 @@ the corresponding collections for the new campaign are created automatically.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1120,18 +995,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1171,7 +1034,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1195,8 +1058,6 @@ Create a new store budget for a given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1215,18 +1076,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1266,7 +1115,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1292,8 +1141,6 @@ Create a campaign-level collection in a given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1313,18 +1160,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1366,7 +1201,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1390,8 +1225,6 @@ Create coupons according to some pattern. Up to 20.000 coupons can be created wi
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1411,18 +1244,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1466,7 +1287,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1494,8 +1315,6 @@ If you want to create less than 20,001 coupons, you can use the [Create coupons]
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1515,18 +1334,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1568,7 +1375,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1593,8 +1400,6 @@ This endpoint handles creating a job to delete coupons asynchronously.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1614,18 +1419,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1667,7 +1460,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1691,8 +1484,6 @@ Create coupons according to some pattern for up to 1000 recipients.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1712,18 +1503,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1767,7 +1546,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1790,13 +1569,11 @@ Resend invitation email
 
 Resend an email invitation to an existing user.
 
-**Note:** The invitation token is valid for 24 hours after the email has been sent.
+> [!note] The invitation token is valid for 24 hours after the email has been sent.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1815,18 +1592,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1864,7 +1629,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1884,15 +1649,17 @@ Name | Type | Description  | Notes
 
 Invite user
 
-Create a new user in the account and send an invitation to their email address.
+Create a new user in the account and send an invitation to their email
+address.
 
-**Note**: The invitation token is valid for 24 hours after the email has been sent. You can resend an invitation to a user with the [Resend invitation email](https://docs.talon.one/management-api#tag/Accounts-and-users/operation/createInviteEmail) endpoint.
+> [!note] The invitation token is valid for 24 hours after the email has
+> been sent. You can resend an invitation to a user with the [Resend
+> invitation email](https://docs.talon.one/management-api#tag/Accounts-and-users/operation/createInviteEmail)
+> endpoint.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -1912,18 +1679,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -1961,7 +1716,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -1981,15 +1736,14 @@ Name | Type | Description  | Notes
 
 Request a password reset
 
-Send an email with a password recovery link to the email address of an existing account.
+Send an email with a password recovery link to the email address of an
+existing account.
 
-**Note:** The password recovery link expires 30 minutes after this endpoint is triggered.
+> [!note] The password recovery link expires 30 minutes after this endpoint is triggered.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2008,18 +1762,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -2057,7 +1799,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2078,24 +1820,23 @@ Name | Type | Description  | Notes
 Create session
 
 Create a session to use the Management API endpoints.
-Use the value of the `token` property provided in the response as bearer token in other API calls.
 
-A token is valid for 3 months. In accordance with best pratices, use your generated token
-for all your API requests. Do **not** regenerate a token for each request.
+Use the value of the `token` property provided in the response as bearer
+token in other API calls.
 
-This endpoint has a rate limit of 3 to 6 requests per second per account, depending on your setup.
+A token is valid for 3 months. In accordance with best pratices, use your
+generated token for all your API requests. Do **not** regenerate a token for each request.
 
-<div class="redoc-section">
-  <p class="title">Granular API key</p>
-  Instead of using a session, you can also use the <a href="https://docs.talon.one/docs/product/account/dev-tools/managing-mapi-keys">Management API key feature</a>
-  in the Campaign Manager to decide which endpoints can be used with a given key.
-</div>
+This endpoint has a rate limit of 3 to 6 requests per second per account,
+depending on your setup.
+
+> [!note]
+> Instead of using a session, you can also use the <a href="https://docs.talon.one/docs/product/account/dev-tools/managing-mapi-keys">Management API key feature</a>
+> in the Campaign Manager to decide which endpoints can be used with a given key.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2115,18 +1856,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -2164,7 +1893,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2188,8 +1917,6 @@ Create a new store in a specific Application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2209,18 +1936,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -2260,7 +1975,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2287,8 +2002,6 @@ Disable user by email address
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2307,18 +2020,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -2354,7 +2055,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2379,8 +2080,6 @@ Deduct points from the given loyalty card in the specified card-based loyalty pr
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2399,18 +2098,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -2450,7 +2137,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2477,8 +2164,6 @@ Delete a given account-level collection.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2497,18 +2182,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -2519,7 +2192,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.
 
     try:
         # Delete account-level collection
@@ -2535,7 +2208,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. | 
 
 ### Return type
 
@@ -2543,7 +2216,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2568,8 +2241,6 @@ Delete the specified achievement.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2587,18 +2258,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -2638,7 +2297,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2664,8 +2323,6 @@ Delete the given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2683,18 +2340,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -2732,7 +2377,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2756,8 +2401,6 @@ Delete the store budgets for a given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2775,18 +2418,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -2828,7 +2459,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2853,8 +2484,6 @@ Delete a given campaign-level collection.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2873,18 +2502,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -2897,7 +2514,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.
 
     try:
         # Delete campaign-level collection
@@ -2915,7 +2532,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. | 
 
 ### Return type
 
@@ -2923,7 +2540,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -2948,8 +2565,6 @@ Delete the specified coupon.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -2967,18 +2582,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3018,7 +2621,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3042,8 +2645,6 @@ Deletes all the coupons matching the specified criteria.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3061,18 +2662,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3136,7 +2725,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3160,8 +2749,6 @@ Delete the given loyalty card.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3179,18 +2766,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3228,7 +2803,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3254,8 +2829,6 @@ Delete the specified referral.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3273,18 +2846,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3324,7 +2885,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3348,8 +2909,6 @@ Delete the specified store.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3367,18 +2926,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3416,7 +2963,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3441,8 +2988,6 @@ Delete a specific user.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3460,18 +3005,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3507,7 +3040,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3532,8 +3065,6 @@ Delete user by email address
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3552,18 +3083,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3599,7 +3118,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3623,8 +3142,6 @@ Destroys the session.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3642,18 +3159,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3685,7 +3190,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3709,8 +3214,6 @@ Disconnect the stores linked to a specific campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3728,18 +3231,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3777,7 +3268,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3802,13 +3293,12 @@ Export account-level collection's items
 
 Download a CSV file containing items from a given account-level collection.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3827,18 +3317,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -3849,7 +3327,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.
 
     try:
         # Export account-level collection's items
@@ -3867,7 +3345,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. | 
 
 ### Return type
 
@@ -3875,7 +3353,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -3912,8 +3390,6 @@ The CSV file contains the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -3931,18 +3407,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -3984,7 +3448,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4007,12 +3471,16 @@ Name | Type | Description  | Notes
 
 Export Application analytics aggregated by campaign
 
-Download a CSV file containing analytics data aggregated by campaign for the campaigns of an Application.
+Download a CSV file containing analytics data aggregated by campaign for the
+campaigns of an Application.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The CSV file contains the following columns:
-- `campaign_id`: The ID of the campaign. This column also contains labels for the [total and influenced values](https://docs.talon.one/docs/product/campaigns/analytics/application-dashboard#display-the-analytics-data).
+
+- `campaign_id`: The ID of the campaign. This column also contains labels
+  for the [total and influenced values](https://docs.talon.one/docs/product/campaigns/analytics/application-dashboard#display-the-analytics-data).
 - `start_date`: The start of the aggregation time frame in UTC.
 - `end_date`: The end of the aggregation time frame in UTC.
 - `revenue`: The total, pre-discount value of all items purchased in a customer session.
@@ -4025,8 +3493,6 @@ The CSV file contains the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4045,18 +3511,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -4068,8 +3522,8 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
-    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
-    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     campaign_ids = ['campaign_ids_example'] # List[str] | Filter by one or more Campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned.  (optional)
 
     try:
@@ -4089,8 +3543,8 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
- **range_start** | **datetime**| Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
- **range_end** | **datetime**| Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **campaign_ids** | [**List[str]**](str.md)| Filter by one or more Campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned.  | [optional] 
 
 ### Return type
@@ -4099,7 +3553,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4119,18 +3573,19 @@ Name | Type | Description  | Notes
 
 Export audience members
 
-Download a CSV file containing the integration IDs of the members of an audience.
+Download a CSV file containing the integration IDs of the members of an
+audience.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The file contains the following column:
+
 - `profileintegrationid`: The integration ID of the customer profile.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4148,18 +3603,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -4197,7 +3640,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4222,7 +3665,8 @@ Export campaign store budgets
 
 Download a CSV file containing the store budgets for a given campaign.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The CSV file contains the following columns:
 
@@ -4232,8 +3676,6 @@ The CSV file contains the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4251,18 +3693,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -4306,7 +3736,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4331,7 +3761,8 @@ Export stores
 
 Download a CSV file containing the stores linked to a specific campaign.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The CSV file contains the following column:
 
@@ -4340,8 +3771,6 @@ The CSV file contains the following column:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4359,18 +3788,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -4410,7 +3827,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4435,13 +3852,12 @@ Export campaign-level collection's items
 
 Download a CSV file containing items from a given campaign-level collection.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4460,18 +3876,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -4484,7 +3888,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.
 
     try:
         # Export campaign-level collection's items
@@ -4504,7 +3908,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. | 
 
 ### Return type
 
@@ -4512,7 +3916,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4536,7 +3940,8 @@ Export coupons
 
 Download a CSV file containing the coupons that match the given properties.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The CSV file can contain the following columns:
 
@@ -4558,7 +3963,7 @@ The CSV file can contain the following columns:
 - `limits`: The limits set on this coupon.
 - `limitval`: The maximum number of redemptions of this code.
 - `recipientintegrationid`: The integration ID of the recipient of the coupon.
-  Only the customer with this integration ID can redeem this code. Available only for personal codes.
+   Only the customer with this integration ID can redeem this code. Available only for personal codes.
 - `referralid`: The ID of the referral code that triggered the creation of this coupon (create coupon effect).
 - `reservation`: Whether the coupon can be reserved for multiple customers.
 - `reservation_counter`: How many times this coupon has been reserved.
@@ -4569,8 +3974,6 @@ The CSV file can contain the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4588,18 +3991,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -4665,7 +4056,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4687,9 +4078,11 @@ Export customer sessions
 
 Download a CSV file containing the customer sessions that match the request.
 
-**Important:** Archived sessions cannot be exported. See the [retention policy](https://docs.talon.one/docs/dev/server-infrastructure-and-data-retention).
+> [!important] Archived sessions cannot be exported. See the [retention
+> policy](https://docs.talon.one/docs/dev/server-infrastructure-and-data-retention).
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 - `id`: The internal ID of the session.
 - `firstsession`: Whether this is a first session.
@@ -4698,7 +4091,8 @@ Download a CSV file containing the customer sessions that match the request.
 - `profileid`: The internal ID of the customer profile.
 - `profileintegrationid`: The integration ID of the customer profile.
 - `created`: The timestamp when the session was created.
-- `state`: The [state](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states) of the session.
+- `state`: The [state](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states)
+   of the session.
 - `cartitems`: The cart items in the session.
 - `discounts`: The discounts in the session.
 - `total`: The total value of cart items and additional costs in the session, before any discounts are applied.
@@ -4707,7 +4101,8 @@ Download a CSV file containing the customer sessions that match the request.
 - `cancelledat`: Timestamp when the session was cancelled.
 - `referral`: The referral code in the session.
 - `identifiers`: The identifiers in the session.
-- `additional_costs`: The [additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs) in the session.
+- `additional_costs`: The [additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs)
+   in the session.
 - `updated`: Timestamp of the last session update.
 - `store_integration_id`: The integration ID of the store.
 - `coupons`: Coupon codes in the session.
@@ -4715,8 +4110,6 @@ Download a CSV file containing the customer sessions that match the request.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4734,18 +4127,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -4793,7 +4174,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4832,8 +4213,6 @@ You can filter the results by providing the following optional input parameters:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4851,18 +4230,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -4904,7 +4271,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -4924,9 +4291,11 @@ Name | Type | Description  | Notes
 
 Export triggered effects
 
-Download a CSV file containing the triggered effects that match the given attributes.
+Download a CSV file containing the triggered effects that match the given
+attributes.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The generated file can contain the following columns:
 
@@ -4950,8 +4319,6 @@ The generated file can contain the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -4969,18 +4336,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -5026,7 +4381,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5046,18 +4401,18 @@ Name | Type | Description  | Notes
 
 Export customer loyalty balance to CSV
 
-⚠️ Deprecation notice: Support for requests to this endpoint will end soon.
-To export customer loyalty balances to CSV, use the [Export customer loyalty balances to CSV](/management-api#tag/Loyalty/operation/exportLoyaltyBalances) endpoint.
+To export customer loyalty balances to CSV, use the [Export customer loyalty
+balances to CSV](/management-api#tag/Loyalty/operation/exportLoyaltyBalances) endpoint.
 
-Download a CSV file containing the balance of each customer in the loyalty program.
+Download a CSV file containing the balance of each customer in the loyalty
+program.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5076,18 +4431,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -5099,7 +4442,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 'loyalty_program_id_example' # str | The identifier for the loyalty program.
-    end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
 
     try:
         # Export customer loyalty balance to CSV
@@ -5118,7 +4461,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **str**| The identifier for the loyalty program. | 
- **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
 
 ### Return type
 
@@ -5126,7 +4469,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5148,14 +4491,16 @@ Name | Type | Description  | Notes
 
 Export customer loyalty balances
 
-Download a CSV file containing the balance of each customer in the loyalty program.
+Download a CSV file containing the balance of each customer in the loyalty
+program.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The generated file can contain the following columns:
 
 - `loyaltyProgramID`: The ID of the loyalty program.
-- `loyaltySubledger`: The name of the subdleger, when applicatble.
+- `loyaltySubledger`: The name of the subledger, when applicable.
 - `profileIntegrationID`: The integration ID of the customer profile.
 - `currentBalance`: The current point balance.
 - `pendingBalance`: The number of pending points.
@@ -5166,8 +4511,6 @@ The generated file can contain the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5186,18 +4529,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -5209,7 +4540,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 'loyalty_program_id_example' # str | The identifier for the loyalty program.
-    end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. - This parameter does not affect the `currentTier` field in the CSV file,  which shows the customer's tier at the time of export.  (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export.  (optional)
 
     try:
         # Export customer loyalty balances
@@ -5228,7 +4559,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **str**| The identifier for the loyalty program. | 
- **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered. - This parameter does not affect the &#x60;currentTier&#x60; field in the CSV file,  which shows the customer&#39;s tier at the time of export.  | [optional] 
+ **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered. &gt; - This parameter does not affect the &#x60;currentTier&#x60; field in the CSV file, which shows the customer&#39;s tier at the time of export.  | [optional] 
 
 ### Return type
 
@@ -5236,7 +4567,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5258,15 +4589,19 @@ Name | Type | Description  | Notes
 
 Export all card transaction logs
 
-Download a CSV file containing the balances of all cards in the loyalty program.
+Download a CSV file containing the balances of all cards in the loyalty
+program.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The CSV file contains the following columns:
 - `loyaltyProgramID`: The ID of the loyalty program.
 - `loyaltySubledger`: The name of the subdleger, when applicatble.
-- `cardIdentifier`: The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`.
-- `cardState`:The state of the loyalty card. It can be `active` or `inactive`.
+- `cardIdentifier`: The identifier of the loyalty card, which must match the regular
+expression `^[A-Za-z0-9._%+@-]+$`.
+- `cardState`:The state of the loyalty card. It can be `active` or
+`inactive`.
 - `currentBalance`: The current point balance.
 - `pendingBalance`: The number of pending points.
 - `expiredBalance`: The number of expired points.
@@ -5275,8 +4610,6 @@ The CSV file contains the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5295,18 +4628,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -5318,7 +4639,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
-    end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
 
     try:
         # Export all card transaction logs
@@ -5337,7 +4658,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
- **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
 
 ### Return type
 
@@ -5345,7 +4666,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5367,15 +4688,15 @@ Name | Type | Description  | Notes
 
 Export card's ledger log
 
-Download a CSV file containing a loyalty card ledger log of the loyalty program.
+Download a CSV file containing a loyalty card ledger log of the loyalty
+program.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5394,18 +4715,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -5418,8 +4727,8 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     loyalty_card_id = 'loyalty_card_id_example' # str | Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  **Important**: The loyalty card ID requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `NewCard2026%` as `NewCard2026%25`. 
-    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
-    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     date_format = 'date_format_example' # str | Determines the format of dates in the export document. (optional)
 
     try:
@@ -5440,8 +4749,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **loyalty_card_id** | **str**| Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  **Important**: The loyalty card ID requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode &#x60;NewCard2026%&#x60; as &#x60;NewCard2026%25&#x60;.  | 
- **range_start** | **datetime**| Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
- **range_end** | **datetime**| Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **date_format** | **str**| Determines the format of dates in the export document. | [optional] 
 
 ### Return type
@@ -5450,7 +4759,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5472,11 +4781,14 @@ Name | Type | Description  | Notes
 
 Export loyalty cards
 
-Download a CSV file containing the loyalty cards from a specified loyalty program.
+Download a CSV file containing the loyalty cards from a specified loyalty
+program.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The CSV file contains the following columns:
+
 - `identifier`: The unique identifier of the loyalty card.
 - `created`: The date and time the loyalty card was created.
 - `status`: The status of the loyalty card.
@@ -5485,12 +4797,11 @@ The CSV file contains the following columns:
 - `blockreason`: The reason for transferring and blocking the loyalty card.
 - `generated`: An indicator of whether the loyalty card was generated.
 - `batchid`: The ID of the batch the loyalty card is in.
+- `attributes`: The custom attributes of this loyalty card. Currently, this feature is only available upon request.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5509,18 +4820,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -5533,8 +4832,8 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     batch_id = 'batch_id_example' # str | Filter results by loyalty card batch ID. (optional)
-    created_before = '2013-10-20T19:20:30+01:00' # datetime | Only return loyalty cards created before this timestamp.  **Note:** - This must be an RFC3339 timestamp string.  (optional)
-    created_after = '2013-10-20T19:20:30+01:00' # datetime | Only return loyalty cards created after this timestamp.  **Note:** - This must be an RFC3339 timestamp string.  (optional)
+    created_before = '2013-10-20T19:20:30+01:00' # datetime | Only return loyalty cards created before this timestamp.  **Note:** This must be an RFC3339 timestamp string.  (optional)
+    created_after = '2013-10-20T19:20:30+01:00' # datetime | Only return loyalty cards created after this timestamp.  **Note:** This must be an RFC3339 timestamp string.  (optional)
     date_format = 'date_format_example' # str | Determines the format of dates in the export document. (optional)
 
     try:
@@ -5555,8 +4854,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **batch_id** | **str**| Filter results by loyalty card batch ID. | [optional] 
- **created_before** | **datetime**| Only return loyalty cards created before this timestamp.  **Note:** - This must be an RFC3339 timestamp string.  | [optional] 
- **created_after** | **datetime**| Only return loyalty cards created after this timestamp.  **Note:** - This must be an RFC3339 timestamp string.  | [optional] 
+ **created_before** | **datetime**| Only return loyalty cards created before this timestamp.  **Note:** This must be an RFC3339 timestamp string.  | [optional] 
+ **created_after** | **datetime**| Only return loyalty cards created after this timestamp.  **Note:** This must be an RFC3339 timestamp string.  | [optional] 
  **date_format** | **str**| Determines the format of dates in the export document. | [optional] 
 
 ### Return type
@@ -5565,7 +4864,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5589,7 +4888,8 @@ Export customers' loyalty program join dates
 
 Download a CSV file containing the join dates of all customers in the loyalty program.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The generated file can contain the following columns:
 
@@ -5600,8 +4900,6 @@ The generated file can contain the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5619,18 +4917,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -5668,7 +4954,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5690,9 +4976,11 @@ Name | Type | Description  | Notes
 
 Export customer's transaction logs
 
-Download a CSV file containing a customer's transaction logs in the loyalty program.
+Download a CSV file containing a customer's transaction logs in the loyalty
+program.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The generated file can contain the following columns:
 
@@ -5717,8 +5005,6 @@ The generated file can contain the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5737,18 +5023,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -5759,8 +5033,8 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
-    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     loyalty_program_id = 'loyalty_program_id_example' # str | The identifier for the loyalty program.
     integration_id = 'integration_id_example' # str | The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. 
     date_format = 'date_format_example' # str | Determines the format of dates in the export document. (optional)
@@ -5781,8 +5055,8 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **range_start** | **datetime**| Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
- **range_end** | **datetime**| Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **loyalty_program_id** | **str**| The identifier for the loyalty program. | 
  **integration_id** | **str**| The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  | 
  **date_format** | **str**| Determines the format of dates in the export document. | [optional] 
@@ -5793,7 +5067,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5813,9 +5087,11 @@ Name | Type | Description  | Notes
 
 Export giveaway codes of a giveaway pool
 
-Download a CSV file containing the giveaway codes of a specific giveaway pool.
+Download a CSV file containing the giveaway codes of a specific giveaway
+pool.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The CSV file contains the following columns:
 
@@ -5828,14 +5104,16 @@ The CSV file contains the following columns:
 - `used`: An indication of whether the giveaway is already awarded.
 - `importid`: The ID of the import which created the giveaway.
 - `created`: The creation time of the giveaway code.
-- `profileintegrationid`: The third-party integration ID of the customer profile that was awarded the giveaway. Can be empty if the giveaway was not awarded.
-- `profileid`: The internal ID of the customer profile that was awarded the giveaway. Can be empty if the giveaway was not awarded or an internal ID does not exist.
+- `profileintegrationid`: The third-party integration ID of the customer
+   profile that was awarded the giveaway. Can be empty if the giveaway was not
+   awarded.
+- `profileid`: The internal ID of the customer profile that was awarded the
+   giveaway. Can be empty if the giveaway was not awarded or an internal ID
+   does not exist.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5853,18 +5131,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -5906,7 +5172,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -5927,9 +5193,11 @@ Name | Type | Description  | Notes
 
 Export referrals
 
-Download a CSV file containing the referrals that match the given parameters.
+Download a CSV file containing the referrals that match the given
+parameters.
 
-**Tip:** If the exported CSV file is too large to view, you can [split it into multiple files](https://www.makeuseof.com/tag/how-to-split-a-huge-csv-excel-workbook-into-seperate-files/).
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
 The CSV file contains the following columns:
 
@@ -5943,8 +5211,6 @@ The CSV file contains the following columns:
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -5962,18 +5228,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -6025,7 +5279,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6050,8 +5304,6 @@ Create a summary of the reasons for coupon redemption failures in a given custom
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6070,18 +5322,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -6125,7 +5365,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6150,8 +5390,6 @@ Retrieve the list of API calls sent to the specified Application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6171,18 +5409,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -6194,8 +5420,8 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
-    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
-    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     path = 'path_example' # str | Only return results where the request path matches the given regular expression. (optional)
     method = 'method_example' # str | Only return results where the request method matches the given regular expression. (optional)
     status = 'status_example' # str | Filter results by HTTP status codes. (optional)
@@ -6220,8 +5446,8 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
- **range_start** | **datetime**| Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
- **range_end** | **datetime**| Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **path** | **str**| Only return results where the request path matches the given regular expression. | [optional] 
  **method** | **str**| Only return results where the request method matches the given regular expression. | [optional] 
  **status** | **str**| Filter results by HTTP status codes. | [optional] 
@@ -6235,7 +5461,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6260,8 +5486,6 @@ Return the details of your companies Talon.One account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6281,18 +5505,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -6303,7 +5515,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    account_id = 56 # int | The identifier of the account. Retrieve it via the [List users in account](https://docs.talon.one/management-api#operation/getUsers) endpoint in the `accountId` property. 
+    account_id = 56 # int | The identifier of the account. Retrieve it via the [List users in account](https://docs.talon.one/management-api#tag/Accounts-and-users/operation/getUsers) endpoint in the `accountId` property. 
 
     try:
         # Get account details
@@ -6321,7 +5533,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **account_id** | **int**| The identifier of the account. Retrieve it via the [List users in account](https://docs.talon.one/management-api#operation/getUsers) endpoint in the &#x60;accountId&#x60; property.  | 
+ **account_id** | **int**| The identifier of the account. Retrieve it via the [List users in account](https://docs.talon.one/management-api#tag/Accounts-and-users/operation/getUsers) endpoint in the &#x60;accountId&#x60; property.  | 
 
 ### Return type
 
@@ -6329,7 +5541,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6354,8 +5566,6 @@ Return the analytics of your Talon.One account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6375,18 +5585,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -6397,7 +5595,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    account_id = 56 # int | The identifier of the account. Retrieve it via the [List users in account](https://docs.talon.one/management-api#operation/getUsers) endpoint in the `accountId` property. 
+    account_id = 56 # int | The identifier of the account. Retrieve it via the [List users in account](https://docs.talon.one/management-api#tag/Accounts-and-users/operation/getUsers) endpoint in the `accountId` property. 
 
     try:
         # Get account analytics
@@ -6415,7 +5613,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **account_id** | **int**| The identifier of the account. Retrieve it via the [List users in account](https://docs.talon.one/management-api#operation/getUsers) endpoint in the &#x60;accountId&#x60; property.  | 
+ **account_id** | **int**| The identifier of the account. Retrieve it via the [List users in account](https://docs.talon.one/management-api#tag/Accounts-and-users/operation/getUsers) endpoint in the &#x60;accountId&#x60; property.  | 
 
 ### Return type
 
@@ -6423,7 +5621,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6447,8 +5645,6 @@ Retrieve a given account-level collection.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6468,18 +5664,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -6490,7 +5674,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.
 
     try:
         # Get account-level collection
@@ -6508,7 +5692,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. | 
 
 ### Return type
 
@@ -6516,7 +5700,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6541,8 +5725,6 @@ Get the details of a specific achievement.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6561,18 +5743,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -6614,7 +5784,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6641,8 +5811,6 @@ Returns the additional cost.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6661,18 +5829,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -6710,7 +5866,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6735,8 +5891,6 @@ Returns all the defined additional costs for the account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6755,18 +5909,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -6808,7 +5950,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6832,8 +5974,6 @@ Get the application specified by the ID.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6852,18 +5992,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -6901,7 +6029,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -6930,8 +6058,6 @@ See the [docs](https://docs.talon.one/docs/dev/tutorials/monitoring-integration-
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -6950,18 +6076,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -6999,7 +6113,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7024,8 +6138,6 @@ Retrieve the customers of the specified application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7045,18 +6157,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -7068,7 +6168,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
-    customer_id = 56 # int | The value of the `id` property of a customer profile. Get it with the [List Application's customers](https://docs.talon.one/management-api#operation/getApplicationCustomers) endpoint. 
+    customer_id = 56 # int | The value of the `id` property of a customer profile. Get it with the [List Application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint. 
 
     try:
         # Get application's customer
@@ -7087,7 +6187,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
- **customer_id** | **int**| The value of the &#x60;id&#x60; property of a customer profile. Get it with the [List Application&#39;s customers](https://docs.talon.one/management-api#operation/getApplicationCustomers) endpoint.  | 
+ **customer_id** | **int**| The value of the &#x60;id&#x60; property of a customer profile. Get it with the [List Application&#39;s customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  | 
 
 ### Return type
 
@@ -7095,7 +6195,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7120,8 +6220,6 @@ List the friends referred by the specified customer profile in this Application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7140,18 +6238,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -7199,7 +6285,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7223,8 +6309,6 @@ List all the customers of the specified application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7243,18 +6327,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -7300,7 +6372,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7327,8 +6399,6 @@ The match is successful if all the attributes of the request are found in a prof
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7348,18 +6418,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -7405,7 +6463,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7432,8 +6490,6 @@ See also: [Track an event](https://docs.talon.one/integration-api#tag/Events/ope
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7452,18 +6508,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -7507,7 +6551,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7532,8 +6576,6 @@ Lists all events recorded for an application. Instead of having the total number
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7552,18 +6594,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -7631,7 +6661,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7657,8 +6687,6 @@ You can list the sessions with the [List Application sessions](https://docs.talo
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7677,18 +6705,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -7728,7 +6744,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7753,8 +6769,6 @@ List all the sessions of the specified Application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7773,18 +6787,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -7846,7 +6848,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7870,8 +6872,6 @@ List all applications in the current account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7890,18 +6890,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -7943,7 +6931,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -7968,8 +6956,6 @@ Retrieve the specified custom attribute.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -7988,18 +6974,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8037,7 +7011,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8062,8 +7036,6 @@ Return all the custom attributes for the account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8082,18 +7054,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8145,7 +7105,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8172,8 +7132,6 @@ A maximum of 1000 customer profiles per page is allowed.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8192,18 +7150,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8249,7 +7195,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8275,8 +7221,6 @@ Get all audiences created in the account. To create an audience, use [Create aud
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8295,18 +7239,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8350,7 +7282,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8375,8 +7307,6 @@ Get a list of audience IDs and their member count.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8395,18 +7325,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8446,7 +7364,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8470,8 +7388,6 @@ Retrieve the given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8490,18 +7406,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8541,7 +7445,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8565,8 +7469,6 @@ Retrieve statistical data about the performance of the given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8586,18 +7488,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -8610,8 +7500,8 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
-    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
-    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     granularity = 'granularity_example' # str | The time interval between the results in the returned time-series. (optional)
 
     try:
@@ -8632,8 +7522,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
- **range_start** | **datetime**| Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
- **range_end** | **datetime**| Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **granularity** | **str**| The time interval between the results in the returned time-series. | [optional] 
 
 ### Return type
@@ -8642,7 +7532,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8667,8 +7557,6 @@ Get a list of all the campaigns that match a set of attributes.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8688,18 +7576,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8747,7 +7623,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8771,8 +7647,6 @@ Get a campaign access group specified by its ID.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8791,18 +7665,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8840,7 +7702,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8864,8 +7726,6 @@ List the campaign access groups in the current account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8884,18 +7744,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -8937,7 +7785,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -8961,8 +7809,6 @@ Retrieve a list of campaign templates.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -8981,18 +7827,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -9042,7 +7876,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9067,8 +7901,6 @@ List the campaigns of the specified application that match your filter criteria.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9087,18 +7919,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -9166,7 +7986,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9192,8 +8012,6 @@ Retrieve the audit logs displayed in **Accounts > Audit logs**.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9212,18 +8030,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -9281,7 +8087,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9305,8 +8111,6 @@ Retrieve a given campaign-level collection.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9326,18 +8130,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -9350,7 +8142,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.
 
     try:
         # Get campaign-level collection
@@ -9370,7 +8162,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. | 
 
 ### Return type
 
@@ -9378,7 +8170,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9406,8 +8198,6 @@ You can retrieve items from both account-level collections and campaign-level co
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9427,18 +8217,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -9449,7 +8227,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
 
@@ -9469,7 +8247,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. | 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
 
@@ -9479,7 +8257,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9505,8 +8283,6 @@ List all the coupons matching the specified criteria.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9525,18 +8301,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -9612,7 +8376,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9636,8 +8400,6 @@ Fetch the summary report of a given customer in the given application, in a time
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9657,18 +8419,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -9679,10 +8429,10 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
-    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
-    customer_id = 56 # int | The value of the `id` property of a customer profile. Get it with the [List Application's customers](https://docs.talon.one/management-api#operation/getApplicationCustomers) endpoint. 
+    customer_id = 56 # int | The value of the `id` property of a customer profile. Get it with the [List Application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint. 
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
 
@@ -9702,10 +8452,10 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **range_start** | **datetime**| Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
- **range_end** | **datetime**| Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
- **customer_id** | **int**| The value of the &#x60;id&#x60; property of a customer profile. Get it with the [List Application&#39;s customers](https://docs.talon.one/management-api#operation/getApplicationCustomers) endpoint.  | 
+ **customer_id** | **int**| The value of the &#x60;id&#x60; property of a customer profile. Get it with the [List Application&#39;s customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  | 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
 
@@ -9715,7 +8465,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9741,8 +8491,6 @@ in the response, this endpoint only mentions whether there are more results.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9762,18 +8510,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -9784,8 +8520,8 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
-    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
@@ -9811,8 +8547,8 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **range_start** | **datetime**| Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
- **range_end** | **datetime**| Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
@@ -9828,7 +8564,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9852,8 +8588,6 @@ Fetch analytics for a given customer in the given application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9873,18 +8607,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -9896,7 +8618,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
-    customer_id = 56 # int | The value of the `id` property of a customer profile. Get it with the [List Application's customers](https://docs.talon.one/management-api#operation/getApplicationCustomers) endpoint. 
+    customer_id = 56 # int | The value of the `id` property of a customer profile. Get it with the [List Application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint. 
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
@@ -9918,7 +8640,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
- **customer_id** | **int**| The value of the &#x60;id&#x60; property of a customer profile. Get it with the [List Application&#39;s customers](https://docs.talon.one/management-api#operation/getApplicationCustomers) endpoint.  | 
+ **customer_id** | **int**| The value of the &#x60;id&#x60; property of a customer profile. Get it with the [List Application&#39;s customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  | 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
@@ -9929,7 +8651,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -9951,21 +8673,15 @@ Get customer profile
 
 Return the details of the specified customer profile.
 
-<div class="redoc-section">
-  <p class="title">Performance tips</p>
-
-  You can retrieve the same information via the Integration API, which can save you extra API requests. consider these options:
-
-  - Request the customer profile to be part of the response content using
-    [Update Customer Session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2).
-  - Send an empty update with the [Update Customer Profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint with `runRuleEngine=false`.
-</div>
+> [!note]
+> You can retrieve the same information via the Integration API, which can save you extra API requests. Consider these options:
+> - Request the customer profile to be part of the response content using
+>   [Update Customer Session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2).
+> - Send an empty update with the [Update Customer Profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint with `runRuleEngine=false`.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -9985,18 +8701,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -10007,7 +8711,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    customer_id = 56 # int | The value of the `id` property of a customer profile. Get it with the [List Application's customers](https://docs.talon.one/management-api#operation/getApplicationCustomers) endpoint. 
+    customer_id = 56 # int | The value of the `id` property of a customer profile. Get it with the [List Application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint. 
 
     try:
         # Get customer profile
@@ -10025,7 +8729,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **customer_id** | **int**| The value of the &#x60;id&#x60; property of a customer profile. Get it with the [List Application&#39;s customers](https://docs.talon.one/management-api#operation/getApplicationCustomers) endpoint.  | 
+ **customer_id** | **int**| The value of the &#x60;id&#x60; property of a customer profile. Get it with the [List Application&#39;s customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  | 
 
 ### Return type
 
@@ -10033,7 +8737,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10058,8 +8762,6 @@ For the given customer profile, list all the achievements that match your filter
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10078,18 +8780,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -10137,7 +8827,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10163,8 +8853,6 @@ List all customer profiles.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10183,18 +8871,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -10236,7 +8912,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10263,8 +8939,6 @@ The match is successful if all the attributes of the request are found in a prof
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10284,18 +8958,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -10339,7 +9001,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10359,17 +9021,16 @@ Name | Type | Description  | Notes
 
 Get statistics for loyalty dashboard
 
-Retrieve the statistics displayed on the specified loyalty program's dashboard,
-such as the total active points, pending points, spent points, and expired points.
+Retrieve the statistics displayed on the specified loyalty program's
+dashboard, such as the total active points, pending points, spent points, and expired
+points.
 
-**Important:** The returned data does not include the current day. All statistics
-are updated daily at 11:59 PM in the loyalty program time zone.
+> [!important] The returned data does not include the current day. All statistics
+> are updated daily at 11:59 PM in the loyalty program time zone.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10389,18 +9050,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -10412,8 +9061,8 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
-    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
-    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+    range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     subledger_id = 'subledger_id_example' # str | The ID of the subledger by which we filter the data. (optional)
 
     try:
@@ -10433,8 +9082,8 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
- **range_start** | **datetime**| Only return results from after this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
- **range_end** | **datetime**| Only return results from before this timestamp.  **Note:** - This must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
+ **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **subledger_id** | **str**| The ID of the subledger by which we filter the data. | [optional] 
 
 ### Return type
@@ -10443,7 +9092,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10468,8 +9117,6 @@ Fetch all event type definitions for your account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10488,18 +9135,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -10545,7 +9180,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10569,8 +9204,6 @@ Retrieve the given experiment associated with the Application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10589,18 +9222,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -10640,7 +9261,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10665,8 +9286,6 @@ List all past exports
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10685,18 +9304,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -10742,7 +9349,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10766,8 +9373,6 @@ Get the given loyalty card.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10786,18 +9391,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -10837,7 +9430,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10867,8 +9460,6 @@ If no filtering options are applied, the last 50 loyalty transactions for the gi
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10888,18 +9479,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -10912,8 +9491,8 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     loyalty_card_id = 'loyalty_card_id_example' # str | Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  **Important**: The loyalty card ID requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `NewCard2026%` as `NewCard2026%25`. 
-    start_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time from which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
-    end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    start_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     subledger_id = 'subledger_id_example' # str | The ID of the subledger by which we filter the data. (optional)
@@ -10938,8 +9517,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **loyalty_card_id** | **str**| Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  **Important**: The loyalty card ID requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode &#x60;NewCard2026%&#x60; as &#x60;NewCard2026%25&#x60;.  | 
- **start_date** | **datetime**| Date and time from which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
- **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **start_date** | **datetime**| Date and time from which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **subledger_id** | **str**| The ID of the subledger by which we filter the data. | [optional] 
@@ -10952,7 +9531,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -10979,8 +9558,6 @@ For the given card-based loyalty program, list the loyalty cards that match your
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -10999,18 +9576,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -11060,7 +9625,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11082,22 +9647,30 @@ Name | Type | Description  | Notes
 
 Get customer's loyalty balances
 
-Retrieve loyalty ledger balances for the given Integration ID in the specified loyalty program.
-You can filter balances by date and subledger ID, and include tier-related information in the response.
+Retrieve loyalty ledger balances for the given Integration ID in the
+specified loyalty program.
 
-**Note**: If no filtering options are applied, you retrieve all loyalty balances on the current date for the given integration ID.
+You can filter balances by date and subledger ID, and include tier-related
+information in the response.
 
-Loyalty balances are calculated when Talon.One receives your request using the points stored in our database, so retrieving a large number of balances at once can impact performance.
+> [!note] If no filtering options are applied, you retrieve all loyalty
+> balances on the current date for the given integration ID.
+
+Loyalty balances are calculated when Talon.One receives your request using
+the points stored in our database, so retrieving a large number of balances
+at once can impact performance.
 
 For more information, see:
-- [Managing card-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/card-based/managing-loyalty-cards)
-- [Managing profile-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/profile-based/managing-pb-lp-data)
+
+- [Managing card-based loyalty program
+data](https://docs.talon.one/docs/product/loyalty-programs/card-based/managing-loyalty-cards)
+
+- [Managing profile-based loyalty program
+data](https://docs.talon.one/docs/product/loyalty-programs/profile-based/managing-pb-lp-data)
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11117,18 +9690,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -11141,7 +9702,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     integration_id = 'integration_id_example' # str | The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. 
-    end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
     subledger_id = 'subledger_id_example' # str | The ID of the subledger used to filter the data. Leave this value empty (\"\") to query the main ledger. (optional)
     include_tiers = False # bool | Indicates whether tier information is included in the response.  When set to `true`, the response includes information about the current tier and the number of points required to move to next tier.  (optional) (default to False)
     include_projected_tier = False # bool | Indicates whether the customer's projected tier information is included in the response.  When set to `true`, the response includes information about the customer's active points and the name of the projected tier.  **Note** We recommend filtering by `subledgerId` for better performance.  (optional) (default to False)
@@ -11164,7 +9725,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **integration_id** | **str**| The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  | 
- **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
  **subledger_id** | **str**| The ID of the subledger used to filter the data. Leave this value empty (\&quot;\&quot;) to query the main ledger. | [optional] 
  **include_tiers** | **bool**| Indicates whether tier information is included in the response.  When set to &#x60;true&#x60;, the response includes information about the current tier and the number of points required to move to next tier.  | [optional] [default to False]
  **include_projected_tier** | **bool**| Indicates whether the customer&#39;s projected tier information is included in the response.  When set to &#x60;true&#x60;, the response includes information about the customer&#39;s active points and the name of the projected tier.  **Note** We recommend filtering by &#x60;subledgerId&#x60; for better performance.  | [optional] [default to False]
@@ -11175,7 +9736,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11201,7 +9762,7 @@ Get customer's full loyalty ledger
 Get the loyalty ledger for this profile integration ID.
 
 To get the `integrationId` of the profile from a `sessionId`, use the
-[Update customer session](https://docs.talon.one/integration-api#operation/updateCustomerSessionV2) endpoint.
+[Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint.
 
 **Important:** To get loyalty transaction logs for a given Integration ID in a loyalty program,
 we recommend using the Integration API's [Get customer's loyalty logs](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions).
@@ -11209,8 +9770,6 @@ we recommend using the Integration API's [Get customer's loyalty logs](https://d
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11229,18 +9788,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -11280,7 +9827,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11300,17 +9847,18 @@ Name | Type | Description  | Notes
 
 Get loyalty program
 
-Get the specified [loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview).
-To list all loyalty programs in your Application, use [List loyalty programs](#operation/getLoyaltyPrograms).
+Get the specified [loyalty
+program](https://docs.talon.one/docs/product/loyalty-programs/overview).
 
-To list the loyalty programs that a customer profile is part of, use the
-[List customer data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory)
+To list all loyalty programs in your Application, use [List loyalty
+programs](#tag/Loyalty/operation/getLoyaltyPrograms).
+
+To list the loyalty programs that a customer profile is part of, use
+[List customer data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory).
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11329,18 +9877,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -11378,7 +9914,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11398,18 +9934,19 @@ Name | Type | Description  | Notes
 
 List customer's loyalty transactions
 
-Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.
+Retrieve paginated results of loyalty transaction logs for the given
+Integration ID in the specified loyalty program.
 
-You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.
+You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50
+loyalty transactions for the given integration ID are returned.
 
-**Note:** To retrieve all loyalty program transaction logs in a given loyalty program,
-use the [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint.
+> [!note] To retrieve all loyalty program transaction logs in a given
+> loyalty program, use the [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions)
+> endpoint.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11429,18 +9966,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -11453,12 +9978,12 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     integration_id = 'integration_id_example' # str | The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. 
-    customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
-    transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
+    customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
+    transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
     subledger_id = 'subledger_id_example' # str | The ID of the subledger used to filter the data. Leave this value empty (\"\") to query the main ledger. (optional)
     loyalty_transaction_type = 'loyalty_transaction_type_example' # str | Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file.  (optional)
-    start_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time from which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
-    end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    start_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     awaits_activation = True # bool | If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response.  (optional)
@@ -11481,12 +10006,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **integration_id** | **str**| The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  | 
- **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
- **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
+ **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
+ **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
  **subledger_id** | **str**| The ID of the subledger used to filter the data. Leave this value empty (\&quot;\&quot;) to query the main ledger. | [optional] 
  **loyalty_transaction_type** | **str**| Filter results by loyalty transaction type: - &#x60;manual&#x60;: Loyalty transaction that was done manually. - &#x60;session&#x60;: Loyalty transaction that resulted from a customer session. - &#x60;import&#x60;: Loyalty transaction that was imported from a CSV file.  | [optional] 
- **start_date** | **datetime**| Date and time from which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
- **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **start_date** | **datetime**| Date and time from which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **awaits_activation** | **bool**| If &#x60;true&#x60;: Filters results to include only point transactions that have action-based activation and have not expired.  If &#x60;false&#x60;: Returns a &#x60;400&#x60; response.  | [optional] 
@@ -11497,7 +10022,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11520,17 +10045,19 @@ Name | Type | Description  | Notes
 
 List loyalty program transactions
 
-Retrieve loyalty program transaction logs in a given loyalty program with filtering options applied. Manual and imported transactions are also included.
-**Note:** If no filters are applied, the last 50 loyalty transactions for the given loyalty program are returned.
+Retrieve loyalty program transaction logs in a given loyalty program with
+filtering options applied. Manual and imported transactions are also
+included.
 
-**Important:** To get loyalty transaction logs for a given Integration ID in a loyalty program,
-we recommend using the Integration API's [Get customer's loyalty logs](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions).
+> [!note] **Note**
+> - If no filters are applied, the last 50 loyalty transactions for the given loyalty program are returned.
+> - To get loyalty transaction logs for a given Integration ID in
+>   a loyalty program, we recommend using the Integration API's [Get customer's loyalty
+>   logs](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions).
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11550,18 +10077,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -11575,10 +10090,10 @@ with talon_one.ApiClient(configuration) as api_client:
     loyalty_program_id = 56 # int | Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     loyalty_transaction_type = 'loyalty_transaction_type_example' # str | Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file.  (optional)
     subledger_id = 'subledger_id_example' # str | The ID of the subledger by which we filter the data. (optional)
-    customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
-    transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
-    start_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time from which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
-    end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
+    transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
+    start_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     awaits_activation = True # bool | If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response.  (optional)
@@ -11602,10 +10117,10 @@ Name | Type | Description  | Notes
  **loyalty_program_id** | **int**| Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **loyalty_transaction_type** | **str**| Filter results by loyalty transaction type: - &#x60;manual&#x60;: Loyalty transaction that was done manually. - &#x60;session&#x60;: Loyalty transaction that resulted from a customer session. - &#x60;import&#x60;: Loyalty transaction that was imported from a CSV file.  | [optional] 
  **subledger_id** | **str**| The ID of the subledger by which we filter the data. | [optional] 
- **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
- **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
- **start_date** | **datetime**| Date and time from which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
- **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  **Note:**  - It must be an RFC3339 timestamp string. - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
+ **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
+ **start_date** | **datetime**| Date and time from which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **awaits_activation** | **bool**| If &#x60;true&#x60;: Filters results to include only point transactions that have action-based activation and have not expired.  If &#x60;false&#x60;: Returns a &#x60;400&#x60; response.  | [optional] 
@@ -11616,7 +10131,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11643,8 +10158,6 @@ List the loyalty programs of the account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11663,18 +10176,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -11708,7 +10209,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11728,9 +10229,10 @@ This endpoint does not need any parameter.
 
 Get loyalty program statistics
 
-⚠️ Deprecation notice: Support for requests to this endpoint will end soon.
-To retrieve statistics for a loyalty program, use the [Get statistics for
-loyalty dashboard](/management-api#tag/Loyalty/operation/getDashboardStatistics)
+> [warning] This endpoint is deprecated.
+
+To retrieve statistics for a loyalty program, use the
+[Get statistics for loyalty dashboard](/management-api#tag/Loyalty/operation/getDashboardStatistics)
 endpoint.
 
 Retrieve the statistics of the specified loyalty program, such as the
@@ -11739,8 +10241,6 @@ total active points, pending points, spent points, and expired points.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11759,18 +10259,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -11808,7 +10296,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11832,8 +10320,6 @@ Retrieve all message log entries.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11853,18 +10339,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -11881,7 +10355,7 @@ with talon_one.ApiClient(configuration) as api_client:
     notification_ids = 'notification_ids_example' # str | Filter results by notification ID (include up to 30 values, separated by a comma). (optional)
     created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results where request and response times to return entries before parameter value, expected to be an RFC3339 timestamp string. Use UTC time. (optional)
     created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results where request and response times to return entries after parameter value, expected to be an RFC3339 timestamp string. Use UTC time. (optional)
-    cursor = None # bytearray | A specific unique value in the database. If this value is not given, the server fetches results starting with the first record.  (optional)
+    cursor = None # bytes | A specific unique value in the database. If this value is not given, the server fetches results starting with the first record.  (optional)
     period = 'period_example' # str | Filter results by time period. Choose between the available relative time frames.  (optional)
     is_successful = True # bool | Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to`true`, only log entries with `2xx` response codes are returned. When set to `false`, only log entries with `4xx` and `5xx` response codes are returned.  (optional)
     application_id = 3.4 # float | Filter results by Application ID. (optional)
@@ -11912,7 +10386,7 @@ Name | Type | Description  | Notes
  **notification_ids** | **str**| Filter results by notification ID (include up to 30 values, separated by a comma). | [optional] 
  **created_before** | **datetime**| Filter results where request and response times to return entries before parameter value, expected to be an RFC3339 timestamp string. Use UTC time. | [optional] 
  **created_after** | **datetime**| Filter results where request and response times to return entries after parameter value, expected to be an RFC3339 timestamp string. Use UTC time. | [optional] 
- **cursor** | **bytearray**| A specific unique value in the database. If this value is not given, the server fetches results starting with the first record.  | [optional] 
+ **cursor** | **bytes**| A specific unique value in the database. If this value is not given, the server fetches results starting with the first record.  | [optional] 
  **period** | **str**| Filter results by time period. Choose between the available relative time frames.  | [optional] 
  **is_successful** | **bool**| Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to&#x60;true&#x60;, only log entries with &#x60;2xx&#x60; response codes are returned. When set to &#x60;false&#x60;, only log entries with &#x60;4xx&#x60; and &#x60;5xx&#x60; response codes are returned.  | [optional] 
  **application_id** | **float**| Filter results by Application ID. | [optional] 
@@ -11927,7 +10401,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -11951,8 +10425,6 @@ List all referrals of the specified campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -11971,18 +10443,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12040,7 +10500,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12065,8 +10525,6 @@ Get the details of a specific role. To see all the roles, use the [List roles](/
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12085,18 +10543,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12134,7 +10580,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12158,8 +10604,6 @@ Retrieve the specified ruleset.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12178,18 +10622,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12231,7 +10663,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12258,8 +10690,6 @@ You should only consider the latest revision of the returned rulesets.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12278,18 +10708,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12335,7 +10753,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12359,8 +10777,6 @@ Get store details for a specific store ID.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12379,18 +10795,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12430,7 +10834,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12456,8 +10860,6 @@ Retrieve the data (including an invitation code) for a user. Non-admin users can
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12476,18 +10878,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12525,7 +10915,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12550,8 +10940,6 @@ Retrieve all users in your account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12570,18 +10958,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12623,7 +10999,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12647,8 +11023,6 @@ Returns a webhook by its id.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12667,18 +11041,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12716,7 +11078,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12740,8 +11102,6 @@ List all webhooks.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12760,18 +11120,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -12823,7 +11171,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12843,7 +11191,9 @@ Name | Type | Description  | Notes
 
 Import data into existing account-level collection
 
-Upload a CSV file containing the collection of string values that should be attached as payload for collection.
+Upload a CSV file containing the collection of string values that should be
+attached as payload for collection.
+
 The file should be sent as multipart data.
 
 The import **replaces** the initial content of the collection.
@@ -12854,22 +11204,21 @@ The CSV file **must** only contain the following column:
 
 A collection is limited to 500,000 items.
 
-Example:
+## Example
 
 ```
 item
-Addidas
+Adidas
 Nike
 Asics
 ```
 
-**Note:** Before sending a request to this endpoint, ensure the data in the CSV to import is different from the data currently stored in the collection.
+> [!note] Before sending a request to this endpoint, ensure the data in the
+> CSV to import is different from the data currently stored in the collection.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -12889,18 +11238,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -12911,7 +11248,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.
     up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
 
     try:
@@ -12930,7 +11267,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. | 
  **up_file** | **str**| The file containing the data that is being imported. | [optional] 
 
 ### Return type
@@ -12939,7 +11276,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -12961,18 +11298,22 @@ Name | Type | Description  | Notes
 
 Import allowed values for attribute
 
-Upload a CSV file containing a list of [picklist values](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#picklist-values) for the specified attribute.
+Upload a CSV file containing a list of [picklist
+values](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#picklist-values)
+for the specified attribute.
 
 The file should be sent as multipart data.
 
-The import **replaces** the previous list of allowed values for this attribute, if any.
+The import **replaces** the previous list of allowed values for this
+attribute, if any.
 
 The CSV file **must** only contain the following column:
-- `item` (required): the values in your allowed list, for example a list of SKU's.
+
+- `item`: The values in your allowed list, for example a list of SKUs.
 
 An allowed list is limited to 500,000 items.
 
-Example:
+## Example
 
 ```text
 item
@@ -12984,8 +11325,6 @@ CS-DG-02082021-UP-50G-07
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -13004,18 +11343,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -13055,7 +11382,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -13078,16 +11405,19 @@ Name | Type | Description  | Notes
 
 Import audience members
 
-Upload a CSV file containing the integration IDs of the members you want to add to an audience.
+Upload a CSV file containing the integration IDs of the members you want to
+add to an audience.
 
-The file should be sent as multipart data and should contain only the following column (required):
+The file should be sent as multipart data and should contain only the
+following column (required):
+
 - `profileintegrationid`: The integration ID of the customer profile.
 
 The import **replaces** the previous list of audience members.
 
-**Note:** We recommend limiting your file size to 500MB.
+> [!note] We recommend limiting your file size to 500 MB.
 
-Example:
+## Example
 
 ```text
 profileintegrationid
@@ -13098,8 +11428,6 @@ alexa
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -13118,18 +11446,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -13169,7 +11485,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -13205,8 +11521,6 @@ The import **replaces** the previous list of store budgets.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -13225,18 +11539,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -13282,7 +11584,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -13315,8 +11617,6 @@ The import **replaces** the previous list of stores linked to the campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -13335,18 +11635,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -13388,7 +11676,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -13411,7 +11699,9 @@ Name | Type | Description  | Notes
 
 Import data into existing campaign-level collection
 
-Upload a CSV file containing the collection of string values that should be attached as payload for collection.
+Upload a CSV file containing the collection of string values that should be
+attached as payload for collection.
+
 The file should be sent as multipart data.
 
 The import **replaces** the initial content of the collection.
@@ -13422,22 +11712,21 @@ The CSV file **must** only contain the following column:
 
 A collection is limited to 500,000 items.
 
-Example:
+## Example
 
 ```
 item
-Addidas
+Adidas
 Nike
 Asics
 ```
 
-**Note:** Before sending a request to this endpoint, ensure the data in the CSV to import is different from the data currently stored in the collection.
+> [!note] Before sending a request to this endpoint, ensure the data in the
+> CSV to import is different from the data currently stored in the collection.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -13457,18 +11746,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -13481,7 +11758,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.
     up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
 
     try:
@@ -13502,7 +11779,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. | 
  **up_file** | **str**| The file containing the data that is being imported. | [optional] 
 
 ### Return type
@@ -13511,7 +11788,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -13532,7 +11809,8 @@ Name | Type | Description  | Notes
 
 Import coupons
 
-Upload a CSV file containing the coupons that should be created. The file should be sent as multipart data.
+Upload a CSV file containing the coupons that should be created. The file
+should be sent as multipart data.
 
 The CSV file contains the following columns:
 
@@ -13540,37 +11818,33 @@ The CSV file contains the following columns:
   There is no maximum length but limiting the code to 30 characters
   ensures it is fully readable in the Campaign Manager.
   The code should be unique unless you set `skipDuplicates` to `true`.
-
 - `expirydate`: The end date in RFC3339 of the code redemption period.
 - `startdate`: The start date in RFC3339 of the code redemption period.
 - `recipientintegrationid`: The integration ID of the recipient of the coupon.
   Only the customer with this integration ID can redeem this code. Available only for personal codes.
 - `limitval`: The maximum number of redemptions of this code. For unlimited redemptions, use `0`. Defaults to `1` when not provided.
 - `discountlimit`: The total discount value that the code can give. This is typically used to represent a gift card value.
-- `attributes`: A JSON object describing _custom_ coupon attribute names and their values, enclosed with double quotation marks.
-
+- `attributes`: A JSON object describing _custom_ coupon attribute names and their values, enclosed with double quotation marks.<br />
   For example, if you created a [custom attribute](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes)
   called `category` associated with the coupon entity, the object in the CSV file, when opened in a text editor, must be: `"{"category": "10_off"}"`.
 
 You can use the time zone of your choice. It is converted to UTC internally by Talon.One.
 
-**Note:** We recommend limiting your file size to 500MB.
+> [!note] We recommend limiting your file size to 500 MB.
 
-**Example:**
+## Example
 
 ```text
 "value","expirydate","startdate","recipientintegrationid","limitval","attributes","discountlimit"
-COUP1,2018-07-01T04:00:00Z,2018-05-01T04:00:00Z,cust123,1,"{""Category"": ""10_off""}",2.4
+COUP1,2018-07-01T04:00:00Z,2018-05-01T04:00:00Z,cust123,1,"{""Category"":
+""10_off""}",2.4
 ```
 
-Once imported, you can find the `batchId` in the Campaign Manager or by
-using [List coupons](#tag/Coupons/operation/getCouponsWithoutTotalCount).
+Once imported, you can find the `batchId` in the Campaign Manager or by using [List coupons](#tag/Coupons/operation/getCouponsWithoutTotalCount).
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -13589,18 +11863,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -13644,7 +11906,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -13664,18 +11926,24 @@ Name | Type | Description  | Notes
 
 Import loyalty cards
 
-Upload a CSV file containing the loyalty cards that you want to use in your card-based loyalty program.
+Upload a CSV file containing the loyalty cards that you want to use in your
+card-based loyalty program.
+
 Send the file as multipart data.
 
 It contains the following columns for each card:
 
-- `identifier` (required): The identifier of the loyalty card,  which must match the regular expression `^[A-Za-z0-9._%+@-]+$`.
-- `state` (required): The state of the loyalty card. It can be `active` or `inactive`.
-- `customerprofileids` (optional): An array of strings representing the identifiers of the customer profiles linked to the loyalty card. The identifiers should be separated with a semicolon (;).
+- `identifier` (required): The identifier of the loyalty card,
+which must match the regular expression `^[A-Za-z0-9._%+@-]+$`.
+- `state` (required): The state of the loyalty card. It can be `active` or
+`inactive`.
+- `customerprofileids` (optional): An array of strings representing the
+identifiers of the customer profiles linked to the loyalty card. The
+identifiers should be separated with a semicolon (;).
 
-**Note:** We recommend limiting your file size to 500MB.
+> [!note] We recommend limiting your file size to 500MB.
 
-**Example:**
+## Example
 
 ```csv
 identifier,state,customerprofileids
@@ -13685,8 +11953,6 @@ identifier,state,customerprofileids
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -13705,18 +11971,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -13756,7 +12010,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -13778,29 +12032,45 @@ Name | Type | Description  | Notes
 
 Import customers into loyalty tiers
 
-Upload a CSV file containing existing customers to be assigned to existing tiers.
+Upload a CSV file containing existing customers to be assigned to existing
+tiers.
+
 Send the file as multipart data.
 
-**Important:** This endpoint only works with loyalty programs with advanced tiers (with expiration and downgrade policy) feature enabled.
+> [!important] This endpoint only works with loyalty programs with advanced
+> tiers (with expiration and downgrade policy) feature enabled.
 
 The CSV file should contain the following columns:
-- `subledgerid` (optional): The ID of the subledger. If this field is empty, the main ledger will be used.
-- `customerprofileid`: The integration ID of the customer profile to whom the tier should be assigned.
+
+- `subledgerid` (optional): The ID of the subledger. If this field is empty,
+the main ledger will be used.
+- `customerprofileid`: The integration ID of the customer profile to whom
+the tier should be assigned.
 - `tiername`: The name of an existing tier to assign to the customer.
-- `expirydate`: The expiration date of the tier when the tier is reevaluated. It should be a future date.
+- `expirydate`: The expiration date of the tier when the tier is
+reevaluated. It should be a future date.
 
 About customer assignment to a tier:
-- If the customer isn't already in a tier, the customer is assigned to the specified tier during the tier import.
-- If the customer is already in the tier that's specified in the CSV file, only the expiration date is updated.
 
-**Note:** We recommend not using this endpoint to update the tier of a customer.
-To update a customer's tier, you can [add](/management-api#tag/Loyalty/operation/addLoyaltyPoints) or [deduct](/management-api#tag/Loyalty/operation/removeLoyaltyPoints) their loyalty points.
+- If the customer isn't already in a tier, the customer is assigned to the
+specified tier during the tier import.
+- If the customer is already in the tier that's specified in the CSV file,
+only the expiration date is updated.
 
-You can use the time zone of your choice. It is converted to UTC internally by Talon.One.
+> [!note] We recommend not using this endpoint to update the tier of a customer.
 
-**Note:** We recommend limiting your file size to 500MB.
+To update a customer's tier, you can
+[add](/management-api#tag/Loyalty/operation/addLoyaltyPoints) or
+[deduct](/management-api#tag/Loyalty/operation/removeLoyaltyPoints) their
+loyalty points.
 
-**Example:**
+You can use the time zone of your choice. It is converted to UTC internally
+by Talon.One.
+
+> [!note] We recommend limiting your file size to 500 MB.
+
+## Example
+
 ```csv
 subledgerid,customerprofileid,tiername,expirydate
 SUB1,alexa,Gold,2024-03-21T07:32:14Z
@@ -13811,8 +12081,6 @@ SUB2,avocado,Bronze,2026-05-03T11:47:01Z
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -13831,18 +12099,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -13882,7 +12138,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -13905,44 +12161,38 @@ Name | Type | Description  | Notes
 
 Import loyalty points
 
-Upload a CSV file containing the loyalty points you want to import into a given loyalty program.
+Upload a CSV file containing the loyalty points you want to import into a
+given loyalty program.
+
 Send the file as multipart data.
 
-Depending on the type of loyalty program, you can import points into a given customer profile or loyalty card.
+Depending on the type of loyalty program, you can import points into a given
+customer profile or loyalty card.
 
 The CSV file contains the following columns:
 
-- `customerprofileid` (optional): For profile-based loyalty programs, the integration ID of the customer profile where the loyalty points are imported.
-
+- `customerprofileid` (optional): For profile-based loyalty programs, the
+  integration ID of the customer profile where the loyalty points are
+  imported.
   **Note**: If the customer profile does not exist, it will be created. The profile will not be visible in any Application
   until a session or profile update is received for that profile.
 - `identifier` (optional): For card-based loyalty programs, the identifier of the loyalty card where the loyalty points are imported.
 - `amount`: The amount of points to award to the customer profile.
 - `startdate` (optional): The earliest date when the points can be redeemed. The points are `active` from this date until the expiration date.
-
   This parameter accepts one of the following values:
-  - A timestamp string in RFC3339 format.
-  - `immediate`
-  - `on_action`
-  
-  **Note**:
-  Empty or missing values default to `immediate`.
-- `expirydate` (optional): The latest date when the points can be redeemed. The points are `expired` after this date.
-
+    - A timestamp string in RFC3339 format.
+    - `immediate`
+    - `on_action`
+  **Note**: Empty or missing values default to `immediate`.
+- `expirydate` (optional): The latest date when the points can be redeemed.
+  The points are `expired` after this date.
   **Note**: It must be an RFC3339 timestamp string or string `unlimited`. Empty or missing values are considered `unlimited`.
-  
   If passed, `validityDuration` should be omitted.
-- `validityDuration` (optional): The duration for which the points remain active, relative to the 
-  activation date.
-
-  The time format is an **integer** followed by one letter indicating the time unit.
-
-
+- `validityDuration` (optional): The duration for which the points remain active, relative to the
+  activation date. The time format is an **integer** followed by one letter indicating the time unit.<br />
   Examples: `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.
 
-
   Available units:
-
 
   - `s`: seconds
   - `m`: minutes
@@ -13951,7 +12201,6 @@ The CSV file contains the following columns:
   - `W`: weeks
   - `M`: months
   - `Y`: years
-
 
   You can round certain units up or down:
 
@@ -13965,20 +12214,22 @@ The CSV file contains the following columns:
 
 You can use the time zone of your choice. It is converted to UTC internally by Talon.One.
 
-**Note:** For existing customer profiles and loyalty cards, the imported points are added to any previous active or pending points, depending on the
-value provided for `startdate`. If `startdate` matches the current date, the imported points are _active_. If it is later, the points are _pending_ until
-the date provided for `startdate` is reached.
+> [!note] For existing customer profiles and loyalty cards, the imported
+> points are added to any previous active or pending points, depending on the
+> value provided for `startdate`. If `startdate` matches the current date, the
+> imported points are _active_. If it is later, the points are _pending_ until
+> the date provided for `startdate` is reached.
 
-**Note:** We recommend limiting your file size to 500MB.
+> [!note] We recommend limiting your file size to 500 MB.
 
-**Example for profile-based programs:**
+## Example for profile-based programs
 
 ```text
 customerprofileid,amount,startdate,expirydate,subledgerid,reason
 URNGV8294NV,100,2009-11-10T23:00:00Z,2009-11-11T23:00:00Z,subledger1,appeasement
 ```
 
-**Example for card-based programs:**
+## Example for card-based programs
 
 ```text
 identifier,amount,startdate,expirydate,subledgerid,reason
@@ -13988,8 +12239,6 @@ summer-loyalty-card-0543,100,2009-11-10T23:00:00Z,2009-11-11T23:00:00Z,subledger
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14008,18 +12257,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14061,7 +12298,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14081,39 +12318,43 @@ Name | Type | Description  | Notes
 
 Import giveaway codes into a giveaway pool
 
-Upload a CSV file containing the giveaway codes that should be created. Send the file as multipart data.
+Upload a CSV file containing the giveaway codes that should be created. Send
+the file as multipart data.
 
 The CSV file contains the following columns:
+
 - `code` (required): The code of your giveaway, for instance, a gift card redemption code.
 - `startdate`:  The start date in RFC3339 of the code redemption period.
 - `enddate`: The last date in RFC3339 of the code redemption period.
-- `attributes`: A JSON object describing _custom_ giveaway attribute names and their values, enclosed with double quotation marks.
-
+- `attributes`: A JSON object describing _custom_ giveaway attribute names and their values, enclosed with double quotation marks.<br />
   For example, if you created a [custom attribute](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes)
   called `provider` associated with the giveaway entity, the object in the CSV file, when opened in a text editor, must be: `"{"provider": "myPartnerCompany"}"`.
 
-The `startdate` and `enddate` have nothing to do with the _validity_ of the codes. They are only used by the Rule Engine to award the codes or not.
-You can use the time zone setting of your choice. The values are converted to UTC internally by Talon.One.
+The `startdate` and `enddate` have nothing to do with the _validity_ of the
+codes. They are only used by the Rule Engine to award the codes or not.
 
-**Note:**
+You can use the time zone setting of your choice. The values are converted
+to UTC internally by Talon.One.
 
-- We recommend limiting your file size to 500MB.
-- You can import the same code multiple times. Duplicate codes are treated and distributed to customers as unique codes.
+> [!note] **Note**
+> - We recommend limiting your file size to 500MB.
+> - You can import the same code multiple times. Duplicate codes are treated and distributed to customers as unique codes.
 
-**Example:**
+## Example
 
 ```text
 code,startdate,enddate,attributes
-GIVEAWAY1,2020-11-10T23:00:00Z,2022-11-11T23:00:00Z,"{""provider"": ""Amazon""}"
-GIVEAWAY2,2020-11-10T23:00:00Z,2022-11-11T23:00:00Z,"{""provider"": ""Amazon""}"
-GIVEAWAY3,2021-01-10T23:00:00Z,2022-11-11T23:00:00Z,"{""provider"": ""Aliexpress""}"
+GIVEAWAY1,2020-11-10T23:00:00Z,2022-11-11T23:00:00Z,"{""provider"":
+""Amazon""}"
+GIVEAWAY2,2020-11-10T23:00:00Z,2022-11-11T23:00:00Z,"{""provider"":
+""Amazon""}"
+GIVEAWAY3,2021-01-10T23:00:00Z,2022-11-11T23:00:00Z,"{""provider"":
+""Aliexpress""}"
 ```
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14132,18 +12373,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14183,7 +12412,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14204,6 +12433,7 @@ Name | Type | Description  | Notes
 Import referrals
 
 Upload a CSV file containing the referrals that should be created.
+
 The file should be sent as multipart data.
 
 The CSV file contains the following columns:
@@ -14213,33 +12443,34 @@ The CSV file contains the following columns:
 - `startdate`: The start date in RFC3339 of the code redemption period.
 - `expirydate`: The end date in RFC3339 of the code redemption period.
 - `limitval`: The maximum number of redemptions of this code. Defaults to `1` when left blank.
-- `attributes`: A JSON object describing _custom_ referral attribute names and their values, enclosed with double quotation marks.
-
+- `attributes`: A JSON object describing _custom_ referral attribute names and their values, enclosed with double quotation marks.<br />
   For example, if you created a [custom attribute](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes)
   called `category` associated with the referral entity, the object in the CSV file, when opened in a text editor, must be: `"{"category": "10_off"}"`.
 
 You can use the time zone of your choice. It is converted to UTC internally by Talon.One.
 
-**Important:** When you import a CSV file with referrals, a [customer profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles)
-is **not** automatically created for each `advocateprofileintegrationid` column value. Use the [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2)
-endpoint or the [Update multiple customer profiles](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfilesV2)
-endpoint to create the customer profiles.
+> [!important] When you import a CSV file with referrals,
+> a [customer profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles)
+> is **not** automatically created for each `advocateprofileintegrationid`
+> column value. Use the [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2)
+> endpoint or the [Update multiple customer profiles](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfilesV2)
+> endpoint to create the customer profiles.
 
-**Note:** We recommend limiting your file size to 500MB.
+> [!note] We recommend limiting your file size to 500 MB.
 
-**Example:**
+## Example
 
 ```text
 code,startdate,expirydate,advocateprofileintegrationid,limitval,attributes
-REFERRAL_CODE1,2020-11-10T23:00:00Z,2021-11-11T23:00:00Z,integid_4,1,"{""my_attribute"": ""10_off""}"
-REFERRAL_CODE2,2020-11-10T23:00:00Z,2021-11-11T23:00:00Z,integid1,1,"{""my_attribute"": ""20_off""}"
+REFERRAL_CODE1,2020-11-10T23:00:00Z,2021-11-11T23:00:00Z,integid_4,1,"{""my_attribute"":
+""10_off""}"
+REFERRAL_CODE2,2020-11-10T23:00:00Z,2021-11-11T23:00:00Z,integid1,1,"{""my_attribute"":
+""20_off""}"
 ```
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14258,18 +12489,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14311,7 +12530,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14336,8 +12555,6 @@ Invite user from identity provider
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14356,18 +12573,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14403,7 +12608,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14427,8 +12632,6 @@ List account-level collections in the account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14447,18 +12650,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14504,7 +12695,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14531,8 +12722,6 @@ List all the achievements for a specific campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14551,18 +12740,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14608,7 +12785,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14632,8 +12809,6 @@ List all roles.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14652,18 +12827,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14697,7 +12860,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14721,8 +12884,6 @@ Return the store budget limits for a given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14741,18 +12902,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14796,7 +12945,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14824,8 +12973,6 @@ Return a paginated list of cart items in the given catalog.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14844,18 +12991,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -14903,7 +13038,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -14927,8 +13062,6 @@ List collections in a given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -14947,18 +13080,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15008,7 +13129,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15033,8 +13154,6 @@ List campaign-level collections from all campaigns in a given Application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15053,18 +13172,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15112,7 +13219,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15137,8 +13244,6 @@ List all experiments of the specified Application that match your filter criteri
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15157,18 +13262,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15212,7 +13305,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15236,8 +13329,6 @@ List all stores for a specific Application.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15256,18 +13347,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15321,7 +13400,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15349,8 +13428,6 @@ for provisioning and deprovisioning of Talon.One users, and that only Talon.One 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15368,18 +13445,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15411,7 +13476,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15426,25 +13491,108 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **price_history**
+> PriceHistoryResponse price_history(application_id, price_history_request)
+
+Get summary of price history
+
+Fetch the historical price data for a given SKU within a defined timeframe.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.price_history_request import PriceHistoryRequest
+from talon_one.models.price_history_response import PriceHistoryResponse
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
+    price_history_request = talon_one.PriceHistoryRequest() # PriceHistoryRequest | body
+
+    try:
+        # Get summary of price history
+        api_response = api_instance.price_history(application_id, price_history_request)
+        print("The response of ManagementApi->price_history:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->price_history: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
+ **price_history_request** | [**PriceHistoryRequest**](PriceHistoryRequest.md)| body | 
+
+### Return type
+
+[**PriceHistoryResponse**](PriceHistoryResponse.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Ok |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **remove_loyalty_points**
 > remove_loyalty_points(loyalty_program_id, integration_id, deduct_loyalty_points)
 
 Deduct points from customer profile
 
-Deduct points from the specified loyalty program and specified customer profile.
+Deduct points from the specified loyalty program and specified customer
+profile.
 
-**Important:**
-- Only active points can be deducted.
-- Only pending points are rolled back when a session is cancelled or reopened.
+> [!note] **Note**
+> - Only active points can be deducted.
+> - Only pending points are rolled back when a session is cancelled or reopened.
 
 To get the `integrationId` of the profile from a `sessionId`, use the
-[Update customer session](https://docs.talon.one/integration-api#operation/updateCustomerSessionV2) endpoint.
+[Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2)
+endpoint.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15463,18 +13611,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15514,7 +13650,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15543,8 +13679,6 @@ the associated account.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15563,18 +13697,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15612,7 +13734,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15637,8 +13759,6 @@ In Talon.One, a `Group` corresponds to a [role](https://docs.talon.one/docs/prod
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15658,18 +13778,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15707,7 +13815,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15731,8 +13839,6 @@ Create a new Talon.One user using the SCIM provisioning protocol with an identit
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15752,18 +13858,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15801,7 +13895,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15826,8 +13920,6 @@ In Talon.One, a `Group` corresponds to a [role](https://docs.talon.one/docs/prod
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15845,18 +13937,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15892,7 +13972,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -15916,8 +13996,6 @@ Delete a specific Talon.One user created using the SCIM provisioning protocol wi
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -15935,18 +14013,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -15982,7 +14048,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16007,8 +14073,6 @@ In Talon.One, a `Group` corresponds to a [role](https://docs.talon.one/docs/prod
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16027,18 +14091,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16076,7 +14128,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16101,8 +14153,6 @@ In Talon.One, a `Group` corresponds to a [role](https://docs.talon.one/docs/prod
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16121,18 +14171,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16166,7 +14204,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16193,8 +14231,6 @@ Resource types define the various kinds of resources that can be managed via the
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16213,18 +14249,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16258,7 +14282,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16285,8 +14309,6 @@ Schemas define the structure and attributes of the different resources that can 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16305,18 +14327,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16350,7 +14360,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16375,8 +14385,6 @@ Retrieve the configuration settings of the SCIM service provider. It provides de
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16395,18 +14403,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16440,7 +14436,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16464,8 +14460,6 @@ Retrieve data for a specific Talon.One user created using the SCIM provisioning 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16484,18 +14478,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16533,7 +14515,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16557,8 +14539,6 @@ Retrieve a paginated list of users that have been provisioned using the SCIM pro
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16577,18 +14557,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16622,7 +14590,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16648,8 +14616,6 @@ In Talon.One, a `Group` corresponds to a [role](https://docs.talon.one/docs/prod
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16669,18 +14635,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16720,7 +14674,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16747,8 +14701,6 @@ This endpoint allows for selective adding, removing, or replacing specific attri
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16768,18 +14720,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16819,7 +14759,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16845,8 +14785,6 @@ In Talon.One, a `Group` corresponds to a [role](https://docs.talon.one/docs/prod
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16866,18 +14804,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -16917,7 +14843,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -16944,8 +14870,6 @@ This endpoint replaces all attributes of the specific user with the attributes p
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -16965,18 +14889,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17016,7 +14928,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17036,18 +14948,17 @@ Name | Type | Description  | Notes
 
 List coupons that match the given attributes (without total count)
 
-List the coupons whose attributes match the query criteria in all the campaigns of the given Application.
+List the coupons whose attributes match the query criteria in all the
+campaigns of the given Application.
 
-The match is successful if all the attributes of the request are found in a coupon,
-even if the coupon has more attributes that are not present on the request.
+The match is successful if all the attributes of the request are found in a
+coupon, even if the coupon has more attributes that are not present on the request.
 
-**Note:** The total count is not included in the response.
+> [!note] The total count is not included in the response.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17066,18 +14977,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17143,7 +15042,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17163,19 +15062,16 @@ Name | Type | Description  | Notes
 
 List coupons that match the given attributes in campaign (without total count)
 
-List the coupons whose attributes match the query criteria
-in the given campaign.
+List the coupons whose attributes match the query criteria in the given campaign.
 
-The match is successful if all the attributes of the request are found in a coupon,
-even if the coupon has more attributes that are not present on the request.
+The match is successful if all the attributes of the request are found in a
+coupon, even if the coupon has more attributes that are not present on the request.
 
-**Note:** The total count is not included in the response.
+> [!note] The total count is not included in the response.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17194,18 +15090,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17271,7 +15155,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17295,8 +15179,6 @@ Fetch a summary of all store budget information for a given campaign.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17315,18 +15197,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17366,7 +15236,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17389,18 +15259,18 @@ Name | Type | Description  | Notes
 
 Transfer card data
 
-Transfer loyalty card data, such as linked customers, loyalty balances and transactions, from a given loyalty card to a new, automatically created loyalty card.
+Transfer loyalty card data, such as linked customers, loyalty balances and
+transactions, from a given loyalty card to a new, automatically created
+loyalty card.
 
-**Important:**
-
-- The original card is automatically blocked once the new card is created, and it cannot be activated again.
-- The default status of the new card is _active_.
+> [!important] **Note**
+> - The original card is automatically blocked once the new card is created,
+    and it cannot be activated again.
+> - The default status of the new card is _active_.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17419,18 +15289,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17470,7 +15328,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17497,8 +15355,6 @@ Edit the description of a given account-level collection and enable or disable t
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17519,18 +15375,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -17541,7 +15385,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.
     update_collection = talon_one.UpdateCollection() # UpdateCollection | body
 
     try:
@@ -17560,7 +15404,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#operation/listAccountCollections) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. | 
  **update_collection** | [**UpdateCollection**](UpdateCollection.md)| body | 
 
 ### Return type
@@ -17569,7 +15413,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17596,8 +15440,6 @@ Update the details of a specific achievement.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17617,18 +15459,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17672,7 +15502,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17700,8 +15530,6 @@ Updates an existing additional cost. Once created, the only property of an addit
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17721,18 +15549,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17772,7 +15588,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17801,8 +15617,6 @@ update any relevant integrations and rules to use the new attribute.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17822,18 +15636,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17873,7 +15675,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17895,13 +15697,13 @@ Update campaign
 
 Update the given campaign.
 
-**Important:** You cannot use this endpoint to update campaigns if [campaign staging and revisions](https://docs.talon.one/docs/product/applications/managing-general-settings#campaign-staging-and-revisions) is enabled for your Application.
+> [!important] You cannot use this endpoint to update campaigns if [campaign staging and
+> revisions](https://docs.talon.one/docs/product/applications/managing-general-settings#campaign-staging-and-revisions)
+> is enabled for your Application.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -17921,18 +15723,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -17974,7 +15764,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -17998,8 +15788,6 @@ Edit the description of a given campaign-level collection.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -18020,18 +15808,6 @@ configuration = talon_one.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
-
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 
@@ -18044,7 +15820,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
-    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint.
+    collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.
     update_campaign_collection = talon_one.UpdateCampaignCollection() # UpdateCampaignCollection | body
 
     try:
@@ -18065,7 +15841,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
- **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#operation/listCollectionsInApplication) endpoint. | 
+ **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. | 
  **update_campaign_collection** | [**UpdateCampaignCollection**](UpdateCampaignCollection.md)| body | 
 
 ### Return type
@@ -18074,7 +15850,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -18097,18 +15873,13 @@ Update coupon
 
 Update the specified coupon.
 
-<div class="redoc-section">
-  <p class="title">Important</p>
-
-  <p>With this <code>PUT</code> endpoint, if you do not explicitly set a value for the <code>startDate</code>, <code>expiryDate</code>, and <code>recipientIntegrationId</code> properties in your request, it is automatically set to <code>null</code>.</p>
-
-</div>
+> [!note]
+> With this `PUT` endpoint, if you do not explicitly set a value for the `startDate`, `expiryDate`,
+> and `recipientIntegrationId` properties in your request, it is automatically set to `null`.
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -18128,18 +15899,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -18183,7 +15942,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -18204,27 +15963,20 @@ Name | Type | Description  | Notes
 Update coupons
 
 Update all coupons or a specific batch of coupons in the given campaign.
-You can find the `batchId` on the **Coupons** page of your campaign
-in the Campaign Manager, or you can use [List coupons](#operation/getCouponsWithoutTotalCount).
 
-<div class="redoc-section">
-  <p class="title">Important</p>
+You can find the `batchId` on the **Coupons** page of your campaign in the
+Campaign Manager, or you can use [List coupons](#tag/Coupons/operation/getCouponsWithoutTotalCount).
 
-  <ul>
-    <li>Only send sequential requests to this endpoint.</li>
-    <li>Requests to this endpoint time out after 30 minutes. If you hit a timeout, contact our support team.</li>
-    <li>With this <code>PUT</code> endpoint, if you do not explicitly set a value for the <code>startDate</code> and <code>expiryDate</code> properties in your request, it is automatically set to <code>null</code>.</li>
-  </ul>
+> [!note] **Note**
+> - Only send sequential requests to this endpoint.
+> - Requests to this endpoint time out after 30 minutes. If you hit a timeout, contact our support team.
+> - With this `PUT` endpoint, if you do not explicitly set a value for the `startDate` and `expiryDate` properties in your request, it is automatically set to `null`.
 
-</div>
-
-To update a specific coupon, use [Update coupon](#operation/updateCoupon).
+To update a specific coupon, use [Update coupon](#tag/Coupons/operation/updateCoupon).
 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -18243,18 +15995,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -18294,7 +16034,7 @@ void (empty response body)
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -18318,8 +16058,6 @@ Update the details of a specific loyalty card. You can set the card's status to 
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -18339,18 +16077,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -18392,7 +16118,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -18419,8 +16145,6 @@ Update the specified referral.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -18440,18 +16164,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -18495,7 +16207,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -18519,8 +16231,6 @@ Update a specific role.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -18540,18 +16250,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -18591,7 +16289,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -18615,8 +16313,6 @@ Update store details for a specific store ID.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -18636,18 +16332,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -18689,7 +16373,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 
@@ -18715,8 +16399,6 @@ Update the details of a specific user.
 
 ### Example
 
-* Api Key Authentication (management_key):
-* Api Key Authentication (manager_auth):
 * Api Key Authentication (api_key_v1):
 
 ```python
@@ -18736,18 +16418,6 @@ configuration = talon_one.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-# Configure API key authorization: management_key
-configuration.api_key['management_key'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['management_key'] = 'Bearer'
-
-# Configure API key authorization: manager_auth
-configuration.api_key['manager_auth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['manager_auth'] = 'Bearer'
 
 # Configure API key authorization: api_key_v1
 configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
@@ -18787,7 +16457,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[management_key](../README.md#management_key), [manager_auth](../README.md#manager_auth), [api_key_v1](../README.md#api_key_v1)
+[api_key_v1](../README.md#api_key_v1)
 
 ### HTTP request headers
 

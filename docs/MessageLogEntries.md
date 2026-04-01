@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**next_cursor** | **bytearray** | The next value in the database.  **Note:** If this value is not present, it means that there are no more values in the database for this combination of request parameters.  | [optional] 
+**next_cursor** | **bytes** | The next value in the database.  **Note:** If this value is not present, it means that there are no more values in the database for this combination of request parameters.  | [optional] 
 **data** | [**List[MessageLogEntry]**](MessageLogEntry.md) | List of message logs. | 
 
 ## Example

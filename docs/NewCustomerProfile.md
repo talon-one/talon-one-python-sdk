@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attributes** | **object** | Arbitrary properties associated with this item. | [optional] 
+**attributes** | **Dict[str, object]** | Arbitrary properties associated with this item. | [optional] 
 
 ## Example
 

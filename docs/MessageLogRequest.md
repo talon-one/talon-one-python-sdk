@@ -7,7 +7,7 @@ Details of the request.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **created_at** | **datetime** | Timestamp when the request was made. | 
-**request** | **bytearray** | Raw request data. | 
+**request** | **bytes** | Raw request data. | 
 
 ## Example
 

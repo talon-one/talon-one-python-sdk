@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **variant_id** | **int** | The ID of the variant. | [optional] 
 **variant_name** | **str** | The name of the variant. | [optional] 
 **variant_weight** | **int** | The weight of the variant. | [optional] 
+**is_winner** | **bool** | Calculated flag if the variant is the winner. | [optional] 
 **total_revenue** | **float** | The total, pre-discount value of all items purchased in a customer session. | [optional] 
 **sessions_count** | **float** | The number of all closed sessions. | [optional] 
 **avg_items_per_session** | **float** | The number of items from sessions divided by the number of sessions. | [optional] 
