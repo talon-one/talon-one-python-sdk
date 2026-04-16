@@ -192,6 +192,7 @@ docs/CreateAchievementV2.md
 docs/CreateApplicationAPIKey.md
 docs/CreateCouponData.md
 docs/CreateCoupons200Response.md
+docs/CreateMCPKey.md
 docs/CreateManagementKey.md
 docs/CreateReferralsForMultipleAdvocates201Response.md
 docs/CreateTemplateCampaign.md
@@ -245,10 +246,16 @@ docs/ExperimentListResults.md
 docs/ExperimentListResultsRequest.md
 docs/ExperimentResult.md
 docs/ExperimentResults.md
+docs/ExperimentSegmentInsight.md
+docs/ExperimentSegmentInsightMetric.md
+docs/ExperimentSegmentInsightVariant.md
+docs/ExperimentSegmentInsights.md
 docs/ExperimentVariant.md
 docs/ExperimentVariantAllocation.md
 docs/ExperimentVariantResult.md
 docs/ExperimentVariantResultConfidence.md
+docs/ExperimentVerdict.md
+docs/ExperimentVerdictResponse.md
 docs/ExpiringCardPointsData.md
 docs/ExpiringCardPointsNotification.md
 docs/ExpiringCouponsData.md
@@ -343,6 +350,7 @@ docs/IntegrationEventV2Request.md
 docs/IntegrationEventV2Response.md
 docs/IntegrationEventV3Request.md
 docs/IntegrationEventV3Response.md
+docs/IntegrationGetAllCampaigns200Response.md
 docs/IntegrationHubConfig.md
 docs/IntegrationHubEventPayloadCouponBasedNotifications.md
 docs/IntegrationHubEventPayloadCouponBasedNotificationsLimits.md
@@ -380,6 +388,7 @@ docs/LimitCounter.md
 docs/ListAccountCollections200Response.md
 docs/ListAchievements200Response.md
 docs/ListAllRolesV2200Response.md
+docs/ListApplicationCartItemFilters200Response.md
 docs/ListCampaignStoreBudgetLimits200Response.md
 docs/ListCampaignStoreBudgets.md
 docs/ListCampaignStoreBudgetsStore.md
@@ -413,6 +422,7 @@ docs/LoyaltyProgramLedgers.md
 docs/LoyaltyProgramTransaction.md
 docs/LoyaltySubLedger.md
 docs/LoyaltyTier.md
+docs/MCPKey.md
 docs/ManagementApi.md
 docs/ManagementKey.md
 docs/ManagerConfig.md
@@ -476,6 +486,7 @@ docs/NewInvitation.md
 docs/NewInviteEmail.md
 docs/NewLoyaltyProgram.md
 docs/NewLoyaltyTier.md
+docs/NewMCPKey.md
 docs/NewManagementKey.md
 docs/NewMessageTest.md
 docs/NewMultipleAudiencesItem.md
@@ -490,6 +501,7 @@ docs/NewReferral.md
 docs/NewReferralsForMultipleAdvocates.md
 docs/NewReturn.md
 docs/NewRevisionVersion.md
+docs/NewReward.md
 docs/NewRole.md
 docs/NewRoleV2.md
 docs/NewRuleset.md
@@ -557,6 +569,7 @@ docs/Revision.md
 docs/RevisionActivation.md
 docs/RevisionActivationRequest.md
 docs/RevisionVersion.md
+docs/Reward.md
 docs/Role.md
 docs/RoleAssign.md
 docs/RoleMembership.md
@@ -894,6 +907,7 @@ talon_one/models/create_application_api_key.py
 talon_one/models/create_coupon_data.py
 talon_one/models/create_coupons200_response.py
 talon_one/models/create_management_key.py
+talon_one/models/create_mcp_key.py
 talon_one/models/create_referrals_for_multiple_advocates201_response.py
 talon_one/models/create_template_campaign.py
 talon_one/models/create_template_campaign_response.py
@@ -946,10 +960,16 @@ talon_one/models/experiment_list_results.py
 talon_one/models/experiment_list_results_request.py
 talon_one/models/experiment_result.py
 talon_one/models/experiment_results.py
+talon_one/models/experiment_segment_insight.py
+talon_one/models/experiment_segment_insight_metric.py
+talon_one/models/experiment_segment_insight_variant.py
+talon_one/models/experiment_segment_insights.py
 talon_one/models/experiment_variant.py
 talon_one/models/experiment_variant_allocation.py
 talon_one/models/experiment_variant_result.py
 talon_one/models/experiment_variant_result_confidence.py
+talon_one/models/experiment_verdict.py
+talon_one/models/experiment_verdict_response.py
 talon_one/models/expiring_card_points_data.py
 talon_one/models/expiring_card_points_notification.py
 talon_one/models/expiring_coupons_data.py
@@ -1043,6 +1063,7 @@ talon_one/models/integration_event_v2_request.py
 talon_one/models/integration_event_v2_response.py
 talon_one/models/integration_event_v3_request.py
 talon_one/models/integration_event_v3_response.py
+talon_one/models/integration_get_all_campaigns200_response.py
 talon_one/models/integration_hub_config.py
 talon_one/models/integration_hub_event_payload_coupon_based_notifications.py
 talon_one/models/integration_hub_event_payload_coupon_based_notifications_limits.py
@@ -1080,6 +1101,7 @@ talon_one/models/limit_counter.py
 talon_one/models/list_account_collections200_response.py
 talon_one/models/list_achievements200_response.py
 talon_one/models/list_all_roles_v2200_response.py
+talon_one/models/list_application_cart_item_filters200_response.py
 talon_one/models/list_campaign_store_budget_limits200_response.py
 talon_one/models/list_campaign_store_budgets.py
 talon_one/models/list_campaign_store_budgets_store.py
@@ -1115,6 +1137,7 @@ talon_one/models/loyalty_sub_ledger.py
 talon_one/models/loyalty_tier.py
 talon_one/models/management_key.py
 talon_one/models/manager_config.py
+talon_one/models/mcp_key.py
 talon_one/models/message_log_entries.py
 talon_one/models/message_log_entry.py
 talon_one/models/message_log_request.py
@@ -1176,6 +1199,7 @@ talon_one/models/new_invite_email.py
 talon_one/models/new_loyalty_program.py
 talon_one/models/new_loyalty_tier.py
 talon_one/models/new_management_key.py
+talon_one/models/new_mcp_key.py
 talon_one/models/new_message_test.py
 talon_one/models/new_multiple_audiences_item.py
 talon_one/models/new_notification_webhook.py
@@ -1189,6 +1213,7 @@ talon_one/models/new_referral.py
 talon_one/models/new_referrals_for_multiple_advocates.py
 talon_one/models/new_return.py
 talon_one/models/new_revision_version.py
+talon_one/models/new_reward.py
 talon_one/models/new_role.py
 talon_one/models/new_role_v2.py
 talon_one/models/new_ruleset.py
@@ -1256,6 +1281,7 @@ talon_one/models/revision.py
 talon_one/models/revision_activation.py
 talon_one/models/revision_activation_request.py
 talon_one/models/revision_version.py
+talon_one/models/reward.py
 talon_one/models/role.py
 talon_one/models/role_assign.py
 talon_one/models/role_membership.py
@@ -1582,6 +1608,7 @@ test/test_create_application_api_key.py
 test/test_create_coupon_data.py
 test/test_create_coupons200_response.py
 test/test_create_management_key.py
+test/test_create_mcp_key.py
 test/test_create_referrals_for_multiple_advocates201_response.py
 test/test_create_template_campaign.py
 test/test_create_template_campaign_response.py
@@ -1634,10 +1661,16 @@ test/test_experiment_list_results.py
 test/test_experiment_list_results_request.py
 test/test_experiment_result.py
 test/test_experiment_results.py
+test/test_experiment_segment_insight.py
+test/test_experiment_segment_insight_metric.py
+test/test_experiment_segment_insight_variant.py
+test/test_experiment_segment_insights.py
 test/test_experiment_variant.py
 test/test_experiment_variant_allocation.py
 test/test_experiment_variant_result.py
 test/test_experiment_variant_result_confidence.py
+test/test_experiment_verdict.py
+test/test_experiment_verdict_response.py
 test/test_expiring_card_points_data.py
 test/test_expiring_card_points_notification.py
 test/test_expiring_coupons_data.py
@@ -1732,6 +1765,7 @@ test/test_integration_event_v2_request.py
 test/test_integration_event_v2_response.py
 test/test_integration_event_v3_request.py
 test/test_integration_event_v3_response.py
+test/test_integration_get_all_campaigns200_response.py
 test/test_integration_hub_config.py
 test/test_integration_hub_event_payload_coupon_based_notifications.py
 test/test_integration_hub_event_payload_coupon_based_notifications_limits.py
@@ -1769,6 +1803,7 @@ test/test_limit_counter.py
 test/test_list_account_collections200_response.py
 test/test_list_achievements200_response.py
 test/test_list_all_roles_v2200_response.py
+test/test_list_application_cart_item_filters200_response.py
 test/test_list_campaign_store_budget_limits200_response.py
 test/test_list_campaign_store_budgets.py
 test/test_list_campaign_store_budgets_store.py
@@ -1805,6 +1840,7 @@ test/test_loyalty_tier.py
 test/test_management_api.py
 test/test_management_key.py
 test/test_manager_config.py
+test/test_mcp_key.py
 test/test_message_log_entries.py
 test/test_message_log_entry.py
 test/test_message_log_request.py
@@ -1866,6 +1902,7 @@ test/test_new_invite_email.py
 test/test_new_loyalty_program.py
 test/test_new_loyalty_tier.py
 test/test_new_management_key.py
+test/test_new_mcp_key.py
 test/test_new_message_test.py
 test/test_new_multiple_audiences_item.py
 test/test_new_notification_webhook.py
@@ -1879,6 +1916,7 @@ test/test_new_referral.py
 test/test_new_referrals_for_multiple_advocates.py
 test/test_new_return.py
 test/test_new_revision_version.py
+test/test_new_reward.py
 test/test_new_role.py
 test/test_new_role_v2.py
 test/test_new_ruleset.py
@@ -1946,6 +1984,7 @@ test/test_revision.py
 test/test_revision_activation.py
 test/test_revision_activation_request.py
 test/test_revision_version.py
+test/test_reward.py
 test/test_role.py
 test/test_role_assign.py
 test/test_role_membership.py

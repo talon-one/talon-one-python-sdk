@@ -46,7 +46,8 @@ class TestSetDiscountPerItemEffectProps(unittest.TestCase):
                 bundle_index = 56,
                 bundle_name = '',
                 targeted_item_position = 1.337,
-                targeted_item_sub_position = 1.337
+                targeted_item_sub_position = 1.337,
+                excluded_from_price_history = True
             )
         else:
             return SetDiscountPerItemEffectProps(

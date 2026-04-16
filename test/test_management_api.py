@@ -117,8 +117,8 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
-    def test_create_coupons_async(self) -> None:
-        """Test case for create_coupons_async
+    def test_create_coupons_asynchronously(self) -> None:
+        """Test case for create_coupons_asynchronously
 
         Create coupons asynchronously
         """
@@ -327,6 +327,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_export_campaign_value_map(self) -> None:
+        """Test case for export_campaign_value_map
+
+        Export campaign value map
+        """
+        pass
+
     def test_export_collection_items(self) -> None:
         """Test case for export_collection_items
 
@@ -492,6 +499,13 @@ class TestManagementApi(unittest.TestCase):
         """Test case for get_application_api_health
 
         Get Application health
+        """
+        pass
+
+    def test_get_application_cart_item_filter_expression(self) -> None:
+        """Test case for get_application_cart_item_filter_expression
+
+        Get Application cart item filter expression
         """
         pass
 
@@ -996,6 +1010,13 @@ class TestManagementApi(unittest.TestCase):
         """Test case for list_all_roles_v2
 
         List roles
+        """
+        pass
+
+    def test_list_application_cart_item_filters(self) -> None:
+        """Test case for list_application_cart_item_filters
+
+        List Application cart item filters
         """
         pass
 

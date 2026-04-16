@@ -56,7 +56,6 @@ class TestCreateAchievementV2(unittest.TestCase):
                 description = '50% off for every 50th purchase in a year.',
                 target = 50,
                 sandbox = True,
-                subscribed_applications = [132, 97],
                 timezone = 'Europe/Berlin',
         )
         """

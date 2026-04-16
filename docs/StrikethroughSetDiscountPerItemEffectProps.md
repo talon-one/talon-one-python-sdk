@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | effect name. | 
 **value** | **object** |  | 
-**exclude_from_best_prior_price_history** | **bool** |  | [optional] 
+**excluded_from_price_history** | **bool** |  | [optional] 
 
 ## Example
 

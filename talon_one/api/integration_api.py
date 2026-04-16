@@ -45,6 +45,7 @@ from talon_one.models.get_reserved_customers200_response import GetReservedCusto
 from talon_one.models.integration_customer_session_response import IntegrationCustomerSessionResponse
 from talon_one.models.integration_event_v2_request import IntegrationEventV2Request
 from talon_one.models.integration_event_v2_response import IntegrationEventV2Response
+from talon_one.models.integration_get_all_campaigns200_response import IntegrationGetAllCampaigns200Response
 from talon_one.models.integration_request import IntegrationRequest
 from talon_one.models.integration_state_v2 import IntegrationStateV2
 from talon_one.models.loyalty_balances_with_tiers import LoyaltyBalancesWithTiers
@@ -7615,6 +7616,417 @@ class IntegrationApi:
 
 
     @validate_call
+    def integration_get_all_campaigns(
+        self,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        campaign_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter by one or more campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned. ")] = None,
+        start_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        start_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        end_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        end_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> IntegrationGetAllCampaigns200Response:
+        """List all running campaigns
+
+        Retrieve all running campaigns for the specified Application. You can filter the results by providing specific campaign IDs or a range of  start and end dates. 
+
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param campaign_ids: Filter by one or more campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned. 
+        :type campaign_ids: List[str]
+        :param start_after: Filter results to only include campaigns that start on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type start_after: datetime
+        :param start_before: Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type start_before: datetime
+        :param end_after: Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type end_after: datetime
+        :param end_before: Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type end_before: datetime
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._integration_get_all_campaigns_serialize(
+            page_size=page_size,
+            skip=skip,
+            campaign_ids=campaign_ids,
+            start_after=start_after,
+            start_before=start_before,
+            end_after=end_after,
+            end_before=end_before,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationGetAllCampaigns200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def integration_get_all_campaigns_with_http_info(
+        self,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        campaign_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter by one or more campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned. ")] = None,
+        start_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        start_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        end_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        end_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[IntegrationGetAllCampaigns200Response]:
+        """List all running campaigns
+
+        Retrieve all running campaigns for the specified Application. You can filter the results by providing specific campaign IDs or a range of  start and end dates. 
+
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param campaign_ids: Filter by one or more campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned. 
+        :type campaign_ids: List[str]
+        :param start_after: Filter results to only include campaigns that start on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type start_after: datetime
+        :param start_before: Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type start_before: datetime
+        :param end_after: Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type end_after: datetime
+        :param end_before: Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type end_before: datetime
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._integration_get_all_campaigns_serialize(
+            page_size=page_size,
+            skip=skip,
+            campaign_ids=campaign_ids,
+            start_after=start_after,
+            start_before=start_before,
+            end_after=end_after,
+            end_before=end_before,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationGetAllCampaigns200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def integration_get_all_campaigns_without_preload_content(
+        self,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        campaign_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter by one or more campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned. ")] = None,
+        start_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        start_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        end_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        end_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List all running campaigns
+
+        Retrieve all running campaigns for the specified Application. You can filter the results by providing specific campaign IDs or a range of  start and end dates. 
+
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param campaign_ids: Filter by one or more campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned. 
+        :type campaign_ids: List[str]
+        :param start_after: Filter results to only include campaigns that start on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type start_after: datetime
+        :param start_before: Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type start_before: datetime
+        :param end_after: Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type end_after: datetime
+        :param end_before: Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
+        :type end_before: datetime
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._integration_get_all_campaigns_serialize(
+            page_size=page_size,
+            skip=skip,
+            campaign_ids=campaign_ids,
+            start_after=start_after,
+            start_before=start_before,
+            end_after=end_after,
+            end_before=end_before,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationGetAllCampaigns200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _integration_get_all_campaigns_serialize(
+        self,
+        page_size,
+        skip,
+        campaign_ids,
+        start_after,
+        start_before,
+        end_after,
+        end_before,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'campaignIds': 'csv',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if skip is not None:
+            
+            _query_params.append(('skip', skip))
+            
+        if campaign_ids is not None:
+            
+            _query_params.append(('campaignIds', campaign_ids))
+            
+        if start_after is not None:
+            if isinstance(start_after, datetime):
+                _query_params.append(
+                    (
+                        'startAfter',
+                        start_after.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('startAfter', start_after))
+            
+        if start_before is not None:
+            if isinstance(start_before, datetime):
+                _query_params.append(
+                    (
+                        'startBefore',
+                        start_before.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('startBefore', start_before))
+            
+        if end_after is not None:
+            if isinstance(end_after, datetime):
+                _query_params.append(
+                    (
+                        'endAfter',
+                        end_after.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('endAfter', end_after))
+            
+        if end_before is not None:
+            if isinstance(end_before, datetime):
+                _query_params.append(
+                    (
+                        'endBefore',
+                        end_before.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('endBefore', end_before))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/integration/campaigns',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def link_loyalty_card_to_profile(
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
@@ -8200,6 +8612,7 @@ class IntegrationApi:
         customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
         return_integration_request: Annotated[ReturnIntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
+        run_rule_engine: Annotated[Optional[StrictBool], Field(description="When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8223,6 +8636,8 @@ class IntegrationApi:
         :type return_integration_request: ReturnIntegrationRequest
         :param dry: Indicates whether to persist the changes. Changes are ignored when `dry=true`. 
         :type dry: bool
+        :param run_rule_engine: When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. 
+        :type run_rule_engine: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8249,6 +8664,7 @@ class IntegrationApi:
             customer_session_id=customer_session_id,
             return_integration_request=return_integration_request,
             dry=dry,
+            run_rule_engine=run_rule_engine,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8277,6 +8693,7 @@ class IntegrationApi:
         customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
         return_integration_request: Annotated[ReturnIntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
+        run_rule_engine: Annotated[Optional[StrictBool], Field(description="When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8300,6 +8717,8 @@ class IntegrationApi:
         :type return_integration_request: ReturnIntegrationRequest
         :param dry: Indicates whether to persist the changes. Changes are ignored when `dry=true`. 
         :type dry: bool
+        :param run_rule_engine: When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. 
+        :type run_rule_engine: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8326,6 +8745,7 @@ class IntegrationApi:
             customer_session_id=customer_session_id,
             return_integration_request=return_integration_request,
             dry=dry,
+            run_rule_engine=run_rule_engine,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8354,6 +8774,7 @@ class IntegrationApi:
         customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
         return_integration_request: Annotated[ReturnIntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
+        run_rule_engine: Annotated[Optional[StrictBool], Field(description="When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8377,6 +8798,8 @@ class IntegrationApi:
         :type return_integration_request: ReturnIntegrationRequest
         :param dry: Indicates whether to persist the changes. Changes are ignored when `dry=true`. 
         :type dry: bool
+        :param run_rule_engine: When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. 
+        :type run_rule_engine: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8403,6 +8826,7 @@ class IntegrationApi:
             customer_session_id=customer_session_id,
             return_integration_request=return_integration_request,
             dry=dry,
+            run_rule_engine=run_rule_engine,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8426,6 +8850,7 @@ class IntegrationApi:
         customer_session_id,
         return_integration_request,
         dry,
+        run_rule_engine,
         _request_auth,
         _content_type,
         _headers,
@@ -8453,6 +8878,10 @@ class IntegrationApi:
         if dry is not None:
             
             _query_params.append(('dry', dry))
+            
+        if run_rule_engine is not None:
+            
+            _query_params.append(('runRuleEngine', run_rule_engine))
             
         # process the header parameters
         # process the form parameters

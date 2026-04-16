@@ -31,19 +31,19 @@ class AchievementV2(BaseModel):
     """ # noqa: E501
     id: StrictInt = Field(description="The internal ID of this entity.")
     created: datetime = Field(description="The time this entity was created.")
-    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The internal name of the achievement used in API requests.  **Note**: The name should start with a letter. This cannot be changed after the achievement has been created. ")
-    title: Optional[StrictStr] = Field(default=None, description="The display name for the achievement in the Campaign Manager.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the achievement.")
-    target: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The required number of actions or the transactional milestone to complete the achievement.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The internal name of the achievement used in API requests.  **Note**: The name should start with a letter. This cannot be changed after the achievement has been created. ")
+    title: StrictStr = Field(description="The display name for the achievement in the Campaign Manager.")
+    description: StrictStr = Field(description="A description of the achievement.")
+    target: Union[StrictFloat, StrictInt] = Field(description="The required number of actions or the transactional milestone to complete the achievement.")
     period: Optional[StrictStr] = Field(default=None, description="The relative duration after which the achievement ends and resets for a particular customer profile.  **Note**: The `period` does not start when the achievement is created.  The period is a **positive real number** followed by one letter indicating the time unit.  Examples: `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `s`: seconds - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can also round certain units down to the beginning of period and up to the end of period.: - `_D` for rounding down days only. Signifies the start of the day. Example: `30D_D` - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year. Example: `23W_U`  **Note**: You can either use the round down and round up option or set an absolute period. ")
-    recurrence_policy: Optional[StrictStr] = Field(default=None, description="The policy that determines if and how the achievement recurs. - `no_recurrence`: The achievement can be completed only once. - `on_expiration`: The achievement resets after it expires and becomes available again. - `on_completion`: When the customer progress status reaches `completed`, the achievement resets and becomes available again. ", alias="recurrencePolicy")
-    activation_policy: Optional[StrictStr] = Field(default=None, description="The policy that determines how the achievement starts, ends, or resets. - `user_action`: The achievement ends or resets relative to when the customer started the achievement. - `fixed_schedule`: The achievement starts, ends, or resets for all customers following a fixed schedule. ", alias="activationPolicy")
+    recurrence_policy: StrictStr = Field(description="The policy that determines if and how the achievement recurs. - `no_recurrence`: The achievement can be completed only once. - `on_expiration`: The achievement resets after it expires and becomes available again. - `on_completion`: When the customer progress status reaches `completed`, the achievement resets and becomes available again. ", alias="recurrencePolicy")
+    activation_policy: StrictStr = Field(description="The policy that determines how the achievement starts, ends, or resets. - `user_action`: The achievement ends or resets relative to when the customer started the achievement. - `fixed_schedule`: The achievement starts, ends, or resets for all customers following a fixed schedule. ", alias="activationPolicy")
     fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is set to `fixed_schedule`.  **Note:** It must be an RFC3339 timestamp string. ", alias="fixedStartDate")
     end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It must be an RFC3339 timestamp string. ", alias="endDate")
     allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion")
-    sandbox: Optional[StrictBool] = Field(default=None, description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.")
-    subscribed_applications: Optional[Annotated[List[StrictInt], Field(min_length=0)]] = Field(default=None, description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications")
-    timezone: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="A string containing an IANA timezone descriptor.")
+    sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.")
+    subscribed_applications: Annotated[List[StrictInt], Field(min_length=0)] = Field(description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications")
+    timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
     user_id: StrictInt = Field(description="The ID of the user that created this achievement.", alias="userId")
     created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy")
     has_progress: Optional[StrictBool] = Field(default=None, description="Indicates if a customer has made progress in the achievement.", alias="hasProgress")
@@ -53,9 +53,6 @@ class AchievementV2(BaseModel):
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if value is None:
-            return value
-
         if not re.match(r"^[a-zA-Z]\w+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z]\w+$/")
         return value
@@ -63,9 +60,6 @@ class AchievementV2(BaseModel):
     @field_validator('recurrence_policy')
     def recurrence_policy_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in set(['no_recurrence', 'on_expiration', 'on_completion']):
             raise ValueError("must be one of enum values ('no_recurrence', 'on_expiration', 'on_completion')")
         return value
@@ -73,9 +67,6 @@ class AchievementV2(BaseModel):
     @field_validator('activation_policy')
     def activation_policy_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in set(['user_action', 'fixed_schedule']):
             raise ValueError("must be one of enum values ('user_action', 'fixed_schedule')")
         return value

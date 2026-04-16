@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from talon_one.models.tier import Tier
 from typing import Optional, Set
@@ -38,7 +38,8 @@ class LedgerInfo(BaseModel):
     tentative_negative_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The tentative negative balance after all additions and deductions from the current customer session are applied to `negativeBalance`. When the session is closed, the tentative effects are applied and `negativeBalance` is updated to this value.  **Note:** Tentative balances are specific to the current session and do not take into account other open sessions for the given customer. ", alias="tentativeNegativeBalance")
     current_tier: Optional[Tier] = Field(default=None, description="Tier for which the ledger is eligible.", alias="currentTier")
     points_to_next_tier: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Points required to move up a tier.", alias="pointsToNextTier")
-    __properties: ClassVar[List[str]] = ["currentBalance", "pendingBalance", "negativeBalance", "expiredBalance", "spentBalance", "tentativeCurrentBalance", "tentativePendingBalance", "tentativeNegativeBalance", "currentTier", "pointsToNextTier"]
+    next_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the next higher tier level in the loyalty program.  **Note**: - Returns `null` if the customer has reached the highest available tier. - Returns the lowest level tier name if the customer is not currently assigned to any tier. ", alias="nextTierName")
+    __properties: ClassVar[List[str]] = ["currentBalance", "pendingBalance", "negativeBalance", "expiredBalance", "spentBalance", "tentativeCurrentBalance", "tentativePendingBalance", "tentativeNegativeBalance", "currentTier", "pointsToNextTier", "nextTierName"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -103,7 +104,8 @@ class LedgerInfo(BaseModel):
             "tentativePendingBalance": obj.get("tentativePendingBalance"),
             "tentativeNegativeBalance": obj.get("tentativeNegativeBalance"),
             "currentTier": Tier.from_dict(obj["currentTier"]) if obj.get("currentTier") is not None else None,
-            "pointsToNextTier": obj.get("pointsToNextTier")
+            "pointsToNextTier": obj.get("pointsToNextTier"),
+            "nextTierName": obj.get("nextTierName")
         })
         return _obj
 

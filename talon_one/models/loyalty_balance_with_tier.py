@@ -37,7 +37,7 @@ class LoyaltyBalanceWithTier(BaseModel):
     current_tier: Optional[Tier] = Field(default=None, description="Customer's current tier.", alias="currentTier")
     projected_tier: Optional[ProjectedTier] = Field(default=None, alias="projectedTier")
     points_to_next_tier: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of points required to move up a tier.", alias="pointsToNextTier")
-    next_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the tier consecutive to the current tier.", alias="nextTierName")
+    next_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the next higher tier level in the loyalty program.  **Note**: - Returns `null` if the customer has reached the highest available tier. - Returns the lowest level tier name if the customer is not currently assigned to any tier. ", alias="nextTierName")
     __properties: ClassVar[List[str]] = ["activePoints", "pendingPoints", "spentPoints", "expiredPoints", "negativePoints", "currentTier", "projectedTier", "pointsToNextTier", "nextTierName"]
 
     model_config = ConfigDict(

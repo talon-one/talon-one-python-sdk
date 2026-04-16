@@ -29,8 +29,8 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
     """ # noqa: E501
     name: StrictStr = Field(description="effect name.")
     value: Optional[Any]
-    exclude_from_best_prior_price_history: Optional[StrictBool] = Field(default=None, alias="excludeFromBestPriorPriceHistory")
-    __properties: ClassVar[List[str]] = ["name", "value", "excludeFromBestPriorPriceHistory"]
+    excluded_from_price_history: Optional[StrictBool] = Field(default=None, alias="excludedFromPriceHistory")
+    __properties: ClassVar[List[str]] = ["name", "value", "excludedFromPriceHistory"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -90,7 +90,7 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "value": obj.get("value"),
-            "excludeFromBestPriorPriceHistory": obj.get("excludeFromBestPriorPriceHistory")
+            "excludedFromPriceHistory": obj.get("excludedFromPriceHistory")
         })
         return _obj
 
