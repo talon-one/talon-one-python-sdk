@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **title** | **str** | A short description of the rule. | 
-**display_name** | **str** | A customer-facing name used to identify the reward defined within the rule. | [optional] 
-**display_description** | **str** | A customer-facing description of the reward defined in the rule.   For example, this property can contain details about eligibility requirements, reward timelines, or terms and conditions.  | [optional] 
-**related_data** | **str** | Data related to the reward, such as a vendor name, an image URL, or a content management system (CMS) ID.  | [optional] 
+**display_name** | **str** | A customer-facing name for the rule. | [optional] 
+**display_description** | **str** | A customer-facing description that explains the details of the rule.   For example, this property can contain details about eligibility requirements, reward timelines, or terms and conditions.  | [optional] 
+**related_data** | **str** | Any additional data associated with the rule, such as an image URL, vendor name, or a content management system (CMS) ID.  | [optional] 
 
 ## Example
 

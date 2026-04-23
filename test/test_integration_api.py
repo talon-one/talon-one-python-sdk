@@ -187,6 +187,13 @@ class TestIntegrationApi(unittest.TestCase):
         """
         pass
 
+    def test_integration_get_all_campaigns(self) -> None:
+        """Test case for integration_get_all_campaigns
+
+        List all running campaigns
+        """
+        pass
+
     def test_link_loyalty_card_to_profile(self) -> None:
         """Test case for link_loyalty_card_to_profile
 

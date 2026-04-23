@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -39,7 +39,8 @@ class SetDiscountPerItemEffectProps(BaseModel):
     bundle_name: Optional[StrictStr] = Field(default=None, description="The name of the bundle definition.", alias="bundleName")
     targeted_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the targeted bundle item on which the applied discount is based.", alias="targetedItemPosition")
     targeted_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The sub-position of the targeted bundle item on which the applied discount is based. ", alias="targetedItemSubPosition")
-    __properties: ClassVar[List[str]] = ["name", "value", "position", "subPosition", "desiredValue", "scope", "totalDiscount", "desiredTotalDiscount", "bundleIndex", "bundleName", "targetedItemPosition", "targetedItemSubPosition"]
+    excluded_from_price_history: Optional[StrictBool] = Field(default=None, description="When set to `true`, the applied discount is excluded from the item's price history.", alias="excludedFromPriceHistory")
+    __properties: ClassVar[List[str]] = ["name", "value", "position", "subPosition", "desiredValue", "scope", "totalDiscount", "desiredTotalDiscount", "bundleIndex", "bundleName", "targetedItemPosition", "targetedItemSubPosition", "excludedFromPriceHistory"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -103,7 +104,8 @@ class SetDiscountPerItemEffectProps(BaseModel):
             "bundleIndex": obj.get("bundleIndex"),
             "bundleName": obj.get("bundleName"),
             "targetedItemPosition": obj.get("targetedItemPosition"),
-            "targetedItemSubPosition": obj.get("targetedItemSubPosition")
+            "targetedItemSubPosition": obj.get("targetedItemSubPosition"),
+            "excludedFromPriceHistory": obj.get("excludedFromPriceHistory")
         })
         return _obj
 

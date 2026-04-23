@@ -40,7 +40,7 @@ class CreateAchievementV2(BaseModel):
     end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It must be an RFC3339 timestamp string. ", alias="endDate")
     allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion")
     sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.")
-    subscribed_applications: Annotated[List[StrictInt], Field(min_length=0)] = Field(description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications")
+    subscribed_applications: Optional[Annotated[List[StrictInt], Field(min_length=0)]] = Field(default=None, description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications")
     timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
     __properties: ClassVar[List[str]] = ["name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "sandbox", "subscribedApplications", "timezone"]
 

@@ -49,7 +49,8 @@ class TestLedgerInfo(unittest.TestCase):
                     start_date = '2021-05-03T12:32:00Z07:00', 
                     expiry_date = '2022-08-02T15:04:05Z07:00', 
                     downgrade_policy = 'one_down', ),
-                points_to_next_tier = 20
+                points_to_next_tier = 20,
+                next_tier_name = 'Silver'
             )
         else:
             return LedgerInfo(

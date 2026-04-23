@@ -27,6 +27,7 @@ Method | HTTP request | Description
 [**get_loyalty_program_profile_points**](IntegrationApi.md#get_loyalty_program_profile_points) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/points | List customer&#39;s unused loyalty points
 [**get_loyalty_program_profile_transactions**](IntegrationApi.md#get_loyalty_program_profile_transactions) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/transactions | List customer&#39;s loyalty transactions
 [**get_reserved_customers**](IntegrationApi.md#get_reserved_customers) | **GET** /v1/coupon_reservations/customerprofiles/{couponValue} | List customers that have this coupon reserved
+[**integration_get_all_campaigns**](IntegrationApi.md#integration_get_all_campaigns) | **GET** /v1/integration/campaigns | List all running campaigns
 [**link_loyalty_card_to_profile**](IntegrationApi.md#link_loyalty_card_to_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/link_profile | Link customer profile to card
 [**reopen_customer_session**](IntegrationApi.md#reopen_customer_session) | **PUT** /v2/customer_sessions/{customerSessionId}/reopen | Reopen customer session
 [**return_cart_items**](IntegrationApi.md#return_cart_items) | **POST** /v2/customer_sessions/{customerSessionId}/returns | Return cart items
@@ -2222,6 +2223,103 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **integration_get_all_campaigns**
+> IntegrationGetAllCampaigns200Response integration_get_all_campaigns(page_size=page_size, skip=skip, campaign_ids=campaign_ids, start_after=start_after, start_before=start_before, end_after=end_after, end_before=end_before)
+
+List all running campaigns
+
+Retrieve all running campaigns for the specified Application. You
+can filter the results by providing specific campaign IDs or a range of 
+start and end dates.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.integration_get_all_campaigns200_response import IntegrationGetAllCampaigns200Response
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.IntegrationApi(api_client)
+    page_size = 50 # int | The number of items in the response. (optional) (default to 50)
+    skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
+    campaign_ids = ['campaign_ids_example'] # List[str] | Filter by one or more campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned.  (optional)
+    start_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results to only include campaigns that start on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    start_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    end_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    end_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+
+    try:
+        # List all running campaigns
+        api_response = api_instance.integration_get_all_campaigns(page_size=page_size, skip=skip, campaign_ids=campaign_ids, start_after=start_after, start_before=start_before, end_after=end_after, end_before=end_before)
+        print("The response of IntegrationApi->integration_get_all_campaigns:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling IntegrationApi->integration_get_all_campaigns: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
+ **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
+ **campaign_ids** | [**List[str]**](str.md)| Filter by one or more campaign IDs, separated by a comma.  **Note:** If no campaigns are specified, data for all the campaigns in the Application is returned.  | [optional] 
+ **start_after** | **datetime**| Filter results to only include campaigns that start on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **start_before** | **datetime**| Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **end_after** | **datetime**| Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **end_before** | **datetime**| Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+
+### Return type
+
+[**IntegrationGetAllCampaigns200Response**](IntegrationGetAllCampaigns200Response.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **link_loyalty_card_to_profile**
 > LoyaltyCard link_loyalty_card_to_profile(loyalty_program_id, loyalty_card_id, loyalty_card_registration)
 
@@ -2450,7 +2548,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **return_cart_items**
-> IntegrationStateV2 return_cart_items(customer_session_id, return_integration_request, dry=dry)
+> IntegrationStateV2 return_cart_items(customer_session_id, return_integration_request, dry=dry, run_rule_engine=run_rule_engine)
 
 Return cart items
 
@@ -2505,10 +2603,11 @@ with talon_one.ApiClient(configuration) as api_client:
     customer_session_id = 'customer_session_id_example' # str | The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. 
     return_integration_request = talon_one.ReturnIntegrationRequest() # ReturnIntegrationRequest | body
     dry = True # bool | Indicates whether to persist the changes. Changes are ignored when `dry=true`.  (optional)
+    run_rule_engine = True # bool | When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed.  (optional)
 
     try:
         # Return cart items
-        api_response = api_instance.return_cart_items(customer_session_id, return_integration_request, dry=dry)
+        api_response = api_instance.return_cart_items(customer_session_id, return_integration_request, dry=dry, run_rule_engine=run_rule_engine)
         print("The response of IntegrationApi->return_cart_items:\n")
         pprint(api_response)
     except Exception as e:
@@ -2525,6 +2624,7 @@ Name | Type | Description  | Notes
  **customer_session_id** | **str**| The &#x60;integration ID&#x60; of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager&#39;s **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  | 
  **return_integration_request** | [**ReturnIntegrationRequest**](ReturnIntegrationRequest.md)| body | 
  **dry** | **bool**| Indicates whether to persist the changes. Changes are ignored when &#x60;dry&#x3D;true&#x60;.  | [optional] 
+ **run_rule_engine** | **bool**| When set to &#x60;true&#x60;, reevaluates the updated session after items are returned. Only reevaluates campaigns where &#x60;reevaluateOnReturn&#x60; is set to &#x60;true&#x60; and which produced an effect when the session was closed.  | [optional] 
 
 ### Return type
 

@@ -51,7 +51,7 @@ class TestLoyaltyBalanceWithTier(unittest.TestCase):
                     stay_in_tier_points = 2, 
                     projected_tier_name = 'Tier 1', ),
                 points_to_next_tier = 20,
-                next_tier_name = 'silver'
+                next_tier_name = 'Silver'
             )
         else:
             return LoyaltyBalanceWithTier(

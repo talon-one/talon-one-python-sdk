@@ -27,6 +27,7 @@ from talon_one.models.activate_user_request import ActivateUserRequest
 from talon_one.models.add_loyalty_points import AddLoyaltyPoints
 from talon_one.models.application import Application
 from talon_one.models.application_api_health import ApplicationApiHealth
+from talon_one.models.application_cif_expression import ApplicationCIFExpression
 from talon_one.models.application_customer import ApplicationCustomer
 from talon_one.models.application_session import ApplicationSession
 from talon_one.models.async_coupon_creation_response import AsyncCouponCreationResponse
@@ -90,6 +91,7 @@ from talon_one.models.get_webhooks200_response import GetWebhooks200Response
 from talon_one.models.list_account_collections200_response import ListAccountCollections200Response
 from talon_one.models.list_achievements200_response import ListAchievements200Response
 from talon_one.models.list_all_roles_v2200_response import ListAllRolesV2200Response
+from talon_one.models.list_application_cart_item_filters200_response import ListApplicationCartItemFilters200Response
 from talon_one.models.list_campaign_store_budget_limits200_response import ListCampaignStoreBudgetLimits200Response
 from talon_one.models.list_catalog_items200_response import ListCatalogItems200Response
 from talon_one.models.list_experiments200_response import ListExperiments200Response
@@ -4036,7 +4038,7 @@ class ManagementApi:
 
 
     @validate_call
-    def create_coupons_async(
+    def create_coupons_asynchronously(
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
@@ -4086,7 +4088,7 @@ class ManagementApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_coupons_async_serialize(
+        _param = self._create_coupons_asynchronously_serialize(
             application_id=application_id,
             campaign_id=campaign_id,
             new_coupon_creation_job=new_coupon_creation_job,
@@ -4111,7 +4113,7 @@ class ManagementApi:
 
 
     @validate_call
-    def create_coupons_async_with_http_info(
+    def create_coupons_asynchronously_with_http_info(
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
@@ -4161,7 +4163,7 @@ class ManagementApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_coupons_async_serialize(
+        _param = self._create_coupons_asynchronously_serialize(
             application_id=application_id,
             campaign_id=campaign_id,
             new_coupon_creation_job=new_coupon_creation_job,
@@ -4186,7 +4188,7 @@ class ManagementApi:
 
 
     @validate_call
-    def create_coupons_async_without_preload_content(
+    def create_coupons_asynchronously_without_preload_content(
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
@@ -4236,7 +4238,7 @@ class ManagementApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_coupons_async_serialize(
+        _param = self._create_coupons_asynchronously_serialize(
             application_id=application_id,
             campaign_id=campaign_id,
             new_coupon_creation_job=new_coupon_creation_job,
@@ -4256,7 +4258,7 @@ class ManagementApi:
         return response_data.response
 
 
-    def _create_coupons_async_serialize(
+    def _create_coupons_asynchronously_serialize(
         self,
         application_id,
         campaign_id,
@@ -12866,6 +12868,307 @@ class ManagementApi:
 
 
     @validate_call
+    def export_campaign_value_map(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        value_map_id: Annotated[StrictInt, Field(description="The ID of the value map. ")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> str:
+        """Export campaign value map
+
+        Download a CSV file containing all the value map items in a campaign. If there are multiple versions of the value map, only the items of the current version are exported.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `identifier`: The value of the attribute in the targeted item, for example, an item's SKU. - `value`: The value that is associated with the identifier, for example, the item's price. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param value_map_id: The ID of the value map.  (required)
+        :type value_map_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_campaign_value_map_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            value_map_id=value_map_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "str",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def export_campaign_value_map_with_http_info(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        value_map_id: Annotated[StrictInt, Field(description="The ID of the value map. ")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[str]:
+        """Export campaign value map
+
+        Download a CSV file containing all the value map items in a campaign. If there are multiple versions of the value map, only the items of the current version are exported.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `identifier`: The value of the attribute in the targeted item, for example, an item's SKU. - `value`: The value that is associated with the identifier, for example, the item's price. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param value_map_id: The ID of the value map.  (required)
+        :type value_map_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_campaign_value_map_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            value_map_id=value_map_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "str",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def export_campaign_value_map_without_preload_content(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        value_map_id: Annotated[StrictInt, Field(description="The ID of the value map. ")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Export campaign value map
+
+        Download a CSV file containing all the value map items in a campaign. If there are multiple versions of the value map, only the items of the current version are exported.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `identifier`: The value of the attribute in the targeted item, for example, an item's SKU. - `value`: The value that is associated with the identifier, for example, the item's price. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param value_map_id: The ID of the value map.  (required)
+        :type value_map_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_campaign_value_map_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            value_map_id=value_map_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "str",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _export_campaign_value_map_serialize(
+        self,
+        application_id,
+        campaign_id,
+        value_map_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if application_id is not None:
+            _path_params['applicationId'] = application_id
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        if value_map_id is not None:
+            _path_params['valueMapId'] = value_map_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/csv', 
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/applications/{applicationId}/campaigns/{campaignId}/value_maps/{valueMapId}/export',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def export_collection_items(
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
@@ -19988,7 +20291,7 @@ class ManagementApi:
     ) -> Application:
         """Get Application
 
-        Get the application specified by the ID.
+        Get the Application specified by the ID.
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -20055,7 +20358,7 @@ class ManagementApi:
     ) -> ApiResponse[Application]:
         """Get Application
 
-        Get the application specified by the ID.
+        Get the Application specified by the ID.
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -20122,7 +20425,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Get Application
 
-        Get the application specified by the ID.
+        Get the Application specified by the ID.
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -20492,6 +20795,297 @@ class ManagementApi:
 
 
     @validate_call
+    def get_application_cart_item_filter_expression(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        cart_item_filter_id: Annotated[StrictInt, Field(description="The ID of the Application cart item filter. You can get this ID with the [List Application cart item filters](https://docs.talon.one/management-api#tag/Applications/operation/listApplicationCartItemFilters) endpoint.")],
+        expression_id: Annotated[StrictInt, Field(description="The ID of the Application cart item filter expression.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApplicationCIFExpression:
+        """Get Application cart item filter expression
+
+        Get an Application cart item filter expression for a specific Application.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param cart_item_filter_id: The ID of the Application cart item filter. You can get this ID with the [List Application cart item filters](https://docs.talon.one/management-api#tag/Applications/operation/listApplicationCartItemFilters) endpoint. (required)
+        :type cart_item_filter_id: int
+        :param expression_id: The ID of the Application cart item filter expression. (required)
+        :type expression_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_application_cart_item_filter_expression_serialize(
+            application_id=application_id,
+            cart_item_filter_id=cart_item_filter_id,
+            expression_id=expression_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ApplicationCIFExpression",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_application_cart_item_filter_expression_with_http_info(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        cart_item_filter_id: Annotated[StrictInt, Field(description="The ID of the Application cart item filter. You can get this ID with the [List Application cart item filters](https://docs.talon.one/management-api#tag/Applications/operation/listApplicationCartItemFilters) endpoint.")],
+        expression_id: Annotated[StrictInt, Field(description="The ID of the Application cart item filter expression.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ApplicationCIFExpression]:
+        """Get Application cart item filter expression
+
+        Get an Application cart item filter expression for a specific Application.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param cart_item_filter_id: The ID of the Application cart item filter. You can get this ID with the [List Application cart item filters](https://docs.talon.one/management-api#tag/Applications/operation/listApplicationCartItemFilters) endpoint. (required)
+        :type cart_item_filter_id: int
+        :param expression_id: The ID of the Application cart item filter expression. (required)
+        :type expression_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_application_cart_item_filter_expression_serialize(
+            application_id=application_id,
+            cart_item_filter_id=cart_item_filter_id,
+            expression_id=expression_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ApplicationCIFExpression",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_application_cart_item_filter_expression_without_preload_content(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        cart_item_filter_id: Annotated[StrictInt, Field(description="The ID of the Application cart item filter. You can get this ID with the [List Application cart item filters](https://docs.talon.one/management-api#tag/Applications/operation/listApplicationCartItemFilters) endpoint.")],
+        expression_id: Annotated[StrictInt, Field(description="The ID of the Application cart item filter expression.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Application cart item filter expression
+
+        Get an Application cart item filter expression for a specific Application.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param cart_item_filter_id: The ID of the Application cart item filter. You can get this ID with the [List Application cart item filters](https://docs.talon.one/management-api#tag/Applications/operation/listApplicationCartItemFilters) endpoint. (required)
+        :type cart_item_filter_id: int
+        :param expression_id: The ID of the Application cart item filter expression. (required)
+        :type expression_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_application_cart_item_filter_expression_serialize(
+            application_id=application_id,
+            cart_item_filter_id=cart_item_filter_id,
+            expression_id=expression_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ApplicationCIFExpression",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_application_cart_item_filter_expression_serialize(
+        self,
+        application_id,
+        cart_item_filter_id,
+        expression_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if application_id is not None:
+            _path_params['applicationId'] = application_id
+        if cart_item_filter_id is not None:
+            _path_params['cartItemFilterId'] = cart_item_filter_id
+        if expression_id is not None:
+            _path_params['expressionId'] = expression_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/applications/{applicationId}/cart_item_filters/{cartItemFilterId}/expressions/{expressionId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_application_customer(
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
@@ -20775,7 +21369,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -20803,7 +21397,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -20862,7 +21456,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -20890,7 +21484,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -20949,7 +21543,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -20977,7 +21571,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -21118,7 +21712,7 @@ class ManagementApi:
         integration_id: Annotated[Optional[StrictStr], Field(description="Filter results performing an exact matching against the profile integration identifier.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -21144,7 +21738,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -21201,7 +21795,7 @@ class ManagementApi:
         integration_id: Annotated[Optional[StrictStr], Field(description="Filter results performing an exact matching against the profile integration identifier.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -21227,7 +21821,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -21284,7 +21878,7 @@ class ManagementApi:
         integration_id: Annotated[Optional[StrictStr], Field(description="Filter results performing an exact matching against the profile integration identifier.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -21310,7 +21904,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -21447,7 +22041,7 @@ class ManagementApi:
         customer_profile_search_query: Annotated[CustomerProfileSearchQuery, Field(description="body")],
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -21473,7 +22067,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -21530,7 +22124,7 @@ class ManagementApi:
         customer_profile_search_query: Annotated[CustomerProfileSearchQuery, Field(description="body")],
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -21556,7 +22150,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -21613,7 +22207,7 @@ class ManagementApi:
         customer_profile_search_query: Annotated[CustomerProfileSearchQuery, Field(description="body")],
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -21639,7 +22233,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -23406,7 +24000,7 @@ class ManagementApi:
     ) -> GetApplications200Response:
         """List Applications
 
-        List all applications in the current account.
+        List all the Applications in the current account.
 
         :param page_size: The number of items in the response.
         :type page_size: int
@@ -23481,7 +24075,7 @@ class ManagementApi:
     ) -> ApiResponse[GetApplications200Response]:
         """List Applications
 
-        List all applications in the current account.
+        List all the Applications in the current account.
 
         :param page_size: The number of items in the response.
         :type page_size: int
@@ -23556,7 +24150,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """List Applications
 
-        List all applications in the current account.
+        List all the Applications in the current account.
 
         :param page_size: The number of items in the response.
         :type page_size: int
@@ -24663,7 +25257,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -24687,7 +25281,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -24742,7 +25336,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -24766,7 +25360,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -24821,7 +25415,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -24845,7 +25439,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -27736,7 +28330,7 @@ class ManagementApi:
         user_id: Annotated[Optional[StrictInt], Field(description="Filter results by user ID.")] = None,
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         management_key_id: Annotated[Optional[StrictInt], Field(description="Filter results that match the given management key ID.")] = None,
         include_old: Annotated[Optional[StrictBool], Field(description="When this flag is set to false, the state without the change will not be returned. The default value is true.")] = None,
         _request_timeout: Union[
@@ -27772,7 +28366,7 @@ class ManagementApi:
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
         :type created_after: datetime
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param management_key_id: Filter results that match the given management key ID.
         :type management_key_id: int
@@ -27843,7 +28437,7 @@ class ManagementApi:
         user_id: Annotated[Optional[StrictInt], Field(description="Filter results by user ID.")] = None,
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         management_key_id: Annotated[Optional[StrictInt], Field(description="Filter results that match the given management key ID.")] = None,
         include_old: Annotated[Optional[StrictBool], Field(description="When this flag is set to false, the state without the change will not be returned. The default value is true.")] = None,
         _request_timeout: Union[
@@ -27879,7 +28473,7 @@ class ManagementApi:
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
         :type created_after: datetime
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param management_key_id: Filter results that match the given management key ID.
         :type management_key_id: int
@@ -27950,7 +28544,7 @@ class ManagementApi:
         user_id: Annotated[Optional[StrictInt], Field(description="Filter results by user ID.")] = None,
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         management_key_id: Annotated[Optional[StrictInt], Field(description="Filter results that match the given management key ID.")] = None,
         include_old: Annotated[Optional[StrictBool], Field(description="When this flag is set to false, the state without the change will not be returned. The default value is true.")] = None,
         _request_timeout: Union[
@@ -27986,7 +28580,7 @@ class ManagementApi:
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
         :type created_after: datetime
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param management_key_id: Filter results that match the given management key ID.
         :type management_key_id: int
@@ -43675,7 +44269,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -43700,7 +44294,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -43761,7 +44355,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -43786,7 +44380,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -43847,7 +44441,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -43872,7 +44466,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -44583,6 +45177,318 @@ class ManagementApi:
 
 
     @validate_call
+    def list_application_cart_item_filters(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        page_size: Annotated[Optional[Annotated[int, Field(le=50, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ListApplicationCartItemFilters200Response:
+        """List Application cart item filters
+
+        Return all the Application cart item filters for a specific Application.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param title: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. 
+        :type title: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_application_cart_item_filters_serialize(
+            application_id=application_id,
+            page_size=page_size,
+            skip=skip,
+            title=title,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListApplicationCartItemFilters200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_application_cart_item_filters_with_http_info(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        page_size: Annotated[Optional[Annotated[int, Field(le=50, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ListApplicationCartItemFilters200Response]:
+        """List Application cart item filters
+
+        Return all the Application cart item filters for a specific Application.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param title: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. 
+        :type title: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_application_cart_item_filters_serialize(
+            application_id=application_id,
+            page_size=page_size,
+            skip=skip,
+            title=title,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListApplicationCartItemFilters200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_application_cart_item_filters_without_preload_content(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        page_size: Annotated[Optional[Annotated[int, Field(le=50, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Application cart item filters
+
+        Return all the Application cart item filters for a specific Application.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param title: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. 
+        :type title: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_application_cart_item_filters_serialize(
+            application_id=application_id,
+            page_size=page_size,
+            skip=skip,
+            title=title,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListApplicationCartItemFilters200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_application_cart_item_filters_serialize(
+        self,
+        application_id,
+        page_size,
+        skip,
+        title,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if application_id is not None:
+            _path_params['applicationId'] = application_id
+        # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if skip is not None:
+            
+            _query_params.append(('skip', skip))
+            
+        if title is not None:
+            
+            _query_params.append(('title', title))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/applications/{applicationId}/cart_item_filters',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def list_campaign_store_budget_limits(
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
@@ -44907,7 +45813,7 @@ class ManagementApi:
         catalog_id: Annotated[StrictInt, Field(description="The ID of the catalog. You can find the ID in the Campaign Manager in **Account** > **Tools** > **Cart item catalogs**.")],
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         sku: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more SKUs. Must be exact match.")] = None,
         product_names: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more product names. Must be exact match.")] = None,
         _request_timeout: Union[
@@ -44933,7 +45839,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param sku: Filter results by one or more SKUs. Must be exact match.
         :type sku: List[str]
@@ -44994,7 +45900,7 @@ class ManagementApi:
         catalog_id: Annotated[StrictInt, Field(description="The ID of the catalog. You can find the ID in the Campaign Manager in **Account** > **Tools** > **Cart item catalogs**.")],
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         sku: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more SKUs. Must be exact match.")] = None,
         product_names: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more product names. Must be exact match.")] = None,
         _request_timeout: Union[
@@ -45020,7 +45926,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param sku: Filter results by one or more SKUs. Must be exact match.
         :type sku: List[str]
@@ -45081,7 +45987,7 @@ class ManagementApi:
         catalog_id: Annotated[StrictInt, Field(description="The ID of the catalog. You can find the ID in the Campaign Manager in **Account** > **Tools** > **Cart item catalogs**.")],
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         sku: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more SKUs. Must be exact match.")] = None,
         product_names: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more product names. Must be exact match.")] = None,
         _request_timeout: Union[
@@ -45107,7 +46013,7 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param sku: Filter results by one or more SKUs. Must be exact match.
         :type sku: List[str]
@@ -45257,7 +46163,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -45286,7 +46192,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -45349,7 +46255,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -45378,7 +46284,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -45441,7 +46347,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -45470,7 +46376,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -45620,7 +46526,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -45647,7 +46553,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -45708,7 +46614,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -45735,7 +46641,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -45796,7 +46702,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter by collection name.")] = None,
         _request_timeout: Union[
             None,
@@ -45823,7 +46729,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param name: Filter by collection name.
         :type name: str
@@ -46281,7 +47187,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         campaign_id: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Filter results by campaign ID.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the store.")] = None,
         integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the store.")] = None,
@@ -46311,7 +47217,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param campaign_id: Filter results by campaign ID.
         :type campaign_id: float
@@ -46380,7 +47286,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         campaign_id: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Filter results by campaign ID.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the store.")] = None,
         integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the store.")] = None,
@@ -46410,7 +47316,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param campaign_id: Filter results by campaign ID.
         :type campaign_id: float
@@ -46479,7 +47385,7 @@ class ManagementApi:
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
-        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. ")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
         campaign_id: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Filter results by campaign ID.")] = None,
         name: Annotated[Optional[StrictStr], Field(description="The name of the store.")] = None,
         integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the store.")] = None,
@@ -46509,7 +47415,7 @@ class ManagementApi:
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
-        :param with_total_result_size: When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query. 
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
         :type with_total_result_size: bool
         :param campaign_id: Filter results by campaign ID.
         :type campaign_id: float

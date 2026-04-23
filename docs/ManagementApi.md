@@ -17,7 +17,7 @@ Method | HTTP request | Description
 [**create_campaign_store_budget**](ManagementApi.md#create_campaign_store_budget) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/stores/budgets | Create campaign store budget
 [**create_collection**](ManagementApi.md#create_collection) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/collections | Create campaign-level collection
 [**create_coupons**](ManagementApi.md#create_coupons) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons | Create coupons
-[**create_coupons_async**](ManagementApi.md#create_coupons_async) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons_async | Create coupons asynchronously
+[**create_coupons_asynchronously**](ManagementApi.md#create_coupons_asynchronously) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons_async | Create coupons asynchronously
 [**create_coupons_deletion_job**](ManagementApi.md#create_coupons_deletion_job) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons_deletion_jobs | Creates a coupon deletion job
 [**create_coupons_for_multiple_recipients**](ManagementApi.md#create_coupons_for_multiple_recipients) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons_with_recipients | Create coupons for multiple recipients
 [**create_invite_email**](ManagementApi.md#create_invite_email) | **POST** /v1/invite_emails | Resend invitation email
@@ -47,6 +47,7 @@ Method | HTTP request | Description
 [**export_audiences_memberships**](ManagementApi.md#export_audiences_memberships) | **GET** /v1/audiences/{audienceId}/memberships/export | Export audience members
 [**export_campaign_store_budgets**](ManagementApi.md#export_campaign_store_budgets) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/stores/budgets/export | Export campaign store budgets
 [**export_campaign_stores**](ManagementApi.md#export_campaign_stores) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/stores/export | Export stores
+[**export_campaign_value_map**](ManagementApi.md#export_campaign_value_map) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/value_maps/{valueMapId}/export | Export campaign value map
 [**export_collection_items**](ManagementApi.md#export_collection_items) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/collections/{collectionId}/export | Export campaign-level collection&#39;s items
 [**export_coupons**](ManagementApi.md#export_coupons) | **GET** /v1/applications/{applicationId}/export_coupons | Export coupons
 [**export_customer_sessions**](ManagementApi.md#export_customer_sessions) | **GET** /v1/applications/{applicationId}/export_customer_sessions | Export customer sessions
@@ -71,6 +72,7 @@ Method | HTTP request | Description
 [**get_additional_costs**](ManagementApi.md#get_additional_costs) | **GET** /v1/additional_costs | List additional costs
 [**get_application**](ManagementApi.md#get_application) | **GET** /v1/applications/{applicationId} | Get Application
 [**get_application_api_health**](ManagementApi.md#get_application_api_health) | **GET** /v1/applications/{applicationId}/health_report | Get Application health
+[**get_application_cart_item_filter_expression**](ManagementApi.md#get_application_cart_item_filter_expression) | **GET** /v1/applications/{applicationId}/cart_item_filters/{cartItemFilterId}/expressions/{expressionId} | Get Application cart item filter expression
 [**get_application_customer**](ManagementApi.md#get_application_customer) | **GET** /v1/applications/{applicationId}/customers/{customerId} | Get application&#39;s customer
 [**get_application_customer_friends**](ManagementApi.md#get_application_customer_friends) | **GET** /v1/applications/{applicationId}/profile/{integrationId}/friends | List friends referred by customer profile
 [**get_application_customers**](ManagementApi.md#get_application_customers) | **GET** /v1/applications/{applicationId}/customers | List application&#39;s customers
@@ -143,6 +145,7 @@ Method | HTTP request | Description
 [**list_account_collections**](ManagementApi.md#list_account_collections) | **GET** /v1/collections | List collections in account
 [**list_achievements**](ManagementApi.md#list_achievements) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/achievements | List achievements
 [**list_all_roles_v2**](ManagementApi.md#list_all_roles_v2) | **GET** /v2/roles | List roles
+[**list_application_cart_item_filters**](ManagementApi.md#list_application_cart_item_filters) | **GET** /v1/applications/{applicationId}/cart_item_filters | List Application cart item filters
 [**list_campaign_store_budget_limits**](ManagementApi.md#list_campaign_store_budget_limits) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/stores/budgets | List campaign store budget limits
 [**list_catalog_items**](ManagementApi.md#list_catalog_items) | **GET** /v1/catalogs/{catalogId}/items | List items in a catalog
 [**list_collections**](ManagementApi.md#list_collections) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/collections | List collections in campaign
@@ -1303,8 +1306,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_coupons_async**
-> AsyncCouponCreationResponse create_coupons_async(application_id, campaign_id, new_coupon_creation_job)
+# **create_coupons_asynchronously**
+> AsyncCouponCreationResponse create_coupons_asynchronously(application_id, campaign_id, new_coupon_creation_job)
 
 Create coupons asynchronously
 
@@ -1351,11 +1354,11 @@ with talon_one.ApiClient(configuration) as api_client:
 
     try:
         # Create coupons asynchronously
-        api_response = api_instance.create_coupons_async(application_id, campaign_id, new_coupon_creation_job)
-        print("The response of ManagementApi->create_coupons_async:\n")
+        api_response = api_instance.create_coupons_asynchronously(application_id, campaign_id, new_coupon_creation_job)
+        print("The response of ManagementApi->create_coupons_asynchronously:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ManagementApi->create_coupons_async: %s\n" % e)
+        print("Exception when calling ManagementApi->create_coupons_asynchronously: %s\n" % e)
 ```
 
 
@@ -3845,6 +3848,102 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **export_campaign_value_map**
+> str export_campaign_value_map(application_id, campaign_id, value_map_id)
+
+Export campaign value map
+
+Download a CSV file containing all the value map items in a campaign. If
+there are multiple versions of the value map, only the items of the current
+version are exported.
+
+> [!tip] If the exported CSV file is too large to view, you can
+> [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
+
+The generated file can contain the following columns:
+
+- `identifier`: The value of the attribute in the targeted item, for example, an item's SKU.
+- `value`: The value that is associated with the identifier, for example, the item's price.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
+    campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
+    value_map_id = 56 # int | The ID of the value map. 
+
+    try:
+        # Export campaign value map
+        api_response = api_instance.export_campaign_value_map(application_id, campaign_id, value_map_id)
+        print("The response of ManagementApi->export_campaign_value_map:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->export_campaign_value_map: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
+ **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
+ **value_map_id** | **int**| The ID of the value map.  | 
+
+### Return type
+
+**str**
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/csv, application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **export_collection_items**
 > str export_collection_items(application_id, campaign_id, collection_id)
 
@@ -5970,7 +6069,7 @@ Name | Type | Description  | Notes
 
 Get Application
 
-Get the application specified by the ID.
+Get the Application specified by the ID.
 
 ### Example
 
@@ -6128,6 +6227,89 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_application_cart_item_filter_expression**
+> ApplicationCIFExpression get_application_cart_item_filter_expression(application_id, cart_item_filter_id, expression_id)
+
+Get Application cart item filter expression
+
+Get an Application cart item filter expression for a specific Application.
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.application_cif_expression import ApplicationCIFExpression
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
+    cart_item_filter_id = 56 # int | The ID of the Application cart item filter. You can get this ID with the [List Application cart item filters](https://docs.talon.one/management-api#tag/Applications/operation/listApplicationCartItemFilters) endpoint.
+    expression_id = 56 # int | The ID of the Application cart item filter expression.
+
+    try:
+        # Get Application cart item filter expression
+        api_response = api_instance.get_application_cart_item_filter_expression(application_id, cart_item_filter_id, expression_id)
+        print("The response of ManagementApi->get_application_cart_item_filter_expression:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->get_application_cart_item_filter_expression: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
+ **cart_item_filter_id** | **int**| The ID of the Application cart item filter. You can get this ID with the [List Application cart item filters](https://docs.talon.one/management-api#tag/Applications/operation/listApplicationCartItemFilters) endpoint. | 
+ **expression_id** | **int**| The ID of the Application cart item filter expression. | 
+
+### Return type
+
+[**ApplicationCIFExpression**](ApplicationCIFExpression.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Ok |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_application_customer**
 > ApplicationCustomer get_application_customer(application_id, customer_id)
 
@@ -6254,7 +6436,7 @@ with talon_one.ApiClient(configuration) as api_client:
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
 
     try:
         # List friends referred by customer profile
@@ -6277,7 +6459,7 @@ Name | Type | Description  | Notes
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
 
 ### Return type
 
@@ -6342,7 +6524,7 @@ with talon_one.ApiClient(configuration) as api_client:
     integration_id = 'integration_id_example' # str | Filter results performing an exact matching against the profile integration identifier. (optional)
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
 
     try:
         # List application's customers
@@ -6364,7 +6546,7 @@ Name | Type | Description  | Notes
  **integration_id** | **str**| Filter results performing an exact matching against the profile integration identifier. | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
 
 ### Return type
 
@@ -6433,7 +6615,7 @@ with talon_one.ApiClient(configuration) as api_client:
     customer_profile_search_query = talon_one.CustomerProfileSearchQuery() # CustomerProfileSearchQuery | body
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
 
     try:
         # List application customers matching the given attributes
@@ -6455,7 +6637,7 @@ Name | Type | Description  | Notes
  **customer_profile_search_query** | [**CustomerProfileSearchQuery**](CustomerProfileSearchQuery.md)| body | 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
 
 ### Return type
 
@@ -6868,7 +7050,7 @@ Name | Type | Description  | Notes
 
 List Applications
 
-List all applications in the current account.
+List all the Applications in the current account.
 
 ### Example
 
@@ -7253,7 +7435,7 @@ with talon_one.ApiClient(configuration) as api_client:
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
 
     try:
         # List audiences
@@ -7274,7 +7456,7 @@ Name | Type | Description  | Notes
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
 
 ### Return type
 
@@ -8049,7 +8231,7 @@ with talon_one.ApiClient(configuration) as api_client:
     user_id = 56 # int | Filter results by user ID. (optional)
     created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
     created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
     management_key_id = 56 # int | Filter results that match the given management key ID. (optional)
     include_old = True # bool | When this flag is set to false, the state without the change will not be returned. The default value is true. (optional)
 
@@ -8077,7 +8259,7 @@ Name | Type | Description  | Notes
  **user_id** | **int**| Filter results by user ID. | [optional] 
  **created_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
  **created_after** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the change creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
  **management_key_id** | **int**| Filter results that match the given management key ID. | [optional] 
  **include_old** | **bool**| When this flag is set to false, the state without the change will not be returned. The default value is true. | [optional] 
 
@@ -12664,7 +12846,7 @@ with talon_one.ApiClient(configuration) as api_client:
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
     name = 'name_example' # str | Filter by collection name. (optional)
 
     try:
@@ -12686,7 +12868,7 @@ Name | Type | Description  | Notes
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
  **name** | **str**| Filter by collection name. | [optional] 
 
 ### Return type
@@ -12875,6 +13057,91 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **list_application_cart_item_filters**
+> ListApplicationCartItemFilters200Response list_application_cart_item_filters(application_id, page_size=page_size, skip=skip, title=title)
+
+List Application cart item filters
+
+Return all the Application cart item filters for a specific Application.
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.list_application_cart_item_filters200_response import ListApplicationCartItemFilters200Response
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
+    page_size = 50 # int | The number of items in the response. (optional) (default to 50)
+    skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
+    title = 'title_example' # str | Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned.  (optional)
+
+    try:
+        # List Application cart item filters
+        api_response = api_instance.list_application_cart_item_filters(application_id, page_size=page_size, skip=skip, title=title)
+        print("The response of ManagementApi->list_application_cart_item_filters:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->list_application_cart_item_filters: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
+ **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
+ **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
+ **title** | **str**| Filter by the display name of the Application cart item filter in the Application.  **Note**: If no &#x60;title&#x60; is provided, all the Application cart item filters in the Application are returned.  | [optional] 
+
+### Return type
+
+[**ListApplicationCartItemFilters200Response**](ListApplicationCartItemFilters200Response.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **list_campaign_store_budget_limits**
 > ListCampaignStoreBudgetLimits200Response list_campaign_store_budget_limits(application_id, campaign_id, action=action, period=period)
 
@@ -13005,7 +13272,7 @@ with talon_one.ApiClient(configuration) as api_client:
     catalog_id = 56 # int | The ID of the catalog. You can find the ID in the Campaign Manager in **Account** > **Tools** > **Cart item catalogs**.
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
     sku = ['sku_example'] # List[str] | Filter results by one or more SKUs. Must be exact match. (optional)
     product_names = ['product_names_example'] # List[str] | Filter results by one or more product names. Must be exact match. (optional)
 
@@ -13028,7 +13295,7 @@ Name | Type | Description  | Notes
  **catalog_id** | **int**| The ID of the catalog. You can find the ID in the Campaign Manager in **Account** &gt; **Tools** &gt; **Cart item catalogs**. | 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
  **sku** | [**List[str]**](str.md)| Filter results by one or more SKUs. Must be exact match. | [optional] 
  **product_names** | [**List[str]**](str.md)| Filter results by one or more product names. Must be exact match. | [optional] 
 
@@ -13096,7 +13363,7 @@ with talon_one.ApiClient(configuration) as api_client:
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
     name = 'name_example' # str | Filter by collection name. (optional)
 
     try:
@@ -13120,7 +13387,7 @@ Name | Type | Description  | Notes
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
  **name** | **str**| Filter by collection name. | [optional] 
 
 ### Return type
@@ -13187,7 +13454,7 @@ with talon_one.ApiClient(configuration) as api_client:
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
     name = 'name_example' # str | Filter by collection name. (optional)
 
     try:
@@ -13210,7 +13477,7 @@ Name | Type | Description  | Notes
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
  **name** | **str**| Filter by collection name. | [optional] 
 
 ### Return type
@@ -13362,7 +13629,7 @@ with talon_one.ApiClient(configuration) as api_client:
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
-    with_total_result_size = True # bool | When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When `true`: `hasMore` is true when there is a next page. `totalResultSize` is always zero. - When `false`: `hasMore` is always false. `totalResultSize` contains the total number of results for this query.  (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
     campaign_id = 3.4 # float | Filter results by campaign ID. (optional)
     name = 'name_example' # str | The name of the store. (optional)
     integration_id = 'integration_id_example' # str | The integration ID of the store. (optional)
@@ -13388,7 +13655,7 @@ Name | Type | Description  | Notes
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
- **with_total_result_size** | **bool**| When this flag is set, the result includes the total size of the result, across all pages. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;hasMore&#x60; is true when there is a next page. &#x60;totalResultSize&#x60; is always zero. - When &#x60;false&#x60;: &#x60;hasMore&#x60; is always false. &#x60;totalResultSize&#x60; contains the total number of results for this query.  | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.  - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
  **campaign_id** | **float**| Filter results by campaign ID. | [optional] 
  **name** | **str**| The name of the store. | [optional] 
  **integration_id** | **str**| The integration ID of the store. | [optional] 
