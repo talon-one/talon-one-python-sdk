@@ -35,11 +35,12 @@ class Audience(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly display name for this audience.")
     sandbox: Optional[StrictBool] = Field(default=None, description="Indicates if this is a live or sandbox Application.")
     description: Optional[StrictStr] = Field(default=None, description="A description of the audience.")
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this audience.", alias="subscribedApplicationsIds")
     integration: Optional[StrictStr] = Field(default=None, description="The Talon.One-supported [3rd-party platform](https://docs.talon.one/docs/dev/technology-partners/overview) that this audience was created in.  For example, `mParticle`, `Segment`, `Shopify`, `Braze`, or `Iterable`.  **Note:** If you do not integrate with any of these platforms, do not use this property. ")
     integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.  **Note:** To create an audience that doesn't come from a 3rd party platform, do not use this property. ", alias="integrationId")
     created_in3rd_party: Optional[StrictBool] = Field(default=None, description="Determines if this audience is a 3rd party audience or not.", alias="createdIn3rdParty")
     last_update: Optional[datetime] = Field(default=None, description="The last time that the audience memberships changed.", alias="lastUpdate")
-    __properties: ClassVar[List[str]] = ["accountId", "id", "created", "name", "sandbox", "description", "integration", "integrationId", "createdIn3rdParty", "lastUpdate"]
+    __properties: ClassVar[List[str]] = ["accountId", "id", "created", "name", "sandbox", "description", "subscribedApplicationsIds", "integration", "integrationId", "createdIn3rdParty", "lastUpdate"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -98,6 +99,7 @@ class Audience(BaseModel):
             "name": obj.get("name"),
             "sandbox": obj.get("sandbox"),
             "description": obj.get("description"),
+            "subscribedApplicationsIds": obj.get("subscribedApplicationsIds"),
             "integration": obj.get("integration"),
             "integrationId": obj.get("integrationId"),
             "createdIn3rdParty": obj.get("createdIn3rdParty"),

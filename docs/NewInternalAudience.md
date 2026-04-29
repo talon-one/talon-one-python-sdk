@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **name** | **str** | The human-friendly display name for this audience. | 
 **sandbox** | **bool** | Indicates if this is a live or sandbox Application. | [optional] 
 **description** | **str** | A description of the audience. | [optional] 
+**subscribed_applications_ids** | **List[int]** | A list of the IDs of the Applications that are connected to this audience. | [optional] 
 
 ## Example
 

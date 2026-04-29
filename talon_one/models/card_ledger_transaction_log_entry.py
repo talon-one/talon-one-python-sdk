@@ -48,6 +48,9 @@ class CardLedgerTransactionLogEntry(BaseModel):
     @field_validator('card_identifier')
     def card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
+        if not isinstance(value, str):
+            value = str(value)
+
         if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value

@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **description** | **str** | A description of the reward. | [optional] 
 **application_ids** | **List[int]** | The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application.  | 
 **sandbox** | **bool** | Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type. | 
+**rule** | [**List[Rule]**](Rule.md) | Rule to apply. | [optional] 
+**bindings** | [**List[Binding]**](Binding.md) | A list of named variables created before the reward&#39;s rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules. | [optional] 
 **status** | **str** | The status of the reward. | 
 
 ## Example

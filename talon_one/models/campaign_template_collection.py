@@ -35,6 +35,9 @@ class CampaignTemplateCollection(BaseModel):
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
+        if not isinstance(value, str):
+            value = str(value)
+
         if not re.match(r"^[A-Za-z](\w|\s)*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z](\w|\s)*$/")
         return value

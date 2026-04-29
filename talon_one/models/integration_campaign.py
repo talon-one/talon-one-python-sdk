@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from talon_one.models.rule_metadata import RuleMetadata
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,7 +32,7 @@ class IntegrationCampaign(BaseModel):
     """ # noqa: E501
     application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
     id: StrictInt = Field(description="Unique ID of Campaign.")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A user-facing name for this campaign.")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign.")
     description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
     start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime")
     end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime")
@@ -39,7 +40,8 @@ class IntegrationCampaign(BaseModel):
     state: StrictStr = Field(description="The state of the campaign. ")
     tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.")
     features: List[StrictStr] = Field(description="The features enabled in this campaign.")
-    __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features"]
+    rules: Optional[List[RuleMetadata]] = Field(default=None, description="A list of rules containing customer-facing details of the rewards defined in the campaign.")
+    __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "rules"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -95,6 +97,13 @@ class IntegrationCampaign(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in rules (list)
+        _items = []
+        if self.rules:
+            for _item_rules in self.rules:
+                if _item_rules:
+                    _items.append(_item_rules.to_dict())
+            _dict['rules'] = _items
         return _dict
 
     @classmethod
@@ -116,7 +125,8 @@ class IntegrationCampaign(BaseModel):
             "attributes": obj.get("attributes"),
             "state": obj.get("state") if obj.get("state") is not None else 'enabled',
             "tags": obj.get("tags"),
-            "features": obj.get("features")
+            "features": obj.get("features"),
+            "rules": [RuleMetadata.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None
         })
         return _obj
 

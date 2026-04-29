@@ -54,6 +54,9 @@ class TestIntegrationStateV2(unittest.TestCase):
                 triggered_campaigns = [
                     null
                     ],
+                campaign_eligibility = [
+                    null
+                    ],
                 effects = [
                     null
                     ],

@@ -124,6 +124,9 @@ from talon_one.models.campaign_deleted_notification_item import CampaignDeletedN
 from talon_one.models.campaign_detail import CampaignDetail
 from talon_one.models.campaign_edited_notification import CampaignEditedNotification
 from talon_one.models.campaign_edited_notification_item import CampaignEditedNotificationItem
+from talon_one.models.campaign_eligibility import CampaignEligibility
+from talon_one.models.campaign_eligibility_details import CampaignEligibilityDetails
+from talon_one.models.campaign_eligibility_failure_details import CampaignEligibilityFailureDetails
 from talon_one.models.campaign_entity import CampaignEntity
 from talon_one.models.campaign_evaluation_group import CampaignEvaluationGroup
 from talon_one.models.campaign_evaluation_position import CampaignEvaluationPosition
@@ -591,6 +594,8 @@ from talon_one.models.rollback_discount_effect_props import RollbackDiscountEffe
 from talon_one.models.rollback_increased_achievement_progress_effect_props import RollbackIncreasedAchievementProgressEffectProps
 from talon_one.models.rollback_referral_effect_props import RollbackReferralEffectProps
 from talon_one.models.rule import Rule
+from talon_one.models.rule_eligibility import RuleEligibility
+from talon_one.models.rule_eligibility_failure_details import RuleEligibilityFailureDetails
 from talon_one.models.rule_failure_reason import RuleFailureReason
 from talon_one.models.rule_metadata import RuleMetadata
 from talon_one.models.ruleset import Ruleset
@@ -697,6 +702,7 @@ from talon_one.models.update_picklist import UpdatePicklist
 from talon_one.models.update_price_type import UpdatePriceType
 from talon_one.models.update_referral import UpdateReferral
 from talon_one.models.update_referral_batch import UpdateReferralBatch
+from talon_one.models.update_reward import UpdateReward
 from talon_one.models.update_role import UpdateRole
 from talon_one.models.update_store import UpdateStore
 from talon_one.models.update_user import UpdateUser

@@ -35,7 +35,8 @@ class TestUpdateAudience(unittest.TestCase):
         model = UpdateAudience()
         if include_optional:
             return UpdateAudience(
-                name = 'Travel audience'
+                name = 'Travel audience',
+                subscribed_applications_ids = [3, 13]
             )
         else:
             return UpdateAudience(

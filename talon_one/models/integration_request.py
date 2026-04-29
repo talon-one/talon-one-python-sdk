@@ -39,8 +39,8 @@ class IntegrationRequest(BaseModel):
             return value
 
         for i in value:
-            if i not in set(['customerSession', 'customerProfile', 'coupons', 'triggeredCampaigns', 'referral', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons', 'previousReturns']):
-                raise ValueError("each list item must be one of ('customerSession', 'customerProfile', 'coupons', 'triggeredCampaigns', 'referral', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons', 'previousReturns')")
+            if i not in set(['customerSession', 'customerProfile', 'coupons', 'triggeredCampaigns', 'referral', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons', 'previousReturns', 'campaignEligibility']):
+                raise ValueError("each list item must be one of ('customerSession', 'customerProfile', 'coupons', 'triggeredCampaigns', 'referral', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons', 'previousReturns', 'campaignEligibility')")
         return value
 
     model_config = ConfigDict(

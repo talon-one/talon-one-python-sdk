@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -29,8 +29,9 @@ class NewMultipleAudiencesItem(BaseModel):
     NewMultipleAudiencesItem
     """ # noqa: E501
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly display name for this audience.")
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this audience.", alias="subscribedApplicationsIds")
     integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.", alias="integrationId")
-    __properties: ClassVar[List[str]] = ["name", "integrationId"]
+    __properties: ClassVar[List[str]] = ["name", "subscribedApplicationsIds", "integrationId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -84,6 +85,7 @@ class NewMultipleAudiencesItem(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
+            "subscribedApplicationsIds": obj.get("subscribedApplicationsIds"),
             "integrationId": obj.get("integrationId")
         })
         return _obj
