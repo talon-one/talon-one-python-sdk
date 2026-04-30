@@ -4496,7 +4496,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_loyalty_balance**
-> str export_loyalty_balance(loyalty_program_id, end_date=end_date)
+> str export_loyalty_balance(loyalty_program_id, end_date=end_date, balances=balances)
 
 Export customer loyalty balance to CSV
 
@@ -4542,10 +4542,11 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 'loyalty_program_id_example' # str | The identifier for the loyalty program.
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    balances = 'balances_example' # str | Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  (optional)
 
     try:
         # Export customer loyalty balance to CSV
-        api_response = api_instance.export_loyalty_balance(loyalty_program_id, end_date=end_date)
+        api_response = api_instance.export_loyalty_balance(loyalty_program_id, end_date=end_date, balances=balances)
         print("The response of ManagementApi->export_loyalty_balance:\n")
         pprint(api_response)
     except Exception as e:
@@ -4561,6 +4562,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **str**| The identifier for the loyalty program. | 
  **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **balances** | **str**| Filters which balance fields are included in the CSV export. &#x60;currentBalance&#x60; is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - &#x60;currentBalance&#x60; - &#x60;pendingBalance&#x60; - &#x60;expiredBalance&#x60; - &#x60;spentBalance&#x60; - &#x60;negativeBalance&#x60;  Multiple values must be provided as a comma-separated list.  | [optional] 
 
 ### Return type
 
@@ -4586,7 +4588,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_loyalty_balances**
-> str export_loyalty_balances(loyalty_program_id, end_date=end_date)
+> str export_loyalty_balances(loyalty_program_id, end_date=end_date, balances=balances)
 
 Export customer loyalty balances
 
@@ -4640,10 +4642,11 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 'loyalty_program_id_example' # str | The identifier for the loyalty program.
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export.  (optional)
+    balances = 'balances_example' # str | Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  (optional)
 
     try:
         # Export customer loyalty balances
-        api_response = api_instance.export_loyalty_balances(loyalty_program_id, end_date=end_date)
+        api_response = api_instance.export_loyalty_balances(loyalty_program_id, end_date=end_date, balances=balances)
         print("The response of ManagementApi->export_loyalty_balances:\n")
         pprint(api_response)
     except Exception as e:
@@ -4659,6 +4662,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **str**| The identifier for the loyalty program. | 
  **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered. &gt; - This parameter does not affect the &#x60;currentTier&#x60; field in the CSV file, which shows the customer&#39;s tier at the time of export.  | [optional] 
+ **balances** | **str**| Filters which balance fields are included in the CSV export. &#x60;currentBalance&#x60; is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - &#x60;currentBalance&#x60; - &#x60;pendingBalance&#x60; - &#x60;expiredBalance&#x60; - &#x60;spentBalance&#x60; - &#x60;negativeBalance&#x60;  Multiple values must be provided as a comma-separated list.  | [optional] 
 
 ### Return type
 
@@ -4684,7 +4688,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_loyalty_card_balances**
-> str export_loyalty_card_balances(loyalty_program_id, end_date=end_date)
+> str export_loyalty_card_balances(loyalty_program_id, end_date=end_date, balances=balances)
 
 Export all card transaction logs
 
@@ -4739,10 +4743,11 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
+    balances = 'balances_example' # str | Filters which balance fields are included in the CSV export. By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  **Note:** - The `negativeBalance` value is not supported for card balance exports. - Providing an unsupported or invalid value returns a `400 Bad Request` error.  (optional)
 
     try:
         # Export all card transaction logs
-        api_response = api_instance.export_loyalty_card_balances(loyalty_program_id, end_date=end_date)
+        api_response = api_instance.export_loyalty_card_balances(loyalty_program_id, end_date=end_date, balances=balances)
         print("The response of ManagementApi->export_loyalty_card_balances:\n")
         pprint(api_response)
     except Exception as e:
@@ -4758,6 +4763,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
+ **balances** | **str**| Filters which balance fields are included in the CSV export. By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - &#x60;currentBalance&#x60; - &#x60;pendingBalance&#x60; - &#x60;expiredBalance&#x60; - &#x60;spentBalance&#x60; - &#x60;negativeBalance&#x60;  Multiple values must be provided as a comma-separated list.  **Note:** - The &#x60;negativeBalance&#x60; value is not supported for card balance exports. - Providing an unsupported or invalid value returns a &#x60;400 Bad Request&#x60; error.  | [optional] 
 
 ### Return type
 

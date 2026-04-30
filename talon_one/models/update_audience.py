@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +29,8 @@ class UpdateAudience(BaseModel):
     UpdateAudience
     """ # noqa: E501
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly display name for this audience.")
-    __properties: ClassVar[List[str]] = ["name"]
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this audience.", alias="subscribedApplicationsIds")
+    __properties: ClassVar[List[str]] = ["name", "subscribedApplicationsIds"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -82,7 +83,8 @@ class UpdateAudience(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name")
+            "name": obj.get("name"),
+            "subscribedApplicationsIds": obj.get("subscribedApplicationsIds")
         })
         return _obj
 

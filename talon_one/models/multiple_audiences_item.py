@@ -32,9 +32,10 @@ class MultipleAudiencesItem(BaseModel):
     id: StrictInt = Field(description="The internal ID of this entity.")
     created: datetime = Field(description="The time this entity was created.")
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly display name for this audience.")
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this audience.", alias="subscribedApplicationsIds")
     integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.", alias="integrationId")
     status: StrictStr = Field(description="Indicates whether the audience is new, updated or unmodified by the request. ")
-    __properties: ClassVar[List[str]] = ["id", "created", "name", "integrationId", "status"]
+    __properties: ClassVar[List[str]] = ["id", "created", "name", "subscribedApplicationsIds", "integrationId", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -97,6 +98,7 @@ class MultipleAudiencesItem(BaseModel):
             "id": obj.get("id"),
             "created": obj.get("created"),
             "name": obj.get("name"),
+            "subscribedApplicationsIds": obj.get("subscribedApplicationsIds"),
             "integrationId": obj.get("integrationId"),
             "status": obj.get("status")
         })

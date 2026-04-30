@@ -66,6 +66,9 @@ class LoyaltyProgramTransaction(BaseModel):
         if value is None:
             return value
 
+        if not isinstance(value, str):
+            value = str(value)
+
         if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value

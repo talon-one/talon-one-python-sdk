@@ -42,6 +42,9 @@ class SecondaryDeployment(BaseModel):
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
+        if not isinstance(value, str):
+            value = str(value)
+
         if not re.match(r"^[a-z0-9]+$", value):
             raise ValueError(r"must validate the regular expression /^[a-z0-9]+$/")
         return value

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -31,7 +31,8 @@ class NewInternalAudience(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly display name for this audience.")
     sandbox: Optional[StrictBool] = Field(default=None, description="Indicates if this is a live or sandbox Application.")
     description: Optional[StrictStr] = Field(default=None, description="A description of the audience.")
-    __properties: ClassVar[List[str]] = ["name", "sandbox", "description"]
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this audience.", alias="subscribedApplicationsIds")
+    __properties: ClassVar[List[str]] = ["name", "sandbox", "description", "subscribedApplicationsIds"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -86,7 +87,8 @@ class NewInternalAudience(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "sandbox": obj.get("sandbox"),
-            "description": obj.get("description")
+            "description": obj.get("description"),
+            "subscribedApplicationsIds": obj.get("subscribedApplicationsIds")
         })
         return _obj
 

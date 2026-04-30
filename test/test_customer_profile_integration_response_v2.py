@@ -72,6 +72,9 @@ class TestCustomerProfileIntegrationResponseV2(unittest.TestCase):
                         evaluation_group_id = 3, 
                         evaluation_group_mode = 'stackable', )
                     ],
+                campaign_eligibility = [
+                    null
+                    ],
                 awarded_giveaways = [
                     null
                     ],

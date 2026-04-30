@@ -14995,6 +14995,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15016,6 +15017,8 @@ class ManagementApi:
         :type loyalty_program_id: str
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15042,6 +15045,7 @@ class ManagementApi:
         _param = self._export_loyalty_balance_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15069,6 +15073,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15090,6 +15095,8 @@ class ManagementApi:
         :type loyalty_program_id: str
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15116,6 +15123,7 @@ class ManagementApi:
         _param = self._export_loyalty_balance_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15143,6 +15151,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15164,6 +15173,8 @@ class ManagementApi:
         :type loyalty_program_id: str
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15190,6 +15201,7 @@ class ManagementApi:
         _param = self._export_loyalty_balance_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15212,6 +15224,7 @@ class ManagementApi:
         self,
         loyalty_program_id,
         end_date,
+        balances,
         _request_auth,
         _content_type,
         _headers,
@@ -15248,6 +15261,10 @@ class ManagementApi:
                 )
             else:
                 _query_params.append(('endDate', end_date))
+            
+        if balances is not None:
+            
+            _query_params.append(('balances', balances))
             
         # process the header parameters
         # process the form parameters
@@ -15291,6 +15308,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15312,6 +15330,8 @@ class ManagementApi:
         :type loyalty_program_id: str
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15337,6 +15357,7 @@ class ManagementApi:
         _param = self._export_loyalty_balances_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15364,6 +15385,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15385,6 +15407,8 @@ class ManagementApi:
         :type loyalty_program_id: str
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15410,6 +15434,7 @@ class ManagementApi:
         _param = self._export_loyalty_balances_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15437,6 +15462,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15458,6 +15484,8 @@ class ManagementApi:
         :type loyalty_program_id: str
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15483,6 +15511,7 @@ class ManagementApi:
         _param = self._export_loyalty_balances_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15505,6 +15534,7 @@ class ManagementApi:
         self,
         loyalty_program_id,
         end_date,
+        balances,
         _request_auth,
         _content_type,
         _headers,
@@ -15541,6 +15571,10 @@ class ManagementApi:
                 )
             else:
                 _query_params.append(('endDate', end_date))
+            
+        if balances is not None:
+            
+            _query_params.append(('balances', balances))
             
         # process the header parameters
         # process the form parameters
@@ -15584,6 +15618,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  **Note:** - The `negativeBalance` value is not supported for card balance exports. - Providing an unsupported or invalid value returns a `400 Bad Request` error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15605,6 +15640,8 @@ class ManagementApi:
         :type loyalty_program_id: int
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  **Note:** - The `negativeBalance` value is not supported for card balance exports. - Providing an unsupported or invalid value returns a `400 Bad Request` error. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15630,6 +15667,7 @@ class ManagementApi:
         _param = self._export_loyalty_card_balances_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15657,6 +15695,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  **Note:** - The `negativeBalance` value is not supported for card balance exports. - Providing an unsupported or invalid value returns a `400 Bad Request` error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15678,6 +15717,8 @@ class ManagementApi:
         :type loyalty_program_id: int
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  **Note:** - The `negativeBalance` value is not supported for card balance exports. - Providing an unsupported or invalid value returns a `400 Bad Request` error. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15703,6 +15744,7 @@ class ManagementApi:
         _param = self._export_loyalty_card_balances_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15730,6 +15772,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  **Note:** - The `negativeBalance` value is not supported for card balance exports. - Providing an unsupported or invalid value returns a `400 Bad Request` error. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15751,6 +15794,8 @@ class ManagementApi:
         :type loyalty_program_id: int
         :param end_date: Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_date: datetime
+        :param balances: Filters which balance fields are included in the CSV export. By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  **Note:** - The `negativeBalance` value is not supported for card balance exports. - Providing an unsupported or invalid value returns a `400 Bad Request` error. 
+        :type balances: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -15776,6 +15821,7 @@ class ManagementApi:
         _param = self._export_loyalty_card_balances_serialize(
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
+            balances=balances,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -15798,6 +15844,7 @@ class ManagementApi:
         self,
         loyalty_program_id,
         end_date,
+        balances,
         _request_auth,
         _content_type,
         _headers,
@@ -15834,6 +15881,10 @@ class ManagementApi:
                 )
             else:
                 _query_params.append(('endDate', end_date))
+            
+        if balances is not None:
+            
+            _query_params.append(('balances', balances))
             
         # process the header parameters
         # process the form parameters

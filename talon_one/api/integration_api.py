@@ -9300,6 +9300,7 @@ class IntegrationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IntegrationEventV2Response",
+            '204': "str",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '409': "UpdateCustomerProfileV2409Response",
@@ -9382,6 +9383,7 @@ class IntegrationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IntegrationEventV2Response",
+            '204': "str",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '409': "UpdateCustomerProfileV2409Response",
@@ -9464,6 +9466,7 @@ class IntegrationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IntegrationEventV2Response",
+            '204': "str",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '409': "UpdateCustomerProfileV2409Response",
@@ -11144,6 +11147,7 @@ class IntegrationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MultipleCustomerProfileIntegrationResponseV2",
+            '204': "str",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
         }
@@ -11217,6 +11221,7 @@ class IntegrationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MultipleCustomerProfileIntegrationResponseV2",
+            '204': "str",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
         }
@@ -11290,6 +11295,7 @@ class IntegrationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MultipleCustomerProfileIntegrationResponseV2",
+            '204': "str",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
         }

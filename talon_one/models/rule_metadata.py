@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.rule_eligibility import RuleEligibility
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,7 +32,8 @@ class RuleMetadata(BaseModel):
     display_name: Optional[StrictStr] = Field(default=None, description="A customer-facing name for the rule.", alias="displayName")
     display_description: Optional[StrictStr] = Field(default=None, description="A customer-facing description that explains the details of the rule.   For example, this property can contain details about eligibility requirements, reward timelines, or terms and conditions. ", alias="displayDescription")
     related_data: Optional[StrictStr] = Field(default=None, description="Any additional data associated with the rule, such as an image URL, vendor name, or a content management system (CMS) ID. ", alias="relatedData")
-    __properties: ClassVar[List[str]] = ["title", "displayName", "displayDescription", "relatedData"]
+    eligibility: Optional[List[RuleEligibility]] = None
+    __properties: ClassVar[List[str]] = ["title", "displayName", "displayDescription", "relatedData", "eligibility"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -72,6 +74,13 @@ class RuleMetadata(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in eligibility (list)
+        _items = []
+        if self.eligibility:
+            for _item_eligibility in self.eligibility:
+                if _item_eligibility:
+                    _items.append(_item_eligibility.to_dict())
+            _dict['eligibility'] = _items
         return _dict
 
     @classmethod
@@ -87,7 +96,8 @@ class RuleMetadata(BaseModel):
             "title": obj.get("title"),
             "displayName": obj.get("displayName"),
             "displayDescription": obj.get("displayDescription"),
-            "relatedData": obj.get("relatedData")
+            "relatedData": obj.get("relatedData"),
+            "eligibility": [RuleEligibility.from_dict(_item) for _item in obj["eligibility"]] if obj.get("eligibility") is not None else None
         })
         return _obj
 

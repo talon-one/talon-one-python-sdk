@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **application_id** | **int** | The ID of the Application that owns this entity. | 
 **id** | **int** | Unique ID of Campaign. | 
-**name** | **str** | A user-facing name for this campaign. | 
+**name** | **str** | The name of the campaign. | 
 **description** | **str** | A detailed description of the campaign. | [optional] 
 **start_time** | **datetime** | Timestamp when the campaign will become active. | [optional] 
 **end_time** | **datetime** | Timestamp when the campaign will become inactive. | [optional] 
@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **state** | **str** | The state of the campaign.  | [default to 'enabled']
 **tags** | **List[str]** | A list of tags for the campaign. | 
 **features** | **List[str]** | The features enabled in this campaign. | 
+**rules** | [**List[RuleMetadata]**](RuleMetadata.md) | A list of rules containing customer-facing details of the rewards defined in the campaign. | [optional] 
 
 ## Example
 

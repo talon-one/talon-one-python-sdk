@@ -20,6 +20,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from talon_one.models.binding import Binding
+from talon_one.models.rule import Rule
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +35,9 @@ class NewReward(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="A description of the reward.")
     application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds")
     sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.")
-    __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox"]
+    rule: Optional[List[Rule]] = Field(default=None, description="Rule to apply.")
+    bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.")
+    __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox", "rule", "bindings"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -74,6 +78,20 @@ class NewReward(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in rule (list)
+        _items = []
+        if self.rule:
+            for _item_rule in self.rule:
+                if _item_rule:
+                    _items.append(_item_rule.to_dict())
+            _dict['rule'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in bindings (list)
+        _items = []
+        if self.bindings:
+            for _item_bindings in self.bindings:
+                if _item_bindings:
+                    _items.append(_item_bindings.to_dict())
+            _dict['bindings'] = _items
         return _dict
 
     @classmethod
@@ -90,7 +108,9 @@ class NewReward(BaseModel):
             "apiName": obj.get("apiName"),
             "description": obj.get("description"),
             "applicationIds": obj.get("applicationIds"),
-            "sandbox": obj.get("sandbox")
+            "sandbox": obj.get("sandbox"),
+            "rule": [Rule.from_dict(_item) for _item in obj["rule"]] if obj.get("rule") is not None else None,
+            "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None
         })
         return _obj
 

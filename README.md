@@ -127,7 +127,7 @@ import talon_one
 from pprint import pprint
 import json
 
-# Create configuration with your host destination and authorization using management_key
+# Create configuration with your host destination and authorization using api_key_v1
 configuration = talon_one.Configuration(
     host = "https://yourbaseurl.talon.one", # No trailing slash!
     api_key_prefix = {
@@ -490,6 +490,9 @@ Class | Method | HTTP request | Description
 - [CampaignDetail](docs/CampaignDetail.md)
 - [CampaignEditedNotification](docs/CampaignEditedNotification.md)
 - [CampaignEditedNotificationItem](docs/CampaignEditedNotificationItem.md)
+- [CampaignEligibility](docs/CampaignEligibility.md)
+- [CampaignEligibilityDetails](docs/CampaignEligibilityDetails.md)
+- [CampaignEligibilityFailureDetails](docs/CampaignEligibilityFailureDetails.md)
 - [CampaignEntity](docs/CampaignEntity.md)
 - [CampaignEvaluationGroup](docs/CampaignEvaluationGroup.md)
 - [CampaignEvaluationPosition](docs/CampaignEvaluationPosition.md)
@@ -957,6 +960,8 @@ Class | Method | HTTP request | Description
 - [RollbackIncreasedAchievementProgressEffectProps](docs/RollbackIncreasedAchievementProgressEffectProps.md)
 - [RollbackReferralEffectProps](docs/RollbackReferralEffectProps.md)
 - [Rule](docs/Rule.md)
+- [RuleEligibility](docs/RuleEligibility.md)
+- [RuleEligibilityFailureDetails](docs/RuleEligibilityFailureDetails.md)
 - [RuleFailureReason](docs/RuleFailureReason.md)
 - [RuleMetadata](docs/RuleMetadata.md)
 - [Ruleset](docs/Ruleset.md)
@@ -1063,6 +1068,7 @@ Class | Method | HTTP request | Description
 - [UpdatePriceType](docs/UpdatePriceType.md)
 - [UpdateReferral](docs/UpdateReferral.md)
 - [UpdateReferralBatch](docs/UpdateReferralBatch.md)
+- [UpdateReward](docs/UpdateReward.md)
 - [UpdateRole](docs/UpdateRole.md)
 - [UpdateStore](docs/UpdateStore.md)
 - [UpdateUser](docs/UpdateUser.md)

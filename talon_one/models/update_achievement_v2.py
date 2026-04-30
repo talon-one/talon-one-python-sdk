@@ -50,6 +50,9 @@ class UpdateAchievementV2(BaseModel):
         if value is None:
             return value
 
+        if not isinstance(value, str):
+            value = str(value)
+
         if not re.match(r"^[a-zA-Z]\w+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z]\w+$/")
         return value

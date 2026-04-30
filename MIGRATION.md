@@ -24,12 +24,14 @@ pip install talon-one-sdk
 
 ## Authentication
 
-Authentication configuration has changed to use scheme-specific keys:
+Authentication configuration has changed to use scheme-specific keys.
+
+The authentication scheme in the new SDK is `api_key_v1` (previously `Authorization`).
 
 **Before**
 
 ```python
-# Create configuration with your host destination and authorization using management_key
+# Create configuration with your host destination and authorization using api_key_v1
 configuration = talon_one.Configuration(
     host="https://yourbaseurl.talon.one",
     api_key_prefix={"Authorization": "ApiKey-v1"},
@@ -40,21 +42,13 @@ configuration = talon_one.Configuration(
 **After**
 
 ```python
-# Create configuration with your host destination and authorization using management_key
+# Create configuration with your host destination and authorization using api_key_v1
 configuration = talon_one.Configuration(
     host="https://yourbaseurl.talon.one",
     api_key_prefix={"api_key_v1": "ApiKey-v1"},
     api_key={"api_key_v1": "your-api-key"}
 )
 ```
-
-**Available authentication schemes:**
-
-| Scheme           | Old Key         | New Key          | Use Case                           |
-| ---------------- | --------------- | ---------------- | ---------------------------------- |
-| `api_key_v1`     | `Authorization` | `api_key_v1`     | Integration API                    |
-| `management_key` | `Authorization` | `management_key` | Management API with management key |
-| `manager_auth`   | `Authorization` | `manager_auth`   | Management API with session token  |
 
 ## Type validation and models
 
