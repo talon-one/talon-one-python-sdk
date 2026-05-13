@@ -27,7 +27,7 @@ class StrikethroughSetDiscountPerItemMemberEffectProps(BaseModel):
     """
     setDiscountPerItem member effect in strikethrough pricing payload.
     """ # noqa: E501
-    name: StrictStr = Field(description="effect name.")
+    name: StrictStr = Field(description="The effect name.")
     value: Optional[Any]
     __properties: ClassVar[List[str]] = ["name", "value"]
 

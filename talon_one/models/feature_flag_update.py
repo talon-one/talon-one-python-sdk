@@ -17,23 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class NewReward(BaseModel):
+class FeatureFlagUpdate(BaseModel):
     """
-    NewReward
+    FeatureFlagUpdate
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.")
-    api_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique identifier used to reference the reward in API integrations.", alias="apiName")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the reward.")
-    application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds")
-    sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.")
-    __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox"]
+    name: StrictStr = Field(description="The name of the feature flag.")
+    value: StrictStr = Field(description="The value of the feature flag.")
+    __properties: ClassVar[List[str]] = ["name", "value"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -53,7 +49,7 @@ class NewReward(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of NewReward from a JSON string"""
+        """Create an instance of FeatureFlagUpdate from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,7 +74,7 @@ class NewReward(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of NewReward from a dict"""
+        """Create an instance of FeatureFlagUpdate from a dict"""
         if obj is None:
             return None
 
@@ -87,10 +83,7 @@ class NewReward(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "apiName": obj.get("apiName"),
-            "description": obj.get("description"),
-            "applicationIds": obj.get("applicationIds"),
-            "sandbox": obj.get("sandbox")
+            "value": obj.get("value")
         })
         return _obj
 

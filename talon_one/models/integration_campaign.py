@@ -40,7 +40,7 @@ class IntegrationCampaign(BaseModel):
     state: StrictStr = Field(description="The state of the campaign. ")
     tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.")
     features: List[StrictStr] = Field(description="The features enabled in this campaign.")
-    rules: Optional[List[RuleMetadata]] = Field(default=None, description="A list of rules containing customer-facing details of the rewards defined in the campaign.")
+    rules: List[RuleMetadata] = Field(description="A list of rules containing customer-facing details of the rewards defined in the campaign.")
     __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "rules"]
 
     @field_validator('state')

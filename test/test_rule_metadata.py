@@ -38,13 +38,7 @@ class TestRuleMetadata(unittest.TestCase):
                 title = 'Give discount via coupon',
                 display_name = '20% off all shoes!',
                 display_description = 'Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only.',
-                related_data = 'https://example.com/discounts/20-off-shoes.png',
-                eligibility = [
-                    talon_one.models.rule_eligibility.RuleEligibility(
-                        passed = True, 
-                        coupon_code = '', 
-                        details = null, )
-                    ]
+                related_data = 'https://example.com/discounts/20-off-shoes.png'
             )
         else:
             return RuleMetadata(

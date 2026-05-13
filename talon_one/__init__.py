@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.09.0"
+__version__ = "26.10.0"
 
 # Define package exports
 __all__ = [
@@ -294,6 +294,7 @@ __all__ = [
     "ExtendLoyaltyPointsExpiryDateEffectProps",
     "ExtendedCoupon",
     "FeatureFlag",
+    "FeatureFlagUpdate",
     "FeaturesFeed",
     "FuncArgDef",
     "FunctionDef",
@@ -363,6 +364,7 @@ __all__ = [
     "IncreaseAchievementProgressEffectProps",
     "InfluencingCampaignDetails",
     "IntegrationCampaign",
+    "IntegrationCampaignBase",
     "IntegrationCoupon",
     "IntegrationCustomerProfileAudienceRequest",
     "IntegrationCustomerProfileAudienceRequestItem",
@@ -524,6 +526,7 @@ __all__ = [
     "NewReturn",
     "NewRevisionVersion",
     "NewReward",
+    "NewRiskNotification",
     "NewRole",
     "NewRoleV2",
     "NewRuleset",
@@ -592,6 +595,7 @@ __all__ = [
     "RevisionActivationRequest",
     "RevisionVersion",
     "Reward",
+    "RiskNotification",
     "Role",
     "RoleAssign",
     "RoleMembership",
@@ -614,6 +618,7 @@ __all__ = [
     "RuleEligibilityFailureDetails",
     "RuleFailureReason",
     "RuleMetadata",
+    "RuleMetadataEligibility",
     "Ruleset",
     "SSOConfig",
     "SamlConnection",
@@ -1015,6 +1020,7 @@ from talon_one.models.export import Export as Export
 from talon_one.models.extend_loyalty_points_expiry_date_effect_props import ExtendLoyaltyPointsExpiryDateEffectProps as ExtendLoyaltyPointsExpiryDateEffectProps
 from talon_one.models.extended_coupon import ExtendedCoupon as ExtendedCoupon
 from talon_one.models.feature_flag import FeatureFlag as FeatureFlag
+from talon_one.models.feature_flag_update import FeatureFlagUpdate as FeatureFlagUpdate
 from talon_one.models.features_feed import FeaturesFeed as FeaturesFeed
 from talon_one.models.func_arg_def import FuncArgDef as FuncArgDef
 from talon_one.models.function_def import FunctionDef as FunctionDef
@@ -1084,6 +1090,7 @@ from talon_one.models.import_entity import ImportEntity as ImportEntity
 from talon_one.models.increase_achievement_progress_effect_props import IncreaseAchievementProgressEffectProps as IncreaseAchievementProgressEffectProps
 from talon_one.models.influencing_campaign_details import InfluencingCampaignDetails as InfluencingCampaignDetails
 from talon_one.models.integration_campaign import IntegrationCampaign as IntegrationCampaign
+from talon_one.models.integration_campaign_base import IntegrationCampaignBase as IntegrationCampaignBase
 from talon_one.models.integration_coupon import IntegrationCoupon as IntegrationCoupon
 from talon_one.models.integration_customer_profile_audience_request import IntegrationCustomerProfileAudienceRequest as IntegrationCustomerProfileAudienceRequest
 from talon_one.models.integration_customer_profile_audience_request_item import IntegrationCustomerProfileAudienceRequestItem as IntegrationCustomerProfileAudienceRequestItem
@@ -1245,6 +1252,7 @@ from talon_one.models.new_referrals_for_multiple_advocates import NewReferralsFo
 from talon_one.models.new_return import NewReturn as NewReturn
 from talon_one.models.new_revision_version import NewRevisionVersion as NewRevisionVersion
 from talon_one.models.new_reward import NewReward as NewReward
+from talon_one.models.new_risk_notification import NewRiskNotification as NewRiskNotification
 from talon_one.models.new_role import NewRole as NewRole
 from talon_one.models.new_role_v2 import NewRoleV2 as NewRoleV2
 from talon_one.models.new_ruleset import NewRuleset as NewRuleset
@@ -1313,6 +1321,7 @@ from talon_one.models.revision_activation import RevisionActivation as RevisionA
 from talon_one.models.revision_activation_request import RevisionActivationRequest as RevisionActivationRequest
 from talon_one.models.revision_version import RevisionVersion as RevisionVersion
 from talon_one.models.reward import Reward as Reward
+from talon_one.models.risk_notification import RiskNotification as RiskNotification
 from talon_one.models.role import Role as Role
 from talon_one.models.role_assign import RoleAssign as RoleAssign
 from talon_one.models.role_membership import RoleMembership as RoleMembership
@@ -1335,6 +1344,7 @@ from talon_one.models.rule_eligibility import RuleEligibility as RuleEligibility
 from talon_one.models.rule_eligibility_failure_details import RuleEligibilityFailureDetails as RuleEligibilityFailureDetails
 from talon_one.models.rule_failure_reason import RuleFailureReason as RuleFailureReason
 from talon_one.models.rule_metadata import RuleMetadata as RuleMetadata
+from talon_one.models.rule_metadata_eligibility import RuleMetadataEligibility as RuleMetadataEligibility
 from talon_one.models.ruleset import Ruleset as Ruleset
 from talon_one.models.sso_config import SSOConfig as SSOConfig
 from talon_one.models.saml_connection import SamlConnection as SamlConnection

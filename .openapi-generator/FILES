@@ -275,6 +275,7 @@ docs/Export.md
 docs/ExtendLoyaltyPointsExpiryDateEffectProps.md
 docs/ExtendedCoupon.md
 docs/FeatureFlag.md
+docs/FeatureFlagUpdate.md
 docs/FeaturesFeed.md
 docs/FuncArgDef.md
 docs/FunctionDef.md
@@ -345,6 +346,7 @@ docs/IncreaseAchievementProgressEffectProps.md
 docs/InfluencingCampaignDetails.md
 docs/IntegrationApi.md
 docs/IntegrationCampaign.md
+docs/IntegrationCampaignBase.md
 docs/IntegrationCoupon.md
 docs/IntegrationCustomerProfileAudienceRequest.md
 docs/IntegrationCustomerProfileAudienceRequestItem.md
@@ -507,6 +509,7 @@ docs/NewReferralsForMultipleAdvocates.md
 docs/NewReturn.md
 docs/NewRevisionVersion.md
 docs/NewReward.md
+docs/NewRiskNotification.md
 docs/NewRole.md
 docs/NewRoleV2.md
 docs/NewRuleset.md
@@ -575,6 +578,7 @@ docs/RevisionActivation.md
 docs/RevisionActivationRequest.md
 docs/RevisionVersion.md
 docs/Reward.md
+docs/RiskNotification.md
 docs/Role.md
 docs/RoleAssign.md
 docs/RoleMembership.md
@@ -597,6 +601,7 @@ docs/RuleEligibility.md
 docs/RuleEligibilityFailureDetails.md
 docs/RuleFailureReason.md
 docs/RuleMetadata.md
+docs/RuleMetadataEligibility.md
 docs/Ruleset.md
 docs/SSOConfig.md
 docs/SamlConnection.md
@@ -995,6 +1000,7 @@ talon_one/models/export.py
 talon_one/models/extend_loyalty_points_expiry_date_effect_props.py
 talon_one/models/extended_coupon.py
 talon_one/models/feature_flag.py
+talon_one/models/feature_flag_update.py
 talon_one/models/features_feed.py
 talon_one/models/func_arg_def.py
 talon_one/models/function_def.py
@@ -1064,6 +1070,7 @@ talon_one/models/import_entity.py
 talon_one/models/increase_achievement_progress_effect_props.py
 talon_one/models/influencing_campaign_details.py
 talon_one/models/integration_campaign.py
+talon_one/models/integration_campaign_base.py
 talon_one/models/integration_coupon.py
 talon_one/models/integration_customer_profile_audience_request.py
 talon_one/models/integration_customer_profile_audience_request_item.py
@@ -1225,6 +1232,7 @@ talon_one/models/new_referrals_for_multiple_advocates.py
 talon_one/models/new_return.py
 talon_one/models/new_revision_version.py
 talon_one/models/new_reward.py
+talon_one/models/new_risk_notification.py
 talon_one/models/new_role.py
 talon_one/models/new_role_v2.py
 talon_one/models/new_ruleset.py
@@ -1293,6 +1301,7 @@ talon_one/models/revision_activation.py
 talon_one/models/revision_activation_request.py
 talon_one/models/revision_version.py
 talon_one/models/reward.py
+talon_one/models/risk_notification.py
 talon_one/models/role.py
 talon_one/models/role_assign.py
 talon_one/models/role_membership.py
@@ -1315,6 +1324,7 @@ talon_one/models/rule_eligibility.py
 talon_one/models/rule_eligibility_failure_details.py
 talon_one/models/rule_failure_reason.py
 talon_one/models/rule_metadata.py
+talon_one/models/rule_metadata_eligibility.py
 talon_one/models/ruleset.py
 talon_one/models/saml_connection.py
 talon_one/models/saml_connection_internal.py
@@ -1702,6 +1712,7 @@ test/test_export.py
 test/test_extend_loyalty_points_expiry_date_effect_props.py
 test/test_extended_coupon.py
 test/test_feature_flag.py
+test/test_feature_flag_update.py
 test/test_features_feed.py
 test/test_func_arg_def.py
 test/test_function_def.py
@@ -1772,6 +1783,7 @@ test/test_increase_achievement_progress_effect_props.py
 test/test_influencing_campaign_details.py
 test/test_integration_api.py
 test/test_integration_campaign.py
+test/test_integration_campaign_base.py
 test/test_integration_coupon.py
 test/test_integration_customer_profile_audience_request.py
 test/test_integration_customer_profile_audience_request_item.py
@@ -1934,6 +1946,7 @@ test/test_new_referrals_for_multiple_advocates.py
 test/test_new_return.py
 test/test_new_revision_version.py
 test/test_new_reward.py
+test/test_new_risk_notification.py
 test/test_new_role.py
 test/test_new_role_v2.py
 test/test_new_ruleset.py
@@ -2002,6 +2015,7 @@ test/test_revision_activation.py
 test/test_revision_activation_request.py
 test/test_revision_version.py
 test/test_reward.py
+test/test_risk_notification.py
 test/test_role.py
 test/test_role_assign.py
 test/test_role_membership.py
@@ -2024,6 +2038,7 @@ test/test_rule_eligibility.py
 test/test_rule_eligibility_failure_details.py
 test/test_rule_failure_reason.py
 test/test_rule_metadata.py
+test/test_rule_metadata_eligibility.py
 test/test_ruleset.py
 test/test_saml_connection.py
 test/test_saml_connection_internal.py

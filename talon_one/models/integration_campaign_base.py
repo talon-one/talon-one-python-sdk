@@ -17,23 +17,44 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class NewReward(BaseModel):
+class IntegrationCampaignBase(BaseModel):
     """
-    NewReward
+    IntegrationCampaignBase
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.")
-    api_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique identifier used to reference the reward in API integrations.", alias="apiName")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the reward.")
-    application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds")
-    sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.")
-    __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox"]
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
+    id: StrictInt = Field(description="Unique ID of Campaign.")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign.")
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
+    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime")
+    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    state: StrictStr = Field(description="The state of the campaign. ")
+    tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.")
+    features: List[StrictStr] = Field(description="The features enabled in this campaign.")
+    __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features"]
+
+    @field_validator('state')
+    def state_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['enabled']):
+            raise ValueError("must be one of enum values ('enabled')")
+        return value
+
+    @field_validator('features')
+    def features_validate_enum(cls, value):
+        """Validates the enum"""
+        for i in value:
+            if i not in set(['coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements']):
+                raise ValueError("each list item must be one of ('coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -53,7 +74,7 @@ class NewReward(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of NewReward from a JSON string"""
+        """Create an instance of IntegrationCampaignBase from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,7 +99,7 @@ class NewReward(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of NewReward from a dict"""
+        """Create an instance of IntegrationCampaignBase from a dict"""
         if obj is None:
             return None
 
@@ -86,11 +107,16 @@ class NewReward(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "applicationId": obj.get("applicationId"),
+            "id": obj.get("id"),
             "name": obj.get("name"),
-            "apiName": obj.get("apiName"),
             "description": obj.get("description"),
-            "applicationIds": obj.get("applicationIds"),
-            "sandbox": obj.get("sandbox")
+            "startTime": obj.get("startTime"),
+            "endTime": obj.get("endTime"),
+            "attributes": obj.get("attributes"),
+            "state": obj.get("state") if obj.get("state") is not None else 'enabled',
+            "tags": obj.get("tags"),
+            "features": obj.get("features")
         })
         return _obj
 

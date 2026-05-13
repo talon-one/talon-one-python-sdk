@@ -35,8 +35,8 @@ class TestCampaignEligibility(unittest.TestCase):
         model = CampaignEligibility()
         if include_optional:
             return CampaignEligibility(
-                id = 4,
                 application_id = 322,
+                id = 4,
                 name = 'Summer promotions',
                 description = 'Campaign for all summer 2021 promotions',
                 start_time = '2021-07-20T22:00:00Z',
@@ -45,30 +45,20 @@ class TestCampaignEligibility(unittest.TestCase):
                 state = 'enabled',
                 tags = [summer],
                 features = [coupons, referrals],
-                rules = [
-                    talon_one.models.rule_metadata.RuleMetadata(
-                        title = 'Give discount via coupon', 
-                        display_name = '20% off all shoes!', 
-                        display_description = 'Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only.', 
-                        related_data = 'https://example.com/discounts/20-off-shoes.png', 
-                        eligibility = [
-                            talon_one.models.rule_eligibility.RuleEligibility(
-                                passed = True, 
-                                coupon_code = '', 
-                                details = null, )
-                            ], )
-                    ],
                 eligibility = [
                     talon_one.models.campaign_eligibility_details.CampaignEligibilityDetails(
                         passed = True, 
                         coupon_code = '', 
                         details = null, )
+                    ],
+                rules = [
+                    null
                     ]
             )
         else:
             return CampaignEligibility(
-                id = 4,
                 application_id = 322,
+                id = 4,
                 name = 'Summer promotions',
                 state = 'enabled',
                 tags = [summer],
@@ -78,6 +68,9 @@ class TestCampaignEligibility(unittest.TestCase):
                         passed = True, 
                         coupon_code = '', 
                         details = null, )
+                    ],
+                rules = [
+                    null
                     ],
         )
         """

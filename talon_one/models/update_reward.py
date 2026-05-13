@@ -33,9 +33,10 @@ class UpdateReward(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.")
     description: Optional[StrictStr] = Field(default=None, description="A description of the reward.")
     status: StrictStr = Field(description="The status of the reward.")
-    rule: Optional[List[Rule]] = Field(default=None, description="Rule to apply.  **Note**: The `bindings` field inside the rule must not be used in this endpoint. All bindings should be defined at the reward level via the top-level `bindings` field. ")
+    visibility_conditions: Optional[Rule] = Field(default=None, description="An optional rule that manages who can see this reward. If not specified, the reward is visible to all customers.  **Note:** Only the `condition` field is evaluated within this rule. The `effects` field must be an empty array, and `bindings` are not supported. ", alias="visibilityConditions")
+    rule: Optional[Rule] = Field(default=None, description="Rule to apply.  **Note**: The `bindings` field inside the rule must not be used in this endpoint. All bindings should be defined at the reward level via the top-level `bindings` field. ")
     bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.")
-    __properties: ClassVar[List[str]] = ["name", "description", "status", "rule", "bindings"]
+    __properties: ClassVar[List[str]] = ["name", "description", "status", "visibilityConditions", "rule", "bindings"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -83,13 +84,12 @@ class UpdateReward(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in rule (list)
-        _items = []
+        # override the default output from pydantic by calling `to_dict()` of visibility_conditions
+        if self.visibility_conditions:
+            _dict['visibilityConditions'] = self.visibility_conditions.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rule
         if self.rule:
-            for _item_rule in self.rule:
-                if _item_rule:
-                    _items.append(_item_rule.to_dict())
-            _dict['rule'] = _items
+            _dict['rule'] = self.rule.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in bindings (list)
         _items = []
         if self.bindings:
@@ -112,7 +112,8 @@ class UpdateReward(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "status": obj.get("status"),
-            "rule": [Rule.from_dict(_item) for _item in obj["rule"]] if obj.get("rule") is not None else None,
+            "visibilityConditions": Rule.from_dict(obj["visibilityConditions"]) if obj.get("visibilityConditions") is not None else None,
+            "rule": Rule.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
             "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None
         })
         return _obj

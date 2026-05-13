@@ -30,7 +30,7 @@ class StrikethroughLabelingNotification(BaseModel):
     """
     The strikethrough labels notification for an application.
     """ # noqa: E501
-    version: Optional[StrictStr] = Field(default=None, description="The version of the strikethrough pricing notification.")
+    version: Optional[StrictStr] = Field(default=None, description="The version of the strikethrough pricing notification. Set for **scheduled** strikethrough pricing updates only. ")
     valid_from: Optional[datetime] = Field(default=None, description="Timestamp at which the strikethrough pricing update becomes valid. Set for **scheduled** strikethrough pricing updates (version: v2) only. ", alias="validFrom")
     application_id: StrictInt = Field(description="The ID of the Application to which the catalog items labels belongs.", alias="applicationId")
     current_batch: StrictInt = Field(description="The batch number of the notification. Notifications might be sent in different batches.", alias="currentBatch")

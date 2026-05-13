@@ -38,14 +38,23 @@ class Experiment(BaseModel):
     activated: Optional[datetime] = Field(default=None, description="The date and time the experiment was activated. ")
     state: StrictStr = Field(description="A disabled experiment is not evaluated for rules or coupons. ")
     variants: Optional[List[ExperimentVariant]] = None
+    goal_type: StrictStr = Field(description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. ", alias="goalType")
+    goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. ", alias="goalDescription")
     deletedat: Optional[datetime] = Field(default=None, description="The date and time the experiment was deleted. ")
-    __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "isVariantAssignmentExternal", "campaign", "activated", "state", "variants", "deletedat"]
+    __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "isVariantAssignmentExternal", "campaign", "activated", "state", "variants", "goalType", "goalDescription", "deletedat"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
         """Validates the enum"""
         if value not in set(['enabled', 'disabled', 'archived']):
             raise ValueError("must be one of enum values ('enabled', 'disabled', 'archived')")
+        return value
+
+    @field_validator('goal_type')
+    def goal_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['other', 'maximize_revenue', 'optimize_discount_efficiency', 'maximize_items_sold']):
+            raise ValueError("must be one of enum values ('other', 'maximize_revenue', 'optimize_discount_efficiency', 'maximize_items_sold')")
         return value
 
     model_config = ConfigDict(
@@ -117,6 +126,8 @@ class Experiment(BaseModel):
             "activated": obj.get("activated"),
             "state": obj.get("state") if obj.get("state") is not None else 'disabled',
             "variants": [ExperimentVariant.from_dict(_item) for _item in obj["variants"]] if obj.get("variants") is not None else None,
+            "goalType": obj.get("goalType"),
+            "goalDescription": obj.get("goalDescription"),
             "deletedat": obj.get("deletedat")
         })
         return _obj

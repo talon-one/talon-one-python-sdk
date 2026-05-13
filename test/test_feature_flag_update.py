@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.new_experiment import NewExperiment
+from talon_one.models.feature_flag_update import FeatureFlagUpdate
 
-class TestNewExperiment(unittest.TestCase):
-    """NewExperiment unit test stubs"""
+class TestFeatureFlagUpdate(unittest.TestCase):
+    """FeatureFlagUpdate unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,31 +25,28 @@ class TestNewExperiment(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> NewExperiment:
-        """Test NewExperiment
+    def make_instance(self, include_optional) -> FeatureFlagUpdate:
+        """Test FeatureFlagUpdate
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `NewExperiment`
+        # uncomment below to create an instance of `FeatureFlagUpdate`
         """
-        model = NewExperiment()
+        model = FeatureFlagUpdate()
         if include_optional:
-            return NewExperiment(
-                is_variant_assignment_external = True,
-                campaign = None,
-                goal_type = 'other',
-                goal_description = 'Offering free shipping will increase average order revenue more than a 10% discount'
+            return FeatureFlagUpdate(
+                name = 'canCreateCampaignFromTemplate',
+                value = 'true'
             )
         else:
-            return NewExperiment(
-                is_variant_assignment_external = True,
-                campaign = None,
-                goal_type = 'other',
+            return FeatureFlagUpdate(
+                name = 'canCreateCampaignFromTemplate',
+                value = 'true',
         )
         """
 
-    def testNewExperiment(self):
-        """Test NewExperiment"""
+    def testFeatureFlagUpdate(self):
+        """Test FeatureFlagUpdate"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

@@ -17,23 +17,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from talon_one.models.rule_eligibility import RuleEligibility
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class NewReward(BaseModel):
+class RuleMetadataEligibility(BaseModel):
     """
-    NewReward
+    RuleMetadataEligibility
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.")
-    api_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique identifier used to reference the reward in API integrations.", alias="apiName")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the reward.")
-    application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds")
-    sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.")
-    __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox"]
+    title: StrictStr = Field(description="A short description of the rule.")
+    display_name: Optional[StrictStr] = Field(default=None, description="A customer-facing name for the rule.", alias="displayName")
+    display_description: Optional[StrictStr] = Field(default=None, description="A customer-facing description that explains the details of the rule.   For example, this property can contain details about eligibility requirements, reward timelines, or terms and conditions. ", alias="displayDescription")
+    related_data: Optional[StrictStr] = Field(default=None, description="Any additional data associated with the rule, such as an image URL, vendor name, or a content management system (CMS) ID. ", alias="relatedData")
+    eligibility: List[RuleEligibility]
+    __properties: ClassVar[List[str]] = ["title", "displayName", "displayDescription", "relatedData", "eligibility"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -53,7 +53,7 @@ class NewReward(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of NewReward from a JSON string"""
+        """Create an instance of RuleMetadataEligibility from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -74,11 +74,18 @@ class NewReward(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in eligibility (list)
+        _items = []
+        if self.eligibility:
+            for _item_eligibility in self.eligibility:
+                if _item_eligibility:
+                    _items.append(_item_eligibility.to_dict())
+            _dict['eligibility'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of NewReward from a dict"""
+        """Create an instance of RuleMetadataEligibility from a dict"""
         if obj is None:
             return None
 
@@ -86,11 +93,11 @@ class NewReward(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "apiName": obj.get("apiName"),
-            "description": obj.get("description"),
-            "applicationIds": obj.get("applicationIds"),
-            "sandbox": obj.get("sandbox")
+            "title": obj.get("title"),
+            "displayName": obj.get("displayName"),
+            "displayDescription": obj.get("displayDescription"),
+            "relatedData": obj.get("relatedData"),
+            "eligibility": [RuleEligibility.from_dict(_item) for _item in obj["eligibility"]] if obj.get("eligibility") is not None else None
         })
         return _obj
 

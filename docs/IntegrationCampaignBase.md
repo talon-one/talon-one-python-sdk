@@ -1,4 +1,4 @@
-# CampaignEligibility
+# IntegrationCampaignBase
 
 
 ## Properties
@@ -15,25 +15,23 @@ Name | Type | Description | Notes
 **state** | **str** | The state of the campaign.  | [default to 'enabled']
 **tags** | **List[str]** | A list of tags for the campaign. | 
 **features** | **List[str]** | The features enabled in this campaign. | 
-**eligibility** | [**List[CampaignEligibilityDetails]**](CampaignEligibilityDetails.md) | The customer&#39;s eligibility for each campaign in the current customer session. | 
-**rules** | [**List[RuleMetadataEligibility]**](RuleMetadataEligibility.md) | A list of rules containing customer-facing details of the rewards defined in the campaign. | 
 
 ## Example
 
 ```python
-from talon_one.models.campaign_eligibility import CampaignEligibility
+from talon_one.models.integration_campaign_base import IntegrationCampaignBase
 
 # TODO update the JSON string below
 json = "{}"
-# create an instance of CampaignEligibility from a JSON string
-campaign_eligibility_instance = CampaignEligibility.from_json(json)
+# create an instance of IntegrationCampaignBase from a JSON string
+integration_campaign_base_instance = IntegrationCampaignBase.from_json(json)
 # print the JSON string representation of the object
-print(CampaignEligibility.to_json())
+print(IntegrationCampaignBase.to_json())
 
 # convert the object into a dict
-campaign_eligibility_dict = campaign_eligibility_instance.to_dict()
-# create an instance of CampaignEligibility from a dict
-campaign_eligibility_from_dict = CampaignEligibility.from_dict(campaign_eligibility_dict)
+integration_campaign_base_dict = integration_campaign_base_instance.to_dict()
+# create an instance of IntegrationCampaignBase from a dict
+integration_campaign_base_from_dict = IntegrationCampaignBase.from_dict(integration_campaign_base_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

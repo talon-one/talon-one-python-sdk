@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.integration_campaign import IntegrationCampaign
+from talon_one.models.integration_campaign_base import IntegrationCampaignBase
 
-class TestIntegrationCampaign(unittest.TestCase):
-    """IntegrationCampaign unit test stubs"""
+class TestIntegrationCampaignBase(unittest.TestCase):
+    """IntegrationCampaignBase unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,16 +25,16 @@ class TestIntegrationCampaign(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> IntegrationCampaign:
-        """Test IntegrationCampaign
+    def make_instance(self, include_optional) -> IntegrationCampaignBase:
+        """Test IntegrationCampaignBase
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `IntegrationCampaign`
+        # uncomment below to create an instance of `IntegrationCampaignBase`
         """
-        model = IntegrationCampaign()
+        model = IntegrationCampaignBase()
         if include_optional:
-            return IntegrationCampaign(
+            return IntegrationCampaignBase(
                 application_id = 322,
                 id = 4,
                 name = 'Summer promotions',
@@ -44,35 +44,21 @@ class TestIntegrationCampaign(unittest.TestCase):
                 attributes = None,
                 state = 'enabled',
                 tags = [summer],
-                features = [coupons, referrals],
-                rules = [
-                    talon_one.models.rule_metadata.RuleMetadata(
-                        title = 'Give discount via coupon', 
-                        display_name = '20% off all shoes!', 
-                        display_description = 'Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only.', 
-                        related_data = 'https://example.com/discounts/20-off-shoes.png', )
-                    ]
+                features = [coupons, referrals]
             )
         else:
-            return IntegrationCampaign(
+            return IntegrationCampaignBase(
                 application_id = 322,
                 id = 4,
                 name = 'Summer promotions',
                 state = 'enabled',
                 tags = [summer],
                 features = [coupons, referrals],
-                rules = [
-                    talon_one.models.rule_metadata.RuleMetadata(
-                        title = 'Give discount via coupon', 
-                        display_name = '20% off all shoes!', 
-                        display_description = 'Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only.', 
-                        related_data = 'https://example.com/discounts/20-off-shoes.png', )
-                    ],
         )
         """
 
-    def testIntegrationCampaign(self):
-        """Test IntegrationCampaign"""
+    def testIntegrationCampaignBase(self):
+        """Test IntegrationCampaignBase"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

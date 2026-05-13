@@ -771,7 +771,7 @@ class TestManagementApi(unittest.TestCase):
     def test_get_loyalty_card_transaction_logs(self) -> None:
         """Test case for get_loyalty_card_transaction_logs
 
-        List card's transactions
+        List card's transactions (Management API)
         """
         pass
 
@@ -785,7 +785,7 @@ class TestManagementApi(unittest.TestCase):
     def test_get_loyalty_ledger_balances(self) -> None:
         """Test case for get_loyalty_ledger_balances
 
-        Get customer's loyalty balances
+        Get customer's loyalty balances (Management API)
         """
         pass
 
@@ -806,7 +806,7 @@ class TestManagementApi(unittest.TestCase):
     def test_get_loyalty_program_profile_ledger_transactions(self) -> None:
         """Test case for get_loyalty_program_profile_ledger_transactions
 
-        List customer's loyalty transactions
+        List customer's loyalty transactions (Management API)
         """
         pass
 
