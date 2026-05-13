@@ -45,6 +45,8 @@ class TestExperiment(unittest.TestCase):
                 variants = [
                     null
                     ],
+                goal_type = 'other',
+                goal_description = 'Offering free shipping will increase average order revenue more than a 10% discount',
                 deletedat = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else:
@@ -53,6 +55,7 @@ class TestExperiment(unittest.TestCase):
                 created = '2020-06-10T09:05:27.993483Z',
                 application_id = 322,
                 state = 'disabled',
+                goal_type = 'other',
         )
         """
 

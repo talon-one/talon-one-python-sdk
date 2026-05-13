@@ -278,6 +278,7 @@ from talon_one.models.export import Export
 from talon_one.models.extend_loyalty_points_expiry_date_effect_props import ExtendLoyaltyPointsExpiryDateEffectProps
 from talon_one.models.extended_coupon import ExtendedCoupon
 from talon_one.models.feature_flag import FeatureFlag
+from talon_one.models.feature_flag_update import FeatureFlagUpdate
 from talon_one.models.features_feed import FeaturesFeed
 from talon_one.models.func_arg_def import FuncArgDef
 from talon_one.models.function_def import FunctionDef
@@ -347,6 +348,7 @@ from talon_one.models.import_entity import ImportEntity
 from talon_one.models.increase_achievement_progress_effect_props import IncreaseAchievementProgressEffectProps
 from talon_one.models.influencing_campaign_details import InfluencingCampaignDetails
 from talon_one.models.integration_campaign import IntegrationCampaign
+from talon_one.models.integration_campaign_base import IntegrationCampaignBase
 from talon_one.models.integration_coupon import IntegrationCoupon
 from talon_one.models.integration_customer_profile_audience_request import IntegrationCustomerProfileAudienceRequest
 from talon_one.models.integration_customer_profile_audience_request_item import IntegrationCustomerProfileAudienceRequestItem
@@ -508,6 +510,7 @@ from talon_one.models.new_referrals_for_multiple_advocates import NewReferralsFo
 from talon_one.models.new_return import NewReturn
 from talon_one.models.new_revision_version import NewRevisionVersion
 from talon_one.models.new_reward import NewReward
+from talon_one.models.new_risk_notification import NewRiskNotification
 from talon_one.models.new_role import NewRole
 from talon_one.models.new_role_v2 import NewRoleV2
 from talon_one.models.new_ruleset import NewRuleset
@@ -576,6 +579,7 @@ from talon_one.models.revision_activation import RevisionActivation
 from talon_one.models.revision_activation_request import RevisionActivationRequest
 from talon_one.models.revision_version import RevisionVersion
 from talon_one.models.reward import Reward
+from talon_one.models.risk_notification import RiskNotification
 from talon_one.models.role import Role
 from talon_one.models.role_assign import RoleAssign
 from talon_one.models.role_membership import RoleMembership
@@ -598,6 +602,7 @@ from talon_one.models.rule_eligibility import RuleEligibility
 from talon_one.models.rule_eligibility_failure_details import RuleEligibilityFailureDetails
 from talon_one.models.rule_failure_reason import RuleFailureReason
 from talon_one.models.rule_metadata import RuleMetadata
+from talon_one.models.rule_metadata_eligibility import RuleMetadataEligibility
 from talon_one.models.ruleset import Ruleset
 from talon_one.models.sso_config import SSOConfig
 from talon_one.models.saml_connection import SamlConnection

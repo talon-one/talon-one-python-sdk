@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.new_experiment import NewExperiment
+from talon_one.models.rule_metadata_eligibility import RuleMetadataEligibility
 
-class TestNewExperiment(unittest.TestCase):
-    """NewExperiment unit test stubs"""
+class TestRuleMetadataEligibility(unittest.TestCase):
+    """RuleMetadataEligibility unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,31 +25,41 @@ class TestNewExperiment(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> NewExperiment:
-        """Test NewExperiment
+    def make_instance(self, include_optional) -> RuleMetadataEligibility:
+        """Test RuleMetadataEligibility
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `NewExperiment`
+        # uncomment below to create an instance of `RuleMetadataEligibility`
         """
-        model = NewExperiment()
+        model = RuleMetadataEligibility()
         if include_optional:
-            return NewExperiment(
-                is_variant_assignment_external = True,
-                campaign = None,
-                goal_type = 'other',
-                goal_description = 'Offering free shipping will increase average order revenue more than a 10% discount'
+            return RuleMetadataEligibility(
+                title = 'Give discount via coupon',
+                display_name = '20% off all shoes!',
+                display_description = 'Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only.',
+                related_data = 'https://example.com/discounts/20-off-shoes.png',
+                eligibility = [
+                    talon_one.models.rule_eligibility.RuleEligibility(
+                        passed = True, 
+                        coupon_code = '', 
+                        details = null, )
+                    ]
             )
         else:
-            return NewExperiment(
-                is_variant_assignment_external = True,
-                campaign = None,
-                goal_type = 'other',
+            return RuleMetadataEligibility(
+                title = 'Give discount via coupon',
+                eligibility = [
+                    talon_one.models.rule_eligibility.RuleEligibility(
+                        passed = True, 
+                        coupon_code = '', 
+                        details = null, )
+                    ],
         )
         """
 
-    def testNewExperiment(self):
-        """Test NewExperiment"""
+    def testRuleMetadataEligibility(self):
+        """Test RuleMetadataEligibility"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

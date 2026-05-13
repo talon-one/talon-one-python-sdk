@@ -110,12 +110,12 @@ Method | HTTP request | Description
 [**get_experiment**](ManagementApi.md#get_experiment) | **GET** /v1/applications/{applicationId}/experiments/{experimentId} | Get experiment in Application
 [**get_exports**](ManagementApi.md#get_exports) | **GET** /v1/exports | Get exports
 [**get_loyalty_card**](ManagementApi.md#get_loyalty_card) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId} | Get loyalty card
-[**get_loyalty_card_transaction_logs**](ManagementApi.md#get_loyalty_card_transaction_logs) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/logs | List card&#39;s transactions
+[**get_loyalty_card_transaction_logs**](ManagementApi.md#get_loyalty_card_transaction_logs) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/logs | List card&#39;s transactions (Management API)
 [**get_loyalty_cards**](ManagementApi.md#get_loyalty_cards) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards | List loyalty cards
-[**get_loyalty_ledger_balances**](ManagementApi.md#get_loyalty_ledger_balances) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/ledger_balances | Get customer&#39;s loyalty balances
+[**get_loyalty_ledger_balances**](ManagementApi.md#get_loyalty_ledger_balances) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/ledger_balances | Get customer&#39;s loyalty balances (Management API)
 [**get_loyalty_points**](ManagementApi.md#get_loyalty_points) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId} | Get customer&#39;s full loyalty ledger
 [**get_loyalty_program**](ManagementApi.md#get_loyalty_program) | **GET** /v1/loyalty_programs/{loyaltyProgramId} | Get loyalty program
-[**get_loyalty_program_profile_ledger_transactions**](ManagementApi.md#get_loyalty_program_profile_ledger_transactions) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/ledger_transactions | List customer&#39;s loyalty transactions
+[**get_loyalty_program_profile_ledger_transactions**](ManagementApi.md#get_loyalty_program_profile_ledger_transactions) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/ledger_transactions | List customer&#39;s loyalty transactions (Management API)
 [**get_loyalty_program_transactions**](ManagementApi.md#get_loyalty_program_transactions) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/transactions | List loyalty program transactions
 [**get_loyalty_programs**](ManagementApi.md#get_loyalty_programs) | **GET** /v1/loyalty_programs | List loyalty programs
 [**get_loyalty_statistics**](ManagementApi.md#get_loyalty_statistics) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/statistics | Get loyalty program statistics
@@ -9639,11 +9639,17 @@ Name | Type | Description  | Notes
 # **get_loyalty_card_transaction_logs**
 > GetLoyaltyCardTransactionLogs200Response get_loyalty_card_transaction_logs(loyalty_program_id, loyalty_card_id, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, subledger_id=subledger_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids)
 
-List card's transactions
+List card's transactions (Management API)
 
 Retrieve the transaction logs for the given [loyalty card](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview)
-within the specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types) with filtering options applied.
-If no filtering options are applied, the last 50 loyalty transactions for the given loyalty card are returned.
+within the specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types)
+with filtering options applied.
+
+> [!note] For most use cases, especially real-time integrations, use the Integration API endpoint:
+> [List card's transactions](https://docs.talon.one/integration-api#tag/Loyalty-cards/operation/getLoyaltyCardTransactions).
+
+If no filtering options are applied, the last 50 loyalty transactions for
+the given loyalty card are returned.
 
 
 ### Example
@@ -9688,7 +9694,7 @@ with talon_one.ApiClient(configuration) as api_client:
     transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
 
     try:
-        # List card's transactions
+        # List card's transactions (Management API)
         api_response = api_instance.get_loyalty_card_transaction_logs(loyalty_program_id, loyalty_card_id, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, subledger_id=subledger_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids)
         print("The response of ManagementApi->get_loyalty_card_transaction_logs:\n")
         pprint(api_response)
@@ -9833,7 +9839,7 @@ Name | Type | Description  | Notes
 # **get_loyalty_ledger_balances**
 > LoyaltyBalancesWithTiers get_loyalty_ledger_balances(loyalty_program_id, integration_id, end_date=end_date, subledger_id=subledger_id, include_tiers=include_tiers, include_projected_tier=include_projected_tier)
 
-Get customer's loyalty balances
+Get customer's loyalty balances (Management API)
 
 Retrieve loyalty ledger balances for the given Integration ID in the
 specified loyalty program.
@@ -9841,8 +9847,10 @@ specified loyalty program.
 You can filter balances by date and subledger ID, and include tier-related
 information in the response.
 
-> [!note] If no filtering options are applied, you retrieve all loyalty
-> balances on the current date for the given integration ID.
+> [!note] **Note**
+> - For most use cases, especially real-time integrations, use the Integration API endpoint:
+    [Get customer's loyalty balances](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyBalances).
+> - If no filtering options are applied, you retrieve all loyalty balances on the current date for the given integration ID.
 
 Loyalty balances are calculated when Talon.One receives your request using
 the points stored in our database, so retrieving a large number of balances
@@ -9896,7 +9904,7 @@ with talon_one.ApiClient(configuration) as api_client:
     include_projected_tier = False # bool | Indicates whether the customer's projected tier information is included in the response.  When set to `true`, the response includes information about the customer's active points and the name of the projected tier.  **Note** We recommend filtering by `subledgerId` for better performance.  (optional) (default to False)
 
     try:
-        # Get customer's loyalty balances
+        # Get customer's loyalty balances (Management API)
         api_response = api_instance.get_loyalty_ledger_balances(loyalty_program_id, integration_id, end_date=end_date, subledger_id=subledger_id, include_tiers=include_tiers, include_projected_tier=include_projected_tier)
         print("The response of ManagementApi->get_loyalty_ledger_balances:\n")
         pprint(api_response)
@@ -10120,7 +10128,7 @@ Name | Type | Description  | Notes
 # **get_loyalty_program_profile_ledger_transactions**
 > GetLoyaltyProgramProfileTransactions200Response get_loyalty_program_profile_ledger_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
 
-List customer's loyalty transactions
+List customer's loyalty transactions (Management API)
 
 Retrieve paginated results of loyalty transaction logs for the given
 Integration ID in the specified loyalty program.
@@ -10128,9 +10136,11 @@ Integration ID in the specified loyalty program.
 You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50
 loyalty transactions for the given integration ID are returned.
 
-> [!note] To retrieve all loyalty program transaction logs in a given
-> loyalty program, use the [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions)
-> endpoint.
+> [!note] **Note**
+> - For most use cases, especially real-time integrations, use the Integration API endpoint:
+>   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions).
+> - To retrieve all loyalty program transaction logs in a given loyalty program, use the
+>   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint.
 
 
 ### Example
@@ -10177,7 +10187,7 @@ with talon_one.ApiClient(configuration) as api_client:
     awaits_activation = True # bool | If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response.  (optional)
 
     try:
-        # List customer's loyalty transactions
+        # List customer's loyalty transactions (Management API)
         api_response = api_instance.get_loyalty_program_profile_ledger_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
         print("The response of ManagementApi->get_loyalty_program_profile_ledger_transactions:\n")
         pprint(api_response)
@@ -11437,7 +11447,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import data into existing account-level collection
@@ -11456,7 +11466,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -11543,7 +11553,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     attribute_id = 56 # int | The ID of the attribute. You can find the ID in the Campaign Manager's URL when you display the details of an attribute in **Account** > **Tools** > **Attributes**.
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import allowed values for attribute
@@ -11562,7 +11572,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **attribute_id** | **int**| The ID of the attribute. You can find the ID in the Campaign Manager&#39;s URL when you display the details of an attribute in **Account** &gt; **Tools** &gt; **Attributes**. | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -11646,7 +11656,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     audience_id = 56 # int | The ID of the audience.
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import audience members
@@ -11665,7 +11675,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **audience_id** | **int**| The ID of the audience. | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -11742,7 +11752,7 @@ with talon_one.ApiClient(configuration) as api_client:
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
     action = 'action_example' # str | The action that this budget is limiting. (optional)
     period = 'period_example' # str | The period to which the limit applies.  **Note**: For budgets with no period, set this to `overall`.  (optional)
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import campaign store budgets
@@ -11764,7 +11774,7 @@ Name | Type | Description  | Notes
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
  **action** | **str**| The action that this budget is limiting. | [optional] 
  **period** | **str**| The period to which the limit applies.  **Note**: For budgets with no period, set this to &#x60;overall&#x60;.  | [optional] 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -11836,7 +11846,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import stores
@@ -11856,7 +11866,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -11947,7 +11957,7 @@ with talon_one.ApiClient(configuration) as api_client:
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
     collection_id = 56 # int | The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import data into existing campaign-level collection
@@ -11968,7 +11978,7 @@ Name | Type | Description  | Notes
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
  **collection_id** | **int**| The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -12065,7 +12075,7 @@ with talon_one.ApiClient(configuration) as api_client:
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
     skip_duplicates = True # bool | An indicator of whether to skip duplicate coupon values instead of causing an error. Duplicate values are ignored when `skipDuplicates=true`.  (optional)
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import coupons
@@ -12086,7 +12096,7 @@ Name | Type | Description  | Notes
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
  **skip_duplicates** | **bool**| An indicator of whether to skip duplicate coupon values instead of causing an error. Duplicate values are ignored when &#x60;skipDuplicates&#x3D;true&#x60;.  | [optional] 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -12171,7 +12181,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import loyalty cards
@@ -12190,7 +12200,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -12299,7 +12309,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import customers into loyalty tiers
@@ -12318,7 +12328,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -12458,7 +12468,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     notifications_enabled = True # bool | Indicates whether the points import triggers notifications about its effects. For example, a notification is sent if the import upgrades a customer's tier or offsets their negative points balance.  This parameter is optional and defaults to `true`.  (optional)
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import loyalty points
@@ -12478,7 +12488,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **notifications_enabled** | **bool**| Indicates whether the points import triggers notifications about its effects. For example, a notification is sent if the import upgrades a customer&#39;s tier or offsets their negative points balance.  This parameter is optional and defaults to &#x60;true&#x60;.  | [optional] 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -12573,7 +12583,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     pool_id = 56 # int | The ID of the pool. You can find it in the Campaign Manager, in the **Giveaways** section.
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import giveaway codes into a giveaway pool
@@ -12592,7 +12602,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pool_id** | **int**| The ID of the pool. You can find it in the Campaign Manager, in the **Giveaways** section. | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 
@@ -12690,7 +12700,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.ManagementApi(api_client)
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
-    up_file = 'up_file_example' # str | The file containing the data that is being imported. (optional)
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
 
     try:
         # Import referrals
@@ -12710,7 +12720,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
- **up_file** | **str**| The file containing the data that is being imported. | [optional] 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
 

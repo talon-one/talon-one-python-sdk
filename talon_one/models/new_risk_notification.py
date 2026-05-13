@@ -17,23 +17,41 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class NewReward(BaseModel):
+class NewRiskNotification(BaseModel):
     """
-    NewReward
+    Data for creating a new risk notification.
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.")
-    api_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique identifier used to reference the reward in API integrations.", alias="apiName")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the reward.")
-    application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds")
-    sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.")
-    __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox"]
+    entity: StrictStr = Field(description="The entity type to analyze within the given time frame.")
+    activity: StrictStr = Field(description="The activity metric to analyze within the given entity.")
+    time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame")
+    __properties: ClassVar[List[str]] = ["entity", "activity", "timeFrame"]
+
+    @field_validator('entity')
+    def entity_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['customer_profile', 'customer_session']):
+            raise ValueError("must be one of enum values ('customer_profile', 'customer_session')")
+        return value
+
+    @field_validator('activity')
+    def activity_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['loyalty_points_earned', 'discounted_amount', 'completed_orders', 'coupon_attempts']):
+            raise ValueError("must be one of enum values ('loyalty_points_earned', 'discounted_amount', 'completed_orders', 'coupon_attempts')")
+        return value
+
+    @field_validator('time_frame')
+    def time_frame_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['1_day', '1_week', '1_month']):
+            raise ValueError("must be one of enum values ('1_day', '1_week', '1_month')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -53,7 +71,7 @@ class NewReward(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of NewReward from a JSON string"""
+        """Create an instance of NewRiskNotification from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,7 +96,7 @@ class NewReward(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of NewReward from a dict"""
+        """Create an instance of NewRiskNotification from a dict"""
         if obj is None:
             return None
 
@@ -86,11 +104,9 @@ class NewReward(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "apiName": obj.get("apiName"),
-            "description": obj.get("description"),
-            "applicationIds": obj.get("applicationIds"),
-            "sandbox": obj.get("sandbox")
+            "entity": obj.get("entity"),
+            "activity": obj.get("activity"),
+            "timeFrame": obj.get("timeFrame")
         })
         return _obj
 

@@ -17,7 +17,7 @@ from typing_extensions import Annotated
 
 from datetime import datetime
 from pydantic import Field, StrictBool, StrictBytes, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from talon_one.models.account import Account
 from talon_one.models.account_additional_cost import AccountAdditionalCost
@@ -33981,9 +33981,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GetLoyaltyCardTransactionLogs200Response:
-        """List card's transactions
+        """List card's transactions (Management API)
 
-        Retrieve the transaction logs for the given [loyalty card](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview) within the specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types) with filtering options applied. If no filtering options are applied, the last 50 loyalty transactions for the given loyalty card are returned. 
+        Retrieve the transaction logs for the given [loyalty card](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview) within the specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types) with filtering options applied.  > [!note] For most use cases, especially real-time integrations, use the Integration API endpoint: > [List card's transactions](https://docs.talon.one/integration-api#tag/Loyalty-cards/operation/getLoyaltyCardTransactions).  If no filtering options are applied, the last 50 loyalty transactions for the given loyalty card are returned. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -34082,9 +34082,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GetLoyaltyCardTransactionLogs200Response]:
-        """List card's transactions
+        """List card's transactions (Management API)
 
-        Retrieve the transaction logs for the given [loyalty card](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview) within the specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types) with filtering options applied. If no filtering options are applied, the last 50 loyalty transactions for the given loyalty card are returned. 
+        Retrieve the transaction logs for the given [loyalty card](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview) within the specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types) with filtering options applied.  > [!note] For most use cases, especially real-time integrations, use the Integration API endpoint: > [List card's transactions](https://docs.talon.one/integration-api#tag/Loyalty-cards/operation/getLoyaltyCardTransactions).  If no filtering options are applied, the last 50 loyalty transactions for the given loyalty card are returned. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -34183,9 +34183,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List card's transactions
+        """List card's transactions (Management API)
 
-        Retrieve the transaction logs for the given [loyalty card](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview) within the specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types) with filtering options applied. If no filtering options are applied, the last 50 loyalty transactions for the given loyalty card are returned. 
+        Retrieve the transaction logs for the given [loyalty card](https://docs.talon.one/docs/product/loyalty-programs/card-based/card-based-overview) within the specified [card-based loyalty program](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types) with filtering options applied.  > [!note] For most use cases, especially real-time integrations, use the Integration API endpoint: > [List card's transactions](https://docs.talon.one/integration-api#tag/Loyalty-cards/operation/getLoyaltyCardTransactions).  If no filtering options are applied, the last 50 loyalty transactions for the given loyalty card are returned. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -34768,9 +34768,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> LoyaltyBalancesWithTiers:
-        """Get customer's loyalty balances
+        """Get customer's loyalty balances (Management API)
 
-        Retrieve loyalty ledger balances for the given Integration ID in the specified loyalty program.  You can filter balances by date and subledger ID, and include tier-related information in the response.  > [!note] If no filtering options are applied, you retrieve all loyalty > balances on the current date for the given integration ID.  Loyalty balances are calculated when Talon.One receives your request using the points stored in our database, so retrieving a large number of balances at once can impact performance.  For more information, see:  - [Managing card-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/card-based/managing-loyalty-cards)  - [Managing profile-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/profile-based/managing-pb-lp-data) 
+        Retrieve loyalty ledger balances for the given Integration ID in the specified loyalty program.  You can filter balances by date and subledger ID, and include tier-related information in the response.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint:     [Get customer's loyalty balances](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyBalances). > - If no filtering options are applied, you retrieve all loyalty balances on the current date for the given integration ID.  Loyalty balances are calculated when Talon.One receives your request using the points stored in our database, so retrieving a large number of balances at once can impact performance.  For more information, see:  - [Managing card-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/card-based/managing-loyalty-cards)  - [Managing profile-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/profile-based/managing-pb-lp-data) 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -34858,9 +34858,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[LoyaltyBalancesWithTiers]:
-        """Get customer's loyalty balances
+        """Get customer's loyalty balances (Management API)
 
-        Retrieve loyalty ledger balances for the given Integration ID in the specified loyalty program.  You can filter balances by date and subledger ID, and include tier-related information in the response.  > [!note] If no filtering options are applied, you retrieve all loyalty > balances on the current date for the given integration ID.  Loyalty balances are calculated when Talon.One receives your request using the points stored in our database, so retrieving a large number of balances at once can impact performance.  For more information, see:  - [Managing card-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/card-based/managing-loyalty-cards)  - [Managing profile-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/profile-based/managing-pb-lp-data) 
+        Retrieve loyalty ledger balances for the given Integration ID in the specified loyalty program.  You can filter balances by date and subledger ID, and include tier-related information in the response.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint:     [Get customer's loyalty balances](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyBalances). > - If no filtering options are applied, you retrieve all loyalty balances on the current date for the given integration ID.  Loyalty balances are calculated when Talon.One receives your request using the points stored in our database, so retrieving a large number of balances at once can impact performance.  For more information, see:  - [Managing card-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/card-based/managing-loyalty-cards)  - [Managing profile-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/profile-based/managing-pb-lp-data) 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -34948,9 +34948,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get customer's loyalty balances
+        """Get customer's loyalty balances (Management API)
 
-        Retrieve loyalty ledger balances for the given Integration ID in the specified loyalty program.  You can filter balances by date and subledger ID, and include tier-related information in the response.  > [!note] If no filtering options are applied, you retrieve all loyalty > balances on the current date for the given integration ID.  Loyalty balances are calculated when Talon.One receives your request using the points stored in our database, so retrieving a large number of balances at once can impact performance.  For more information, see:  - [Managing card-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/card-based/managing-loyalty-cards)  - [Managing profile-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/profile-based/managing-pb-lp-data) 
+        Retrieve loyalty ledger balances for the given Integration ID in the specified loyalty program.  You can filter balances by date and subledger ID, and include tier-related information in the response.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint:     [Get customer's loyalty balances](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyBalances). > - If no filtering options are applied, you retrieve all loyalty balances on the current date for the given integration ID.  Loyalty balances are calculated when Talon.One receives your request using the points stored in our database, so retrieving a large number of balances at once can impact performance.  For more information, see:  - [Managing card-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/card-based/managing-loyalty-cards)  - [Managing profile-based loyalty program data](https://docs.talon.one/docs/product/loyalty-programs/profile-based/managing-pb-lp-data) 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -35675,9 +35675,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GetLoyaltyProgramProfileTransactions200Response:
-        """List customer's loyalty transactions
+        """List customer's loyalty transactions (Management API)
 
-        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] To retrieve all loyalty program transaction logs in a given > loyalty program, use the [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) > endpoint. 
+        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -35785,9 +35785,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GetLoyaltyProgramProfileTransactions200Response]:
-        """List customer's loyalty transactions
+        """List customer's loyalty transactions (Management API)
 
-        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] To retrieve all loyalty program transaction logs in a given > loyalty program, use the [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) > endpoint. 
+        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -35895,9 +35895,9 @@ class ManagementApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List customer's loyalty transactions
+        """List customer's loyalty transactions (Management API)
 
-        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] To retrieve all loyalty program transaction logs in a given > loyalty program, use the [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) > endpoint. 
+        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -40371,7 +40371,7 @@ class ManagementApi:
     def import_account_collection(
         self,
         collection_id: Annotated[StrictInt, Field(description="The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -40391,8 +40391,8 @@ class ManagementApi:
 
         :param collection_id: The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. (required)
         :type collection_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -40444,7 +40444,7 @@ class ManagementApi:
     def import_account_collection_with_http_info(
         self,
         collection_id: Annotated[StrictInt, Field(description="The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -40464,8 +40464,8 @@ class ManagementApi:
 
         :param collection_id: The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. (required)
         :type collection_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -40517,7 +40517,7 @@ class ManagementApi:
     def import_account_collection_without_preload_content(
         self,
         collection_id: Annotated[StrictInt, Field(description="The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -40537,8 +40537,8 @@ class ManagementApi:
 
         :param collection_id: The ID of the collection. You can get it with the [List collections in account](#tag/Collections/operation/listAccountCollections) endpoint. (required)
         :type collection_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -40613,7 +40613,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -40666,7 +40666,7 @@ class ManagementApi:
     def import_allowed_list(
         self,
         attribute_id: Annotated[StrictInt, Field(description="The ID of the attribute. You can find the ID in the Campaign Manager's URL when you display the details of an attribute in **Account** > **Tools** > **Attributes**.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -40686,8 +40686,8 @@ class ManagementApi:
 
         :param attribute_id: The ID of the attribute. You can find the ID in the Campaign Manager's URL when you display the details of an attribute in **Account** > **Tools** > **Attributes**. (required)
         :type attribute_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -40740,7 +40740,7 @@ class ManagementApi:
     def import_allowed_list_with_http_info(
         self,
         attribute_id: Annotated[StrictInt, Field(description="The ID of the attribute. You can find the ID in the Campaign Manager's URL when you display the details of an attribute in **Account** > **Tools** > **Attributes**.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -40760,8 +40760,8 @@ class ManagementApi:
 
         :param attribute_id: The ID of the attribute. You can find the ID in the Campaign Manager's URL when you display the details of an attribute in **Account** > **Tools** > **Attributes**. (required)
         :type attribute_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -40814,7 +40814,7 @@ class ManagementApi:
     def import_allowed_list_without_preload_content(
         self,
         attribute_id: Annotated[StrictInt, Field(description="The ID of the attribute. You can find the ID in the Campaign Manager's URL when you display the details of an attribute in **Account** > **Tools** > **Attributes**.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -40834,8 +40834,8 @@ class ManagementApi:
 
         :param attribute_id: The ID of the attribute. You can find the ID in the Campaign Manager's URL when you display the details of an attribute in **Account** > **Tools** > **Attributes**. (required)
         :type attribute_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -40911,7 +40911,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -40964,7 +40964,7 @@ class ManagementApi:
     def import_audiences_memberships(
         self,
         audience_id: Annotated[StrictInt, Field(description="The ID of the audience.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -40984,8 +40984,8 @@ class ManagementApi:
 
         :param audience_id: The ID of the audience. (required)
         :type audience_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41038,7 +41038,7 @@ class ManagementApi:
     def import_audiences_memberships_with_http_info(
         self,
         audience_id: Annotated[StrictInt, Field(description="The ID of the audience.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41058,8 +41058,8 @@ class ManagementApi:
 
         :param audience_id: The ID of the audience. (required)
         :type audience_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41112,7 +41112,7 @@ class ManagementApi:
     def import_audiences_memberships_without_preload_content(
         self,
         audience_id: Annotated[StrictInt, Field(description="The ID of the audience.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41132,8 +41132,8 @@ class ManagementApi:
 
         :param audience_id: The ID of the audience. (required)
         :type audience_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41209,7 +41209,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -41265,7 +41265,7 @@ class ManagementApi:
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         action: Annotated[Optional[StrictStr], Field(description="The action that this budget is limiting.")] = None,
         period: Annotated[Optional[StrictStr], Field(description="The period to which the limit applies.  **Note**: For budgets with no period, set this to `overall`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41291,8 +41291,8 @@ class ManagementApi:
         :type action: str
         :param period: The period to which the limit applies.  **Note**: For budgets with no period, set this to `overall`. 
         :type period: str
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41349,7 +41349,7 @@ class ManagementApi:
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         action: Annotated[Optional[StrictStr], Field(description="The action that this budget is limiting.")] = None,
         period: Annotated[Optional[StrictStr], Field(description="The period to which the limit applies.  **Note**: For budgets with no period, set this to `overall`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41375,8 +41375,8 @@ class ManagementApi:
         :type action: str
         :param period: The period to which the limit applies.  **Note**: For budgets with no period, set this to `overall`. 
         :type period: str
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41433,7 +41433,7 @@ class ManagementApi:
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         action: Annotated[Optional[StrictStr], Field(description="The action that this budget is limiting.")] = None,
         period: Annotated[Optional[StrictStr], Field(description="The period to which the limit applies.  **Note**: For budgets with no period, set this to `overall`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41459,8 +41459,8 @@ class ManagementApi:
         :type action: str
         :param period: The period to which the limit applies.  **Note**: For budgets with no period, set this to `overall`. 
         :type period: str
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41550,7 +41550,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -41604,7 +41604,7 @@ class ManagementApi:
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41626,8 +41626,8 @@ class ManagementApi:
         :type application_id: int
         :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
         :type campaign_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41682,7 +41682,7 @@ class ManagementApi:
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41704,8 +41704,8 @@ class ManagementApi:
         :type application_id: int
         :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
         :type campaign_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41760,7 +41760,7 @@ class ManagementApi:
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41782,8 +41782,8 @@ class ManagementApi:
         :type application_id: int
         :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
         :type campaign_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41863,7 +41863,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -41918,7 +41918,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         collection_id: Annotated[StrictInt, Field(description="The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -41942,8 +41942,8 @@ class ManagementApi:
         :type campaign_id: int
         :param collection_id: The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. (required)
         :type collection_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -41998,7 +41998,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         collection_id: Annotated[StrictInt, Field(description="The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42022,8 +42022,8 @@ class ManagementApi:
         :type campaign_id: int
         :param collection_id: The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. (required)
         :type collection_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42078,7 +42078,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         collection_id: Annotated[StrictInt, Field(description="The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42102,8 +42102,8 @@ class ManagementApi:
         :type campaign_id: int
         :param collection_id: The ID of the collection. You can get it with the [List collections in Application](#tag/Collections/operation/listCollectionsInApplication) endpoint. (required)
         :type collection_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42185,7 +42185,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -42240,7 +42240,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         skip_duplicates: Annotated[Optional[StrictBool], Field(description="An indicator of whether to skip duplicate coupon values instead of causing an error. Duplicate values are ignored when `skipDuplicates=true`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42264,8 +42264,8 @@ class ManagementApi:
         :type campaign_id: int
         :param skip_duplicates: An indicator of whether to skip duplicate coupon values instead of causing an error. Duplicate values are ignored when `skipDuplicates=true`. 
         :type skip_duplicates: bool
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42319,7 +42319,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         skip_duplicates: Annotated[Optional[StrictBool], Field(description="An indicator of whether to skip duplicate coupon values instead of causing an error. Duplicate values are ignored when `skipDuplicates=true`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42343,8 +42343,8 @@ class ManagementApi:
         :type campaign_id: int
         :param skip_duplicates: An indicator of whether to skip duplicate coupon values instead of causing an error. Duplicate values are ignored when `skipDuplicates=true`. 
         :type skip_duplicates: bool
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42398,7 +42398,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         skip_duplicates: Annotated[Optional[StrictBool], Field(description="An indicator of whether to skip duplicate coupon values instead of causing an error. Duplicate values are ignored when `skipDuplicates=true`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42422,8 +42422,8 @@ class ManagementApi:
         :type campaign_id: int
         :param skip_duplicates: An indicator of whether to skip duplicate coupon values instead of causing an error. Duplicate values are ignored when `skipDuplicates=true`. 
         :type skip_duplicates: bool
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42506,7 +42506,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -42559,7 +42559,7 @@ class ManagementApi:
     def import_loyalty_cards(
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42579,8 +42579,8 @@ class ManagementApi:
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42632,7 +42632,7 @@ class ManagementApi:
     def import_loyalty_cards_with_http_info(
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42652,8 +42652,8 @@ class ManagementApi:
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42705,7 +42705,7 @@ class ManagementApi:
     def import_loyalty_cards_without_preload_content(
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42725,8 +42725,8 @@ class ManagementApi:
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42801,7 +42801,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -42854,7 +42854,7 @@ class ManagementApi:
     def import_loyalty_customers_tiers(
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42874,8 +42874,8 @@ class ManagementApi:
 
         :param loyalty_program_id: Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -42928,7 +42928,7 @@ class ManagementApi:
     def import_loyalty_customers_tiers_with_http_info(
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -42948,8 +42948,8 @@ class ManagementApi:
 
         :param loyalty_program_id: Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43002,7 +43002,7 @@ class ManagementApi:
     def import_loyalty_customers_tiers_without_preload_content(
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43022,8 +43022,8 @@ class ManagementApi:
 
         :param loyalty_program_id: Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43099,7 +43099,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -43153,7 +43153,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         notifications_enabled: Annotated[Optional[StrictBool], Field(description="Indicates whether the points import triggers notifications about its effects. For example, a notification is sent if the import upgrades a customer's tier or offsets their negative points balance.  This parameter is optional and defaults to `true`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43175,8 +43175,8 @@ class ManagementApi:
         :type loyalty_program_id: int
         :param notifications_enabled: Indicates whether the points import triggers notifications about its effects. For example, a notification is sent if the import upgrades a customer's tier or offsets their negative points balance.  This parameter is optional and defaults to `true`. 
         :type notifications_enabled: bool
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43228,7 +43228,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         notifications_enabled: Annotated[Optional[StrictBool], Field(description="Indicates whether the points import triggers notifications about its effects. For example, a notification is sent if the import upgrades a customer's tier or offsets their negative points balance.  This parameter is optional and defaults to `true`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43250,8 +43250,8 @@ class ManagementApi:
         :type loyalty_program_id: int
         :param notifications_enabled: Indicates whether the points import triggers notifications about its effects. For example, a notification is sent if the import upgrades a customer's tier or offsets their negative points balance.  This parameter is optional and defaults to `true`. 
         :type notifications_enabled: bool
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43303,7 +43303,7 @@ class ManagementApi:
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
         notifications_enabled: Annotated[Optional[StrictBool], Field(description="Indicates whether the points import triggers notifications about its effects. For example, a notification is sent if the import upgrades a customer's tier or offsets their negative points balance.  This parameter is optional and defaults to `true`. ")] = None,
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43325,8 +43325,8 @@ class ManagementApi:
         :type loyalty_program_id: int
         :param notifications_enabled: Indicates whether the points import triggers notifications about its effects. For example, a notification is sent if the import upgrades a customer's tier or offsets their negative points balance.  This parameter is optional and defaults to `true`. 
         :type notifications_enabled: bool
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43405,7 +43405,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -43458,7 +43458,7 @@ class ManagementApi:
     def import_pool_giveaways(
         self,
         pool_id: Annotated[StrictInt, Field(description="The ID of the pool. You can find it in the Campaign Manager, in the **Giveaways** section.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43478,8 +43478,8 @@ class ManagementApi:
 
         :param pool_id: The ID of the pool. You can find it in the Campaign Manager, in the **Giveaways** section. (required)
         :type pool_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43529,7 +43529,7 @@ class ManagementApi:
     def import_pool_giveaways_with_http_info(
         self,
         pool_id: Annotated[StrictInt, Field(description="The ID of the pool. You can find it in the Campaign Manager, in the **Giveaways** section.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43549,8 +43549,8 @@ class ManagementApi:
 
         :param pool_id: The ID of the pool. You can find it in the Campaign Manager, in the **Giveaways** section. (required)
         :type pool_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43600,7 +43600,7 @@ class ManagementApi:
     def import_pool_giveaways_without_preload_content(
         self,
         pool_id: Annotated[StrictInt, Field(description="The ID of the pool. You can find it in the Campaign Manager, in the **Giveaways** section.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43620,8 +43620,8 @@ class ManagementApi:
 
         :param pool_id: The ID of the pool. You can find it in the Campaign Manager, in the **Giveaways** section. (required)
         :type pool_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43694,7 +43694,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 
@@ -43748,7 +43748,7 @@ class ManagementApi:
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43770,8 +43770,8 @@ class ManagementApi:
         :type application_id: int
         :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
         :type campaign_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43823,7 +43823,7 @@ class ManagementApi:
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43845,8 +43845,8 @@ class ManagementApi:
         :type application_id: int
         :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
         :type campaign_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43898,7 +43898,7 @@ class ManagementApi:
         self,
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
-        up_file: Annotated[Optional[StrictStr], Field(description="The file containing the data that is being imported.")] = None,
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -43920,8 +43920,8 @@ class ManagementApi:
         :type application_id: int
         :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
         :type campaign_id: int
-        :param up_file: The file containing the data that is being imported.
-        :type up_file: str
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -43998,7 +43998,7 @@ class ManagementApi:
         # process the header parameters
         # process the form parameters
         if up_file is not None:
-            _form_params.append(('upFile', up_file))
+            _files['upFile'] = up_file
         # process the body parameter
 
 

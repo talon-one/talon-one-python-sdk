@@ -43,27 +43,44 @@ class TestReward(unittest.TestCase):
                 description = 'This reward gets you one free coffee.',
                 application_ids = [1, 2, 3],
                 sandbox = True,
-                rule = [
-                    talon_one.models.rule.Rule(
-                        id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
-                        parent_id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
-                        title = 'Give discount via coupon', 
-                        description = 'Creates a discount when a coupon is valid', 
-                        bindings = [
-                            talon_one.models.binding.Binding(
-                                name = 'my property', 
-                                type = 'templateParameter', 
-                                expression = [string1, string2], 
-                                value_type = 'string', 
-                                min_value = 0, 
-                                max_value = 19.9, 
-                                attribute_id = 100, 
-                                description = 'This is a template parameter of type `number`.', )
-                            ], 
-                        condition = [and, [couponValid]], 
-                        effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], )
-                    ],
+                visibility_conditions = talon_one.models.rule.Rule(
+                    id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
+                    parent_id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
+                    title = 'Give discount via coupon', 
+                    description = 'Creates a discount when a coupon is valid', 
+                    bindings = [
+                        talon_one.models.binding.Binding(
+                            name = 'my property', 
+                            type = 'templateParameter', 
+                            expression = [string1, string2], 
+                            value_type = 'string', 
+                            min_value = 0, 
+                            max_value = 19.9, 
+                            attribute_id = 100, 
+                            description = 'This is a template parameter of type `number`.', )
+                        ], 
+                    condition = [and, [couponValid]], 
+                    effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], ),
+                rule = talon_one.models.rule.Rule(
+                    id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
+                    parent_id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
+                    title = 'Give discount via coupon', 
+                    description = 'Creates a discount when a coupon is valid', 
+                    bindings = [
+                        talon_one.models.binding.Binding(
+                            name = 'my property', 
+                            type = 'templateParameter', 
+                            expression = [string1, string2], 
+                            value_type = 'string', 
+                            min_value = 0, 
+                            max_value = 19.9, 
+                            attribute_id = 100, 
+                            description = 'This is a template parameter of type `number`.', )
+                        ], 
+                    condition = [and, [couponValid]], 
+                    effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], ),
                 bindings = [],
+                modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 status = 'active'
             )
         else:

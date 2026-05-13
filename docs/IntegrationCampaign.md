@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **state** | **str** | The state of the campaign.  | [default to 'enabled']
 **tags** | **List[str]** | A list of tags for the campaign. | 
 **features** | **List[str]** | The features enabled in this campaign. | 
-**rules** | [**List[RuleMetadata]**](RuleMetadata.md) | A list of rules containing customer-facing details of the rewards defined in the campaign. | [optional] 
+**rules** | [**List[RuleMetadata]**](RuleMetadata.md) | A list of rules containing customer-facing details of the rewards defined in the campaign. | 
 
 ## Example
 

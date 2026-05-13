@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.new_campaign import NewCampaign
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +30,16 @@ class NewExperiment(BaseModel):
     """ # noqa: E501
     is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
     campaign: NewCampaign
-    __properties: ClassVar[List[str]] = ["isVariantAssignmentExternal", "campaign"]
+    goal_type: StrictStr = Field(description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. ", alias="goalType")
+    goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. ", alias="goalDescription")
+    __properties: ClassVar[List[str]] = ["isVariantAssignmentExternal", "campaign", "goalType", "goalDescription"]
+
+    @field_validator('goal_type')
+    def goal_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['other', 'maximize_revenue', 'optimize_discount_efficiency', 'maximize_items_sold']):
+            raise ValueError("must be one of enum values ('other', 'maximize_revenue', 'optimize_discount_efficiency', 'maximize_items_sold')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,7 +96,9 @@ class NewExperiment(BaseModel):
 
         _obj = cls.model_validate({
             "isVariantAssignmentExternal": obj.get("isVariantAssignmentExternal"),
-            "campaign": NewCampaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None
+            "campaign": NewCampaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
+            "goalType": obj.get("goalType"),
+            "goalDescription": obj.get("goalDescription")
         })
         return _obj
 

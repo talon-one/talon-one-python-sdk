@@ -22,7 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_v
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.campaign_eligibility_details import CampaignEligibilityDetails
-from talon_one.models.rule_metadata import RuleMetadata
+from talon_one.models.rule_metadata_eligibility import RuleMetadataEligibility
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,8 +31,8 @@ class CampaignEligibility(BaseModel):
     """
     CampaignEligibility
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID of Campaign.")
     application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
+    id: StrictInt = Field(description="Unique ID of Campaign.")
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign.")
     description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
     start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime")
@@ -41,9 +41,9 @@ class CampaignEligibility(BaseModel):
     state: StrictStr = Field(description="The state of the campaign. ")
     tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.")
     features: List[StrictStr] = Field(description="The features enabled in this campaign.")
-    rules: Optional[List[RuleMetadata]] = Field(default=None, description="A list of rules containing customer-facing details of the rewards defined in the campaign.")
     eligibility: List[CampaignEligibilityDetails] = Field(description="The customer's eligibility for each campaign in the current customer session.")
-    __properties: ClassVar[List[str]] = ["id", "applicationId", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "rules", "eligibility"]
+    rules: List[RuleMetadataEligibility] = Field(description="A list of rules containing customer-facing details of the rewards defined in the campaign.")
+    __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "eligibility", "rules"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -99,13 +99,6 @@ class CampaignEligibility(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in rules (list)
-        _items = []
-        if self.rules:
-            for _item_rules in self.rules:
-                if _item_rules:
-                    _items.append(_item_rules.to_dict())
-            _dict['rules'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in eligibility (list)
         _items = []
         if self.eligibility:
@@ -113,6 +106,13 @@ class CampaignEligibility(BaseModel):
                 if _item_eligibility:
                     _items.append(_item_eligibility.to_dict())
             _dict['eligibility'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in rules (list)
+        _items = []
+        if self.rules:
+            for _item_rules in self.rules:
+                if _item_rules:
+                    _items.append(_item_rules.to_dict())
+            _dict['rules'] = _items
         return _dict
 
     @classmethod
@@ -125,8 +125,8 @@ class CampaignEligibility(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
             "applicationId": obj.get("applicationId"),
+            "id": obj.get("id"),
             "name": obj.get("name"),
             "description": obj.get("description"),
             "startTime": obj.get("startTime"),
@@ -135,8 +135,8 @@ class CampaignEligibility(BaseModel):
             "state": obj.get("state") if obj.get("state") is not None else 'enabled',
             "tags": obj.get("tags"),
             "features": obj.get("features"),
-            "rules": [RuleMetadata.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None,
-            "eligibility": [CampaignEligibilityDetails.from_dict(_item) for _item in obj["eligibility"]] if obj.get("eligibility") is not None else None
+            "eligibility": [CampaignEligibilityDetails.from_dict(_item) for _item in obj["eligibility"]] if obj.get("eligibility") is not None else None,
+            "rules": [RuleMetadataEligibility.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None
         })
         return _obj
 

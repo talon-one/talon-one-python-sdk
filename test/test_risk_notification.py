@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.new_experiment import NewExperiment
+from talon_one.models.risk_notification import RiskNotification
 
-class TestNewExperiment(unittest.TestCase):
-    """NewExperiment unit test stubs"""
+class TestRiskNotification(unittest.TestCase):
+    """RiskNotification unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,31 +25,38 @@ class TestNewExperiment(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> NewExperiment:
-        """Test NewExperiment
+    def make_instance(self, include_optional) -> RiskNotification:
+        """Test RiskNotification
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `NewExperiment`
+        # uncomment below to create an instance of `RiskNotification`
         """
-        model = NewExperiment()
+        model = RiskNotification()
         if include_optional:
-            return NewExperiment(
-                is_variant_assignment_external = True,
-                campaign = None,
-                goal_type = 'other',
-                goal_description = 'Offering free shipping will increase average order revenue more than a 10% discount'
+            return RiskNotification(
+                id = 6,
+                created = '2020-06-10T09:05:27.993483Z',
+                entity = 'customer_profile',
+                activity = 'loyalty_points_earned',
+                time_frame = '1_week',
+                active = True,
+                modified = '2026-04-16T09:05:27.993483Z'
             )
         else:
-            return NewExperiment(
-                is_variant_assignment_external = True,
-                campaign = None,
-                goal_type = 'other',
+            return RiskNotification(
+                id = 6,
+                created = '2020-06-10T09:05:27.993483Z',
+                entity = 'customer_profile',
+                activity = 'loyalty_points_earned',
+                time_frame = '1_week',
+                active = True,
+                modified = '2026-04-16T09:05:27.993483Z',
         )
         """
 
-    def testNewExperiment(self):
-        """Test NewExperiment"""
+    def testRiskNotification(self):
+        """Test RiskNotification"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
