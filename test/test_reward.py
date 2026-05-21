@@ -81,7 +81,14 @@ class TestReward(unittest.TestCase):
                     effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], ),
                 bindings = [],
                 modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                status = 'active'
+                status = 'active',
+                points_required = [
+                    talon_one.models.reward_points_required.RewardPointsRequired(
+                        id = 1, 
+                        amount = 500, 
+                        loyalty_program_id = 10, 
+                        subledger_id = 'mysubledger', )
+                    ]
             )
         else:
             return Reward(

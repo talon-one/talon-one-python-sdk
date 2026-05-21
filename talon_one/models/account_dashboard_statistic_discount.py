@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-import datetime as datetime_module
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
@@ -30,7 +30,7 @@ class AccountDashboardStatisticDiscount(BaseModel):
     """ # noqa: E501
     total: Union[StrictFloat, StrictInt] = Field(description="Total discount value redeemed by users.")
     average: Union[StrictFloat, StrictInt] = Field(description="Average discount percentage.")
-    datetime: datetime_module.datetime = Field(description="Values aggregated for the specified date.")
+    datetime: datetime = Field(description="Values aggregated for the specified date.")
     __properties: ClassVar[List[str]] = ["total", "average", "datetime"]
 
     model_config = ConfigDict(

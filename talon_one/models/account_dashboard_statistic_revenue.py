@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-import datetime as datetime_module
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
@@ -30,7 +30,7 @@ class AccountDashboardStatisticRevenue(BaseModel):
     """ # noqa: E501
     total: Union[StrictFloat, StrictInt] = Field(description="All revenue that went through the client's shop (including purchases that didn’t trigger an effect).")
     influenced: Union[StrictFloat, StrictInt] = Field(description="The revenue that was created by a purchase that triggered an effect (excluding web hooks, notifications).")
-    datetime: datetime_module.datetime = Field(description="Values aggregated for the specified date.")
+    datetime: datetime = Field(description="Values aggregated for the specified date.")
     __properties: ClassVar[List[str]] = ["total", "influenced", "datetime"]
 
     model_config = ConfigDict(

@@ -31,14 +31,13 @@ class IntegrationEventV3Request(BaseModel):
     profile_id: StrictStr = Field(description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId")
     store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId")
     evaluable_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="When using the `dry` query parameter, use this property to list the campaign to be evaluated by the Rule Engine.  These campaigns will be evaluated, even if they are disabled, allowing you to test specific campaigns before activating them. ", alias="evaluableCampaignIds")
-    integration_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The unique ID of the current event. Only one event with this ID could be activated, duplicated events are forbidden. ", alias="integrationId")
-    type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string representing the event name. Must not be a reserved event name. You create this value when you [create an attribute](https://docs.talon.one/docs/dev/concepts/entities/events#creating-a-custom-event) of type `event` in the Campaign Manager. ")
+    type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary additional JSON properties associated with the event. They must be created in the Campaign Manager before setting them with this property. See [creating custom attributes](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#creating-a-custom-attribute).")
-    connected_session_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The ID of the session that happened in the past.", alias="connectedSessionID")
-    previous_event_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The unique identifier of the event that happened in the past.", alias="previousEventID")
+    integration_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The unique ID of the event. Only one event with this ID can be registered. ", alias="integrationId")
+    connected_session_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The ID of the session to reference. The session must be in `closed` state. Otherwise, the API call will fail.", alias="connectedSessionId")
     loyalty_cards: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Identifiers of the loyalty cards used during this event.", alias="loyaltyCards")
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Optional list of requested information to be present on the response related to the tracking custom event. ", alias="responseContent")
-    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "integrationId", "type", "attributes", "connectedSessionID", "previousEventID", "loyaltyCards", "responseContent"]
+    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "integrationId", "connectedSessionId", "loyaltyCards", "responseContent"]
 
     @field_validator('response_content')
     def response_content_validate_enum(cls, value):
@@ -105,11 +104,10 @@ class IntegrationEventV3Request(BaseModel):
             "profileId": obj.get("profileId"),
             "storeIntegrationId": obj.get("storeIntegrationId"),
             "evaluableCampaignIds": obj.get("evaluableCampaignIds"),
-            "integrationId": obj.get("integrationId"),
             "type": obj.get("type"),
             "attributes": obj.get("attributes"),
-            "connectedSessionID": obj.get("connectedSessionID"),
-            "previousEventID": obj.get("previousEventID"),
+            "integrationId": obj.get("integrationId"),
+            "connectedSessionId": obj.get("connectedSessionId"),
             "loyaltyCards": obj.get("loyaltyCards"),
             "responseContent": obj.get("responseContent")
         })

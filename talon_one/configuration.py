@@ -554,7 +554,7 @@ conf = talon_one.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: \n"\
-               "SDK Package Version: 26.10.0".\
+               "SDK Package Version: 99.99.99".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self) -> List[HostSetting]:

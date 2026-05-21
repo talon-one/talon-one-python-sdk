@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.10.0"
+__version__ = "99.99.99"
 
 # Define package exports
 __all__ = [
@@ -262,6 +262,9 @@ __all__ = [
     "EventType",
     "EventV2",
     "EventV3",
+    "EventV3Connections",
+    "EventV3Entity",
+    "EventV3RequestEntity",
     "Experiment",
     "ExperimentCampaignCopy",
     "ExperimentCopy",
@@ -385,6 +388,7 @@ __all__ = [
     "IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification",
     "IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification",
     "IntegrationHubEventRecord",
+    "IntegrationHubEventStatusUpdate",
     "IntegrationHubFlow",
     "IntegrationHubFlowConfig",
     "IntegrationHubFlowConfigResponse",
@@ -500,6 +504,7 @@ __all__ = [
     "NewCustomerSessionV2",
     "NewEvent",
     "NewEventType",
+    "NewEventV3Entity",
     "NewExperiment",
     "NewExperimentVariant",
     "NewExperimentVariantArray",
@@ -595,6 +600,7 @@ __all__ = [
     "RevisionActivationRequest",
     "RevisionVersion",
     "Reward",
+    "RewardPointsRequired",
     "RiskNotification",
     "Role",
     "RoleAssign",
@@ -988,6 +994,9 @@ from talon_one.models.event_attributes_entity import EventAttributesEntity as Ev
 from talon_one.models.event_type import EventType as EventType
 from talon_one.models.event_v2 import EventV2 as EventV2
 from talon_one.models.event_v3 import EventV3 as EventV3
+from talon_one.models.event_v3_connections import EventV3Connections as EventV3Connections
+from talon_one.models.event_v3_entity import EventV3Entity as EventV3Entity
+from talon_one.models.event_v3_request_entity import EventV3RequestEntity as EventV3RequestEntity
 from talon_one.models.experiment import Experiment as Experiment
 from talon_one.models.experiment_campaign_copy import ExperimentCampaignCopy as ExperimentCampaignCopy
 from talon_one.models.experiment_copy import ExperimentCopy as ExperimentCopy
@@ -1111,6 +1120,7 @@ from talon_one.models.integration_hub_event_payload_loyalty_profile_based_points
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification as IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification as IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification
 from talon_one.models.integration_hub_event_record import IntegrationHubEventRecord as IntegrationHubEventRecord
+from talon_one.models.integration_hub_event_status_update import IntegrationHubEventStatusUpdate as IntegrationHubEventStatusUpdate
 from talon_one.models.integration_hub_flow import IntegrationHubFlow as IntegrationHubFlow
 from talon_one.models.integration_hub_flow_config import IntegrationHubFlowConfig as IntegrationHubFlowConfig
 from talon_one.models.integration_hub_flow_config_response import IntegrationHubFlowConfigResponse as IntegrationHubFlowConfigResponse
@@ -1226,6 +1236,7 @@ from talon_one.models.new_customer_session import NewCustomerSession as NewCusto
 from talon_one.models.new_customer_session_v2 import NewCustomerSessionV2 as NewCustomerSessionV2
 from talon_one.models.new_event import NewEvent as NewEvent
 from talon_one.models.new_event_type import NewEventType as NewEventType
+from talon_one.models.new_event_v3_entity import NewEventV3Entity as NewEventV3Entity
 from talon_one.models.new_experiment import NewExperiment as NewExperiment
 from talon_one.models.new_experiment_variant import NewExperimentVariant as NewExperimentVariant
 from talon_one.models.new_experiment_variant_array import NewExperimentVariantArray as NewExperimentVariantArray
@@ -1321,6 +1332,7 @@ from talon_one.models.revision_activation import RevisionActivation as RevisionA
 from talon_one.models.revision_activation_request import RevisionActivationRequest as RevisionActivationRequest
 from talon_one.models.revision_version import RevisionVersion as RevisionVersion
 from talon_one.models.reward import Reward as Reward
+from talon_one.models.reward_points_required import RewardPointsRequired as RewardPointsRequired
 from talon_one.models.risk_notification import RiskNotification as RiskNotification
 from talon_one.models.role import Role as Role
 from talon_one.models.role_assign import RoleAssign as RoleAssign

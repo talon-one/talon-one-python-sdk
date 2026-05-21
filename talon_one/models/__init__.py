@@ -246,6 +246,9 @@ from talon_one.models.event_attributes_entity import EventAttributesEntity
 from talon_one.models.event_type import EventType
 from talon_one.models.event_v2 import EventV2
 from talon_one.models.event_v3 import EventV3
+from talon_one.models.event_v3_connections import EventV3Connections
+from talon_one.models.event_v3_entity import EventV3Entity
+from talon_one.models.event_v3_request_entity import EventV3RequestEntity
 from talon_one.models.experiment import Experiment
 from talon_one.models.experiment_campaign_copy import ExperimentCampaignCopy
 from talon_one.models.experiment_copy import ExperimentCopy
@@ -369,6 +372,7 @@ from talon_one.models.integration_hub_event_payload_loyalty_profile_based_points
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification
 from talon_one.models.integration_hub_event_record import IntegrationHubEventRecord
+from talon_one.models.integration_hub_event_status_update import IntegrationHubEventStatusUpdate
 from talon_one.models.integration_hub_flow import IntegrationHubFlow
 from talon_one.models.integration_hub_flow_config import IntegrationHubFlowConfig
 from talon_one.models.integration_hub_flow_config_response import IntegrationHubFlowConfigResponse
@@ -484,6 +488,7 @@ from talon_one.models.new_customer_session import NewCustomerSession
 from talon_one.models.new_customer_session_v2 import NewCustomerSessionV2
 from talon_one.models.new_event import NewEvent
 from talon_one.models.new_event_type import NewEventType
+from talon_one.models.new_event_v3_entity import NewEventV3Entity
 from talon_one.models.new_experiment import NewExperiment
 from talon_one.models.new_experiment_variant import NewExperimentVariant
 from talon_one.models.new_experiment_variant_array import NewExperimentVariantArray
@@ -579,6 +584,7 @@ from talon_one.models.revision_activation import RevisionActivation
 from talon_one.models.revision_activation_request import RevisionActivationRequest
 from talon_one.models.revision_version import RevisionVersion
 from talon_one.models.reward import Reward
+from talon_one.models.reward_points_required import RewardPointsRequired
 from talon_one.models.risk_notification import RiskNotification
 from talon_one.models.role import Role
 from talon_one.models.role_assign import RoleAssign

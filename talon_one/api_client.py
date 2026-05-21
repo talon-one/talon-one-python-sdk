@@ -91,7 +91,7 @@ class ApiClient:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'OpenAPI-Generator/26.10.0/python'
+        self.user_agent = 'OpenAPI-Generator/99.99.99/python'
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):
@@ -469,7 +469,7 @@ class ApiClient:
         elif issubclass(klass, Enum):
             return self.__deserialize_enum(data, klass)
         else:
-            return self.deserialize_model(data, klass)
+            return self.__deserialize_model(data, klass)
 
     def parameters_to_tuples(self, params, collection_formats):
         """Get parameters as list of tuples, formatting collections.
@@ -793,7 +793,7 @@ class ApiClient:
                 )
             )
 
-    def deserialize_model(self, data, klass):
+    def __deserialize_model(self, data, klass):
         """Deserializes list or dict to model.
 
         :param data: dict, list.

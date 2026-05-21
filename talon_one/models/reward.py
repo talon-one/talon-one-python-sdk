@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, Strict
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.binding import Binding
+from talon_one.models.reward_points_required import RewardPointsRequired
 from talon_one.models.rule import Rule
 from typing import Optional, Set
 from typing_extensions import Self
@@ -44,7 +45,8 @@ class Reward(BaseModel):
     bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.")
     modified: Optional[datetime] = Field(default=None, description="The timestamp when the reward was last updated in RFC3339 format.")
     status: StrictStr = Field(description="The status of the reward.")
-    __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "apiName", "description", "applicationIds", "sandbox", "visibilityConditions", "rule", "bindings", "modified", "status"]
+    points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate a reward.", alias="pointsRequired")
+    __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "apiName", "description", "applicationIds", "sandbox", "visibilityConditions", "rule", "bindings", "modified", "status", "pointsRequired"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -105,6 +107,13 @@ class Reward(BaseModel):
                 if _item_bindings:
                     _items.append(_item_bindings.to_dict())
             _dict['bindings'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in points_required (list)
+        _items = []
+        if self.points_required:
+            for _item_points_required in self.points_required:
+                if _item_points_required:
+                    _items.append(_item_points_required.to_dict())
+            _dict['pointsRequired'] = _items
         return _dict
 
     @classmethod
@@ -129,7 +138,8 @@ class Reward(BaseModel):
             "rule": Rule.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
             "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None,
             "modified": obj.get("modified"),
-            "status": obj.get("status")
+            "status": obj.get("status"),
+            "pointsRequired": [RewardPointsRequired.from_dict(_item) for _item in obj["pointsRequired"]] if obj.get("pointsRequired") is not None else None
         })
         return _obj
 

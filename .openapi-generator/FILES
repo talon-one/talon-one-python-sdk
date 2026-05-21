@@ -243,6 +243,9 @@ docs/EventAttributesEntity.md
 docs/EventType.md
 docs/EventV2.md
 docs/EventV3.md
+docs/EventV3Connections.md
+docs/EventV3Entity.md
+docs/EventV3RequestEntity.md
 docs/Experiment.md
 docs/ExperimentCampaignCopy.md
 docs/ExperimentCopy.md
@@ -367,6 +370,7 @@ docs/IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationActio
 docs/IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification.md
 docs/IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification.md
 docs/IntegrationHubEventRecord.md
+docs/IntegrationHubEventStatusUpdate.md
 docs/IntegrationHubFlow.md
 docs/IntegrationHubFlowConfig.md
 docs/IntegrationHubFlowConfigResponse.md
@@ -483,6 +487,7 @@ docs/NewCustomerSession.md
 docs/NewCustomerSessionV2.md
 docs/NewEvent.md
 docs/NewEventType.md
+docs/NewEventV3Entity.md
 docs/NewExperiment.md
 docs/NewExperimentVariant.md
 docs/NewExperimentVariantArray.md
@@ -578,6 +583,7 @@ docs/RevisionActivation.md
 docs/RevisionActivationRequest.md
 docs/RevisionVersion.md
 docs/Reward.md
+docs/RewardPointsRequired.md
 docs/RiskNotification.md
 docs/Role.md
 docs/RoleAssign.md
@@ -968,6 +974,9 @@ talon_one/models/event_attributes_entity.py
 talon_one/models/event_type.py
 talon_one/models/event_v2.py
 talon_one/models/event_v3.py
+talon_one/models/event_v3_connections.py
+talon_one/models/event_v3_entity.py
+talon_one/models/event_v3_request_entity.py
 talon_one/models/experiment.py
 talon_one/models/experiment_campaign_copy.py
 talon_one/models/experiment_copy.py
@@ -1091,6 +1100,7 @@ talon_one/models/integration_hub_event_payload_loyalty_profile_based_points_chan
 talon_one/models/integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification.py
 talon_one/models/integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification.py
 talon_one/models/integration_hub_event_record.py
+talon_one/models/integration_hub_event_status_update.py
 talon_one/models/integration_hub_flow.py
 talon_one/models/integration_hub_flow_config.py
 talon_one/models/integration_hub_flow_config_response.py
@@ -1206,6 +1216,7 @@ talon_one/models/new_customer_session.py
 talon_one/models/new_customer_session_v2.py
 talon_one/models/new_event.py
 talon_one/models/new_event_type.py
+talon_one/models/new_event_v3_entity.py
 talon_one/models/new_experiment.py
 talon_one/models/new_experiment_variant.py
 talon_one/models/new_experiment_variant_array.py
@@ -1301,6 +1312,7 @@ talon_one/models/revision_activation.py
 talon_one/models/revision_activation_request.py
 talon_one/models/revision_version.py
 talon_one/models/reward.py
+talon_one/models/reward_points_required.py
 talon_one/models/risk_notification.py
 talon_one/models/role.py
 talon_one/models/role_assign.py
@@ -1680,6 +1692,9 @@ test/test_event_attributes_entity.py
 test/test_event_type.py
 test/test_event_v2.py
 test/test_event_v3.py
+test/test_event_v3_connections.py
+test/test_event_v3_entity.py
+test/test_event_v3_request_entity.py
 test/test_experiment.py
 test/test_experiment_campaign_copy.py
 test/test_experiment_copy.py
@@ -1804,6 +1819,7 @@ test/test_integration_hub_event_payload_loyalty_profile_based_points_changed_not
 test/test_integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification.py
 test/test_integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification.py
 test/test_integration_hub_event_record.py
+test/test_integration_hub_event_status_update.py
 test/test_integration_hub_flow.py
 test/test_integration_hub_flow_config.py
 test/test_integration_hub_flow_config_response.py
@@ -1920,6 +1936,7 @@ test/test_new_customer_session.py
 test/test_new_customer_session_v2.py
 test/test_new_event.py
 test/test_new_event_type.py
+test/test_new_event_v3_entity.py
 test/test_new_experiment.py
 test/test_new_experiment_variant.py
 test/test_new_experiment_variant_array.py
@@ -2015,6 +2032,7 @@ test/test_revision_activation.py
 test/test_revision_activation_request.py
 test/test_revision_version.py
 test/test_reward.py
+test/test_reward_points_required.py
 test/test_risk_notification.py
 test/test_role.py
 test/test_role_assign.py
