@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.binding import Binding
+from talon_one.models.reward_points_required import RewardPointsRequired
 from talon_one.models.rule import Rule
 from typing import Optional, Set
 from typing_extensions import Self
@@ -36,7 +37,8 @@ class UpdateReward(BaseModel):
     visibility_conditions: Optional[Rule] = Field(default=None, description="An optional rule that manages who can see this reward. If not specified, the reward is visible to all customers.  **Note:** Only the `condition` field is evaluated within this rule. The `effects` field must be an empty array, and `bindings` are not supported. ", alias="visibilityConditions")
     rule: Optional[Rule] = Field(default=None, description="Rule to apply.  **Note**: The `bindings` field inside the rule must not be used in this endpoint. All bindings should be defined at the reward level via the top-level `bindings` field. ")
     bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.")
-    __properties: ClassVar[List[str]] = ["name", "description", "status", "visibilityConditions", "rule", "bindings"]
+    points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate the reward. Each object defines the specific loyalty program and subledger from which points are deducted when activating the reward.  **Note:** - Objects with an `id` are updated. - Objects without an `id` are created. - Existing objects omitted from the payload are deleted. ", alias="pointsRequired")
+    __properties: ClassVar[List[str]] = ["name", "description", "status", "visibilityConditions", "rule", "bindings", "pointsRequired"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -97,6 +99,13 @@ class UpdateReward(BaseModel):
                 if _item_bindings:
                     _items.append(_item_bindings.to_dict())
             _dict['bindings'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in points_required (list)
+        _items = []
+        if self.points_required:
+            for _item_points_required in self.points_required:
+                if _item_points_required:
+                    _items.append(_item_points_required.to_dict())
+            _dict['pointsRequired'] = _items
         return _dict
 
     @classmethod
@@ -114,7 +123,8 @@ class UpdateReward(BaseModel):
             "status": obj.get("status"),
             "visibilityConditions": Rule.from_dict(obj["visibilityConditions"]) if obj.get("visibilityConditions") is not None else None,
             "rule": Rule.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
-            "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None
+            "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None,
+            "pointsRequired": [RewardPointsRequired.from_dict(_item) for _item in obj["pointsRequired"]] if obj.get("pointsRequired") is not None else None
         })
         return _obj
 

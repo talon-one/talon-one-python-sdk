@@ -30,15 +30,16 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(Bas
     """ # noqa: E501
     profile_integration_id: StrictStr = Field(alias="ProfileIntegrationID")
     loyalty_program_id: StrictInt = Field(alias="LoyaltyProgramID")
+    loyalty_program_name: StrictStr = Field(description="The name of the loyalty program.", alias="LoyaltyProgramName")
     subledger_id: StrictStr = Field(alias="SubledgerID")
     source_of_event: StrictStr = Field(alias="SourceOfEvent")
-    current_tier: Optional[StrictStr] = Field(default=None, alias="CurrentTier")
+    current_tier: Optional[StrictStr] = Field(default=None, description="The name of the customer's current tier, or null if the customer was downgraded below all tiers.", alias="CurrentTier")
     current_points: Union[StrictFloat, StrictInt] = Field(alias="CurrentPoints")
     old_tier: Optional[StrictStr] = Field(default=None, alias="OldTier")
     tier_expiration_date: Optional[datetime] = Field(default=None, alias="TierExpirationDate")
     timestamp_of_tier_change: Optional[datetime] = Field(default=None, alias="TimestampOfTierChange")
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
-    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "SubledgerID", "SourceOfEvent", "CurrentTier", "CurrentPoints", "OldTier", "TierExpirationDate", "TimestampOfTierChange", "PublishedAt"]
+    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "CurrentPoints", "OldTier", "TierExpirationDate", "TimestampOfTierChange", "PublishedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -93,6 +94,7 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(Bas
         _obj = cls.model_validate({
             "ProfileIntegrationID": obj.get("ProfileIntegrationID"),
             "LoyaltyProgramID": obj.get("LoyaltyProgramID"),
+            "LoyaltyProgramName": obj.get("LoyaltyProgramName"),
             "SubledgerID": obj.get("SubledgerID"),
             "SourceOfEvent": obj.get("SourceOfEvent"),
             "CurrentTier": obj.get("CurrentTier"),

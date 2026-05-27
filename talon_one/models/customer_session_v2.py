@@ -53,8 +53,9 @@ class CustomerSessionV2(BaseModel):
     total: Union[StrictFloat, StrictInt] = Field(description="The total value of cart items and additional costs in the session, before any discounts are applied.")
     cart_item_total: Union[StrictFloat, StrictInt] = Field(description="The total value of cart items, before any discounts are applied.", alias="cartItemTotal")
     additional_cost_total: Union[StrictFloat, StrictInt] = Field(description="The total value of additional costs, before any discounts are applied.", alias="additionalCostTotal")
+    cart_item_additional_cost_total: Union[StrictFloat, StrictInt] = Field(description="The total value of additional costs applied to individual items, before any discounts are applied.", alias="cartItemAdditionalCostTotal")
     updated: datetime = Field(description="Timestamp of the most recent event received on this session.")
-    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "state", "cartItems", "experimentVariantAllocations", "additionalCosts", "identifiers", "attributes", "firstSession", "updateCount", "total", "cartItemTotal", "additionalCostTotal", "updated"]
+    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "state", "cartItems", "experimentVariantAllocations", "additionalCosts", "identifiers", "attributes", "firstSession", "updateCount", "total", "cartItemTotal", "additionalCostTotal", "cartItemAdditionalCostTotal", "updated"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -96,8 +97,10 @@ class CustomerSessionV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "cart_item_additional_cost_total",
         ])
 
         _dict = self.model_dump(
@@ -164,6 +167,7 @@ class CustomerSessionV2(BaseModel):
             "total": obj.get("total"),
             "cartItemTotal": obj.get("cartItemTotal"),
             "additionalCostTotal": obj.get("additionalCostTotal"),
+            "cartItemAdditionalCostTotal": obj.get("cartItemAdditionalCostTotal"),
             "updated": obj.get("updated")
         })
         return _obj

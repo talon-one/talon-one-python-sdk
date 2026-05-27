@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **total** | **float** | The total value of cart items and additional costs in the session, before any discounts are applied. | 
 **cart_item_total** | **float** | The total value of cart items, before any discounts are applied. | 
 **additional_cost_total** | **float** | The total value of additional costs, before any discounts are applied. | 
+**cart_item_additional_cost_total** | **float** | The total value of additional costs applied to individual items, before any discounts are applied. | [readonly] 
 **updated** | **datetime** | Timestamp of the most recent event received on this session. | 
 
 ## Example

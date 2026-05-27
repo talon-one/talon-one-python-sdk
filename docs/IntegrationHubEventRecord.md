@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **event_data** | **object** |  | 
 **published_at** | **datetime** |  | 
 **processed_at** | **datetime** |  | [optional] 
+**delivered_at** | **datetime** |  | [optional] 
 **process_after** | **datetime** |  | 
 **retry** | **int** |  | 
 

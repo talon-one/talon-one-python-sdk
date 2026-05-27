@@ -164,6 +164,7 @@ docs/CardLedgerTransactionLogEntryIntegrationAPI.md
 docs/CartItem.md
 docs/CartItemFilterTemplate.md
 docs/Catalog.md
+docs/CatalogAction.md
 docs/CatalogActionFilter.md
 docs/CatalogItem.md
 docs/CatalogRule.md
@@ -243,6 +244,9 @@ docs/EventAttributesEntity.md
 docs/EventType.md
 docs/EventV2.md
 docs/EventV3.md
+docs/EventV3Connections.md
+docs/EventV3Entity.md
+docs/EventV3RequestEntity.md
 docs/Experiment.md
 docs/ExperimentCampaignCopy.md
 docs/ExperimentCopy.md
@@ -367,6 +371,7 @@ docs/IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationActio
 docs/IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification.md
 docs/IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification.md
 docs/IntegrationHubEventRecord.md
+docs/IntegrationHubEventStatusUpdate.md
 docs/IntegrationHubFlow.md
 docs/IntegrationHubFlowConfig.md
 docs/IntegrationHubFlowConfigResponse.md
@@ -483,6 +488,7 @@ docs/NewCustomerSession.md
 docs/NewCustomerSessionV2.md
 docs/NewEvent.md
 docs/NewEventType.md
+docs/NewEventV3Entity.md
 docs/NewExperiment.md
 docs/NewExperimentVariant.md
 docs/NewExperimentVariantArray.md
@@ -578,6 +584,7 @@ docs/RevisionActivation.md
 docs/RevisionActivationRequest.md
 docs/RevisionVersion.md
 docs/Reward.md
+docs/RewardPointsRequired.md
 docs/RiskNotification.md
 docs/Role.md
 docs/RoleAssign.md
@@ -652,6 +659,8 @@ docs/StrikethroughSetDiscountPerItemMemberEffectProps.md
 docs/StrikethroughTrigger.md
 docs/SummarizeCampaignStoreBudget200Response.md
 docs/SummaryCampaignStoreBudget.md
+docs/SupportRequest.md
+docs/SupportRequestInput.md
 docs/TalangAttribute.md
 docs/TalangAttributeVisibility.md
 docs/TemplateArgDef.md
@@ -709,6 +718,7 @@ docs/UpdateReferralBatch.md
 docs/UpdateReward.md
 docs/UpdateRole.md
 docs/UpdateStore.md
+docs/UpdateSupportRequest.md
 docs/UpdateUser.md
 docs/User.md
 docs/UserEntity.md
@@ -889,6 +899,7 @@ talon_one/models/card_ledger_transaction_log_entry_integration_api.py
 talon_one/models/cart_item.py
 talon_one/models/cart_item_filter_template.py
 talon_one/models/catalog.py
+talon_one/models/catalog_action.py
 talon_one/models/catalog_action_filter.py
 talon_one/models/catalog_item.py
 talon_one/models/catalog_rule.py
@@ -968,6 +979,9 @@ talon_one/models/event_attributes_entity.py
 talon_one/models/event_type.py
 talon_one/models/event_v2.py
 talon_one/models/event_v3.py
+talon_one/models/event_v3_connections.py
+talon_one/models/event_v3_entity.py
+talon_one/models/event_v3_request_entity.py
 talon_one/models/experiment.py
 talon_one/models/experiment_campaign_copy.py
 talon_one/models/experiment_copy.py
@@ -1091,6 +1105,7 @@ talon_one/models/integration_hub_event_payload_loyalty_profile_based_points_chan
 talon_one/models/integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification.py
 talon_one/models/integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification.py
 talon_one/models/integration_hub_event_record.py
+talon_one/models/integration_hub_event_status_update.py
 talon_one/models/integration_hub_flow.py
 talon_one/models/integration_hub_flow_config.py
 talon_one/models/integration_hub_flow_config_response.py
@@ -1206,6 +1221,7 @@ talon_one/models/new_customer_session.py
 talon_one/models/new_customer_session_v2.py
 talon_one/models/new_event.py
 talon_one/models/new_event_type.py
+talon_one/models/new_event_v3_entity.py
 talon_one/models/new_experiment.py
 talon_one/models/new_experiment_variant.py
 talon_one/models/new_experiment_variant_array.py
@@ -1301,6 +1317,7 @@ talon_one/models/revision_activation.py
 talon_one/models/revision_activation_request.py
 talon_one/models/revision_version.py
 talon_one/models/reward.py
+talon_one/models/reward_points_required.py
 talon_one/models/risk_notification.py
 talon_one/models/role.py
 talon_one/models/role_assign.py
@@ -1375,6 +1392,8 @@ talon_one/models/strikethrough_set_discount_per_item_member_effect_props.py
 talon_one/models/strikethrough_trigger.py
 talon_one/models/summarize_campaign_store_budget200_response.py
 talon_one/models/summary_campaign_store_budget.py
+talon_one/models/support_request.py
+talon_one/models/support_request_input.py
 talon_one/models/talang_attribute.py
 talon_one/models/talang_attribute_visibility.py
 talon_one/models/template_arg_def.py
@@ -1432,6 +1451,7 @@ talon_one/models/update_referral_batch.py
 talon_one/models/update_reward.py
 talon_one/models/update_role.py
 talon_one/models/update_store.py
+talon_one/models/update_support_request.py
 talon_one/models/update_user.py
 talon_one/models/user.py
 talon_one/models/user_entity.py
@@ -1601,6 +1621,7 @@ test/test_card_ledger_transaction_log_entry_integration_api.py
 test/test_cart_item.py
 test/test_cart_item_filter_template.py
 test/test_catalog.py
+test/test_catalog_action.py
 test/test_catalog_action_filter.py
 test/test_catalog_item.py
 test/test_catalog_rule.py
@@ -1680,6 +1701,9 @@ test/test_event_attributes_entity.py
 test/test_event_type.py
 test/test_event_v2.py
 test/test_event_v3.py
+test/test_event_v3_connections.py
+test/test_event_v3_entity.py
+test/test_event_v3_request_entity.py
 test/test_experiment.py
 test/test_experiment_campaign_copy.py
 test/test_experiment_copy.py
@@ -1804,6 +1828,7 @@ test/test_integration_hub_event_payload_loyalty_profile_based_points_changed_not
 test/test_integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification.py
 test/test_integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification.py
 test/test_integration_hub_event_record.py
+test/test_integration_hub_event_status_update.py
 test/test_integration_hub_flow.py
 test/test_integration_hub_flow_config.py
 test/test_integration_hub_flow_config_response.py
@@ -1920,6 +1945,7 @@ test/test_new_customer_session.py
 test/test_new_customer_session_v2.py
 test/test_new_event.py
 test/test_new_event_type.py
+test/test_new_event_v3_entity.py
 test/test_new_experiment.py
 test/test_new_experiment_variant.py
 test/test_new_experiment_variant_array.py
@@ -2015,6 +2041,7 @@ test/test_revision_activation.py
 test/test_revision_activation_request.py
 test/test_revision_version.py
 test/test_reward.py
+test/test_reward_points_required.py
 test/test_risk_notification.py
 test/test_role.py
 test/test_role_assign.py
@@ -2089,6 +2116,8 @@ test/test_strikethrough_set_discount_per_item_member_effect_props.py
 test/test_strikethrough_trigger.py
 test/test_summarize_campaign_store_budget200_response.py
 test/test_summary_campaign_store_budget.py
+test/test_support_request.py
+test/test_support_request_input.py
 test/test_talang_attribute.py
 test/test_talang_attribute_visibility.py
 test/test_template_arg_def.py
@@ -2146,6 +2175,7 @@ test/test_update_referral_batch.py
 test/test_update_reward.py
 test/test_update_role.py
 test/test_update_store.py
+test/test_update_support_request.py
 test/test_update_user.py
 test/test_user.py
 test/test_user_entity.py

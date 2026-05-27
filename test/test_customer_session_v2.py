@@ -80,9 +80,10 @@ class TestCustomerSessionV2(unittest.TestCase):
                 attributes = {ShippingCity=Berlin},
                 first_session = True,
                 update_count = 3,
-                total = 119.99,
+                total = 134.99,
                 cart_item_total = 99.99,
                 additional_cost_total = 20,
+                cart_item_additional_cost_total = 15,
                 updated = '2020-02-08T14:15:22Z'
             )
         else:
@@ -93,9 +94,10 @@ class TestCustomerSessionV2(unittest.TestCase):
                 application_id = 322,
                 first_session = True,
                 update_count = 3,
-                total = 119.99,
+                total = 134.99,
                 cart_item_total = 99.99,
                 additional_cost_total = 20,
+                cart_item_additional_cost_total = 15,
                 updated = '2020-02-08T14:15:22Z',
         )
         """

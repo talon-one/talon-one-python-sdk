@@ -37,8 +37,8 @@ class NewExperiment(BaseModel):
     @field_validator('goal_type')
     def goal_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['other', 'maximize_revenue', 'optimize_discount_efficiency', 'maximize_items_sold']):
-            raise ValueError("must be one of enum values ('other', 'maximize_revenue', 'optimize_discount_efficiency', 'maximize_items_sold')")
+        if value not in set(['other', 'maximize_revenue', 'maximize_items_sold', 'optimize_discount_efficiency']):
+            raise ValueError("must be one of enum values ('other', 'maximize_revenue', 'maximize_items_sold', 'optimize_discount_efficiency')")
         return value
 
     model_config = ConfigDict(
@@ -97,7 +97,7 @@ class NewExperiment(BaseModel):
         _obj = cls.model_validate({
             "isVariantAssignmentExternal": obj.get("isVariantAssignmentExternal"),
             "campaign": NewCampaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
-            "goalType": obj.get("goalType"),
+            "goalType": obj.get("goalType") if obj.get("goalType") is not None else 'other',
             "goalDescription": obj.get("goalDescription")
         })
         return _obj

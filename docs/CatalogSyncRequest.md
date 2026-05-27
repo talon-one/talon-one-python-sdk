@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**actions** | **List[object]** |  | 
+**actions** | [**List[CatalogAction]**](CatalogAction.md) |  | 
 **version** | **int** | The version number of the catalog to apply the actions on. | [optional] 
 
 ## Example

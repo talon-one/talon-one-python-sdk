@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from talon_one.models.catalog_action import CatalogAction
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,7 +29,7 @@ class CatalogSyncRequest(BaseModel):
     """
     CatalogSyncRequest
     """ # noqa: E501
-    actions: Annotated[List[Dict[str, Any]], Field(min_length=1, max_length=1000)]
+    actions: Annotated[List[CatalogAction], Field(min_length=1, max_length=1000)]
     version: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="The version number of the catalog to apply the actions on.")
     __properties: ClassVar[List[str]] = ["actions", "version"]
 
@@ -71,6 +72,13 @@ class CatalogSyncRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in actions (list)
+        _items = []
+        if self.actions:
+            for _item_actions in self.actions:
+                if _item_actions:
+                    _items.append(_item_actions.to_dict())
+            _dict['actions'] = _items
         return _dict
 
     @classmethod
@@ -83,7 +91,7 @@ class CatalogSyncRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "actions": obj.get("actions"),
+            "actions": [CatalogAction.from_dict(_item) for _item in obj["actions"]] if obj.get("actions") is not None else None,
             "version": obj.get("version")
         })
         return _obj

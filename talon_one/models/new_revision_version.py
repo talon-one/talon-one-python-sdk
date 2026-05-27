@@ -53,8 +53,8 @@ class NewRevisionVersion(BaseModel):
             return value
 
         for i in value:
-            if i not in set(['coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements']):
-                raise ValueError("each list item must be one of ('coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements')")
+            if i not in set(['coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements', 'advancedEvents']):
+                raise ValueError("each list item must be one of ('coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements', 'advancedEvents')")
         return value
 
     model_config = ConfigDict(

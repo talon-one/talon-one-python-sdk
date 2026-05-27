@@ -34,9 +34,10 @@ class IntegrationHubEventRecord(BaseModel):
     event_data: Optional[Any] = Field(alias="EventData")
     published_at: datetime = Field(alias="PublishedAt")
     processed_at: Optional[datetime] = Field(default=None, alias="ProcessedAt")
+    delivered_at: Optional[datetime] = Field(default=None, alias="DeliveredAt")
     process_after: datetime = Field(alias="ProcessAfter")
     retry: StrictInt = Field(alias="Retry")
-    __properties: ClassVar[List[str]] = ["Id", "FlowId", "EventType", "EventData", "PublishedAt", "ProcessedAt", "ProcessAfter", "Retry"]
+    __properties: ClassVar[List[str]] = ["Id", "FlowId", "EventType", "EventData", "PublishedAt", "ProcessedAt", "DeliveredAt", "ProcessAfter", "Retry"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -100,6 +101,7 @@ class IntegrationHubEventRecord(BaseModel):
             "EventData": obj.get("EventData"),
             "PublishedAt": obj.get("PublishedAt"),
             "ProcessedAt": obj.get("ProcessedAt"),
+            "DeliveredAt": obj.get("DeliveredAt"),
             "ProcessAfter": obj.get("ProcessAfter"),
             "Retry": obj.get("Retry")
         })

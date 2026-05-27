@@ -41,14 +41,14 @@ class AchievementV2(BaseModel):
     fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is set to `fixed_schedule`.  **Note:** It must be an RFC3339 timestamp string. ", alias="fixedStartDate")
     end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It must be an RFC3339 timestamp string. ", alias="endDate")
     allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion")
-    sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.")
     subscribed_applications: Annotated[List[StrictInt], Field(min_length=0)] = Field(description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications")
-    timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
     user_id: StrictInt = Field(description="The ID of the user that created this achievement.", alias="userId")
     created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy")
     has_progress: Optional[StrictBool] = Field(default=None, description="Indicates if a customer has made progress in the achievement.", alias="hasProgress")
     status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.")
-    __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "sandbox", "subscribedApplications", "timezone", "userId", "createdBy", "hasProgress", "status"]
+    sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.")
+    timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
+    __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "subscribedApplications", "userId", "createdBy", "hasProgress", "status", "sandbox", "timezone"]
 
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
@@ -147,13 +147,13 @@ class AchievementV2(BaseModel):
             "fixedStartDate": obj.get("fixedStartDate"),
             "endDate": obj.get("endDate"),
             "allowRollbackAfterCompletion": obj.get("allowRollbackAfterCompletion"),
-            "sandbox": obj.get("sandbox"),
             "subscribedApplications": obj.get("subscribedApplications"),
-            "timezone": obj.get("timezone"),
             "userId": obj.get("userId"),
             "createdBy": obj.get("createdBy"),
             "hasProgress": obj.get("hasProgress"),
-            "status": obj.get("status")
+            "status": obj.get("status"),
+            "sandbox": obj.get("sandbox"),
+            "timezone": obj.get("timezone")
         })
         return _obj
 

@@ -41,6 +41,7 @@ class TestApplicationEvent(unittest.TestCase):
                 profile_id = 138,
                 store_id = 56,
                 store_integration_id = 'STORE-001',
+                integration_id = '175KJPS947296',
                 session_id = 56,
                 type = '',
                 attributes = None,

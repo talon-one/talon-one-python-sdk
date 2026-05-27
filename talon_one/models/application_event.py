@@ -37,12 +37,13 @@ class ApplicationEvent(BaseModel):
     profile_id: Optional[StrictInt] = Field(default=None, description="The globally unique Talon.One ID of the customer that created this entity.", alias="profileId")
     store_id: Optional[StrictInt] = Field(default=None, description="The ID of the store.", alias="storeId")
     store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId")
+    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The unique ID of the event. Only one event with this ID can be registered. ", alias="integrationId")
     session_id: Optional[StrictInt] = Field(default=None, description="The globally unique Talon.One ID of the session that contains this event.", alias="sessionId")
-    type: StrictStr = Field(description="A string representing the event. Must not be a reserved event name.")
+    type: StrictStr = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.")
     attributes: Dict[str, Any] = Field(description="Additional JSON serialized data associated with the event.")
     effects: List[Effect] = Field(description="An array containing the effects that were applied as a result of this event.")
     rule_failure_reasons: Optional[List[RuleFailureReason]] = Field(default=None, description="An array containing the rule failure reasons which happened during this event.", alias="ruleFailureReasons")
-    __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "profileId", "storeId", "storeIntegrationId", "sessionId", "type", "attributes", "effects", "ruleFailureReasons"]
+    __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "profileId", "storeId", "storeIntegrationId", "integrationId", "sessionId", "type", "attributes", "effects", "ruleFailureReasons"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -115,6 +116,7 @@ class ApplicationEvent(BaseModel):
             "profileId": obj.get("profileId"),
             "storeId": obj.get("storeId"),
             "storeIntegrationId": obj.get("storeIntegrationId"),
+            "integrationId": obj.get("integrationId"),
             "sessionId": obj.get("sessionId"),
             "type": obj.get("type"),
             "attributes": obj.get("attributes"),

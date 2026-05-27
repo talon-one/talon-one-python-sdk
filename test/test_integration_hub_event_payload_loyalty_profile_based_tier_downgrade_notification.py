@@ -37,6 +37,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
             return IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(
                 profile_integration_id = '',
                 loyalty_program_id = 56,
+                loyalty_program_name = '',
                 subledger_id = '',
                 source_of_event = '',
                 current_tier = '',
@@ -50,6 +51,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
             return IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(
                 profile_integration_id = '',
                 loyalty_program_id = 56,
+                loyalty_program_name = '',
                 subledger_id = '',
                 source_of_event = '',
                 current_points = 1.337,
