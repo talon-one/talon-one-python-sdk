@@ -36,14 +36,18 @@ class TestCatalogSyncRequest(unittest.TestCase):
         if include_optional:
             return CatalogSyncRequest(
                 actions = [
-                    talon_one.models.catalog_action.CatalogAction()
+                    talon_one.models.catalog_action.CatalogAction(
+                        type = 'ADD', 
+                        payload = talon_one.models.payload.payload(), )
                     ],
                 version = 244
             )
         else:
             return CatalogSyncRequest(
                 actions = [
-                    talon_one.models.catalog_action.CatalogAction()
+                    talon_one.models.catalog_action.CatalogAction(
+                        type = 'ADD', 
+                        payload = talon_one.models.payload.payload(), )
                     ],
         )
         """

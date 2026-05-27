@@ -28,7 +28,7 @@ class EventAttributesEntity(BaseModel):
     """
     EventAttributesEntity
     """ # noqa: E501
-    type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string representing the event name. Must not be a reserved event name. You create this value when you [create an attribute](https://docs.talon.one/docs/dev/concepts/entities/events#creating-a-custom-event) of type `event` in the Campaign Manager. ")
+    type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary additional JSON properties associated with the event. They must be created in the Campaign Manager before setting them with this property. See [creating custom attributes](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#creating-a-custom-attribute).")
     __properties: ClassVar[List[str]] = ["type", "attributes"]
 

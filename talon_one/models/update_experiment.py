@@ -30,8 +30,8 @@ class UpdateExperiment(BaseModel):
     """ # noqa: E501
     is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
     campaign: UpdateCampaign
-    goal_type: Optional[StrictStr] = Field(default=None, description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. ", alias="goalType")
-    goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. ", alias="goalDescription")
+    goal_type: Optional[StrictStr] = Field(default=None, description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. If omitted, the current value is preserved. ", alias="goalType")
+    goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. If omitted, the current value is preserved. ", alias="goalDescription")
     __properties: ClassVar[List[str]] = ["isVariantAssignmentExternal", "campaign", "goalType", "goalDescription"]
 
     @field_validator('goal_type')
@@ -40,8 +40,8 @@ class UpdateExperiment(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['other', 'maximize_revenue', 'optimize_discount_efficiency', 'maximize_items_sold']):
-            raise ValueError("must be one of enum values ('other', 'maximize_revenue', 'optimize_discount_efficiency', 'maximize_items_sold')")
+        if value not in set(['other', 'maximize_revenue', 'maximize_items_sold', 'optimize_discount_efficiency']):
+            raise ValueError("must be one of enum values ('other', 'maximize_revenue', 'maximize_items_sold', 'optimize_discount_efficiency')")
         return value
 
     model_config = ConfigDict(

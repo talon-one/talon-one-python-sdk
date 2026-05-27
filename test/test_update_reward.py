@@ -74,7 +74,14 @@ class TestUpdateReward(unittest.TestCase):
                         ], 
                     condition = [and, [couponValid]], 
                     effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], ),
-                bindings = []
+                bindings = [],
+                points_required = [
+                    talon_one.models.reward_points_required.RewardPointsRequired(
+                        id = 1, 
+                        amount = 500, 
+                        loyalty_program_id = 10, 
+                        subledger_id = 'mysubledger', )
+                    ]
             )
         else:
             return UpdateReward(

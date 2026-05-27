@@ -31,20 +31,21 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedNotification(BaseModel):
     """ # noqa: E501
     profile_integration_id: StrictStr = Field(alias="ProfileIntegrationID")
     loyalty_program_id: StrictInt = Field(alias="LoyaltyProgramID")
+    loyalty_program_name: StrictStr = Field(description="The name of the loyalty program.", alias="LoyaltyProgramName")
     subledger_id: StrictStr = Field(alias="SubledgerID")
     source_of_event: StrictStr = Field(alias="SourceOfEvent")
+    current_tier: StrictStr = Field(description="The name of the customer's current tier.", alias="CurrentTier")
     employee_name: Optional[StrictStr] = Field(default=None, alias="EmployeeName")
     user_id: Optional[StrictInt] = Field(default=None, alias="UserID")
     current_points: Union[StrictFloat, StrictInt] = Field(alias="CurrentPoints")
     actions: Optional[List[IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction]] = Field(default=None, alias="Actions")
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
-    current_tier: Optional[StrictStr] = Field(default=None, alias="CurrentTier")
     old_tier: Optional[StrictStr] = Field(default=None, alias="OldTier")
     tier_expiration_date: Optional[datetime] = Field(default=None, alias="TierExpirationDate")
     timestamp_of_tier_change: Optional[datetime] = Field(default=None, alias="TimestampOfTierChange")
     points_required_to_the_next_tier: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="PointsRequiredToTheNextTier")
     next_tier: Optional[StrictStr] = Field(default=None, alias="NextTier")
-    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "SubledgerID", "SourceOfEvent", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt", "CurrentTier", "OldTier", "TierExpirationDate", "TimestampOfTierChange", "PointsRequiredToTheNextTier", "NextTier"]
+    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt", "OldTier", "TierExpirationDate", "TimestampOfTierChange", "PointsRequiredToTheNextTier", "NextTier"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -106,14 +107,15 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedNotification(BaseModel):
         _obj = cls.model_validate({
             "ProfileIntegrationID": obj.get("ProfileIntegrationID"),
             "LoyaltyProgramID": obj.get("LoyaltyProgramID"),
+            "LoyaltyProgramName": obj.get("LoyaltyProgramName"),
             "SubledgerID": obj.get("SubledgerID"),
             "SourceOfEvent": obj.get("SourceOfEvent"),
+            "CurrentTier": obj.get("CurrentTier"),
             "EmployeeName": obj.get("EmployeeName"),
             "UserID": obj.get("UserID"),
             "CurrentPoints": obj.get("CurrentPoints"),
             "Actions": [IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction.from_dict(_item) for _item in obj["Actions"]] if obj.get("Actions") is not None else None,
             "PublishedAt": obj.get("PublishedAt"),
-            "CurrentTier": obj.get("CurrentTier"),
             "OldTier": obj.get("OldTier"),
             "TierExpirationDate": obj.get("TierExpirationDate"),
             "TimestampOfTierChange": obj.get("TimestampOfTierChange"),

@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Union
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from talon_one.models.best_prior_price_metadata import BestPriorPriceMetadata
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,11 +32,12 @@ class BestPriorPrice(BaseModel):
     id: StrictInt = Field(description="The ID of the historical price.")
     sku: StrictStr = Field(description="sku")
     observed_at: datetime = Field(description="The date and time when the price was observed.", alias="observedAt")
-    context_id: StrictStr = Field(description="The context ID of the context active at the time of observation. ", alias="contextId")
+    context_ids: List[StrictStr] = Field(description="The identifiers of the relevant context at the time the price was observed. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price. ", alias="contextIds")
+    context_id: Optional[StrictStr] = Field(default='', description="This property is **deprecated**. Use `contextIds` instead. Defaults to an empty string. ", alias="contextId")
     price: Union[StrictFloat, StrictInt] = Field(description="Price of the item.")
     metadata: BestPriorPriceMetadata
     target: Dict[str, Any]
-    __properties: ClassVar[List[str]] = ["id", "sku", "observedAt", "contextId", "price", "metadata", "target"]
+    __properties: ClassVar[List[str]] = ["id", "sku", "observedAt", "contextIds", "contextId", "price", "metadata", "target"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -95,7 +96,8 @@ class BestPriorPrice(BaseModel):
             "id": obj.get("id"),
             "sku": obj.get("sku"),
             "observedAt": obj.get("observedAt"),
-            "contextId": obj.get("contextId"),
+            "contextIds": obj.get("contextIds"),
+            "contextId": obj.get("contextId") if obj.get("contextId") is not None else '',
             "price": obj.get("price"),
             "metadata": BestPriorPriceMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None,
             "target": obj.get("target")

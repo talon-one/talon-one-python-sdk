@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **id** | **int** | The ID of the historical price. | 
 **sku** | **str** | sku | 
 **observed_at** | **datetime** | The date and time when the price was observed. | 
-**context_id** | **str** | The context ID of the context active at the time of observation.  | 
+**context_ids** | **List[str]** | The identifiers of the relevant context at the time the price was observed. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price.  | 
+**context_id** | **str** | This property is **deprecated**. Use &#x60;contextIds&#x60; instead. Defaults to an empty string.  | [optional] [default to '']
 **price** | **float** | Price of the item. | 
 **metadata** | [**BestPriorPriceMetadata**](BestPriorPriceMetadata.md) |  | 
 **target** | **object** |  | 

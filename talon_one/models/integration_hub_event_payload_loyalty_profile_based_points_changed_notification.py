@@ -31,14 +31,16 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
     """ # noqa: E501
     profile_integration_id: StrictStr = Field(alias="ProfileIntegrationID")
     loyalty_program_id: StrictInt = Field(alias="LoyaltyProgramID")
+    loyalty_program_name: StrictStr = Field(description="The name of the loyalty program.", alias="LoyaltyProgramName")
     subledger_id: StrictStr = Field(alias="SubledgerID")
     source_of_event: StrictStr = Field(alias="SourceOfEvent")
+    current_tier: StrictStr = Field(description="The name of the customer's current tier.", alias="CurrentTier")
     employee_name: Optional[StrictStr] = Field(default=None, alias="EmployeeName")
     user_id: Optional[StrictInt] = Field(default=None, alias="UserID")
     current_points: Union[StrictFloat, StrictInt] = Field(alias="CurrentPoints")
     actions: Optional[List[IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction]] = Field(default=None, alias="Actions")
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
-    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "SubledgerID", "SourceOfEvent", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt"]
+    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -100,8 +102,10 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
         _obj = cls.model_validate({
             "ProfileIntegrationID": obj.get("ProfileIntegrationID"),
             "LoyaltyProgramID": obj.get("LoyaltyProgramID"),
+            "LoyaltyProgramName": obj.get("LoyaltyProgramName"),
             "SubledgerID": obj.get("SubledgerID"),
             "SourceOfEvent": obj.get("SourceOfEvent"),
+            "CurrentTier": obj.get("CurrentTier"),
             "EmployeeName": obj.get("EmployeeName"),
             "UserID": obj.get("UserID"),
             "CurrentPoints": obj.get("CurrentPoints"),

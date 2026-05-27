@@ -167,6 +167,7 @@ from talon_one.models.card_ledger_transaction_log_entry_integration_api import C
 from talon_one.models.cart_item import CartItem
 from talon_one.models.cart_item_filter_template import CartItemFilterTemplate
 from talon_one.models.catalog import Catalog
+from talon_one.models.catalog_action import CatalogAction
 from talon_one.models.catalog_action_filter import CatalogActionFilter
 from talon_one.models.catalog_item import CatalogItem
 from talon_one.models.catalog_rule import CatalogRule
@@ -246,6 +247,9 @@ from talon_one.models.event_attributes_entity import EventAttributesEntity
 from talon_one.models.event_type import EventType
 from talon_one.models.event_v2 import EventV2
 from talon_one.models.event_v3 import EventV3
+from talon_one.models.event_v3_connections import EventV3Connections
+from talon_one.models.event_v3_entity import EventV3Entity
+from talon_one.models.event_v3_request_entity import EventV3RequestEntity
 from talon_one.models.experiment import Experiment
 from talon_one.models.experiment_campaign_copy import ExperimentCampaignCopy
 from talon_one.models.experiment_copy import ExperimentCopy
@@ -369,6 +373,7 @@ from talon_one.models.integration_hub_event_payload_loyalty_profile_based_points
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification
 from talon_one.models.integration_hub_event_record import IntegrationHubEventRecord
+from talon_one.models.integration_hub_event_status_update import IntegrationHubEventStatusUpdate
 from talon_one.models.integration_hub_flow import IntegrationHubFlow
 from talon_one.models.integration_hub_flow_config import IntegrationHubFlowConfig
 from talon_one.models.integration_hub_flow_config_response import IntegrationHubFlowConfigResponse
@@ -484,6 +489,7 @@ from talon_one.models.new_customer_session import NewCustomerSession
 from talon_one.models.new_customer_session_v2 import NewCustomerSessionV2
 from talon_one.models.new_event import NewEvent
 from talon_one.models.new_event_type import NewEventType
+from talon_one.models.new_event_v3_entity import NewEventV3Entity
 from talon_one.models.new_experiment import NewExperiment
 from talon_one.models.new_experiment_variant import NewExperimentVariant
 from talon_one.models.new_experiment_variant_array import NewExperimentVariantArray
@@ -579,6 +585,7 @@ from talon_one.models.revision_activation import RevisionActivation
 from talon_one.models.revision_activation_request import RevisionActivationRequest
 from talon_one.models.revision_version import RevisionVersion
 from talon_one.models.reward import Reward
+from talon_one.models.reward_points_required import RewardPointsRequired
 from talon_one.models.risk_notification import RiskNotification
 from talon_one.models.role import Role
 from talon_one.models.role_assign import RoleAssign
@@ -653,6 +660,8 @@ from talon_one.models.strikethrough_set_discount_per_item_member_effect_props im
 from talon_one.models.strikethrough_trigger import StrikethroughTrigger
 from talon_one.models.summarize_campaign_store_budget200_response import SummarizeCampaignStoreBudget200Response
 from talon_one.models.summary_campaign_store_budget import SummaryCampaignStoreBudget
+from talon_one.models.support_request import SupportRequest
+from talon_one.models.support_request_input import SupportRequestInput
 from talon_one.models.talang_attribute import TalangAttribute
 from talon_one.models.talang_attribute_visibility import TalangAttributeVisibility
 from talon_one.models.template_arg_def import TemplateArgDef
@@ -710,6 +719,7 @@ from talon_one.models.update_referral_batch import UpdateReferralBatch
 from talon_one.models.update_reward import UpdateReward
 from talon_one.models.update_role import UpdateRole
 from talon_one.models.update_store import UpdateStore
+from talon_one.models.update_support_request import UpdateSupportRequest
 from talon_one.models.update_user import UpdateUser
 from talon_one.models.user import User
 from talon_one.models.user_entity import UserEntity

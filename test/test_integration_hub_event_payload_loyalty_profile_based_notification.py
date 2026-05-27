@@ -37,8 +37,10 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedNotification(unittest.Tes
             return IntegrationHubEventPayloadLoyaltyProfileBasedNotification(
                 profile_integration_id = '',
                 loyalty_program_id = 56,
+                loyalty_program_name = '',
                 subledger_id = '',
                 source_of_event = '',
+                current_tier = '',
                 employee_name = '',
                 user_id = 56,
                 current_points = 1.337,
@@ -46,7 +48,6 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedNotification(unittest.Tes
                     null
                     ],
                 published_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                current_tier = '',
                 old_tier = '',
                 tier_expiration_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 timestamp_of_tier_change = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
@@ -57,8 +58,10 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedNotification(unittest.Tes
             return IntegrationHubEventPayloadLoyaltyProfileBasedNotification(
                 profile_integration_id = '',
                 loyalty_program_id = 56,
+                loyalty_program_name = '',
                 subledger_id = '',
                 source_of_event = '',
+                current_tier = '',
                 current_points = 1.337,
                 published_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
         )

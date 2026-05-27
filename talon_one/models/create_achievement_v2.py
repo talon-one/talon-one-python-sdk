@@ -39,10 +39,10 @@ class CreateAchievementV2(BaseModel):
     fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is set to `fixed_schedule`.  **Note:** It must be an RFC3339 timestamp string. ", alias="fixedStartDate")
     end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It must be an RFC3339 timestamp string. ", alias="endDate")
     allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion")
-    sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.")
     subscribed_applications: Optional[Annotated[List[StrictInt], Field(min_length=0)]] = Field(default=None, description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications")
+    sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.")
     timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
-    __properties: ClassVar[List[str]] = ["name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "sandbox", "subscribedApplications", "timezone"]
+    __properties: ClassVar[List[str]] = ["name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "subscribedApplications", "sandbox", "timezone"]
 
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
@@ -135,8 +135,8 @@ class CreateAchievementV2(BaseModel):
             "fixedStartDate": obj.get("fixedStartDate"),
             "endDate": obj.get("endDate"),
             "allowRollbackAfterCompletion": obj.get("allowRollbackAfterCompletion"),
-            "sandbox": obj.get("sandbox"),
             "subscribedApplications": obj.get("subscribedApplications"),
+            "sandbox": obj.get("sandbox"),
             "timezone": obj.get("timezone")
         })
         return _obj
