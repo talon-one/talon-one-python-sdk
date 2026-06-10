@@ -28,9 +28,9 @@ class MessageLogResponse(BaseModel):
     """
     Details of the response.
     """ # noqa: E501
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the response was received.", alias="createdAt")
-    response: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="Raw response data.")
-    status: Optional[StrictInt] = Field(default=None, description="HTTP status code of the response.")
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the response was received.", alias="createdAt", json_schema_extra={"examples": ["2021-07-20T22:00:50Z"]})
+    response: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="Raw response data.", json_schema_extra={"examples": ["UmVzcG9uc2UgY29udGVudA=="]})
+    status: Optional[StrictInt] = Field(default=None, description="HTTP status code of the response.", json_schema_extra={"examples": [200]})
     __properties: ClassVar[List[str]] = ["createdAt", "response", "status"]
 
     model_config = ConfigDict(

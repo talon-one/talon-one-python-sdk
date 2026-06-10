@@ -50,8 +50,9 @@ class TestAchievementV2(unittest.TestCase):
                 subscribed_applications = [132, 97],
                 user_id = 1234,
                 created_by = 'John Doe',
+                period_end_override = {month=11, dayOfMonth=23, hour=23, minute=59, second=59},
                 has_progress = True,
-                status = 'inprogress',
+                status = 'active',
                 sandbox = True,
                 timezone = 'Europe/Berlin'
             )

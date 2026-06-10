@@ -27,8 +27,8 @@ class AudienceMembership(BaseModel):
     """
     AudienceMembership
     """ # noqa: E501
-    id: StrictInt = Field(description="The ID of the audience belonging to this entity.")
-    name: StrictStr = Field(description="The Name of the audience belonging to this entity.")
+    id: StrictInt = Field(description="The ID of the audience belonging to this entity.", json_schema_extra={"examples": [2]})
+    name: StrictStr = Field(description="The Name of the audience belonging to this entity.", json_schema_extra={"examples": ["Travel audience"]})
     __properties: ClassVar[List[str]] = ["id", "name"]
 
     model_config = ConfigDict(

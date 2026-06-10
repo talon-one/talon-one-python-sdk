@@ -28,8 +28,8 @@ class NewLoyaltyTier(BaseModel):
     """
     A tier in a loyalty program.
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the tier.")
-    min_points: Union[Annotated[float, Field(le=999999999999.99, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]] = Field(description="The minimum amount of points required to enter the tier.", alias="minPoints")
+    name: StrictStr = Field(description="The name of the tier.", json_schema_extra={"examples": ["Gold"]})
+    min_points: Union[Annotated[float, Field(le=999999999999.99, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]] = Field(description="The minimum amount of points required to enter the tier.", alias="minPoints", json_schema_extra={"examples": [300]})
     __properties: ClassVar[List[str]] = ["name", "minPoints"]
 
     model_config = ConfigDict(

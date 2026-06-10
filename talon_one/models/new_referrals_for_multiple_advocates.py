@@ -29,14 +29,14 @@ class NewReferralsForMultipleAdvocates(BaseModel):
     """
     NewReferralsForMultipleAdvocates
     """ # noqa: E501
-    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the referral code becomes valid.", alias="startDate")
-    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the referral code. Referral never expires if this is omitted.", alias="expiryDate")
-    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times a referral code can be used. `0` means no limit but any campaign usage limits will still apply. ", alias="usageLimit")
-    campaign_id: StrictInt = Field(description="The ID of the campaign from which the referral received the referral code.", alias="campaignId")
-    advocate_profile_integration_ids: Annotated[List[StrictStr], Field(min_length=1, max_length=1000)] = Field(description="An array containing all the respective advocate profiles.", alias="advocateProfileIntegrationIds")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this referral code.")
-    valid_characters: Optional[List[StrictStr]] = Field(default=None, description="List of characters used to generate the random parts of a code. By default, the list of characters is equivalent to the `[A-Z, 0-9]` regular expression. ", alias="validCharacters")
-    referral_pattern: Optional[Annotated[str, Field(min_length=3, strict=True, max_length=100)]] = Field(default=None, description="The pattern used to generate referrals. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="referralPattern")
+    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the referral code becomes valid.", alias="startDate", json_schema_extra={"examples": ["2020-11-10T23:00:00Z"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the referral code. Referral never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2021-11-10T23:00:00Z"]})
+    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times a referral code can be used. `0` means no limit but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [1]})
+    campaign_id: StrictInt = Field(description="The ID of the campaign from which the referral received the referral code.", alias="campaignId", json_schema_extra={"examples": [45]})
+    advocate_profile_integration_ids: Annotated[List[StrictStr], Field(min_length=1, max_length=1000)] = Field(description="An array containing all the respective advocate profiles.", alias="advocateProfileIntegrationIds", json_schema_extra={"examples": [["URNGV8294NV", "DRPVV9476AF"]]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    valid_characters: Optional[List[StrictStr]] = Field(default=None, description="List of characters used to generate the random parts of a code. By default, the list of characters is equivalent to the `[A-Z, 0-9]` regular expression. ", alias="validCharacters", json_schema_extra={"examples": [["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]]})
+    referral_pattern: Optional[Annotated[str, Field(min_length=3, strict=True, max_length=100)]] = Field(default=None, description="The pattern used to generate referrals. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="referralPattern", json_schema_extra={"examples": ["REF-###-###"]})
     __properties: ClassVar[List[str]] = ["startDate", "expiryDate", "usageLimit", "campaignId", "advocateProfileIntegrationIds", "attributes", "validCharacters", "referralPattern"]
 
     model_config = ConfigDict(

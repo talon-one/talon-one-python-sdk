@@ -29,8 +29,8 @@ class CustomerActivityReport(BaseModel):
     """
     A summary report of customer activity for a given time range.
     """ # noqa: E501
-    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID set by your integration layer.", alias="integrationId")
-    created: datetime = Field(description="The time this entity was created.")
+    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID set by your integration layer.", alias="integrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-02-07T08:15:22Z"]})
     name: StrictStr = Field(description="The name for this customer profile.")
     customer_id: StrictInt = Field(description="The internal Talon.One ID of the customer.", alias="customerId")
     last_activity: Optional[datetime] = Field(default=None, description="The last activity of the customer.", alias="lastActivity")

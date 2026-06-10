@@ -28,22 +28,22 @@ class EffectEntity(BaseModel):
     """
     Definition of all properties that are present on all effects, independent of their type.
     """ # noqa: E501
-    experiment_id: Optional[StrictInt] = Field(default=None, description="The ID of the experiment that campaign belongs to.", alias="experimentId")
-    campaign_id: StrictInt = Field(description="The ID of the campaign that triggered this effect.", alias="campaignId")
-    ruleset_id: StrictInt = Field(description="The ID of the ruleset that was active in the campaign when this effect was triggered.", alias="rulesetId")
-    rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex")
-    rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName")
-    effect_type: StrictStr = Field(description="The type of effect that was triggered. See [API effects](https://docs.talon.one/docs/dev/integration-api/api-effects).", alias="effectType")
-    triggered_by_coupon: Optional[StrictInt] = Field(default=None, description="The ID of the coupon that was being evaluated when this effect was triggered.", alias="triggeredByCoupon")
-    triggered_for_catalog_item: Optional[StrictInt] = Field(default=None, description="The ID of the catalog item that was being evaluated when this effect was triggered.", alias="triggeredForCatalogItem")
-    condition_index: Optional[StrictInt] = Field(default=None, description="The index of the condition that was triggered.", alias="conditionIndex")
-    evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupID")
-    evaluation_group_mode: Optional[StrictStr] = Field(default=None, description="The evaluation mode of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupMode")
-    campaign_revision_id: Optional[StrictInt] = Field(default=None, description="The revision ID of the campaign that was used when triggering the effect.", alias="campaignRevisionId")
-    campaign_revision_version_id: Optional[StrictInt] = Field(default=None, description="The revision version ID of the campaign that was used when triggering the effect.", alias="campaignRevisionVersionId")
-    selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType")
-    selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice")
-    adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId")
+    experiment_id: Optional[StrictInt] = Field(default=None, description="The ID of the experiment that campaign belongs to.", alias="experimentId", json_schema_extra={"examples": [12]})
+    campaign_id: StrictInt = Field(description="The ID of the campaign that triggered this effect.", alias="campaignId", json_schema_extra={"examples": [244]})
+    ruleset_id: StrictInt = Field(description="The ID of the ruleset that was active in the campaign when this effect was triggered.", alias="rulesetId", json_schema_extra={"examples": [73]})
+    rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex", json_schema_extra={"examples": [2]})
+    rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Give 20% discount"]})
+    effect_type: StrictStr = Field(description="The type of effect that was triggered. See [API effects](https://docs.talon.one/docs/dev/integration-api/api-effects).", alias="effectType", json_schema_extra={"examples": ["rejectCoupon"]})
+    triggered_by_coupon: Optional[StrictInt] = Field(default=None, description="The ID of the coupon that was being evaluated when this effect was triggered.", alias="triggeredByCoupon", json_schema_extra={"examples": [4928]})
+    triggered_for_catalog_item: Optional[StrictInt] = Field(default=None, description="The ID of the catalog item that was being evaluated when this effect was triggered.", alias="triggeredForCatalogItem", json_schema_extra={"examples": [786]})
+    condition_index: Optional[StrictInt] = Field(default=None, description="The index of the condition that was triggered.", alias="conditionIndex", json_schema_extra={"examples": [786]})
+    evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupID", json_schema_extra={"examples": [3]})
+    evaluation_group_mode: Optional[StrictStr] = Field(default=None, description="The evaluation mode of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupMode", json_schema_extra={"examples": ["stackable"]})
+    campaign_revision_id: Optional[StrictInt] = Field(default=None, description="The revision ID of the campaign that was used when triggering the effect.", alias="campaignRevisionId", json_schema_extra={"examples": [1]})
+    campaign_revision_version_id: Optional[StrictInt] = Field(default=None, description="The revision version ID of the campaign that was used when triggering the effect.", alias="campaignRevisionVersionId", json_schema_extra={"examples": [5]})
+    selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
+    selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice", json_schema_extra={"examples": [100]})
+    adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
     __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId"]
 
     model_config = ConfigDict(

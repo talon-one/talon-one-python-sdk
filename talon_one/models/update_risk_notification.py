@@ -17,18 +17,42 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class ScimServiceProviderConfigResponseSort(BaseModel):
+class UpdateRiskNotification(BaseModel):
     """
-    Configuration settings related to sorting SCIM resources in query responses.
+    Data for updating a risk notification.
     """ # noqa: E501
-    supported: Optional[StrictBool] = Field(default=None, description="Indicates whether the service provider supports sorting operations for ordered query results.")
-    __properties: ClassVar[List[str]] = ["supported"]
+    entity: StrictStr = Field(description="The entity type to analyze within the given time frame.", json_schema_extra={"examples": ["customer_profile"]})
+    activity: StrictStr = Field(description="The activity metric to analyze within the given entity.", json_schema_extra={"examples": ["loyalty_points_earned"]})
+    time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame", json_schema_extra={"examples": ["1_week"]})
+    active: StrictBool = Field(description="Indicates whether this risk notification is active.", json_schema_extra={"examples": [True]})
+    __properties: ClassVar[List[str]] = ["entity", "activity", "timeFrame", "active"]
+
+    @field_validator('entity')
+    def entity_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['customer_profile', 'customer_session']):
+            raise ValueError("must be one of enum values ('customer_profile', 'customer_session')")
+        return value
+
+    @field_validator('activity')
+    def activity_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['loyalty_points_earned', 'discounted_amount', 'completed_orders', 'coupon_attempts']):
+            raise ValueError("must be one of enum values ('loyalty_points_earned', 'discounted_amount', 'completed_orders', 'coupon_attempts')")
+        return value
+
+    @field_validator('time_frame')
+    def time_frame_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['1_day', '1_week', '1_month']):
+            raise ValueError("must be one of enum values ('1_day', '1_week', '1_month')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -48,7 +72,7 @@ class ScimServiceProviderConfigResponseSort(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ScimServiceProviderConfigResponseSort from a JSON string"""
+        """Create an instance of UpdateRiskNotification from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,7 +97,7 @@ class ScimServiceProviderConfigResponseSort(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ScimServiceProviderConfigResponseSort from a dict"""
+        """Create an instance of UpdateRiskNotification from a dict"""
         if obj is None:
             return None
 
@@ -81,7 +105,10 @@ class ScimServiceProviderConfigResponseSort(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "supported": obj.get("supported")
+            "entity": obj.get("entity"),
+            "activity": obj.get("activity"),
+            "timeFrame": obj.get("timeFrame"),
+            "active": obj.get("active")
         })
         return _obj
 

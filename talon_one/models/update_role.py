@@ -27,10 +27,10 @@ class UpdateRole(BaseModel):
     """
     UpdateRole
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the role.")
-    description: Optional[StrictStr] = Field(default=None, description="Description of the role.")
-    acl: Optional[StrictStr] = Field(default=None, description="The `Access Control List` json defining the role of the user. This represents the access control on the user level.")
-    members: Optional[List[StrictInt]] = Field(default=None, description="An array of user identifiers.")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the role.", json_schema_extra={"examples": ["Campaign Manager"]})
+    description: Optional[StrictStr] = Field(default=None, description="Description of the role.", json_schema_extra={"examples": ["Manages the campaigns"]})
+    acl: Optional[StrictStr] = Field(default=None, description="The `Access Control List` json defining the role of the user. This represents the access control on the user level.", json_schema_extra={"examples": [{"Role": 128}]})
+    members: Optional[List[StrictInt]] = Field(default=None, description="An array of user identifiers.", json_schema_extra={"examples": [[48, 562, 475, 18]]})
     __properties: ClassVar[List[str]] = ["name", "description", "acl", "members"]
 
     model_config = ConfigDict(

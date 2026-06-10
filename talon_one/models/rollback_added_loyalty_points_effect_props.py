@@ -26,16 +26,16 @@ from pydantic_core import to_jsonable_python
 
 class RollbackAddedLoyaltyPointsEffectProps(BaseModel):
     """
-    The properties specific to the \"rollbackAddedLoyaltyPoints\" effect. This gets triggered whenever previously a closed session with an addLoyaltyPoints effect is cancelled.
+    This effect is triggered in the following cases:  - A session was cancelled in which loyalty points have been added. - A session was partially returned and loyalty point were added by the returned items. See [returning items](https://docs.talon.one/docs/dev/tutorials/partially-return-a-session).  If you use the [Add loyalty points per item effect](https://docs.talon.one/docs/product/rules/effects/available-effects#reward-effects), use the `cartItemPosition` property to identify which items the loyalty points were rolled back for.  If you use **Add loyalty points per item** and if the session contains some cart items with _quantity > 1_, use the `cartItemSubPosition` property to identify the item unit in its line item.  If the loyalty program is [profile-based](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types), use the `recipientIntegrationId` property to identify the user for whom the loyalty points are rolled back. If the loyalty program is [card-based](https://docs.talon.one/docs/product/loyalty-programs/overview#loyalty-program-types), use the `cardIdentifier` property to identify the loyalty card where the points were originally added.
     """ # noqa: E501
-    program_id: StrictInt = Field(description="The ID of the loyalty program where the points were originally added.", alias="programId")
-    sub_ledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were originally added.", alias="subLedgerId")
+    program_id: StrictInt = Field(description="The ID of the loyalty program where these points were rolled back.", alias="programId")
+    sub_ledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were rolled back.", alias="subLedgerId")
     value: Union[StrictFloat, StrictInt] = Field(description="The amount of points that were rolled back.")
-    recipient_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The user for whom these points were originally added.", alias="recipientIntegrationId")
-    transaction_uuid: StrictStr = Field(description="The identifier of 'deduction' entry added to the ledger as the `addLoyaltyPoints` effect is rolled back.", alias="transactionUUID")
-    cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item in the cart items for which the loyalty points were rolled back.", alias="cartItemPosition")
-    cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="For cart items with `quantity` > 1, the sub-position indicates to which item the loyalty points were rolled back. ", alias="cartItemSubPosition")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The card on which these points were originally added.", alias="cardIdentifier")
+    recipient_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The user for whom these points were rolled back.", alias="recipientIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    transaction_uuid: StrictStr = Field(description="The identifier of this loyalty point transaction.", alias="transactionUUID")
+    cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="(_Add points per cart item_ only.) The index of the item in the `cartItem` object for which these points were rolled back.", alias="cartItemPosition")
+    cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="(_Add points per cart item_ ) The index of the item unit in its line item.", alias="cartItemSubPosition")
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card on which these points were originally added.", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     __properties: ClassVar[List[str]] = ["programId", "subLedgerId", "value", "recipientIntegrationId", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier"]
 
     @field_validator('card_identifier')

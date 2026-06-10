@@ -28,10 +28,10 @@ class NewCampaignGroup(BaseModel):
     """
     NewCampaignGroup
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign access group.")
-    description: Optional[StrictStr] = Field(default=None, description="A longer description of the campaign access group.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the Applications that this campaign access group is enabled for.", alias="subscribedApplicationsIds")
-    campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the campaigns that are part of the campaign access group.", alias="campaignIds")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign access group.", json_schema_extra={"examples": ["Europe access group"]})
+    description: Optional[StrictStr] = Field(default=None, description="A longer description of the campaign access group.", json_schema_extra={"examples": ["A group that gives access to all the campaigns for the Europe market."]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the Applications that this campaign access group is enabled for.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the campaigns that are part of the campaign access group.", alias="campaignIds", json_schema_extra={"examples": [[4, 6, 8]]})
     __properties: ClassVar[List[str]] = ["name", "description", "subscribedApplicationsIds", "campaignIds"]
 
     model_config = ConfigDict(

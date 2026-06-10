@@ -25,15 +25,15 @@ from pydantic_core import to_jsonable_python
 
 class SetDiscountPerAdditionalCostPerItemEffectProps(BaseModel):
     """
-    The properties specific to the \"setDiscountPerAdditionalCostPerItem\" effect. This gets triggered whenever a validated rule contained a \"set discount per additional cost per item\" effect. This is a discount that should be applied on a specific additional cost in a specific item.
+    This effect indicates that a discount of a specific additional cost within a specific item should be applied. It gets triggered whenever a rule containing a **Discount additional cost per item** effect is validated.  Use this effect when **all** items in the cart have an additional cost. If one of more items do not have an additional cost, the rule will fail.
     """ # noqa: E501
-    name: StrictStr = Field(description="The name / description of this discount")
-    additional_cost_id: StrictInt = Field(description="The ID of the additional cost.", alias="additionalCostId")
-    value: Union[StrictFloat, StrictInt] = Field(description="The total monetary value of the discount.")
-    position: Union[StrictFloat, StrictInt] = Field(description="The index of the item in the cart item list containing the additional cost to be discounted.")
-    sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="For cart items with `quantity` > 1, the sub position indicates which item the discount applies to. ", alias="subPosition")
-    additional_cost: StrictStr = Field(description="The name of the additional cost.", alias="additionalCost")
-    desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Only with [partial discounts enabled](https://docs.talon.one/docs/product/campaigns/campaign-evaluation/#partial-discounts). Represents the monetary value of the discount to be applied to additional discount without considering budget limitations. ", alias="desiredValue")
+    name: StrictStr = Field(description="The description of this discount. `#number` is appended to the name. It is equal to the `position` property.")
+    additional_cost_id: StrictInt = Field(description="The identifier of the additional cost to be discounted.", alias="additionalCostId")
+    value: Union[StrictFloat, StrictInt] = Field(description="The monetary value of the effective discount applied to the item's additional cost.")
+    position: Union[StrictFloat, StrictInt] = Field(description="The index of the item in the `cartItem` object containing the additional cost that this discount applies to.")
+    sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item unit in its line item.", alias="subPosition")
+    additional_cost: StrictStr = Field(description="The API name of the additional cost to be discounted.", alias="additionalCost")
+    desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_[(Partial discounts enabled only)](https://docs.talon.one/docs/product/applications/manage-general-settings#partial-discounts)_. The monetary value of the discount to be applied to the additional cost without considering budget limitations.", alias="desiredValue")
     __properties: ClassVar[List[str]] = ["name", "additionalCostId", "value", "position", "subPosition", "additionalCost", "desiredValue"]
 
     model_config = ConfigDict(

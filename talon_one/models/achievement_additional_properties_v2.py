@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.time_point import TimePoint
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,11 +28,12 @@ class AchievementAdditionalPropertiesV2(BaseModel):
     """
     AchievementAdditionalPropertiesV2
     """ # noqa: E501
-    user_id: StrictInt = Field(description="The ID of the user that created this achievement.", alias="userId")
-    created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy")
+    user_id: StrictInt = Field(description="The ID of the user that created this achievement.", alias="userId", json_schema_extra={"examples": [1234]})
+    created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy", json_schema_extra={"examples": ["John Doe"]})
+    period_end_override: Optional[TimePoint] = Field(default=None, alias="periodEndOverride")
     has_progress: Optional[StrictBool] = Field(default=None, description="Indicates if a customer has made progress in the achievement.", alias="hasProgress")
-    status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.")
-    __properties: ClassVar[List[str]] = ["userId", "createdBy", "hasProgress", "status"]
+    status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.                                                                                               - `active`: The achievement is available to customers. - `scheduled`: The achievement has a `fixedStartDate` set in the future. - `expired`: The achievement's `endDate` is in the past. ", json_schema_extra={"examples": ["active"]})
+    __properties: ClassVar[List[str]] = ["userId", "createdBy", "periodEndOverride", "hasProgress", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -39,8 +41,8 @@ class AchievementAdditionalPropertiesV2(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['inprogress', 'expired', 'not_started', 'completed']):
-            raise ValueError("must be one of enum values ('inprogress', 'expired', 'not_started', 'completed')")
+        if value not in set(['active', 'scheduled', 'expired']):
+            raise ValueError("must be one of enum values ('active', 'scheduled', 'expired')")
         return value
 
     model_config = ConfigDict(
@@ -82,6 +84,9 @@ class AchievementAdditionalPropertiesV2(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of period_end_override
+        if self.period_end_override:
+            _dict['periodEndOverride'] = self.period_end_override.to_dict()
         return _dict
 
     @classmethod
@@ -96,6 +101,7 @@ class AchievementAdditionalPropertiesV2(BaseModel):
         _obj = cls.model_validate({
             "userId": obj.get("userId"),
             "createdBy": obj.get("createdBy"),
+            "periodEndOverride": TimePoint.from_dict(obj["periodEndOverride"]) if obj.get("periodEndOverride") is not None else None,
             "hasProgress": obj.get("hasProgress"),
             "status": obj.get("status")
         })

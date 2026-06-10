@@ -31,7 +31,7 @@ class NewExperiment(BaseModel):
     is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
     campaign: NewCampaign
     goal_type: StrictStr = Field(description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. ", alias="goalType")
-    goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. ", alias="goalDescription")
+    goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. ", alias="goalDescription", json_schema_extra={"examples": ["Offering free shipping will increase average order revenue more than a 10% discount"]})
     __properties: ClassVar[List[str]] = ["isVariantAssignmentExternal", "campaign", "goalType", "goalDescription"]
 
     @field_validator('goal_type')

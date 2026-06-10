@@ -27,10 +27,10 @@ class RuleMetadata(BaseModel):
     """
     RuleMetadata
     """ # noqa: E501
-    title: StrictStr = Field(description="A short description of the rule.")
-    display_name: Optional[StrictStr] = Field(default=None, description="A customer-facing name for the rule.", alias="displayName")
-    display_description: Optional[StrictStr] = Field(default=None, description="A customer-facing description that explains the details of the rule.   For example, this property can contain details about eligibility requirements, reward timelines, or terms and conditions. ", alias="displayDescription")
-    related_data: Optional[StrictStr] = Field(default=None, description="Any additional data associated with the rule, such as an image URL, vendor name, or a content management system (CMS) ID. ", alias="relatedData")
+    title: StrictStr = Field(description="A short description of the rule.", json_schema_extra={"examples": ["Give discount via coupon"]})
+    display_name: Optional[StrictStr] = Field(default=None, description="A customer-facing name for the rule.", alias="displayName", json_schema_extra={"examples": ["20% off all shoes!"]})
+    display_description: Optional[StrictStr] = Field(default=None, description="A customer-facing description that explains the details of the rule.   For example, this property can contain details about eligibility requirements, reward timelines, or terms and conditions. ", alias="displayDescription", json_schema_extra={"examples": ["Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only."]})
+    related_data: Optional[StrictStr] = Field(default=None, description="Any additional data associated with the rule, such as an image URL, vendor name, or a content management system (CMS) ID. ", alias="relatedData", json_schema_extra={"examples": ["https://example.com/discounts/20-off-shoes.png"]})
     __properties: ClassVar[List[str]] = ["title", "displayName", "displayDescription", "relatedData"]
 
     model_config = ConfigDict(

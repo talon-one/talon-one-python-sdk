@@ -31,13 +31,13 @@ class StrikethroughChangedItem(BaseModel):
     """
     The information of affected items.
     """ # noqa: E501
-    id: StrictInt = Field(description="The ID of the event that triggered the strikethrough labeling.")
-    catalog_id: StrictInt = Field(description="The ID of the catalog that the changed item belongs to.", alias="catalogId")
-    sku: StrictStr = Field(description="The unique SKU of the changed item.")
-    version: Annotated[int, Field(strict=True, ge=1)] = Field(description="The version of the changed item.")
-    price: Union[StrictFloat, StrictInt] = Field(description="The price of the changed item.")
-    prices: Optional[Dict[str, PriceDetail]] = Field(default=None, description="A map of keys and values representing the price types and related price adjustment details for this cart item.       The keys correspond to the `priceType` names. ")
-    evaluated_at: datetime = Field(description="The evaluation time of the changed item.", alias="evaluatedAt")
+    id: StrictInt = Field(description="The ID of the event that triggered the strikethrough labeling.", json_schema_extra={"examples": [1]})
+    catalog_id: StrictInt = Field(description="The ID of the catalog that the changed item belongs to.", alias="catalogId", json_schema_extra={"examples": [10]})
+    sku: StrictStr = Field(description="The unique SKU of the changed item.", json_schema_extra={"examples": ["SKU1241028"]})
+    version: Annotated[int, Field(strict=True, ge=1)] = Field(description="The version of the changed item.", json_schema_extra={"examples": [6]})
+    price: Union[StrictFloat, StrictInt] = Field(description="The price of the changed item.", json_schema_extra={"examples": [100]})
+    prices: Optional[Dict[str, PriceDetail]] = Field(default=None, description="A map of keys and values representing the price types and related price adjustment details for this cart item.       The keys correspond to the `priceType` names. ", json_schema_extra={"examples": [{"member": {"price": 90, "adjustmentReferenceId": "68851723-e6fa-488f-ace9-112581e6c19b", "adjustmentEffectiveFrom": "2025-05-25T00:00:00Z", "adjustmentEffectiveUntil": "2025-05-30T00:00:00Z"}, "base": {"price": 100}}]})
+    evaluated_at: datetime = Field(description="The evaluation time of the changed item.", alias="evaluatedAt", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     effects: Optional[List[StrikethroughEffect]] = None
     __properties: ClassVar[List[str]] = ["id", "catalogId", "sku", "version", "price", "prices", "evaluatedAt", "effects"]
 

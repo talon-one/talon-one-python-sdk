@@ -27,9 +27,9 @@ class UpdateCustomerSessionV2409Response(BaseModel):
     """
     UpdateCustomerSessionV2409Response
     """ # noqa: E501
-    message: Optional[StrictStr] = None
+    message: Optional[StrictStr] = Field(default=None, json_schema_extra={"examples": ["Too many requests are updating this session at the same time"]})
     errors: Optional[List[Any]] = None
-    status_code: Optional[StrictInt] = Field(default=None, alias="StatusCode")
+    status_code: Optional[StrictInt] = Field(default=None, alias="StatusCode", json_schema_extra={"examples": [409]})
     __properties: ClassVar[List[str]] = ["message", "errors", "StatusCode"]
 
     model_config = ConfigDict(

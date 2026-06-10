@@ -29,13 +29,13 @@ class PendingActivePointsData(BaseModel):
     """
     PendingActivePointsData
     """ # noqa: E501
-    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID")
-    subledger_id: StrictStr = Field(description="The ID of the subledger, when applicable. If this field is empty, the main ledger is used.", alias="SubledgerID")
-    customer_profile_id: StrictStr = Field(description="The integration ID of the customer profile whose loyalty points are becoming active.", alias="CustomerProfileID")
-    points: Union[StrictFloat, StrictInt] = Field(description="The amount of pending loyalty points becoming active.", alias="Points")
-    active_on: Optional[datetime] = Field(default=None, description="The date and time the loyalty points become active.", alias="ActiveOn")
-    expire_on: Optional[datetime] = Field(default=None, description="The date and time the loyalty points expire.", alias="ExpireOn")
-    session_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the session through which the points were earned.", alias="SessionIntegrationID")
+    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID", json_schema_extra={"examples": [5]})
+    subledger_id: StrictStr = Field(description="The ID of the subledger, when applicable. If this field is empty, the main ledger is used.", alias="SubledgerID", json_schema_extra={"examples": ["SL001"]})
+    customer_profile_id: StrictStr = Field(description="The integration ID of the customer profile whose loyalty points are becoming active.", alias="CustomerProfileID", json_schema_extra={"examples": ["URNGV8294NV"]})
+    points: Union[StrictFloat, StrictInt] = Field(description="The amount of pending loyalty points becoming active.", alias="Points", json_schema_extra={"examples": [10.99]})
+    active_on: Optional[datetime] = Field(default=None, description="The date and time the loyalty points become active.", alias="ActiveOn", json_schema_extra={"examples": ["2023-08-20T12:22:00+02:00"]})
+    expire_on: Optional[datetime] = Field(default=None, description="The date and time the loyalty points expire.", alias="ExpireOn", json_schema_extra={"examples": ["2023-09-01T12:23:00+02:00"]})
+    session_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the session through which the points were earned.", alias="SessionIntegrationID", json_schema_extra={"examples": ["cc53e4fa-547f-4f5e-8333-76e05c381f67"]})
     __properties: ClassVar[List[str]] = ["LoyaltyProgramID", "SubledgerID", "CustomerProfileID", "Points", "ActiveOn", "ExpireOn", "SessionIntegrationID"]
 
     model_config = ConfigDict(

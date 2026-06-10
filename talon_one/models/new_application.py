@@ -30,11 +30,11 @@ class NewApplication(BaseModel):
     """
     NewApplication
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this application.")
-    description: Optional[StrictStr] = Field(default=None, description="A longer description of the application.")
-    timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
-    currency: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The default currency for new customer sessions.")
-    case_sensitivity: Optional[StrictStr] = Field(default=None, description="The case sensitivity behavior to check coupon codes in the campaigns of this Application.", alias="caseSensitivity")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this application.", json_schema_extra={"examples": ["My Application"]})
+    description: Optional[StrictStr] = Field(default=None, description="A longer description of the application.", json_schema_extra={"examples": ["A test Application"]})
+    timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.", json_schema_extra={"examples": ["Europe/Berlin"]})
+    currency: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The default currency for new customer sessions.", json_schema_extra={"examples": ["EUR"]})
+    case_sensitivity: Optional[StrictStr] = Field(default=None, description="The case sensitivity behavior to check coupon codes in the campaigns of this Application.", alias="caseSensitivity", json_schema_extra={"examples": ["sensitive"]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
     limits: Optional[List[LimitConfig]] = Field(default=None, description="Default limits for campaigns created in this application.")
     default_discount_scope: Optional[StrictStr] = Field(default=None, description="The default scope to apply `setDiscount` effects on if no scope was provided with the effect. ", alias="defaultDiscountScope")
@@ -42,10 +42,10 @@ class NewApplication(BaseModel):
     enable_flattened_cart_items: Optional[StrictBool] = Field(default=None, description="Indicates if cart items of quantity larger than one should be separated into different items of quantity one. ", alias="enableFlattenedCartItems")
     attributes_settings: Optional[AttributesSettings] = Field(default=None, alias="attributesSettings")
     sandbox: Optional[StrictBool] = Field(default=None, description="Indicates if this is a live or sandbox Application.")
-    enable_partial_discounts: Optional[StrictBool] = Field(default=None, description="Indicates if this Application supports partial discounts.", alias="enablePartialDiscounts")
+    enable_partial_discounts: Optional[StrictBool] = Field(default=None, description="Indicates if this Application supports partial discounts.", alias="enablePartialDiscounts", json_schema_extra={"examples": [False]})
     default_discount_additional_cost_per_item_scope: Optional[StrictStr] = Field(default=None, description="The default scope to apply `setDiscountPerItem` effects on if no scope was provided with the effect. ", alias="defaultDiscountAdditionalCostPerItemScope")
     key: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Hex key for HMAC-signing API calls as coming from this application (16 hex digits).")
-    enable_campaign_state_management: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign staging and revisions feature is enabled for the Application.  **Important:** After this feature is enabled, it cannot be disabled. ", alias="enableCampaignStateManagement")
+    enable_campaign_state_management: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign staging and revisions feature is enabled for the Application.  **Important:** After this feature is enabled, it cannot be disabled. ", alias="enableCampaignStateManagement", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["name", "description", "timezone", "currency", "caseSensitivity", "attributes", "limits", "defaultDiscountScope", "enableCascadingDiscounts", "enableFlattenedCartItems", "attributesSettings", "sandbox", "enablePartialDiscounts", "defaultDiscountAdditionalCostPerItemScope", "key", "enableCampaignStateManagement"]
 
     @field_validator('case_sensitivity')

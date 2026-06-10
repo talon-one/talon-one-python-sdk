@@ -138,6 +138,13 @@ class TestIntegrationApi(unittest.TestCase):
         """
         pass
 
+    def test_get_event_v3(self) -> None:
+        """Test case for get_event_v3
+
+        Get advanced event
+        """
+        pass
+
     def test_get_loyalty_balances(self) -> None:
         """Test case for get_loyalty_balances
 
@@ -226,6 +233,13 @@ class TestIntegrationApi(unittest.TestCase):
         """Test case for track_event_v2
 
         Track event
+        """
+        pass
+
+    def test_track_event_v3(self) -> None:
+        """Test case for track_event_v3
+
+        Track advanced event
         """
         pass
 

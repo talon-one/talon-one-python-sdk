@@ -30,16 +30,16 @@ class Ruleset(BaseModel):
     """
     Ruleset
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId", json_schema_extra={"examples": [388]})
     rules: List[Rule] = Field(description="Set of rules to apply.")
     strikethrough_rules: Optional[List[Rule]] = Field(default=None, description="Set of rules to apply for strikethrough.", alias="strikethroughRules")
-    bindings: List[Binding] = Field(description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.")
-    rb_version: Optional[StrictStr] = Field(default=None, description="The version of the rulebuilder used to create this ruleset.", alias="rbVersion")
-    activate: Optional[StrictBool] = Field(default=None, description="Indicates whether this created ruleset should be activated for the campaign that owns it.")
-    campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that owns this entity.", alias="campaignId")
-    template_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign template that owns this entity.", alias="templateId")
+    bindings: List[Binding] = Field(description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.", json_schema_extra={"examples": [[]]})
+    rb_version: Optional[StrictStr] = Field(default=None, description="The version of the rulebuilder used to create this ruleset.", alias="rbVersion", json_schema_extra={"examples": ["v2"]})
+    activate: Optional[StrictBool] = Field(default=None, description="Indicates whether this created ruleset should be activated for the campaign that owns it.", json_schema_extra={"examples": [True]})
+    campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [320]})
+    template_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign template that owns this entity.", alias="templateId", json_schema_extra={"examples": [3]})
     activated_at: Optional[datetime] = Field(default=None, description="Timestamp indicating when this Ruleset was activated.", alias="activatedAt")
     __properties: ClassVar[List[str]] = ["id", "created", "userId", "rules", "strikethroughRules", "bindings", "rbVersion", "activate", "campaignId", "templateId", "activatedAt"]
 

@@ -27,9 +27,9 @@ class CampaignEvaluationPosition(BaseModel):
     """
     The campaign position within the evaluation tree.
     """ # noqa: E501
-    group_id: StrictInt = Field(description="The ID of the campaign evaluation group the campaign belongs to.", alias="groupId")
-    group_name: StrictStr = Field(description="The name of the campaign evaluation group the campaign belongs to.", alias="groupName")
-    position: StrictInt = Field(description="The position of the campaign node in its parent group.")
+    group_id: StrictInt = Field(description="The ID of the campaign evaluation group the campaign belongs to.", alias="groupId", json_schema_extra={"examples": [2]})
+    group_name: StrictStr = Field(description="The name of the campaign evaluation group the campaign belongs to.", alias="groupName", json_schema_extra={"examples": ["Summer campaigns"]})
+    position: StrictInt = Field(description="The position of the campaign node in its parent group.", json_schema_extra={"examples": [2]})
     __properties: ClassVar[List[str]] = ["groupId", "groupName", "position"]
 
     model_config = ConfigDict(

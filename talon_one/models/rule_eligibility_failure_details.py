@@ -28,7 +28,7 @@ class RuleEligibilityFailureDetails(BaseModel):
     The details about why the customer was not eligible for the rule in the current session.
     """ # noqa: E501
     failure_code: StrictStr = Field(description="A code identifying why the customer was not eligible for the rule in the current session.", alias="failureCode")
-    coupon_id: Optional[StrictInt] = Field(default=None, description="The ID of the coupon that was being evaluated when the rule failed. ", alias="couponID")
+    coupon_id: Optional[StrictInt] = Field(default=None, description="The ID of the coupon that was being evaluated when the rule failed. ", alias="couponID", json_schema_extra={"examples": [4928]})
     coupon_value: Optional[StrictStr] = Field(default=None, description="The coupon code that was being evaluated when the rule failed. ", alias="couponValue")
     referral_id: Optional[StrictInt] = Field(default=None, description="The ID of the referral that was being evaluated when the rule failed. ", alias="referralID")
     referral_value: Optional[StrictStr] = Field(default=None, description="The referral code that was being evaluated when the rule failed. ", alias="referralValue")

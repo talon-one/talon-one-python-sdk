@@ -28,11 +28,11 @@ class CouponsNotificationPolicy(BaseModel):
     """
     CouponsNotificationPolicy
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.", json_schema_extra={"examples": ["Christmas Sale"]})
     scopes: Annotated[List[StrictStr], Field(min_length=1, max_length=4)]
-    batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled")
-    include_data: Optional[StrictBool] = Field(default=None, description="Indicates whether to include all generated coupons. If `false`, only the `batchId` of the generated coupons is included.", alias="includeData")
-    batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize")
+    batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled", json_schema_extra={"examples": [True]})
+    include_data: Optional[StrictBool] = Field(default=None, description="Indicates whether to include all generated coupons. If `false`, only the `batchId` of the generated coupons is included.", alias="includeData", json_schema_extra={"examples": [True]})
+    batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize", json_schema_extra={"examples": [1000]})
     __properties: ClassVar[List[str]] = ["name", "scopes", "batchingEnabled", "includeData", "batchSize"]
 
     @field_validator('scopes')

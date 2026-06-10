@@ -29,13 +29,13 @@ class NewPriceAdjustment(BaseModel):
     """
     NewPriceAdjustment
     """ # noqa: E501
-    price_type: StrictStr = Field(description="The price type (e.g. the price for members only) to apply to a given SKU.", alias="priceType")
-    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the price type applied to the SKU. When set to `null`, the defined price type no longer applies to the SKU.")
-    reference_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique reference identifier, e.g. a UUID.", alias="referenceId")
-    calculated_at: Optional[datetime] = Field(default=None, description="The time at which this price was calculated. If provided, this is used to determine the most recent price adjustment to choose if price adjustments overlap. Defaults to internal creation time if not provided.", alias="calculatedAt")
-    effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective.", alias="effectiveFrom")
-    effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective.", alias="effectiveUntil")
-    context_id: Optional[StrictStr] = Field(default=None, description="Identifier of the context of this price adjustment (e.g. summer sale).", alias="contextId")
+    price_type: StrictStr = Field(description="The price type (e.g. the price for members only) to apply to a given SKU.", alias="priceType", json_schema_extra={"examples": ["member"]})
+    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the price type applied to the SKU. When set to `null`, the defined price type no longer applies to the SKU.", json_schema_extra={"examples": [100]})
+    reference_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique reference identifier, e.g. a UUID.", alias="referenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
+    calculated_at: Optional[datetime] = Field(default=None, description="The time at which this price was calculated. If provided, this is used to determine the most recent price adjustment to choose if price adjustments overlap. Defaults to internal creation time if not provided.", alias="calculatedAt", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective.", alias="effectiveFrom", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective.", alias="effectiveUntil", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    context_id: Optional[StrictStr] = Field(default=None, description="Identifier of the context of this price adjustment (e.g. summer sale).", alias="contextId", json_schema_extra={"examples": ["Summer2025"]})
     __properties: ClassVar[List[str]] = ["priceType", "price", "referenceId", "calculatedAt", "effectiveFrom", "effectiveUntil", "contextId"]
 
     model_config = ConfigDict(

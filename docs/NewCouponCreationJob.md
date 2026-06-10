@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **expiry_date** | **datetime** | Expiration date of the coupon. Coupon never expires if this is omitted. | [optional] 
 **number_of_coupons** | **int** | The number of new coupon codes to generate for the campaign. | 
 **coupon_settings** | [**CodeGeneratorSettings**](CodeGeneratorSettings.md) |  | [optional] 
-**attributes** | **object** | Arbitrary properties associated with coupons. | 
+**attributes** | **object** | Arbitrary properties associated with this campaign. | 
 **is_reservation_mandatory** | **bool** | An indication of whether the code can be redeemed only if it has been reserved first. | [optional] [default to False]
 
 ## Example

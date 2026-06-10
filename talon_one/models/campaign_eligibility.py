@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_v
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.campaign_eligibility_details import CampaignEligibilityDetails
+from talon_one.models.campaign_eligibility_experiment import CampaignEligibilityExperiment
 from talon_one.models.rule_metadata_eligibility import RuleMetadataEligibility
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,19 +32,20 @@ class CampaignEligibility(BaseModel):
     """
     CampaignEligibility
     """ # noqa: E501
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    id: StrictInt = Field(description="Unique ID of Campaign.")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign.")
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
-    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime")
-    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime")
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    id: StrictInt = Field(description="Unique ID of Campaign.", json_schema_extra={"examples": [4]})
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign.", json_schema_extra={"examples": ["Summer promotions"]})
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.", json_schema_extra={"examples": ["Campaign for all summer 2021 promotions"]})
+    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
-    state: StrictStr = Field(description="The state of the campaign. ")
-    tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.")
-    features: List[StrictStr] = Field(description="The features enabled in this campaign.")
+    state: StrictStr = Field(description="The state of the campaign. ", json_schema_extra={"examples": ["enabled"]})
+    tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.", json_schema_extra={"examples": [["summer"]]})
+    features: List[StrictStr] = Field(description="The features enabled in this campaign.", json_schema_extra={"examples": [["coupons", "referrals"]]})
     eligibility: List[CampaignEligibilityDetails] = Field(description="The customer's eligibility for each campaign in the current customer session.")
     rules: List[RuleMetadataEligibility] = Field(description="A list of rules containing customer-facing details of the rewards defined in the campaign.")
-    __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "eligibility", "rules"]
+    experiment: Optional[CampaignEligibilityExperiment] = None
+    __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "eligibility", "rules", "experiment"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -113,6 +115,9 @@ class CampaignEligibility(BaseModel):
                 if _item_rules:
                     _items.append(_item_rules.to_dict())
             _dict['rules'] = _items
+        # override the default output from pydantic by calling `to_dict()` of experiment
+        if self.experiment:
+            _dict['experiment'] = self.experiment.to_dict()
         return _dict
 
     @classmethod
@@ -136,7 +141,8 @@ class CampaignEligibility(BaseModel):
             "tags": obj.get("tags"),
             "features": obj.get("features"),
             "eligibility": [CampaignEligibilityDetails.from_dict(_item) for _item in obj["eligibility"]] if obj.get("eligibility") is not None else None,
-            "rules": [RuleMetadataEligibility.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None
+            "rules": [RuleMetadataEligibility.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None,
+            "experiment": CampaignEligibilityExperiment.from_dict(obj["experiment"]) if obj.get("experiment") is not None else None
         })
         return _obj
 

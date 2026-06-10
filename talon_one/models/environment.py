@@ -40,9 +40,9 @@ class Environment(BaseModel):
     """
     Environment
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
     slots: List[SlotDef] = Field(description="The slots defined for this application.")
     functions: List[FunctionDef] = Field(description="The functions defined for this application.")
     templates: List[TemplateDef] = Field(description="The templates defined for this application.")

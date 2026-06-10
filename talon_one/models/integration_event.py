@@ -28,10 +28,10 @@ class IntegrationEvent(BaseModel):
     """
     IntegrationEvent
     """ # noqa: E501
-    profile_id: Optional[StrictStr] = Field(default=None, description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId")
-    store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId")
-    type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.")
-    attributes: Dict[str, Any] = Field(description="Arbitrary additional JSON data associated with the event.")
+    profile_id: Optional[StrictStr] = Field(default=None, description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId", json_schema_extra={"examples": ["STORE-001"]})
+    type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.", json_schema_extra={"examples": ["pageViewed"]})
+    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with this campaign.")
     __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "type", "attributes"]
 
     model_config = ConfigDict(

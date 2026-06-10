@@ -28,19 +28,19 @@ class NewAttribute(BaseModel):
     """
     NewAttribute
     """ # noqa: E501
-    entity: StrictStr = Field(description="The name of the entity that can have this attribute. When creating or updating the entities of a given type, you can include an `attributes` object with keys corresponding to the `name` of the custom attributes for that type.")
-    event_type: Optional[StrictStr] = Field(default=None, alias="eventType")
-    name: Annotated[str, Field(strict=True)] = Field(description="The attribute name that will be used in API requests and Talang. E.g. if `name == \"region\"` then you would set the region attribute by including an `attributes.region` property in your request payload.")
-    title: Annotated[str, Field(strict=True)] = Field(description="The human-readable name for the attribute that will be shown in the Campaign Manager. Like `name`, the combination of entity and title must also be unique.")
-    type: StrictStr = Field(description="The data type of the attribute, a `time` attribute must be sent as a string that conforms to the [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp format.")
-    description: StrictStr = Field(description="A description of this attribute.")
+    entity: StrictStr = Field(description="The name of the entity that can have this attribute. When creating or updating the entities of a given type, you can include an `attributes` object with keys corresponding to the `name` of the custom attributes for that type.", json_schema_extra={"examples": ["Event"]})
+    event_type: Optional[StrictStr] = Field(default=None, alias="eventType", json_schema_extra={"examples": ["pageViewed"]})
+    name: Annotated[str, Field(strict=True)] = Field(description="The attribute name that will be used in API requests and Talang. E.g. if `name == \"region\"` then you would set the region attribute by including an `attributes.region` property in your request payload.", json_schema_extra={"examples": ["pageViewed"]})
+    title: Annotated[str, Field(strict=True)] = Field(description="The human-readable name for the attribute that will be shown in the Campaign Manager. Like `name`, the combination of entity and title must also be unique.", json_schema_extra={"examples": ["Page view event"]})
+    type: StrictStr = Field(description="The data type of the attribute, a `time` attribute must be sent as a string that conforms to the [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp format.", json_schema_extra={"examples": ["string"]})
+    description: StrictStr = Field(description="A description of this attribute.", json_schema_extra={"examples": ["Event triggered when a customer displays a page."]})
     suggestions: Annotated[List[Annotated[str, Field(min_length=1, strict=True)]], Field(max_length=50)] = Field(description="A list of suggestions for the attribute.")
-    has_allowed_list: Optional[StrictBool] = Field(default=False, description="Whether or not this attribute has an allowed list of values associated with it.", alias="hasAllowedList")
-    restricted_by_suggestions: Optional[StrictBool] = Field(default=False, description="Whether or not this attribute's value is restricted by suggestions (`suggestions` property) or by an allowed list of value (`hasAllowedList` property). ", alias="restrictedBySuggestions")
-    editable: StrictBool = Field(description="Whether or not this attribute can be edited.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications where this attribute is available.", alias="subscribedApplicationsIds")
-    subscribed_catalogs_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the catalogs where this attribute is available.", alias="subscribedCatalogsIds")
-    allowed_subscriptions: Optional[Annotated[List[StrictStr], Field(max_length=2)]] = Field(default=None, description="A list of allowed subscription types for this attribute.  **Note:** This only applies to attributes associated with the `CartItem` entity. ", alias="allowedSubscriptions")
+    has_allowed_list: Optional[StrictBool] = Field(default=False, description="Whether or not this attribute has an allowed list of values associated with it.", alias="hasAllowedList", json_schema_extra={"examples": [False]})
+    restricted_by_suggestions: Optional[StrictBool] = Field(default=False, description="Whether or not this attribute's value is restricted by suggestions (`suggestions` property) or by an allowed list of value (`hasAllowedList` property). ", alias="restrictedBySuggestions", json_schema_extra={"examples": [False]})
+    editable: StrictBool = Field(description="Whether or not this attribute can be edited.", json_schema_extra={"examples": [True]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications where this attribute is available.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 4, 9]]})
+    subscribed_catalogs_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the catalogs where this attribute is available.", alias="subscribedCatalogsIds", json_schema_extra={"examples": [[2, 5]]})
+    allowed_subscriptions: Optional[Annotated[List[StrictStr], Field(max_length=2)]] = Field(default=None, description="A list of allowed subscription types for this attribute.  **Note:** This only applies to attributes associated with the `CartItem` entity. ", alias="allowedSubscriptions", json_schema_extra={"examples": [["application", "catalog"]]})
     __properties: ClassVar[List[str]] = ["entity", "eventType", "name", "title", "type", "description", "suggestions", "hasAllowedList", "restrictedBySuggestions", "editable", "subscribedApplicationsIds", "subscribedCatalogsIds", "allowedSubscriptions"]
 
     @field_validator('entity')

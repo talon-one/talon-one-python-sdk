@@ -25,9 +25,9 @@ from pydantic_core import to_jsonable_python
 
 class UpdateAttributeEffectProps(BaseModel):
     """
-    The properties specific to the \"updateAttribute\" effect. This gets triggered whenever a validated rule contained an \"update an attribute\" effect.
+    This effect indicates that a rule containing an [Update attribute value](https://docs.talon.one/docs/product/rules/effects/available-effects#update-effects) or [Update cart item attribute value](https://docs.talon.one/docs/product/rules/effects/available-effects#update-effects) was validated. You should update the value of the attribute in your system based on the content of the returned effect.
     """ # noqa: E501
-    path: StrictStr = Field(description="The exact path of the attribute that was updated.")
+    path: StrictStr = Field(description="The entity type and the attribute name.")
     value: Optional[Any]
     __properties: ClassVar[List[str]] = ["path", "value"]
 

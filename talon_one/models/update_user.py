@@ -27,11 +27,11 @@ class UpdateUser(BaseModel):
     """
     UpdateUser
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the user.")
-    state: Optional[StrictStr] = Field(default=None, description="The state of the user.   - `deactivated`: The user has been deactivated.   - `active`: The user is active.  **Note**: Only `admin` users can update the state of another user. ")
-    is_admin: Optional[StrictBool] = Field(default=None, description="Indicates whether the user is an `admin`.", alias="isAdmin")
-    policy: Optional[StrictStr] = Field(default=None, description="Indicates the access level of the user.")
-    roles: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the roles assigned to the user.  **Note**: To find the ID of a role, use the [List roles](/management-api#tag/Roles/operation/listAllRolesV2) endpoint. ")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the user.", json_schema_extra={"examples": ["John Doe"]})
+    state: Optional[StrictStr] = Field(default=None, description="The state of the user.   - `deactivated`: The user has been deactivated.   - `active`: The user is active.  **Note**: Only `admin` users can update the state of another user. ", json_schema_extra={"examples": ["deactivated"]})
+    is_admin: Optional[StrictBool] = Field(default=None, description="Indicates whether the user is an `admin`.", alias="isAdmin", json_schema_extra={"examples": [False]})
+    policy: Optional[StrictStr] = Field(default=None, description="Indicates the access level of the user.", json_schema_extra={"examples": [{"Role": 127}]})
+    roles: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the roles assigned to the user.  **Note**: To find the ID of a role, use the [List roles](/management-api#tag/Roles/operation/listAllRolesV2) endpoint. ", json_schema_extra={"examples": [[1, 3]]})
     application_notification_subscriptions: Optional[Dict[str, Any]] = Field(default=None, description="Application notifications that the user is subscribed to.", alias="applicationNotificationSubscriptions")
     __properties: ClassVar[List[str]] = ["name", "state", "isAdmin", "policy", "roles", "applicationNotificationSubscriptions"]
 

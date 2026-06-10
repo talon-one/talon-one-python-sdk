@@ -45,12 +45,12 @@ class TestScimServiceProviderConfigResponse(unittest.TestCase):
                 filter = talon_one.models.scim_service_provider_config_response_filter.ScimServiceProviderConfigResponse_filter(
                     max_results = 56, 
                     supported = True, ),
-                patch = talon_one.models.scim_service_provider_config_response_patch.ScimServiceProviderConfigResponse_patch(
+                patch = talon_one.models.scim_service_provider_config_response_change_password.ScimServiceProviderConfigResponse_changePassword(
                     supported = True, ),
                 schemas = [
                     ''
                     ],
-                sort = talon_one.models.scim_service_provider_config_response_sort.ScimServiceProviderConfigResponse_sort(
+                sort = talon_one.models.scim_service_provider_config_response_change_password.ScimServiceProviderConfigResponse_changePassword(
                     supported = True, )
             )
         else:

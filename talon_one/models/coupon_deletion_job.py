@@ -29,17 +29,17 @@ class CouponDeletionJob(BaseModel):
     """
     CouponDeletionJob
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
     filters: CouponDeletionFilters
-    status: StrictStr = Field(description="The current status of this request. Possible values: - `not_ready` - `pending` - `completed` - `failed` ")
-    deleted_amount: Optional[StrictInt] = Field(default=None, description="The number of coupon codes that were already deleted for this request.", alias="deletedAmount")
-    fail_count: StrictInt = Field(description="The number of times this job failed.", alias="failCount")
-    errors: List[StrictStr] = Field(description="An array of individual problems encountered during the request.")
-    created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy")
-    communicated: StrictBool = Field(description="Indicates whether the user that created this job was notified of its final state.")
+    status: StrictStr = Field(description="The current status of this request. Possible values: - `not_ready` - `pending` - `completed` - `failed` ", json_schema_extra={"examples": ["pending"]})
+    deleted_amount: Optional[StrictInt] = Field(default=None, description="The number of coupon codes that were already deleted for this request.", alias="deletedAmount", json_schema_extra={"examples": [1000000]})
+    fail_count: StrictInt = Field(description="The number of times this job failed.", alias="failCount", json_schema_extra={"examples": [10]})
+    errors: List[StrictStr] = Field(description="An array of individual problems encountered during the request.", json_schema_extra={"examples": [["Connection to database was reset", "failed to delete codes"]]})
+    created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy", json_schema_extra={"examples": [1]})
+    communicated: StrictBool = Field(description="Indicates whether the user that created this job was notified of its final state.", json_schema_extra={"examples": [False]})
     campaign_ids: Optional[List[StrictInt]] = Field(default=None, alias="campaignIDs")
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "accountId", "filters", "status", "deletedAmount", "failCount", "errors", "createdBy", "communicated", "campaignIDs"]
 

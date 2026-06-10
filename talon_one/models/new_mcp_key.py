@@ -28,15 +28,15 @@ class NewMCPKey(BaseModel):
     """
     NewMCPKey
     """ # noqa: E501
-    name: StrictStr = Field(description="Name for the MCP key.")
-    expiry_date: datetime = Field(description="The date the MCP key expires.", alias="expiryDate")
-    id: StrictInt = Field(description="ID of the MCP key.")
-    created_by: StrictInt = Field(description="ID of the user who created it.", alias="createdBy")
-    account_id: StrictInt = Field(description="ID of account the key is used for.", alias="accountID")
-    created: datetime = Field(description="The date the MCP key was created.")
-    disabled: Optional[StrictBool] = Field(default=None, description="The MCP key is disabled (this property is set to `true`) when the user who created the key is disabled or deleted.")
-    last_used: Optional[datetime] = Field(default=None, description="The last time the MCP key was used.", alias="lastUsed")
-    key: StrictStr = Field(description="The generated MCP key. Only returned once on creation.")
+    name: StrictStr = Field(description="Name for the MCP key.", json_schema_extra={"examples": ["My MCP key"]})
+    expiry_date: datetime = Field(description="The date the MCP key expires.", alias="expiryDate", json_schema_extra={"examples": ["2026-08-24T14:00:00Z"]})
+    id: StrictInt = Field(description="ID of the MCP key.", json_schema_extra={"examples": [34]})
+    created_by: StrictInt = Field(description="ID of the user who created it.", alias="createdBy", json_schema_extra={"examples": [280]})
+    account_id: StrictInt = Field(description="ID of account the key is used for.", alias="accountID", json_schema_extra={"examples": [13]})
+    created: datetime = Field(description="The date the MCP key was created.", json_schema_extra={"examples": ["2026-03-02T16:46:17.758585Z"]})
+    disabled: Optional[StrictBool] = Field(default=None, description="The MCP key is disabled (this property is set to `true`) when the user who created the key is disabled or deleted.", json_schema_extra={"examples": [True]})
+    last_used: Optional[datetime] = Field(default=None, description="The last time the MCP key was used.", alias="lastUsed", json_schema_extra={"examples": ["2026-03-02T16:46:17.758585Z"]})
+    key: StrictStr = Field(description="The generated MCP key. Only returned once on creation.", json_schema_extra={"examples": ["f45f90d21dcd9bac965c45e547e9754a3196891d09948e35adbcbedc4e9e4b01"]})
     __properties: ClassVar[List[str]] = ["name", "expiryDate", "id", "createdBy", "accountID", "created", "disabled", "lastUsed", "key"]
 
     model_config = ConfigDict(

@@ -28,11 +28,11 @@ class AddItemCatalogAction(BaseModel):
     """
     The specific properties of the \"ADD\" catalog sync action. 
     """ # noqa: E501
-    sku: StrictStr = Field(description="The unique SKU of the item to add.")
-    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price of the item.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the item to add.")
+    sku: StrictStr = Field(description="The unique SKU of the item to add.", json_schema_extra={"examples": ["SKU1241028"]})
+    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price of the item.", json_schema_extra={"examples": [99.99]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the item to add.", json_schema_extra={"examples": [{"origin": "germany", "color": "blue"}]})
     product: Optional[Product] = None
-    replace_if_exists: Optional[StrictBool] = Field(default=False, description="Indicates whether to replace the attributes of the item if the same SKU exists.  **Note**: When set to `true`:   - If you do not provide a new `price` value, the existing `price` value is retained.   - If you do not provide a new `product` value, the `product` value is set to `null`. ", alias="replaceIfExists")
+    replace_if_exists: Optional[StrictBool] = Field(default=False, description="Indicates whether to replace the attributes of the item if the same SKU exists.  **Note**: When set to `true`:   - If you do not provide a new `price` value, the existing `price` value is retained.   - If you do not provide a new `product` value, the `product` value is set to `null`. ", alias="replaceIfExists", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["sku", "price", "attributes", "product", "replaceIfExists"]
 
     model_config = ConfigDict(

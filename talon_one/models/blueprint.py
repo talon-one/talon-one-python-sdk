@@ -33,7 +33,7 @@ class Blueprint(BaseModel):
     id: StrictInt = Field(description="The internal ID of this blueprint.")
     account_id: StrictInt = Field(description="The ID of the account that owns this blueprint.", alias="accountId")
     application_id: StrictInt = Field(description="The ID of the Application that owns this blueprint.", alias="applicationId")
-    title: StrictStr = Field(description="A short description of the blueprint.")
+    title: StrictStr = Field(description="A short description of the blueprint.", json_schema_extra={"examples": ["High value cart discount"]})
     description: Optional[StrictStr] = Field(default=None, description="A longer, more detailed description of the blueprint.")
     category: StrictStr = Field(description="Category used to group blueprints.")
     source: StrictStr = Field(description="Indicates whether the blueprint is custom or shipped by Talon.One.")

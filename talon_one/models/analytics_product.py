@@ -28,9 +28,9 @@ class AnalyticsProduct(BaseModel):
     """
     AnalyticsProduct
     """ # noqa: E501
-    id: StrictInt = Field(description="The ID of the product.")
-    name: StrictStr = Field(description="The name of the product.")
-    catalog_id: StrictInt = Field(description="The ID of the catalog. You can find the ID in the Campaign Manager in **Account** > **Tools** > **Cart item catalogs**. ", alias="catalogId")
+    id: StrictInt = Field(description="The ID of the product.", json_schema_extra={"examples": [1]})
+    name: StrictStr = Field(description="The name of the product.", json_schema_extra={"examples": ["MyProduct"]})
+    catalog_id: StrictInt = Field(description="The ID of the catalog. You can find the ID in the Campaign Manager in **Account** > **Tools** > **Cart item catalogs**. ", alias="catalogId", json_schema_extra={"examples": [1]})
     units_sold: Optional[AnalyticsDataPointWithTrend] = Field(default=None, description="The number of times the product or SKU was purchased.", alias="unitsSold")
     __properties: ClassVar[List[str]] = ["id", "name", "catalogId", "unitsSold"]
 

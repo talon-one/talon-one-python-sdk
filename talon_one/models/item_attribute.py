@@ -27,7 +27,7 @@ class ItemAttribute(BaseModel):
     """
     ItemAttribute
     """ # noqa: E501
-    attributeid: StrictInt = Field(description="The ID of the attribute of the item.")
+    attributeid: StrictInt = Field(description="The ID of the attribute of the item.", json_schema_extra={"examples": [6]})
     name: StrictStr = Field(description="The name of the attribute.")
     value: Optional[Any]
     __properties: ClassVar[List[str]] = ["attributeid", "name", "value"]

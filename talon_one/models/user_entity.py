@@ -27,7 +27,7 @@ class UserEntity(BaseModel):
     """
     UserEntity
     """ # noqa: E501
-    user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId")
+    user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId", json_schema_extra={"examples": [388]})
     __properties: ClassVar[List[str]] = ["userId"]
 
     model_config = ConfigDict(

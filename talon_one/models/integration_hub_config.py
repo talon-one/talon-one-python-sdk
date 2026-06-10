@@ -27,8 +27,8 @@ class IntegrationHubConfig(BaseModel):
     """
     Config used for accessing integrations in IntegrationHub
     """ # noqa: E501
-    integration_hub_url: StrictStr = Field(description="The url used to integrate the IntegrationHub Marketplace.", alias="integrationHubUrl")
-    access_token: StrictStr = Field(description="Access token used to authenticate a user in Talon.One.", alias="accessToken")
+    integration_hub_url: StrictStr = Field(description="The url used to integrate the IntegrationHub Marketplace.", alias="integrationHubUrl", json_schema_extra={"examples": ["https://hub.talon.farm/"]})
+    access_token: StrictStr = Field(description="Access token used to authenticate a user in Talon.One.", alias="accessToken", json_schema_extra={"examples": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"]})
     __properties: ClassVar[List[str]] = ["integrationHubUrl", "accessToken"]
 
     model_config = ConfigDict(

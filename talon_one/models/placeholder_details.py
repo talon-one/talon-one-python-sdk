@@ -27,9 +27,9 @@ class PlaceholderDetails(BaseModel):
     """
     PlaceholderDetails
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the placeholder.")
-    type: StrictStr = Field(description="The type of the value assigned to the placeholder.")
-    value: List[Any] = Field(description="The current value of the placeholder.")
+    name: StrictStr = Field(description="The name of the placeholder.", json_schema_extra={"examples": ["my property"]})
+    type: StrictStr = Field(description="The type of the value assigned to the placeholder.", json_schema_extra={"examples": ["list string"]})
+    value: List[Any] = Field(description="The current value of the placeholder.", json_schema_extra={"examples": [[1, "sku_value"]]})
     __properties: ClassVar[List[str]] = ["name", "type", "value"]
 
     model_config = ConfigDict(

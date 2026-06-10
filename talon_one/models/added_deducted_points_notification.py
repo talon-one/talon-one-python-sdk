@@ -30,19 +30,19 @@ class AddedDeductedPointsNotification(BaseModel):
     """
     AddedDeductedPointsNotification
     """ # noqa: E501
-    employee_name: StrictStr = Field(description="The name of the employee who added or deducted points.", alias="EmployeeName")
-    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID")
+    employee_name: StrictStr = Field(description="The name of the employee who added or deducted points.", alias="EmployeeName", json_schema_extra={"examples": ["Franziska Schneider"]})
+    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID", json_schema_extra={"examples": [5]})
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
-    profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile to whom points were added or deducted.", alias="ProfileIntegrationID")
-    session_integration_id: StrictStr = Field(description="The integration ID of the session through which the points were earned or lost.", alias="SessionIntegrationID")
-    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="SubledgerID")
+    profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile to whom points were added or deducted.", alias="ProfileIntegrationID", json_schema_extra={"examples": ["URNGV8294NV"]})
+    session_integration_id: StrictStr = Field(description="The integration ID of the session through which the points were earned or lost.", alias="SessionIntegrationID", json_schema_extra={"examples": ["cc53e4fa-547f-4f5e-8333-76e05c381f67"]})
+    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="SubledgerID", json_schema_extra={"examples": ["sub-123"]})
     type_of_change: StrictStr = Field(description="The notification source, that is, it indicates whether the points were added or deducted via one of the following routes:  - [The Campaign Manager](/docs/product/getting-started)  - [Management API](/management-api#tag/Loyalty)  - [Rule Engine](/docs/product/applications/evaluation-order-for-rules-and-filters) ", alias="TypeOfChange")
-    user_id: StrictInt = Field(description="The ID of the employee who added or deducted points.", alias="UserID")
-    amount: Union[StrictFloat, StrictInt] = Field(description="The amount of added or deducted loyalty points.", alias="Amount")
-    expiry_date: Optional[datetime] = Field(default=None, description="The expiration date for loyalty points.", alias="ExpiryDate")
+    user_id: StrictInt = Field(description="The ID of the employee who added or deducted points.", alias="UserID", json_schema_extra={"examples": [25]})
+    amount: Union[StrictFloat, StrictInt] = Field(description="The amount of added or deducted loyalty points.", alias="Amount", json_schema_extra={"examples": [10.99]})
+    expiry_date: Optional[datetime] = Field(default=None, description="The expiration date for loyalty points.", alias="ExpiryDate", json_schema_extra={"examples": ["2024-01-24T14:15:22Z"]})
     operation: StrictStr = Field(description="The action (addition or subtraction) made with loyalty points.", alias="Operation")
-    reason: StrictStr = Field(description="The reason for the points addition or deduction.", alias="Reason")
-    start_date: Optional[datetime] = Field(default=None, description="The start date for loyalty points.", alias="StartDate")
+    reason: StrictStr = Field(description="The reason for the points addition or deduction.", alias="Reason", json_schema_extra={"examples": ["Compensation"]})
+    start_date: Optional[datetime] = Field(default=None, description="The start date for loyalty points.", alias="StartDate", json_schema_extra={"examples": ["2023-01-24T14:15:22Z"]})
     transaction_uuid: UUID = Field(description="The identifier of the transaction in the loyalty ledger.", alias="TransactionUUID")
     __properties: ClassVar[List[str]] = ["EmployeeName", "LoyaltyProgramID", "NotificationType", "ProfileIntegrationID", "SessionIntegrationID", "SubledgerID", "TypeOfChange", "UserID", "Amount", "ExpiryDate", "Operation", "Reason", "StartDate", "TransactionUUID"]
 

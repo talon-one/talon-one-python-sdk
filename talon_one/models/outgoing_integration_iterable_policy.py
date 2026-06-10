@@ -27,8 +27,8 @@ class OutgoingIntegrationIterablePolicy(BaseModel):
     """
     OutgoingIntegrationIterablePolicy
     """ # noqa: E501
-    base_url: StrictStr = Field(description="The base URL that is based on the region key of your Iterable account.", alias="baseUrl")
-    api_key: StrictStr = Field(description="The API key generated from your Iterable account. See [Iterable API Key Guide](https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys-)", alias="apiKey")
+    base_url: StrictStr = Field(description="The base URL that is based on the region key of your Iterable account.", alias="baseUrl", json_schema_extra={"examples": ["https://api.iterable.com"]})
+    api_key: StrictStr = Field(description="The API key generated from your Iterable account. See [Iterable API Key Guide](https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys-)", alias="apiKey", json_schema_extra={"examples": ["1234df4ba16940ca59c9352936d080a8"]})
     __properties: ClassVar[List[str]] = ["baseUrl", "apiKey"]
 
     model_config = ConfigDict(

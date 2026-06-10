@@ -30,10 +30,10 @@ class UpdateReferralBatch(BaseModel):
     UpdateReferralBatch
     """ # noqa: E501
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
-    batch_id: StrictStr = Field(description="The id of the batch the referral belongs to.", alias="batchID")
-    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the referral code becomes valid.", alias="startDate")
-    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the referral code. Referral never expires if this is omitted.", alias="expiryDate")
-    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times a referral code can be used. This can be set to 0 for no limit, but any campaign usage limits will still apply. ", alias="usageLimit")
+    batch_id: StrictStr = Field(description="The id of the batch the referral belongs to.", alias="batchID", json_schema_extra={"examples": ["32535-43255"]})
+    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the referral code becomes valid.", alias="startDate", json_schema_extra={"examples": ["2020-11-10T23:00:00Z"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the referral code. Referral never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2021-11-10T23:00:00Z"]})
+    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times a referral code can be used. This can be set to 0 for no limit, but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [1]})
     __properties: ClassVar[List[str]] = ["attributes", "batchID", "startDate", "expiryDate", "usageLimit"]
 
     model_config = ConfigDict(

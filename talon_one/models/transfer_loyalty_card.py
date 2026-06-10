@@ -28,8 +28,8 @@ class TransferLoyaltyCard(BaseModel):
     """
     TransferLoyaltyCard
     """ # noqa: E501
-    new_card_identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="newCardIdentifier")
-    block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason")
+    new_card_identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="newCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason", json_schema_extra={"examples": ["Current card lost. Customer needs a new card."]})
     __properties: ClassVar[List[str]] = ["newCardIdentifier", "blockReason"]
 
     @field_validator('new_card_identifier')

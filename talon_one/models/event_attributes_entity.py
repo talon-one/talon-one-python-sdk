@@ -28,8 +28,8 @@ class EventAttributesEntity(BaseModel):
     """
     EventAttributesEntity
     """ # noqa: E501
-    type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary additional JSON properties associated with the event. They must be created in the Campaign Manager before setting them with this property. See [creating custom attributes](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#creating-a-custom-attribute).")
+    type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.", json_schema_extra={"examples": ["pageViewed"]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary additional JSON properties associated with the event. They must be created in the Campaign Manager before setting them with this property. See [creating custom attributes](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#creating-a-custom-attribute).", json_schema_extra={"examples": [{"myAttribute": "myValue"}]})
     __properties: ClassVar[List[str]] = ["type", "attributes"]
 
     model_config = ConfigDict(

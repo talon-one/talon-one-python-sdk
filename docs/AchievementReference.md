@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **application_id** | **int** | The ID of the Application associated with the campaign that references this achievement. | 
 **application_name** | **str** | The name of the Application associated with the campaign that references this achievement. | 
 **campaign_id** | **int** | The ID of the campaign that references this achievement. | 
+**campaign_name** | **str** | The name of the campaign that references this achievement. | 
 
 ## Example
 

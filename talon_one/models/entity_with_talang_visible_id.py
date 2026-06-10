@@ -28,8 +28,8 @@ class EntityWithTalangVisibleID(BaseModel):
     """
     EntityWithTalangVisibleID
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID for this entity.")
-    created: datetime = Field(description="The exact moment this entity was created.")
+    id: StrictInt = Field(description="Unique ID for this entity.", json_schema_extra={"examples": [4]})
+    created: datetime = Field(description="The exact moment this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     __properties: ClassVar[List[str]] = ["id", "created"]
 
     model_config = ConfigDict(

@@ -28,7 +28,7 @@ class PriceHistoryResponse(BaseModel):
     """
     PriceHistoryResponse
     """ # noqa: E501
-    sku: StrictStr = Field(description="The SKU of the item for which historical prices should be retrieved.")
+    sku: StrictStr = Field(description="The SKU of the item for which historical prices should be retrieved.", json_schema_extra={"examples": [["SKU1241028"]]})
     history: List[History]
     __properties: ClassVar[List[str]] = ["sku", "history"]
 

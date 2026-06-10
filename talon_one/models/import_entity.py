@@ -27,7 +27,7 @@ class ImportEntity(BaseModel):
     """
     ImportEntity
     """ # noqa: E501
-    import_id: Optional[StrictInt] = Field(default=None, description="The ID of the Import which created this referral.", alias="importId")
+    import_id: Optional[StrictInt] = Field(default=None, description="The ID of the Import which created this referral.", alias="importId", json_schema_extra={"examples": [4]})
     __properties: ClassVar[List[str]] = ["importId"]
 
     model_config = ConfigDict(

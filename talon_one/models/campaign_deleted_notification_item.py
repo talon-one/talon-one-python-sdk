@@ -29,9 +29,9 @@ class CampaignDeletedNotificationItem(BaseModel):
     """
     CampaignDeletedNotificationItem
     """ # noqa: E501
-    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
+    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event", json_schema_extra={"examples": ["campaign_state_changed"]})
     campaign: Campaign = Field(description="The campaign whose state changed.")
-    deleted_at: datetime = Field(description="Time when the campaign was deleted.", alias="deletedAt")
+    deleted_at: datetime = Field(description="Time when the campaign was deleted.", alias="deletedAt", json_schema_extra={"examples": ["2022-11-10T23:00:00Z"]})
     __properties: ClassVar[List[str]] = ["Event", "campaign", "deletedAt"]
 
     model_config = ConfigDict(

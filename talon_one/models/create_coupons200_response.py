@@ -28,7 +28,7 @@ class CreateCoupons200Response(BaseModel):
     """
     CreateCoupons200Response
     """ # noqa: E501
-    total_result_size: StrictInt = Field(alias="totalResultSize")
+    total_result_size: StrictInt = Field(alias="totalResultSize", json_schema_extra={"examples": [1]})
     data: List[Coupon]
     __properties: ClassVar[List[str]] = ["totalResultSize", "data"]
 

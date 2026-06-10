@@ -31,16 +31,16 @@ class ApplicationEvent(BaseModel):
     """
     ApplicationEvent
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    profile_id: Optional[StrictInt] = Field(default=None, description="The globally unique Talon.One ID of the customer that created this entity.", alias="profileId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    profile_id: Optional[StrictInt] = Field(default=None, description="The globally unique Talon.One ID of the customer that created this entity.", alias="profileId", json_schema_extra={"examples": [138]})
     store_id: Optional[StrictInt] = Field(default=None, description="The ID of the store.", alias="storeId")
-    store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId")
-    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The unique ID of the event. Only one event with this ID can be registered. ", alias="integrationId")
+    store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId", json_schema_extra={"examples": ["STORE-001"]})
+    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The unique ID of the event. Only one event with this ID can be registered. ", alias="integrationId", json_schema_extra={"examples": ["175KJPS947296"]})
     session_id: Optional[StrictInt] = Field(default=None, description="The globally unique Talon.One ID of the session that contains this event.", alias="sessionId")
     type: StrictStr = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.")
-    attributes: Dict[str, Any] = Field(description="Additional JSON serialized data associated with the event.")
+    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with this campaign.")
     effects: List[Effect] = Field(description="An array containing the effects that were applied as a result of this event.")
     rule_failure_reasons: Optional[List[RuleFailureReason]] = Field(default=None, description="An array containing the rule failure reasons which happened during this event.", alias="ruleFailureReasons")
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "profileId", "storeId", "storeIntegrationId", "integrationId", "sessionId", "type", "attributes", "effects", "ruleFailureReasons"]

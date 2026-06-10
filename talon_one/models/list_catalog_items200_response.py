@@ -29,7 +29,7 @@ class ListCatalogItems200Response(BaseModel):
     ListCatalogItems200Response
     """ # noqa: E501
     has_more: Optional[StrictBool] = Field(default=None, alias="hasMore")
-    total_result_size: Optional[StrictInt] = Field(default=None, alias="totalResultSize")
+    total_result_size: Optional[StrictInt] = Field(default=None, alias="totalResultSize", json_schema_extra={"examples": [1]})
     data: List[CatalogItem]
     __properties: ClassVar[List[str]] = ["hasMore", "totalResultSize", "data"]
 

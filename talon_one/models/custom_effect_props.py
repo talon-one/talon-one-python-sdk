@@ -25,14 +25,14 @@ from pydantic_core import to_jsonable_python
 
 class CustomEffectProps(BaseModel):
     """
-    Effect containing custom payload.
+    If you want to return data as an effect but no effect matches your use case, you can [create a custom effect](https://docs.talon.one/docs/dev/tutorials/create-custom-effects).  Custom effects can be used as both rule effects and failure effects.  The structure of a custom effect depends on your specifications but is always named `customEffect`.
     """ # noqa: E501
-    effect_id: StrictInt = Field(description="The ID of the custom effect that was triggered.", alias="effectId")
-    name: StrictStr = Field(description="The type of the custom effect.")
-    cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item in the cart item list to which the custom effect is applied.", alias="cartItemPosition")
-    cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="For cart items with quantity > 1, the sub position indicates to which item unit the custom effect is applied. ", alias="cartItemSubPosition")
-    bundle_index: Optional[StrictInt] = Field(default=None, description="The position of the bundle in a list of item bundles created from the same bundle definition.", alias="bundleIndex")
-    bundle_name: Optional[StrictStr] = Field(default=None, description="The name of the bundle definition.", alias="bundleName")
+    effect_id: StrictInt = Field(description="The ID of the custom effect that was triggered.", alias="effectId", json_schema_extra={"examples": [1]})
+    name: StrictStr = Field(description="The type of the custom effect.", json_schema_extra={"examples": ["my_custom_effect"]})
+    cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item in the cart item list to which the custom effect is applied.", alias="cartItemPosition", json_schema_extra={"examples": [1]})
+    cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="For cart items with quantity > 1, the sub position indicates to which item unit the custom effect is applied. ", alias="cartItemSubPosition", json_schema_extra={"examples": [2]})
+    bundle_index: Optional[StrictInt] = Field(default=None, description="The position of the bundle in a list of item bundles created from the same bundle definition.", alias="bundleIndex", json_schema_extra={"examples": [1]})
+    bundle_name: Optional[StrictStr] = Field(default=None, description="The name of the bundle definition.", alias="bundleName", json_schema_extra={"examples": ["my_bundle"]})
     payload: Dict[str, Any] = Field(description="The JSON payload of the custom effect.")
     __properties: ClassVar[List[str]] = ["effectId", "name", "cartItemPosition", "cartItemSubPosition", "bundleIndex", "bundleName", "payload"]
 

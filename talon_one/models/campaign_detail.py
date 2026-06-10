@@ -28,8 +28,8 @@ class CampaignDetail(BaseModel):
     """
     CampaignDetail
     """ # noqa: E501
-    campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that references the application cart item filter.", alias="campaignId")
-    campaign_name: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="A user-facing name for this campaign.", alias="campaignName")
+    campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that references the application cart item filter.", alias="campaignId", json_schema_extra={"examples": [1]})
+    campaign_name: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="A user-facing name for this campaign.", alias="campaignName", json_schema_extra={"examples": ["Summer promotions"]})
     __properties: ClassVar[List[str]] = ["campaignId", "campaignName"]
 
     model_config = ConfigDict(

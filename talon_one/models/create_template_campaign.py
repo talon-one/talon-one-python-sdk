@@ -30,16 +30,16 @@ class CreateTemplateCampaign(BaseModel):
     """
     CreateTemplateCampaign
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A user-facing name for this campaign.")
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
-    template_id: StrictInt = Field(description="The ID of the Campaign Template which will be used in order to create the Campaign.", alias="templateId")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A user-facing name for this campaign.", json_schema_extra={"examples": ["Discount campaign"]})
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.", json_schema_extra={"examples": ["This template is for discount campaigns."]})
+    template_id: StrictInt = Field(description="The ID of the Campaign Template which will be used in order to create the Campaign.", alias="templateId", json_schema_extra={"examples": [4]})
     campaign_attributes_overrides: Optional[Dict[str, Any]] = Field(default=None, description="Custom Campaign Attributes. If the Campaign Template defines the same values, they will be overridden.", alias="campaignAttributesOverrides")
     template_param_values: Optional[List[Binding]] = Field(default=None, description="Actual values to replace the template placeholder values in the Ruleset bindings. Values for all Template Parameters must be provided.", alias="templateParamValues")
     limit_overrides: Optional[List[LimitConfig]] = Field(default=None, description="Limits for this Campaign. If the Campaign Template or Application define default values for the same limits, they will be overridden.", alias="limitOverrides")
-    campaign_groups: Optional[List[StrictInt]] = Field(default=None, description="The IDs of the [campaign groups](https://docs.talon.one/docs/product/account/account-settings/managing-campaign-groups) this campaign belongs to. ", alias="campaignGroups")
-    tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign. If the campaign template has tags, they will be overridden by this list.")
-    evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign evaluation group the campaign belongs to.", alias="evaluationGroupId")
-    linked_store_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of store IDs that are linked to the campaign.  **Note:** Campaigns with linked store IDs will only be evaluated when there is a [customer session update](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) that references a linked store. ", alias="linkedStoreIds")
+    campaign_groups: Optional[List[StrictInt]] = Field(default=None, description="The IDs of the [campaign groups](https://docs.talon.one/docs/product/account/account-settings/managing-campaign-groups) this campaign belongs to. ", alias="campaignGroups", json_schema_extra={"examples": [[1, 3]]})
+    tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign. If the campaign template has tags, they will be overridden by this list.", json_schema_extra={"examples": [["summer"]]})
+    evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign evaluation group the campaign belongs to.", alias="evaluationGroupId", json_schema_extra={"examples": [2]})
+    linked_store_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of store IDs that are linked to the campaign.  **Note:** Campaigns with linked store IDs will only be evaluated when there is a [customer session update](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) that references a linked store. ", alias="linkedStoreIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["name", "description", "templateId", "campaignAttributesOverrides", "templateParamValues", "limitOverrides", "campaignGroups", "tags", "evaluationGroupId", "linkedStoreIds"]
 
     model_config = ConfigDict(

@@ -28,9 +28,9 @@ class Session(BaseModel):
     """
     Session
     """ # noqa: E501
-    user_id: StrictInt = Field(description="The ID of the user of this session.", alias="userId")
-    token: StrictStr = Field(description="The token to use as a bearer token to query Management API endpoints.")
-    created: datetime = Field(description="Unix timestamp indicating when the session was first created.")
+    user_id: StrictInt = Field(description="The ID of the user of this session.", alias="userId", json_schema_extra={"examples": [109]})
+    token: StrictStr = Field(description="The token to use as a bearer token to query Management API endpoints.", json_schema_extra={"examples": ["dy_Fa_lQ4iDAnqldJFvVEmnsN8xDTxej19l0LZDBJhQ"]})
+    created: datetime = Field(description="Unix timestamp indicating when the session was first created.", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
     __properties: ClassVar[List[str]] = ["userId", "token", "created"]
 
     model_config = ConfigDict(

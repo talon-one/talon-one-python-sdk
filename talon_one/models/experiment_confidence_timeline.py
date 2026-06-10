@@ -17,18 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List
+from talon_one.models.experiment_confidence_timeline_data_point import ExperimentConfidenceTimelineDataPoint
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class ScimServiceProviderConfigResponsePatch(BaseModel):
+class ExperimentConfidenceTimeline(BaseModel):
     """
-    Configuration settings related to patch operations, which allow partial updates to SCIM resources.
+    ExperimentConfidenceTimeline
     """ # noqa: E501
-    supported: Optional[StrictBool] = Field(default=None, description="Indicates whether the service provider supports patch operations for modifying resources.")
-    __properties: ClassVar[List[str]] = ["supported"]
+    data: List[ExperimentConfidenceTimelineDataPoint] = Field(description="Daily cumulative confidence values ordered chronologically from experiment start to end, or to today if the experiment is still running. Empty if the experiment has no data yet. ")
+    __properties: ClassVar[List[str]] = ["data"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -48,7 +49,7 @@ class ScimServiceProviderConfigResponsePatch(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ScimServiceProviderConfigResponsePatch from a JSON string"""
+        """Create an instance of ExperimentConfidenceTimeline from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -69,11 +70,18 @@ class ScimServiceProviderConfigResponsePatch(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
+        _items = []
+        if self.data:
+            for _item_data in self.data:
+                if _item_data:
+                    _items.append(_item_data.to_dict())
+            _dict['data'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ScimServiceProviderConfigResponsePatch from a dict"""
+        """Create an instance of ExperimentConfidenceTimeline from a dict"""
         if obj is None:
             return None
 
@@ -81,7 +89,7 @@ class ScimServiceProviderConfigResponsePatch(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "supported": obj.get("supported")
+            "data": [ExperimentConfidenceTimelineDataPoint.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
         })
         return _obj
 

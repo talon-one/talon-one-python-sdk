@@ -28,8 +28,8 @@ class GenerateRuleTitleRule(BaseModel):
     """
     GenerateRuleTitleRule
     """ # noqa: E501
-    effects: Optional[List[Dict[str, Any]]] = Field(default=None, description="An array of effectful Talang expressions in arrays that will be evaluated when a rule matches.")
-    condition: Optional[Annotated[List[Any], Field(min_length=1)]] = Field(default=None, description="A Talang expression that will be evaluated in the context of the given event.")
+    effects: Optional[List[Dict[str, Any]]] = Field(default=None, description="An array of effectful Talang expressions in arrays that will be evaluated when a rule matches.", json_schema_extra={"examples": [["catch", ["noop"], ["setDiscount", "10% off", ["*", [".", "Session", "Total"], ["/", 10, 100]]]]]})
+    condition: Optional[Annotated[List[Any], Field(min_length=1)]] = Field(default=None, description="A Talang expression that will be evaluated in the context of the given event.", json_schema_extra={"examples": [["and", ["couponValid"]]]})
     __properties: ClassVar[List[str]] = ["effects", "condition"]
 
     model_config = ConfigDict(

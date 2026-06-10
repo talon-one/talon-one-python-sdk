@@ -29,14 +29,14 @@ class SecondaryDeployment(BaseModel):
     """
     SecondaryDeployment
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the deployment. Used as subdomain, e.g. experimental.your-company.europe-west1.talon.one")
-    user_id: StrictInt = Field(description="The ID of the user who created the deployment.", alias="userId")
-    status: StrictStr = Field(description="The status of the deployment.")
-    created_at: datetime = Field(description="Timestamp when the deployment was created.", alias="createdAt")
-    active_at: Optional[datetime] = Field(default=None, description="Timestamp when the deployment became active.", alias="activeAt")
-    failed_at: Optional[datetime] = Field(default=None, description="Timestamp when the deployment failed.", alias="failedAt")
-    deleted_at: Optional[datetime] = Field(default=None, description="Timestamp when the deployment was deleted.", alias="deletedAt")
+    id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.", json_schema_extra={"examples": [6]})
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the deployment. Used as subdomain, e.g. experimental.your-company.europe-west1.talon.one", json_schema_extra={"examples": ["experimental"]})
+    user_id: StrictInt = Field(description="The ID of the user who created the deployment.", alias="userId", json_schema_extra={"examples": [4]})
+    status: StrictStr = Field(description="The status of the deployment.", json_schema_extra={"examples": ["active"]})
+    created_at: datetime = Field(description="Timestamp when the deployment was created.", alias="createdAt", json_schema_extra={"examples": ["2023-01-16T16:00:00.700763Z"]})
+    active_at: Optional[datetime] = Field(default=None, description="Timestamp when the deployment became active.", alias="activeAt", json_schema_extra={"examples": ["2023-01-17T16:00:00.700763Z"]})
+    failed_at: Optional[datetime] = Field(default=None, description="Timestamp when the deployment failed.", alias="failedAt", json_schema_extra={"examples": ["2023-01-17T16:00:00.700763Z"]})
+    deleted_at: Optional[datetime] = Field(default=None, description="Timestamp when the deployment was deleted.", alias="deletedAt", json_schema_extra={"examples": ["2023-01-18T16:00:00.700763Z"]})
     __properties: ClassVar[List[str]] = ["id", "name", "userId", "status", "createdAt", "activeAt", "failedAt", "deletedAt"]
 
     @field_validator('name')

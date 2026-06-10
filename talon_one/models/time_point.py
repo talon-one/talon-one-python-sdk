@@ -28,12 +28,12 @@ class TimePoint(BaseModel):
     """
     The absolute duration after which the achievement ends and resets for a particular customer profile.  **Note**: The duration follows the time zone of the Application this achievement belongs to. 
     """ # noqa: E501
-    month: Optional[Annotated[int, Field(le=12, strict=True, ge=1)]] = Field(default=None, description="The achievement ends and resets in this month.  **Note**: Only applicable if the period is set to `Y`. ")
-    day_of_month: Optional[Annotated[int, Field(le=31, strict=True, ge=1)]] = Field(default=None, description="The achievement ends and resets on this day of the month.  **Note**: Only applicable if the period is set to `Y` or `M`. ", alias="dayOfMonth")
+    month: Optional[Annotated[int, Field(le=12, strict=True, ge=1)]] = Field(default=None, description="The achievement ends and resets in this month.  **Note**: Only applicable if the period is set to `Y`. ", json_schema_extra={"examples": [11]})
+    day_of_month: Optional[Annotated[int, Field(le=31, strict=True, ge=1)]] = Field(default=None, description="The achievement ends and resets on this day of the month.  **Note**: Only applicable if the period is set to `Y` or `M`. ", alias="dayOfMonth", json_schema_extra={"examples": [23]})
     day_of_week: Optional[Annotated[int, Field(le=7, strict=True, ge=1)]] = Field(default=None, description="The achievement ends and resets on this day of the week. `1` represents `Monday` and `7` represents `Sunday`.  **Note**: Only applicable if the period is set to `W`. ", alias="dayOfWeek")
-    hour: StrictInt = Field(description="The achievement ends and resets at this hour.")
-    minute: StrictInt = Field(description="The achievement ends and resets at this minute.")
-    second: StrictInt = Field(description="The achievement ends and resets at this second.")
+    hour: StrictInt = Field(description="The achievement ends and resets at this hour.", json_schema_extra={"examples": [23]})
+    minute: StrictInt = Field(description="The achievement ends and resets at this minute.", json_schema_extra={"examples": [59]})
+    second: StrictInt = Field(description="The achievement ends and resets at this second.", json_schema_extra={"examples": [59]})
     __properties: ClassVar[List[str]] = ["month", "dayOfMonth", "dayOfWeek", "hour", "minute", "second"]
 
     model_config = ConfigDict(

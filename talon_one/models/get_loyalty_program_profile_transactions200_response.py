@@ -28,7 +28,7 @@ class GetLoyaltyProgramProfileTransactions200Response(BaseModel):
     """
     GetLoyaltyProgramProfileTransactions200Response
     """ # noqa: E501
-    has_more: StrictBool = Field(alias="hasMore")
+    has_more: StrictBool = Field(alias="hasMore", json_schema_extra={"examples": [True]})
     data: List[LedgerTransactionLogEntryIntegrationAPI]
     __properties: ClassVar[List[str]] = ["hasMore", "data"]
 

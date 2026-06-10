@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.scim_service_provider_config_response_sort import ScimServiceProviderConfigResponseSort
+from talon_one.models.campaign_eligibility_experiment import CampaignEligibilityExperiment
 
-class TestScimServiceProviderConfigResponseSort(unittest.TestCase):
-    """ScimServiceProviderConfigResponseSort unit test stubs"""
+class TestCampaignEligibilityExperiment(unittest.TestCase):
+    """CampaignEligibilityExperiment unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,25 +25,28 @@ class TestScimServiceProviderConfigResponseSort(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ScimServiceProviderConfigResponseSort:
-        """Test ScimServiceProviderConfigResponseSort
+    def make_instance(self, include_optional) -> CampaignEligibilityExperiment:
+        """Test CampaignEligibilityExperiment
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ScimServiceProviderConfigResponseSort`
+        # uncomment below to create an instance of `CampaignEligibilityExperiment`
         """
-        model = ScimServiceProviderConfigResponseSort()
+        model = CampaignEligibilityExperiment()
         if include_optional:
-            return ScimServiceProviderConfigResponseSort(
-                supported = True
+            return CampaignEligibilityExperiment(
+                id = 56,
+                variant_id = 56
             )
         else:
-            return ScimServiceProviderConfigResponseSort(
+            return CampaignEligibilityExperiment(
+                id = 56,
+                variant_id = 56,
         )
         """
 
-    def testScimServiceProviderConfigResponseSort(self):
-        """Test ScimServiceProviderConfigResponseSort"""
+    def testCampaignEligibilityExperiment(self):
+        """Test CampaignEligibilityExperiment"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

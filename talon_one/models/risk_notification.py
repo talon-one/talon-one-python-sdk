@@ -28,13 +28,13 @@ class RiskNotification(BaseModel):
     """
     A risk notification configuration rule.
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    entity: StrictStr = Field(description="The entity type to analyze within the given time frame.")
-    activity: StrictStr = Field(description="The activity metric to analyze within the given entity.")
-    time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame")
-    active: StrictBool = Field(description="Indicates whether this risk notification is active.")
-    modified: datetime = Field(description="Timestamp of the most recent update.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    entity: StrictStr = Field(description="The entity type to analyze within the given time frame.", json_schema_extra={"examples": ["customer_profile"]})
+    activity: StrictStr = Field(description="The activity metric to analyze within the given entity.", json_schema_extra={"examples": ["loyalty_points_earned"]})
+    time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame", json_schema_extra={"examples": ["1_week"]})
+    active: StrictBool = Field(description="Indicates whether this risk notification is active.", json_schema_extra={"examples": [True]})
+    modified: datetime = Field(description="Timestamp of the most recent update.", json_schema_extra={"examples": ["2026-04-16T09:05:27.993483Z"]})
     __properties: ClassVar[List[str]] = ["id", "created", "entity", "activity", "timeFrame", "active", "modified"]
 
     @field_validator('entity')

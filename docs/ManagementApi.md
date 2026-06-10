@@ -138,6 +138,7 @@ Method | HTTP request | Description
 [**import_coupons**](ManagementApi.md#import_coupons) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/import_coupons | Import coupons
 [**import_loyalty_cards**](ManagementApi.md#import_loyalty_cards) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/import_cards | Import loyalty cards
 [**import_loyalty_customers_tiers**](ManagementApi.md#import_loyalty_customers_tiers) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/import_customers_tiers | Import customers into loyalty tiers
+[**import_loyalty_join_dates**](ManagementApi.md#import_loyalty_join_dates) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/import_join_dates | Import join dates for a loyalty program
 [**import_loyalty_points**](ManagementApi.md#import_loyalty_points) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/import_points | Import loyalty points
 [**import_pool_giveaways**](ManagementApi.md#import_pool_giveaways) | **POST** /v1/giveaways/pools/{poolId}/import | Import giveaway codes into a giveaway pool
 [**import_referrals**](ManagementApi.md#import_referrals) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/import_referrals | Import referrals
@@ -4171,7 +4172,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_customer_sessions**
-> str export_customer_sessions(application_id, created_before=created_before, created_after=created_after, profile_integration_id=profile_integration_id, date_format=date_format, customer_session_state=customer_session_state)
+> str export_customer_sessions(application_id, created_before=created_before, created_after=created_after, updated_before=updated_before, updated_after=updated_after, profile_integration_id=profile_integration_id, date_format=date_format, customer_session_state=customer_session_state)
 
 Export customer sessions
 
@@ -4240,13 +4241,15 @@ with talon_one.ApiClient(configuration) as api_client:
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string. (optional)
     created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string. (optional)
+    updated_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string. (optional)
+    updated_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string. (optional)
     profile_integration_id = 'profile_integration_id_example' # str | Only return sessions for the customer that matches this customer integration ID. (optional)
     date_format = 'date_format_example' # str | Determines the format of dates in the export document. (optional)
     customer_session_state = 'customer_session_state_example' # str | Filter results by state. (optional)
 
     try:
         # Export customer sessions
-        api_response = api_instance.export_customer_sessions(application_id, created_before=created_before, created_after=created_after, profile_integration_id=profile_integration_id, date_format=date_format, customer_session_state=customer_session_state)
+        api_response = api_instance.export_customer_sessions(application_id, created_before=created_before, created_after=created_after, updated_before=updated_before, updated_after=updated_after, profile_integration_id=profile_integration_id, date_format=date_format, customer_session_state=customer_session_state)
         print("The response of ManagementApi->export_customer_sessions:\n")
         pprint(api_response)
     except Exception as e:
@@ -4263,6 +4266,8 @@ Name | Type | Description  | Notes
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **created_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string. | [optional] 
  **created_after** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string. | [optional] 
+ **updated_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string. | [optional] 
+ **updated_after** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string. | [optional] 
  **profile_integration_id** | **str**| Only return sessions for the customer that matches this customer integration ID. | [optional] 
  **date_format** | **str**| Determines the format of dates in the export document. | [optional] 
  **customer_session_state** | **str**| Filter results by state. | [optional] 
@@ -4902,7 +4907,7 @@ The CSV file contains the following columns:
 - `blockreason`: The reason for transferring and blocking the loyalty card.
 - `generated`: An indicator of whether the loyalty card was generated.
 - `batchid`: The ID of the batch the loyalty card is in.
-- `attributes`: The custom attributes of this loyalty card. Currently, this feature is only available upon request.
+- `attributes`: The custom attributes of this loyalty card.
 
 
 ### Example
@@ -7524,7 +7529,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
-    audience_ids = 'audience_ids_example' # str | The IDs of one or more audiences, separated by commas, by which to filter results.
+    audience_ids = 'audience_ids_example' # str | The IDs of one or more audiences, separated by commas, by which to filter results. Do not provide more than 1000 audience IDs.
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
 
     try:
@@ -7543,7 +7548,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **audience_ids** | **str**| The IDs of one or more audiences, separated by commas, by which to filter results. | 
+ **audience_ids** | **str**| The IDs of one or more audiences, separated by commas, by which to filter results. Do not provide more than 1000 audience IDs. | 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
 
 ### Return type
@@ -12138,14 +12143,17 @@ which must match the regular expression `^[A-Za-z0-9._%+@-]+$`.
 - `customerprofileids` (optional): An array of strings representing the
 identifiers of the customer profiles linked to the loyalty card. The
 identifiers should be separated with a semicolon (;).
+- `attributes` (optional): A JSON object that contains the loyalty card's custom
+attributes and their values. These attributes must be created and connected to this
+loyalty program before they can be assigned to the cards through this endpoint.
 
 > [!note] Your CSV file must contain less than 500,000 rows. Requests time out after 30 seconds.
 
 ## Example
 
 ```csv
-identifier,state,customerprofileids
-123-456-789AT,active,Alexa001;UserA
+identifier,state,customerprofileids,attributes
+123-456-789AT,active,Alexa001;UserA,'{""my_attributes"": ""10_off""}"
 ```
 
 
@@ -12330,6 +12338,117 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
+ **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
+
+### Return type
+
+[**ModelImport**](ModelImport.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **import_loyalty_join_dates**
+> ModelImport import_loyalty_join_dates(loyalty_program_id, up_file=up_file)
+
+Import join dates for a loyalty program
+
+Upload a CSV file containing customer profile IDs and their join dates for the
+specified loyalty program. Send the file as multipart data.
+
+> [!important] This endpoint only works with profile-based loyalty programs.
+
+The CSV file **must** contain the following columns:
+
+- `customerprofileid`: The integration ID of the customer profile whose join
+  date you want to update.
+- `newjoindate`: The new join date for the customer in RFC3339 format. You
+  can use the time zone of your choice. It is converted to UTC internally
+  by Talon.One.
+
+**Note**:
+- Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error.
+- If a join date already exists for a profile, the uploaded date replaces it.
+
+> [!note] We recommend limiting your file size to 500 MB.
+
+## Example
+
+```csv
+customerprofileid,newjoindate
+customer1,2024-03-21T07:32:14Z
+customer2,2025-04-16T21:12:37Z
+customer3,2026-05-03T11:47:01Z
+```
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.model_import import ModelImport
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    loyalty_program_id = 56 # int | Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
+    up_file = None # bytes | The CSV file containing the data that is being imported. (optional)
+
+    try:
+        # Import join dates for a loyalty program
+        api_response = api_instance.import_loyalty_join_dates(loyalty_program_id, up_file=up_file)
+        print("The response of ManagementApi->import_loyalty_join_dates:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->import_loyalty_join_dates: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **loyalty_program_id** | **int**| Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **up_file** | **bytes**| The CSV file containing the data that is being imported. | [optional] 
 
 ### Return type
@@ -13076,7 +13195,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_application_cart_item_filters**
-> ListApplicationCartItemFilters200Response list_application_cart_item_filters(application_id, page_size=page_size, skip=skip, title=title)
+> ListApplicationCartItemFilters200Response list_application_cart_item_filters(application_id, page_size=page_size, skip=skip, name=name)
 
 List Application cart item filters
 
@@ -13116,11 +13235,11 @@ with talon_one.ApiClient(configuration) as api_client:
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
-    title = 'title_example' # str | Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned.  (optional)
+    name = 'name_example' # str | Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `name` is provided, all the Application cart item filters in the Application are returned.  (optional)
 
     try:
         # List Application cart item filters
-        api_response = api_instance.list_application_cart_item_filters(application_id, page_size=page_size, skip=skip, title=title)
+        api_response = api_instance.list_application_cart_item_filters(application_id, page_size=page_size, skip=skip, name=name)
         print("The response of ManagementApi->list_application_cart_item_filters:\n")
         pprint(api_response)
     except Exception as e:
@@ -13137,7 +13256,7 @@ Name | Type | Description  | Notes
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
- **title** | **str**| Filter by the display name of the Application cart item filter in the Application.  **Note**: If no &#x60;title&#x60; is provided, all the Application cart item filters in the Application are returned.  | [optional] 
+ **name** | **str**| Filter by the display name of the Application cart item filter in the Application.  **Note**: If no &#x60;name&#x60; is provided, all the Application cart item filters in the Application are returned.  | [optional] 
 
 ### Return type
 

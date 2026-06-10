@@ -28,9 +28,9 @@ class CampaignAnalytics(BaseModel):
     """
     CampaignAnalytics
     """ # noqa: E501
-    var_date: datetime = Field(alias="date")
-    campaign_revenue: Union[StrictFloat, StrictInt] = Field(description="Amount of revenue in this campaign (for coupon or discount sessions).", alias="campaignRevenue")
-    total_campaign_revenue: Union[StrictFloat, StrictInt] = Field(description="Amount of revenue in this campaign since it began (for coupon or discount sessions).", alias="totalCampaignRevenue")
+    var_date: datetime = Field(alias="date", json_schema_extra={"examples": ["2021-10-12T10:12:42Z"]})
+    campaign_revenue: Union[StrictFloat, StrictInt] = Field(description="Amount of revenue in this campaign (for coupon or discount sessions).", alias="campaignRevenue", json_schema_extra={"examples": [3539.76]})
+    total_campaign_revenue: Union[StrictFloat, StrictInt] = Field(description="Amount of revenue in this campaign since it began (for coupon or discount sessions).", alias="totalCampaignRevenue", json_schema_extra={"examples": [5784.63]})
     campaign_refund: Union[StrictFloat, StrictInt] = Field(description="Amount of refunds in this campaign (for coupon or discount sessions).", alias="campaignRefund")
     total_campaign_refund: Union[StrictFloat, StrictInt] = Field(description="Amount of refunds in this campaign since it began (for coupon or discount sessions).", alias="totalCampaignRefund")
     campaign_discount_costs: Union[StrictFloat, StrictInt] = Field(description="Amount of cost caused by discounts given in the campaign.", alias="campaignDiscountCosts")
@@ -38,7 +38,7 @@ class CampaignAnalytics(BaseModel):
     campaign_refunded_discounts: Union[StrictFloat, StrictInt] = Field(description="Amount of discounts rolledback due to refund in the campaign.", alias="campaignRefundedDiscounts")
     total_campaign_refunded_discounts: Union[StrictFloat, StrictInt] = Field(description="Amount of discounts rolledback due to refund in the campaign since it began.", alias="totalCampaignRefundedDiscounts")
     campaign_free_items: StrictInt = Field(description="Amount of free items given in the campaign.", alias="campaignFreeItems")
-    total_campaign_free_items: StrictInt = Field(description="Amount of free items given in the campaign since it began.", alias="totalCampaignFreeItems")
+    total_campaign_free_items: StrictInt = Field(description="Amount of free items given in the campaign since it began.", alias="totalCampaignFreeItems", json_schema_extra={"examples": [86]})
     coupon_redemptions: StrictInt = Field(description="Number of coupon redemptions in the campaign.", alias="couponRedemptions")
     total_coupon_redemptions: StrictInt = Field(description="Number of coupon redemptions in the campaign since it began.", alias="totalCouponRedemptions")
     coupon_rolledback_redemptions: StrictInt = Field(description="Number of coupon redemptions that have been rolled back (due to canceling closed session) in the campaign.", alias="couponRolledbackRedemptions")
@@ -49,10 +49,10 @@ class CampaignAnalytics(BaseModel):
     total_coupons_created: StrictInt = Field(description="Number of coupons created in the campaign by the rule engine since it began.", alias="totalCouponsCreated")
     referrals_created: StrictInt = Field(description="Number of referrals created in the campaign by the rule engine.", alias="referralsCreated")
     total_referrals_created: StrictInt = Field(description="Number of referrals created in the campaign by the rule engine since it began.", alias="totalReferralsCreated")
-    added_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of added loyalty points in the campaign in a specific interval.", alias="addedLoyaltyPoints")
-    total_added_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of added loyalty points in the campaign since it began.", alias="totalAddedLoyaltyPoints")
-    deducted_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of deducted loyalty points in the campaign in a specific interval.", alias="deductedLoyaltyPoints")
-    total_deducted_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of deducted loyalty points in the campaign since it began.", alias="totalDeductedLoyaltyPoints")
+    added_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of added loyalty points in the campaign in a specific interval.", alias="addedLoyaltyPoints", json_schema_extra={"examples": [250]})
+    total_added_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of added loyalty points in the campaign since it began.", alias="totalAddedLoyaltyPoints", json_schema_extra={"examples": [340]})
+    deducted_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of deducted loyalty points in the campaign in a specific interval.", alias="deductedLoyaltyPoints", json_schema_extra={"examples": [120]})
+    total_deducted_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of deducted loyalty points in the campaign since it began.", alias="totalDeductedLoyaltyPoints", json_schema_extra={"examples": [220]})
     __properties: ClassVar[List[str]] = ["date", "campaignRevenue", "totalCampaignRevenue", "campaignRefund", "totalCampaignRefund", "campaignDiscountCosts", "totalCampaignDiscountCosts", "campaignRefundedDiscounts", "totalCampaignRefundedDiscounts", "campaignFreeItems", "totalCampaignFreeItems", "couponRedemptions", "totalCouponRedemptions", "couponRolledbackRedemptions", "totalCouponRolledbackRedemptions", "referralRedemptions", "totalReferralRedemptions", "couponsCreated", "totalCouponsCreated", "referralsCreated", "totalReferralsCreated", "addedLoyaltyPoints", "totalAddedLoyaltyPoints", "deductedLoyaltyPoints", "totalDeductedLoyaltyPoints"]
 
     model_config = ConfigDict(

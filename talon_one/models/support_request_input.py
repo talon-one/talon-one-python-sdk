@@ -28,14 +28,14 @@ class SupportRequestInput(BaseModel):
     """
     SupportRequestInput
     """ # noqa: E501
-    application_id: StrictInt = Field(description="Identifier of the Application connected to the loyalty program or the campaign. It is displayed in your Talon.One deployment URL.", alias="applicationId")
-    campaign_id: Optional[StrictInt] = Field(default=None, description="Identifier of the campaign where the coupon or gift card is created.", alias="campaignId")
-    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.", alias="loyaltyProgramId")
-    subledger_id: Optional[StrictInt] = Field(default=None, description="Identifier of the subledger the points are added to or deducted from. If there is no existing subledger with this ID, the subledger is created automatically.", alias="subledgerId")
-    customer_profile_id: StrictStr = Field(description="Integration ID of the customer profile linked to the support request.", alias="customerProfileId")
-    request_type: StrictStr = Field(description="Type of reward requested, including gift cards, personal coupons, and loyalty point additions or deductions.", alias="requestType")
-    request_value: Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]] = Field(default=None, description="Requested monetary balance of the gift card or the number of loyalty points to be added or deducted.", alias="requestValue")
-    request_note: StrictStr = Field(description="Notes attached to the support request.", alias="requestNote")
+    application_id: StrictInt = Field(description="Identifier of the Application connected to the loyalty program or the campaign. It is displayed in your Talon.One deployment URL.", alias="applicationId", json_schema_extra={"examples": [322]})
+    campaign_id: Optional[StrictInt] = Field(default=None, description="Identifier of the campaign where the coupon or gift card is created.", alias="campaignId", json_schema_extra={"examples": [100]})
+    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.", alias="loyaltyProgramId", json_schema_extra={"examples": [8]})
+    subledger_id: Optional[StrictInt] = Field(default=None, description="Identifier of the subledger the points are added to or deducted from. If there is no existing subledger with this ID, the subledger is created automatically.", alias="subledgerId", json_schema_extra={"examples": [123]})
+    customer_profile_id: StrictStr = Field(description="Integration ID of the customer profile linked to the support request.", alias="customerProfileId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    request_type: StrictStr = Field(description="Type of reward requested, including gift cards, personal coupons, and loyalty point additions or deductions.", alias="requestType", json_schema_extra={"examples": ["personal_coupon"]})
+    request_value: Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]] = Field(default=None, description="Requested monetary balance of the gift card or the number of loyalty points to be added or deducted.", alias="requestValue", json_schema_extra={"examples": [20.5]})
+    request_note: StrictStr = Field(description="Notes attached to the support request.", alias="requestNote", json_schema_extra={"examples": ["Support request for coupon failure."]})
     __properties: ClassVar[List[str]] = ["applicationId", "campaignId", "loyaltyProgramId", "subledgerId", "customerProfileId", "requestType", "requestValue", "requestNote"]
 
     @field_validator('request_type')

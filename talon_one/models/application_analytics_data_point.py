@@ -29,14 +29,14 @@ class ApplicationAnalyticsDataPoint(BaseModel):
     """
     ApplicationAnalyticsDataPoint
     """ # noqa: E501
-    start_time: datetime = Field(description="The start of the aggregation time frame in UTC.", alias="startTime")
-    end_time: datetime = Field(description="The end of the aggregation time frame in UTC.", alias="endTime")
+    start_time: datetime = Field(description="The start of the aggregation time frame in UTC.", alias="startTime", json_schema_extra={"examples": ["2024-02-01T00:00:00Z"]})
+    end_time: datetime = Field(description="The end of the aggregation time frame in UTC.", alias="endTime", json_schema_extra={"examples": ["2024-02-01T23:59:99Z"]})
     total_revenue: Optional[AnalyticsDataPoint] = Field(default=None, description="The total, pre-discount value of all items purchased in a customer session.", alias="totalRevenue")
     sessions_count: Optional[AnalyticsDataPoint] = Field(default=None, description="The number of all closed sessions. The `influenced` value includes only sessions with at least one applied effect.", alias="sessionsCount")
     avg_items_per_session: Optional[AnalyticsDataPoint] = Field(default=None, description="The number of items from sessions divided by the number of sessions. The `influenced` value includes only sessions with at least one applied effect.", alias="avgItemsPerSession")
     avg_session_value: Optional[AnalyticsDataPoint] = Field(default=None, description="The average customer session value, calculated by dividing the revenue value by the number of sessions. The `influenced` value includes only sessions with at least one applied effect.", alias="avgSessionValue")
-    total_discounts: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total value of discounts given for cart items in influenced sessions.", alias="totalDiscounts")
-    coupons_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of times a coupon was successfully redeemed in influenced sessions.", alias="couponsCount")
+    total_discounts: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total value of discounts given for cart items in influenced sessions.", alias="totalDiscounts", json_schema_extra={"examples": [10]})
+    coupons_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of times a coupon was successfully redeemed in influenced sessions.", alias="couponsCount", json_schema_extra={"examples": [12]})
     __properties: ClassVar[List[str]] = ["startTime", "endTime", "totalRevenue", "sessionsCount", "avgItemsPerSession", "avgSessionValue", "totalDiscounts", "couponsCount"]
 
     model_config = ConfigDict(

@@ -28,7 +28,7 @@ class NewSecondaryDeployment(BaseModel):
     """
     NewSecondaryDeployment
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the deployment. Used as subdomain, e.g. experimental.your-company.europe-west1.talon.one")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the deployment. Used as subdomain, e.g. experimental.your-company.europe-west1.talon.one", json_schema_extra={"examples": ["experimental"]})
     __properties: ClassVar[List[str]] = ["name"]
 
     @field_validator('name')

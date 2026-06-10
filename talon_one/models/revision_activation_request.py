@@ -29,8 +29,8 @@ class RevisionActivationRequest(BaseModel):
     """
     RevisionActivationRequest
     """ # noqa: E501
-    user_ids: Annotated[List[StrictInt], Field(max_length=5)] = Field(description="The list of IDs of the users who will receive the activation request.", alias="userIds")
-    activate_at: Optional[datetime] = Field(default=None, description="Time when the revisions are finalized after the `activate_revision` operation. The current time is used when left blank.  **Note:** It must be an RFC3339 timestamp string. ", alias="activateAt")
+    user_ids: Annotated[List[StrictInt], Field(max_length=5)] = Field(description="The list of IDs of the users who will receive the activation request.", alias="userIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    activate_at: Optional[datetime] = Field(default=None, description="Time when the revisions are finalized after the `activate_revision` operation. The current time is used when left blank.  **Note:** It must be an RFC3339 timestamp string. ", alias="activateAt", json_schema_extra={"examples": ["2025-10-01T16:00:05Z07:00"]})
     __properties: ClassVar[List[str]] = ["userIds", "activateAt"]
 
     model_config = ConfigDict(

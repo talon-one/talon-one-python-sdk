@@ -28,15 +28,15 @@ class Catalog(BaseModel):
     """
     Catalog
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
-    modified: datetime = Field(description="The time this entity was last modified.")
-    name: StrictStr = Field(description="The cart item catalog name.")
-    description: StrictStr = Field(description="A description of this cart item catalog.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this catalog.", alias="subscribedApplicationsIds")
-    version: StrictInt = Field(description="The current version of this catalog.")
-    created_by: StrictInt = Field(description="The ID of user who created this catalog.", alias="createdBy")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    name: StrictStr = Field(description="The cart item catalog name.", json_schema_extra={"examples": ["seafood"]})
+    description: StrictStr = Field(description="A description of this cart item catalog.", json_schema_extra={"examples": ["seafood catalog"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this catalog.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    version: StrictInt = Field(description="The current version of this catalog.", json_schema_extra={"examples": [6]})
+    created_by: StrictInt = Field(description="The ID of user who created this catalog.", alias="createdBy", json_schema_extra={"examples": [6]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "name", "description", "subscribedApplicationsIds", "version", "createdBy"]
 
     model_config = ConfigDict(

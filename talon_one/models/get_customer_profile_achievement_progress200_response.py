@@ -28,7 +28,7 @@ class GetCustomerProfileAchievementProgress200Response(BaseModel):
     """
     GetCustomerProfileAchievementProgress200Response
     """ # noqa: E501
-    has_more: StrictBool = Field(alias="hasMore")
+    has_more: StrictBool = Field(alias="hasMore", json_schema_extra={"examples": [True]})
     data: List[AchievementProgressWithDefinition]
     __properties: ClassVar[List[str]] = ["hasMore", "data"]
 

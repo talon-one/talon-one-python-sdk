@@ -29,8 +29,8 @@ class NewCampaignSet(BaseModel):
     """
     NewCampaignSet
     """ # noqa: E501
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    version: Annotated[int, Field(strict=True, ge=1)] = Field(description="Version of the campaign set.")
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    version: Annotated[int, Field(strict=True, ge=1)] = Field(description="Version of the campaign set.", json_schema_extra={"examples": [2]})
     set: CampaignSetBranchNode
     __properties: ClassVar[List[str]] = ["applicationId", "version", "set"]
 

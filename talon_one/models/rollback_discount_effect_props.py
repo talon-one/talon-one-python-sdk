@@ -25,15 +25,15 @@ from pydantic_core import to_jsonable_python
 
 class RollbackDiscountEffectProps(BaseModel):
     """
-    The properties specific to the \"rollbackDiscount\" effect. This gets triggered whenever previously closed session is now cancelled or partially returned and a setDiscount effect was cancelled on our internal discount limit counters.
+    This effect indicates that a discounted session, cart item, or additional cost has been cancelled or partially returned. This effect can only happen when you set the status of a session to `cancel` or the status changes to `partially_returned`.  If the session contains some cart items with _quantity > 1_, use the `cartItemSubPosition` property to identify the specific item unit in its line item. See the example below.
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the \"setDiscount\" effect that was rolled back.")
-    value: Union[StrictFloat, StrictInt] = Field(description="The value of the discount that was rolled back.")
-    cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item in the cart items for which the discount was rolled back.", alias="cartItemPosition")
-    cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="For cart items with `quantity` > 1, the subposition returns the index of the item unit in its line item. ", alias="cartItemSubPosition")
-    additional_cost_id: Optional[StrictInt] = Field(default=None, description="The ID of the additional cost that was rolled back.", alias="additionalCostId")
-    additional_cost: Optional[StrictStr] = Field(default=None, description="The name of the additional cost that was rolled back.", alias="additionalCost")
-    scope: Optional[StrictStr] = Field(default=None, description="The scope of the rolled back discount - For a discount per session, it can be one of `cartItems`, `additionalCosts` or `sessionTotal` - For a discount per item, it can be one of `price`, `additionalCosts` or `itemTotal` ")
+    name: StrictStr = Field(description="The name of the discount effect that was rolled back.")
+    value: Union[StrictFloat, StrictInt] = Field(description="The monetary value of the discount that was rolled back.")
+    cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item in the `cartItem` object whose discount was rolled back, or the unit containing the additional cost whose discount was rolled back.", alias="cartItemPosition")
+    cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item unit in its line item for which the discount was rolled back.", alias="cartItemSubPosition")
+    additional_cost_id: Optional[StrictInt] = Field(default=None, description="_Only when rolling back [setDiscountPerAdditionalCost](https://docs.talon.one/docs/dev/integration-api/api-effects#setdiscountperadditionalcost) and [setDiscountPerAdditionalCostPerItem](https://docs.talon.one/docs/dev/integration-api/api-effects#setdiscountperadditionalcostperitem)_ The ID of the additional cost to be discounted.", alias="additionalCostId")
+    additional_cost: Optional[StrictStr] = Field(default=None, description="The API name of the additional cost whose discount was rolled back.", alias="additionalCost")
+    scope: Optional[StrictStr] = Field(default=None, description="The scope of the rolled back discount.  - For a discount per session, it can be one of `cartItems`, `additionalCosts` or `sessionTotal` - For a discount per item, it can be one of `price`, `additionalCosts` or `itemTotal`")
     __properties: ClassVar[List[str]] = ["name", "value", "cartItemPosition", "cartItemSubPosition", "additionalCostId", "additionalCost", "scope"]
 
     model_config = ConfigDict(

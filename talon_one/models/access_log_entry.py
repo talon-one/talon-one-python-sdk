@@ -28,13 +28,13 @@ class AccessLogEntry(BaseModel):
     """
     Log of application accesses.
     """ # noqa: E501
-    uuid: StrictStr = Field(description="UUID reference of request.")
-    status: StrictInt = Field(description="HTTP status code of response.")
-    method: StrictStr = Field(description="HTTP method of request.")
-    request_uri: StrictStr = Field(description="target URI of request", alias="requestUri")
-    time: datetime = Field(description="timestamp of request")
-    request_payload: StrictStr = Field(description="payload of request", alias="requestPayload")
-    response_payload: StrictStr = Field(description="payload of response", alias="responsePayload")
+    uuid: StrictStr = Field(description="UUID reference of request.", json_schema_extra={"examples": ["606e7d34-2d36-4d53-ac71-d4442c325985"]})
+    status: StrictInt = Field(description="HTTP status code of response.", json_schema_extra={"examples": [200]})
+    method: StrictStr = Field(description="HTTP method of request.", json_schema_extra={"examples": ["PUT"]})
+    request_uri: StrictStr = Field(description="target URI of request", alias="requestUri", json_schema_extra={"examples": ["/v2/customer_sessions/Session136667"]})
+    time: datetime = Field(description="timestamp of request", json_schema_extra={"examples": ["2023-01-16T16:00:00.700763Z"]})
+    request_payload: StrictStr = Field(description="payload of request", alias="requestPayload", json_schema_extra={"examples": ["{\n    \"customerSession\": {\n        \"profileId\": \"customer123\",\n        \"state\": \"closed\",\n...\n}"]})
+    response_payload: StrictStr = Field(description="payload of response", alias="responsePayload", json_schema_extra={"examples": ["{\"coupons\":[],\"createdCoupons\":[],...}"]})
     __properties: ClassVar[List[str]] = ["uuid", "status", "method", "requestUri", "time", "requestPayload", "responsePayload"]
 
     model_config = ConfigDict(

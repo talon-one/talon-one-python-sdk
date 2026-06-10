@@ -29,14 +29,14 @@ class NewCustomerSession(BaseModel):
     """
     NewCustomerSession
     """ # noqa: E501
-    profile_id: Optional[StrictStr] = Field(default=None, description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId")
-    coupon: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Any coupon code entered.")
-    referral: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Any referral code entered.")
-    state: Optional[StrictStr] = Field(default='open', description="Indicates the current state of the session. Sessions can be created as `open` or `closed`. The state transitions are:  1. `open` → `closed` 2. `open` → `cancelled` 3. `closed` → `cancelled` or `partially_returned` 4. `partially_returned` → `cancelled`  For more information, see [Customer session states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions). ")
+    profile_id: Optional[StrictStr] = Field(default=None, description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    coupon: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Any coupon code entered.", json_schema_extra={"examples": ["XMAS-2021"]})
+    referral: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Any referral code entered.", json_schema_extra={"examples": ["2740-tbjua-6720"]})
+    state: Optional[StrictStr] = Field(default='open', description="Indicates the current state of the session. Sessions can be created as `open` or `closed`. The state transitions are:  1. `open` → `closed` 2. `open` → `cancelled` 3. `closed` → `cancelled` or `partially_returned` 4. `partially_returned` → `cancelled`  For more information, see [Customer session states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions). ", json_schema_extra={"examples": ["open"]})
     cart_items: Optional[List[CartItem]] = Field(default=None, description="Serialized JSON representation.", alias="cartItems")
-    identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers). ")
+    identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers). ", json_schema_extra={"examples": [["91.11.156.141"]]})
     total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total sum of the cart in one session.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="A key-value map of the sessions attributes. The potentially valid attributes are configured in your accounts developer settings. ")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
     __properties: ClassVar[List[str]] = ["profileId", "coupon", "referral", "state", "cartItems", "identifiers", "total", "attributes"]
 
     @field_validator('state')

@@ -27,7 +27,7 @@ class UpdateLoyaltyCardRequest(BaseModel):
     """
     UpdateLoyaltyCardRequest
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="Status of the loyalty card. Can be `active` or `inactive`. ")
+    status: Optional[StrictStr] = Field(default=None, description="Status of the loyalty card. Can be `active` or `inactive`. ", json_schema_extra={"examples": ["active"]})
     __properties: ClassVar[List[str]] = ["status"]
 
     model_config = ConfigDict(

@@ -27,9 +27,9 @@ class UpdatePriceType(BaseModel):
     """
     UpdatePriceType
     """ # noqa: E501
-    title: StrictStr = Field(description="The name displayed in the Campaign Manager for the price type.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the price type.")
-    targeted_audiences_ids: List[StrictInt] = Field(description="A list of the IDs of the audiences targeted by this price type.", alias="targetedAudiencesIds")
+    title: StrictStr = Field(description="The name displayed in the Campaign Manager for the price type.", json_schema_extra={"examples": ["Member Price"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the price type.", json_schema_extra={"examples": ["The price available exclusively to members."]})
+    targeted_audiences_ids: List[StrictInt] = Field(description="A list of the IDs of the audiences targeted by this price type.", alias="targetedAudiencesIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["title", "description", "targetedAudiencesIds"]
 
     model_config = ConfigDict(

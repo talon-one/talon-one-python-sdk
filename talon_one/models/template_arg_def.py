@@ -31,7 +31,7 @@ class TemplateArgDef(BaseModel):
     type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The type of value this argument expects.")
     description: Optional[StrictStr] = Field(default=None, description="A campaigner-friendly description of the argument, this will also be shown in the rule editor.")
     title: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A campaigner friendly name for the argument, this will be shown in the rule editor.")
-    ui: Dict[str, Any] = Field(description="Arbitrary metadata that may be used to render an input for this argument.")
+    ui: Dict[str, Any] = Field(description="Arbitrary properties associated with this campaign.")
     key: Optional[StrictStr] = Field(default=None, description="The identifier for the associated value within the JSON object.")
     picklist_id: Optional[StrictInt] = Field(default=None, description="ID of the picklist linked to a template.", alias="picklistID")
     restricted_by_picklist: Optional[StrictBool] = Field(default=None, description="Whether or not this attribute's value is restricted by picklist (`picklist` property)", alias="restrictedByPicklist")

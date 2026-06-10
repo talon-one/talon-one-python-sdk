@@ -30,8 +30,8 @@ class BulkOperationOnCampaigns(BaseModel):
     BulkOperationOnCampaigns
     """ # noqa: E501
     operation: StrictStr = Field(description="The operation to perform on the specified campaign IDs. ")
-    campaign_ids: Annotated[List[StrictInt], Field(max_length=50)] = Field(description="The list of campaign IDs on which the operation will be performed.", alias="campaignIds")
-    activate_at: Optional[datetime] = Field(default=None, description="Timestamp when the revisions are finalized after the `activate_revision` operation. The current time is used when left blank.  **Note:** It must be an RFC3339 timestamp string. ", alias="activateAt")
+    campaign_ids: Annotated[List[StrictInt], Field(max_length=50)] = Field(description="The list of campaign IDs on which the operation will be performed.", alias="campaignIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    activate_at: Optional[datetime] = Field(default=None, description="Timestamp when the revisions are finalized after the `activate_revision` operation. The current time is used when left blank.  **Note:** It must be an RFC3339 timestamp string. ", alias="activateAt", json_schema_extra={"examples": ["2024-10-01T16:00:05Z07:00"]})
     __properties: ClassVar[List[str]] = ["operation", "campaignIds", "activateAt"]
 
     @field_validator('operation')

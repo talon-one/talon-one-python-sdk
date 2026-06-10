@@ -27,7 +27,7 @@ class CampaignEntity(BaseModel):
     """
     CampaignEntity
     """ # noqa: E501
-    campaign_id: StrictInt = Field(description="The ID of the campaign that owns this entity.", alias="campaignId")
+    campaign_id: StrictInt = Field(description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [211]})
     __properties: ClassVar[List[str]] = ["campaignId"]
 
     model_config = ConfigDict(

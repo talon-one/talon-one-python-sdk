@@ -28,7 +28,7 @@ class MutableEntity(BaseModel):
     """
     MutableEntity
     """ # noqa: E501
-    modified: datetime = Field(description="The time this entity was last modified.")
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     __properties: ClassVar[List[str]] = ["modified"]
 
     model_config = ConfigDict(

@@ -27,10 +27,10 @@ class ExperimentSegmentInsightVariant(BaseModel):
     """
     ExperimentSegmentInsightVariant
     """ # noqa: E501
-    variant_id: StrictInt = Field(description="The ID of the experiment variant.", alias="variantId")
-    variant_name: StrictStr = Field(description="The name of the experiment variant.", alias="variantName")
-    sessions_count: StrictInt = Field(description="The number of sessions in this segment for this variant.", alias="sessionsCount")
-    value: Union[StrictFloat, StrictInt] = Field(description="The metric value for this variant in the segment.")
+    variant_id: StrictInt = Field(description="The ID of the experiment variant.", alias="variantId", json_schema_extra={"examples": [41]})
+    variant_name: StrictStr = Field(description="The name of the experiment variant.", alias="variantName", json_schema_extra={"examples": ["Control"]})
+    sessions_count: StrictInt = Field(description="The number of sessions in this segment for this variant.", alias="sessionsCount", json_schema_extra={"examples": [161]})
+    value: Union[StrictFloat, StrictInt] = Field(description="The metric value for this variant in the segment.", json_schema_extra={"examples": [13.13]})
     __properties: ClassVar[List[str]] = ["variantId", "variantName", "sessionsCount", "value"]
 
     model_config = ConfigDict(

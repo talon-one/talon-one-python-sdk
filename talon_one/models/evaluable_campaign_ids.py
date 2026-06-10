@@ -27,7 +27,7 @@ class EvaluableCampaignIds(BaseModel):
     """
     EvaluableCampaignIds
     """ # noqa: E501
-    evaluable_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="When using the `dry` query parameter, use this property to list the campaign to be evaluated by the Rule Engine.  These campaigns will be evaluated, even if they are disabled, allowing you to test specific campaigns before activating them. ", alias="evaluableCampaignIds")
+    evaluable_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="When using the `dry` query parameter, use this property to list the campaign to be evaluated by the Rule Engine.  These campaigns will be evaluated, even if they are disabled, allowing you to test specific campaigns before activating them. ", alias="evaluableCampaignIds", json_schema_extra={"examples": [[10, 12]]})
     __properties: ClassVar[List[str]] = ["evaluableCampaignIds"]
 
     model_config = ConfigDict(

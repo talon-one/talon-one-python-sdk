@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **account_id** | **int** | The ID of the account that owns this entity. | 
 **user_id** | **int** | The ID of the user associated with this entity. | 
 **entity** | **str** | The name of the entity that was exported. | 
-**filter** | **object** | Map of keys and values that were used to filter the exported rows. | 
+**filter** | **object** | Arbitrary properties associated with this campaign. | 
 
 ## Example
 

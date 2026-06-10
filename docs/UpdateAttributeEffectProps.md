@@ -1,12 +1,12 @@
 # UpdateAttributeEffectProps
 
-The properties specific to the \"updateAttribute\" effect. This gets triggered whenever a validated rule contained an \"update an attribute\" effect.
+This effect indicates that a rule containing an [Update attribute value](https://docs.talon.one/docs/product/rules/effects/available-effects#update-effects) or [Update cart item attribute value](https://docs.talon.one/docs/product/rules/effects/available-effects#update-effects) was validated. You should update the value of the attribute in your system based on the content of the returned effect.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**path** | **str** | The exact path of the attribute that was updated. | 
+**path** | **str** | The entity type and the attribute name. | 
 **value** | **object** |  | 
 
 ## Example

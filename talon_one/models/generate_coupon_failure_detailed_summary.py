@@ -29,10 +29,10 @@ class GenerateCouponFailureDetailedSummary(BaseModel):
     GenerateCouponFailureDetailedSummary
     """ # noqa: E501
     application_id: Union[StrictFloat, StrictInt] = Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.", alias="applicationID")
-    session_id: Annotated[str, Field(strict=True, max_length=255)] = Field(description="ID of the customer session where the coupon redemption failed.", alias="sessionID")
+    session_id: Annotated[str, Field(strict=True, max_length=255)] = Field(description="ID of the customer session where the coupon redemption failed.", alias="sessionID", json_schema_extra={"examples": ["05c2da0d-48fa-4aa1-b629-898f58f1584d"]})
     event_id: StrictInt = Field(description="The ID of the event for which the coupon redemption failed.", alias="eventID")
-    coupon: StrictStr = Field(description="The coupon code that could not be redeemed.")
-    language: Optional[StrictStr] = Field(default=None, description="The language of the summary.")
+    coupon: StrictStr = Field(description="The coupon code that could not be redeemed.", json_schema_extra={"examples": ["BKDB946"]})
+    language: Optional[StrictStr] = Field(default=None, description="The language of the summary.", json_schema_extra={"examples": ["en"]})
     __properties: ClassVar[List[str]] = ["applicationID", "sessionID", "eventID", "coupon", "language"]
 
     model_config = ConfigDict(

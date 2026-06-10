@@ -28,9 +28,9 @@ class TierDowngradeNotificationPolicy(BaseModel):
     """
     TierDowngradeNotificationPolicy
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the notification.")
-    batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled")
-    batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the notification.", json_schema_extra={"examples": ["Christmas Sale"]})
+    batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled", json_schema_extra={"examples": [False]})
+    batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize", json_schema_extra={"examples": [1000]})
     __properties: ClassVar[List[str]] = ["name", "batchingEnabled", "batchSize"]
 
     model_config = ConfigDict(

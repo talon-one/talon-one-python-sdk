@@ -27,8 +27,8 @@ class LoyaltyDashboardPointsBreakdown(BaseModel):
     """
     LoyaltyDashboardPointsBreakdown
     """ # noqa: E501
-    created_manually: Union[StrictFloat, StrictInt] = Field(alias="createdManually")
-    created_via_rule_engine: Union[StrictFloat, StrictInt] = Field(alias="createdViaRuleEngine")
+    created_manually: Union[StrictFloat, StrictInt] = Field(alias="createdManually", json_schema_extra={"examples": [125]})
+    created_via_rule_engine: Union[StrictFloat, StrictInt] = Field(alias="createdViaRuleEngine", json_schema_extra={"examples": [9631]})
     __properties: ClassVar[List[str]] = ["createdManually", "createdViaRuleEngine"]
 
     model_config = ConfigDict(

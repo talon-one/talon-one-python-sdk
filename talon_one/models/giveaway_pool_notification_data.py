@@ -28,16 +28,16 @@ class GiveawayPoolNotificationData(BaseModel):
     """
     GiveawayPoolNotificationData
     """ # noqa: E501
-    event: StrictStr = Field(description="The event type of the notification.", alias="Event")
-    pool_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the giveaway pool.", alias="PoolId")
-    pool_name: StrictStr = Field(description="The name of the giveaway pool.", alias="PoolName")
-    pool_description: StrictStr = Field(description="The description of the giveaway pool.", alias="PoolDescription")
-    account_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the account that owns the giveaway pool.", alias="AccountId")
-    application_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the Application connected to the giveaway pool.", alias="ApplicationId")
-    total_codes: StrictInt = Field(description="The total number of codes in the giveaway pool.", alias="TotalCodes")
-    used_codes: StrictInt = Field(description="The number of codes that have been used.", alias="UsedCodes")
-    remaining_codes: StrictInt = Field(description="The number of codes remaining in the giveaway pool.", alias="RemainingCodes")
-    threshold_percent: StrictInt = Field(description="The percentage threshold for the notification. The notification is triggered when the number of codes drops below this threshold.", alias="ThresholdPercent")
+    event: StrictStr = Field(description="The event type of the notification.", alias="Event", json_schema_extra={"examples": ["giveaway_codes_low"]})
+    pool_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the giveaway pool.", alias="PoolId", json_schema_extra={"examples": [5]})
+    pool_name: StrictStr = Field(description="The name of the giveaway pool.", alias="PoolName", json_schema_extra={"examples": ["Summer Giveaway"]})
+    pool_description: StrictStr = Field(description="The description of the giveaway pool.", alias="PoolDescription", json_schema_extra={"examples": ["Summer giveaway codes"]})
+    account_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the account that owns the giveaway pool.", alias="AccountId", json_schema_extra={"examples": [10]})
+    application_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the Application connected to the giveaway pool.", alias="ApplicationId", json_schema_extra={"examples": [42]})
+    total_codes: StrictInt = Field(description="The total number of codes in the giveaway pool.", alias="TotalCodes", json_schema_extra={"examples": [1000]})
+    used_codes: StrictInt = Field(description="The number of codes that have been used.", alias="UsedCodes", json_schema_extra={"examples": [920]})
+    remaining_codes: StrictInt = Field(description="The number of codes remaining in the giveaway pool.", alias="RemainingCodes", json_schema_extra={"examples": [80]})
+    threshold_percent: StrictInt = Field(description="The percentage threshold for the notification. The notification is triggered when the number of codes drops below this threshold.", alias="ThresholdPercent", json_schema_extra={"examples": [10]})
     __properties: ClassVar[List[str]] = ["Event", "PoolId", "PoolName", "PoolDescription", "AccountId", "ApplicationId", "TotalCodes", "UsedCodes", "RemainingCodes", "ThresholdPercent"]
 
     model_config = ConfigDict(

@@ -27,9 +27,9 @@ class OutgoingIntegrationConfiguration(BaseModel):
     """
     OutgoingIntegrationConfiguration
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID for this entity.")
-    account_id: StrictInt = Field(description="The ID of the account to which this configuration belongs.", alias="accountId")
-    type_id: StrictInt = Field(description="The outgoing integration type ID.", alias="typeId")
+    id: StrictInt = Field(description="Unique ID for this entity.", json_schema_extra={"examples": [6]})
+    account_id: StrictInt = Field(description="The ID of the account to which this configuration belongs.", alias="accountId", json_schema_extra={"examples": [3886]})
+    type_id: StrictInt = Field(description="The outgoing integration type ID.", alias="typeId", json_schema_extra={"examples": [12]})
     policy: Dict[str, Any] = Field(description="The outgoing integration policy specific to each integration type.")
     __properties: ClassVar[List[str]] = ["id", "accountId", "typeId", "policy"]
 

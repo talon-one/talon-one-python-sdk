@@ -29,12 +29,12 @@ class ExperimentCampaignCopy(BaseModel):
     """
     ExperimentCampaignCopy
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the copied campaign (Defaults to \"Copy of original campaign name\").")
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
-    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime")
-    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime")
-    tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign.")
-    evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign evaluation group the campaign belongs to.", alias="evaluationGroupId")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the copied campaign (Defaults to \"Copy of original campaign name\").", json_schema_extra={"examples": ["Copy of Summer promotions"]})
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.", json_schema_extra={"examples": ["Campaign for all summer 2021 promotions"]})
+    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime", json_schema_extra={"examples": ["2021-06-01T09:00:27.993483Z"]})
+    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime", json_schema_extra={"examples": ["2021-09-10T01:00:00.993483Z"]})
+    tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign.", json_schema_extra={"examples": [["Summer", "Shoes"]]})
+    evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign evaluation group the campaign belongs to.", alias="evaluationGroupId", json_schema_extra={"examples": [2]})
     __properties: ClassVar[List[str]] = ["name", "description", "startTime", "endTime", "tags", "evaluationGroupId"]
 
     model_config = ConfigDict(

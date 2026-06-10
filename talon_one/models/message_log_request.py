@@ -28,8 +28,8 @@ class MessageLogRequest(BaseModel):
     """
     Details of the request.
     """ # noqa: E501
-    created_at: datetime = Field(description="Timestamp when the request was made.", alias="createdAt")
-    request: Union[StrictBytes, StrictStr] = Field(description="Raw request data.")
+    created_at: datetime = Field(description="Timestamp when the request was made.", alias="createdAt", json_schema_extra={"examples": ["2021-07-20T21:59:00Z"]})
+    request: Union[StrictBytes, StrictStr] = Field(description="Raw request data.", json_schema_extra={"examples": ["SGVsbG8sIHdvcmxkIQ=="]})
     __properties: ClassVar[List[str]] = ["createdAt", "request"]
 
     model_config = ConfigDict(

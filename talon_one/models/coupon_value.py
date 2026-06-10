@@ -28,7 +28,7 @@ class CouponValue(BaseModel):
     """
     CouponValue
     """ # noqa: E501
-    value: Optional[Annotated[str, Field(min_length=4, strict=True)]] = Field(default=None, description="The coupon code.")
+    value: Optional[Annotated[str, Field(min_length=4, strict=True)]] = Field(default=None, description="The coupon code.", json_schema_extra={"examples": ["XMAS-20-2021"]})
     __properties: ClassVar[List[str]] = ["value"]
 
     model_config = ConfigDict(

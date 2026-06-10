@@ -28,9 +28,9 @@ class ScimNewUser(BaseModel):
     """
     Payload for users that are created using the SCIM provisioning protocol with an identity provider, for example, Microsoft Entra ID.
     """ # noqa: E501
-    active: Optional[StrictBool] = Field(default=None, description="Status of the user.")
-    display_name: Optional[StrictStr] = Field(default=None, description="Display name of the user.", alias="displayName")
-    user_name: StrictStr = Field(description="Unique identifier of the user. This is usually an email address.", alias="userName")
+    active: Optional[StrictBool] = Field(default=None, description="Status of the user.", json_schema_extra={"examples": [True]})
+    display_name: Optional[StrictStr] = Field(default=None, description="Display name of the user.", alias="displayName", json_schema_extra={"examples": ["John Doe"]})
+    user_name: StrictStr = Field(description="Unique identifier of the user. This is usually an email address.", alias="userName", json_schema_extra={"examples": ["john.doe@example.com"]})
     name: Optional[ScimBaseUserName] = None
     __properties: ClassVar[List[str]] = ["active", "displayName", "userName", "name"]
 

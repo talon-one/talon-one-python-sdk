@@ -28,7 +28,7 @@ class GiveawayPoolNotification(BaseModel):
     """
     GiveawayPoolNotification
     """ # noqa: E501
-    total_result_size: StrictInt = Field(alias="TotalResultSize")
+    total_result_size: StrictInt = Field(alias="TotalResultSize", json_schema_extra={"examples": [1]})
     data: List[GiveawayPoolNotificationData] = Field(description="The array of giveaway pool notifications.", alias="Data")
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
     __properties: ClassVar[List[str]] = ["TotalResultSize", "Data", "NotificationType"]

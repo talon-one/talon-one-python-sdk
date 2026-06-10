@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.scim_service_provider_config_response_patch import ScimServiceProviderConfigResponsePatch
+from talon_one.models.experiment_confidence_timeline_data_point import ExperimentConfidenceTimelineDataPoint
 
-class TestScimServiceProviderConfigResponsePatch(unittest.TestCase):
-    """ScimServiceProviderConfigResponsePatch unit test stubs"""
+class TestExperimentConfidenceTimelineDataPoint(unittest.TestCase):
+    """ExperimentConfidenceTimelineDataPoint unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,25 +25,34 @@ class TestScimServiceProviderConfigResponsePatch(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ScimServiceProviderConfigResponsePatch:
-        """Test ScimServiceProviderConfigResponsePatch
+    def make_instance(self, include_optional) -> ExperimentConfidenceTimelineDataPoint:
+        """Test ExperimentConfidenceTimelineDataPoint
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ScimServiceProviderConfigResponsePatch`
+        # uncomment below to create an instance of `ExperimentConfidenceTimelineDataPoint`
         """
-        model = ScimServiceProviderConfigResponsePatch()
+        model = ExperimentConfidenceTimelineDataPoint()
         if include_optional:
-            return ScimServiceProviderConfigResponsePatch(
-                supported = True
+            return ExperimentConfidenceTimelineDataPoint(
+                var_date = '2024-01-15T00:00:00+07:00',
+                confidence = talon_one.models.experiment_variant_result_confidence.ExperimentVariantResultConfidence(
+                    avg_session_value = 100, 
+                    avg_discounted_session_value = 100, 
+                    avg_items_per_session = 100, )
             )
         else:
-            return ScimServiceProviderConfigResponsePatch(
+            return ExperimentConfidenceTimelineDataPoint(
+                var_date = '2024-01-15T00:00:00+07:00',
+                confidence = talon_one.models.experiment_variant_result_confidence.ExperimentVariantResultConfidence(
+                    avg_session_value = 100, 
+                    avg_discounted_session_value = 100, 
+                    avg_items_per_session = 100, ),
         )
         """
 
-    def testScimServiceProviderConfigResponsePatch(self):
-        """Test ScimServiceProviderConfigResponsePatch"""
+    def testExperimentConfidenceTimelineDataPoint(self):
+        """Test ExperimentConfidenceTimelineDataPoint"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

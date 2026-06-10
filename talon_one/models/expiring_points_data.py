@@ -30,10 +30,10 @@ class ExpiringPointsData(BaseModel):
     ExpiringPointsData
     """ # noqa: E501
     expiry_date: date = Field(description="The expiration date of loyalty points.", alias="ExpiryDate")
-    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID")
-    customer_profile_id: StrictStr = Field(description="The integration ID of the customer profile that has expiring points.", alias="CustomerProfileID")
-    amount_of_expiring_points: Union[StrictFloat, StrictInt] = Field(description="The amount of loyalty points that will be expired soon.", alias="AmountOfExpiringPoints")
-    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="SubledgerID")
+    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID", json_schema_extra={"examples": [5]})
+    customer_profile_id: StrictStr = Field(description="The integration ID of the customer profile that has expiring points.", alias="CustomerProfileID", json_schema_extra={"examples": ["URNGV8294NV"]})
+    amount_of_expiring_points: Union[StrictFloat, StrictInt] = Field(description="The amount of loyalty points that will be expired soon.", alias="AmountOfExpiringPoints", json_schema_extra={"examples": [10.99]})
+    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="SubledgerID", json_schema_extra={"examples": ["sub-123"]})
     __properties: ClassVar[List[str]] = ["ExpiryDate", "LoyaltyProgramID", "CustomerProfileID", "AmountOfExpiringPoints", "SubledgerID"]
 
     model_config = ConfigDict(

@@ -28,15 +28,15 @@ class Role(BaseModel):
     """
     Role
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    modified: datetime = Field(description="The time this entity was last modified.")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
-    campaign_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the [Campaign Group](https://docs.talon.one/docs/product/account/account-settings/managing-campaign-groups) this role was created for. ", alias="campaignGroupID")
-    name: StrictStr = Field(description="Name of the role.")
-    description: Optional[StrictStr] = Field(default=None, description="Description of the role.")
-    members: Optional[List[StrictInt]] = Field(default=None, description="A list of user identifiers assigned to this role.")
-    acl: Dict[str, Any] = Field(description="The `Access Control List` json defining the role of the user. This represents the access control on the user level.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    campaign_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the [Campaign Group](https://docs.talon.one/docs/product/account/account-settings/managing-campaign-groups) this role was created for. ", alias="campaignGroupID", json_schema_extra={"examples": [3]})
+    name: StrictStr = Field(description="Name of the role.", json_schema_extra={"examples": ["Campaign Reviewer"]})
+    description: Optional[StrictStr] = Field(default=None, description="Description of the role.", json_schema_extra={"examples": ["Reviews the campaigns"]})
+    members: Optional[List[StrictInt]] = Field(default=None, description="A list of user identifiers assigned to this role.", json_schema_extra={"examples": [[48, 562, 475, 18]]})
+    acl: Dict[str, Any] = Field(description="The `Access Control List` json defining the role of the user. This represents the access control on the user level.", json_schema_extra={"examples": ["{\"Role\":127,\"Applications\":null}"]})
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "campaignGroupID", "name", "description", "members", "acl"]
 
     model_config = ConfigDict(

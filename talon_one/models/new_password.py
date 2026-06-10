@@ -28,8 +28,8 @@ class NewPassword(BaseModel):
     """
     NewPassword
     """ # noqa: E501
-    password: StrictStr = Field(description="The new password for your account.")
-    reset_token: Annotated[str, Field(min_length=1, strict=True)] = Field(alias="resetToken")
+    password: StrictStr = Field(description="The new password for your account.", json_schema_extra={"examples": ["Admin&12943!7"]})
+    reset_token: Annotated[str, Field(min_length=1, strict=True)] = Field(alias="resetToken", json_schema_extra={"examples": ["Z2VgacVNkexLKBUIzsRDDZSGxnIkC53y"]})
     __properties: ClassVar[List[str]] = ["password", "resetToken"]
 
     model_config = ConfigDict(

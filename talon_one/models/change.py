@@ -28,14 +28,14 @@ class Change(BaseModel):
     """
     Change
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId")
-    application_id: Optional[StrictInt] = Field(default=None, description="ID of application associated with change.", alias="applicationId")
-    entity: StrictStr = Field(description="API endpoint on which the change was initiated.")
-    old: Optional[Dict[str, Any]] = Field(default=None, description="Resource before the change occurred.")
-    new: Optional[Dict[str, Any]] = Field(default=None, description="Resource after the change occurred.")
-    management_key_id: Optional[StrictInt] = Field(default=None, description="ID of management key used to perform changes.", alias="managementKeyId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId", json_schema_extra={"examples": [388]})
+    application_id: Optional[StrictInt] = Field(default=None, description="ID of application associated with change.", alias="applicationId", json_schema_extra={"examples": [359]})
+    entity: StrictStr = Field(description="API endpoint on which the change was initiated.", json_schema_extra={"examples": ["/v1/applications/359/campaigns/6727"]})
+    old: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    new: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    management_key_id: Optional[StrictInt] = Field(default=None, description="ID of management key used to perform changes.", alias="managementKeyId", json_schema_extra={"examples": [3]})
     __properties: ClassVar[List[str]] = ["id", "created", "userId", "applicationId", "entity", "old", "new", "managementKeyId"]
 
     model_config = ConfigDict(

@@ -27,8 +27,8 @@ class StrikethroughCustomEffectPerItemProps(BaseModel):
     """
     customEffectPerItem effect in strikethrough pricing payload.
     """ # noqa: E501
-    effect_id: StrictInt = Field(description="ID of the effect.", alias="effectId")
-    name: StrictStr = Field(description="The type of the custom effect.")
+    effect_id: StrictInt = Field(description="ID of the effect.", alias="effectId", json_schema_extra={"examples": [1]})
+    name: StrictStr = Field(description="The type of the custom effect.", json_schema_extra={"examples": ["my_custom_effect"]})
     payload: Dict[str, Any] = Field(description="The JSON payload of the custom effect.")
     __properties: ClassVar[List[str]] = ["effectId", "name", "payload"]
 

@@ -29,13 +29,13 @@ class NewReferral(BaseModel):
     """
     NewReferral
     """ # noqa: E501
-    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the referral code becomes valid.", alias="startDate")
-    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the referral code. Referral never expires if this is omitted.", alias="expiryDate")
-    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times a referral code can be used. `0` means no limit but any campaign usage limits will still apply. ", alias="usageLimit")
-    campaign_id: StrictInt = Field(description="ID of the campaign from which the referral received the referral code.", alias="campaignId")
-    advocate_profile_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The Integration ID of the Advocate's Profile.", alias="advocateProfileIntegrationId")
-    friend_profile_integration_id: Optional[StrictStr] = Field(default=None, description="An optional Integration ID of the Friend's Profile.", alias="friendProfileIntegrationId")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
+    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the referral code becomes valid.", alias="startDate", json_schema_extra={"examples": ["2020-11-10T23:00:00Z"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the referral code. Referral never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2021-11-10T23:00:00Z"]})
+    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times a referral code can be used. `0` means no limit but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [1]})
+    campaign_id: StrictInt = Field(description="ID of the campaign from which the referral received the referral code.", alias="campaignId", json_schema_extra={"examples": [78]})
+    advocate_profile_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The Integration ID of the Advocate's Profile.", alias="advocateProfileIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    friend_profile_integration_id: Optional[StrictStr] = Field(default=None, description="An optional Integration ID of the Friend's Profile.", alias="friendProfileIntegrationId", json_schema_extra={"examples": ["BZGGC2454PA"]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
     __properties: ClassVar[List[str]] = ["startDate", "expiryDate", "usageLimit", "campaignId", "advocateProfileIntegrationId", "friendProfileIntegrationId", "attributes"]
 
     model_config = ConfigDict(

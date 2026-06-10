@@ -31,7 +31,7 @@ class ExperimentResult(BaseModel):
     """ # noqa: E501
     variants: List[ExperimentVariantResult]
     confidence: ExperimentVariantResultConfidence
-    experiment_id: StrictInt = Field(alias="experimentId")
+    experiment_id: StrictInt = Field(alias="experimentId", json_schema_extra={"examples": [1]})
     __properties: ClassVar[List[str]] = ["variants", "confidence", "experimentId"]
 
     model_config = ConfigDict(

@@ -27,7 +27,7 @@ class AsyncCouponCreationResponse(BaseModel):
     """
     AsyncCouponCreationResponse
     """ # noqa: E501
-    batch_id: StrictStr = Field(description="The batch ID that all coupons created by the request will have.", alias="batchId")
+    batch_id: StrictStr = Field(description="The batch ID that all coupons created by the request will have.", alias="batchId", json_schema_extra={"examples": ["tqyrgahe"]})
     __properties: ClassVar[List[str]] = ["batchId"]
 
     model_config = ConfigDict(

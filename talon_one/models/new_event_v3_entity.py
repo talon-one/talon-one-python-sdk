@@ -28,7 +28,7 @@ class NewEventV3Entity(BaseModel):
     """
     NewEventV3Entity
     """ # noqa: E501
-    integration_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The unique ID of the event. Only one event with this ID can be registered. ", alias="integrationId")
+    integration_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The unique ID of the event. Only one event with this ID can be registered. ", alias="integrationId", json_schema_extra={"examples": ["175KJPS947296"]})
     __properties: ClassVar[List[str]] = ["integrationId"]
 
     model_config = ConfigDict(

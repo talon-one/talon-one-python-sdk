@@ -28,10 +28,10 @@ class CampaignTemplateParams(BaseModel):
     """
     CampaignTemplateParams
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Name of the campaign template parameter.")
-    type: StrictStr = Field(description="Defines the type of parameter value.")
-    description: StrictStr = Field(description="Explains the meaning of this template parameter and the placeholder value that will define it. It is used on campaign creation from this template.")
-    attribute_id: Optional[StrictInt] = Field(default=None, description="ID of the corresponding attribute.", alias="attributeId")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Name of the campaign template parameter.", json_schema_extra={"examples": ["discount_value"]})
+    type: StrictStr = Field(description="Defines the type of parameter value.", json_schema_extra={"examples": ["number"]})
+    description: StrictStr = Field(description="Explains the meaning of this template parameter and the placeholder value that will define it. It is used on campaign creation from this template.", json_schema_extra={"examples": ["This is a template parameter of type `number`."]})
+    attribute_id: Optional[StrictInt] = Field(default=None, description="ID of the corresponding attribute.", alias="attributeId", json_schema_extra={"examples": [42]})
     __properties: ClassVar[List[str]] = ["name", "type", "description", "attributeId"]
 
     @field_validator('type')

@@ -28,9 +28,9 @@ class UpdateStore(BaseModel):
     """
     UpdateStore
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name of the store.")
-    description: StrictStr = Field(description="The description of the store.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the store.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name of the store.", json_schema_extra={"examples": ["South US store"]})
+    description: StrictStr = Field(description="The description of the store.", json_schema_extra={"examples": ["This is the description of the store in south US."]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the store.", json_schema_extra={"examples": [{"country": "USA", "code": 1234}]})
     __properties: ClassVar[List[str]] = ["name", "description", "attributes"]
 
     model_config = ConfigDict(

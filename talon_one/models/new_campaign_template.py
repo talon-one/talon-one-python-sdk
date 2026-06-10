@@ -40,7 +40,7 @@ class NewCampaignTemplate(BaseModel):
     coupon_attributes: Optional[Dict[str, Any]] = Field(default=None, description="The campaign attributes that coupons created from this template will have by default.", alias="couponAttributes")
     state: StrictStr = Field(description="Only Campaign Templates in 'available' state may be used to create Campaigns.")
     tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign template.")
-    reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether campaigns created from this template should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn")
+    reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether campaigns created from this template should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn", json_schema_extra={"examples": [True]})
     features: Optional[List[StrictStr]] = Field(default=None, description="A list of features for the campaign template.")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     coupon_reservation_settings: Optional[CampaignTemplateCouponReservationSettings] = Field(default=None, alias="couponReservationSettings")
@@ -48,8 +48,8 @@ class NewCampaignTemplate(BaseModel):
     limits: Optional[List[TemplateLimitConfig]] = Field(default=None, description="The set of limits that will operate for this campaign template.")
     template_params: Optional[List[CampaignTemplateParams]] = Field(default=None, description="Fields which can be used to replace values in a rule.", alias="templateParams")
     campaign_collections: Optional[List[CampaignTemplateCollection]] = Field(default=None, description="The campaign collections from the blueprint campaign for the template.", alias="campaignCollections")
-    default_campaign_group_id: Optional[StrictInt] = Field(default=None, description="The default campaign group ID.", alias="defaultCampaignGroupId")
-    campaign_type: StrictStr = Field(description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", alias="campaignType")
+    default_campaign_group_id: Optional[StrictInt] = Field(default=None, description="The default campaign group ID.", alias="defaultCampaignGroupId", json_schema_extra={"examples": [42]})
+    campaign_type: StrictStr = Field(description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", alias="campaignType", json_schema_extra={"examples": ["advanced"]})
     __properties: ClassVar[List[str]] = ["name", "description", "instructions", "campaignAttributes", "couponAttributes", "state", "tags", "reevaluateOnReturn", "features", "couponSettings", "couponReservationSettings", "referralSettings", "limits", "templateParams", "campaignCollections", "defaultCampaignGroupId", "campaignType"]
 
     @field_validator('state')

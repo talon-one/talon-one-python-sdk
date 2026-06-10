@@ -28,11 +28,11 @@ class StrikethroughTrigger(BaseModel):
     """
     Information about the event that triggered the strikethrough labeling.
     """ # noqa: E501
-    id: StrictInt = Field(description="The ID of the event that triggered the strikethrough labeling.")
-    type: StrictStr = Field(description="The type of event that triggered the strikethrough labeling.")
-    triggered_at: datetime = Field(description="The creation time of the event that triggered the strikethrough labeling.", alias="triggeredAt")
-    total_affected_items: StrictInt = Field(description="The total number of items affected by the event that triggered the strikethrough labeling.", alias="totalAffectedItems")
-    payload: Dict[str, Any] = Field(description="The arbitrary properties associated with this trigger type.")
+    id: StrictInt = Field(description="The ID of the event that triggered the strikethrough labeling.", json_schema_extra={"examples": [1]})
+    type: StrictStr = Field(description="The type of event that triggered the strikethrough labeling.", json_schema_extra={"examples": ["CATALOG_SYNC"]})
+    triggered_at: datetime = Field(description="The creation time of the event that triggered the strikethrough labeling.", alias="triggeredAt", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    total_affected_items: StrictInt = Field(description="The total number of items affected by the event that triggered the strikethrough labeling.", alias="totalAffectedItems", json_schema_extra={"examples": [1500]})
+    payload: Dict[str, Any] = Field(description="The arbitrary properties associated with this trigger type.", json_schema_extra={"examples": [{"catalogId": 2, "catalogVersion": 100}]})
     __properties: ClassVar[List[str]] = ["id", "type", "triggeredAt", "totalAffectedItems", "payload"]
 
     model_config = ConfigDict(

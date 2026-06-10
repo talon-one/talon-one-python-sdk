@@ -964,6 +964,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_import_loyalty_join_dates(self) -> None:
+        """Test case for import_loyalty_join_dates
+
+        Import join dates for a loyalty program
+        """
+        pass
+
     def test_import_loyalty_points(self) -> None:
         """Test case for import_loyalty_points
 

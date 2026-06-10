@@ -32,19 +32,19 @@ class Reward(BaseModel):
     """
     Reward
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.")
-    api_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique identifier used to reference the reward in API integrations.", alias="apiName")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the reward.")
-    application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds")
-    sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.", json_schema_extra={"examples": ["Free Coffee"]})
+    api_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique identifier used to reference the reward in API integrations.", alias="apiName", json_schema_extra={"examples": ["free-coffee"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the reward.", json_schema_extra={"examples": ["This reward gets you one free coffee."]})
+    application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
     visibility_conditions: Optional[Rule] = Field(default=None, description="An optional rule that manages who can see this reward. If not specified, the reward is visible to all customers.  **Note:** Only the `condition` field is evaluated within this rule. The `effects` field must be an empty array, and `bindings` are not supported. ", alias="visibilityConditions")
     rule: Optional[Rule] = Field(default=None, description="Rule to apply.  **Note**: The `bindings` field inside the rule must not be used in this endpoint. All bindings should be defined at the reward level via the top-level `bindings` field. ")
-    bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.")
+    bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.", json_schema_extra={"examples": [[]]})
     modified: Optional[datetime] = Field(default=None, description="The timestamp when the reward was last updated in RFC3339 format.")
-    status: StrictStr = Field(description="The status of the reward.")
+    status: StrictStr = Field(description="The status of the reward.", json_schema_extra={"examples": ["active"]})
     points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate a reward.", alias="pointsRequired")
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "apiName", "description", "applicationIds", "sandbox", "visibilityConditions", "rule", "bindings", "modified", "status", "pointsRequired"]
 

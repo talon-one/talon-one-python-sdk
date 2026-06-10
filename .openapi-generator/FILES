@@ -123,6 +123,7 @@ docs/CampaignEditedNotification.md
 docs/CampaignEditedNotificationItem.md
 docs/CampaignEligibility.md
 docs/CampaignEligibilityDetails.md
+docs/CampaignEligibilityExperiment.md
 docs/CampaignEligibilityFailureDetails.md
 docs/CampaignEntity.md
 docs/CampaignEvaluationGroup.md
@@ -249,6 +250,8 @@ docs/EventV3Entity.md
 docs/EventV3RequestEntity.md
 docs/Experiment.md
 docs/ExperimentCampaignCopy.md
+docs/ExperimentConfidenceTimeline.md
+docs/ExperimentConfidenceTimelineDataPoint.md
 docs/ExperimentCopy.md
 docs/ExperimentCopyExperiment.md
 docs/ExperimentListResults.md
@@ -365,13 +368,13 @@ docs/IntegrationGetAllCampaigns200Response.md
 docs/IntegrationHubConfig.md
 docs/IntegrationHubEventPayloadCouponBasedNotifications.md
 docs/IntegrationHubEventPayloadCouponBasedNotificationsLimits.md
-docs/IntegrationHubEventPayloadLoyaltyProfileBasedNotification.md
 docs/IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification.md
 docs/IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction.md
 docs/IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification.md
 docs/IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification.md
 docs/IntegrationHubEventRecord.md
 docs/IntegrationHubEventStatusUpdate.md
+docs/IntegrationHubEventType.md
 docs/IntegrationHubFlow.md
 docs/IntegrationHubFlowConfig.md
 docs/IntegrationHubFlowConfigResponse.md
@@ -632,8 +635,6 @@ docs/ScimServiceProviderConfigResponse.md
 docs/ScimServiceProviderConfigResponseBulk.md
 docs/ScimServiceProviderConfigResponseChangePassword.md
 docs/ScimServiceProviderConfigResponseFilter.md
-docs/ScimServiceProviderConfigResponsePatch.md
-docs/ScimServiceProviderConfigResponseSort.md
 docs/ScimUser.md
 docs/ScimUsersListResponse.md
 docs/SecondaryDeployment.md
@@ -701,7 +702,6 @@ docs/UpdateCoupon.md
 docs/UpdateCouponBatch.md
 docs/UpdateCouponsData.md
 docs/UpdateCustomEffect.md
-docs/UpdateCustomerProfileV2409Response.md
 docs/UpdateCustomerSessionV2409Response.md
 docs/UpdateExperiment.md
 docs/UpdateExperimentVariant.md
@@ -716,6 +716,7 @@ docs/UpdatePriceType.md
 docs/UpdateReferral.md
 docs/UpdateReferralBatch.md
 docs/UpdateReward.md
+docs/UpdateRiskNotification.md
 docs/UpdateRole.md
 docs/UpdateStore.md
 docs/UpdateSupportRequest.md
@@ -858,6 +859,7 @@ talon_one/models/campaign_edited_notification.py
 talon_one/models/campaign_edited_notification_item.py
 talon_one/models/campaign_eligibility.py
 talon_one/models/campaign_eligibility_details.py
+talon_one/models/campaign_eligibility_experiment.py
 talon_one/models/campaign_eligibility_failure_details.py
 talon_one/models/campaign_entity.py
 talon_one/models/campaign_evaluation_group.py
@@ -984,6 +986,8 @@ talon_one/models/event_v3_entity.py
 talon_one/models/event_v3_request_entity.py
 talon_one/models/experiment.py
 talon_one/models/experiment_campaign_copy.py
+talon_one/models/experiment_confidence_timeline.py
+talon_one/models/experiment_confidence_timeline_data_point.py
 talon_one/models/experiment_copy.py
 talon_one/models/experiment_copy_experiment.py
 talon_one/models/experiment_list_results.py
@@ -1099,13 +1103,13 @@ talon_one/models/integration_get_all_campaigns200_response.py
 talon_one/models/integration_hub_config.py
 talon_one/models/integration_hub_event_payload_coupon_based_notifications.py
 talon_one/models/integration_hub_event_payload_coupon_based_notifications_limits.py
-talon_one/models/integration_hub_event_payload_loyalty_profile_based_notification.py
 talon_one/models/integration_hub_event_payload_loyalty_profile_based_points_changed_notification.py
 talon_one/models/integration_hub_event_payload_loyalty_profile_based_points_changed_notification_action.py
 talon_one/models/integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification.py
 talon_one/models/integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification.py
 talon_one/models/integration_hub_event_record.py
 talon_one/models/integration_hub_event_status_update.py
+talon_one/models/integration_hub_event_type.py
 talon_one/models/integration_hub_flow.py
 talon_one/models/integration_hub_flow_config.py
 talon_one/models/integration_hub_flow_config_response.py
@@ -1364,8 +1368,6 @@ talon_one/models/scim_service_provider_config_response.py
 talon_one/models/scim_service_provider_config_response_bulk.py
 talon_one/models/scim_service_provider_config_response_change_password.py
 talon_one/models/scim_service_provider_config_response_filter.py
-talon_one/models/scim_service_provider_config_response_patch.py
-talon_one/models/scim_service_provider_config_response_sort.py
 talon_one/models/scim_user.py
 talon_one/models/scim_users_list_response.py
 talon_one/models/secondary_deployment.py
@@ -1434,7 +1436,6 @@ talon_one/models/update_coupon.py
 talon_one/models/update_coupon_batch.py
 talon_one/models/update_coupons_data.py
 talon_one/models/update_custom_effect.py
-talon_one/models/update_customer_profile_v2409_response.py
 talon_one/models/update_customer_session_v2409_response.py
 talon_one/models/update_experiment.py
 talon_one/models/update_experiment_variant.py
@@ -1449,6 +1450,7 @@ talon_one/models/update_price_type.py
 talon_one/models/update_referral.py
 talon_one/models/update_referral_batch.py
 talon_one/models/update_reward.py
+talon_one/models/update_risk_notification.py
 talon_one/models/update_role.py
 talon_one/models/update_store.py
 talon_one/models/update_support_request.py
@@ -1580,6 +1582,7 @@ test/test_campaign_edited_notification.py
 test/test_campaign_edited_notification_item.py
 test/test_campaign_eligibility.py
 test/test_campaign_eligibility_details.py
+test/test_campaign_eligibility_experiment.py
 test/test_campaign_eligibility_failure_details.py
 test/test_campaign_entity.py
 test/test_campaign_evaluation_group.py
@@ -1706,6 +1709,8 @@ test/test_event_v3_entity.py
 test/test_event_v3_request_entity.py
 test/test_experiment.py
 test/test_experiment_campaign_copy.py
+test/test_experiment_confidence_timeline.py
+test/test_experiment_confidence_timeline_data_point.py
 test/test_experiment_copy.py
 test/test_experiment_copy_experiment.py
 test/test_experiment_list_results.py
@@ -1822,13 +1827,13 @@ test/test_integration_get_all_campaigns200_response.py
 test/test_integration_hub_config.py
 test/test_integration_hub_event_payload_coupon_based_notifications.py
 test/test_integration_hub_event_payload_coupon_based_notifications_limits.py
-test/test_integration_hub_event_payload_loyalty_profile_based_notification.py
 test/test_integration_hub_event_payload_loyalty_profile_based_points_changed_notification.py
 test/test_integration_hub_event_payload_loyalty_profile_based_points_changed_notification_action.py
 test/test_integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification.py
 test/test_integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification.py
 test/test_integration_hub_event_record.py
 test/test_integration_hub_event_status_update.py
+test/test_integration_hub_event_type.py
 test/test_integration_hub_flow.py
 test/test_integration_hub_flow_config.py
 test/test_integration_hub_flow_config_response.py
@@ -2088,8 +2093,6 @@ test/test_scim_service_provider_config_response.py
 test/test_scim_service_provider_config_response_bulk.py
 test/test_scim_service_provider_config_response_change_password.py
 test/test_scim_service_provider_config_response_filter.py
-test/test_scim_service_provider_config_response_patch.py
-test/test_scim_service_provider_config_response_sort.py
 test/test_scim_user.py
 test/test_scim_users_list_response.py
 test/test_secondary_deployment.py
@@ -2158,7 +2161,6 @@ test/test_update_coupon.py
 test/test_update_coupon_batch.py
 test/test_update_coupons_data.py
 test/test_update_custom_effect.py
-test/test_update_customer_profile_v2409_response.py
 test/test_update_customer_session_v2409_response.py
 test/test_update_experiment.py
 test/test_update_experiment_variant.py
@@ -2173,6 +2175,7 @@ test/test_update_price_type.py
 test/test_update_referral.py
 test/test_update_referral_batch.py
 test/test_update_reward.py
+test/test_update_risk_notification.py
 test/test_update_role.py
 test/test_update_store.py
 test/test_update_support_request.py

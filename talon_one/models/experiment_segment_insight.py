@@ -29,10 +29,10 @@ class ExperimentSegmentInsight(BaseModel):
     """
     ExperimentSegmentInsight
     """ # noqa: E501
-    dimension: StrictStr = Field(description="The segmentation dimension used to group customers or purchases for analysis.")
-    bucket: StrictStr = Field(description="The specific group within the segmentation dimension.")
-    confidence: Union[Annotated[float, Field(le=100, strict=True, ge=95)], Annotated[int, Field(le=100, strict=True, ge=95)]] = Field(description="The raw (unadjusted) confidence score expressed as a percentage. Only segments with a confidence score greater than or equal to 95% are returned. ")
-    winner_variant_id: StrictInt = Field(description="The ID of the variant that performed better in this segment.", alias="winnerVariantId")
+    dimension: StrictStr = Field(description="The segmentation dimension used to group customers or purchases for analysis.", json_schema_extra={"examples": ["cart_value"]})
+    bucket: StrictStr = Field(description="The specific group within the segmentation dimension.", json_schema_extra={"examples": ["high"]})
+    confidence: Union[Annotated[float, Field(le=100, strict=True, ge=95)], Annotated[int, Field(le=100, strict=True, ge=95)]] = Field(description="The raw (unadjusted) confidence score expressed as a percentage. Only segments with a confidence score greater than or equal to 95% are returned. ", json_schema_extra={"examples": [99.2]})
+    winner_variant_id: StrictInt = Field(description="The ID of the variant that performed better in this segment.", alias="winnerVariantId", json_schema_extra={"examples": [42]})
     variants: List[ExperimentSegmentInsightVariant] = Field(description="Per-variant metric values for this segment.")
     __properties: ClassVar[List[str]] = ["dimension", "bucket", "confidence", "winnerVariantId", "variants"]
 

@@ -27,9 +27,9 @@ class ProductSearchMatch(BaseModel):
     """
     ProductSearchMatch
     """ # noqa: E501
-    product_id: Optional[StrictInt] = Field(default=None, description="The ID of the product.", alias="productId")
-    value: StrictStr = Field(description="The string matching the given value. Either a product name or SKU.")
-    product_sku_id: Optional[StrictInt] = Field(default=None, description="The ID of the SKU linked to a product. If empty, this is an product.", alias="productSkuId")
+    product_id: Optional[StrictInt] = Field(default=None, description="The ID of the product.", alias="productId", json_schema_extra={"examples": [1]})
+    value: StrictStr = Field(description="The string matching the given value. Either a product name or SKU.", json_schema_extra={"examples": ["MyProduct"]})
+    product_sku_id: Optional[StrictInt] = Field(default=None, description="The ID of the SKU linked to a product. If empty, this is an product.", alias="productSkuId", json_schema_extra={"examples": [1]})
     __properties: ClassVar[List[str]] = ["productId", "value", "productSkuId"]
 
     model_config = ConfigDict(

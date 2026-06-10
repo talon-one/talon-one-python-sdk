@@ -49,7 +49,7 @@ class TestNewCoupons(unittest.TestCase):
                     ],
                 number_of_coupons = 1,
                 unique_prefix = '',
-                attributes = {venueId=12},
+                attributes = None,
                 recipient_integration_id = 'URNGV8294NV',
                 valid_characters = [A, B, G, Y],
                 coupon_pattern = 'SUMMER-#####',

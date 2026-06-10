@@ -30,7 +30,7 @@ class CampaignEditedNotificationItem(BaseModel):
     """
     CampaignEditedNotificationItem
     """ # noqa: E501
-    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
+    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event", json_schema_extra={"examples": ["campaign_state_changed"]})
     campaign: Campaign = Field(description="The campaign whose state changed.")
     old_campaign: Campaign = Field(description="The campaign before the change.", alias="oldCampaign")
     ruleset: Optional[Ruleset] = Field(default=None, description="The current ruleset.")

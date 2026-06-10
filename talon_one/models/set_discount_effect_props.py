@@ -25,12 +25,12 @@ from pydantic_core import to_jsonable_python
 
 class SetDiscountEffectProps(BaseModel):
     """
-    The properties specific to the \"setDiscount\" effect. This gets triggered whenever a validated rule contained a \"set discount\" effect. This is a discount that should be applied on the scope of defined with it.
+    This effect indicates that a discount should be set on the total shopping cart value of the current order with the given label and amount.  The discount should overwrite any existing discount with the same name. The most recent integration state update always returns the latest values for **all** effects, effectively overwriting any previous effects.  Enabling [partial discounts](https://docs.talon.one/docs/product/applications/manage-general-settings#partial-discounts) allows a rule that would fail because of insufficient budget to pass. The rule still fails when the budget reaches `0`. Use the `desiredValue` property to identify the original value of the discount.
     """ # noqa: E501
-    name: StrictStr = Field(description="The name / description of this discount")
-    value: Union[StrictFloat, StrictInt] = Field(description="The total monetary value of the discount.")
-    scope: Optional[StrictStr] = Field(default=None, description="The scope which the discount was applied on, can be one of (cartItems,additionalCosts,sessionTotal).")
-    desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The original value of the discount.", alias="desiredValue")
+    name: StrictStr = Field(description="The name or description of this discount.")
+    value: Union[StrictFloat, StrictInt] = Field(description="The monetary value of the effective discount.")
+    scope: Optional[StrictStr] = Field(default=None, description="What the discount applies to. Possible values:  - `cartItems`: Discount on the price of the items. - `additionalCosts`: Discount on the [additional costs](https://docs.talon.one/docs/product/account/dev-tools/manage-additional-costs) of the items. - `sessionTotal`: Discount on the total value of the customer session.  **Note:** [Cascading discounts](https://docs.talon.one/docs/product/applications/manage-general-settings#cascading-discounts) must be enabled for this property to be returned.")
+    desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Partial discounts enabled only)_ The monetary value of the discount to be applied without considering budget limitations.", alias="desiredValue")
     __properties: ClassVar[List[str]] = ["name", "value", "scope", "desiredValue"]
 
     model_config = ConfigDict(

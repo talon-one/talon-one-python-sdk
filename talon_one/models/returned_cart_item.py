@@ -28,9 +28,9 @@ class ReturnedCartItem(BaseModel):
     """
     ReturnedCartItem
     """ # noqa: E501
-    position: Optional[StrictInt] = Field(default=None, description="The index of the cart item in the provided customer session's `cartItems` property.")
-    quantity: Optional[StrictInt] = Field(default=None, description="Number of cart items to return. ")
-    sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The SKU of the cart item in the provided customer session's `cartItems` property.")
+    position: Optional[StrictInt] = Field(default=None, description="The index of the cart item in the provided customer session's `cartItems` property.", json_schema_extra={"examples": [2]})
+    quantity: Optional[StrictInt] = Field(default=None, description="Number of cart items to return. ", json_schema_extra={"examples": [1]})
+    sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The SKU of the cart item in the provided customer session's `cartItems` property.", json_schema_extra={"examples": ["SKU1241028"]})
     __properties: ClassVar[List[str]] = ["position", "quantity", "sku"]
 
     model_config = ConfigDict(

@@ -27,8 +27,8 @@ class NewInviteEmail(BaseModel):
     """
     NewInviteEmail
     """ # noqa: E501
-    email: StrictStr = Field(description="Email address of the user.")
-    token: StrictStr = Field(description="Invitation token of the user.")
+    email: StrictStr = Field(description="Email address of the user.", json_schema_extra={"examples": ["john.doe@example.com"]})
+    token: StrictStr = Field(description="Invitation token of the user.", json_schema_extra={"examples": ["Gy9b8w1irmQtEPo5RmbMmSPheL5h4"]})
     __properties: ClassVar[List[str]] = ["email", "token"]
 
     model_config = ConfigDict(

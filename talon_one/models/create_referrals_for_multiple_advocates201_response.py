@@ -28,7 +28,7 @@ class CreateReferralsForMultipleAdvocates201Response(BaseModel):
     """
     CreateReferralsForMultipleAdvocates201Response
     """ # noqa: E501
-    total_result_size: StrictInt = Field(alias="totalResultSize")
+    total_result_size: StrictInt = Field(alias="totalResultSize", json_schema_extra={"examples": [1]})
     data: List[Referral]
     __properties: ClassVar[List[str]] = ["totalResultSize", "data"]
 

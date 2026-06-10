@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **campaign** | **str** | Name of the campaign-related permission set for the given Application. | [optional] 
 **draft_campaign** | **str** | Name of the draft campaign-related permission set for the given Application. | [optional] 
 **tools** | **str** | Name of the tools-related permission set. | [optional] 
-**thresholds** | [**RolesV2Thresholds**](RolesV2Thresholds.md) | Support user limits for actions that require admin approval within the given application. | [optional] 
 
 ## Example
 

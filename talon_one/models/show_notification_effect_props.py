@@ -25,11 +25,11 @@ from pydantic_core import to_jsonable_python
 
 class ShowNotificationEffectProps(BaseModel):
     """
-    The properties specific to the \"showNotification\" effect. This gets triggered whenever a validated rule contained a \"show notification\" effect.
+    You can use notifications to inform customers of certain events. There are four types of notification messages:  - `Info` - `Offer` - `Error` - `Misc`  It is up to you to use the Rule Builder to decide why and when to show notifications. Notifications can be used as both rule effects and failure effects.  A common use case is to display the notification at the top of the cart view in your web app. You can use the notification type to vary the styling of the notification message.
     """ # noqa: E501
-    notification_type: StrictStr = Field(description="The type of notification that should be shown (e.g. error/warning/info).", alias="notificationType")
-    title: StrictStr = Field(description="Title of the notification.")
-    body: StrictStr = Field(description="Body of the notification.")
+    notification_type: StrictStr = Field(description="The type of notification.", alias="notificationType")
+    title: StrictStr = Field(description="The title of the notification.")
+    body: StrictStr = Field(description="The body of the notification.")
     __properties: ClassVar[List[str]] = ["notificationType", "title", "body"]
 
     model_config = ConfigDict(

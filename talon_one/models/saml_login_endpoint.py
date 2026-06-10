@@ -28,7 +28,7 @@ class SamlLoginEndpoint(BaseModel):
     """
     SamlLoginEndpoint
     """ # noqa: E501
-    id: StrictInt = Field(description="ID of the SAML login endpoint.")
+    id: StrictInt = Field(description="ID of the SAML login endpoint.", json_schema_extra={"examples": [2]})
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="ID of the SAML service.")
     login_url: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The single sign-on URL.", alias="loginURL")
     __properties: ClassVar[List[str]] = ["id", "name", "loginURL"]

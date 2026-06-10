@@ -38,9 +38,7 @@ class TestRoleV2ApplicationDetails(unittest.TestCase):
                 application = '',
                 campaign = '',
                 draft_campaign = '',
-                tools = 'Tools permission set',
-                thresholds = talon_one.models.roles_v2_thresholds.RolesV2Thresholds(
-                    loyalty_points_limit = 100, )
+                tools = 'Tools permission set'
             )
         else:
             return RoleV2ApplicationDetails(

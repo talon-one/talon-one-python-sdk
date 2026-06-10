@@ -26,11 +26,11 @@ from pydantic_core import to_jsonable_python
 
 class ExtendLoyaltyPointsExpiryDateEffectProps(BaseModel):
     """
-    The properties specific to the \"extendLoyaltyPointsExpiryDate\" effect. This gets triggered when a validated rule contains the \"extend expiry date\" effect. The current expiry date gets extended by the time frame given in the effect. 
+    If loyalty points have an expiry date, this effect extends the expiry of all active and pending point transactions by a selected duration. 
     """ # noqa: E501
     program_id: StrictInt = Field(description="ID of the loyalty program that contains these points.", alias="programId")
-    sub_ledger_id: StrictStr = Field(description="API name of the loyalty program subledger that contains these points. added.", alias="subLedgerId")
-    extension_duration: StrictStr = Field(description="Time frame by which the expiry date extends.  The time format is either: - immediate, or - an **integer** followed by a letter indicating the time unit.  Examples: `immediate`, `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `s`: seconds - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can round certain units up or down: - `_D` for rounding down days only. Signifies the start of the day. - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year. ", alias="extensionDuration")
+    sub_ledger_id: StrictStr = Field(description="API name of the loyalty program subledger that contains these points.", alias="subLedgerId")
+    extension_duration: StrictStr = Field(description="Time frame by which the expiry date extends.  The time format is either: - immediate, or - an **integer** followed by a letter indicating the time unit.  Examples: `immediate`, `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `s`: seconds - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can round certain units up or down: - `_D` for rounding down days only. Signifies the start of the day. - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year. ", alias="extensionDuration", json_schema_extra={"examples": ["12h"]})
     affected_transactions: Optional[List[LoyaltyLedgerEntryExpiryDateChange]] = Field(default=None, description="List of transactions affected by the expiry date update.", alias="affectedTransactions")
     __properties: ClassVar[List[str]] = ["programId", "subLedgerId", "extensionDuration", "affectedTransactions"]
 

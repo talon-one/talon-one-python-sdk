@@ -29,15 +29,15 @@ class Store(BaseModel):
     """
     Store
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name of the store.")
-    description: StrictStr = Field(description="The description of the store.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the store.")
-    integration_id: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The integration ID of the store. You choose this ID when you create a store.  **Note**: You cannot edit the `integrationId` after the store has been created. ", alias="integrationId")
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    updated: datetime = Field(description="Timestamp of the most recent update on this entity.")
-    linked_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the campaigns that are linked with current store.", alias="linkedCampaignIds")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-02-07T08:15:22Z"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name of the store.", json_schema_extra={"examples": ["South US store"]})
+    description: StrictStr = Field(description="The description of the store.", json_schema_extra={"examples": ["This is the description of the store in south US."]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the store.", json_schema_extra={"examples": [{"country": "USA", "code": 1234}]})
+    integration_id: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The integration ID of the store. You choose this ID when you create a store.  **Note**: You cannot edit the `integrationId` after the store has been created. ", alias="integrationId", json_schema_extra={"examples": ["STORE-001"]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    updated: datetime = Field(description="Timestamp of the most recent update on this entity.", json_schema_extra={"examples": ["2021-09-23T10:12:42Z"]})
+    linked_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the campaigns that are linked with current store.", alias="linkedCampaignIds", json_schema_extra={"examples": [[4, 6, 8]]})
     __properties: ClassVar[List[str]] = ["id", "created", "name", "description", "attributes", "integrationId", "applicationId", "updated", "linkedCampaignIds"]
 
     model_config = ConfigDict(

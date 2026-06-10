@@ -28,9 +28,9 @@ class CampaignSetBranchNode(BaseModel):
     """
     CampaignSetBranchNode
     """ # noqa: E501
-    type: StrictStr = Field(description="Indicates the node type.")
-    name: StrictStr = Field(description="Name of the set.")
-    operator: StrictStr = Field(description="An indicator of how the set operates on its elements.")
+    type: StrictStr = Field(description="Indicates the node type.", json_schema_extra={"examples": ["SET"]})
+    name: StrictStr = Field(description="Name of the set.", json_schema_extra={"examples": ["name"]})
+    operator: StrictStr = Field(description="An indicator of how the set operates on its elements.", json_schema_extra={"examples": ["ALL"]})
     elements: List[CampaignSetNode] = Field(description="Child elements of this set.")
     group_id: StrictInt = Field(description="The ID of the campaign set.", alias="groupId")
     locked: StrictBool = Field(description="An indicator of whether the campaign set is locked for modification.")

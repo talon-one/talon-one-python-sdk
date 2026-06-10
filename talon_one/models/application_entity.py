@@ -27,7 +27,7 @@ class ApplicationEntity(BaseModel):
     """
     ApplicationEntity
     """ # noqa: E501
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
     __properties: ClassVar[List[str]] = ["applicationId"]
 
     model_config = ConfigDict(

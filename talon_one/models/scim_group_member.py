@@ -27,8 +27,8 @@ class ScimGroupMember(BaseModel):
     """
     Member of the SCIM group. In Talon.One, the member is a [user](https://docs.talon.one/docs/product/account/account-settings/managing-users) assigned to a specific role.
     """ # noqa: E501
-    value: Optional[StrictStr] = Field(default=None, description="Unique identifier of the member.")
-    display: Optional[StrictStr] = Field(default=None, description="Identifier of the user. This is usually an email address.")
+    value: Optional[StrictStr] = Field(default=None, description="Unique identifier of the member.", json_schema_extra={"examples": ["258"]})
+    display: Optional[StrictStr] = Field(default=None, description="Identifier of the user. This is usually an email address.", json_schema_extra={"examples": ["john.doe@example.com"]})
     __properties: ClassVar[List[str]] = ["value", "display"]
 
     model_config = ConfigDict(

@@ -28,12 +28,12 @@ class CouponsNotificationData(BaseModel):
     """
     CouponsNotificationData
     """ # noqa: E501
-    type_of_change: StrictStr = Field(description="The type of change that occurred.", alias="TypeOfChange")
-    operation: StrictStr = Field(description="The operation performed.", alias="Operation")
-    employee_name: StrictStr = Field(description="The name of the employee associated with the operation.", alias="EmployeeName")
+    type_of_change: StrictStr = Field(description="The type of change that occurred.", alias="TypeOfChange", json_schema_extra={"examples": ["campaign_manager"]})
+    operation: StrictStr = Field(description="The operation performed.", alias="Operation", json_schema_extra={"examples": ["CouponUpdated"]})
+    employee_name: StrictStr = Field(description="The name of the employee associated with the operation.", alias="EmployeeName", json_schema_extra={"examples": ["Franziska Schneider"]})
     data: Optional[List[ExtendedCoupon]] = Field(default=None, description="A list of extended coupon data.")
-    total_result_size: Optional[StrictInt] = Field(default=None, alias="totalResultSize")
-    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType")
+    total_result_size: Optional[StrictInt] = Field(default=None, alias="totalResultSize", json_schema_extra={"examples": [1]})
+    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType", json_schema_extra={"examples": ["CouponUpdated"]})
     __properties: ClassVar[List[str]] = ["TypeOfChange", "Operation", "EmployeeName", "data", "totalResultSize", "NotificationType"]
 
     @field_validator('notification_type')

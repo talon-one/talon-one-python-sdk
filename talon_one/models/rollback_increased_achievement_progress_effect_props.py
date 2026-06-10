@@ -25,12 +25,12 @@ from pydantic_core import to_jsonable_python
 
 class RollbackIncreasedAchievementProgressEffectProps(BaseModel):
     """
-    The properties specific to the \"rollbackIncreasedAchievementProgress\" effect. This gets triggered whenever a closed session where the `increaseAchievementProgress` effect was triggered is cancelled. This is applicable only when the customer has not completed the achievement.
+    This effect indicates that the customer's progress in an achievement was rolled back.  The Rule Engine triggers this effect when you cancel or [reopen a customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/reopenCustomerSession) that previously validated the [Update customer progress](https://docs.talon.one/docs/product/rules/effects/use-effects#update-customer-progress) effect and triggered the [increaseAchievementProgress](https://docs.talon.one/docs/dev/integration-api/api-effects#increaseachievementprogress) API effect.  The effect is also triggered for completed achievements if the **Allow progress rollback for completed achievements** setting is enabled. You can enable this through the [Campaign Manager](https://docs.talon.one/docs/product/campaigns/achievements/manage-achievements) or the [Management API](https://docs.talon.one/management-api#tag/Achievements/operation/createAchievement) by setting the `achievementAllowRollbackAfterCompletion` property to `true`. This setting only applies to one-time and recurring on expiration achievements.
     """ # noqa: E501
-    achievement_id: StrictInt = Field(description="The internal ID of the achievement.", alias="achievementId")
-    achievement_name: StrictStr = Field(description="The name of the achievement.", alias="achievementName")
+    achievement_id: StrictInt = Field(description="The internal ID of the achievement.", alias="achievementId", json_schema_extra={"examples": [10]})
+    achievement_name: StrictStr = Field(description="The name of the achievement.", alias="achievementName", json_schema_extra={"examples": ["FreeCoffee10Orders"]})
     progress_tracker_id: StrictInt = Field(description="The internal ID of the achievement progress tracker.", alias="progressTrackerId")
-    decrease_progress_by: Union[StrictFloat, StrictInt] = Field(description="The value by which the customer's current progress in the achievement is decreased.", alias="decreaseProgressBy")
+    decrease_progress_by: Union[StrictFloat, StrictInt] = Field(description="The value by which the customer's current progress in the achievement has decreased.", alias="decreaseProgressBy")
     current_progress: Union[StrictFloat, StrictInt] = Field(description="The current progress of the customer in the achievement.", alias="currentProgress")
     target: Union[StrictFloat, StrictInt] = Field(description="The target value to complete the achievement.")
     __properties: ClassVar[List[str]] = ["achievementId", "achievementName", "progressTrackerId", "decreaseProgressBy", "currentProgress", "target"]

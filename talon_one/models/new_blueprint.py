@@ -29,7 +29,7 @@ class NewBlueprint(BaseModel):
     """
     NewBlueprint
     """ # noqa: E501
-    title: StrictStr = Field(description="The display name for the blueprint.")
+    title: StrictStr = Field(description="The display name for the blueprint.", json_schema_extra={"examples": ["Customer loyalty boost"]})
     description: Optional[StrictStr] = Field(default=None, description="A longer, more detailed description of the blueprint.")
     category: Optional[StrictStr] = Field(default='custom', description="Category used to group blueprints.")
     rules: Optional[List[CatalogRule]] = Field(default=None, description="Array of rules to store in this blueprint. Rules should only contain title (no description, as description is at the blueprint level). At least one rule or cart item filter is required.")

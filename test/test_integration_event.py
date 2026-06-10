@@ -38,12 +38,12 @@ class TestIntegrationEvent(unittest.TestCase):
                 profile_id = 'URNGV8294NV',
                 store_integration_id = 'STORE-001',
                 type = 'pageViewed',
-                attributes = {myAttribute=myValue}
+                attributes = None
             )
         else:
             return IntegrationEvent(
                 type = 'pageViewed',
-                attributes = {myAttribute=myValue},
+                attributes = None,
         )
         """
 

@@ -28,7 +28,7 @@ class CardAddedDeductedPointsNotificationPolicy(BaseModel):
     """
     CardAddedDeductedPointsNotificationPolicy
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.", json_schema_extra={"examples": ["Christmas Sale"]})
     scopes: Annotated[List[StrictStr], Field(min_length=1, max_length=4)]
     __properties: ClassVar[List[str]] = ["name", "scopes"]
 

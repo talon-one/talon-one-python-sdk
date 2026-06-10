@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.integration_hub_event_type import IntegrationHubEventType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,16 +29,18 @@ class IntegrationHubEventRecord(BaseModel):
     """
     IntegrationHubEventRecord
     """ # noqa: E501
-    id: StrictInt = Field(alias="Id")
-    flow_id: StrictInt = Field(alias="FlowId")
-    event_type: StrictStr = Field(alias="EventType")
-    event_data: Optional[Any] = Field(alias="EventData")
-    published_at: datetime = Field(alias="PublishedAt")
-    processed_at: Optional[datetime] = Field(default=None, alias="ProcessedAt")
-    delivered_at: Optional[datetime] = Field(default=None, alias="DeliveredAt")
-    process_after: datetime = Field(alias="ProcessAfter")
-    retry: StrictInt = Field(alias="Retry")
-    __properties: ClassVar[List[str]] = ["Id", "FlowId", "EventType", "EventData", "PublishedAt", "ProcessedAt", "DeliveredAt", "ProcessAfter", "Retry"]
+    id: StrictInt = Field(description="ID of the event record.")
+    flow_id: StrictInt = Field(description="ID of the integration hub flow.", alias="flowId")
+    integration_name: Optional[StrictStr] = Field(default=None, description="Name of the integration.", alias="integrationName")
+    instance_name: Optional[StrictStr] = Field(default=None, description="Name of the integration instance.", alias="instanceName")
+    event_type: IntegrationHubEventType = Field(alias="eventType")
+    published_at: datetime = Field(description="Timestamp when the event was published.", alias="publishedAt")
+    processed_at: Optional[datetime] = Field(default=None, description="Timestamp when the event was processed.", alias="processedAt")
+    delivered_at: Optional[datetime] = Field(default=None, description="Timestamp when the event was delivered.", alias="deliveredAt")
+    scheduled_to: datetime = Field(description="Timestamp after which the event is scheduled to be processed.", alias="scheduledTo")
+    retry: StrictInt = Field(description="Number of delivery retries attempted.")
+    payload: StrictStr = Field(description="The event payload as a formatted JSON string.")
+    __properties: ClassVar[List[str]] = ["id", "flowId", "integrationName", "instanceName", "eventType", "publishedAt", "processedAt", "deliveredAt", "scheduledTo", "retry", "payload"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -78,11 +81,6 @@ class IntegrationHubEventRecord(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if event_data (nullable) is None
-        # and model_fields_set contains the field
-        if self.event_data is None and "event_data" in self.model_fields_set:
-            _dict['EventData'] = None
-
         return _dict
 
     @classmethod
@@ -95,15 +93,17 @@ class IntegrationHubEventRecord(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id"),
-            "FlowId": obj.get("FlowId"),
-            "EventType": obj.get("EventType"),
-            "EventData": obj.get("EventData"),
-            "PublishedAt": obj.get("PublishedAt"),
-            "ProcessedAt": obj.get("ProcessedAt"),
-            "DeliveredAt": obj.get("DeliveredAt"),
-            "ProcessAfter": obj.get("ProcessAfter"),
-            "Retry": obj.get("Retry")
+            "id": obj.get("id"),
+            "flowId": obj.get("flowId"),
+            "integrationName": obj.get("integrationName"),
+            "instanceName": obj.get("instanceName"),
+            "eventType": obj.get("eventType"),
+            "publishedAt": obj.get("publishedAt"),
+            "processedAt": obj.get("processedAt"),
+            "deliveredAt": obj.get("deliveredAt"),
+            "scheduledTo": obj.get("scheduledTo"),
+            "retry": obj.get("retry"),
+            "payload": obj.get("payload")
         })
         return _obj
 

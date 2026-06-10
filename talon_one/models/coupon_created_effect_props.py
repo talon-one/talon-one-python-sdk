@@ -25,7 +25,7 @@ from pydantic_core import to_jsonable_python
 
 class CouponCreatedEffectProps(BaseModel):
     """
-    The properties specific to the \"couponCreated\" effect. This gets triggered whenever a validated rule contained a \"create coupon\" effect, and a coupon was created for a customer. See \"createdCoupons\" on the response for all details of this coupon.
+    This effect indicates that a coupon was created.  For referrals and retention marketing, a common use case is to generate a coupon that can only be redeemed by one specific customer.  Handle this effect by notifying the recipient about their new coupon code.
     """ # noqa: E501
     value: StrictStr = Field(description="The coupon code that was created.")
     profile_id: StrictStr = Field(description="The integration identifier of the customer for whom this coupon was created.", alias="profileId")

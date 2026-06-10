@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.role_v2_permission_set import RoleV2PermissionSet
 from talon_one.models.role_v2_roles_group import RoleV2RolesGroup
+from talon_one.models.roles_v2_thresholds import RolesV2Thresholds
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,9 +31,10 @@ class RoleV2Permissions(BaseModel):
     """
     RoleV2Permissions
     """ # noqa: E501
-    permission_sets: Optional[Annotated[List[RoleV2PermissionSet], Field(max_length=500)]] = Field(default=None, description="List of grouped logical operations referenced by roles.", alias="permissionSets")
+    permission_sets: Optional[Annotated[List[RoleV2PermissionSet], Field(max_length=500)]] = Field(default=None, description="List of grouped logical operations referenced by roles.", alias="permissionSets", json_schema_extra={"examples": [[{"name": "Application permission set", "logicalOperations": ["getApplicationOperations", "editApplicationOperations"]}, {"name": "Campaign manager permission set", "logicalOperations": ["getCampaignOperations", "createCampaignOperations", "updateCampaignOperations"]}, {"name": "Campaign read-only permission set", "logicalOperations": ["getCampaignOperations"]}, {"name": "Loyalty program read-only permission set", "logicalOperations": ["getLoyaltyProgramOperations"]}, {"name": "Campaign access group manager permission set", "logicalOperations": ["getCampaignAccessGroupOperations", "updateCampaignAccessGroupOperations", "deleteCampaignAccessGroupOperations"]}]]})
     roles: Optional[RoleV2RolesGroup] = None
-    __properties: ClassVar[List[str]] = ["permissionSets", "roles"]
+    thresholds: Optional[List[RolesV2Thresholds]] = Field(default=None, description="Support user limits for actions that require admin approval within the given application.")
+    __properties: ClassVar[List[str]] = ["permissionSets", "roles", "thresholds"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -83,6 +85,13 @@ class RoleV2Permissions(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of roles
         if self.roles:
             _dict['roles'] = self.roles.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in thresholds (list)
+        _items = []
+        if self.thresholds:
+            for _item_thresholds in self.thresholds:
+                if _item_thresholds:
+                    _items.append(_item_thresholds.to_dict())
+            _dict['thresholds'] = _items
         return _dict
 
     @classmethod
@@ -96,7 +105,8 @@ class RoleV2Permissions(BaseModel):
 
         _obj = cls.model_validate({
             "permissionSets": [RoleV2PermissionSet.from_dict(_item) for _item in obj["permissionSets"]] if obj.get("permissionSets") is not None else None,
-            "roles": RoleV2RolesGroup.from_dict(obj["roles"]) if obj.get("roles") is not None else None
+            "roles": RoleV2RolesGroup.from_dict(obj["roles"]) if obj.get("roles") is not None else None,
+            "thresholds": [RolesV2Thresholds.from_dict(_item) for _item in obj["thresholds"]] if obj.get("thresholds") is not None else None
         })
         return _obj
 

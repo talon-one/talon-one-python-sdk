@@ -28,7 +28,7 @@ class RuleEligibility(BaseModel):
     """
     The customer's eligibility for a rule in the current session, based on whether all of the rule's conditions were met.
     """ # noqa: E501
-    passed: StrictBool = Field(description="Indicates whether the customer was eligible for the rule in the current session, based on whether all of the rule's conditions were met.")
+    passed: StrictBool = Field(description="Indicates whether the customer was eligible for the rule in the current session, based on whether all of the rule's conditions were met.", json_schema_extra={"examples": [True]})
     coupon_code: Optional[StrictStr] = Field(default=None, description="The coupon code used to check a customer's eligibility for the rule in the current session, if applicable.", alias="couponCode")
     details: Optional[RuleEligibilityFailureDetails] = Field(default=None, description="The details about why the customer was not eligible for the rule in the current session. Only returned when `passed` is `false`.")
     __properties: ClassVar[List[str]] = ["passed", "couponCode", "details"]

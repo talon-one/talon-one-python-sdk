@@ -28,10 +28,10 @@ class CampaignLogSummary(BaseModel):
     """
     Campaign Log Summary
     """ # noqa: E501
-    name: StrictStr = Field(description="Name of the user that performed the change.")
-    email: StrictStr = Field(description="E-mail of the user that performed the change.")
-    created: datetime = Field(description="Date and time the change was performed.")
-    action: StrictStr = Field(description="Action performed by the user.")
+    name: StrictStr = Field(description="Name of the user that performed the change.", json_schema_extra={"examples": ["Admin"]})
+    email: StrictStr = Field(description="E-mail of the user that performed the change.", json_schema_extra={"examples": ["admin@talon.one"]})
+    created: datetime = Field(description="Date and time the change was performed.", json_schema_extra={"examples": ["2022-01-02T15:04:05Z07:00"]})
+    action: StrictStr = Field(description="Action performed by the user.", json_schema_extra={"examples": ["create"]})
     summary: StrictStr = Field(description="AI-generated summary of the action performed.")
     __properties: ClassVar[List[str]] = ["name", "email", "created", "action", "summary"]
 

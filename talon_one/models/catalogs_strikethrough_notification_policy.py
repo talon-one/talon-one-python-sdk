@@ -28,9 +28,9 @@ class CatalogsStrikethroughNotificationPolicy(BaseModel):
     """
     CatalogsStrikethroughNotificationPolicy
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.", json_schema_extra={"examples": ["Christmas Sale"]})
     ahead_of_days_trigger: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="The number of days in advance that strikethrough pricing updates should be sent.", alias="aheadOfDaysTrigger")
-    batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data.", alias="batchSize")
+    batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data.", alias="batchSize", json_schema_extra={"examples": [1000]})
     __properties: ClassVar[List[str]] = ["name", "aheadOfDaysTrigger", "batchSize"]
 
     model_config = ConfigDict(

@@ -28,17 +28,17 @@ class NewApplicationAPIKey(BaseModel):
     """
     NewApplicationAPIKey
     """ # noqa: E501
-    title: StrictStr = Field(description="Title of the API key.")
-    expires: datetime = Field(description="The date the API key expires.")
-    platform: Optional[StrictStr] = Field(default=None, description="The third-party platform the API key is valid for. Use `none` for a generic API key to be used from your own integration layer. ")
-    type: Optional[StrictStr] = Field(default=None, description="The API key type. Can be empty or `staging`.  Staging API keys can only be used for dry requests with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint, [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint, and [Track event](https://docs.talon.one/integration-api#tag/Events/operation/trackEventV2) endpoint.  When using the _Update customer profile_ endpoint with a staging API key, the query parameter `runRuleEngine` must be `true`. ")
-    time_offset: Optional[StrictInt] = Field(default=None, description="A time offset in nanoseconds associated with the API key. When making a request using the API key, rule evaluation is based on a date that is calculated by adding the offset to the current date. ", alias="timeOffset")
-    id: StrictInt = Field(description="ID of the API Key.")
-    created_by: StrictInt = Field(description="ID of user who created.", alias="createdBy")
-    account_id: StrictInt = Field(description="ID of account the key is used for.", alias="accountID")
-    application_id: StrictInt = Field(description="ID of application the key is used for.", alias="applicationID")
-    created: datetime = Field(description="The date the API key was created.")
-    key: StrictStr = Field(description="The API key.")
+    title: StrictStr = Field(description="Title of the API key.", json_schema_extra={"examples": ["My generated key"]})
+    expires: datetime = Field(description="The date the API key expires.", json_schema_extra={"examples": ["2023-08-24T14:00:00Z"]})
+    platform: Optional[StrictStr] = Field(default=None, description="The third-party platform the API key is valid for. Use `none` for a generic API key to be used from your own integration layer. ", json_schema_extra={"examples": ["none"]})
+    type: Optional[StrictStr] = Field(default=None, description="The API key type. Can be empty or `staging`.  Staging API keys can only be used for dry requests with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint, [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint, and [Track event](https://docs.talon.one/integration-api#tag/Events/operation/trackEventV2) endpoint.  When using the _Update customer profile_ endpoint with a staging API key, the query parameter `runRuleEngine` must be `true`. ", json_schema_extra={"examples": ["staging"]})
+    time_offset: Optional[StrictInt] = Field(default=None, description="A time offset in nanoseconds associated with the API key. When making a request using the API key, rule evaluation is based on a date that is calculated by adding the offset to the current date. ", alias="timeOffset", json_schema_extra={"examples": [100000]})
+    id: StrictInt = Field(description="ID of the API Key.", json_schema_extra={"examples": [34]})
+    created_by: StrictInt = Field(description="ID of user who created.", alias="createdBy", json_schema_extra={"examples": [280]})
+    account_id: StrictInt = Field(description="ID of account the key is used for.", alias="accountID", json_schema_extra={"examples": [13]})
+    application_id: StrictInt = Field(description="ID of application the key is used for.", alias="applicationID", json_schema_extra={"examples": [54]})
+    created: datetime = Field(description="The date the API key was created.", json_schema_extra={"examples": ["2022-03-02T16:46:17.758585Z"]})
+    key: StrictStr = Field(description="The API key.", json_schema_extra={"examples": ["f45f90d21dcd9bac965c45e547e9754a3196891d09948e35adbcbedc4e9e4b01"]})
     __properties: ClassVar[List[str]] = ["title", "expires", "platform", "type", "timeOffset", "id", "createdBy", "accountID", "applicationID", "created", "key"]
 
     @field_validator('platform')

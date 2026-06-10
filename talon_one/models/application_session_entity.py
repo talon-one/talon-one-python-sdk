@@ -27,7 +27,7 @@ class ApplicationSessionEntity(BaseModel):
     """
     ApplicationSessionEntity
     """ # noqa: E501
-    session_id: StrictInt = Field(description="The globally unique Talon.One ID of the session where this entity was created.", alias="sessionId")
+    session_id: StrictInt = Field(description="The globally unique Talon.One ID of the session where this entity was created.", alias="sessionId", json_schema_extra={"examples": [2]})
     __properties: ClassVar[List[str]] = ["sessionId"]
 
     model_config = ConfigDict(

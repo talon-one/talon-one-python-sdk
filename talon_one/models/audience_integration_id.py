@@ -28,7 +28,7 @@ class AudienceIntegrationID(BaseModel):
     """
     AudienceIntegrationID
     """ # noqa: E501
-    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.", alias="integrationId")
+    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
     __properties: ClassVar[List[str]] = ["integrationId"]
 
     model_config = ConfigDict(

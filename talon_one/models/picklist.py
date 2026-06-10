@@ -29,14 +29,14 @@ class Picklist(BaseModel):
     """
     Picklist
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    type: StrictStr = Field(description="The type of allowed values in the picklist. If the type `time` is chosen, it must be an RFC3339 timestamp string.")
-    values: Annotated[List[StrictStr], Field(max_length=50)] = Field(description="The list of allowed values provided by this picklist.")
-    modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this effect if available.", alias="modifiedBy")
-    created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy")
-    account_id: Optional[StrictInt] = Field(default=None, description="The ID of the account that owns this entity.", alias="accountId")
-    imported: Optional[StrictBool] = Field(default=None, description="Imported flag shows that a picklist is imported by a CSV file or not")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    type: StrictStr = Field(description="The type of allowed values in the picklist. If the type `time` is chosen, it must be an RFC3339 timestamp string.", json_schema_extra={"examples": ["string"]})
+    values: Annotated[List[StrictStr], Field(max_length=50)] = Field(description="The list of allowed values provided by this picklist.", json_schema_extra={"examples": [["Jeans", "Shirt", "Coat"]]})
+    modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this effect if available.", alias="modifiedBy", json_schema_extra={"examples": [124]})
+    created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy", json_schema_extra={"examples": [134]})
+    account_id: Optional[StrictInt] = Field(default=None, description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    imported: Optional[StrictBool] = Field(default=None, description="Imported flag shows that a picklist is imported by a CSV file or not", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["id", "created", "type", "values", "modifiedBy", "createdBy", "accountId", "imported"]
 
     @field_validator('type')

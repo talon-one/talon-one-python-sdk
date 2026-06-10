@@ -22,8 +22,6 @@ from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.scim_service_provider_config_response_bulk import ScimServiceProviderConfigResponseBulk
 from talon_one.models.scim_service_provider_config_response_change_password import ScimServiceProviderConfigResponseChangePassword
 from talon_one.models.scim_service_provider_config_response_filter import ScimServiceProviderConfigResponseFilter
-from talon_one.models.scim_service_provider_config_response_patch import ScimServiceProviderConfigResponsePatch
-from talon_one.models.scim_service_provider_config_response_sort import ScimServiceProviderConfigResponseSort
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -36,9 +34,9 @@ class ScimServiceProviderConfigResponse(BaseModel):
     change_password: Optional[ScimServiceProviderConfigResponseChangePassword] = Field(default=None, alias="changePassword")
     documentation_uri: Optional[StrictStr] = Field(default=None, description="The URI that points to the SCIM service provider's documentation, providing further details about the service's capabilities and usage.", alias="documentationUri")
     filter: Optional[ScimServiceProviderConfigResponseFilter] = None
-    patch: Optional[ScimServiceProviderConfigResponsePatch] = None
+    patch: Optional[ScimServiceProviderConfigResponseChangePassword] = None
     schemas: Optional[List[StrictStr]] = Field(default=None, description="A list of SCIM schemas that define the structure and data types supported by the service provider.")
-    sort: Optional[ScimServiceProviderConfigResponseSort] = None
+    sort: Optional[ScimServiceProviderConfigResponseChangePassword] = None
     __properties: ClassVar[List[str]] = ["bulk", "changePassword", "documentationUri", "filter", "patch", "schemas", "sort"]
 
     model_config = ConfigDict(
@@ -111,9 +109,9 @@ class ScimServiceProviderConfigResponse(BaseModel):
             "changePassword": ScimServiceProviderConfigResponseChangePassword.from_dict(obj["changePassword"]) if obj.get("changePassword") is not None else None,
             "documentationUri": obj.get("documentationUri"),
             "filter": ScimServiceProviderConfigResponseFilter.from_dict(obj["filter"]) if obj.get("filter") is not None else None,
-            "patch": ScimServiceProviderConfigResponsePatch.from_dict(obj["patch"]) if obj.get("patch") is not None else None,
+            "patch": ScimServiceProviderConfigResponseChangePassword.from_dict(obj["patch"]) if obj.get("patch") is not None else None,
             "schemas": obj.get("schemas"),
-            "sort": ScimServiceProviderConfigResponseSort.from_dict(obj["sort"]) if obj.get("sort") is not None else None
+            "sort": ScimServiceProviderConfigResponseChangePassword.from_dict(obj["sort"]) if obj.get("sort") is not None else None
         })
         return _obj
 

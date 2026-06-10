@@ -29,10 +29,10 @@ class CreateManagementKey(BaseModel):
     """
     CreateManagementKey
     """ # noqa: E501
-    name: StrictStr = Field(description="Name for management key.")
-    expiry_date: datetime = Field(description="The date the management key expires.", alias="expiryDate")
+    name: StrictStr = Field(description="Name for management key.", json_schema_extra={"examples": ["My generated key"]})
+    expiry_date: datetime = Field(description="The date the management key expires.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:00:00Z"]})
     endpoints: List[Endpoint] = Field(description="The list of endpoints that can be accessed with the key")
-    allowed_application_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of Application IDs that you can access with the management key. An empty or missing list means the management key can be used for all Applications in the account. ", alias="allowedApplicationIds")
+    allowed_application_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of Application IDs that you can access with the management key. An empty or missing list means the management key can be used for all Applications in the account. ", alias="allowedApplicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["name", "expiryDate", "endpoints", "allowedApplicationIds"]
 
     model_config = ConfigDict(

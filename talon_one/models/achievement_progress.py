@@ -28,11 +28,11 @@ class AchievementProgress(BaseModel):
     """
     The current progress of the customer in the achievement.
     """ # noqa: E501
-    status: StrictStr = Field(description="The status of the achievement.")
-    progress: Union[StrictFloat, StrictInt] = Field(description="The current progress of the customer in the achievement.")
-    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which the customer started the achievement.", alias="startDate")
-    completion_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the customer completed the achievement.", alias="completionDate")
-    end_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the achievement ends and resets for the customer.", alias="endDate")
+    status: StrictStr = Field(description="The status of the achievement.", json_schema_extra={"examples": ["completed"]})
+    progress: Union[StrictFloat, StrictInt] = Field(description="The current progress of the customer in the achievement.", json_schema_extra={"examples": [10]})
+    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which the customer started the achievement.", alias="startDate", json_schema_extra={"examples": ["2024-01-01T15:04:05Z07:00"]})
+    completion_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the customer completed the achievement.", alias="completionDate", json_schema_extra={"examples": ["2024-01-15T15:04:05Z07:00"]})
+    end_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the achievement ends and resets for the customer.", alias="endDate", json_schema_extra={"examples": ["2024-02-01T15:04:05Z07:00"]})
     __properties: ClassVar[List[str]] = ["status", "progress", "startDate", "completionDate", "endDate"]
 
     @field_validator('status')

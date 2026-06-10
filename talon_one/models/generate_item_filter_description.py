@@ -27,7 +27,7 @@ class GenerateItemFilterDescription(BaseModel):
     """
     GenerateItemFilterDescription
     """ # noqa: E501
-    item_filter: List[Dict[str, Any]] = Field(description="An array of item filter Talang expressions.", alias="itemFilter")
+    item_filter: List[Dict[str, Any]] = Field(description="An array of item filter Talang expressions.", alias="itemFilter", json_schema_extra={"examples": [["filter", [".", "Session", "CartItems"], [["Item"], ["catch", False, ["and", ["!=", [".", "Item", "Attributes", "c_productType"], "egiftcard"]]]]]]})
     __properties: ClassVar[List[str]] = ["itemFilter"]
 
     model_config = ConfigDict(

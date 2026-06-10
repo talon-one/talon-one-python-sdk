@@ -29,7 +29,7 @@ class PatchItemCatalogAction(BaseModel):
     The specific properties of the \"PATCH\" catalog sync action.  **Note:**   - If you do not provide a new `price` value, the existing `price` value is retained.   - If you do not provide a new `product` value, the `product` value is set to `null`. 
     """ # noqa: E501
     sku: StrictStr = Field(description="The unique SKU of the item to patch.")
-    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price of the item.")
+    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price of the item.", json_schema_extra={"examples": [99.99]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the item to patch.")
     product: Optional[Product] = None
     create_if_not_exists: Optional[StrictBool] = Field(default=False, description="Indicates whether to create an item if the SKU does not exist.", alias="createIfNotExists")

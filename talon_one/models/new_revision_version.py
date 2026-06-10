@@ -31,17 +31,17 @@ class NewRevisionVersion(BaseModel):
     """
     NewRevisionVersion
     """ # noqa: E501
-    name: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="A user-facing name for this campaign.")
-    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime")
-    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime")
+    name: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="A user-facing name for this campaign.", json_schema_extra={"examples": ["Summer promotions"]})
+    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
-    active_ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset this campaign will use.", alias="activeRulesetId")
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.", json_schema_extra={"examples": ["Campaign for all summer 2021 promotions"]})
+    active_ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset this campaign will use.", alias="activeRulesetId", json_schema_extra={"examples": [5]})
     tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign.")
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
     referral_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="referralSettings")
     limits: Optional[List[LimitConfig]] = Field(default=None, description="The set of limits that will operate for this campaign version.")
-    reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether this campaign should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn")
+    reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether this campaign should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn", json_schema_extra={"examples": [True]})
     features: Optional[List[StrictStr]] = Field(default=None, description="A list of features for the campaign.")
     coupon_attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with coupons in this campaign.", alias="couponAttributes")
     __properties: ClassVar[List[str]] = ["name", "startTime", "endTime", "attributes", "description", "activeRulesetId", "tags", "couponSettings", "referralSettings", "limits", "reevaluateOnReturn", "features", "couponAttributes"]

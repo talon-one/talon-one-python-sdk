@@ -28,9 +28,9 @@ class CustomerProfileAudienceRequestItem(BaseModel):
     """
     CustomerProfileAudienceRequestItem
     """ # noqa: E501
-    action: StrictStr = Field(description="Defines the action to perform: - `add`: Adds the customer profile to the audience.    **Note**: If the customer profile does not exist, it will be created. The profile will not be visible in any Application   until a session or profile update is received for that profile. - `delete`: Removes the customer profile from the audience. ")
-    profile_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The ID of this customer profile in the third-party integration.", alias="profileIntegrationId")
-    audience_id: StrictInt = Field(description="The ID of the audience. You get it via the `id` property when [creating an audience](#tag/Audiences/operation/createAudienceV2).", alias="audienceId")
+    action: StrictStr = Field(description="Defines the action to perform: - `add`: Adds the customer profile to the audience.    **Note**: If the customer profile does not exist, it will be created. The profile will not be visible in any Application   until a session or profile update is received for that profile. - `delete`: Removes the customer profile from the audience. ", json_schema_extra={"examples": ["add"]})
+    profile_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The ID of this customer profile in the third-party integration.", alias="profileIntegrationId", json_schema_extra={"examples": ["R195412"]})
+    audience_id: StrictInt = Field(description="The ID of the audience. You get it via the `id` property when [creating an audience](#tag/Audiences/operation/createAudienceV2).", alias="audienceId", json_schema_extra={"examples": [748]})
     __properties: ClassVar[List[str]] = ["action", "profileIntegrationId", "audienceId"]
 
     @field_validator('action')

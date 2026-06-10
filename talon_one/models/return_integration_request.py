@@ -29,7 +29,7 @@ class ReturnIntegrationRequest(BaseModel):
     The body of a return integration API request. Next to the cart items details, this contains an optional listing of extra properties that should be returned in the response.
     """ # noqa: E501
     var_return: NewReturn = Field(description="The returned cart items details.", alias="return")
-    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data as you need in one _Update customer session_ request instead of sending extra requests to other endpoints. ", alias="responseContent")
+    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data as you need in one _Update customer session_ request instead of sending extra requests to other endpoints. ", alias="responseContent", json_schema_extra={"examples": [["customerSession", "customerProfile"]]})
     __properties: ClassVar[List[str]] = ["return", "responseContent"]
 
     @field_validator('response_content')

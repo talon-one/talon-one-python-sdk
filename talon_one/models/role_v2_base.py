@@ -28,10 +28,10 @@ class RoleV2Base(BaseModel):
     """
     RoleV2Base
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the role.")
-    description: Optional[StrictStr] = Field(default=None, description="Description of the role.")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the role.", json_schema_extra={"examples": ["Campaign and campaign access group manager"]})
+    description: Optional[StrictStr] = Field(default=None, description="Description of the role.", json_schema_extra={"examples": ["Allows you to create and edit campaigns for specific Applications, delete specific campaign access groups, and view loyalty programs."]})
     permissions: Optional[RoleV2Permissions] = Field(default=None, description="The permissions that this role gives.")
-    members: Optional[List[StrictInt]] = Field(default=None, description="A list of user IDs the role is assigned to.")
+    members: Optional[List[StrictInt]] = Field(default=None, description="A list of user IDs the role is assigned to.", json_schema_extra={"examples": [[10, 12]]})
     __properties: ClassVar[List[str]] = ["name", "description", "permissions", "members"]
 
     model_config = ConfigDict(

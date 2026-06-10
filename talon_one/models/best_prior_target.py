@@ -27,8 +27,8 @@ class BestPriorTarget(BaseModel):
     """
     Specifies the target for which the best prior price calculation is taken into consideration.
     """ # noqa: E501
-    target_type: StrictStr = Field(description="The type of price target.", alias="targetType")
-    audience_id: Optional[StrictInt] = Field(default=None, description="The AudienceID of an audience. Must be used with \"AUDIENCE\" target type.", alias="audienceID")
+    target_type: StrictStr = Field(description="The type of price target.", alias="targetType", json_schema_extra={"examples": ["AUDIENCE"]})
+    audience_id: Optional[StrictInt] = Field(default=None, description="The AudienceID of an audience. Must be used with \"AUDIENCE\" target type.", alias="audienceID", json_schema_extra={"examples": [4]})
     __properties: ClassVar[List[str]] = ["targetType", "audienceID"]
 
     @field_validator('target_type')

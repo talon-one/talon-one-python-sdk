@@ -29,15 +29,15 @@ class PriceType(BaseModel):
     """
     PriceType
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    account_id: Optional[StrictInt] = Field(default=None, description="The ID of the account that owns this price type.", alias="accountId")
-    name: Annotated[str, Field(strict=True)] = Field(description="The API name of the price type. This is an immutable value.")
-    title: StrictStr = Field(description="The name displayed in the Campaign Manager for the price type.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the price type.")
-    modified: datetime = Field(description="The date and time when the price type was last modified.")
-    subscribed_catalogs_ids: List[StrictInt] = Field(description="A list of the IDs of the catalogs that are subscribed to this price type.", alias="subscribedCatalogsIds")
-    targeted_audiences_ids: List[StrictInt] = Field(description="A list of the IDs of the audiences targeted by this price type.", alias="targetedAudiencesIds")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    account_id: Optional[StrictInt] = Field(default=None, description="The ID of the account that owns this price type.", alias="accountId", json_schema_extra={"examples": [1]})
+    name: Annotated[str, Field(strict=True)] = Field(description="The API name of the price type. This is an immutable value.", json_schema_extra={"examples": ["member"]})
+    title: StrictStr = Field(description="The name displayed in the Campaign Manager for the price type.", json_schema_extra={"examples": ["Member Price"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the price type.", json_schema_extra={"examples": ["The price available exclusively to members."]})
+    modified: datetime = Field(description="The date and time when the price type was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    subscribed_catalogs_ids: List[StrictInt] = Field(description="A list of the IDs of the catalogs that are subscribed to this price type.", alias="subscribedCatalogsIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    targeted_audiences_ids: List[StrictInt] = Field(description="A list of the IDs of the audiences targeted by this price type.", alias="targetedAudiencesIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "title", "description", "modified", "subscribedCatalogsIds", "targetedAudiencesIds"]
 
     @field_validator('name')

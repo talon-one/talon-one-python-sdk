@@ -27,8 +27,8 @@ class UpdateCollection(BaseModel):
     """
     UpdateCollection
     """ # noqa: E501
-    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications where this collection is enabled.", alias="subscribedApplicationsIds")
+    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.", json_schema_extra={"examples": ["My collection of SKUs"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications where this collection is enabled.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["description", "subscribedApplicationsIds"]
 
     model_config = ConfigDict(

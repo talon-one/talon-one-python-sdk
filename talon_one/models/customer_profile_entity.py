@@ -28,8 +28,8 @@ class CustomerProfileEntity(BaseModel):
     """
     CustomerProfileEntity
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of the customer profile.")
-    created: datetime = Field(description="The time the customer profile was created.")
+    id: StrictInt = Field(description="The internal ID of the customer profile.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time the customer profile was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     __properties: ClassVar[List[str]] = ["id", "created"]
 
     model_config = ConfigDict(

@@ -28,9 +28,9 @@ class NewEventType(BaseModel):
     """
     NewEventType
     """ # noqa: E501
-    title: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly name for this event type.")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The integration name for this event type. This will be used in URLs and cannot be changed after an event type has been created.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of what the event represents. ")
+    title: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly name for this event type.", json_schema_extra={"examples": ["Survey Completed"]})
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The integration name for this event type. This will be used in URLs and cannot be changed after an event type has been created.", json_schema_extra={"examples": ["surveyCompleted"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of what the event represents. ", json_schema_extra={"examples": ["The survey was submitted by the customer."]})
     __properties: ClassVar[List[str]] = ["title", "name", "description"]
 
     model_config = ConfigDict(

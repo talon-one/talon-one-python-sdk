@@ -29,9 +29,9 @@ class CampaignStoreBudget(BaseModel):
     """
     CampaignStoreBudget
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    campaign_id: StrictInt = Field(description="The ID of the campaign that owns this entity.", alias="campaignId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    campaign_id: StrictInt = Field(description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [322]})
     store_id: StrictInt = Field(description="The ID of the store.", alias="storeId")
     limits: List[CampaignStoreBudgetLimitConfig] = Field(description="The set of budget limits for stores linked to the campaign.")
     __properties: ClassVar[List[str]] = ["id", "created", "campaignId", "storeId", "limits"]

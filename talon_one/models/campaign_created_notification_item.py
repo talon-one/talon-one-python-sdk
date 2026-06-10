@@ -31,7 +31,7 @@ class CampaignCreatedNotificationItem(BaseModel):
     """
     CampaignCreatedNotificationItem
     """ # noqa: E501
-    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
+    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event", json_schema_extra={"examples": ["campaign_state_changed"]})
     campaign: Campaign = Field(description="The campaign whose state changed.")
     ruleset: Optional[Ruleset] = Field(default=None, description="The current ruleset.")
     placeholders: Optional[List[PlaceholderDetails]] = Field(default=None, description="The current details of the [placeholders](https://docs.talon.one/docs/product/campaigns/templates/create-templates#use-placeholders) in the campaign.")

@@ -26,15 +26,15 @@ from pydantic_core import to_jsonable_python
 
 class DeductLoyaltyPointsEffectProps(BaseModel):
     """
-    The properties specific to the \"deductLoyaltyPoints\" effect. This gets triggered whenever a validated rule contained a condition to only trigger when the given number of loyalty points could be deduced. These points are automatically stored and managed inside Talon.One.
+    This effect is triggered when a customer redeems loyalty points. The points are deducted from their active point balance.  If the loyalty program is card-based, use the `cardIdentifier` property to identify the loyalty card from which these points are deducted.  The Rule Engine deducts points in this order:  - Points with the earliest expiry date are deducted first, regardless of when they were added. - Points with an unlimited expiry date are deducted last. - For points with an unlimited expiry date, the points awarded first are deducted first.  The points only persist when the session is closed.
     """ # noqa: E501
     rule_title: StrictStr = Field(description="The title of the rule that contained triggered this points deduction.", alias="ruleTitle")
-    program_id: StrictInt = Field(description="The ID of the loyalty program where these points were added.", alias="programId")
-    sub_ledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="subLedgerId")
+    program_id: StrictInt = Field(description="The ID of the loyalty program from which these points were deducted.", alias="programId")
+    sub_ledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program from which these points were deducted.", alias="subLedgerId")
     value: Union[StrictFloat, StrictInt] = Field(description="The amount of points that were deducted.")
-    transaction_uuid: StrictStr = Field(description="The identifier of this deduction in the loyalty ledger.", alias="transactionUUID")
-    name: StrictStr = Field(description="The name property gets one of the following two values. It can be the loyalty program name or it can represent a reason for the respective deduction of loyalty points. The latter is an optional value defined in a deduction rule. ")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The card on which these points were added.", alias="cardIdentifier")
+    transaction_uuid: StrictStr = Field(description="The identifier of this loyalty point transaction.", alias="transactionUUID")
+    name: StrictStr = Field(description="The reason of this loyalty points deduction.")
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card from which these points were deducted.", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     __properties: ClassVar[List[str]] = ["ruleTitle", "programId", "subLedgerId", "value", "transactionUUID", "name", "cardIdentifier"]
 
     @field_validator('card_identifier')

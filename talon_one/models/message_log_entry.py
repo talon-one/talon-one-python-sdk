@@ -31,21 +31,21 @@ class MessageLogEntry(BaseModel):
     """
     Message Log.
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier of the message.")
-    service: StrictStr = Field(description="Name of the service that generated the log entry.")
-    change_type: Optional[StrictStr] = Field(default=None, description="Type of change that triggered the notification.", alias="changeType")
-    notification_id: Optional[StrictInt] = Field(default=None, description="ID of the notification.", alias="notificationId")
-    notification_name: Optional[StrictStr] = Field(default=None, description="The name of the notification.", alias="notificationName")
-    webhook_id: Optional[StrictInt] = Field(default=None, description="ID of the webhook.", alias="webhookId")
-    webhook_name: Optional[StrictStr] = Field(default=None, description="The name of the webhook.", alias="webhookName")
+    id: StrictStr = Field(description="Unique identifier of the message.", json_schema_extra={"examples": ["123e4567-e89b-12d3-a456-426614174000"]})
+    service: StrictStr = Field(description="Name of the service that generated the log entry.", json_schema_extra={"examples": ["NotificationService"]})
+    change_type: Optional[StrictStr] = Field(default=None, description="Type of change that triggered the notification.", alias="changeType", json_schema_extra={"examples": ["Update"]})
+    notification_id: Optional[StrictInt] = Field(default=None, description="ID of the notification.", alias="notificationId", json_schema_extra={"examples": [101]})
+    notification_name: Optional[StrictStr] = Field(default=None, description="The name of the notification.", alias="notificationName", json_schema_extra={"examples": ["My campaign notification"]})
+    webhook_id: Optional[StrictInt] = Field(default=None, description="ID of the webhook.", alias="webhookId", json_schema_extra={"examples": [101]})
+    webhook_name: Optional[StrictStr] = Field(default=None, description="The name of the webhook.", alias="webhookName", json_schema_extra={"examples": ["My webhook"]})
     request: Optional[MessageLogRequest] = None
     response: Optional[MessageLogResponse] = None
-    created_at: datetime = Field(description="Timestamp when the log entry was created.", alias="createdAt")
-    entity_type: StrictStr = Field(description="The entity type the log is related to. ", alias="entityType")
-    url: Optional[StrictStr] = Field(default=None, description="The target URL of the request.")
-    application_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the Application.", alias="applicationId")
-    loyalty_program_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the loyalty program.", alias="loyaltyProgramId")
-    campaign_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the campaign.", alias="campaignId")
+    created_at: datetime = Field(description="Timestamp when the log entry was created.", alias="createdAt", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    entity_type: StrictStr = Field(description="The entity type the log is related to. ", alias="entityType", json_schema_extra={"examples": ["loyalty_program"]})
+    url: Optional[StrictStr] = Field(default=None, description="The target URL of the request.", json_schema_extra={"examples": ["www.my-company.com/my-endpoint-name"]})
+    application_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the Application.", alias="applicationId", json_schema_extra={"examples": [5]})
+    loyalty_program_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the loyalty program.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
+    campaign_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the campaign.", alias="campaignId", json_schema_extra={"examples": [2]})
     __properties: ClassVar[List[str]] = ["id", "service", "changeType", "notificationId", "notificationName", "webhookId", "webhookName", "request", "response", "createdAt", "entityType", "url", "applicationId", "loyaltyProgramId", "campaignId"]
 
     @field_validator('entity_type')

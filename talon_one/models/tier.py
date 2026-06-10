@@ -28,10 +28,10 @@ class Tier(BaseModel):
     """
     Tier
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of the tier.")
-    name: StrictStr = Field(description="The name of the tier.")
-    start_date: Optional[datetime] = Field(default=None, description="Date and time when the customer moved to this tier. This value uses the loyalty program's time zone setting.", alias="startDate")
-    expiry_date: Optional[datetime] = Field(default=None, description="Date when tier level expires in the RFC3339 format (in the Loyalty Program's timezone).", alias="expiryDate")
+    id: StrictInt = Field(description="The internal ID of the tier.", json_schema_extra={"examples": [11]})
+    name: StrictStr = Field(description="The name of the tier.", json_schema_extra={"examples": ["bronze"]})
+    start_date: Optional[datetime] = Field(default=None, description="Date and time when the customer moved to this tier. This value uses the loyalty program's time zone setting.", alias="startDate", json_schema_extra={"examples": ["2021-05-03T12:32:00Z07:00"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Date when tier level expires in the RFC3339 format (in the Loyalty Program's timezone).", alias="expiryDate", json_schema_extra={"examples": ["2022-08-02T15:04:05Z07:00"]})
     downgrade_policy: Optional[StrictStr] = Field(default=None, description="The policy that defines how customer tiers are downgraded in the loyalty program after tier reevaluation.  - `one_down`: If the customer doesn't have enough points to stay in the current tier, they are downgraded by one tier.  - `balance_based`: The customer's tier is reevaluated based on the amount of active points they have at the moment. ", alias="downgradePolicy")
     __properties: ClassVar[List[str]] = ["id", "name", "startDate", "expiryDate", "downgradePolicy"]
 

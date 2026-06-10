@@ -38,13 +38,13 @@ class TestNewEvent(unittest.TestCase):
                 profile_id = 'URNGV8294NV',
                 store_integration_id = 'STORE-001',
                 type = 'pageViewed',
-                attributes = {myAttribute=myValue},
+                attributes = None,
                 session_id = '175KJPS947296'
             )
         else:
             return NewEvent(
                 type = 'pageViewed',
-                attributes = {myAttribute=myValue},
+                attributes = None,
                 session_id = '175KJPS947296',
         )
         """

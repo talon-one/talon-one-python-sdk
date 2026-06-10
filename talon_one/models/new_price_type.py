@@ -28,10 +28,10 @@ class NewPriceType(BaseModel):
     """
     NewPriceType
     """ # noqa: E501
-    name: Annotated[str, Field(strict=True)] = Field(description="The API name of the price type. This is an immutable value.")
-    title: StrictStr = Field(description="The name displayed in the Campaign Manager for the price type.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the price type.")
-    targeted_audiences_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the audiences targeted by this price type.", alias="targetedAudiencesIds")
+    name: Annotated[str, Field(strict=True)] = Field(description="The API name of the price type. This is an immutable value.", json_schema_extra={"examples": ["member"]})
+    title: StrictStr = Field(description="The name displayed in the Campaign Manager for the price type.", json_schema_extra={"examples": ["Member Price"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the price type.", json_schema_extra={"examples": ["The price available exclusively to members."]})
+    targeted_audiences_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the audiences targeted by this price type.", alias="targetedAudiencesIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["name", "title", "description", "targetedAudiencesIds"]
 
     @field_validator('name')

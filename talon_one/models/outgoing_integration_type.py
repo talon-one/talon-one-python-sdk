@@ -28,11 +28,11 @@ class OutgoingIntegrationType(BaseModel):
     """
     OutgoingIntegrationType
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID for this entity.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=64)] = Field(description="Name of the outgoing integration.")
-    description: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="Description of the outgoing integration.")
-    category: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=64)]] = Field(default=None, description="Category of the outgoing integration.")
-    documentation_link: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=255)]] = Field(default=None, description="Http link to the outgoing integration's documentation.", alias="documentationLink")
+    id: StrictInt = Field(description="Unique ID for this entity.", json_schema_extra={"examples": [6]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=64)] = Field(description="Name of the outgoing integration.", json_schema_extra={"examples": ["Braze"]})
+    description: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="Description of the outgoing integration.", json_schema_extra={"examples": ["Braze is a customer data platform"]})
+    category: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=64)]] = Field(default=None, description="Category of the outgoing integration.", json_schema_extra={"examples": ["customer engagement platform"]})
+    documentation_link: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=255)]] = Field(default=None, description="Http link to the outgoing integration's documentation.", alias="documentationLink", json_schema_extra={"examples": ["https://docs.talon.one/docs/dev/technology-partners/braze"]})
     __properties: ClassVar[List[str]] = ["id", "name", "description", "category", "documentationLink"]
 
     model_config = ConfigDict(

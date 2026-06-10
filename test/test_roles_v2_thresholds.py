@@ -35,6 +35,7 @@ class TestRolesV2Thresholds(unittest.TestCase):
         model = RolesV2Thresholds()
         if include_optional:
             return RolesV2Thresholds(
+                loyalty_program_id = 8,
                 loyalty_points_limit = 100
             )
         else:

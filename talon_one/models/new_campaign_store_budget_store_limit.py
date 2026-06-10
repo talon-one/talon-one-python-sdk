@@ -27,8 +27,8 @@ class NewCampaignStoreBudgetStoreLimit(BaseModel):
     """
     NewCampaignStoreBudgetStoreLimit
     """ # noqa: E501
-    store_id: StrictInt = Field(description="The ID of the store. You can get this ID with the [List stores](#tag/Stores/operation/listStores) endpoint. ", alias="storeId")
-    limit: Union[StrictFloat, StrictInt] = Field(description="The value to set for the limit.")
+    store_id: StrictInt = Field(description="The ID of the store. You can get this ID with the [List stores](#tag/Stores/operation/listStores) endpoint. ", alias="storeId", json_schema_extra={"examples": [17]})
+    limit: Union[StrictFloat, StrictInt] = Field(description="The value to set for the limit.", json_schema_extra={"examples": [1000]})
     __properties: ClassVar[List[str]] = ["storeId", "limit"]
 
     model_config = ConfigDict(

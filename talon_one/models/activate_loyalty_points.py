@@ -29,8 +29,8 @@ class ActivateLoyaltyPoints(BaseModel):
     """
     Activate loyalty points
     """ # noqa: E501
-    transaction_uuids: Optional[Annotated[List[UUID], Field(min_length=1, max_length=50)]] = Field(default=None, description="An array of transaction UUIDs used to activate specific pending point transactions.  If provided, do not include the `sessionId` parameter. ", alias="transactionUUIDs")
-    session_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The ID of the session containing the pending point transactions to activate.  If provided, do not include the `transactionUUIDs` parameter. ", alias="sessionId")
+    transaction_uuids: Optional[Annotated[List[UUID], Field(min_length=1, max_length=50)]] = Field(default=None, description="An array of transaction UUIDs used to activate specific pending point transactions.  If provided, do not include the `sessionId` parameter. ", alias="transactionUUIDs", json_schema_extra={"examples": [["8f1a8d7c-9c3e-4a5e-9f0d-2c5f7a3b1cde"]]})
+    session_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The ID of the session containing the pending point transactions to activate.  If provided, do not include the `transactionUUIDs` parameter. ", alias="sessionId", json_schema_extra={"examples": ["ac08cc3c43470426591ad75b2d685ec04_v2"]})
     __properties: ClassVar[List[str]] = ["transactionUUIDs", "sessionId"]
 
     model_config = ConfigDict(

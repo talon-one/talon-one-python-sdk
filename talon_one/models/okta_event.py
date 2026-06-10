@@ -28,7 +28,7 @@ class OktaEvent(BaseModel):
     """
     Single event definition in the event data emitted by Okta.
     """ # noqa: E501
-    event_type: StrictStr = Field(description="Event type defining an action.", alias="eventType")
+    event_type: StrictStr = Field(description="Event type defining an action.", alias="eventType", json_schema_extra={"examples": ["application.user_membership.add"]})
     target: List[OktaEventTarget]
     __properties: ClassVar[List[str]] = ["eventType", "target"]
 

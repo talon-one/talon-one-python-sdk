@@ -25,13 +25,13 @@ from pydantic_core import to_jsonable_python
 
 class SetDiscountPerAdditionalCostEffectProps(BaseModel):
     """
-    The properties specific to the \"setDiscountPerAdditionalCost\" effect. This gets triggered whenever a validated rule contained a \"set per additional cost discount\" effect. This is a discount that should be applied on a specific additional cost.
+    This effect indicates that a discount that should be applied on a specific additional cost. It is triggered whenever a rule containing a **Discount additional cost** effect is validated.  Enabling [partial rewards](https://docs.talon.one/docs/product/applications/manage-general-settings#partial-rewards) allows a rule that would fail because of insufficient budget to pass. The rule still fails when the budget reaches 0. Use the `desiredValue` property to identify the original amount of loyalty points.
     """ # noqa: E501
-    name: StrictStr = Field(description="The name / description of this discount")
-    additional_cost_id: StrictInt = Field(description="The ID of the additional cost.", alias="additionalCostId")
-    additional_cost: StrictStr = Field(description="The name of the additional cost.", alias="additionalCost")
-    value: Union[StrictFloat, StrictInt] = Field(description="The total monetary value of the discount.")
-    desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The original value of the discount.", alias="desiredValue")
+    name: StrictStr = Field(description="The name of the discount.")
+    additional_cost_id: StrictInt = Field(description="The identifier of the additional cost.", alias="additionalCostId")
+    additional_cost: StrictStr = Field(description="The API name of the additional cost.", alias="additionalCost")
+    value: Union[StrictFloat, StrictInt] = Field(description="The monetary value of the discount to apply.")
+    desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Partial discounts enabled only)_ The monetary value of the discount to be applied without considering budget limitations.", alias="desiredValue")
     __properties: ClassVar[List[str]] = ["name", "additionalCostId", "additionalCost", "value", "desiredValue"]
 
     model_config = ConfigDict(

@@ -28,7 +28,7 @@ class ExpiringCouponsNotification(BaseModel):
     """
     ExpiringCouponsNotification
     """ # noqa: E501
-    total_result_size: StrictInt = Field(alias="TotalResultSize")
+    total_result_size: StrictInt = Field(alias="TotalResultSize", json_schema_extra={"examples": [1]})
     data: List[ExpiringCouponsData] = Field(description="The array of expiring coupon notifications.", alias="Data")
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
     __properties: ClassVar[List[str]] = ["TotalResultSize", "Data", "NotificationType"]

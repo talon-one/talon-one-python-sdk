@@ -31,12 +31,12 @@ class CatalogItem(BaseModel):
     """
     CatalogItem
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    sku: StrictStr = Field(description="The stock keeping unit of the item.")
-    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price of the item.")
-    catalogid: StrictInt = Field(description="The ID of the catalog the item belongs to.")
-    version: Annotated[int, Field(strict=True, ge=1)] = Field(description="The version of the catalog item.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    sku: StrictStr = Field(description="The stock keeping unit of the item.", json_schema_extra={"examples": ["SKU1241028"]})
+    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price of the item.", json_schema_extra={"examples": [99.99]})
+    catalogid: StrictInt = Field(description="The ID of the catalog the item belongs to.", json_schema_extra={"examples": [6]})
+    version: Annotated[int, Field(strict=True, ge=1)] = Field(description="The version of the catalog item.", json_schema_extra={"examples": [5]})
     attributes: Optional[List[ItemAttribute]] = None
     product: Optional[Product] = None
     __properties: ClassVar[List[str]] = ["id", "created", "sku", "price", "catalogid", "version", "attributes", "product"]

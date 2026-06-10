@@ -40,7 +40,7 @@ class TestNewReferralsForMultipleAdvocates(unittest.TestCase):
                 usage_limit = 1,
                 campaign_id = 45,
                 advocate_profile_integration_ids = [URNGV8294NV, DRPVV9476AF],
-                attributes = {channel=web},
+                attributes = None,
                 valid_characters = [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z],
                 referral_pattern = 'REF-###-###'
             )

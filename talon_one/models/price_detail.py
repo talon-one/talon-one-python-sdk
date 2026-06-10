@@ -29,11 +29,11 @@ class PriceDetail(BaseModel):
     """
     PriceDetail
     """ # noqa: E501
-    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of this price type.")
-    adjustment_context_id: Optional[StrictStr] = Field(default=None, description="The context identifier of the selected price adjustment.", alias="adjustmentContextId")
-    adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU.", alias="adjustmentReferenceId")
-    adjustment_effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective.", alias="adjustmentEffectiveFrom")
-    adjustment_effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective.", alias="adjustmentEffectiveUntil")
+    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of this price type.", json_schema_extra={"examples": [90]})
+    adjustment_context_id: Optional[StrictStr] = Field(default=None, description="The context identifier of the selected price adjustment.", alias="adjustmentContextId", json_schema_extra={"examples": ["summer25"]})
+    adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
+    adjustment_effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective.", alias="adjustmentEffectiveFrom", json_schema_extra={"examples": ["2025-05-25T00:00:00Z"]})
+    adjustment_effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective.", alias="adjustmentEffectiveUntil", json_schema_extra={"examples": ["2025-05-30T00:00:00Z"]})
     __properties: ClassVar[List[str]] = ["price", "adjustmentContextId", "adjustmentReferenceId", "adjustmentEffectiveFrom", "adjustmentEffectiveUntil"]
 
     model_config = ConfigDict(

@@ -27,9 +27,9 @@ class NewOutgoingIntegrationWebhook(BaseModel):
     """
     NewOutgoingIntegrationWebhook
     """ # noqa: E501
-    title: StrictStr = Field(description="Webhook title.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the webhook.")
-    application_ids: List[StrictInt] = Field(description="IDs of the Applications to which a webhook must be linked.", alias="applicationIds")
+    title: StrictStr = Field(description="Webhook title.", json_schema_extra={"examples": ["Send email to customer via Braze"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the webhook.", json_schema_extra={"examples": ["A webhook to send a coupon to the user."]})
+    application_ids: List[StrictInt] = Field(description="IDs of the Applications to which a webhook must be linked.", alias="applicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["title", "description", "applicationIds"]
 
     model_config = ConfigDict(

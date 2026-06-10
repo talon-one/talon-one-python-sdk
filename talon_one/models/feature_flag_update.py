@@ -27,8 +27,8 @@ class FeatureFlagUpdate(BaseModel):
     """
     FeatureFlagUpdate
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the feature flag.")
-    value: StrictStr = Field(description="The value of the feature flag.")
+    name: StrictStr = Field(description="The name of the feature flag.", json_schema_extra={"examples": ["canCreateCampaignFromTemplate"]})
+    value: StrictStr = Field(description="The value of the feature flag.", json_schema_extra={"examples": ["true"]})
     __properties: ClassVar[List[str]] = ["name", "value"]
 
     model_config = ConfigDict(

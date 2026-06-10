@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.integration_hub_event_type import IntegrationHubEventType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,16 +31,9 @@ class IntegrationHubPaginatedEventPayload(BaseModel):
     """ # noqa: E501
     total_result_size: StrictInt = Field(alias="TotalResultSize")
     batched_at: Optional[datetime] = Field(default=None, description="Timestamp when the batch was created.", alias="BatchedAt")
-    event_type: StrictStr = Field(alias="EventType")
+    event_type: IntegrationHubEventType = Field(alias="EventType")
     data: List[Any] = Field(alias="Data")
     __properties: ClassVar[List[str]] = ["TotalResultSize", "BatchedAt", "EventType", "Data"]
-
-    @field_validator('event_type')
-    def event_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['LoyaltyPointsChanged', 'LoyaltyTierDowngrade', 'LoyaltyTierUpgrade', 'CouponCreated', 'CouponUpdated', 'CouponDeleted']):
-            raise ValueError("must be one of enum values ('LoyaltyPointsChanged', 'LoyaltyTierDowngrade', 'LoyaltyTierUpgrade', 'CouponCreated', 'CouponUpdated', 'CouponDeleted')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

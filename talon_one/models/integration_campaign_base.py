@@ -29,16 +29,16 @@ class IntegrationCampaignBase(BaseModel):
     """
     IntegrationCampaignBase
     """ # noqa: E501
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    id: StrictInt = Field(description="Unique ID of Campaign.")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign.")
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.")
-    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime")
-    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime")
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    id: StrictInt = Field(description="Unique ID of Campaign.", json_schema_extra={"examples": [4]})
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign.", json_schema_extra={"examples": ["Summer promotions"]})
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.", json_schema_extra={"examples": ["Campaign for all summer 2021 promotions"]})
+    start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
-    state: StrictStr = Field(description="The state of the campaign. ")
-    tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.")
-    features: List[StrictStr] = Field(description="The features enabled in this campaign.")
+    state: StrictStr = Field(description="The state of the campaign. ", json_schema_extra={"examples": ["enabled"]})
+    tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.", json_schema_extra={"examples": [["summer"]]})
+    features: List[StrictStr] = Field(description="The features enabled in this campaign.", json_schema_extra={"examples": [["coupons", "referrals"]]})
     __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features"]
 
     @field_validator('state')

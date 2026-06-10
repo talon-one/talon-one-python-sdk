@@ -29,15 +29,15 @@ class LoyaltyBalanceWithTier(BaseModel):
     """
     LoyaltyBalanceWithTier
     """ # noqa: E501
-    active_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded to this customer and available to spend.", alias="activePoints")
-    pending_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded to this customer but not available until their start date.", alias="pendingPoints")
-    spent_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points already spent by this customer.", alias="spentPoints")
-    expired_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded but never redeemed. They cannot be used anymore.", alias="expiredPoints")
-    negative_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of negative points. This implies that `activePoints` is `0`.", alias="negativePoints")
+    active_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded to this customer and available to spend.", alias="activePoints", json_schema_extra={"examples": [286]})
+    pending_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded to this customer but not available until their start date.", alias="pendingPoints", json_schema_extra={"examples": [50]})
+    spent_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points already spent by this customer.", alias="spentPoints", json_schema_extra={"examples": [150]})
+    expired_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded but never redeemed. They cannot be used anymore.", alias="expiredPoints", json_schema_extra={"examples": [286]})
+    negative_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of negative points. This implies that `activePoints` is `0`.", alias="negativePoints", json_schema_extra={"examples": [286]})
     current_tier: Optional[Tier] = Field(default=None, description="Customer's current tier.", alias="currentTier")
     projected_tier: Optional[ProjectedTier] = Field(default=None, alias="projectedTier")
-    points_to_next_tier: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of points required to move up a tier.", alias="pointsToNextTier")
-    next_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the next higher tier level in the loyalty program.  **Note**: - Returns `null` if the customer has reached the highest available tier. - Returns the lowest level tier name if the customer is not currently assigned to any tier. ", alias="nextTierName")
+    points_to_next_tier: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of points required to move up a tier.", alias="pointsToNextTier", json_schema_extra={"examples": [20]})
+    next_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the next higher tier level in the loyalty program.  **Note**: - Returns `null` if the customer has reached the highest available tier. - Returns the lowest level tier name if the customer is not currently assigned to any tier. ", alias="nextTierName", json_schema_extra={"examples": ["Silver"]})
     __properties: ClassVar[List[str]] = ["activePoints", "pendingPoints", "spentPoints", "expiredPoints", "negativePoints", "currentTier", "projectedTier", "pointsToNextTier", "nextTierName"]
 
     model_config = ConfigDict(

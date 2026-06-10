@@ -27,8 +27,8 @@ class CartItemFilterTemplate(BaseModel):
     """
     A cart item filter template stored in a library entry. Cart item filters in library entries only contain name (no description, as description is at the library entry level).
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the Application cart item filter.")
-    expression: List[Any] = Field(description="The Talang expression for the cart item filter.")
+    name: StrictStr = Field(description="The name of the Application cart item filter.", json_schema_extra={"examples": ["Filter items by product"]})
+    expression: List[Any] = Field(description="The Talang expression for the cart item filter.", json_schema_extra={"examples": [["filter", [".", "Session", "CartItems"], [["Item"], ["catch", False, ["=", [".", "Item", "Category"], "Kitchen"]]]]]})
     __properties: ClassVar[List[str]] = ["name", "expression"]
 
     model_config = ConfigDict(

@@ -30,10 +30,10 @@ class CustomEffect(BaseModel):
     """
     CustomEffect
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
-    modified: datetime = Field(description="The time this entity was last modified.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     application_ids: Annotated[List[StrictInt], Field(min_length=1)] = Field(description="The IDs of the Applications that are related to this entity.", alias="applicationIds")
     is_per_item: Optional[StrictBool] = Field(default=None, description="Indicates if this effect is per item or not.", alias="isPerItem")
     name: Annotated[str, Field(strict=True)] = Field(description="The name of this effect.")
@@ -42,8 +42,8 @@ class CustomEffect(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="The description of this effect.")
     enabled: StrictBool = Field(description="Determines if this effect is active.")
     params: Optional[List[TemplateArgDef]] = Field(default=None, description="Array of template argument definitions.")
-    modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this effect if available.", alias="modifiedBy")
-    created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy")
+    modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this effect if available.", alias="modifiedBy", json_schema_extra={"examples": [334]})
+    created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy", json_schema_extra={"examples": [216]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "applicationIds", "isPerItem", "name", "title", "payload", "description", "enabled", "params", "modifiedBy", "createdBy"]
 
     @field_validator('name')

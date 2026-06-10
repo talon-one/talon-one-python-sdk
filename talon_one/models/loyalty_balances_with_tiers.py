@@ -29,7 +29,7 @@ class LoyaltyBalancesWithTiers(BaseModel):
     List of loyalty balances for a ledger and its subledgers.
     """ # noqa: E501
     balance: Optional[LoyaltyBalanceWithTier] = None
-    subledger_balances: Optional[Dict[str, LoyaltyBalanceWithTier]] = Field(default=None, description="Map of the loyalty balances of the subledgers of a ledger.", alias="subledgerBalances")
+    subledger_balances: Optional[Dict[str, LoyaltyBalanceWithTier]] = Field(default=None, description="Map of the loyalty balances of the subledgers of a ledger.", alias="subledgerBalances", json_schema_extra={"examples": [{"mysubledger": {"activePoints": 286, "pendingPoints": 50, "spentPoints": 150, "expiredPoints": 25, "negativePoints": 0}}]})
     __properties: ClassVar[List[str]] = ["balance", "subledgerBalances"]
 
     model_config = ConfigDict(

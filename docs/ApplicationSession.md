@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **discounts** | **Dict[str, float]** | **API V1 only.** A map of labeled discount values, in the same currency as the session.  If you are using the V2 endpoints, refer to the &#x60;totalDiscounts&#x60; property instead.  | 
 **total_discounts** | **float** | The total sum of the discounts applied to this session.  **Note:** If more than one session is returned, this value is displayed as &#x60;0&#x60;.  | 
 **total** | **float** | The total sum of the session before any discounts applied. | 
-**attributes** | **object** | Arbitrary properties associated with this item. | [optional] 
+**attributes** | **object** | Arbitrary properties associated with this campaign. | [optional] 
 
 ## Example
 

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class AnalyticsDataPoint(BaseModel):
     """
     AnalyticsDataPoint
     """ # noqa: E501
-    total: Union[StrictFloat, StrictInt]
-    influenced: Union[StrictFloat, StrictInt]
+    total: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [12]})
+    influenced: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [12]})
     __properties: ClassVar[List[str]] = ["total", "influenced"]
 
     model_config = ConfigDict(

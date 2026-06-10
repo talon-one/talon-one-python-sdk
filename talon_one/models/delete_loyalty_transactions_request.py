@@ -27,8 +27,8 @@ class DeleteLoyaltyTransactionsRequest(BaseModel):
     """
     Request to delete transactions based on the specified scope.
     """ # noqa: E501
-    scope: StrictStr = Field(description="`AllSubledgers` deletes all transactions for the specified customer profile from all ledgers in the loyalty program.  `SelectedSubledgers` deletes all transactions for the specified customer profile only from the given ledgers in the loyalty program. ")
-    subledger_ids: Optional[List[StrictStr]] = Field(default=None, description="The IDs of the ledgers from which to delete the customer's transactions. This parameter is required if the `scope` is set to `SelectedSubledgers`.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerIds")
+    scope: StrictStr = Field(description="`AllSubledgers` deletes all transactions for the specified customer profile from all ledgers in the loyalty program.  `SelectedSubledgers` deletes all transactions for the specified customer profile only from the given ledgers in the loyalty program. ", json_schema_extra={"examples": ["SelectedSubledgers"]})
+    subledger_ids: Optional[List[StrictStr]] = Field(default=None, description="The IDs of the ledgers from which to delete the customer's transactions. This parameter is required if the `scope` is set to `SelectedSubledgers`.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerIds", json_schema_extra={"examples": [["subledger1", "subledger2"]]})
     __properties: ClassVar[List[str]] = ["scope", "subledgerIds"]
 
     @field_validator('scope')

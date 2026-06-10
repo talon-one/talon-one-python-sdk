@@ -25,10 +25,10 @@ from pydantic_core import to_jsonable_python
 
 class TriggerWebhookEffectProps(BaseModel):
     """
-    The properties specific to the \"triggerWebhook\" effect. This gets triggered whenever a validated rule contained a \"trigger webhook\" effect. This is communicated as an FYI and should usually not require action on your side.
+    This effect is triggered when a rule containing a [webhook effect](https://docs.talon.one/docs/product/rules/effects/available-effects#webhooks) is validated. The details are shared with you for your information only. It usually doesn't require an action on your side.
     """ # noqa: E501
-    webhook_id: Union[StrictFloat, StrictInt] = Field(description="The ID of the webhook that was triggered.", alias="webhookId")
-    webhook_name: StrictStr = Field(description="The name of the webhook that was triggered.", alias="webhookName")
+    webhook_id: Union[StrictFloat, StrictInt] = Field(description="The internal ID of the webhook.", alias="webhookId")
+    webhook_name: StrictStr = Field(description="The name of the webhook.", alias="webhookName")
     __properties: ClassVar[List[str]] = ["webhookId", "webhookName"]
 
     model_config = ConfigDict(

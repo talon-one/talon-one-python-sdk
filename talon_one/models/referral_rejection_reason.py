@@ -29,7 +29,7 @@ class ReferralRejectionReason(BaseModel):
     """ # noqa: E501
     campaign_id: StrictInt = Field(alias="campaignId")
     referral_id: StrictInt = Field(alias="referralId")
-    reason: StrictStr
+    reason: StrictStr = Field(json_schema_extra={"examples": ["ReferralNotFound"]})
     __properties: ClassVar[List[str]] = ["campaignId", "referralId", "reason"]
 
     @field_validator('reason')

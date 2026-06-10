@@ -29,11 +29,11 @@ class ProductUnitAnalyticsDataPoint(BaseModel):
     """
     ProductUnitAnalyticsDataPoint
     """ # noqa: E501
-    start_time: datetime = Field(description="The start of the aggregation time frame in UTC.", alias="startTime")
-    end_time: datetime = Field(description="The end of the aggregation time frame in UTC.", alias="endTime")
+    start_time: datetime = Field(description="The start of the aggregation time frame in UTC.", alias="startTime", json_schema_extra={"examples": ["2024-02-01T00:00:00Z"]})
+    end_time: datetime = Field(description="The end of the aggregation time frame in UTC.", alias="endTime", json_schema_extra={"examples": ["2024-02-01T23:59:99Z"]})
     units_sold: AnalyticsDataPointWithTrend = Field(description="The number of times the product or SKU was purchased.", alias="unitsSold")
-    product_id: StrictInt = Field(description="The ID of the product.", alias="productId")
-    product_name: StrictStr = Field(description="The name of the product.", alias="productName")
+    product_id: StrictInt = Field(description="The ID of the product.", alias="productId", json_schema_extra={"examples": [1]})
+    product_name: StrictStr = Field(description="The name of the product.", alias="productName", json_schema_extra={"examples": ["MyProduct"]})
     __properties: ClassVar[List[str]] = ["startTime", "endTime", "unitsSold", "productId", "productName"]
 
     model_config = ConfigDict(

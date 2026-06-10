@@ -28,10 +28,10 @@ class ValueMap(BaseModel):
     """
     ValueMap
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.")
-    created: Optional[datetime] = None
-    created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the value map.", alias="createdBy")
-    campaign_id: StrictInt = Field(alias="campaignId")
+    id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.", json_schema_extra={"examples": [6]})
+    created: Optional[datetime] = Field(default=None, json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the value map.", alias="createdBy", json_schema_extra={"examples": [216]})
+    campaign_id: StrictInt = Field(alias="campaignId", json_schema_extra={"examples": [244]})
     __properties: ClassVar[List[str]] = ["id", "created", "createdBy", "campaignId"]
 
     model_config = ConfigDict(

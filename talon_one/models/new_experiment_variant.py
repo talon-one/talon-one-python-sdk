@@ -29,10 +29,10 @@ class NewExperimentVariant(BaseModel):
     """
     NewExperimentVariant
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The name of this variant.")
-    weight: Annotated[int, Field(le=99, strict=True, ge=1)] = Field(description="The percentage split of this variant. The sum of all variant percentages must be 100.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The name of this variant.", json_schema_extra={"examples": ["Variant A"]})
+    weight: Annotated[int, Field(le=99, strict=True, ge=1)] = Field(description="The percentage split of this variant. The sum of all variant percentages must be 100.", json_schema_extra={"examples": [13]})
     ruleset: NewRuleset
-    is_primary: StrictBool = Field(alias="isPrimary")
+    is_primary: StrictBool = Field(alias="isPrimary", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["name", "weight", "ruleset", "isPrimary"]
 
     model_config = ConfigDict(

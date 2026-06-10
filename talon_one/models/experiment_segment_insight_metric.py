@@ -28,7 +28,7 @@ class ExperimentSegmentInsightMetric(BaseModel):
     """
     ExperimentSegmentInsightMetric
     """ # noqa: E501
-    metric: StrictStr = Field(description="The metric being measured.")
+    metric: StrictStr = Field(description="The metric being measured.", json_schema_extra={"examples": ["avg_session_value"]})
     segments: List[ExperimentSegmentInsight] = Field(description="Segments with statistically significant results for this metric. An empty array means no significant segments were found. Segments are sorted by confidence score from highest to lowest. ")
     __properties: ClassVar[List[str]] = ["metric", "segments"]
 

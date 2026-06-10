@@ -29,13 +29,13 @@ class ExperimentVariant(BaseModel):
     """
     ExperimentVariant
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    name: StrictStr
-    experiment_id: Optional[StrictInt] = Field(default=None, alias="experimentId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    name: StrictStr = Field(json_schema_extra={"examples": ["Variant A"]})
+    experiment_id: Optional[StrictInt] = Field(default=None, alias="experimentId", json_schema_extra={"examples": [10]})
     ruleset: Optional[Ruleset] = None
-    weight: Optional[StrictInt] = None
-    is_primary: StrictBool = Field(alias="isPrimary")
+    weight: Optional[StrictInt] = Field(default=None, json_schema_extra={"examples": [12]})
+    is_primary: StrictBool = Field(alias="isPrimary", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["id", "created", "name", "experimentId", "ruleset", "weight", "isPrimary"]
 
     model_config = ConfigDict(

@@ -27,10 +27,10 @@ class AsyncCouponsData(BaseModel):
     """
     AsyncCouponsData
     """ # noqa: E501
-    batch_id: StrictStr = Field(description="The ID of the batch to which the coupon belongs.  **Note:** The Batch ID is generated when coupons are created. ", alias="BatchID")
-    type_of_change: StrictStr = Field(alias="TypeOfChange")
-    operation: StrictStr = Field(alias="Operation")
-    employee_name: StrictStr = Field(alias="EmployeeName")
+    batch_id: StrictStr = Field(description="The ID of the batch to which the coupon belongs.  **Note:** The Batch ID is generated when coupons are created. ", alias="BatchID", json_schema_extra={"examples": ["haanlypn"]})
+    type_of_change: StrictStr = Field(alias="TypeOfChange", json_schema_extra={"examples": ["campaign_manager"]})
+    operation: StrictStr = Field(alias="Operation", json_schema_extra={"examples": ["AsyncCouponsCreated"]})
+    employee_name: StrictStr = Field(alias="EmployeeName", json_schema_extra={"examples": ["Franziska Schneider"]})
     notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType")
     __properties: ClassVar[List[str]] = ["BatchID", "TypeOfChange", "Operation", "EmployeeName", "NotificationType"]
 

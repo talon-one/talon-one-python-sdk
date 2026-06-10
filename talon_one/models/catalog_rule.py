@@ -29,10 +29,10 @@ class CatalogRule(BaseModel):
     """
     A rule template stored in a catalog entry. Rules in catalog entries only contain title (no description, as description is at the catalog entry level).
     """ # noqa: E501
-    title: StrictStr = Field(description="A short description of the rule.")
+    title: StrictStr = Field(description="A short description of the rule.", json_schema_extra={"examples": ["Give discount via coupon"]})
     bindings: Optional[List[Binding]] = Field(default=None, description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.")
-    condition: Annotated[List[Any], Field(min_length=1)] = Field(description="A Talang expression that will be evaluated in the context of the given event.")
-    effects: List[Dict[str, Any]] = Field(description="An array of effectful Talang expressions in arrays that will be evaluated when a rule matches.")
+    condition: Annotated[List[Any], Field(min_length=1)] = Field(description="A Talang expression that will be evaluated in the context of the given event.", json_schema_extra={"examples": [["and", ["couponValid"]]]})
+    effects: List[Dict[str, Any]] = Field(description="An array of effectful Talang expressions in arrays that will be evaluated when a rule matches.", json_schema_extra={"examples": [["catch", ["noop"], ["setDiscount", "10% off", ["*", [".", "Session", "Total"], ["/", 10, 100]]]]]})
     __properties: ClassVar[List[str]] = ["title", "bindings", "condition", "effects"]
 
     model_config = ConfigDict(

@@ -27,7 +27,7 @@ class NewCustomerProfile(BaseModel):
     """
     NewCustomerProfile
     """ # noqa: E501
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": [{"Language": "english", "ShippingCountry": "DE"}]})
     __properties: ClassVar[List[str]] = ["attributes"]
 
     model_config = ConfigDict(

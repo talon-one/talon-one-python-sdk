@@ -25,7 +25,7 @@ from pydantic_core import to_jsonable_python
 
 class RedeemReferralEffectProps(BaseModel):
     """
-    This effect is **deprecated**. The properties specific to the \"redeemReferral\" effect. This gets triggered whenever the referral code is valid, and a rule was triggered that contains a \"redeem referral\" effect. 
+    This effect is **deprecated**. It has been replaced by the `acceptReferral` effect. This effect indicates that the referral code is valid and has been redeemed. 
     """ # noqa: E501
     id: StrictInt = Field(description="The id of the referral code that was redeemed.")
     value: StrictStr = Field(description="The referral code that was redeemed.")

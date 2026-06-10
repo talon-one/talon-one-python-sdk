@@ -27,9 +27,9 @@ class NewCatalog(BaseModel):
     """
     NewCatalog
     """ # noqa: E501
-    name: StrictStr = Field(description="The cart item catalog name.")
-    description: StrictStr = Field(description="A description of this cart item catalog.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this catalog.", alias="subscribedApplicationsIds")
+    name: StrictStr = Field(description="The cart item catalog name.", json_schema_extra={"examples": ["seafood"]})
+    description: StrictStr = Field(description="A description of this cart item catalog.", json_schema_extra={"examples": ["seafood catalog"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this catalog.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["name", "description", "subscribedApplicationsIds"]
 
     model_config = ConfigDict(

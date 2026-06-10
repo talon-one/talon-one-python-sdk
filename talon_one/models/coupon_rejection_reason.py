@@ -27,9 +27,9 @@ class CouponRejectionReason(BaseModel):
     """
     Holds a reference to the campaign, the coupon and the reason for which that coupon was rejected. Should only be present when there is a 'rejectCoupon' effect.
     """ # noqa: E501
-    campaign_id: StrictInt = Field(alias="campaignId")
-    coupon_id: StrictInt = Field(alias="couponId")
-    reason: StrictStr
+    campaign_id: StrictInt = Field(alias="campaignId", json_schema_extra={"examples": [244]})
+    coupon_id: StrictInt = Field(alias="couponId", json_schema_extra={"examples": [4928]})
+    reason: StrictStr = Field(json_schema_extra={"examples": ["CouponNotFound"]})
     __properties: ClassVar[List[str]] = ["campaignId", "couponId", "reason"]
 
     @field_validator('reason')
