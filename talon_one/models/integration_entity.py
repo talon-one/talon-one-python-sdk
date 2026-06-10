@@ -29,8 +29,8 @@ class IntegrationEntity(BaseModel):
     """
     IntegrationEntity
     """ # noqa: E501
-    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID set by your integration layer.", alias="integrationId")
-    created: datetime = Field(description="The time this entity was created.")
+    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID set by your integration layer.", alias="integrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-02-07T08:15:22Z"]})
     __properties: ClassVar[List[str]] = ["integrationId", "created"]
 
     model_config = ConfigDict(

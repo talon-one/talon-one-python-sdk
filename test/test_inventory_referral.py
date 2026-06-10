@@ -43,7 +43,7 @@ class TestInventoryReferral(unittest.TestCase):
                 campaign_id = 78,
                 advocate_profile_integration_id = 'URNGV8294NV',
                 friend_profile_integration_id = 'BZGGC2454PA',
-                attributes = {channel=web},
+                attributes = None,
                 import_id = 4,
                 code = '27G47Y54VH9L',
                 usage_counter = 1,

@@ -28,8 +28,8 @@ class Entity(BaseModel):
     """
     Entity
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     __properties: ClassVar[List[str]] = ["id", "created"]
 
     model_config = ConfigDict(

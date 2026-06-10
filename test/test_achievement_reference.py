@@ -38,7 +38,8 @@ class TestAchievementReference(unittest.TestCase):
                 achievement_id = 12,
                 application_id = 101,
                 application_name = 'North America Storefront',
-                campaign_id = 4501
+                campaign_id = 4501,
+                campaign_name = 'Summer promotions'
             )
         else:
             return AchievementReference(
@@ -46,6 +47,7 @@ class TestAchievementReference(unittest.TestCase):
                 application_id = 101,
                 application_name = 'North America Storefront',
                 campaign_id = 4501,
+                campaign_name = 'Summer promotions',
         )
         """
 

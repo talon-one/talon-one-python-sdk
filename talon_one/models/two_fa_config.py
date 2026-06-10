@@ -27,8 +27,8 @@ class TwoFAConfig(BaseModel):
     """
     TwoFAConfig
     """ # noqa: E501
-    enabled: StrictBool = Field(description="An indication of whether two-factor authentication is enabled for the account.")
-    require_every_sign_in: Optional[StrictBool] = Field(default=None, description="Can be `true` or `false`. - `true`: Two-factor authentication is required each time a user signs in to their Talon.One account. - `false`: Two-factor authentication is only required when a user signs in to their Talon.One account on a new device, and every 30 days after that. ", alias="requireEverySignIn")
+    enabled: StrictBool = Field(description="An indication of whether two-factor authentication is enabled for the account.", json_schema_extra={"examples": [True]})
+    require_every_sign_in: Optional[StrictBool] = Field(default=None, description="Can be `true` or `false`. - `true`: Two-factor authentication is required each time a user signs in to their Talon.One account. - `false`: Two-factor authentication is only required when a user signs in to their Talon.One account on a new device, and every 30 days after that. ", alias="requireEverySignIn", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["enabled", "requireEverySignIn"]
 
     model_config = ConfigDict(

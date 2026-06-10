@@ -29,14 +29,14 @@ class TierDowngradeData(BaseModel):
     """
     TierDowngradeData
     """ # noqa: E501
-    customer_profile_id: StrictStr = Field(description="The integration ID of the customer profile whose tier was downgraded.", alias="CustomerProfileID")
-    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID")
-    subledger_id: StrictStr = Field(description="The ID of the subledger, when applicable. If this field is empty, the main ledger is used.", alias="SubledgerID")
-    current_tier: Optional[StrictStr] = Field(default=None, description="The name of the customer's current tier.", alias="CurrentTier")
-    current_points: Union[StrictFloat, StrictInt] = Field(description="The number of points the customer had at the time of tier downgrade.", alias="CurrentPoints")
-    old_tier: StrictStr = Field(description="The name of the customer's previous tier.", alias="OldTier")
-    tier_expiration_date: Optional[datetime] = Field(default=None, description="The exact date and time the tier expires.", alias="TierExpirationDate")
-    timestamp_of_tier_change: datetime = Field(description="The exact date and time the tier was changed.", alias="TimestampOfTierChange")
+    customer_profile_id: StrictStr = Field(description="The integration ID of the customer profile whose tier was downgraded.", alias="CustomerProfileID", json_schema_extra={"examples": ["URNGV8294NV"]})
+    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID", json_schema_extra={"examples": [5]})
+    subledger_id: StrictStr = Field(description="The ID of the subledger, when applicable. If this field is empty, the main ledger is used.", alias="SubledgerID", json_schema_extra={"examples": ["SL001"]})
+    current_tier: Optional[StrictStr] = Field(default=None, description="The name of the customer's current tier.", alias="CurrentTier", json_schema_extra={"examples": ["Silver"]})
+    current_points: Union[StrictFloat, StrictInt] = Field(description="The number of points the customer had at the time of tier downgrade.", alias="CurrentPoints", json_schema_extra={"examples": [120.55]})
+    old_tier: StrictStr = Field(description="The name of the customer's previous tier.", alias="OldTier", json_schema_extra={"examples": ["Gold"]})
+    tier_expiration_date: Optional[datetime] = Field(default=None, description="The exact date and time the tier expires.", alias="TierExpirationDate", json_schema_extra={"examples": ["2023-12-01T12:23:00+02:00"]})
+    timestamp_of_tier_change: datetime = Field(description="The exact date and time the tier was changed.", alias="TimestampOfTierChange", json_schema_extra={"examples": ["2023-10-26T12:23:00+02:00"]})
     __properties: ClassVar[List[str]] = ["CustomerProfileID", "LoyaltyProgramID", "SubledgerID", "CurrentTier", "CurrentPoints", "OldTier", "TierExpirationDate", "TimestampOfTierChange"]
 
     model_config = ConfigDict(

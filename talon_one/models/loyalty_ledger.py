@@ -29,7 +29,7 @@ class LoyaltyLedger(BaseModel):
     Ledger of Balance in Loyalty Program for a Customer.
     """ # noqa: E501
     ledger: LoyaltySubLedger = Field(description="The balance of the main ledger in the loyalty program.")
-    sub_ledgers: Optional[Dict[str, LoyaltySubLedger]] = Field(default=None, description="A map containing a list of all loyalty subledger balances.", alias="subLedgers")
+    sub_ledgers: Optional[Dict[str, LoyaltySubLedger]] = Field(default=None, description="A map containing a list of all loyalty subledger balances.", alias="subLedgers", json_schema_extra={"examples": [{"mysubledger": {"total": 0, "totalActivePoints": 286, "totalPendingPoints": 50, "totalSpentPoints": 150, "totalExpiredPoints": 25, "totalNegativePoints": 0}}]})
     __properties: ClassVar[List[str]] = ["ledger", "subLedgers"]
 
     model_config = ConfigDict(

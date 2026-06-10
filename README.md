@@ -172,6 +172,7 @@ Class | Method | HTTP request | Description
 *IntegrationApi* | [**get_customer_achievements**](docs/IntegrationApi.md#get_customer_achievements) | **GET** /v1/customer_profiles/{integrationId}/achievements | List customer&#39;s available achievements
 *IntegrationApi* | [**get_customer_inventory**](docs/IntegrationApi.md#get_customer_inventory) | **GET** /v1/customer_profiles/{integrationId}/inventory | List customer data
 *IntegrationApi* | [**get_customer_session**](docs/IntegrationApi.md#get_customer_session) | **GET** /v2/customer_sessions/{customerSessionId} | Get customer session
+*IntegrationApi* | [**get_event_v3**](docs/IntegrationApi.md#get_event_v3) | **GET** /v3/events/{integrationId} | Get advanced event
 *IntegrationApi* | [**get_loyalty_balances**](docs/IntegrationApi.md#get_loyalty_balances) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/balances | Get customer&#39;s loyalty balances
 *IntegrationApi* | [**get_loyalty_card_balances**](docs/IntegrationApi.md#get_loyalty_card_balances) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/balances | Get card&#39;s point balances
 *IntegrationApi* | [**get_loyalty_card_points**](docs/IntegrationApi.md#get_loyalty_card_points) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/points | List card&#39;s unused loyalty points
@@ -185,6 +186,7 @@ Class | Method | HTTP request | Description
 *IntegrationApi* | [**return_cart_items**](docs/IntegrationApi.md#return_cart_items) | **POST** /v2/customer_sessions/{customerSessionId}/returns | Return cart items
 *IntegrationApi* | [**sync_catalog**](docs/IntegrationApi.md#sync_catalog) | **PUT** /v1/catalogs/{catalogId}/sync | Sync cart item catalog
 *IntegrationApi* | [**track_event_v2**](docs/IntegrationApi.md#track_event_v2) | **POST** /v2/events | Track event
+*IntegrationApi* | [**track_event_v3**](docs/IntegrationApi.md#track_event_v3) | **POST** /v3/events | Track advanced event
 *IntegrationApi* | [**unlink_loyalty_card_from_profile**](docs/IntegrationApi.md#unlink_loyalty_card_from_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/unlink_profile | Unlink customer profile from a loyalty card
 *IntegrationApi* | [**update_audience_customers_attributes**](docs/IntegrationApi.md#update_audience_customers_attributes) | **PUT** /v2/audience_customers/{audienceId}/attributes | Update profile attributes for all customers in audience
 *IntegrationApi* | [**update_audience_v2**](docs/IntegrationApi.md#update_audience_v2) | **PUT** /v2/audiences/{audienceId} | Update audience name
@@ -326,6 +328,7 @@ Class | Method | HTTP request | Description
 *ManagementApi* | [**import_coupons**](docs/ManagementApi.md#import_coupons) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/import_coupons | Import coupons
 *ManagementApi* | [**import_loyalty_cards**](docs/ManagementApi.md#import_loyalty_cards) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/import_cards | Import loyalty cards
 *ManagementApi* | [**import_loyalty_customers_tiers**](docs/ManagementApi.md#import_loyalty_customers_tiers) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/import_customers_tiers | Import customers into loyalty tiers
+*ManagementApi* | [**import_loyalty_join_dates**](docs/ManagementApi.md#import_loyalty_join_dates) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/import_join_dates | Import join dates for a loyalty program
 *ManagementApi* | [**import_loyalty_points**](docs/ManagementApi.md#import_loyalty_points) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/import_points | Import loyalty points
 *ManagementApi* | [**import_pool_giveaways**](docs/ManagementApi.md#import_pool_giveaways) | **POST** /v1/giveaways/pools/{poolId}/import | Import giveaway codes into a giveaway pool
 *ManagementApi* | [**import_referrals**](docs/ManagementApi.md#import_referrals) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/import_referrals | Import referrals
@@ -492,6 +495,7 @@ Class | Method | HTTP request | Description
 - [CampaignEditedNotificationItem](docs/CampaignEditedNotificationItem.md)
 - [CampaignEligibility](docs/CampaignEligibility.md)
 - [CampaignEligibilityDetails](docs/CampaignEligibilityDetails.md)
+- [CampaignEligibilityExperiment](docs/CampaignEligibilityExperiment.md)
 - [CampaignEligibilityFailureDetails](docs/CampaignEligibilityFailureDetails.md)
 - [CampaignEntity](docs/CampaignEntity.md)
 - [CampaignEvaluationGroup](docs/CampaignEvaluationGroup.md)
@@ -618,6 +622,8 @@ Class | Method | HTTP request | Description
 - [EventV3RequestEntity](docs/EventV3RequestEntity.md)
 - [Experiment](docs/Experiment.md)
 - [ExperimentCampaignCopy](docs/ExperimentCampaignCopy.md)
+- [ExperimentConfidenceTimeline](docs/ExperimentConfidenceTimeline.md)
+- [ExperimentConfidenceTimelineDataPoint](docs/ExperimentConfidenceTimelineDataPoint.md)
 - [ExperimentCopy](docs/ExperimentCopy.md)
 - [ExperimentCopyExperiment](docs/ExperimentCopyExperiment.md)
 - [ExperimentListResults](docs/ExperimentListResults.md)
@@ -733,13 +739,13 @@ Class | Method | HTTP request | Description
 - [IntegrationHubConfig](docs/IntegrationHubConfig.md)
 - [IntegrationHubEventPayloadCouponBasedNotifications](docs/IntegrationHubEventPayloadCouponBasedNotifications.md)
 - [IntegrationHubEventPayloadCouponBasedNotificationsLimits](docs/IntegrationHubEventPayloadCouponBasedNotificationsLimits.md)
-- [IntegrationHubEventPayloadLoyaltyProfileBasedNotification](docs/IntegrationHubEventPayloadLoyaltyProfileBasedNotification.md)
 - [IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification](docs/IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification.md)
 - [IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction](docs/IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction.md)
 - [IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification](docs/IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification.md)
 - [IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification](docs/IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification.md)
 - [IntegrationHubEventRecord](docs/IntegrationHubEventRecord.md)
 - [IntegrationHubEventStatusUpdate](docs/IntegrationHubEventStatusUpdate.md)
+- [IntegrationHubEventType](docs/IntegrationHubEventType.md)
 - [IntegrationHubFlow](docs/IntegrationHubFlow.md)
 - [IntegrationHubFlowConfig](docs/IntegrationHubFlowConfig.md)
 - [IntegrationHubFlowConfigResponse](docs/IntegrationHubFlowConfigResponse.md)
@@ -999,8 +1005,6 @@ Class | Method | HTTP request | Description
 - [ScimServiceProviderConfigResponseBulk](docs/ScimServiceProviderConfigResponseBulk.md)
 - [ScimServiceProviderConfigResponseChangePassword](docs/ScimServiceProviderConfigResponseChangePassword.md)
 - [ScimServiceProviderConfigResponseFilter](docs/ScimServiceProviderConfigResponseFilter.md)
-- [ScimServiceProviderConfigResponsePatch](docs/ScimServiceProviderConfigResponsePatch.md)
-- [ScimServiceProviderConfigResponseSort](docs/ScimServiceProviderConfigResponseSort.md)
 - [ScimUser](docs/ScimUser.md)
 - [ScimUsersListResponse](docs/ScimUsersListResponse.md)
 - [SecondaryDeployment](docs/SecondaryDeployment.md)
@@ -1068,7 +1072,6 @@ Class | Method | HTTP request | Description
 - [UpdateCouponBatch](docs/UpdateCouponBatch.md)
 - [UpdateCouponsData](docs/UpdateCouponsData.md)
 - [UpdateCustomEffect](docs/UpdateCustomEffect.md)
-- [UpdateCustomerProfileV2409Response](docs/UpdateCustomerProfileV2409Response.md)
 - [UpdateCustomerSessionV2409Response](docs/UpdateCustomerSessionV2409Response.md)
 - [UpdateExperiment](docs/UpdateExperiment.md)
 - [UpdateExperimentVariant](docs/UpdateExperimentVariant.md)
@@ -1083,6 +1086,7 @@ Class | Method | HTTP request | Description
 - [UpdateReferral](docs/UpdateReferral.md)
 - [UpdateReferralBatch](docs/UpdateReferralBatch.md)
 - [UpdateReward](docs/UpdateReward.md)
+- [UpdateRiskNotification](docs/UpdateRiskNotification.md)
 - [UpdateRole](docs/UpdateRole.md)
 - [UpdateStore](docs/UpdateStore.md)
 - [UpdateSupportRequest](docs/UpdateSupportRequest.md)

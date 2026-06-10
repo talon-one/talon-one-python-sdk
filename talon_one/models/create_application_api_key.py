@@ -28,11 +28,11 @@ class CreateApplicationAPIKey(BaseModel):
     """
     CreateApplicationAPIKey
     """ # noqa: E501
-    title: StrictStr = Field(description="Title of the API key.")
-    expires: datetime = Field(description="The date the API key expires.")
-    platform: Optional[StrictStr] = Field(default=None, description="The third-party platform the API key is valid for. Use `none` for a generic API key to be used from your own integration layer. ")
-    type: Optional[StrictStr] = Field(default=None, description="The API key type. Can be empty or `staging`.  Staging API keys can only be used for dry requests with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint, [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint, and [Track event](https://docs.talon.one/integration-api#tag/Events/operation/trackEventV2) endpoint.  When using the _Update customer profile_ endpoint with a staging API key, the query parameter `runRuleEngine` must be `true`. ")
-    time_offset: Optional[StrictInt] = Field(default=None, description="A time offset in nanoseconds associated with the API key. When making a request using the API key, rule evaluation is based on a date that is calculated by adding the offset to the current date. ", alias="timeOffset")
+    title: StrictStr = Field(description="Title of the API key.", json_schema_extra={"examples": ["My generated key"]})
+    expires: datetime = Field(description="The date the API key expires.", json_schema_extra={"examples": ["2023-08-24T14:00:00Z"]})
+    platform: Optional[StrictStr] = Field(default=None, description="The third-party platform the API key is valid for. Use `none` for a generic API key to be used from your own integration layer. ", json_schema_extra={"examples": ["none"]})
+    type: Optional[StrictStr] = Field(default=None, description="The API key type. Can be empty or `staging`.  Staging API keys can only be used for dry requests with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint, [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint, and [Track event](https://docs.talon.one/integration-api#tag/Events/operation/trackEventV2) endpoint.  When using the _Update customer profile_ endpoint with a staging API key, the query parameter `runRuleEngine` must be `true`. ", json_schema_extra={"examples": ["staging"]})
+    time_offset: Optional[StrictInt] = Field(default=None, description="A time offset in nanoseconds associated with the API key. When making a request using the API key, rule evaluation is based on a date that is calculated by adding the offset to the current date. ", alias="timeOffset", json_schema_extra={"examples": [100000]})
     __properties: ClassVar[List[str]] = ["title", "expires", "platform", "type", "timeOffset"]
 
     @field_validator('platform')

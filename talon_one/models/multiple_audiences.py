@@ -28,7 +28,7 @@ class MultipleAudiences(BaseModel):
     """
     MultipleAudiences
     """ # noqa: E501
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
     audiences: List[MultipleAudiencesItem]
     __properties: ClassVar[List[str]] = ["accountId", "audiences"]
 

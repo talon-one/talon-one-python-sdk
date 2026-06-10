@@ -28,9 +28,9 @@ class UpdateLoyaltyProgramTier(BaseModel):
     """
     Update a tier in a specified loyalty program.
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of the tier.")
-    name: Optional[StrictStr] = Field(default=None, description="The name of the tier.")
-    min_points: Optional[Union[Annotated[float, Field(le=999999999999.99, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="The minimum amount of points required to enter the tier.", alias="minPoints")
+    id: StrictInt = Field(description="The internal ID of the tier.", json_schema_extra={"examples": [6]})
+    name: Optional[StrictStr] = Field(default=None, description="The name of the tier.", json_schema_extra={"examples": ["Gold"]})
+    min_points: Optional[Union[Annotated[float, Field(le=999999999999.99, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="The minimum amount of points required to enter the tier.", alias="minPoints", json_schema_extra={"examples": [300]})
     __properties: ClassVar[List[str]] = ["id", "name", "minPoints"]
 
     model_config = ConfigDict(

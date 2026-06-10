@@ -29,11 +29,11 @@ class AddedDeductedPointsBalancesAction(BaseModel):
     """
     AddedDeductedPointsBalancesAction
     """ # noqa: E501
-    amount: Union[StrictFloat, StrictInt] = Field(description="The amount of added or deducted loyalty points.", alias="Amount")
-    reason: StrictStr = Field(description="The reason for the points addition or deduction.", alias="Reason")
+    amount: Union[StrictFloat, StrictInt] = Field(description="The amount of added or deducted loyalty points.", alias="Amount", json_schema_extra={"examples": [10.99]})
+    reason: StrictStr = Field(description="The reason for the points addition or deduction.", alias="Reason", json_schema_extra={"examples": ["Compensation"]})
     operation: StrictStr = Field(description="The action (addition or subtraction) made with loyalty points.", alias="Operation")
-    start_date: Optional[datetime] = Field(default=None, description="The start date for loyalty points.", alias="StartDate")
-    expiry_date: Optional[datetime] = Field(default=None, description="The expiration date for loyalty points.", alias="ExpiryDate")
+    start_date: Optional[datetime] = Field(default=None, description="The start date for loyalty points.", alias="StartDate", json_schema_extra={"examples": ["2023-01-24T14:15:22Z"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="The expiration date for loyalty points.", alias="ExpiryDate", json_schema_extra={"examples": ["2024-01-24T14:15:22Z"]})
     transaction_uuid: UUID = Field(description="The identifier of the transaction in the loyalty ledger.", alias="TransactionUUID")
     __properties: ClassVar[List[str]] = ["Amount", "Reason", "Operation", "StartDate", "ExpiryDate", "TransactionUUID"]
 

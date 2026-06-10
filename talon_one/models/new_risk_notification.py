@@ -27,9 +27,9 @@ class NewRiskNotification(BaseModel):
     """
     Data for creating a new risk notification.
     """ # noqa: E501
-    entity: StrictStr = Field(description="The entity type to analyze within the given time frame.")
-    activity: StrictStr = Field(description="The activity metric to analyze within the given entity.")
-    time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame")
+    entity: StrictStr = Field(description="The entity type to analyze within the given time frame.", json_schema_extra={"examples": ["customer_profile"]})
+    activity: StrictStr = Field(description="The activity metric to analyze within the given entity.", json_schema_extra={"examples": ["loyalty_points_earned"]})
+    time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame", json_schema_extra={"examples": ["1_week"]})
     __properties: ClassVar[List[str]] = ["entity", "activity", "timeFrame"]
 
     @field_validator('entity')

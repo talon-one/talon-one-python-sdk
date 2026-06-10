@@ -27,8 +27,8 @@ class UpdateLoyaltyCard(BaseModel):
     """
     UpdateLoyaltyCard
     """ # noqa: E501
-    status: StrictStr = Field(description="Status of the loyalty card. Can be `active` or `inactive`. ")
-    block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason")
+    status: StrictStr = Field(description="Status of the loyalty card. Can be `active` or `inactive`. ", json_schema_extra={"examples": ["active"]})
+    block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason", json_schema_extra={"examples": ["Current card lost. Customer needs a new card."]})
     __properties: ClassVar[List[str]] = ["status", "blockReason"]
 
     model_config = ConfigDict(

@@ -31,9 +31,9 @@ class NewRuleset(BaseModel):
     """ # noqa: E501
     rules: List[Rule] = Field(description="Set of rules to apply.")
     strikethrough_rules: Optional[List[Rule]] = Field(default=None, description="Set of rules to apply for strikethrough.", alias="strikethroughRules")
-    bindings: List[Binding] = Field(description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.")
-    rb_version: Optional[StrictStr] = Field(default=None, description="The version of the rulebuilder used to create this ruleset.", alias="rbVersion")
-    activate: Optional[StrictBool] = Field(default=None, description="Indicates whether this created ruleset should be activated for the campaign that owns it.")
+    bindings: List[Binding] = Field(description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.", json_schema_extra={"examples": [[]]})
+    rb_version: Optional[StrictStr] = Field(default=None, description="The version of the rulebuilder used to create this ruleset.", alias="rbVersion", json_schema_extra={"examples": ["v2"]})
+    activate: Optional[StrictBool] = Field(default=None, description="Indicates whether this created ruleset should be activated for the campaign that owns it.", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["rules", "strikethroughRules", "bindings", "rbVersion", "activate"]
 
     model_config = ConfigDict(

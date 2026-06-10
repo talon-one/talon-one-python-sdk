@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class AnalyticsDataPointWithTrend(BaseModel):
     """
     AnalyticsDataPointWithTrend
     """ # noqa: E501
-    value: Union[StrictFloat, StrictInt]
-    trend: Union[StrictFloat, StrictInt]
+    value: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [12]})
+    trend: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [3.25]})
     __properties: ClassVar[List[str]] = ["value", "trend"]
 
     model_config = ConfigDict(

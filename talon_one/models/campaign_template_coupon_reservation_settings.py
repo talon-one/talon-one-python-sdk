@@ -28,8 +28,8 @@ class CampaignTemplateCouponReservationSettings(BaseModel):
     """
     CampaignTemplateCouponReservationSettings
     """ # noqa: E501
-    reservation_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of reservations that can be made with this coupon code. ", alias="reservationLimit")
-    is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory")
+    reservation_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of reservations that can be made with this coupon code. ", alias="reservationLimit", json_schema_extra={"examples": [45]})
+    is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["reservationLimit", "isReservationMandatory"]
 
     model_config = ConfigDict(

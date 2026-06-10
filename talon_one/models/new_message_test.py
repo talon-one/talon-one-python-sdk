@@ -28,13 +28,13 @@ class NewMessageTest(BaseModel):
     """
     NewMessageTest
     """ # noqa: E501
-    headers: Optional[Dict[str, StrictStr]] = Field(default=None, description="List of API HTTP headers for the given message.")
-    verb: StrictStr = Field(description="API method for this message.")
-    url: StrictStr = Field(description="API URL for the given message.")
-    payload: Optional[StrictStr] = Field(default=None, description="API payload of this message.")
-    params: Optional[List[TemplateArgDef]] = Field(default=None, description="Array of template argument definitions.")
+    headers: Optional[Dict[str, StrictStr]] = Field(default=None, description="List of API HTTP headers for the given message.", json_schema_extra={"examples": [{"content-type": "application/json"}]})
+    verb: StrictStr = Field(description="API method for this message.", json_schema_extra={"examples": ["POST"]})
+    url: StrictStr = Field(description="API URL for the given message.", json_schema_extra={"examples": ["www.my-company.com/my-endpoint-name"]})
+    payload: Optional[StrictStr] = Field(default=None, description="API payload of this message.", json_schema_extra={"examples": ["{\n\t\"integrationId\": \"${$Profile.IntegrationId}\"\n}"]})
+    params: Optional[List[TemplateArgDef]] = Field(default=None, description="Array of template argument definitions.", json_schema_extra={"examples": [[]]})
     application_ids: Optional[List[StrictInt]] = Field(default=None, description="The IDs of the Applications in which this webhook is available. An empty array means the webhook is available in `All Applications`. ", alias="applicationIds")
-    authentication_id: Optional[StrictInt] = Field(default=None, description="The ID of the credential that this webhook is using.", alias="authenticationId")
+    authentication_id: Optional[StrictInt] = Field(default=None, description="The ID of the credential that this webhook is using.", alias="authenticationId", json_schema_extra={"examples": [1]})
     __properties: ClassVar[List[str]] = ["headers", "verb", "url", "payload", "params", "applicationIds", "authenticationId"]
 
     @field_validator('verb')

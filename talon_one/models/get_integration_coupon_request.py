@@ -28,7 +28,7 @@ class GetIntegrationCouponRequest(BaseModel):
     """
     GetIntegrationCouponRequest
     """ # noqa: E501
-    campaign_ids: List[StrictInt] = Field(description="A list of IDs of the campaigns to get coupons from.", alias="campaignIds")
+    campaign_ids: List[StrictInt] = Field(description="A list of IDs of the campaigns to get coupons from.", alias="campaignIds", json_schema_extra={"examples": [[1, 2, 3]]})
     limit: Annotated[int, Field(le=1000, strict=True, ge=1)] = Field(description="The maximum number of coupons included in the response.")
     __properties: ClassVar[List[str]] = ["campaignIds", "limit"]
 

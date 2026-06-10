@@ -28,7 +28,7 @@ class GenerateCouponFailureSummary(BaseModel):
     GenerateCouponFailureSummary
     """ # noqa: E501
     event_id: StrictInt = Field(description="The ID of the event.", alias="eventID")
-    language: Optional[StrictStr] = Field(default=None, description="The language the summary will be generated in.")
+    language: Optional[StrictStr] = Field(default=None, description="The language the summary will be generated in.", json_schema_extra={"examples": ["en"]})
     __properties: ClassVar[List[str]] = ["eventID", "language"]
 
     model_config = ConfigDict(

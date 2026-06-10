@@ -28,14 +28,14 @@ class OutgoingIntegrationTemplateWithConfigurationDetails(BaseModel):
     """
     OutgoingIntegrationTemplateWithConfigurationDetails
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID for this entity.")
-    integration_type: StrictInt = Field(description="Unique ID of outgoing integration type.", alias="integrationType")
-    title: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The title of the integration template.")
-    description: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The description of the specific outgoing integration template.")
-    payload: StrictStr = Field(description="The API payload (supports templating using parameters) for this integration template.")
-    method: StrictStr = Field(description="API method for this webhook.")
-    relative_url: StrictStr = Field(description="The relative URL corresponding to each integration template.", alias="relativeUrl")
-    headers: List[Annotated[str, Field(strict=True)]] = Field(description="The list of HTTP headers for this integration template.")
+    id: StrictInt = Field(description="Unique ID for this entity.", json_schema_extra={"examples": [6]})
+    integration_type: StrictInt = Field(description="Unique ID of outgoing integration type.", alias="integrationType", json_schema_extra={"examples": [2]})
+    title: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The title of the integration template.", json_schema_extra={"examples": ["Email coupon codes"]})
+    description: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The description of the specific outgoing integration template.", json_schema_extra={"examples": ["This template sends a coupon code to the specified audience by email."]})
+    payload: StrictStr = Field(description="The API payload (supports templating using parameters) for this integration template.", json_schema_extra={"examples": ["{\n\t\"message\": \"${message}\"\n}"]})
+    method: StrictStr = Field(description="API method for this webhook.", json_schema_extra={"examples": ["POST"]})
+    relative_url: StrictStr = Field(description="The relative URL corresponding to each integration template.", alias="relativeUrl", json_schema_extra={"examples": ["/campaigns/trigger/send"]})
+    headers: List[Annotated[str, Field(strict=True)]] = Field(description="The list of HTTP headers for this integration template.", json_schema_extra={"examples": [["{\"Content-Type\": \"application/json\"}"]]})
     policy: Dict[str, Any] = Field(description="The outgoing integration policy specific to each integration type.")
     __properties: ClassVar[List[str]] = ["id", "integrationType", "title", "description", "payload", "method", "relativeUrl", "headers", "policy"]
 

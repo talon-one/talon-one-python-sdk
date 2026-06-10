@@ -28,9 +28,9 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
     """
     CustomerProfileIntegrationRequestV2
     """ # noqa: E501
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
-    evaluable_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="When using the `dry` query parameter, use this property to list the campaign to be evaluated by the Rule Engine.  These campaigns will be evaluated, even if they are disabled, allowing you to test specific campaigns before activating them. ", alias="evaluableCampaignIds")
-    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": [{"Language": "english", "ShippingCountry": "DE"}]})
+    evaluable_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="When using the `dry` query parameter, use this property to list the campaign to be evaluated by the Rule Engine.  These campaigns will be evaluated, even if they are disabled, allowing you to test specific campaigns before activating them. ", alias="evaluableCampaignIds", json_schema_extra={"examples": [[10, 12]]})
+    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent", json_schema_extra={"examples": [["triggeredCampaigns", "customerProfile"]]})
     audiences_changes: Optional[ProfileAudiencesChanges] = Field(default=None, description="Audiences memberships changes for this profile.", alias="audiencesChanges")
     __properties: ClassVar[List[str]] = ["attributes", "evaluableCampaignIds", "responseContent", "audiencesChanges"]
 

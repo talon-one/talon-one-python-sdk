@@ -28,8 +28,8 @@ class MultipleCustomerProfileIntegrationRequestItem(BaseModel):
     """
     MultipleCustomerProfileIntegrationRequestItem
     """ # noqa: E501
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
-    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The identifier of this profile, set by your integration layer. It must be unique within the account.  To get the `integrationId` of the profile from a `sessionId`, use the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2). ", alias="integrationId")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": [{"Language": "english", "ShippingCountry": "DE"}]})
+    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The identifier of this profile, set by your integration layer. It must be unique within the account.  To get the `integrationId` of the profile from a `sessionId`, use the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2). ", alias="integrationId", json_schema_extra={"examples": ["R195412"]})
     __properties: ClassVar[List[str]] = ["attributes", "integrationId"]
 
     model_config = ConfigDict(

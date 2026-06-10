@@ -27,8 +27,8 @@ class SSOConfig(BaseModel):
     """
     SSOConfig
     """ # noqa: E501
-    enforced: StrictBool = Field(description="An indication of whether single sign-on is enforced for the account. When enforced, users cannot use their email and password to sign in to Talon.One. It is not possible to change this to `false` after it is set to `true`. ")
-    new_acs_url: Optional[StrictStr] = Field(default=None, description="Assertion Consumer Service (ACS) URL for setting up a new SAML connection with an identity provider like Okta or Microsoft Entra ID. ", alias="newAcsUrl")
+    enforced: StrictBool = Field(description="An indication of whether single sign-on is enforced for the account. When enforced, users cannot use their email and password to sign in to Talon.One. It is not possible to change this to `false` after it is set to `true`. ", json_schema_extra={"examples": [True]})
+    new_acs_url: Optional[StrictStr] = Field(default=None, description="Assertion Consumer Service (ACS) URL for setting up a new SAML connection with an identity provider like Okta or Microsoft Entra ID. ", alias="newAcsUrl", json_schema_extra={"examples": ["https://yourdeployment.talon.one/v1/saml_connections/5/saml_callback"]})
     __properties: ClassVar[List[str]] = ["enforced", "newAcsUrl"]
 
     model_config = ConfigDict(

@@ -27,13 +27,13 @@ class CampaignVersions(BaseModel):
     """
     CampaignVersions
     """ # noqa: E501
-    revision_frontend_state: Optional[StrictStr] = Field(default=None, description="The campaign revision state displayed in the Campaign Manager.", alias="revisionFrontendState")
-    active_revision_id: Optional[StrictInt] = Field(default=None, description="ID of the revision that was last activated on this campaign. ", alias="activeRevisionId")
-    active_revision_version_id: Optional[StrictInt] = Field(default=None, description="ID of the revision version that is active on the campaign. ", alias="activeRevisionVersionId")
-    version: Optional[StrictInt] = Field(default=None, description="Incrementing number representing how many revisions have been activated on this campaign, starts from 0 for a new campaign. ")
-    current_revision_id: Optional[StrictInt] = Field(default=None, description="ID of the revision currently being modified for the campaign. ", alias="currentRevisionId")
-    current_revision_version_id: Optional[StrictInt] = Field(default=None, description="ID of the latest version applied on the current revision. ", alias="currentRevisionVersionId")
-    stage_revision: Optional[StrictBool] = Field(default=False, description="Flag for determining whether we use current revision when sending requests with staging API key. ", alias="stageRevision")
+    revision_frontend_state: Optional[StrictStr] = Field(default=None, description="The campaign revision state displayed in the Campaign Manager.", alias="revisionFrontendState", json_schema_extra={"examples": ["revised"]})
+    active_revision_id: Optional[StrictInt] = Field(default=None, description="ID of the revision that was last activated on this campaign. ", alias="activeRevisionId", json_schema_extra={"examples": [6]})
+    active_revision_version_id: Optional[StrictInt] = Field(default=None, description="ID of the revision version that is active on the campaign. ", alias="activeRevisionVersionId", json_schema_extra={"examples": [6]})
+    version: Optional[StrictInt] = Field(default=None, description="Incrementing number representing how many revisions have been activated on this campaign, starts from 0 for a new campaign. ", json_schema_extra={"examples": [6]})
+    current_revision_id: Optional[StrictInt] = Field(default=None, description="ID of the revision currently being modified for the campaign. ", alias="currentRevisionId", json_schema_extra={"examples": [6]})
+    current_revision_version_id: Optional[StrictInt] = Field(default=None, description="ID of the latest version applied on the current revision. ", alias="currentRevisionVersionId", json_schema_extra={"examples": [6]})
+    stage_revision: Optional[StrictBool] = Field(default=False, description="Flag for determining whether we use current revision when sending requests with staging API key. ", alias="stageRevision", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["revisionFrontendState", "activeRevisionId", "activeRevisionVersionId", "version", "currentRevisionId", "currentRevisionVersionId", "stageRevision"]
 
     @field_validator('revision_frontend_state')

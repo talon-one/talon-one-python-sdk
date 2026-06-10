@@ -27,9 +27,9 @@ class UpdateCatalog(BaseModel):
     """
     UpdateCatalog
     """ # noqa: E501
-    description: Optional[StrictStr] = Field(default=None, description="A description of this cart item catalog.")
-    name: Optional[StrictStr] = Field(default=None, description="Name of this cart item catalog.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this catalog.", alias="subscribedApplicationsIds")
+    description: Optional[StrictStr] = Field(default=None, description="A description of this cart item catalog.", json_schema_extra={"examples": ["seafood catalog"]})
+    name: Optional[StrictStr] = Field(default=None, description="Name of this cart item catalog.", json_schema_extra={"examples": ["seafood"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this catalog.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["description", "name", "subscribedApplicationsIds"]
 
     model_config = ConfigDict(

@@ -17,6 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.integration_hub_flow_config_response import IntegrationHubFlowConfigResponse
@@ -28,12 +29,17 @@ class IntegrationHubFlowResponse(BaseModel):
     """
     IntegrationHubFlowResponse
     """ # noqa: E501
-    id: StrictInt = Field(description="ID of the integration hub flow.", alias="Id")
-    application_id: Optional[StrictInt] = Field(default=None, description="ID of application the flow is registered for.", alias="ApplicationID")
-    event_type: StrictStr = Field(description="The event type we want to register a flow for.", alias="EventType")
-    integration_hub_flow_url: StrictStr = Field(description="The URL of the integration hub flow that we want to trigger for the event.", alias="IntegrationHubFlowUrl")
-    config: IntegrationHubFlowConfigResponse = Field(alias="Config")
-    __properties: ClassVar[List[str]] = ["Id", "ApplicationID", "EventType", "IntegrationHubFlowUrl", "Config"]
+    id: StrictInt = Field(description="ID of the integration hub flow.")
+    integration_name: Optional[StrictStr] = Field(default=None, description="Name of the integration.", alias="integrationName")
+    instance_name: Optional[StrictStr] = Field(default=None, description="Name of the integration instance.", alias="instanceName")
+    created_at: datetime = Field(description="Timestamp when the flow was created.", alias="createdAt")
+    disabled_until: Optional[datetime] = Field(default=None, description="Timestamp until which the flow is disabled. Null when the flow is active.", alias="disabledUntil")
+    application_id: Optional[StrictInt] = Field(default=None, description="ID of the application the flow is registered for.", alias="applicationId", json_schema_extra={"examples": [54]})
+    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program the flow is registered for.", alias="loyaltyProgramId", json_schema_extra={"examples": [12]})
+    event_type: StrictStr = Field(description="The event type we want to register a flow for.", alias="eventType")
+    integration_hub_flow_url: StrictStr = Field(description="The URL of the integration hub flow that we want to trigger for the event.", alias="integrationHubFlowUrl")
+    config: IntegrationHubFlowConfigResponse
+    __properties: ClassVar[List[str]] = ["id", "integrationName", "instanceName", "createdAt", "disabledUntil", "applicationId", "loyaltyProgramId", "eventType", "integrationHubFlowUrl", "config"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -76,7 +82,12 @@ class IntegrationHubFlowResponse(BaseModel):
         )
         # override the default output from pydantic by calling `to_dict()` of config
         if self.config:
-            _dict['Config'] = self.config.to_dict()
+            _dict['config'] = self.config.to_dict()
+        # set to None if disabled_until (nullable) is None
+        # and model_fields_set contains the field
+        if self.disabled_until is None and "disabled_until" in self.model_fields_set:
+            _dict['disabledUntil'] = None
+
         return _dict
 
     @classmethod
@@ -89,11 +100,16 @@ class IntegrationHubFlowResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id"),
-            "ApplicationID": obj.get("ApplicationID"),
-            "EventType": obj.get("EventType"),
-            "IntegrationHubFlowUrl": obj.get("IntegrationHubFlowUrl"),
-            "Config": IntegrationHubFlowConfigResponse.from_dict(obj["Config"]) if obj.get("Config") is not None else None
+            "id": obj.get("id"),
+            "integrationName": obj.get("integrationName"),
+            "instanceName": obj.get("instanceName"),
+            "createdAt": obj.get("createdAt"),
+            "disabledUntil": obj.get("disabledUntil"),
+            "applicationId": obj.get("applicationId"),
+            "loyaltyProgramId": obj.get("loyaltyProgramId"),
+            "eventType": obj.get("eventType"),
+            "integrationHubFlowUrl": obj.get("integrationHubFlowUrl"),
+            "config": IntegrationHubFlowConfigResponse.from_dict(obj["config"]) if obj.get("config") is not None else None
         })
         return _obj
 

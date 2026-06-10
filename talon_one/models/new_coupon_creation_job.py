@@ -30,15 +30,15 @@ class NewCouponCreationJob(BaseModel):
     """
     NewCouponCreationJob
     """ # noqa: E501
-    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits will still apply. ", alias="usageLimit")
-    discount_limit: Optional[Union[Annotated[float, Field(le=1000000000000000, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="The total discount value that the code can give. Typically used to represent a gift card value. ", alias="discountLimit")
-    reservation_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of reservations that can be made with this coupon code. ", alias="reservationLimit")
-    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="startDate")
-    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate")
-    number_of_coupons: Annotated[int, Field(le=5000000, strict=True, ge=1)] = Field(description="The number of new coupon codes to generate for the campaign.", alias="numberOfCoupons")
+    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [100]})
+    discount_limit: Optional[Union[Annotated[float, Field(le=1000000000000000, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="The total discount value that the code can give. Typically used to represent a gift card value. ", alias="discountLimit", json_schema_extra={"examples": [30]})
+    reservation_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of reservations that can be made with this coupon code. ", alias="reservationLimit", json_schema_extra={"examples": [45]})
+    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="startDate", json_schema_extra={"examples": ["2020-01-24T14:15:22Z"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:15:22Z"]})
+    number_of_coupons: Annotated[int, Field(le=5000000, strict=True, ge=1)] = Field(description="The number of new coupon codes to generate for the campaign.", alias="numberOfCoupons", json_schema_extra={"examples": [200000]})
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
-    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with coupons.")
-    is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory")
+    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with this campaign.")
+    is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "numberOfCoupons", "couponSettings", "attributes", "isReservationMandatory"]
 
     model_config = ConfigDict(

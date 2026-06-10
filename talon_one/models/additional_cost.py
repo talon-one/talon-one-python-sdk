@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class AdditionalCost(BaseModel):
     """
     AdditionalCost
     """ # noqa: E501
-    price: Union[StrictFloat, StrictInt]
+    price: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [4.5]})
     __properties: ClassVar[List[str]] = ["price"]
 
     model_config = ConfigDict(

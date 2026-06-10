@@ -27,11 +27,11 @@ class LoyaltyBalance(BaseModel):
     """
     Point balance of a ledger in the Loyalty Program.
     """ # noqa: E501
-    active_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded to this customer and available to spend.", alias="activePoints")
-    pending_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded to this customer but not available until their start date.", alias="pendingPoints")
-    spent_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points already spent by this customer.", alias="spentPoints")
-    expired_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded but never redeemed. They cannot be used anymore.", alias="expiredPoints")
-    negative_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of negative points. This implies that `activePoints` is `0`.", alias="negativePoints")
+    active_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded to this customer and available to spend.", alias="activePoints", json_schema_extra={"examples": [286]})
+    pending_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded to this customer but not available until their start date.", alias="pendingPoints", json_schema_extra={"examples": [50]})
+    spent_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points already spent by this customer.", alias="spentPoints", json_schema_extra={"examples": [150]})
+    expired_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded but never redeemed. They cannot be used anymore.", alias="expiredPoints", json_schema_extra={"examples": [286]})
+    negative_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of negative points. This implies that `activePoints` is `0`.", alias="negativePoints", json_schema_extra={"examples": [286]})
     __properties: ClassVar[List[str]] = ["activePoints", "pendingPoints", "spentPoints", "expiredPoints", "negativePoints"]
 
     model_config = ConfigDict(

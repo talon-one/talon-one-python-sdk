@@ -13988,6 +13988,8 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
+        updated_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
+        updated_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
         profile_integration_id: Annotated[Optional[StrictStr], Field(description="Only return sessions for the customer that matches this customer integration ID.")] = None,
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
         customer_session_state: Annotated[Optional[StrictStr], Field(description="Filter results by state.")] = None,
@@ -14014,6 +14016,10 @@ class ManagementApi:
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
         :type created_after: datetime
+        :param updated_before: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
+        :type updated_before: datetime
+        :param updated_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
+        :type updated_after: datetime
         :param profile_integration_id: Only return sessions for the customer that matches this customer integration ID.
         :type profile_integration_id: str
         :param date_format: Determines the format of dates in the export document.
@@ -14046,6 +14052,8 @@ class ManagementApi:
             application_id=application_id,
             created_before=created_before,
             created_after=created_after,
+            updated_before=updated_before,
+            updated_after=updated_after,
             profile_integration_id=profile_integration_id,
             date_format=date_format,
             customer_session_state=customer_session_state,
@@ -14075,6 +14083,8 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
+        updated_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
+        updated_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
         profile_integration_id: Annotated[Optional[StrictStr], Field(description="Only return sessions for the customer that matches this customer integration ID.")] = None,
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
         customer_session_state: Annotated[Optional[StrictStr], Field(description="Filter results by state.")] = None,
@@ -14101,6 +14111,10 @@ class ManagementApi:
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
         :type created_after: datetime
+        :param updated_before: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
+        :type updated_before: datetime
+        :param updated_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
+        :type updated_after: datetime
         :param profile_integration_id: Only return sessions for the customer that matches this customer integration ID.
         :type profile_integration_id: str
         :param date_format: Determines the format of dates in the export document.
@@ -14133,6 +14147,8 @@ class ManagementApi:
             application_id=application_id,
             created_before=created_before,
             created_after=created_after,
+            updated_before=updated_before,
+            updated_after=updated_after,
             profile_integration_id=profile_integration_id,
             date_format=date_format,
             customer_session_state=customer_session_state,
@@ -14162,6 +14178,8 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
+        updated_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
+        updated_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.")] = None,
         profile_integration_id: Annotated[Optional[StrictStr], Field(description="Only return sessions for the customer that matches this customer integration ID.")] = None,
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
         customer_session_state: Annotated[Optional[StrictStr], Field(description="Filter results by state.")] = None,
@@ -14188,6 +14206,10 @@ class ManagementApi:
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
         :type created_after: datetime
+        :param updated_before: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
+        :type updated_before: datetime
+        :param updated_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string.
+        :type updated_after: datetime
         :param profile_integration_id: Only return sessions for the customer that matches this customer integration ID.
         :type profile_integration_id: str
         :param date_format: Determines the format of dates in the export document.
@@ -14220,6 +14242,8 @@ class ManagementApi:
             application_id=application_id,
             created_before=created_before,
             created_after=created_after,
+            updated_before=updated_before,
+            updated_after=updated_after,
             profile_integration_id=profile_integration_id,
             date_format=date_format,
             customer_session_state=customer_session_state,
@@ -14244,6 +14268,8 @@ class ManagementApi:
         application_id,
         created_before,
         created_after,
+        updated_before,
+        updated_after,
         profile_integration_id,
         date_format,
         customer_session_state,
@@ -14296,6 +14322,32 @@ class ManagementApi:
                 )
             else:
                 _query_params.append(('createdAfter', created_after))
+            
+        if updated_before is not None:
+            if isinstance(updated_before, datetime):
+                _query_params.append(
+                    (
+                        'updatedBefore',
+                        updated_before.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updatedBefore', updated_before))
+            
+        if updated_after is not None:
+            if isinstance(updated_after, datetime):
+                _query_params.append(
+                    (
+                        'updatedAfter',
+                        updated_after.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updatedAfter', updated_after))
             
         if profile_integration_id is not None:
             
@@ -16297,7 +16349,7 @@ class ManagementApi:
     ) -> str:
         """Export loyalty cards
 
-        Download a CSV file containing the loyalty cards from a specified loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The CSV file contains the following columns:  - `identifier`: The unique identifier of the loyalty card. - `created`: The date and time the loyalty card was created. - `status`: The status of the loyalty card. - `userpercardlimit`: The maximum number of customer profiles that can be linked to the card. - `customerprofileids`: Integration IDs of the customer profiles linked to the card. - `blockreason`: The reason for transferring and blocking the loyalty card. - `generated`: An indicator of whether the loyalty card was generated. - `batchid`: The ID of the batch the loyalty card is in. - `attributes`: The custom attributes of this loyalty card. Currently, this feature is only available upon request. 
+        Download a CSV file containing the loyalty cards from a specified loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The CSV file contains the following columns:  - `identifier`: The unique identifier of the loyalty card. - `created`: The date and time the loyalty card was created. - `status`: The status of the loyalty card. - `userpercardlimit`: The maximum number of customer profiles that can be linked to the card. - `customerprofileids`: Integration IDs of the customer profiles linked to the card. - `blockreason`: The reason for transferring and blocking the loyalty card. - `generated`: An indicator of whether the loyalty card was generated. - `batchid`: The ID of the batch the loyalty card is in. - `attributes`: The custom attributes of this loyalty card. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -16382,7 +16434,7 @@ class ManagementApi:
     ) -> ApiResponse[str]:
         """Export loyalty cards
 
-        Download a CSV file containing the loyalty cards from a specified loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The CSV file contains the following columns:  - `identifier`: The unique identifier of the loyalty card. - `created`: The date and time the loyalty card was created. - `status`: The status of the loyalty card. - `userpercardlimit`: The maximum number of customer profiles that can be linked to the card. - `customerprofileids`: Integration IDs of the customer profiles linked to the card. - `blockreason`: The reason for transferring and blocking the loyalty card. - `generated`: An indicator of whether the loyalty card was generated. - `batchid`: The ID of the batch the loyalty card is in. - `attributes`: The custom attributes of this loyalty card. Currently, this feature is only available upon request. 
+        Download a CSV file containing the loyalty cards from a specified loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The CSV file contains the following columns:  - `identifier`: The unique identifier of the loyalty card. - `created`: The date and time the loyalty card was created. - `status`: The status of the loyalty card. - `userpercardlimit`: The maximum number of customer profiles that can be linked to the card. - `customerprofileids`: Integration IDs of the customer profiles linked to the card. - `blockreason`: The reason for transferring and blocking the loyalty card. - `generated`: An indicator of whether the loyalty card was generated. - `batchid`: The ID of the batch the loyalty card is in. - `attributes`: The custom attributes of this loyalty card. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -16467,7 +16519,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Export loyalty cards
 
-        Download a CSV file containing the loyalty cards from a specified loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The CSV file contains the following columns:  - `identifier`: The unique identifier of the loyalty card. - `created`: The date and time the loyalty card was created. - `status`: The status of the loyalty card. - `userpercardlimit`: The maximum number of customer profiles that can be linked to the card. - `customerprofileids`: Integration IDs of the customer profiles linked to the card. - `blockreason`: The reason for transferring and blocking the loyalty card. - `generated`: An indicator of whether the loyalty card was generated. - `batchid`: The ID of the batch the loyalty card is in. - `attributes`: The custom attributes of this loyalty card. Currently, this feature is only available upon request. 
+        Download a CSV file containing the loyalty cards from a specified loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The CSV file contains the following columns:  - `identifier`: The unique identifier of the loyalty card. - `created`: The date and time the loyalty card was created. - `status`: The status of the loyalty card. - `userpercardlimit`: The maximum number of customer profiles that can be linked to the card. - `customerprofileids`: Integration IDs of the customer profiles linked to the card. - `blockreason`: The reason for transferring and blocking the loyalty card. - `generated`: An indicator of whether the loyalty card was generated. - `batchid`: The ID of the batch the loyalty card is in. - `attributes`: The custom attributes of this loyalty card. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -25619,7 +25671,7 @@ class ManagementApi:
     @validate_call
     def get_audiences_analytics(
         self,
-        audience_ids: Annotated[StrictStr, Field(description="The IDs of one or more audiences, separated by commas, by which to filter results.")],
+        audience_ids: Annotated[StrictStr, Field(description="The IDs of one or more audiences, separated by commas, by which to filter results. Do not provide more than 1000 audience IDs.")],
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         _request_timeout: Union[
             None,
@@ -25638,7 +25690,7 @@ class ManagementApi:
 
         Get a list of audience IDs and their member count. 
 
-        :param audience_ids: The IDs of one or more audiences, separated by commas, by which to filter results. (required)
+        :param audience_ids: The IDs of one or more audiences, separated by commas, by which to filter results. Do not provide more than 1000 audience IDs. (required)
         :type audience_ids: str
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
@@ -25690,7 +25742,7 @@ class ManagementApi:
     @validate_call
     def get_audiences_analytics_with_http_info(
         self,
-        audience_ids: Annotated[StrictStr, Field(description="The IDs of one or more audiences, separated by commas, by which to filter results.")],
+        audience_ids: Annotated[StrictStr, Field(description="The IDs of one or more audiences, separated by commas, by which to filter results. Do not provide more than 1000 audience IDs.")],
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         _request_timeout: Union[
             None,
@@ -25709,7 +25761,7 @@ class ManagementApi:
 
         Get a list of audience IDs and their member count. 
 
-        :param audience_ids: The IDs of one or more audiences, separated by commas, by which to filter results. (required)
+        :param audience_ids: The IDs of one or more audiences, separated by commas, by which to filter results. Do not provide more than 1000 audience IDs. (required)
         :type audience_ids: str
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
@@ -25761,7 +25813,7 @@ class ManagementApi:
     @validate_call
     def get_audiences_analytics_without_preload_content(
         self,
-        audience_ids: Annotated[StrictStr, Field(description="The IDs of one or more audiences, separated by commas, by which to filter results.")],
+        audience_ids: Annotated[StrictStr, Field(description="The IDs of one or more audiences, separated by commas, by which to filter results. Do not provide more than 1000 audience IDs.")],
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         _request_timeout: Union[
             None,
@@ -25780,7 +25832,7 @@ class ManagementApi:
 
         Get a list of audience IDs and their member count. 
 
-        :param audience_ids: The IDs of one or more audiences, separated by commas, by which to filter results. (required)
+        :param audience_ids: The IDs of one or more audiences, separated by commas, by which to filter results. Do not provide more than 1000 audience IDs. (required)
         :type audience_ids: str
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
         :type sort: str
@@ -42575,7 +42627,7 @@ class ManagementApi:
     ) -> ModelImport:
         """Import loyalty cards
 
-        Upload a CSV file containing the loyalty cards that you want to use in your card-based loyalty program.  Send the file as multipart data.  It contains the following columns for each card:  - `identifier` (required): The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. - `state` (required): The state of the loyalty card. It can be `active` or `inactive`. - `customerprofileids` (optional): An array of strings representing the identifiers of the customer profiles linked to the loyalty card. The identifiers should be separated with a semicolon (;).  > [!note] Your CSV file must contain less than 500,000 rows. Requests time out after 30 seconds.  ## Example  ```csv identifier,state,customerprofileids 123-456-789AT,active,Alexa001;UserA ``` 
+        Upload a CSV file containing the loyalty cards that you want to use in your card-based loyalty program.  Send the file as multipart data.  It contains the following columns for each card:  - `identifier` (required): The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. - `state` (required): The state of the loyalty card. It can be `active` or `inactive`. - `customerprofileids` (optional): An array of strings representing the identifiers of the customer profiles linked to the loyalty card. The identifiers should be separated with a semicolon (;). - `attributes` (optional): A JSON object that contains the loyalty card's custom attributes and their values. These attributes must be created and connected to this loyalty program before they can be assigned to the cards through this endpoint.  > [!note] Your CSV file must contain less than 500,000 rows. Requests time out after 30 seconds.  ## Example  ```csv identifier,state,customerprofileids,attributes 123-456-789AT,active,Alexa001;UserA,'{\"\"my_attributes\"\": \"\"10_off\"\"}\" ``` 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -42648,7 +42700,7 @@ class ManagementApi:
     ) -> ApiResponse[ModelImport]:
         """Import loyalty cards
 
-        Upload a CSV file containing the loyalty cards that you want to use in your card-based loyalty program.  Send the file as multipart data.  It contains the following columns for each card:  - `identifier` (required): The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. - `state` (required): The state of the loyalty card. It can be `active` or `inactive`. - `customerprofileids` (optional): An array of strings representing the identifiers of the customer profiles linked to the loyalty card. The identifiers should be separated with a semicolon (;).  > [!note] Your CSV file must contain less than 500,000 rows. Requests time out after 30 seconds.  ## Example  ```csv identifier,state,customerprofileids 123-456-789AT,active,Alexa001;UserA ``` 
+        Upload a CSV file containing the loyalty cards that you want to use in your card-based loyalty program.  Send the file as multipart data.  It contains the following columns for each card:  - `identifier` (required): The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. - `state` (required): The state of the loyalty card. It can be `active` or `inactive`. - `customerprofileids` (optional): An array of strings representing the identifiers of the customer profiles linked to the loyalty card. The identifiers should be separated with a semicolon (;). - `attributes` (optional): A JSON object that contains the loyalty card's custom attributes and their values. These attributes must be created and connected to this loyalty program before they can be assigned to the cards through this endpoint.  > [!note] Your CSV file must contain less than 500,000 rows. Requests time out after 30 seconds.  ## Example  ```csv identifier,state,customerprofileids,attributes 123-456-789AT,active,Alexa001;UserA,'{\"\"my_attributes\"\": \"\"10_off\"\"}\" ``` 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -42721,7 +42773,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Import loyalty cards
 
-        Upload a CSV file containing the loyalty cards that you want to use in your card-based loyalty program.  Send the file as multipart data.  It contains the following columns for each card:  - `identifier` (required): The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. - `state` (required): The state of the loyalty card. It can be `active` or `inactive`. - `customerprofileids` (optional): An array of strings representing the identifiers of the customer profiles linked to the loyalty card. The identifiers should be separated with a semicolon (;).  > [!note] Your CSV file must contain less than 500,000 rows. Requests time out after 30 seconds.  ## Example  ```csv identifier,state,customerprofileids 123-456-789AT,active,Alexa001;UserA ``` 
+        Upload a CSV file containing the loyalty cards that you want to use in your card-based loyalty program.  Send the file as multipart data.  It contains the following columns for each card:  - `identifier` (required): The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. - `state` (required): The state of the loyalty card. It can be `active` or `inactive`. - `customerprofileids` (optional): An array of strings representing the identifiers of the customer profiles linked to the loyalty card. The identifiers should be separated with a semicolon (;). - `attributes` (optional): A JSON object that contains the loyalty card's custom attributes and their values. These attributes must be created and connected to this loyalty program before they can be assigned to the cards through this endpoint.  > [!note] Your CSV file must contain less than 500,000 rows. Requests time out after 30 seconds.  ## Example  ```csv identifier,state,customerprofileids,attributes 123-456-789AT,active,Alexa001;UserA,'{\"\"my_attributes\"\": \"\"10_off\"\"}\" ``` 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -43133,6 +43185,304 @@ class ManagementApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/v1/loyalty_programs/{loyaltyProgramId}/import_customers_tiers',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def import_loyalty_join_dates(
+        self,
+        loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ModelImport:
+        """Import join dates for a loyalty program
+
+        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `newjoindate`: The new join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,newjoindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
+
+        :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
+        :type loyalty_program_id: int
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._import_loyalty_join_dates_serialize(
+            loyalty_program_id=loyalty_program_id,
+            up_file=up_file,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ModelImport",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def import_loyalty_join_dates_with_http_info(
+        self,
+        loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ModelImport]:
+        """Import join dates for a loyalty program
+
+        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `newjoindate`: The new join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,newjoindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
+
+        :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
+        :type loyalty_program_id: int
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._import_loyalty_join_dates_serialize(
+            loyalty_program_id=loyalty_program_id,
+            up_file=up_file,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ModelImport",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def import_loyalty_join_dates_without_preload_content(
+        self,
+        loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
+        up_file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The CSV file containing the data that is being imported.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Import join dates for a loyalty program
+
+        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `newjoindate`: The new join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,newjoindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
+
+        :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
+        :type loyalty_program_id: int
+        :param up_file: The CSV file containing the data that is being imported.
+        :type up_file: bytes
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._import_loyalty_join_dates_serialize(
+            loyalty_program_id=loyalty_program_id,
+            up_file=up_file,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ModelImport",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _import_loyalty_join_dates_serialize(
+        self,
+        loyalty_program_id,
+        up_file,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if loyalty_program_id is not None:
+            _path_params['loyaltyProgramId'] = loyalty_program_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        if up_file is not None:
+            _files['upFile'] = up_file
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'multipart/form-data'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/loyalty_programs/{loyaltyProgramId}/import_join_dates',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -45233,7 +45583,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         page_size: Annotated[Optional[Annotated[int, Field(le=50, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. ")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `name` is provided, all the Application cart item filters in the Application are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -45257,8 +45607,8 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param title: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. 
-        :type title: str
+        :param name: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `name` is provided, all the Application cart item filters in the Application are returned. 
+        :type name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -45285,7 +45635,7 @@ class ManagementApi:
             application_id=application_id,
             page_size=page_size,
             skip=skip,
-            title=title,
+            name=name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -45312,7 +45662,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         page_size: Annotated[Optional[Annotated[int, Field(le=50, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. ")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `name` is provided, all the Application cart item filters in the Application are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -45336,8 +45686,8 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param title: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. 
-        :type title: str
+        :param name: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `name` is provided, all the Application cart item filters in the Application are returned. 
+        :type name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -45364,7 +45714,7 @@ class ManagementApi:
             application_id=application_id,
             page_size=page_size,
             skip=skip,
-            title=title,
+            name=name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -45391,7 +45741,7 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         page_size: Annotated[Optional[Annotated[int, Field(le=50, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. ")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `name` is provided, all the Application cart item filters in the Application are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -45415,8 +45765,8 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param title: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `title` is provided, all the Application cart item filters in the Application are returned. 
-        :type title: str
+        :param name: Filter by the display name of the Application cart item filter in the Application.  **Note**: If no `name` is provided, all the Application cart item filters in the Application are returned. 
+        :type name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -45443,7 +45793,7 @@ class ManagementApi:
             application_id=application_id,
             page_size=page_size,
             skip=skip,
-            title=title,
+            name=name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -45465,7 +45815,7 @@ class ManagementApi:
         application_id,
         page_size,
         skip,
-        title,
+        name,
         _request_auth,
         _content_type,
         _headers,
@@ -45498,9 +45848,9 @@ class ManagementApi:
             
             _query_params.append(('skip', skip))
             
-        if title is not None:
+        if name is not None:
             
-            _query_params.append(('title', title))
+            _query_params.append(('name', name))
             
         # process the header parameters
         # process the form parameters

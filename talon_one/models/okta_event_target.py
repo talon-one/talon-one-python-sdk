@@ -27,9 +27,9 @@ class OktaEventTarget(BaseModel):
     """
     Target of the specific Okta event.
     """ # noqa: E501
-    type: StrictStr = Field(description="Type of the event target.")
-    alternate_id: StrictStr = Field(description="Identifier of the event target, depending on its type.", alias="alternateId")
-    display_name: StrictStr = Field(description="Display name of the event target.", alias="displayName")
+    type: StrictStr = Field(description="Type of the event target.", json_schema_extra={"examples": ["AppUser"]})
+    alternate_id: StrictStr = Field(description="Identifier of the event target, depending on its type.", alias="alternateId", json_schema_extra={"examples": ["john.doe@example.com"]})
+    display_name: StrictStr = Field(description="Display name of the event target.", alias="displayName", json_schema_extra={"examples": ["John Doe"]})
     __properties: ClassVar[List[str]] = ["type", "alternateId", "displayName"]
 
     model_config = ConfigDict(

@@ -27,8 +27,8 @@ class EmbeddedDashboardConfiguration(BaseModel):
     """
     EmbeddedDashboardConfiguration
     """ # noqa: E501
-    workspace_id: StrictStr = Field(description="The ID of the workspace that contains dashboards.", alias="workspaceId")
-    dashboard_id: StrictStr = Field(description="The ID of the dashboard that contains metrics.", alias="dashboardId")
+    workspace_id: StrictStr = Field(description="The ID of the workspace that contains dashboards.", alias="workspaceId", json_schema_extra={"examples": ["main_workspace"]})
+    dashboard_id: StrictStr = Field(description="The ID of the dashboard that contains metrics.", alias="dashboardId", json_schema_extra={"examples": ["campaign_insights_metrics"]})
     __properties: ClassVar[List[str]] = ["workspaceId", "dashboardId"]
 
     model_config = ConfigDict(

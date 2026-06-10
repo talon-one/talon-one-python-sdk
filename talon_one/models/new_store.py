@@ -28,10 +28,10 @@ class NewStore(BaseModel):
     """
     NewStore
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name of the store.")
-    description: StrictStr = Field(description="The description of the store.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the store.")
-    integration_id: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The integration ID of the store. You choose this ID when you create a store.  **Note**: You cannot edit the `integrationId` after the store has been created. ", alias="integrationId")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name of the store.", json_schema_extra={"examples": ["South US store"]})
+    description: StrictStr = Field(description="The description of the store.", json_schema_extra={"examples": ["This is the description of the store in south US."]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the store.", json_schema_extra={"examples": [{"country": "USA", "code": 1234}]})
+    integration_id: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The integration ID of the store. You choose this ID when you create a store.  **Note**: You cannot edit the `integrationId` after the store has been created. ", alias="integrationId", json_schema_extra={"examples": ["STORE-001"]})
     __properties: ClassVar[List[str]] = ["name", "description", "attributes", "integrationId"]
 
     model_config = ConfigDict(

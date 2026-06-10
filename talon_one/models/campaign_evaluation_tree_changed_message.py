@@ -28,7 +28,7 @@ class CampaignEvaluationTreeChangedMessage(BaseModel):
     """
     CampaignEvaluationTreeChangedMessage
     """ # noqa: E501
-    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType")
+    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType", json_schema_extra={"examples": ["CampaignNotification"]})
     total_result_size: StrictInt = Field(description="The total size of the result set.", alias="TotalResultSize")
     data: Optional[List[ApplicationNotification]] = Field(default=None, description="The array of changes.", alias="Data")
     __properties: ClassVar[List[str]] = ["NotificationType", "TotalResultSize", "Data"]

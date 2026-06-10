@@ -30,7 +30,7 @@ class CatalogSyncRequest(BaseModel):
     CatalogSyncRequest
     """ # noqa: E501
     actions: Annotated[List[CatalogAction], Field(min_length=1, max_length=1000)]
-    version: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="The version number of the catalog to apply the actions on.")
+    version: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="The version number of the catalog to apply the actions on.", json_schema_extra={"examples": [244]})
     __properties: ClassVar[List[str]] = ["actions", "version"]
 
     model_config = ConfigDict(

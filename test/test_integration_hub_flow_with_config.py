@@ -36,7 +36,8 @@ class TestIntegrationHubFlowWithConfig(unittest.TestCase):
         if include_optional:
             return IntegrationHubFlowWithConfig(
                 application_id = 54,
-                event_type = '',
+                loyalty_program_id = 12,
+                event_type = 'CouponCreated',
                 integration_hub_flow_url = '',
                 config = talon_one.models.integration_hub_flow_config.IntegrationHubFlowConfig(
                     api_key = '', 
@@ -46,7 +47,7 @@ class TestIntegrationHubFlowWithConfig(unittest.TestCase):
             )
         else:
             return IntegrationHubFlowWithConfig(
-                event_type = '',
+                event_type = 'CouponCreated',
                 integration_hub_flow_url = '',
                 config = talon_one.models.integration_hub_flow_config.IntegrationHubFlowConfig(
                     api_key = '', 

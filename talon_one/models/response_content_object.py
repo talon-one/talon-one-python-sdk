@@ -27,7 +27,7 @@ class ResponseContentObject(BaseModel):
     """
     ResponseContentObject
     """ # noqa: E501
-    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent")
+    response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent", json_schema_extra={"examples": [["triggeredCampaigns", "customerProfile"]]})
     __properties: ClassVar[List[str]] = ["responseContent"]
 
     @field_validator('response_content')

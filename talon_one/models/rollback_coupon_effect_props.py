@@ -25,9 +25,9 @@ from pydantic_core import to_jsonable_python
 
 class RollbackCouponEffectProps(BaseModel):
     """
-    The properties specific to the \"rollbackCoupon\" effect. This gets triggered whenever previously closed session is now cancelled and a coupon redemption was cancelled on our internal usage limit counters.
+    This effect indicates that a coupon code redemption has been rolled back. The coupon becomes redeemable again.  The effect is triggered when you [cancel](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#manage-the-sessions-state) a session where a coupon was accepted. See an example of use in the [cancelling a session tutorial](https://docs.talon.one/docs/dev/tutorials/roll-back-effects).
     """ # noqa: E501
-    value: StrictStr = Field(description="The coupon code whose usage has been rolled back.")
+    value: StrictStr = Field(description="The coupon code whose redemption has been rolled back.")
     __properties: ClassVar[List[str]] = ["value"]
 
     model_config = ConfigDict(

@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.11.0"
+__version__ = "26.12.0"
 
 # Define package exports
 __all__ = [
@@ -142,6 +142,7 @@ __all__ = [
     "CampaignEditedNotificationItem",
     "CampaignEligibility",
     "CampaignEligibilityDetails",
+    "CampaignEligibilityExperiment",
     "CampaignEligibilityFailureDetails",
     "CampaignEntity",
     "CampaignEvaluationGroup",
@@ -268,6 +269,8 @@ __all__ = [
     "EventV3RequestEntity",
     "Experiment",
     "ExperimentCampaignCopy",
+    "ExperimentConfidenceTimeline",
+    "ExperimentConfidenceTimelineDataPoint",
     "ExperimentCopy",
     "ExperimentCopyExperiment",
     "ExperimentListResults",
@@ -383,13 +386,13 @@ __all__ = [
     "IntegrationHubConfig",
     "IntegrationHubEventPayloadCouponBasedNotifications",
     "IntegrationHubEventPayloadCouponBasedNotificationsLimits",
-    "IntegrationHubEventPayloadLoyaltyProfileBasedNotification",
     "IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification",
     "IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction",
     "IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification",
     "IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification",
     "IntegrationHubEventRecord",
     "IntegrationHubEventStatusUpdate",
+    "IntegrationHubEventType",
     "IntegrationHubFlow",
     "IntegrationHubFlowConfig",
     "IntegrationHubFlowConfigResponse",
@@ -649,8 +652,6 @@ __all__ = [
     "ScimServiceProviderConfigResponseBulk",
     "ScimServiceProviderConfigResponseChangePassword",
     "ScimServiceProviderConfigResponseFilter",
-    "ScimServiceProviderConfigResponsePatch",
-    "ScimServiceProviderConfigResponseSort",
     "ScimUser",
     "ScimUsersListResponse",
     "SecondaryDeployment",
@@ -718,7 +719,6 @@ __all__ = [
     "UpdateCouponBatch",
     "UpdateCouponsData",
     "UpdateCustomEffect",
-    "UpdateCustomerProfileV2409Response",
     "UpdateCustomerSessionV2409Response",
     "UpdateExperiment",
     "UpdateExperimentVariant",
@@ -733,6 +733,7 @@ __all__ = [
     "UpdateReferral",
     "UpdateReferralBatch",
     "UpdateReward",
+    "UpdateRiskNotification",
     "UpdateRole",
     "UpdateStore",
     "UpdateSupportRequest",
@@ -878,6 +879,7 @@ from talon_one.models.campaign_edited_notification import CampaignEditedNotifica
 from talon_one.models.campaign_edited_notification_item import CampaignEditedNotificationItem as CampaignEditedNotificationItem
 from talon_one.models.campaign_eligibility import CampaignEligibility as CampaignEligibility
 from talon_one.models.campaign_eligibility_details import CampaignEligibilityDetails as CampaignEligibilityDetails
+from talon_one.models.campaign_eligibility_experiment import CampaignEligibilityExperiment as CampaignEligibilityExperiment
 from talon_one.models.campaign_eligibility_failure_details import CampaignEligibilityFailureDetails as CampaignEligibilityFailureDetails
 from talon_one.models.campaign_entity import CampaignEntity as CampaignEntity
 from talon_one.models.campaign_evaluation_group import CampaignEvaluationGroup as CampaignEvaluationGroup
@@ -1004,6 +1006,8 @@ from talon_one.models.event_v3_entity import EventV3Entity as EventV3Entity
 from talon_one.models.event_v3_request_entity import EventV3RequestEntity as EventV3RequestEntity
 from talon_one.models.experiment import Experiment as Experiment
 from talon_one.models.experiment_campaign_copy import ExperimentCampaignCopy as ExperimentCampaignCopy
+from talon_one.models.experiment_confidence_timeline import ExperimentConfidenceTimeline as ExperimentConfidenceTimeline
+from talon_one.models.experiment_confidence_timeline_data_point import ExperimentConfidenceTimelineDataPoint as ExperimentConfidenceTimelineDataPoint
 from talon_one.models.experiment_copy import ExperimentCopy as ExperimentCopy
 from talon_one.models.experiment_copy_experiment import ExperimentCopyExperiment as ExperimentCopyExperiment
 from talon_one.models.experiment_list_results import ExperimentListResults as ExperimentListResults
@@ -1119,13 +1123,13 @@ from talon_one.models.integration_get_all_campaigns200_response import Integrati
 from talon_one.models.integration_hub_config import IntegrationHubConfig as IntegrationHubConfig
 from talon_one.models.integration_hub_event_payload_coupon_based_notifications import IntegrationHubEventPayloadCouponBasedNotifications as IntegrationHubEventPayloadCouponBasedNotifications
 from talon_one.models.integration_hub_event_payload_coupon_based_notifications_limits import IntegrationHubEventPayloadCouponBasedNotificationsLimits as IntegrationHubEventPayloadCouponBasedNotificationsLimits
-from talon_one.models.integration_hub_event_payload_loyalty_profile_based_notification import IntegrationHubEventPayloadLoyaltyProfileBasedNotification as IntegrationHubEventPayloadLoyaltyProfileBasedNotification
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_points_changed_notification import IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification as IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_points_changed_notification_action import IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction as IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_downgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification as IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
 from talon_one.models.integration_hub_event_payload_loyalty_profile_based_tier_upgrade_notification import IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification as IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification
 from talon_one.models.integration_hub_event_record import IntegrationHubEventRecord as IntegrationHubEventRecord
 from talon_one.models.integration_hub_event_status_update import IntegrationHubEventStatusUpdate as IntegrationHubEventStatusUpdate
+from talon_one.models.integration_hub_event_type import IntegrationHubEventType as IntegrationHubEventType
 from talon_one.models.integration_hub_flow import IntegrationHubFlow as IntegrationHubFlow
 from talon_one.models.integration_hub_flow_config import IntegrationHubFlowConfig as IntegrationHubFlowConfig
 from talon_one.models.integration_hub_flow_config_response import IntegrationHubFlowConfigResponse as IntegrationHubFlowConfigResponse
@@ -1385,8 +1389,6 @@ from talon_one.models.scim_service_provider_config_response import ScimServicePr
 from talon_one.models.scim_service_provider_config_response_bulk import ScimServiceProviderConfigResponseBulk as ScimServiceProviderConfigResponseBulk
 from talon_one.models.scim_service_provider_config_response_change_password import ScimServiceProviderConfigResponseChangePassword as ScimServiceProviderConfigResponseChangePassword
 from talon_one.models.scim_service_provider_config_response_filter import ScimServiceProviderConfigResponseFilter as ScimServiceProviderConfigResponseFilter
-from talon_one.models.scim_service_provider_config_response_patch import ScimServiceProviderConfigResponsePatch as ScimServiceProviderConfigResponsePatch
-from talon_one.models.scim_service_provider_config_response_sort import ScimServiceProviderConfigResponseSort as ScimServiceProviderConfigResponseSort
 from talon_one.models.scim_user import ScimUser as ScimUser
 from talon_one.models.scim_users_list_response import ScimUsersListResponse as ScimUsersListResponse
 from talon_one.models.secondary_deployment import SecondaryDeployment as SecondaryDeployment
@@ -1454,7 +1456,6 @@ from talon_one.models.update_coupon import UpdateCoupon as UpdateCoupon
 from talon_one.models.update_coupon_batch import UpdateCouponBatch as UpdateCouponBatch
 from talon_one.models.update_coupons_data import UpdateCouponsData as UpdateCouponsData
 from talon_one.models.update_custom_effect import UpdateCustomEffect as UpdateCustomEffect
-from talon_one.models.update_customer_profile_v2409_response import UpdateCustomerProfileV2409Response as UpdateCustomerProfileV2409Response
 from talon_one.models.update_customer_session_v2409_response import UpdateCustomerSessionV2409Response as UpdateCustomerSessionV2409Response
 from talon_one.models.update_experiment import UpdateExperiment as UpdateExperiment
 from talon_one.models.update_experiment_variant import UpdateExperimentVariant as UpdateExperimentVariant
@@ -1469,6 +1470,7 @@ from talon_one.models.update_price_type import UpdatePriceType as UpdatePriceTyp
 from talon_one.models.update_referral import UpdateReferral as UpdateReferral
 from talon_one.models.update_referral_batch import UpdateReferralBatch as UpdateReferralBatch
 from talon_one.models.update_reward import UpdateReward as UpdateReward
+from talon_one.models.update_risk_notification import UpdateRiskNotification as UpdateRiskNotification
 from talon_one.models.update_role import UpdateRole as UpdateRole
 from talon_one.models.update_store import UpdateStore as UpdateStore
 from talon_one.models.update_support_request import UpdateSupportRequest as UpdateSupportRequest

@@ -26,13 +26,13 @@ from pydantic_core import to_jsonable_python
 
 class AwardGiveawayEffectProps(BaseModel):
     """
-    The properties specific to the \"awardGiveaway\" effect. This effect contains information on the giveaway item, and which profile it was awarded to.
+    This effect indicates the awarded giveaway item and to which profile the item was awarded. Learn more about [giveaways](https://docs.talon.one/docs/product/giveaways/overview).
     """ # noqa: E501
-    pool_id: StrictInt = Field(description="The ID of the giveaways pool the code was taken from.", alias="poolId")
-    pool_name: StrictStr = Field(description="The name of the giveaways pool the code was taken from.", alias="poolName")
-    recipient_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID of the profile that was awarded the giveaway.", alias="recipientIntegrationId")
-    giveaway_id: StrictInt = Field(description="The internal ID for the giveaway that was awarded.", alias="giveawayId")
-    code: StrictStr = Field(description="The giveaway code that was awarded.")
+    pool_id: StrictInt = Field(description="The internal ID of the giveaway pool.", alias="poolId", json_schema_extra={"examples": [2]})
+    pool_name: StrictStr = Field(description="The name of the giveaway pool.", alias="poolName", json_schema_extra={"examples": ["My pool"]})
+    recipient_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID of the customer that receives the giveaway.", alias="recipientIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    giveaway_id: StrictInt = Field(description="The internal ID of the giveaway.", alias="giveawayId", json_schema_extra={"examples": [5]})
+    code: StrictStr = Field(description="The giveaway code to be rewarded.", json_schema_extra={"examples": ["57638t-67439hty"]})
     __properties: ClassVar[List[str]] = ["poolId", "poolName", "recipientIntegrationId", "giveawayId", "code"]
 
     model_config = ConfigDict(

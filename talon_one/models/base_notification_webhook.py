@@ -29,12 +29,12 @@ class BaseNotificationWebhook(BaseModel):
     """
     BaseNotificationWebhook
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    modified: datetime = Field(description="The time this entity was last modified.")
-    url: StrictStr = Field(description="API URL for the given webhook-based notification.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    url: StrictStr = Field(description="API URL for the given webhook-based notification.", json_schema_extra={"examples": ["www.my-company.com/my-endpoint-name"]})
     headers: List[Annotated[str, Field(strict=True)]] = Field(description="List of API HTTP headers for the given webhook-based notification.")
-    enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.")
+    enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "url", "headers", "enabled"]
 
     model_config = ConfigDict(

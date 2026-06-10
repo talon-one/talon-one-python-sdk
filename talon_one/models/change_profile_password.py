@@ -27,8 +27,8 @@ class ChangeProfilePassword(BaseModel):
     """
     ChangeProfilePassword
     """ # noqa: E501
-    password: StrictStr = Field(description="Your old password.")
-    new_password: StrictStr = Field(description="Your new password.", alias="newPassword")
+    password: StrictStr = Field(description="Your old password.", json_schema_extra={"examples": ["Admin&12943!7"]})
+    new_password: StrictStr = Field(description="Your new password.", alias="newPassword", json_schema_extra={"examples": ["Admin*4552$70"]})
     __properties: ClassVar[List[str]] = ["password", "newPassword"]
 
     model_config = ConfigDict(

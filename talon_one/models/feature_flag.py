@@ -28,10 +28,10 @@ class FeatureFlag(BaseModel):
     """
     FeatureFlag
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the feature flag.")
-    value: StrictStr = Field(description="The value of the feature flag.")
-    created: Optional[datetime] = Field(default=None, description="The time this entity was last created.")
-    modified: Optional[datetime] = Field(default=None, description="The time this entity was last modified.")
+    name: StrictStr = Field(description="The name of the feature flag.", json_schema_extra={"examples": ["canCreateCampaignFromTemplate"]})
+    value: StrictStr = Field(description="The value of the feature flag.", json_schema_extra={"examples": ["true"]})
+    created: Optional[datetime] = Field(default=None, description="The time this entity was last created.", json_schema_extra={"examples": ["2021-09-22T12:24:14.956203Z"]})
+    modified: Optional[datetime] = Field(default=None, description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-25T10:34:12.956203Z"]})
     __properties: ClassVar[List[str]] = ["name", "value", "created", "modified"]
 
     model_config = ConfigDict(

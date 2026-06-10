@@ -27,9 +27,9 @@ class LoyaltyProgramEntity(BaseModel):
     """
     LoyaltyProgramEntity
     """ # noqa: E501
-    program_id: StrictInt = Field(description="The ID of the loyalty program that owns this entity.", alias="programID")
-    program_name: Optional[StrictStr] = Field(default=None, description="The integration name of the loyalty program that owns this entity.", alias="programName")
-    program_title: Optional[StrictStr] = Field(default=None, description="The Campaign Manager-displayed name of the loyalty program that owns this entity.", alias="programTitle")
+    program_id: StrictInt = Field(description="The ID of the loyalty program that owns this entity.", alias="programID", json_schema_extra={"examples": [125]})
+    program_name: Optional[StrictStr] = Field(default=None, description="The integration name of the loyalty program that owns this entity.", alias="programName", json_schema_extra={"examples": ["Loyalty_program"]})
+    program_title: Optional[StrictStr] = Field(default=None, description="The Campaign Manager-displayed name of the loyalty program that owns this entity.", alias="programTitle", json_schema_extra={"examples": ["Loyalty program"]})
     __properties: ClassVar[List[str]] = ["programID", "programName", "programTitle"]
 
     model_config = ConfigDict(

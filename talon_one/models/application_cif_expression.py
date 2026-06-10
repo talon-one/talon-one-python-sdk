@@ -28,12 +28,12 @@ class ApplicationCIFExpression(BaseModel):
     """
     ApplicationCIFExpression
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    cart_item_filter_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application cart item filter.", alias="cartItemFilterId")
-    created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the Application cart item filter.", alias="createdBy")
-    expression: Optional[List[Any]] = Field(default=None, description="Arbitrary additional JSON data associated with the Application cart item filter.")
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    cart_item_filter_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application cart item filter.", alias="cartItemFilterId", json_schema_extra={"examples": [216]})
+    created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the Application cart item filter.", alias="createdBy", json_schema_extra={"examples": [216]})
+    expression: Optional[List[Any]] = Field(default=None, description="Arbitrary additional JSON data associated with the Application cart item filter.", json_schema_extra={"examples": [{"expr": ["filter", [".", "Session", "CartItems"], [["Item"], ["catch", False, ["=", [".", "Item", "Category"], "Kitchen"]]]]}]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
     __properties: ClassVar[List[str]] = ["id", "created", "cartItemFilterId", "createdBy", "expression", "applicationId"]
 
     model_config = ConfigDict(

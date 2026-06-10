@@ -27,7 +27,7 @@ class Endpoint(BaseModel):
     """
     Endpoint
     """ # noqa: E501
-    path: StrictStr = Field(description="allowed endpoint")
+    path: StrictStr = Field(description="allowed endpoint", json_schema_extra={"examples": ["/coupons"]})
     __properties: ClassVar[List[str]] = ["path"]
 
     model_config = ConfigDict(

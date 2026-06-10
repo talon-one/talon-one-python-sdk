@@ -27,10 +27,10 @@ class OutgoingIntegrationMoEngagePolicy(BaseModel):
     """
     OutgoingIntegrationMoEngagePolicy
     """ # noqa: E501
-    base_url: StrictStr = Field(description="The base URL of your MoEngage deployment, containing the MoEngage data center number (represented by `0X`).", alias="baseUrl")
-    app_id: StrictStr = Field(description="MoEngage APP ID. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="appId")
-    data_api_id: StrictStr = Field(description="MoEngage DATA API ID. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="dataApiId")
-    data_api_key: StrictStr = Field(description="MoEngage DATA API Key. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="dataApiKey")
+    base_url: StrictStr = Field(description="The base URL of your MoEngage deployment, containing the MoEngage data center number (represented by `0X`).", alias="baseUrl", json_schema_extra={"examples": ["https://api-01.moengage.com"]})
+    app_id: StrictStr = Field(description="MoEngage APP ID. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="appId", json_schema_extra={"examples": ["LDUBEU9PLTPYXV30SMTYAAAA"]})
+    data_api_id: StrictStr = Field(description="MoEngage DATA API ID. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="dataApiId", json_schema_extra={"examples": ["LDUBEU9PLTPYXV30SMTYAAAA"]})
+    data_api_key: StrictStr = Field(description="MoEngage DATA API Key. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="dataApiKey", json_schema_extra={"examples": ["R95crrAAdZ747QLXe8LwnGLX"]})
     __properties: ClassVar[List[str]] = ["baseUrl", "appId", "dataApiId", "dataApiKey"]
 
     model_config = ConfigDict(

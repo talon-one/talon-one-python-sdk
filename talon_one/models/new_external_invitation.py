@@ -27,9 +27,9 @@ class NewExternalInvitation(BaseModel):
     """
     Parameters for inviting a new user from an external identity provider.
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the user.")
-    user_groups: Optional[List[StrictStr]] = Field(default=None, description="List of user groups in the external identity provider.  If there are roles in Talon.One whose names match these user groups, those roles will be automatically assigned to the user upon invitation. ", alias="userGroups")
-    email: StrictStr = Field(description="Email address of the user.")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the user.", json_schema_extra={"examples": ["John Doe"]})
+    user_groups: Optional[List[StrictStr]] = Field(default=None, description="List of user groups in the external identity provider.  If there are roles in Talon.One whose names match these user groups, those roles will be automatically assigned to the user upon invitation. ", alias="userGroups", json_schema_extra={"examples": [["Managers", "Customer support"]]})
+    email: StrictStr = Field(description="Email address of the user.", json_schema_extra={"examples": ["john.doe@example.com"]})
     __properties: ClassVar[List[str]] = ["name", "userGroups", "email"]
 
     model_config = ConfigDict(

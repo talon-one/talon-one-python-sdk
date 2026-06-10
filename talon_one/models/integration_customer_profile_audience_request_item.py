@@ -28,9 +28,9 @@ class IntegrationCustomerProfileAudienceRequestItem(BaseModel):
     """
     IntegrationCustomerProfileAudienceRequestItem
     """ # noqa: E501
-    action: StrictStr = Field(description="Defines the action to perform: - `add`: Adds the customer profile to the audience.    **Note**: If the customer profile does not exist, it will be created. The profile will not be visible in any Application   until a session or profile update is received for that profile. - `delete`: Removes the customer profile from the audience. ")
-    profile_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The ID of this customer profile in the third-party integration.", alias="profileIntegrationId")
-    integration_id: StrictStr = Field(description="The ID of this audience in the third-party integration.", alias="integrationId")
+    action: StrictStr = Field(description="Defines the action to perform: - `add`: Adds the customer profile to the audience.    **Note**: If the customer profile does not exist, it will be created. The profile will not be visible in any Application   until a session or profile update is received for that profile. - `delete`: Removes the customer profile from the audience. ", json_schema_extra={"examples": ["add"]})
+    profile_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The ID of this customer profile in the third-party integration.", alias="profileIntegrationId", json_schema_extra={"examples": ["R195412"]})
+    integration_id: StrictStr = Field(description="The ID of this audience in the third-party integration.", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
     __properties: ClassVar[List[str]] = ["action", "profileIntegrationId", "integrationId"]
 
     @field_validator('action')

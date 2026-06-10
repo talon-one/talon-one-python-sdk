@@ -30,16 +30,16 @@ class NewWebhook(BaseModel):
     NewWebhook
     """ # noqa: E501
     application_ids: List[StrictInt] = Field(description="The IDs of the Applications in which this webhook is available. An empty array means the webhook is available in `All Applications`. ", alias="applicationIds")
-    title: Annotated[str, Field(strict=True)] = Field(description="Name or title for this webhook.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the webhook.")
-    draft: StrictBool = Field(description="Indicates if the webhook is a draft.")
-    verb: StrictStr = Field(description="API method for this webhook.")
-    url: StrictStr = Field(description="API URL (supports templating using parameters) for this webhook.")
-    headers: List[Annotated[str, Field(strict=True)]] = Field(description="List of API HTTP headers for this webhook.")
-    payload: Optional[StrictStr] = Field(default=None, description="API payload (supports templating using parameters) for this webhook.")
-    params: List[TemplateArgDef] = Field(description="Array of template argument definitions.")
-    enabled: StrictBool = Field(description="Enables or disables webhook from showing in the Rule Builder.")
-    authentication_id: Optional[StrictInt] = Field(default=None, description="The ID of the credential that this webhook is using.", alias="authenticationId")
+    title: Annotated[str, Field(strict=True)] = Field(description="Name or title for this webhook.", json_schema_extra={"examples": ["Send message"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the webhook.", json_schema_extra={"examples": ["A webhook to send a coupon to the user."]})
+    draft: StrictBool = Field(description="Indicates if the webhook is a draft.", json_schema_extra={"examples": [False]})
+    verb: StrictStr = Field(description="API method for this webhook.", json_schema_extra={"examples": ["POST"]})
+    url: StrictStr = Field(description="API URL (supports templating using parameters) for this webhook.", json_schema_extra={"examples": ["www.my-company.com/my-endpoint-name"]})
+    headers: List[Annotated[str, Field(strict=True)]] = Field(description="List of API HTTP headers for this webhook.", json_schema_extra={"examples": [["{\"Authorization\": \"Basic bmF2ZWVua3VtYXIU=\"}", "{\"Content-Type\": \"application/json\"}"]]})
+    payload: Optional[StrictStr] = Field(default=None, description="API payload (supports templating using parameters) for this webhook.", json_schema_extra={"examples": ["{\n\t\"message\": \"${message}\"\n}"]})
+    params: List[TemplateArgDef] = Field(description="Array of template argument definitions.", json_schema_extra={"examples": [[]]})
+    enabled: StrictBool = Field(description="Enables or disables webhook from showing in the Rule Builder.", json_schema_extra={"examples": [True]})
+    authentication_id: Optional[StrictInt] = Field(default=None, description="The ID of the credential that this webhook is using.", alias="authenticationId", json_schema_extra={"examples": [1]})
     __properties: ClassVar[List[str]] = ["applicationIds", "title", "description", "draft", "verb", "url", "headers", "payload", "params", "enabled", "authenticationId"]
 
     @field_validator('title')

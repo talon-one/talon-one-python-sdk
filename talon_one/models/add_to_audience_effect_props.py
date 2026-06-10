@@ -25,12 +25,12 @@ from pydantic_core import to_jsonable_python
 
 class AddToAudienceEffectProps(BaseModel):
     """
-    The properties specific to the \"addToAudience\" effect. This gets triggered whenever a validated rule contains an \"addToAudience\" effect.
+    This effect is triggered when a rule containing an [Update audience](https://docs.talon.one/docs/product/rules/effects/use-effects#update-an-audience) effect with **Add customer to an audience** selected is validated. It indicates that a customer was added to an audience and is returned when a customer session is opened, updated, or closed.
     """ # noqa: E501
-    audience_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the audience.", alias="audienceId")
-    audience_name: Optional[StrictStr] = Field(default=None, description="The name of the audience.", alias="audienceName")
-    profile_integration_id: Optional[StrictStr] = Field(default=None, description="The ID of the customer profile in the third-party integration platform.", alias="profileIntegrationId")
-    profile_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the customer profile.", alias="profileId")
+    audience_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the audience.", alias="audienceId", json_schema_extra={"examples": [10]})
+    audience_name: Optional[StrictStr] = Field(default=None, description="The name of the audience.", alias="audienceName", json_schema_extra={"examples": ["My audience"]})
+    profile_integration_id: Optional[StrictStr] = Field(default=None, description="The ID of the customer profile in the third-party integration platform.", alias="profileIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    profile_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the customer profile.", alias="profileId", json_schema_extra={"examples": [150]})
     __properties: ClassVar[List[str]] = ["audienceId", "audienceName", "profileIntegrationId", "profileId"]
 
     model_config = ConfigDict(

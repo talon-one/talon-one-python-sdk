@@ -27,10 +27,10 @@ class OneTimeCode(BaseModel):
     """
     OneTimeCode
     """ # noqa: E501
-    user_id: StrictInt = Field(description="The ID of the user.", alias="userId")
-    account_id: StrictInt = Field(description="The ID of the account.", alias="accountId")
-    token: StrictStr = Field(description="The two-factor authentication token created during sign-in. This token is used to ensure that the correct user is trying to sign in with a given one-time security code.")
-    code: Optional[StrictStr] = Field(default=None, description="The one-time security code used for signing in.")
+    user_id: StrictInt = Field(description="The ID of the user.", alias="userId", json_schema_extra={"examples": [109]})
+    account_id: StrictInt = Field(description="The ID of the account.", alias="accountId", json_schema_extra={"examples": [31]})
+    token: StrictStr = Field(description="The two-factor authentication token created during sign-in. This token is used to ensure that the correct user is trying to sign in with a given one-time security code.", json_schema_extra={"examples": ["dy_Fa_lQ4iDAnqldJFvV"]})
+    code: Optional[StrictStr] = Field(default=None, description="The one-time security code used for signing in.", json_schema_extra={"examples": ["552917"]})
     __properties: ClassVar[List[str]] = ["userId", "accountId", "token", "code"]
 
     model_config = ConfigDict(

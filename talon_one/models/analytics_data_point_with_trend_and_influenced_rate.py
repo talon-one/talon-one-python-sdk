@@ -27,9 +27,9 @@ class AnalyticsDataPointWithTrendAndInfluencedRate(BaseModel):
     """
     AnalyticsDataPointWithTrendAndInfluencedRate
     """ # noqa: E501
-    value: Union[StrictFloat, StrictInt]
-    influenced_rate: Union[StrictFloat, StrictInt] = Field(alias="influencedRate")
-    trend: Union[StrictFloat, StrictInt]
+    value: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [12]})
+    influenced_rate: Union[StrictFloat, StrictInt] = Field(alias="influencedRate", json_schema_extra={"examples": [12]})
+    trend: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [3.25]})
     __properties: ClassVar[List[str]] = ["value", "influencedRate", "trend"]
 
     model_config = ConfigDict(

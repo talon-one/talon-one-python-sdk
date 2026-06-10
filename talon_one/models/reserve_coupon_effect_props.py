@@ -25,10 +25,10 @@ from pydantic_core import to_jsonable_python
 
 class ReserveCouponEffectProps(BaseModel):
     """
-    The properties specific to the \"reserveCoupon\" effect. This gets triggered whenever a validated rule contained a \"reserve coupon\" effect. This reserves the coupon currently on scope to the profile on scope.
+    This effect indicates that the given coupon code was reserved for the given customer.  Talon.One provides soft and hard reservations. For more information, see [Reserve a coupon code](https://docs.talon.one/docs/product/rules/effects/use-effects#reserve-a-coupon-code).
     """ # noqa: E501
-    coupon_value: StrictStr = Field(description="The value of the coupon currently on scope.", alias="couponValue")
-    profile_integration_id: StrictStr = Field(description="The ID of this customer profile in the third-party integration.", alias="profileIntegrationId")
+    coupon_value: StrictStr = Field(description="The coupon code that was created.", alias="couponValue")
+    profile_integration_id: StrictStr = Field(description="The integration identifier of the customer for whom this coupon was reserved.", alias="profileIntegrationId")
     is_new_reservation: StrictBool = Field(description="Indicates whether this is a new coupon reservation or not.", alias="isNewReservation")
     __properties: ClassVar[List[str]] = ["couponValue", "profileIntegrationId", "isNewReservation"]
 

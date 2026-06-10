@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **reservation_limit** | **int** | The number of reservations that can be made with this coupon code.  | [optional] 
 **start_date** | **datetime** | Timestamp at which point the coupon becomes valid. | [optional] 
 **expiry_date** | **datetime** | Expiration date of the coupon. Coupon never expires if this is omitted. | [optional] 
-**attributes** | **object** | Optional property to set the value of custom coupon attributes. They are defined in the Campaign Manager, see [Managing attributes](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes).  Coupon attributes can also be set to _mandatory_ in your Application [settings](https://docs.talon.one/docs/product/applications/using-attributes#making-attributes-mandatory). If your Application uses mandatory attributes, you must use this property to set their value.  | [optional] 
+**attributes** | **object** | Arbitrary properties associated with this campaign. | [optional] 
 **batch_id** | **str** | The ID of the batch the coupon(s) belong to. | [optional] 
 
 ## Example

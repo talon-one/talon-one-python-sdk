@@ -28,10 +28,10 @@ class LimitConfig(BaseModel):
     """
     LimitConfig
     """ # noqa: E501
-    action: StrictStr = Field(description="The limitable action to which this limit applies. For example: - `setDiscount` - `setDiscountEffect` - `redeemCoupon` - `createCoupon` ")
-    limit: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="The value to set for the limit.")
-    period: Optional[StrictStr] = Field(default=None, description="The period on which the budget limit recurs.")
-    entities: List[StrictStr] = Field(description="The entity that this limit applies to.")
+    action: StrictStr = Field(description="The limitable action to which this limit applies. For example: - `setDiscount` - `setDiscountEffect` - `redeemCoupon` - `createCoupon` ", json_schema_extra={"examples": ["createCoupon"]})
+    limit: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="The value to set for the limit.", json_schema_extra={"examples": [1000]})
+    period: Optional[StrictStr] = Field(default=None, description="The period on which the budget limit recurs.", json_schema_extra={"examples": ["yearly"]})
+    entities: List[StrictStr] = Field(description="The entity that this limit applies to.", json_schema_extra={"examples": [["Coupon"]]})
     __properties: ClassVar[List[str]] = ["action", "limit", "period", "entities"]
 
     @field_validator('period')

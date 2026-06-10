@@ -27,8 +27,8 @@ class AudienceAnalytics(BaseModel):
     """
     The audiences and their member count.
     """ # noqa: E501
-    audience_id: Optional[StrictInt] = Field(default=None, description="The ID of the audience.", alias="audienceId")
-    members_count: Optional[StrictInt] = Field(default=None, description="The member count of the audience.", alias="membersCount")
+    audience_id: Optional[StrictInt] = Field(default=None, description="The ID of the audience.", alias="audienceId", json_schema_extra={"examples": [1]})
+    members_count: Optional[StrictInt] = Field(default=None, description="The member count of the audience.", alias="membersCount", json_schema_extra={"examples": [1234]})
     __properties: ClassVar[List[str]] = ["audienceId", "membersCount"]
 
     model_config = ConfigDict(

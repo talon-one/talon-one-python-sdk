@@ -27,11 +27,11 @@ from pydantic_core import to_jsonable_python
 
 class SetLoyaltyPointsExpiryDateEffectProps(BaseModel):
     """
-    The properties specific to the \"setLoyaltyPointsExpiryDate\" effect. This gets triggered when a validated rule contains the \"set expiry date\" effect. The current expiry date gets set to the date given in the effect. 
+    This effect updates the expiry date of all active, pending, and unlimited point transactions to a specific date. 
     """ # noqa: E501
     program_id: StrictInt = Field(description="ID of the loyalty program that contains these points.", alias="programId")
     sub_ledger_id: StrictStr = Field(description="API name of the loyalty program subledger that contains these points.", alias="subLedgerId")
-    new_expiry_date: datetime = Field(description="The specified expiry date and time for all active and pending point transactions in the loyalty program subledger.", alias="newExpiryDate")
+    new_expiry_date: datetime = Field(description="The specified expiry date and time for all active and pending point transactions in the loyalty program subledger.", alias="newExpiryDate", json_schema_extra={"examples": ["2024-07-24T14:15:22Z"]})
     affected_transactions: Optional[List[LoyaltyLedgerEntryExpiryDateChange]] = Field(default=None, description="List of transactions affected by the expiry date update.", alias="affectedTransactions")
     __properties: ClassVar[List[str]] = ["programId", "subLedgerId", "newExpiryDate", "affectedTransactions"]
 

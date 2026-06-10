@@ -27,7 +27,7 @@ class ApplicationCustomerEntity(BaseModel):
     """
     ApplicationCustomerEntity
     """ # noqa: E501
-    profile_id: Optional[StrictInt] = Field(default=None, description="The globally unique Talon.One ID of the customer that created this entity.", alias="profileId")
+    profile_id: Optional[StrictInt] = Field(default=None, description="The globally unique Talon.One ID of the customer that created this entity.", alias="profileId", json_schema_extra={"examples": [138]})
     __properties: ClassVar[List[str]] = ["profileId"]
 
     model_config = ConfigDict(

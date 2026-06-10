@@ -29,9 +29,9 @@ class Account(BaseModel):
     """
     Account
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    modified: datetime = Field(description="The time this entity was last modified.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     company_name: Annotated[str, Field(min_length=1, strict=True)] = Field(alias="companyName")
     domain_name: StrictStr = Field(description="Subdomain Name for yourcompany.talon.one.", alias="domainName")
     state: StrictStr = Field(description="State of the account (active, deactivated).")

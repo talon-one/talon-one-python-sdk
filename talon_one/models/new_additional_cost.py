@@ -28,11 +28,11 @@ class NewAdditionalCost(BaseModel):
     """
     NewAdditionalCost
     """ # noqa: E501
-    name: Annotated[str, Field(strict=True)] = Field(description="The internal name used in API requests.")
-    title: Annotated[str, Field(strict=True)] = Field(description="The human-readable name for the additional cost that will be shown in the Campaign Manager. Like `name`, the combination of entity and title must also be unique.")
-    description: StrictStr = Field(description="A description of this additional cost.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this additional cost.", alias="subscribedApplicationsIds")
-    type: Optional[StrictStr] = Field(default='session', description="The type of additional cost. Possible value: - `session`: Additional cost will be added per session. - `item`: Additional cost will be added per item. - `both`: Additional cost will be added per item and session. ")
+    name: Annotated[str, Field(strict=True)] = Field(description="The internal name used in API requests.", json_schema_extra={"examples": ["shippingFee"]})
+    title: Annotated[str, Field(strict=True)] = Field(description="The human-readable name for the additional cost that will be shown in the Campaign Manager. Like `name`, the combination of entity and title must also be unique.", json_schema_extra={"examples": ["Shipping fee"]})
+    description: StrictStr = Field(description="A description of this additional cost.", json_schema_extra={"examples": ["A shipping fee"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this additional cost.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[3, 13]]})
+    type: Optional[StrictStr] = Field(default='session', description="The type of additional cost. Possible value: - `session`: Additional cost will be added per session. - `item`: Additional cost will be added per item. - `both`: Additional cost will be added per item and session. ", json_schema_extra={"examples": ["session"]})
     __properties: ClassVar[List[str]] = ["name", "title", "description", "subscribedApplicationsIds", "type"]
 
     @field_validator('name')

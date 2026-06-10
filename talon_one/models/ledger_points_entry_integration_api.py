@@ -29,17 +29,17 @@ class LedgerPointsEntryIntegrationAPI(BaseModel):
     """
     Loyalty profile points with start and expiry dates.
     """ # noqa: E501
-    id: StrictInt = Field(description="ID of the transaction that adds loyalty points.")
-    transaction_uuid: StrictStr = Field(description="Unique identifier of the transaction in the UUID format.", alias="transactionUUID")
-    created: datetime = Field(description="Date and time the loyalty points were added.")
-    program_id: StrictInt = Field(description="ID of the loyalty program.", alias="programId")
-    customer_session_id: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="ID of the customer session where points were added.", alias="customerSessionId")
-    name: Annotated[str, Field(strict=True, max_length=255)] = Field(description="Name or reason of the transaction that adds loyalty points.")
-    start_date: Annotated[str, Field(strict=True, max_length=64)] = Field(description="When points become active. Possible values:   - `immediate`: Points are active immediately.   - `timestamp value`: Points become active at a given date and time. ", alias="startDate")
-    expiry_date: StrictStr = Field(description="Date when points expire. Possible values are:   - `unlimited`: Points have no expiration date.   - `timestamp value`: Points expire on the given date and time. ", alias="expiryDate")
-    subledger_id: Annotated[str, Field(strict=True, max_length=64)] = Field(description="ID of the subledger.", alias="subledgerId")
-    amount: Union[StrictFloat, StrictInt] = Field(description="Amount of loyalty points added in the transaction.")
-    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration")
+    id: StrictInt = Field(description="ID of the transaction that adds loyalty points.", json_schema_extra={"examples": [123]})
+    transaction_uuid: StrictStr = Field(description="Unique identifier of the transaction in the UUID format.", alias="transactionUUID", json_schema_extra={"examples": ["ce59f12a-f53b-4014-a745-636d93f2bd3f"]})
+    created: datetime = Field(description="Date and time the loyalty points were added.", json_schema_extra={"examples": ["2022-01-02T15:04:05Z07:00"]})
+    program_id: StrictInt = Field(description="ID of the loyalty program.", alias="programId", json_schema_extra={"examples": [324]})
+    customer_session_id: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="ID of the customer session where points were added.", alias="customerSessionId", json_schema_extra={"examples": ["05c2da0d-48fa-4aa1-b629-898f58f1584d"]})
+    name: Annotated[str, Field(strict=True, max_length=255)] = Field(description="Name or reason of the transaction that adds loyalty points.", json_schema_extra={"examples": ["Reward 10% points of a purchase's current total"]})
+    start_date: Annotated[str, Field(strict=True, max_length=64)] = Field(description="When points become active. Possible values:   - `immediate`: Points are active immediately.   - `timestamp value`: Points become active at a given date and time. ", alias="startDate", json_schema_extra={"examples": ["2022-01-02T15:04:05Z07:00"]})
+    expiry_date: StrictStr = Field(description="Date when points expire. Possible values are:   - `unlimited`: Points have no expiration date.   - `timestamp value`: Points expire on the given date and time. ", alias="expiryDate", json_schema_extra={"examples": ["2022-08-02T15:04:05Z07:00"]})
+    subledger_id: Annotated[str, Field(strict=True, max_length=64)] = Field(description="ID of the subledger.", alias="subledgerId", json_schema_extra={"examples": ["sub-123"]})
+    amount: Union[StrictFloat, StrictInt] = Field(description="Amount of loyalty points added in the transaction.", json_schema_extra={"examples": [10.25]})
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
     __properties: ClassVar[List[str]] = ["id", "transactionUUID", "created", "programId", "customerSessionId", "name", "startDate", "expiryDate", "subledgerId", "amount", "validityDuration"]
 
     model_config = ConfigDict(

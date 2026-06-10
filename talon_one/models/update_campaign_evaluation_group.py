@@ -28,12 +28,12 @@ class UpdateCampaignEvaluationGroup(BaseModel):
     """
     UpdateCampaignEvaluationGroup
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the campaign evaluation group.")
-    parent_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the parent group that contains the campaign evaluation group.", alias="parentId")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the campaign evaluation group.")
+    name: StrictStr = Field(description="The name of the campaign evaluation group.", json_schema_extra={"examples": ["Summer campaigns"]})
+    parent_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the parent group that contains the campaign evaluation group.", alias="parentId", json_schema_extra={"examples": [2]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the campaign evaluation group.", json_schema_extra={"examples": ["This campaign evaluation group contains all campaigns that are running in the summer."]})
     evaluation_mode: StrictStr = Field(description="The mode by which campaigns in the campaign evaluation group are evaluated.", alias="evaluationMode")
     evaluation_scope: StrictStr = Field(description="The evaluation scope of the campaign evaluation group.", alias="evaluationScope")
-    locked: StrictBool = Field(description="An indicator of whether the campaign evaluation group is locked for modification.")
+    locked: StrictBool = Field(description="An indicator of whether the campaign evaluation group is locked for modification.", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["name", "parentId", "description", "evaluationMode", "evaluationScope", "locked"]
 
     @field_validator('evaluation_mode')

@@ -29,13 +29,13 @@ class WebhookAuthentication(BaseModel):
     """
     WebhookAuthentication
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    modified: datetime = Field(description="The time this entity was last modified.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     created_by: StrictStr = Field(description="The name of the user who created the webhook authentication.", alias="createdBy")
     modified_by: StrictStr = Field(description="The name of the user who last modified the webhook authentication.", alias="modifiedBy")
     webhooks: List[WebhookAuthenticationWebhookRef]
-    name: StrictStr = Field(description="The name of the webhook authentication.")
+    name: StrictStr = Field(description="The name of the webhook authentication.", json_schema_extra={"examples": ["My basic auth"]})
     type: StrictStr
     data: Optional[Any]
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "createdBy", "modifiedBy", "webhooks", "name", "type", "data"]

@@ -27,9 +27,9 @@ class OutgoingIntegrationCleverTapPolicy(BaseModel):
     """
     OutgoingIntegrationCleverTapPolicy
     """ # noqa: E501
-    base_url: StrictStr = Field(description="The base URL that is based on the region key of your CleverTap account.", alias="baseUrl")
-    account_id: StrictStr = Field(description="The CleverTap Project ID.", alias="accountId")
-    passcode: StrictStr = Field(description="The CleverTap Project passcode.")
+    base_url: StrictStr = Field(description="The base URL that is based on the region key of your CleverTap account.", alias="baseUrl", json_schema_extra={"examples": ["your-clevertap-url.com"]})
+    account_id: StrictStr = Field(description="The CleverTap Project ID.", alias="accountId", json_schema_extra={"examples": ["A9X-7A6-4A6B"]})
+    passcode: StrictStr = Field(description="The CleverTap Project passcode.", json_schema_extra={"examples": ["ABB-BAF-AWZP"]})
     __properties: ClassVar[List[str]] = ["baseUrl", "accountId", "passcode"]
 
     model_config = ConfigDict(

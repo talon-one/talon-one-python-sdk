@@ -28,12 +28,12 @@ class CreateCouponData(BaseModel):
     """
     CreateCouponData
     """ # noqa: E501
-    data: Optional[List[ExtendedCoupon]] = Field(default=None, description="The array of coupons codes. If 1000 or fewer coupons are requested, all coupon data is sent. If 1001 or more coupons are requested, only `BatchID` is sent.")
-    total_result_size: Optional[StrictInt] = Field(default=None, alias="totalResultSize")
-    batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch to which the coupon belongs.  **Note:** The Batch ID is generated when coupons are created. ", alias="BatchID")
-    type_of_change: StrictStr = Field(alias="TypeOfChange")
-    operation: StrictStr = Field(alias="Operation")
-    employee_name: StrictStr = Field(alias="EmployeeName")
+    data: Optional[List[ExtendedCoupon]] = Field(default=None, description="The array of coupons codes. If 1000 or fewer coupons are requested, all coupon data is sent. If 1001 or more coupons are requested, only `BatchID` is sent.", json_schema_extra={"examples": [[{"id": 1, "created": "2023-01-31T15:19:25.18417+01:00", "campaignId": 1, "value": "73KXKKFP", "usageLimit": 1, "reservationLimit": 0, "usageCounter": 0, "attributes": {}, "reservation": True, "batchId": "nqylhnni"}, {"id": 2, "created": "2023-01-31T15:19:25.18417+01:00", "campaignId": 1, "value": "BH3CXXLW", "usageLimit": 1, "reservationLimit": 0, "usageCounter": 0, "attributes": {}, "reservation": True, "batchId": "nqylhnni"}]]})
+    total_result_size: Optional[StrictInt] = Field(default=None, alias="totalResultSize", json_schema_extra={"examples": [1]})
+    batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch to which the coupon belongs.  **Note:** The Batch ID is generated when coupons are created. ", alias="BatchID", json_schema_extra={"examples": ["haanlypn"]})
+    type_of_change: StrictStr = Field(alias="TypeOfChange", json_schema_extra={"examples": ["campaign_manager"]})
+    operation: StrictStr = Field(alias="Operation", json_schema_extra={"examples": ["AsyncCouponsCreated"]})
+    employee_name: StrictStr = Field(alias="EmployeeName", json_schema_extra={"examples": ["Franziska Schneider"]})
     notification_type: StrictStr = Field(description="The type of the not", alias="NotificationType")
     __properties: ClassVar[List[str]] = ["data", "totalResultSize", "BatchID", "TypeOfChange", "Operation", "EmployeeName", "NotificationType"]
 

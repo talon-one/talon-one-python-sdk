@@ -28,9 +28,9 @@ class WebhookAuthenticationWebhookRef(BaseModel):
     """
     WebhookAuthenticationWebhookRef
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    title: Annotated[str, Field(strict=True)] = Field(description="The title of the webhook authentication.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the webhook authentication.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    title: Annotated[str, Field(strict=True)] = Field(description="The title of the webhook authentication.", json_schema_extra={"examples": ["Send message"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the webhook authentication.", json_schema_extra={"examples": ["A webhook to send a coupon to the user."]})
     __properties: ClassVar[List[str]] = ["id", "title", "description"]
 
     @field_validator('title')

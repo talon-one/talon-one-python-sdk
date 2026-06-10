@@ -37,23 +37,25 @@ class TestIntegrationHubEventRecord(unittest.TestCase):
             return IntegrationHubEventRecord(
                 id = 56,
                 flow_id = 56,
-                event_type = '',
-                event_data = None,
+                integration_name = '',
+                instance_name = '',
+                event_type = 'CouponCreated',
                 published_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 processed_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 delivered_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                process_after = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                retry = 56
+                scheduled_to = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                retry = 56,
+                payload = ''
             )
         else:
             return IntegrationHubEventRecord(
                 id = 56,
                 flow_id = 56,
-                event_type = '',
-                event_data = None,
+                event_type = 'CouponCreated',
                 published_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                process_after = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                scheduled_to = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 retry = 56,
+                payload = '',
         )
         """
 

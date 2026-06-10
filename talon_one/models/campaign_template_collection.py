@@ -28,8 +28,8 @@ class CampaignTemplateCollection(BaseModel):
     """
     CampaignTemplateCollection
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this collection.")
-    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this collection.", json_schema_extra={"examples": ["My collection"]})
+    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.", json_schema_extra={"examples": ["My collection of SKUs"]})
     __properties: ClassVar[List[str]] = ["name", "description"]
 
     @field_validator('name')

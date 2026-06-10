@@ -45,7 +45,7 @@ class IntegrationHubEventPayloadCouponBasedNotifications(BaseModel):
     recipient_integration_id: Optional[StrictStr] = Field(default=None, alias="RecipientIntegrationId")
     import_id: Optional[StrictInt] = Field(default=None, alias="ImportId")
     batch_id: Optional[StrictStr] = Field(default=None, alias="BatchId")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, alias="Attributes")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.", alias="Attributes")
     limits: Optional[List[IntegrationHubEventPayloadCouponBasedNotificationsLimits]] = Field(default=None, alias="Limits")
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
     source_of_event: StrictStr = Field(alias="SourceOfEvent")

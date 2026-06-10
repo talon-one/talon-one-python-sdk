@@ -28,9 +28,9 @@ class CampaignNotificationPolicy(BaseModel):
     """
     CampaignNotificationPolicy
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.")
-    batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled")
-    batch_size: Optional[StrictInt] = Field(default=5, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Notification name.", json_schema_extra={"examples": ["Christmas Sale"]})
+    batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled", json_schema_extra={"examples": [False]})
+    batch_size: Optional[StrictInt] = Field(default=5, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize", json_schema_extra={"examples": [5]})
     __properties: ClassVar[List[str]] = ["name", "batchingEnabled", "batchSize"]
 
     model_config = ConfigDict(

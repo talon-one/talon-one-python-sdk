@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.update_customer_profile_v2409_response import UpdateCustomerProfileV2409Response
+from talon_one.models.update_risk_notification import UpdateRiskNotification
 
-class TestUpdateCustomerProfileV2409Response(unittest.TestCase):
-    """UpdateCustomerProfileV2409Response unit test stubs"""
+class TestUpdateRiskNotification(unittest.TestCase):
+    """UpdateRiskNotification unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,29 +25,32 @@ class TestUpdateCustomerProfileV2409Response(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> UpdateCustomerProfileV2409Response:
-        """Test UpdateCustomerProfileV2409Response
+    def make_instance(self, include_optional) -> UpdateRiskNotification:
+        """Test UpdateRiskNotification
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `UpdateCustomerProfileV2409Response`
+        # uncomment below to create an instance of `UpdateRiskNotification`
         """
-        model = UpdateCustomerProfileV2409Response()
+        model = UpdateRiskNotification()
         if include_optional:
-            return UpdateCustomerProfileV2409Response(
-                message = 'Too many requests are updating this profile at the same time',
-                errors = [
-                    null
-                    ],
-                status_code = 409
+            return UpdateRiskNotification(
+                entity = 'customer_profile',
+                activity = 'loyalty_points_earned',
+                time_frame = '1_week',
+                active = True
             )
         else:
-            return UpdateCustomerProfileV2409Response(
+            return UpdateRiskNotification(
+                entity = 'customer_profile',
+                activity = 'loyalty_points_earned',
+                time_frame = '1_week',
+                active = True,
         )
         """
 
-    def testUpdateCustomerProfileV2409Response(self):
-        """Test UpdateCustomerProfileV2409Response"""
+    def testUpdateRiskNotification(self):
+        """Test UpdateRiskNotification"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

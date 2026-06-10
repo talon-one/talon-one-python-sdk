@@ -27,9 +27,9 @@ class ProjectedTier(BaseModel):
     """
     ProjectedTier
     """ # noqa: E501
-    projected_active_points: Union[StrictFloat, StrictInt] = Field(description="The active points of the customer when their current tier expires.", alias="projectedActivePoints")
-    stay_in_tier_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of points the customer needs to stay in the current tier.  **Note**: This is included in the response when the customer is projected to be downgraded. ", alias="stayInTierPoints")
-    projected_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the tier the user will enter once their current tier expires.", alias="projectedTierName")
+    projected_active_points: Union[StrictFloat, StrictInt] = Field(description="The active points of the customer when their current tier expires.", alias="projectedActivePoints", json_schema_extra={"examples": [198]})
+    stay_in_tier_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of points the customer needs to stay in the current tier.  **Note**: This is included in the response when the customer is projected to be downgraded. ", alias="stayInTierPoints", json_schema_extra={"examples": [2]})
+    projected_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the tier the user will enter once their current tier expires.", alias="projectedTierName", json_schema_extra={"examples": ["Tier 1"]})
     __properties: ClassVar[List[str]] = ["projectedActivePoints", "stayInTierPoints", "projectedTierName"]
 
     model_config = ConfigDict(

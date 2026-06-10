@@ -28,7 +28,7 @@ class IntegrationStoreEntity(BaseModel):
     """
     IntegrationStoreEntity
     """ # noqa: E501
-    store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId")
+    store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId", json_schema_extra={"examples": ["STORE-001"]})
     __properties: ClassVar[List[str]] = ["storeIntegrationId"]
 
     model_config = ConfigDict(

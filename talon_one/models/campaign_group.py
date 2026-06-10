@@ -29,14 +29,14 @@ class CampaignGroup(BaseModel):
     """
     CampaignGroup
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    modified: datetime = Field(description="The time this entity was last modified.")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign access group.")
-    description: Optional[StrictStr] = Field(default=None, description="A longer description of the campaign access group.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the Applications that this campaign access group is enabled for.", alias="subscribedApplicationsIds")
-    campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the campaigns that are part of the campaign access group.", alias="campaignIds")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the campaign access group.", json_schema_extra={"examples": ["Europe access group"]})
+    description: Optional[StrictStr] = Field(default=None, description="A longer description of the campaign access group.", json_schema_extra={"examples": ["A group that gives access to all the campaigns for the Europe market."]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the Applications that this campaign access group is enabled for.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of IDs of the campaigns that are part of the campaign access group.", alias="campaignIds", json_schema_extra={"examples": [[4, 6, 8]]})
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "name", "description", "subscribedApplicationsIds", "campaignIds"]
 
     model_config = ConfigDict(

@@ -28,7 +28,7 @@ class PatchManyItemsCatalogAction(BaseModel):
     """
     The specific properties of the \"PATCH_MANY\" catalog sync action.
     """ # noqa: E501
-    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price of the item.")
+    price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price of the item.", json_schema_extra={"examples": [99.99]})
     filters: Optional[List[CatalogActionFilter]] = Field(default=None, description="The list of filters used to select the items to patch, joined by `AND`.  **Note:** Every item in the catalog will be modified if there are no filters. ")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the items to patch.")
     __properties: ClassVar[List[str]] = ["price", "filters", "attributes"]

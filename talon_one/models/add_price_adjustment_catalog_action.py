@@ -28,7 +28,7 @@ class AddPriceAdjustmentCatalogAction(BaseModel):
     """
     The specific properties of the \"ADD_PRICE_ADJUSTMENT\" catalog sync action.        **Note:** You can only use this object if the `Beta` **price types** feature is enabled for your Application. To enable it, contact your Technical Account Manager. 
     """ # noqa: E501
-    sku: StrictStr = Field(description="The SKU of the item for which the price is being adjusted.")
+    sku: StrictStr = Field(description="The SKU of the item for which the price is being adjusted.", json_schema_extra={"examples": ["SKU1241028"]})
     adjustments: List[NewPriceAdjustment] = Field(description="A list of adjustments to apply to a given item.")
     __properties: ClassVar[List[str]] = ["sku", "adjustments"]
 

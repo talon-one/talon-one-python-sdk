@@ -29,15 +29,15 @@ class ExpiringCouponsData(BaseModel):
     """
     ExpiringCouponsData
     """ # noqa: E501
-    coupon_value: StrictStr = Field(description="The coupon code.", alias="CouponValue")
-    created_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon was created.", alias="CreatedDate")
-    valid_from: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="ValidFrom")
-    valid_until: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon expires. Coupon never expires if this is omitted, zero, or negative.", alias="ValidUntil")
-    campaign_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the campaign to which the coupon belongs.", alias="CampaignId")
-    customer_profile_id: Optional[StrictStr] = Field(default=None, description="The Integration ID of the customer that is allowed to redeem this coupon.", alias="CustomerProfileId")
-    usage_limit: Annotated[int, Field(le=999999, strict=True, ge=0)] = Field(description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits will still apply. ", alias="UsageLimit")
-    usage_counter: StrictInt = Field(description="The number of times the coupon has been successfully redeemed.", alias="UsageCounter")
-    batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch the coupon belongs to.", alias="BatchId")
+    coupon_value: StrictStr = Field(description="The coupon code.", alias="CouponValue", json_schema_extra={"examples": ["XMAS-20-2021"]})
+    created_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon was created.", alias="CreatedDate", json_schema_extra={"examples": ["2024-07-24T14:15:22Z"]})
+    valid_from: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="ValidFrom", json_schema_extra={"examples": ["2024-10-24T14:15:22Z"]})
+    valid_until: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon expires. Coupon never expires if this is omitted, zero, or negative.", alias="ValidUntil", json_schema_extra={"examples": ["2024-12-24T14:15:22Z"]})
+    campaign_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the campaign to which the coupon belongs.", alias="CampaignId", json_schema_extra={"examples": [3]})
+    customer_profile_id: Optional[StrictStr] = Field(default=None, description="The Integration ID of the customer that is allowed to redeem this coupon.", alias="CustomerProfileId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    usage_limit: Annotated[int, Field(le=999999, strict=True, ge=0)] = Field(description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits will still apply. ", alias="UsageLimit", json_schema_extra={"examples": [100]})
+    usage_counter: StrictInt = Field(description="The number of times the coupon has been successfully redeemed.", alias="UsageCounter", json_schema_extra={"examples": [10]})
+    batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch the coupon belongs to.", alias="BatchId", json_schema_extra={"examples": ["32535-43255"]})
     attributes: Dict[str, Any] = Field(description="Custom attributes associated with this coupon.", alias="Attributes")
     __properties: ClassVar[List[str]] = ["CouponValue", "CreatedDate", "ValidFrom", "ValidUntil", "CampaignId", "CustomerProfileId", "UsageLimit", "UsageCounter", "BatchId", "Attributes"]
 

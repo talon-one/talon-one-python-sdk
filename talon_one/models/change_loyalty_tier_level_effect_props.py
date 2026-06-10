@@ -26,11 +26,11 @@ from pydantic_core import to_jsonable_python
 
 class ChangeLoyaltyTierLevelEffectProps(BaseModel):
     """
-    The properties specific to the \"changeLoyaltyTierLevel\" effect. This is triggered whenever the user's loyalty tier is upgraded due to a validated rule that contained an \"addLoyaltyPoints\" effect. 
+    This effect indicates that a customer's loyalty tier has been upgraded.  This effect is generated only when the [Add loyalty points](https://docs.talon.one/docs/product/rules/effects/use-effects#add-loyalty-points) and the [Add loyalty points per cart item](https://docs.talon.one/docs/product/rules/effects/use-effects#add-loyalty-points-per-cart-item) effects are triggered for a particular customer, and, as a result, the customer's loyalty tier is upgraded.
     """ # noqa: E501
     rule_title: StrictStr = Field(description="The title of the rule that triggered the tier upgrade.", alias="ruleTitle")
-    program_id: StrictInt = Field(description="The ID of the loyalty program where these points were added.", alias="programId")
-    sub_ledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="subLedgerId")
+    program_id: StrictInt = Field(description="The ID of the loyalty program where the points were added.", alias="programId")
+    sub_ledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where the points were added.", alias="subLedgerId")
     previous_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the tier from which the user was upgraded.", alias="previousTierName")
     new_tier_name: StrictStr = Field(description="The name of the tier to which the user has been upgraded.", alias="newTierName")
     expiry_date: Optional[datetime] = Field(default=None, description="The expiration date of the new tier.", alias="expiryDate")

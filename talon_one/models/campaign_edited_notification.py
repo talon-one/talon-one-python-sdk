@@ -28,7 +28,7 @@ class CampaignEditedNotification(BaseModel):
     """
     CampaignEditedNotification
     """ # noqa: E501
-    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType")
+    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType", json_schema_extra={"examples": ["CampaignNotification"]})
     total_result_size: StrictInt = Field(description="The total size of the result set.", alias="TotalResultSize")
     data: Optional[List[CampaignEditedNotificationItem]] = Field(default=None, description="A list of campaign notification data.", alias="Data")
     __properties: ClassVar[List[str]] = ["NotificationType", "TotalResultSize", "Data"]

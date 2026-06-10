@@ -28,9 +28,9 @@ class UpdateApplicationCIF(BaseModel):
     """
     UpdateApplicationCIF
     """ # noqa: E501
-    description: Optional[StrictStr] = Field(default=None, description="A short description of the Application cart item filter.")
-    active_expression_id: Optional[StrictInt] = Field(default=None, description="The ID of the expression that the Application cart item filter uses.", alias="activeExpressionId")
-    modified_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who last updated the Application cart item filter.", alias="modifiedBy")
+    description: Optional[StrictStr] = Field(default=None, description="A short description of the Application cart item filter.", json_schema_extra={"examples": ["This filter allows filtering by shoes"]})
+    active_expression_id: Optional[StrictInt] = Field(default=None, description="The ID of the expression that the Application cart item filter uses.", alias="activeExpressionId", json_schema_extra={"examples": [1]})
+    modified_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who last updated the Application cart item filter.", alias="modifiedBy", json_schema_extra={"examples": [334]})
     modified: Optional[datetime] = Field(default=None, description="Timestamp of the most recent update to the Application cart item filter.")
     __properties: ClassVar[List[str]] = ["description", "activeExpressionId", "modifiedBy", "modified"]
 

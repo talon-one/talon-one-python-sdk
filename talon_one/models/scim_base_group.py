@@ -28,7 +28,7 @@ class ScimBaseGroup(BaseModel):
     """
     Define the schema for base fields in a group using the SCIM provisioning protocol. Talon.One uses this schema to create roles.
     """ # noqa: E501
-    display_name: Optional[StrictStr] = Field(default=None, description="Display name of the group (Talon.One role).", alias="displayName")
+    display_name: Optional[StrictStr] = Field(default=None, description="Display name of the group (Talon.One role).", alias="displayName", json_schema_extra={"examples": ["Manager"]})
     members: Optional[List[ScimGroupMember]] = Field(default=None, description="List of members to assign to the new Talon.One role.")
     __properties: ClassVar[List[str]] = ["displayName", "members"]
 

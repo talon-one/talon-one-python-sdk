@@ -27,10 +27,10 @@ class NotificationListItem(BaseModel):
     """
     NotificationListItem
     """ # noqa: E501
-    notification_id: StrictInt = Field(description="The ID of the notification.", alias="notificationId")
-    notification_name: StrictStr = Field(description="The name of the notification.", alias="notificationName")
-    entity_id: StrictInt = Field(description="The ID of the entity to which this notification belongs. For example, in case of a loyalty notification, this value is the ID of the loyalty program. ", alias="entityId")
-    enabled: StrictBool = Field(description="Indicates whether the notification is activated.")
+    notification_id: StrictInt = Field(description="The ID of the notification.", alias="notificationId", json_schema_extra={"examples": [1]})
+    notification_name: StrictStr = Field(description="The name of the notification.", alias="notificationName", json_schema_extra={"examples": ["My campaign notification"]})
+    entity_id: StrictInt = Field(description="The ID of the entity to which this notification belongs. For example, in case of a loyalty notification, this value is the ID of the loyalty program. ", alias="entityId", json_schema_extra={"examples": [1]})
+    enabled: StrictBool = Field(description="Indicates whether the notification is activated.", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["notificationId", "notificationName", "entityId", "enabled"]
 
     model_config = ConfigDict(

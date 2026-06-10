@@ -28,7 +28,7 @@ class TierWillDowngradeNotification(BaseModel):
     """
     TierWillDowngradeNotification
     """ # noqa: E501
-    total_result_size: StrictInt = Field(alias="TotalResultSize")
+    total_result_size: StrictInt = Field(alias="TotalResultSize", json_schema_extra={"examples": [1]})
     data: List[TierWillDowngradeData] = Field(description="The array of upcoming tier downgrade notifications.", alias="Data")
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
     __properties: ClassVar[List[str]] = ["TotalResultSize", "Data", "NotificationType"]

@@ -27,11 +27,11 @@ class AchievementAdditionalProperties(BaseModel):
     """
     AchievementAdditionalProperties
     """ # noqa: E501
-    campaign_id: StrictInt = Field(description="The ID of the campaign the achievement belongs to.", alias="campaignId")
-    user_id: StrictInt = Field(description="ID of the user that created this achievement.", alias="userId")
-    created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy")
+    campaign_id: StrictInt = Field(description="The ID of the campaign the achievement belongs to.", alias="campaignId", json_schema_extra={"examples": [1]})
+    user_id: StrictInt = Field(description="ID of the user that created this achievement.", alias="userId", json_schema_extra={"examples": [1234]})
+    created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy", json_schema_extra={"examples": ["John Doe"]})
     has_progress: Optional[StrictBool] = Field(default=None, description="Indicates if a customer has made progress in the achievement.", alias="hasProgress")
-    status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.")
+    status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.", json_schema_extra={"examples": ["inprogress"]})
     __properties: ClassVar[List[str]] = ["campaignId", "userId", "createdBy", "hasProgress", "status"]
 
     @field_validator('status')

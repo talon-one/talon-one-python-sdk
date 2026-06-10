@@ -27,8 +27,8 @@ class UpdateSupportRequest(BaseModel):
     """
     UpdateSupportRequest
     """ # noqa: E501
-    request_status: StrictStr = Field(description="Current status of the support request.", alias="requestStatus")
-    processing_note: Optional[StrictStr] = Field(default=None, description="Notes attached by the admin when rejecting or approving a request.", alias="processingNote")
+    request_status: StrictStr = Field(description="Current status of the support request.", alias="requestStatus", json_schema_extra={"examples": ["approved"]})
+    processing_note: Optional[StrictStr] = Field(default=None, description="Notes attached by the admin when rejecting or approving a request.", alias="processingNote", json_schema_extra={"examples": ["Rejected as the customer was awarded points already."]})
     __properties: ClassVar[List[str]] = ["requestStatus", "processingNote"]
 
     @field_validator('request_status')

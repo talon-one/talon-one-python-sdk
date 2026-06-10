@@ -27,7 +27,7 @@ class IntegrationHubEventStatusUpdate(BaseModel):
     """
     IntegrationHubEventStatusUpdate
     """ # noqa: E501
-    event_id: StrictInt = Field(description="The ID of the integration hub event.", alias="EventId")
+    event_id: StrictInt = Field(description="The ID of the integration hub event.", alias="EventId", json_schema_extra={"examples": [123]})
     status: StrictStr = Field(description="The delivery outcome for the event.", alias="Status")
     __properties: ClassVar[List[str]] = ["EventId", "Status"]
 

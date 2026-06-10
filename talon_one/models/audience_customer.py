@@ -31,19 +31,19 @@ class AudienceCustomer(BaseModel):
     """
     AudienceCustomer
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of the customer profile.")
-    created: datetime = Field(description="The time this entity was created.")
-    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID set by your integration layer.", alias="integrationId")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
-    account_id: StrictInt = Field(description="The ID of the Talon.One account that owns this profile.", alias="accountId")
-    closed_sessions: StrictInt = Field(description="The total number of closed sessions. Does not include closed sessions that have been cancelled or reopened. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states).", alias="closedSessions")
-    total_sales: Union[StrictFloat, StrictInt] = Field(description="The total amount of money spent by the customer **before** discounts are applied.  The total sales amount excludes the following: - Cancelled or reopened sessions. - Returned items. ", alias="totalSales")
+    id: StrictInt = Field(description="The internal ID of the customer profile.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-02-07T08:15:22Z"]})
+    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID set by your integration layer.", alias="integrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": [{"Language": "english", "ShippingCountry": "DE"}]})
+    account_id: StrictInt = Field(description="The ID of the Talon.One account that owns this profile.", alias="accountId", json_schema_extra={"examples": [31]})
+    closed_sessions: StrictInt = Field(description="The total number of closed sessions. Does not include closed sessions that have been cancelled or reopened. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states).", alias="closedSessions", json_schema_extra={"examples": [3]})
+    total_sales: Union[StrictFloat, StrictInt] = Field(description="The total amount of money spent by the customer **before** discounts are applied.  The total sales amount excludes the following: - Cancelled or reopened sessions. - Returned items. ", alias="totalSales", json_schema_extra={"examples": [299.99]})
     loyalty_memberships: Optional[List[LoyaltyMembership]] = Field(default=None, description="**DEPRECATED. Always returns `null`.** A list of loyalty programs joined by the customer. ", alias="loyaltyMemberships")
     audience_memberships: Optional[List[AudienceMembership]] = Field(default=None, description="The audiences the customer belongs to.", alias="audienceMemberships")
-    last_activity: datetime = Field(description="Timestamp of the most recent event received from this customer. This field is updated on calls that trigger the Rule Engine and that are not [dry requests](https://docs.talon.one/docs/dev/integration-api/dry-requests/#overlay).  For example, [reserving a coupon](https://docs.talon.one/integration-api#tag/Coupons/operation/createCouponReservation) for a customer doesn't impact this field. ", alias="lastActivity")
-    sandbox: Optional[StrictBool] = Field(default=None, description="An indicator of whether the customer is part of a sandbox or live Application. See the [docs](https://docs.talon.one/docs/product/applications/overview#application-environments). ")
-    connected_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this customer profile.", alias="connectedApplicationsIds")
-    connected_audiences: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the audiences that are connected to this customer profile.", alias="connectedAudiences")
+    last_activity: datetime = Field(description="Timestamp of the most recent event received from this customer. This field is updated on calls that trigger the Rule Engine and that are not [dry requests](https://docs.talon.one/docs/dev/integration-api/dry-requests/#overlay).  For example, [reserving a coupon](https://docs.talon.one/integration-api#tag/Coupons/operation/createCouponReservation) for a customer doesn't impact this field. ", alias="lastActivity", json_schema_extra={"examples": ["2020-02-08T14:15:20Z"]})
+    sandbox: Optional[StrictBool] = Field(default=None, description="An indicator of whether the customer is part of a sandbox or live Application. See the [docs](https://docs.talon.one/docs/product/applications/overview#application-environments). ", json_schema_extra={"examples": [False]})
+    connected_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this customer profile.", alias="connectedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    connected_audiences: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the audiences that are connected to this customer profile.", alias="connectedAudiences", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "attributes", "accountId", "closedSessions", "totalSales", "loyaltyMemberships", "audienceMemberships", "lastActivity", "sandbox", "connectedApplicationsIds", "connectedAudiences"]
 
     model_config = ConfigDict(

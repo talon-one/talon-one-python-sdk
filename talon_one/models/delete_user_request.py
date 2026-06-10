@@ -27,7 +27,7 @@ class DeleteUserRequest(BaseModel):
     """
     DeleteUserRequest
     """ # noqa: E501
-    email: StrictStr = Field(description="The email address associated with the user profile.")
+    email: StrictStr = Field(description="The email address associated with the user profile.", json_schema_extra={"examples": ["john.doe@example.com"]})
     __properties: ClassVar[List[str]] = ["email"]
 
     model_config = ConfigDict(

@@ -25,20 +25,20 @@ from pydantic_core import to_jsonable_python
 
 class SetDiscountPerItemEffectProps(BaseModel):
     """
-    The properties specific to the `setDiscountPerItem` effect, triggered whenever a validated rule contained a \"set per item discount\" effect. This is a discount that will be applied either on a specific item, on a specific item + additional cost or on all additional costs per item. This depends on the chosen scope. 
+    This effect schema is returned when you use the **Discount individual items**, **Discount individual items pro rata**, or **Discount individual item in bundles** effect in a rule.  It indicates that a discount per item should be applied on the specific item specified in the effect.  The properties it contains depends on:  - Whether you used a pro rata effect or not. - Whether you used an effect with bundles or not. - Whether the partial discount feature is enabled.
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the discount. Contains a hashtag character indicating the index of the position of the item the discount applies to. It is identical to the value of the `position` property. ")
-    value: Union[StrictFloat, StrictInt] = Field(description="The total monetary value of the discount.")
-    position: Union[StrictFloat, StrictInt] = Field(description="The index of the item in the cart items list on which this discount should be applied.")
-    sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="For cart items with `quantity` > 1, the sub position indicates which item the discount applies to. ", alias="subPosition")
-    desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The original value of the discount.", alias="desiredValue")
-    scope: Optional[StrictStr] = Field(default=None, description="The scope of the discount: - `additionalCosts`: The discount applies to all the additional costs of the item. - `itemTotal`: The discount applies to the price of the item + the additional costs of the item. - `price`: The discount applies to the price of the item. ")
-    total_discount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total discount given if this effect is a result of a prorated discount.", alias="totalDiscount")
-    desired_total_discount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The original total discount to give if this effect is a result of a prorated discount.", alias="desiredTotalDiscount")
-    bundle_index: Optional[StrictInt] = Field(default=None, description="The position of the bundle in a list of item bundles created from the same bundle definition.", alias="bundleIndex")
-    bundle_name: Optional[StrictStr] = Field(default=None, description="The name of the bundle definition.", alias="bundleName")
-    targeted_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the targeted bundle item on which the applied discount is based.", alias="targetedItemPosition")
-    targeted_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The sub-position of the targeted bundle item on which the applied discount is based. ", alias="targetedItemSubPosition")
+    name: StrictStr = Field(description="The description of this discount. `#number` is equal to the `position` property.")
+    value: Union[StrictFloat, StrictInt] = Field(description="The monetary value of the effective discount applied to the item.")
+    position: Union[StrictFloat, StrictInt] = Field(description="The index of the item in the `cartItem` object on which this discount should be applied.")
+    sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item unit in its line item.", alias="subPosition")
+    desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Partial discounts enabled only)_ The monetary value of the discount to be applied to the item without considering budget limitations.", alias="desiredValue")
+    scope: Optional[StrictStr] = Field(default=None, description="What the discount applies to. Possible values:  - `price`: discount on the price of the item. - `additionalCosts`: discount on the [additional cost](https://docs.talon.one/docs/product/account/dev-tools/manage-additional-costs) of the item. - `itemTotal`: discount on the sum of price + additional cost of the item.")
+    total_discount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Pro rata discounts only)_ The monetary value of the total effective discount", alias="totalDiscount")
+    desired_total_discount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Pro rata discounts only)_ The monetary value of the total discount to be applied without considering budget limitations", alias="desiredTotalDiscount")
+    bundle_index: Optional[StrictInt] = Field(default=None, description="_(Discounts with bundles only)_ The position of the specific item bundle in the list of bundles created from the same bundle definition.", alias="bundleIndex")
+    bundle_name: Optional[StrictStr] = Field(default=None, description="_(Discounts with bundles only)_ The name of the bundle definition.", alias="bundleName")
+    targeted_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Discounting individual item in bundles only)_ The index of the targeted bundle item on which the applied discount is based.", alias="targetedItemPosition")
+    targeted_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Discounting individual item in bundles only)_ The sub-position of the targeted bundle item on which the applied discount is based.", alias="targetedItemSubPosition")
     excluded_from_price_history: Optional[StrictBool] = Field(default=None, description="When set to `true`, the applied discount is excluded from the item's price history.", alias="excludedFromPriceHistory")
     __properties: ClassVar[List[str]] = ["name", "value", "position", "subPosition", "desiredValue", "scope", "totalDiscount", "desiredTotalDiscount", "bundleIndex", "bundleName", "targetedItemPosition", "targetedItemSubPosition", "excludedFromPriceHistory"]
 

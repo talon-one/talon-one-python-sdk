@@ -28,9 +28,9 @@ class ScimGroup(BaseModel):
     """
     Define the schema for groups created using the SCIM provisioning protocol. In Talon.One, a `Group` corresponds to a [role](https://docs.talon.one/docs/product/account/account-settings/managing-roles), and `members` are the [users](https://docs.talon.one/docs/product/account/account-settings/managing-users) assigned to that role.
     """ # noqa: E501
-    display_name: Optional[StrictStr] = Field(default=None, description="Display name of the group (Talon.One role).", alias="displayName")
+    display_name: Optional[StrictStr] = Field(default=None, description="Display name of the group (Talon.One role).", alias="displayName", json_schema_extra={"examples": ["Manager"]})
     members: Optional[List[ScimGroupMember]] = Field(default=None, description="List of members to assign to the new Talon.One role.")
-    id: StrictStr = Field(description="ID of the group.")
+    id: StrictStr = Field(description="ID of the group.", json_schema_extra={"examples": ["359"]})
     __properties: ClassVar[List[str]] = ["displayName", "members", "id"]
 
     model_config = ConfigDict(

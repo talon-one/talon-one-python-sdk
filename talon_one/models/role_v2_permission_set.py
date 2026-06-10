@@ -28,8 +28,8 @@ class RoleV2PermissionSet(BaseModel):
     """
     RoleV2PermissionSet
     """ # noqa: E501
-    name: StrictStr = Field(description="Name of the permission set.")
-    logical_operations: Annotated[List[StrictStr], Field(max_length=1000)] = Field(description="List of logical operations in the permission set. Each logical operation must be shown under the `x-permission` tag on an endpoint level. ", alias="logicalOperations")
+    name: StrictStr = Field(description="Name of the permission set.", json_schema_extra={"examples": ["Campaign manager permission set"]})
+    logical_operations: Annotated[List[StrictStr], Field(max_length=1000)] = Field(description="List of logical operations in the permission set. Each logical operation must be shown under the `x-permission` tag on an endpoint level. ", alias="logicalOperations", json_schema_extra={"examples": [["createCampaignOperations", "getCampaignOperations", "deleteCampaignOperations"]]})
     __properties: ClassVar[List[str]] = ["name", "logicalOperations"]
 
     model_config = ConfigDict(

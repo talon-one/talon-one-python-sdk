@@ -27,10 +27,10 @@ class HiddenConditionsEffects(BaseModel):
     """
     Contains information about hidden conditions and effects in the Application.
     """ # noqa: E501
-    built_in_effects: Optional[List[StrictStr]] = Field(default=None, description="List of hidden built-in effects.", alias="builtInEffects")
-    conditions: Optional[List[StrictStr]] = Field(default=None, description="List of hidden conditions.")
-    custom_effects: Optional[List[StrictInt]] = Field(default=None, description="List of the IDs of hidden custom effects.", alias="customEffects")
-    webhooks: Optional[List[StrictInt]] = Field(default=None, description="List of the IDs of hidden webhooks.")
+    built_in_effects: Optional[List[StrictStr]] = Field(default=None, description="List of hidden built-in effects.", alias="builtInEffects", json_schema_extra={"examples": [["addFreeItem", "createNotification"]]})
+    conditions: Optional[List[StrictStr]] = Field(default=None, description="List of hidden conditions.", json_schema_extra={"examples": [["checkAttributeValue", "couponCodeIsValid"]]})
+    custom_effects: Optional[List[StrictInt]] = Field(default=None, description="List of the IDs of hidden custom effects.", alias="customEffects", json_schema_extra={"examples": [[1, 2]]})
+    webhooks: Optional[List[StrictInt]] = Field(default=None, description="List of the IDs of hidden webhooks.", json_schema_extra={"examples": [[3, 4]]})
     __properties: ClassVar[List[str]] = ["builtInEffects", "conditions", "customEffects", "webhooks"]
 
     model_config = ConfigDict(

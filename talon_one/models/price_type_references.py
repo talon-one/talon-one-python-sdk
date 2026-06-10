@@ -28,7 +28,7 @@ class PriceTypeReferences(BaseModel):
     """
     PriceTypeReferences
     """ # noqa: E501
-    price_type_id: StrictInt = Field(description="The ID of the price type.", alias="priceTypeId")
+    price_type_id: StrictInt = Field(description="The ID of the price type.", alias="priceTypeId", json_schema_extra={"examples": [6]})
     references: Optional[List[PriceTypeReferenceDetail]] = Field(default=None, description="A list of entities that reference the price type, including details about the entities.")
     __properties: ClassVar[List[str]] = ["priceTypeId", "references"]
 

@@ -28,16 +28,16 @@ class CouponFailureSummary(BaseModel):
     """
     Summary of the reasons for coupon redemption failure.
     """ # noqa: E501
-    id: StrictInt = Field(description="ID of the evaluation record.")
-    event_id: StrictInt = Field(description="ID of the event.", alias="eventID")
-    session_id: Optional[StrictStr] = Field(default=None, description="ID of the customer session set by your integration layer.", alias="sessionID")
-    profile_id: Optional[StrictStr] = Field(default=None, description="ID of the customer profile set by your integration layer.", alias="profileID")
-    status: StrictStr = Field(description="Status defines if the coupon code was applied or rejected.")
-    coupon_code: StrictStr = Field(description="Coupon code passed for evaluation.", alias="couponCode")
-    language: StrictStr = Field(description="Language of the summary.")
-    summary: StrictStr = Field(description="A summary of the reasons for coupon redemption failure.")
-    created_at: datetime = Field(description="Timestamp when the request was made.", alias="createdAt")
-    updated_at: datetime = Field(description="Timestamp when the request was last updated.", alias="updatedAt")
+    id: StrictInt = Field(description="ID of the evaluation record.", json_schema_extra={"examples": [1]})
+    event_id: StrictInt = Field(description="ID of the event.", alias="eventID", json_schema_extra={"examples": [1011]})
+    session_id: Optional[StrictStr] = Field(default=None, description="ID of the customer session set by your integration layer.", alias="sessionID", json_schema_extra={"examples": [1]})
+    profile_id: Optional[StrictStr] = Field(default=None, description="ID of the customer profile set by your integration layer.", alias="profileID", json_schema_extra={"examples": ["a48f10dddb5c9493aad194e49bb9c1dac"]})
+    status: StrictStr = Field(description="Status defines if the coupon code was applied or rejected.", json_schema_extra={"examples": ["rejected"]})
+    coupon_code: StrictStr = Field(description="Coupon code passed for evaluation.", alias="couponCode", json_schema_extra={"examples": ["ABC123"]})
+    language: StrictStr = Field(description="Language of the summary.", json_schema_extra={"examples": ["en"]})
+    summary: StrictStr = Field(description="A summary of the reasons for coupon redemption failure.", json_schema_extra={"examples": ["Session total was less than the required total."]})
+    created_at: datetime = Field(description="Timestamp when the request was made.", alias="createdAt", json_schema_extra={"examples": ["2021-07-20T21:59:00Z"]})
+    updated_at: datetime = Field(description="Timestamp when the request was last updated.", alias="updatedAt", json_schema_extra={"examples": ["2021-07-20T21:59:00Z"]})
     __properties: ClassVar[List[str]] = ["id", "eventID", "sessionID", "profileID", "status", "couponCode", "language", "summary", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(

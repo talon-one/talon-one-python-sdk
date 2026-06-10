@@ -29,9 +29,9 @@ class ExperimentSegmentInsights(BaseModel):
     ExperimentSegmentInsights
     """ # noqa: E501
     metrics: List[ExperimentSegmentInsightMetric] = Field(description="Segment insights grouped by metric. This array always contains exactly three metric objects. Each metric includes a segments array, which is empty if no significant results were found. The metrics array itself is empty if the `reason` property is populated. ")
-    total_segments_tested: StrictInt = Field(description="Total number of segment-metric combinations that were tested for statistical significance. ", alias="totalSegmentsTested")
-    dimensions_tested: StrictInt = Field(description="Number of segmentation dimensions that had sufficient data variance to test. Dimensions where all sessions fall into a single bucket are excluded. ", alias="dimensionsTested")
-    reason: StrictStr = Field(description="Empty string when segment insights are available. Contains a reason code when insights could not be computed (e.g., \"insufficient_data\" when the experiment has fewer than 100 sessions per variant). ")
+    total_segments_tested: StrictInt = Field(description="Total number of segment-metric combinations that were tested for statistical significance. ", alias="totalSegmentsTested", json_schema_extra={"examples": [24]})
+    dimensions_tested: StrictInt = Field(description="Number of segmentation dimensions that had sufficient data variance to test. Dimensions where all sessions fall into a single bucket are excluded. ", alias="dimensionsTested", json_schema_extra={"examples": [3]})
+    reason: StrictStr = Field(description="Empty string when segment insights are available. Contains a reason code when insights could not be computed (e.g., \"insufficient_data\" when the experiment has fewer than 100 sessions per variant). ", json_schema_extra={"examples": [""]})
     __properties: ClassVar[List[str]] = ["metrics", "totalSegmentsTested", "dimensionsTested", "reason"]
 
     model_config = ConfigDict(

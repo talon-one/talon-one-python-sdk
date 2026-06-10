@@ -28,7 +28,7 @@ class MessageLogEntries(BaseModel):
     """
     MessageLogEntries
     """ # noqa: E501
-    next_cursor: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="The next value in the database.  **Note:** If this value is not present, it means that there are no more values in the database for this combination of request parameters. ", alias="nextCursor")
+    next_cursor: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="The next value in the database.  **Note:** If this value is not present, it means that there are no more values in the database for this combination of request parameters. ", alias="nextCursor", json_schema_extra={"examples": ["SmJlNERRMHdyNWFsTmRDZDVYU0c="]})
     data: List[MessageLogEntry] = Field(description="List of message logs.")
     __properties: ClassVar[List[str]] = ["nextCursor", "data"]
 

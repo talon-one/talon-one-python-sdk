@@ -29,22 +29,22 @@ class LoyaltyLedgerEntry(BaseModel):
     """
     A single row of the ledger, describing one addition or deduction.
     """ # noqa: E501
-    created: datetime
-    program_id: StrictInt = Field(alias="programID")
-    customer_profile_id: Optional[StrictStr] = Field(default=None, alias="customerProfileID")
-    card_id: Optional[StrictInt] = Field(default=None, alias="cardID")
-    customer_session_id: Optional[StrictStr] = Field(default=None, alias="customerSessionID")
-    event_id: Optional[StrictInt] = Field(default=None, alias="eventID")
-    type: StrictStr = Field(description="The type of the ledger transaction. Possible values are: - `addition` - `subtraction` - `expire` - `expiring` (for expiring points ledgers) ")
-    amount: Union[StrictFloat, StrictInt]
-    start_date: Optional[datetime] = Field(default=None, alias="startDate")
-    expiry_date: Optional[datetime] = Field(default=None, alias="expiryDate")
-    name: StrictStr = Field(description="A name referencing the condition or effect that added this entry, or the specific name provided in an API call.")
-    sub_ledger_id: StrictStr = Field(description="This specifies if we are adding loyalty points to the main ledger or a subledger.", alias="subLedgerID")
-    user_id: Optional[StrictInt] = Field(default=None, description="This is the ID of the user who created this entry, if the addition or subtraction was done manually.", alias="userID")
-    archived: Optional[StrictBool] = Field(default=None, description="Indicates if the entry belongs to the archived session.")
+    created: datetime = Field(json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    program_id: StrictInt = Field(alias="programID", json_schema_extra={"examples": [5]})
+    customer_profile_id: Optional[StrictStr] = Field(default=None, alias="customerProfileID", json_schema_extra={"examples": ["URNGV8294NV"]})
+    card_id: Optional[StrictInt] = Field(default=None, alias="cardID", json_schema_extra={"examples": [241]})
+    customer_session_id: Optional[StrictStr] = Field(default=None, alias="customerSessionID", json_schema_extra={"examples": ["t2gy5s-47274"]})
+    event_id: Optional[StrictInt] = Field(default=None, alias="eventID", json_schema_extra={"examples": [5]})
+    type: StrictStr = Field(description="The type of the ledger transaction. Possible values are: - `addition` - `subtraction` - `expire` - `expiring` (for expiring points ledgers) ", json_schema_extra={"examples": ["addition"]})
+    amount: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [100]})
+    start_date: Optional[datetime] = Field(default=None, alias="startDate", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    expiry_date: Optional[datetime] = Field(default=None, alias="expiryDate", json_schema_extra={"examples": ["2022-07-20T22:00:00Z"]})
+    name: StrictStr = Field(description="A name referencing the condition or effect that added this entry, or the specific name provided in an API call.", json_schema_extra={"examples": ["Add points on purchase"]})
+    sub_ledger_id: StrictStr = Field(description="This specifies if we are adding loyalty points to the main ledger or a subledger.", alias="subLedgerID", json_schema_extra={"examples": ["mysubledger"]})
+    user_id: Optional[StrictInt] = Field(default=None, description="This is the ID of the user who created this entry, if the addition or subtraction was done manually.", alias="userID", json_schema_extra={"examples": [499]})
+    archived: Optional[StrictBool] = Field(default=None, description="Indicates if the entry belongs to the archived session.", json_schema_extra={"examples": [False]})
     flags: Optional[LoyaltyLedgerEntryFlags] = Field(default=None, description="A map of flags providing additional details about the entry.")
-    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration")
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
     __properties: ClassVar[List[str]] = ["created", "programID", "customerProfileID", "cardID", "customerSessionID", "eventID", "type", "amount", "startDate", "expiryDate", "name", "subLedgerID", "userID", "archived", "flags", "validityDuration"]
 
     model_config = ConfigDict(

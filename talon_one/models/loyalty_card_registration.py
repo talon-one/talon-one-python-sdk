@@ -27,7 +27,7 @@ class LoyaltyCardRegistration(BaseModel):
     """
     LoyaltyCardRegistration
     """ # noqa: E501
-    integration_id: StrictStr = Field(description="The integrationId of the customer profile.", alias="integrationId")
+    integration_id: StrictStr = Field(description="The integrationId of the customer profile.", alias="integrationId", json_schema_extra={"examples": ["R195412"]})
     __properties: ClassVar[List[str]] = ["integrationId"]
 
     model_config = ConfigDict(

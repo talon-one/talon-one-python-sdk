@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**get_customer_achievements**](IntegrationApi.md#get_customer_achievements) | **GET** /v1/customer_profiles/{integrationId}/achievements | List customer&#39;s available achievements
 [**get_customer_inventory**](IntegrationApi.md#get_customer_inventory) | **GET** /v1/customer_profiles/{integrationId}/inventory | List customer data
 [**get_customer_session**](IntegrationApi.md#get_customer_session) | **GET** /v2/customer_sessions/{customerSessionId} | Get customer session
+[**get_event_v3**](IntegrationApi.md#get_event_v3) | **GET** /v3/events/{integrationId} | Get advanced event
 [**get_loyalty_balances**](IntegrationApi.md#get_loyalty_balances) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/balances | Get customer&#39;s loyalty balances
 [**get_loyalty_card_balances**](IntegrationApi.md#get_loyalty_card_balances) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/balances | Get card&#39;s point balances
 [**get_loyalty_card_points**](IntegrationApi.md#get_loyalty_card_points) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/points | List card&#39;s unused loyalty points
@@ -33,6 +34,7 @@ Method | HTTP request | Description
 [**return_cart_items**](IntegrationApi.md#return_cart_items) | **POST** /v2/customer_sessions/{customerSessionId}/returns | Return cart items
 [**sync_catalog**](IntegrationApi.md#sync_catalog) | **PUT** /v1/catalogs/{catalogId}/sync | Sync cart item catalog
 [**track_event_v2**](IntegrationApi.md#track_event_v2) | **POST** /v2/events | Track event
+[**track_event_v3**](IntegrationApi.md#track_event_v3) | **POST** /v3/events | Track advanced event
 [**unlink_loyalty_card_from_profile**](IntegrationApi.md#unlink_loyalty_card_from_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/unlink_profile | Unlink customer profile from a loyalty card
 [**update_audience_customers_attributes**](IntegrationApi.md#update_audience_customers_attributes) | **PUT** /v2/audience_customers/{audienceId}/attributes | Update profile attributes for all customers in audience
 [**update_audience_v2**](IntegrationApi.md#update_audience_v2) | **PUT** /v2/audiences/{audienceId} | Update audience name
@@ -705,7 +707,7 @@ void (empty response body)
 
 Delete audience
 
-Delete an audience created by a third-party integration.
+Delete an audience.
 
 > [!warning] This endpoint also removes any associations recorded between a
 customer profile and this audience.
@@ -1519,6 +1521,87 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_event_v3**
+> EventV3 get_event_v3(integration_id)
+
+Get advanced event
+
+Retrieve an advanced event by its identifier.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.event_v3 import EventV3
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.IntegrationApi(api_client)
+    integration_id = 'integration_id_example' # str | The unique ID of the advanced event.
+
+    try:
+        # Get advanced event
+        api_response = api_instance.get_event_v3(integration_id)
+        print("The response of IntegrationApi->get_event_v3:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling IntegrationApi->get_event_v3: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **integration_id** | **str**| The unique ID of the advanced event. | 
+
+### Return type
+
+[**EventV3**](EventV3.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**404** | Not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_loyalty_balances**
 > LoyaltyBalancesWithTiers get_loyalty_balances(loyalty_program_id, integration_id, end_date=end_date, subledger_id=subledger_id, include_tiers=include_tiers, include_projected_tier=include_projected_tier)
 
@@ -1972,7 +2055,7 @@ with talon_one.ApiClient(configuration) as api_client:
     loyalty_program_id = 56 # int | Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     integration_id = 'integration_id_example' # str | The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. 
     status = active # str | Filter points based on their status. (optional) (default to active)
-    subledger_id = 'subledger_id_example' # str | The ID of the subledger by which we filter the data. (optional)
+    subledger_id = ['subledger_id_example'] # List[str] | Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers.  (optional)
     customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
     transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
@@ -1998,7 +2081,7 @@ Name | Type | Description  | Notes
  **loyalty_program_id** | **int**| Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **integration_id** | **str**| The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  | 
  **status** | **str**| Filter points based on their status. | [optional] [default to active]
- **subledger_id** | **str**| The ID of the subledger by which we filter the data. | [optional] 
+ **subledger_id** | [**List[str]**](str.md)| Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?subledgerId&#x3D;id1&amp;subledgerId&#x3D;id2&#x60;.  The response contains only data associated with the specified subledgers.  | [optional] 
  **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
  **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
@@ -2989,7 +3072,7 @@ Name | Type | Description  | Notes
 
 Track event
 
-Triggers a custom event.
+Trigger a custom event.
 
 To use this endpoint:
 
@@ -3090,6 +3173,116 @@ Name | Type | Description  | Notes
 **400** | Bad request |  -  |
 **401** | Unauthorized - Invalid API key |  -  |
 **409** | Too many requests or limit reached - Avoid parallel requests. See the [docs](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one#managing-parallel-requests). |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **track_event_v3**
+> IntegrationEventV3Response track_event_v3(integration_event_v3_request, silent=silent, dry=dry, force_complete_evaluation=force_complete_evaluation)
+
+Track advanced event
+
+Trigger an advanced event.
+
+Advanced events are idempotent, uniquely identifiable events. They can also
+reference a previously closed session to add more context for rule evaluation.
+
+To use this endpoint:
+
+1. [Create a custom event](https://docs.talon.one/docs/dev/concepts/entities/events#creating-a-custom-event)
+in the Campaign Manager.
+1. In a rule, add the **Check for event types** [condition](https://docs.talon.one/docs/dev/concepts/entities/events#use-an-event-in-a-rule) and select the event you created.
+1. Trigger the event with this endpoint.
+
+You can [list](https://docs.talon.one/docs/product/applications/display-events#list-events) the received events in the **Events** view of the Campaign Manager.
+
+For example, you can use this endpoint to trigger an event when a customer shares a
+link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).
+
+> [!note] **Note**
+> - If the customer profile does not exist, it will be created. However, the `customer_profile_created` [built-in event](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered.
+> - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).
+> - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.integration_event_v3_request import IntegrationEventV3Request
+from talon_one.models.integration_event_v3_response import IntegrationEventV3Response
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.IntegrationApi(api_client)
+    integration_event_v3_request = talon_one.IntegrationEventV3Request() # IntegrationEventV3Request | body
+    silent = 'yes' # str | Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles.  (optional) (default to 'yes')
+    dry = True # bool | Indicates whether to persist the changes. Changes are ignored when `dry=true`.  (optional)
+    force_complete_evaluation = False # bool | Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires `dry=true`.  (optional) (default to False)
+
+    try:
+        # Track advanced event
+        api_response = api_instance.track_event_v3(integration_event_v3_request, silent=silent, dry=dry, force_complete_evaluation=force_complete_evaluation)
+        print("The response of IntegrationApi->track_event_v3:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling IntegrationApi->track_event_v3: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **integration_event_v3_request** | [**IntegrationEventV3Request**](IntegrationEventV3Request.md)| body | 
+ **silent** | **str**| Possible values: &#x60;yes&#x60; or &#x60;no&#x60;. - &#x60;yes&#x60;: Increases the performance of the API call by returning a 204 response. - &#x60;no&#x60;: Returns a 200 response that contains the updated customer profiles.  | [optional] [default to &#39;yes&#39;]
+ **dry** | **bool**| Indicates whether to persist the changes. Changes are ignored when &#x60;dry&#x3D;true&#x60;.  | [optional] 
+ **force_complete_evaluation** | **bool**| Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires &#x60;dry&#x3D;true&#x60;.  | [optional] [default to False]
+
+### Return type
+
+[**IntegrationEventV3Response**](IntegrationEventV3Response.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request |  -  |
+**401** | Unauthorized - Invalid API key |  -  |
+**409** | An advanced event already exists, too many requests, or limit reached. Avoid parallel requests. See the [docs](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one#managing-parallel-requests). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

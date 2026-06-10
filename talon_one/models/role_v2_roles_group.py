@@ -28,9 +28,9 @@ class RoleV2RolesGroup(BaseModel):
     """
     RoleV2RolesGroup
     """ # noqa: E501
-    applications: Optional[Dict[str, RoleV2ApplicationDetails]] = Field(default=None, description="A map of the link between the Application, campaign, or draft campaign-related permission set and the Application ID the permissions apply to.")
-    loyalty_programs: Optional[Dict[str, StrictStr]] = Field(default=None, description="A map of the link between the loyalty program-related permission set and the Application ID the permissions apply to.", alias="loyaltyPrograms")
-    campaign_access_groups: Optional[Dict[str, StrictStr]] = Field(default=None, description="A map of the link between the campaign access group-related permission set and the Application ID the permissions apply to.", alias="campaignAccessGroups")
+    applications: Optional[Dict[str, RoleV2ApplicationDetails]] = Field(default=None, description="A map of the link between the Application, campaign, or draft campaign-related permission set and the Application ID the permissions apply to.", json_schema_extra={"examples": [{"1": {"application": "Application permission set"}, "3": {"campaign": "Campaign manager permission set"}, "4": {"draftCampaign": "Campaign read-only permission set"}, "5": {"tools": "Tools permission set"}}]})
+    loyalty_programs: Optional[Dict[str, StrictStr]] = Field(default=None, description="A map of the link between the loyalty program-related permission set and the Application ID the permissions apply to.", alias="loyaltyPrograms", json_schema_extra={"examples": [{"10": "Loyalty program manager permission set"}]})
+    campaign_access_groups: Optional[Dict[str, StrictStr]] = Field(default=None, description="A map of the link between the campaign access group-related permission set and the Application ID the permissions apply to.", alias="campaignAccessGroups", json_schema_extra={"examples": [{"5": "Campaign access group manager permission set"}]})
     account: Optional[StrictStr] = Field(default=None, description="Name of the account-level permission set")
     __properties: ClassVar[List[str]] = ["applications", "loyaltyPrograms", "campaignAccessGroups", "account"]
 

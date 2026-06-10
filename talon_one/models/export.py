@@ -28,12 +28,12 @@ class Export(BaseModel):
     """
     Export
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
-    user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId", json_schema_extra={"examples": [388]})
     entity: StrictStr = Field(description="The name of the entity that was exported.")
-    filter: Dict[str, Any] = Field(description="Map of keys and values that were used to filter the exported rows.")
+    filter: Dict[str, Any] = Field(description="Arbitrary properties associated with this campaign.")
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "userId", "entity", "filter"]
 
     @field_validator('entity')

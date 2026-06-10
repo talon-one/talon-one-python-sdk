@@ -28,7 +28,7 @@ class CampaignEvaluationTreeChangedNotification(BaseModel):
     """
     Notification about an Application whose campaign evaluation tree changed.
     """ # noqa: E501
-    application_id: StrictInt = Field(description="The ID of the Application whose campaign evaluation tree changed.", alias="applicationId")
+    application_id: StrictInt = Field(description="The ID of the Application whose campaign evaluation tree changed.", alias="applicationId", json_schema_extra={"examples": [78]})
     old_evaluation_tree: Optional[CampaignSet] = Field(default=None, description="The previous campaign evaluation tree.", alias="oldEvaluationTree")
     evaluation_tree: CampaignSet = Field(description="The new campaign evaluation tree.", alias="evaluationTree")
     __properties: ClassVar[List[str]] = ["applicationId", "oldEvaluationTree", "evaluationTree"]

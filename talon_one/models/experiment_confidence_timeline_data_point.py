@@ -17,20 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List
+from talon_one.models.experiment_variant_result_confidence import ExperimentVariantResultConfidence
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class UpdateCustomerProfileV2409Response(BaseModel):
+class ExperimentConfidenceTimelineDataPoint(BaseModel):
     """
-    UpdateCustomerProfileV2409Response
+    ExperimentConfidenceTimelineDataPoint
     """ # noqa: E501
-    message: Optional[StrictStr] = None
-    errors: Optional[List[Any]] = None
-    status_code: Optional[StrictInt] = Field(default=None, alias="StatusCode")
-    __properties: ClassVar[List[str]] = ["message", "errors", "StatusCode"]
+    var_date: datetime = Field(description="The date-time this data point represents.", alias="date", json_schema_extra={"examples": ["2024-01-15T00:00:00+07:00"]})
+    confidence: ExperimentVariantResultConfidence
+    __properties: ClassVar[List[str]] = ["date", "confidence"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -50,7 +51,7 @@ class UpdateCustomerProfileV2409Response(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UpdateCustomerProfileV2409Response from a JSON string"""
+        """Create an instance of ExperimentConfidenceTimelineDataPoint from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,11 +72,14 @@ class UpdateCustomerProfileV2409Response(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of confidence
+        if self.confidence:
+            _dict['confidence'] = self.confidence.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdateCustomerProfileV2409Response from a dict"""
+        """Create an instance of ExperimentConfidenceTimelineDataPoint from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +87,8 @@ class UpdateCustomerProfileV2409Response(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "message": obj.get("message"),
-            "errors": obj.get("errors"),
-            "StatusCode": obj.get("StatusCode")
+            "date": obj.get("date"),
+            "confidence": ExperimentVariantResultConfidence.from_dict(obj["confidence"]) if obj.get("confidence") is not None else None
         })
         return _obj
 

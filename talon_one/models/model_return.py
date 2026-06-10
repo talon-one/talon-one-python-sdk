@@ -30,17 +30,17 @@ class ModelReturn(BaseModel):
     """
     ModelReturn
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
     returned_cart_items: List[ReturnedCartItem] = Field(description="List of cart items to be returned.", alias="returnedCartItems")
-    event_id: StrictInt = Field(description="The event ID of that was generated for this return.", alias="eventId")
-    session_id: StrictInt = Field(description="The internal ID of the session this return was requested on.", alias="sessionId")
-    session_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID of the session this return was requested on.", alias="sessionIntegrationId")
-    profile_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the profile this return was requested on.", alias="profileId")
-    profile_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the profile this return was requested on.", alias="profileIntegrationId")
-    created_by: Optional[StrictInt] = Field(default=None, description="ID of the user who requested this return.", alias="createdBy")
+    event_id: StrictInt = Field(description="The event ID of that was generated for this return.", alias="eventId", json_schema_extra={"examples": [123]})
+    session_id: StrictInt = Field(description="The internal ID of the session this return was requested on.", alias="sessionId", json_schema_extra={"examples": [123]})
+    session_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID of the session this return was requested on.", alias="sessionIntegrationId", json_schema_extra={"examples": ["0c0e0207-eb30-4e06-a56c-2b7c8a64953c"]})
+    profile_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the profile this return was requested on.", alias="profileId", json_schema_extra={"examples": [123]})
+    profile_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the profile this return was requested on.", alias="profileIntegrationId", json_schema_extra={"examples": ["0c0e0207-eb30-4e06-a56c-2b7c8a64953c"]})
+    created_by: Optional[StrictInt] = Field(default=None, description="ID of the user who requested this return.", alias="createdBy", json_schema_extra={"examples": [123]})
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "accountId", "returnedCartItems", "eventId", "sessionId", "sessionIntegrationId", "profileId", "profileIntegrationId", "createdBy"]
 
     model_config = ConfigDict(

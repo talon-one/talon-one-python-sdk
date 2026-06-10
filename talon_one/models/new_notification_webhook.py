@@ -28,9 +28,9 @@ class NewNotificationWebhook(BaseModel):
     """
     NewNotificationWebhook
     """ # noqa: E501
-    url: StrictStr = Field(description="API URL for the given webhook-based notification.")
+    url: StrictStr = Field(description="API URL for the given webhook-based notification.", json_schema_extra={"examples": ["www.my-company.com/my-endpoint-name"]})
     headers: List[Annotated[str, Field(strict=True)]] = Field(description="List of API HTTP headers for the given webhook-based notification.")
-    enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.")
+    enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["url", "headers", "enabled"]
 
     model_config = ConfigDict(

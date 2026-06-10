@@ -29,13 +29,13 @@ class LoyaltyTier(BaseModel):
     """
     LoyaltyTier
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    program_id: StrictInt = Field(description="The ID of the loyalty program that owns this entity.", alias="programID")
-    program_name: Optional[StrictStr] = Field(default=None, description="The integration name of the loyalty program that owns this entity.", alias="programName")
-    program_title: Optional[StrictStr] = Field(default=None, description="The Campaign Manager-displayed name of the loyalty program that owns this entity.", alias="programTitle")
-    name: StrictStr = Field(description="The name of the tier.")
-    min_points: Union[Annotated[float, Field(le=999999999999.99, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]] = Field(description="The minimum amount of points required to enter the tier.", alias="minPoints")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    program_id: StrictInt = Field(description="The ID of the loyalty program that owns this entity.", alias="programID", json_schema_extra={"examples": [125]})
+    program_name: Optional[StrictStr] = Field(default=None, description="The integration name of the loyalty program that owns this entity.", alias="programName", json_schema_extra={"examples": ["Loyalty_program"]})
+    program_title: Optional[StrictStr] = Field(default=None, description="The Campaign Manager-displayed name of the loyalty program that owns this entity.", alias="programTitle", json_schema_extra={"examples": ["Loyalty program"]})
+    name: StrictStr = Field(description="The name of the tier.", json_schema_extra={"examples": ["Gold"]})
+    min_points: Union[Annotated[float, Field(le=999999999999.99, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]] = Field(description="The minimum amount of points required to enter the tier.", alias="minPoints", json_schema_extra={"examples": [300]})
     __properties: ClassVar[List[str]] = ["id", "created", "programID", "programName", "programTitle", "name", "minPoints"]
 
     model_config = ConfigDict(

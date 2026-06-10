@@ -27,11 +27,12 @@ class AchievementReference(BaseModel):
     """
     AchievementReference
     """ # noqa: E501
-    achievement_id: StrictInt = Field(description="The ID of the achievement. You can get this ID with the [List achievement](https://docs.talon.one/management-api#tag/Achievements/operation/listAchievementsV2) endpoint.", alias="achievementId")
-    application_id: StrictInt = Field(description="The ID of the Application associated with the campaign that references this achievement.", alias="applicationId")
-    application_name: StrictStr = Field(description="The name of the Application associated with the campaign that references this achievement.", alias="applicationName")
-    campaign_id: StrictInt = Field(description="The ID of the campaign that references this achievement.", alias="campaignId")
-    __properties: ClassVar[List[str]] = ["achievementId", "applicationId", "applicationName", "campaignId"]
+    achievement_id: StrictInt = Field(description="The ID of the achievement. You can get this ID with the [List achievement](https://docs.talon.one/management-api#tag/Achievements/operation/listAchievementsV2) endpoint.", alias="achievementId", json_schema_extra={"examples": [12]})
+    application_id: StrictInt = Field(description="The ID of the Application associated with the campaign that references this achievement.", alias="applicationId", json_schema_extra={"examples": [101]})
+    application_name: StrictStr = Field(description="The name of the Application associated with the campaign that references this achievement.", alias="applicationName", json_schema_extra={"examples": ["North America Storefront"]})
+    campaign_id: StrictInt = Field(description="The ID of the campaign that references this achievement.", alias="campaignId", json_schema_extra={"examples": [4501]})
+    campaign_name: StrictStr = Field(description="The name of the campaign that references this achievement.", alias="campaignName", json_schema_extra={"examples": ["Summer promotions"]})
+    __properties: ClassVar[List[str]] = ["achievementId", "applicationId", "applicationName", "campaignId", "campaignName"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,7 +88,8 @@ class AchievementReference(BaseModel):
             "achievementId": obj.get("achievementId"),
             "applicationId": obj.get("applicationId"),
             "applicationName": obj.get("applicationName"),
-            "campaignId": obj.get("campaignId")
+            "campaignId": obj.get("campaignId"),
+            "campaignName": obj.get("campaignName")
         })
         return _obj
 

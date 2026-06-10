@@ -27,9 +27,9 @@ class NewInvitation(BaseModel):
     """
     Parameters for inviting a new user.
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the user.")
-    email: StrictStr = Field(description="Email address of the user.")
-    is_admin: Optional[StrictBool] = Field(default=None, description="Indicates whether the user is an `admin`.", alias="isAdmin")
+    name: Optional[StrictStr] = Field(default=None, description="Name of the user.", json_schema_extra={"examples": ["John Doe"]})
+    email: StrictStr = Field(description="Email address of the user.", json_schema_extra={"examples": ["john.doe@example.com"]})
+    is_admin: Optional[StrictBool] = Field(default=None, description="Indicates whether the user is an `admin`.", alias="isAdmin", json_schema_extra={"examples": [False]})
     roles: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the roles assigned to the user.")
     acl: Optional[StrictStr] = Field(default=None, description="Indicates the access level of the user.")
     __properties: ClassVar[List[str]] = ["name", "email", "isAdmin", "roles", "acl"]

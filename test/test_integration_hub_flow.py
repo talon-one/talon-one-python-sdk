@@ -36,12 +36,13 @@ class TestIntegrationHubFlow(unittest.TestCase):
         if include_optional:
             return IntegrationHubFlow(
                 application_id = 54,
-                event_type = '',
+                loyalty_program_id = 12,
+                event_type = 'CouponCreated',
                 integration_hub_flow_url = ''
             )
         else:
             return IntegrationHubFlow(
-                event_type = '',
+                event_type = 'CouponCreated',
                 integration_hub_flow_url = '',
         )
         """

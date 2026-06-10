@@ -28,7 +28,7 @@ class CampaignDeactivationRequest(BaseModel):
     """
     CampaignDeactivationRequest
     """ # noqa: E501
-    user_ids: Annotated[List[StrictInt], Field(max_length=5)] = Field(description="The list of IDs of the users receiving the deactivation request emails.", alias="userIds")
+    user_ids: Annotated[List[StrictInt], Field(max_length=5)] = Field(description="The list of IDs of the users receiving the deactivation request emails.", alias="userIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["userIds"]
 
     model_config = ConfigDict(

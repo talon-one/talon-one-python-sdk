@@ -28,8 +28,8 @@ class NewAccountSignUp(BaseModel):
     """
     NewAccountSignUp
     """ # noqa: E501
-    email: StrictStr = Field(description="The email address associated with the user profile.")
-    password: StrictStr = Field(description="The password for your account.")
+    email: StrictStr = Field(description="The email address associated with the user profile.", json_schema_extra={"examples": ["john.doe@example.com"]})
+    password: StrictStr = Field(description="The password for your account.", json_schema_extra={"examples": ["admin123456"]})
     company_name: Annotated[str, Field(min_length=1, strict=True)] = Field(alias="companyName")
     __properties: ClassVar[List[str]] = ["email", "password", "companyName"]
 

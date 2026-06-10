@@ -27,7 +27,7 @@ class CatalogAction(BaseModel):
     """
     Definition of all the properties that are needed for a single catalog sync action.
     """ # noqa: E501
-    type: StrictStr = Field(description="The type of sync action.")
+    type: StrictStr = Field(description="The type of sync action.", json_schema_extra={"examples": ["ADD"]})
     payload: Dict[str, Any]
     __properties: ClassVar[List[str]] = ["type", "payload"]
 

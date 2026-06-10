@@ -28,7 +28,7 @@ class CouponReservations(BaseModel):
     """
     CouponReservations
     """ # noqa: E501
-    integration_ids: Annotated[List[StrictStr], Field(max_length=1000)] = Field(description="List of customer integration IDs.", alias="integrationIDs")
+    integration_ids: Annotated[List[StrictStr], Field(max_length=1000)] = Field(description="List of customer integration IDs.", alias="integrationIDs", json_schema_extra={"examples": [["URNGV8294NV", "BZGGC2454PA"]]})
     __properties: ClassVar[List[str]] = ["integrationIDs"]
 
     model_config = ConfigDict(

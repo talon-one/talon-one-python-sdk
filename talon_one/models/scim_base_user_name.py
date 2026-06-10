@@ -27,7 +27,7 @@ class ScimBaseUserName(BaseModel):
     """
     The components of the user’s real name.
     """ # noqa: E501
-    formatted: Optional[StrictStr] = Field(default=None, description="The full name, including all middle names, titles, and suffixes as appropriate, formatted for display.")
+    formatted: Optional[StrictStr] = Field(default=None, description="The full name, including all middle names, titles, and suffixes as appropriate, formatted for display.", json_schema_extra={"examples": ["Mr. John J Doe"]})
     __properties: ClassVar[List[str]] = ["formatted"]
 
     model_config = ConfigDict(

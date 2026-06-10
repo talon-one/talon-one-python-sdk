@@ -28,7 +28,7 @@ class GetChanges200Response(BaseModel):
     """
     GetChanges200Response
     """ # noqa: E501
-    total_result_size: Optional[StrictInt] = Field(default=None, alias="totalResultSize")
+    total_result_size: Optional[StrictInt] = Field(default=None, alias="totalResultSize", json_schema_extra={"examples": [1]})
     has_more: Optional[StrictBool] = Field(default=None, alias="hasMore")
     data: List[Change]
     __properties: ClassVar[List[str]] = ["totalResultSize", "hasMore", "data"]

@@ -28,8 +28,8 @@ class NewPicklist(BaseModel):
     """
     NewPicklist
     """ # noqa: E501
-    type: StrictStr = Field(description="The type of allowed values in the picklist. If the type `time` is chosen, it must be an RFC3339 timestamp string.")
-    values: Annotated[List[StrictStr], Field(max_length=50)] = Field(description="The list of allowed values provided by this picklist.")
+    type: StrictStr = Field(description="The type of allowed values in the picklist. If the type `time` is chosen, it must be an RFC3339 timestamp string.", json_schema_extra={"examples": ["string"]})
+    values: Annotated[List[StrictStr], Field(max_length=50)] = Field(description="The list of allowed values provided by this picklist.", json_schema_extra={"examples": [["Jeans", "Shirt", "Coat"]]})
     __properties: ClassVar[List[str]] = ["type", "values"]
 
     @field_validator('type')

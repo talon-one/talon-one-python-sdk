@@ -27,17 +27,17 @@ class ExperimentVariantResult(BaseModel):
     """
     ExperimentVariantResult
     """ # noqa: E501
-    variant_id: Optional[StrictInt] = Field(default=None, description="The ID of the variant.", alias="variantId")
-    variant_name: Optional[StrictStr] = Field(default=None, description="The name of the variant.", alias="variantName")
-    variant_weight: Optional[StrictInt] = Field(default=None, description="The weight of the variant.", alias="variantWeight")
-    is_winner: Optional[StrictBool] = Field(default=None, description="Calculated flag if the variant is the winner.", alias="isWinner")
-    total_revenue: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total, pre-discount value of all items purchased in a customer session.", alias="totalRevenue")
-    sessions_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of all closed sessions.", alias="sessionsCount")
-    avg_items_per_session: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of items from sessions divided by the number of sessions.", alias="avgItemsPerSession")
-    avg_session_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The average customer session value, calculated by dividing the revenue value by the number of sessions.", alias="avgSessionValue")
-    avg_discounted_session_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The average customer session value, calculated by dividing the revenue value by the number of sessions.", alias="avgDiscountedSessionValue")
-    total_discounts: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total value of discounts given for cart items in sessions.", alias="totalDiscounts")
-    coupons_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of times a coupon was successfully redeemed in sessions.", alias="couponsCount")
+    variant_id: Optional[StrictInt] = Field(default=None, description="The ID of the variant.", alias="variantId", json_schema_extra={"examples": [1]})
+    variant_name: Optional[StrictStr] = Field(default=None, description="The name of the variant.", alias="variantName", json_schema_extra={"examples": ["Variant A"]})
+    variant_weight: Optional[StrictInt] = Field(default=None, description="The weight of the variant.", alias="variantWeight", json_schema_extra={"examples": [50]})
+    is_winner: Optional[StrictBool] = Field(default=None, description="Calculated flag if the variant is the winner.", alias="isWinner", json_schema_extra={"examples": [True]})
+    total_revenue: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total, pre-discount value of all items purchased in a customer session.", alias="totalRevenue", json_schema_extra={"examples": [100]})
+    sessions_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of all closed sessions.", alias="sessionsCount", json_schema_extra={"examples": [100]})
+    avg_items_per_session: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of items from sessions divided by the number of sessions.", alias="avgItemsPerSession", json_schema_extra={"examples": [100]})
+    avg_session_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The average customer session value, calculated by dividing the revenue value by the number of sessions.", alias="avgSessionValue", json_schema_extra={"examples": [100]})
+    avg_discounted_session_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The average customer session value, calculated by dividing the revenue value by the number of sessions.", alias="avgDiscountedSessionValue", json_schema_extra={"examples": [100]})
+    total_discounts: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total value of discounts given for cart items in sessions.", alias="totalDiscounts", json_schema_extra={"examples": [10]})
+    coupons_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of times a coupon was successfully redeemed in sessions.", alias="couponsCount", json_schema_extra={"examples": [12]})
     __properties: ClassVar[List[str]] = ["variantId", "variantName", "variantWeight", "isWinner", "totalRevenue", "sessionsCount", "avgItemsPerSession", "avgSessionValue", "avgDiscountedSessionValue", "totalDiscounts", "couponsCount"]
 
     model_config = ConfigDict(

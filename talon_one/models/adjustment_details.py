@@ -27,8 +27,8 @@ class AdjustmentDetails(BaseModel):
     """
     Details about an applied price adjustment.
     """ # noqa: E501
-    reference_id: StrictStr = Field(description="The reference identifier used during an `ADD_PRICE_ADJUSTMENT` action.", alias="referenceId")
-    selected_price_type: StrictStr = Field(description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType")
+    reference_id: StrictStr = Field(description="The reference identifier used during an `ADD_PRICE_ADJUSTMENT` action.", alias="referenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
+    selected_price_type: StrictStr = Field(description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
     value: Union[StrictFloat, StrictInt] = Field(description="The value of the applied price adjustment.")
     __properties: ClassVar[List[str]] = ["referenceId", "selectedPriceType", "value"]
 

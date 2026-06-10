@@ -28,17 +28,17 @@ class StrikethroughEffect(BaseModel):
     """
     The effect produced for the catalog item.
     """ # noqa: E501
-    campaign_id: StrictInt = Field(description="The ID of the campaign that effect belongs to.", alias="campaignId")
-    ruleset_id: StrictInt = Field(description="The ID of the ruleset containing the rule that triggered this effect.", alias="rulesetId")
-    rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex")
-    rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName")
-    type: StrictStr = Field(description="The type of this effect.")
+    campaign_id: StrictInt = Field(description="The ID of the campaign that effect belongs to.", alias="campaignId", json_schema_extra={"examples": [3]})
+    ruleset_id: StrictInt = Field(description="The ID of the ruleset containing the rule that triggered this effect.", alias="rulesetId", json_schema_extra={"examples": [11]})
+    rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex", json_schema_extra={"examples": [2]})
+    rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Add 2 points"]})
+    type: StrictStr = Field(description="The type of this effect.", json_schema_extra={"examples": ["setDiscountPerItem"]})
     props: Dict[str, Any] = Field(description="Arbitrary properties associated with this effect type.")
-    start_time: Optional[datetime] = Field(default=None, description="The start of the time frame where the effect is active in UTC.", alias="startTime")
-    end_time: Optional[datetime] = Field(default=None, description="The end of the time frame where the effect is active in UTC.", alias="endTime")
-    selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for this cart item (e.g. the price for members only).", alias="selectedPriceType")
-    selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice")
-    adjustment_reference_id: Optional[StrictStr] = Field(default=None, description="The reference identifier of the selected price adjustment for this cart item.", alias="adjustmentReferenceId")
+    start_time: Optional[datetime] = Field(default=None, description="The start of the time frame where the effect is active in UTC.", alias="startTime", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    end_time: Optional[datetime] = Field(default=None, description="The end of the time frame where the effect is active in UTC.", alias="endTime", json_schema_extra={"examples": ["2021-10-01T02:00:00Z"]})
+    selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for this cart item (e.g. the price for members only).", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
+    selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice", json_schema_extra={"examples": [100]})
+    adjustment_reference_id: Optional[StrictStr] = Field(default=None, description="The reference identifier of the selected price adjustment for this cart item.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
     targets: Optional[List[Dict[str, Any]]] = Field(default=None, description="A list of entities (e.g. audiences) targeted by this effect.")
     __properties: ClassVar[List[str]] = ["campaignId", "rulesetId", "ruleIndex", "ruleName", "type", "props", "startTime", "endTime", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "targets"]
 

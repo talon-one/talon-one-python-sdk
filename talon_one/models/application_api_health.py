@@ -29,7 +29,7 @@ class ApplicationApiHealth(BaseModel):
     Report of health of the API connection of an application.
     """ # noqa: E501
     summary: StrictStr = Field(description="One-word summary of the health of the API connection of an application. Possible values are: - `OK`: The Application has received only successful API requests in the last 5 minutes. - `WARNING`: The Application received at least one failed request in the last 5 minutes. - `ERROR`: More than 50% of received requests failed. - `CRITICAL`: All received requests failed. - `NONE`: During the last 5 minutes, the Application hasn't recorded any integration API requests. ")
-    last_used: datetime = Field(description="time of last request relevant to the API health test.", alias="lastUsed")
+    last_used: datetime = Field(description="time of last request relevant to the API health test.", alias="lastUsed", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     __properties: ClassVar[List[str]] = ["summary", "lastUsed"]
 
     @field_validator('summary')

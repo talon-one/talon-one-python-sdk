@@ -29,8 +29,8 @@ class LoyaltyCardProfileRegistration(BaseModel):
     """
     LoyaltyCardProfileRegistration
     """ # noqa: E501
-    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Integration ID of the customer profile linked to the card.", alias="integrationId")
-    timestamp: datetime = Field(description="Timestamp the customer profile was linked to the card.")
+    integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Integration ID of the customer profile linked to the card.", alias="integrationId", json_schema_extra={"examples": ["R195412"]})
+    timestamp: datetime = Field(description="Timestamp the customer profile was linked to the card.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     __properties: ClassVar[List[str]] = ["integrationId", "timestamp"]
 
     model_config = ConfigDict(

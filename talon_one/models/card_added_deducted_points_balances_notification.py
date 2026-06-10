@@ -29,18 +29,18 @@ class CardAddedDeductedPointsBalancesNotification(BaseModel):
     """
     CardAddedDeductedPointsBalancesNotification
     """ # noqa: E501
-    card_identifier: StrictStr = Field(description="Loyalty card identification number.", alias="CardIdentifier")
-    employee_name: StrictStr = Field(description="The name of the employee who added or deducted points.", alias="EmployeeName")
-    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID")
+    card_identifier: StrictStr = Field(description="Loyalty card identification number.", alias="CardIdentifier", json_schema_extra={"examples": ["123-456-789ATBC"]})
+    employee_name: StrictStr = Field(description="The name of the employee who added or deducted points.", alias="EmployeeName", json_schema_extra={"examples": ["Franziska Schneider"]})
+    loyalty_program_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="The ID of the loyalty program.", alias="LoyaltyProgramID", json_schema_extra={"examples": [5]})
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
-    profile_integration_ids: List[StrictStr] = Field(description="The integration ID of the customer profile to whom points were added or deducted.", alias="ProfileIntegrationIDs")
-    session_integration_id: StrictStr = Field(description="The integration ID of the session through which the points were earned or lost.", alias="SessionIntegrationID")
-    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added or deducted.", alias="SubledgerID")
+    profile_integration_ids: List[StrictStr] = Field(description="The integration ID of the customer profile to whom points were added or deducted.", alias="ProfileIntegrationIDs", json_schema_extra={"examples": [["yJSObdNNtOetCHWHPFuz", "test-user-4zoj1c"]]})
+    session_integration_id: StrictStr = Field(description="The integration ID of the session through which the points were earned or lost.", alias="SessionIntegrationID", json_schema_extra={"examples": ["cc53e4fa-547f-4f5e-8333-76e05c381f67"]})
+    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added or deducted.", alias="SubledgerID", json_schema_extra={"examples": ["sub-123"]})
     type_of_change: StrictStr = Field(description="The notification source, that is, it indicates whether the points were added or deducted via one of the following routes: - [The Campaign Manager](/docs/product/getting-started) - [Management API](/management-api#tag/Loyalty) - [Rule Engine](/docs/product/applications/evaluation-order-for-rules-and-filters) ", alias="TypeOfChange")
-    user_id: StrictInt = Field(description="The ID of the employee who added or deducted points.", alias="UserID")
-    users_per_card_limit: StrictInt = Field(description="The max amount of user profiles with whom a card can be shared. This can be set to `0` for no limit.", alias="UsersPerCardLimit")
+    user_id: StrictInt = Field(description="The ID of the employee who added or deducted points.", alias="UserID", json_schema_extra={"examples": [25]})
+    users_per_card_limit: StrictInt = Field(description="The max amount of user profiles with whom a card can be shared. This can be set to `0` for no limit.", alias="UsersPerCardLimit", json_schema_extra={"examples": [10]})
     actions: Annotated[List[AddedDeductedPointsBalancesAction], Field(min_length=1)] = Field(description="The list of actions that have been triggered in the loyalty program.", alias="Actions")
-    current_points: Union[StrictFloat, StrictInt] = Field(description="The current points balance.", alias="CurrentPoints")
+    current_points: Union[StrictFloat, StrictInt] = Field(description="The current points balance.", alias="CurrentPoints", json_schema_extra={"examples": [10.99]})
     __properties: ClassVar[List[str]] = ["CardIdentifier", "EmployeeName", "LoyaltyProgramID", "NotificationType", "ProfileIntegrationIDs", "SessionIntegrationID", "SubledgerID", "TypeOfChange", "UserID", "UsersPerCardLimit", "Actions", "CurrentPoints"]
 
     @field_validator('notification_type')

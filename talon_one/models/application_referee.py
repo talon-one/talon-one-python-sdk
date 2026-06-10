@@ -29,7 +29,7 @@ class ApplicationReferee(BaseModel):
     """
     ApplicationReferee
     """ # noqa: E501
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
     session_id: StrictStr = Field(description="Integration ID of the session in which the customer redeemed the referral.", alias="sessionId")
     advocate_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Integration ID of the Advocate's Profile.", alias="advocateIntegrationId")
     friend_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Integration ID of the Friend's Profile.", alias="friendIntegrationId")

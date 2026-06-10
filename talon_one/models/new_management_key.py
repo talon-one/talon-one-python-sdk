@@ -29,17 +29,17 @@ class NewManagementKey(BaseModel):
     """
     NewManagementKey
     """ # noqa: E501
-    name: StrictStr = Field(description="Name for management key.")
-    expiry_date: datetime = Field(description="The date the management key expires.", alias="expiryDate")
+    name: StrictStr = Field(description="Name for management key.", json_schema_extra={"examples": ["My generated key"]})
+    expiry_date: datetime = Field(description="The date the management key expires.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:00:00Z"]})
     endpoints: List[Endpoint] = Field(description="The list of endpoints that can be accessed with the key")
-    allowed_application_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of Application IDs that you can access with the management key. An empty or missing list means the management key can be used for all Applications in the account. ", alias="allowedApplicationIds")
-    id: StrictInt = Field(description="ID of the management key.")
-    created_by: StrictInt = Field(description="ID of the user who created it.", alias="createdBy")
-    account_id: StrictInt = Field(description="ID of account the key is used for.", alias="accountID")
-    created: datetime = Field(description="The date the management key was created.")
-    disabled: Optional[StrictBool] = Field(default=None, description="The management key is disabled (this property is set to `true`) when the user who created the key is disabled or deleted.")
-    last_used: Optional[datetime] = Field(default=None, description="The last time the management key was used.", alias="lastUsed")
-    key: StrictStr = Field(description="The management key.")
+    allowed_application_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of Application IDs that you can access with the management key. An empty or missing list means the management key can be used for all Applications in the account. ", alias="allowedApplicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    id: StrictInt = Field(description="ID of the management key.", json_schema_extra={"examples": [34]})
+    created_by: StrictInt = Field(description="ID of the user who created it.", alias="createdBy", json_schema_extra={"examples": [280]})
+    account_id: StrictInt = Field(description="ID of account the key is used for.", alias="accountID", json_schema_extra={"examples": [13]})
+    created: datetime = Field(description="The date the management key was created.", json_schema_extra={"examples": ["2022-03-02T16:46:17.758585Z"]})
+    disabled: Optional[StrictBool] = Field(default=None, description="The management key is disabled (this property is set to `true`) when the user who created the key is disabled or deleted.", json_schema_extra={"examples": [True]})
+    last_used: Optional[datetime] = Field(default=None, description="The last time the management key was used.", alias="lastUsed", json_schema_extra={"examples": ["2022-03-02T16:46:17.758585Z"]})
+    key: StrictStr = Field(description="The management key.", json_schema_extra={"examples": ["f45f90d21dcd9bac965c45e547e9754a3196891d09948e35adbcbedc4e9e4b01"]})
     __properties: ClassVar[List[str]] = ["name", "expiryDate", "endpoints", "allowedApplicationIds", "id", "createdBy", "accountID", "created", "disabled", "lastUsed", "key"]
 
     model_config = ConfigDict(

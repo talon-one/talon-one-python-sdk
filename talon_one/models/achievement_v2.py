@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from talon_one.models.time_point import TimePoint
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,26 +30,27 @@ class AchievementV2(BaseModel):
     """
     AchievementV2
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The internal name of the achievement used in API requests.  **Note**: The name should start with a letter. This cannot be changed after the achievement has been created. ")
-    title: StrictStr = Field(description="The display name for the achievement in the Campaign Manager.")
-    description: StrictStr = Field(description="A description of the achievement.")
-    target: Union[StrictFloat, StrictInt] = Field(description="The required number of actions or the transactional milestone to complete the achievement.")
-    period: Optional[StrictStr] = Field(default=None, description="The relative duration after which the achievement ends and resets for a particular customer profile.  **Note**: The `period` does not start when the achievement is created.  The period is a **positive real number** followed by one letter indicating the time unit.  Examples: `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `s`: seconds - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can also round certain units down to the beginning of period and up to the end of period.: - `_D` for rounding down days only. Signifies the start of the day. Example: `30D_D` - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year. Example: `23W_U`  **Note**: You can either use the round down and round up option or set an absolute period. ")
-    recurrence_policy: StrictStr = Field(description="The policy that determines if and how the achievement recurs. - `no_recurrence`: The achievement can be completed only once. - `on_expiration`: The achievement resets after it expires and becomes available again. - `on_completion`: When the customer progress status reaches `completed`, the achievement resets and becomes available again. ", alias="recurrencePolicy")
-    activation_policy: StrictStr = Field(description="The policy that determines how the achievement starts, ends, or resets. - `user_action`: The achievement ends or resets relative to when the customer started the achievement. - `fixed_schedule`: The achievement starts, ends, or resets for all customers following a fixed schedule. ", alias="activationPolicy")
-    fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is set to `fixed_schedule`.  **Note:** It must be an RFC3339 timestamp string. ", alias="fixedStartDate")
-    end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It must be an RFC3339 timestamp string. ", alias="endDate")
-    allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion")
-    subscribed_applications: Annotated[List[StrictInt], Field(min_length=0)] = Field(description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications")
-    user_id: StrictInt = Field(description="The ID of the user that created this achievement.", alias="userId")
-    created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The internal name of the achievement used in API requests.  **Note**: The name should start with a letter. This cannot be changed after the achievement has been created. ", json_schema_extra={"examples": ["Order50Discount"]})
+    title: StrictStr = Field(description="The display name for the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off on 50th purchase."]})
+    description: StrictStr = Field(description="A description of the achievement.", json_schema_extra={"examples": ["50% off for every 50th purchase in a year."]})
+    target: Union[StrictFloat, StrictInt] = Field(description="The required number of actions or the transactional milestone to complete the achievement.", json_schema_extra={"examples": [50]})
+    period: Optional[StrictStr] = Field(default=None, description="The relative duration after which the achievement ends and resets for a particular customer profile.  **Note**: The `period` does not start when the achievement is created.  The period is a **positive real number** followed by one letter indicating the time unit.  Examples: `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `s`: seconds - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can also round certain units down to the beginning of period and up to the end of period.: - `_D` for rounding down days only. Signifies the start of the day. Example: `30D_D` - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year. Example: `23W_U`  **Note**: You can either use the round down and round up option or set an absolute period. ", json_schema_extra={"examples": ["1Y"]})
+    recurrence_policy: StrictStr = Field(description="The policy that determines if and how the achievement recurs. - `no_recurrence`: The achievement can be completed only once. - `on_expiration`: The achievement resets after it expires and becomes available again. - `on_completion`: When the customer progress status reaches `completed`, the achievement resets and becomes available again. ", alias="recurrencePolicy", json_schema_extra={"examples": ["no_recurrence"]})
+    activation_policy: StrictStr = Field(description="The policy that determines how the achievement starts, ends, or resets. - `user_action`: The achievement ends or resets relative to when the customer started the achievement. - `fixed_schedule`: The achievement starts, ends, or resets for all customers following a fixed schedule. ", alias="activationPolicy", json_schema_extra={"examples": ["fixed_schedule"]})
+    fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is set to `fixed_schedule`.  **Note:** It must be an RFC3339 timestamp string. ", alias="fixedStartDate", json_schema_extra={"examples": ["2024-01-15T15:04:05+07:00"]})
+    end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It must be an RFC3339 timestamp string. ", alias="endDate", json_schema_extra={"examples": ["2024-01-15T15:04:05+07:00"]})
+    allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion", json_schema_extra={"examples": [False]})
+    subscribed_applications: Annotated[List[StrictInt], Field(min_length=0)] = Field(description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications", json_schema_extra={"examples": [[132, 97]]})
+    user_id: StrictInt = Field(description="The ID of the user that created this achievement.", alias="userId", json_schema_extra={"examples": [1234]})
+    created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy", json_schema_extra={"examples": ["John Doe"]})
+    period_end_override: Optional[TimePoint] = Field(default=None, alias="periodEndOverride")
     has_progress: Optional[StrictBool] = Field(default=None, description="Indicates if a customer has made progress in the achievement.", alias="hasProgress")
-    status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.")
-    sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.")
-    timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
-    __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "subscribedApplications", "userId", "createdBy", "hasProgress", "status", "sandbox", "timezone"]
+    status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.                                                                                               - `active`: The achievement is available to customers. - `scheduled`: The achievement has a `fixedStartDate` set in the future. - `expired`: The achievement's `endDate` is in the past. ", json_schema_extra={"examples": ["active"]})
+    sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
+    timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.", json_schema_extra={"examples": ["Europe/Berlin"]})
+    __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "subscribedApplications", "userId", "createdBy", "periodEndOverride", "hasProgress", "status", "sandbox", "timezone"]
 
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
@@ -80,8 +82,8 @@ class AchievementV2(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['inprogress', 'expired', 'not_started', 'completed']):
-            raise ValueError("must be one of enum values ('inprogress', 'expired', 'not_started', 'completed')")
+        if value not in set(['active', 'scheduled', 'expired']):
+            raise ValueError("must be one of enum values ('active', 'scheduled', 'expired')")
         return value
 
     model_config = ConfigDict(
@@ -123,6 +125,9 @@ class AchievementV2(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of period_end_override
+        if self.period_end_override:
+            _dict['periodEndOverride'] = self.period_end_override.to_dict()
         return _dict
 
     @classmethod
@@ -150,6 +155,7 @@ class AchievementV2(BaseModel):
             "subscribedApplications": obj.get("subscribedApplications"),
             "userId": obj.get("userId"),
             "createdBy": obj.get("createdBy"),
+            "periodEndOverride": TimePoint.from_dict(obj["periodEndOverride"]) if obj.get("periodEndOverride") is not None else None,
             "hasProgress": obj.get("hasProgress"),
             "status": obj.get("status"),
             "sandbox": obj.get("sandbox"),

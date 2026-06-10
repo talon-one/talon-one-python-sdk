@@ -29,11 +29,11 @@ class CampaignSet(BaseModel):
     """
     CampaignSet
     """ # noqa: E501
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    version: Annotated[int, Field(strict=True, ge=1)] = Field(description="Version of the campaign set.")
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    version: Annotated[int, Field(strict=True, ge=1)] = Field(description="Version of the campaign set.", json_schema_extra={"examples": [3]})
     set: CampaignSetBranchNode
-    updated_by: Optional[StrictStr] = Field(default=None, description="Name of the user who last updated this campaign set, if available.", alias="updatedBy")
+    updated_by: Optional[StrictStr] = Field(default=None, description="Name of the user who last updated this campaign set, if available.", alias="updatedBy", json_schema_extra={"examples": ["Jane Doe"]})
     __properties: ClassVar[List[str]] = ["applicationId", "id", "version", "set", "updatedBy"]
 
     model_config = ConfigDict(

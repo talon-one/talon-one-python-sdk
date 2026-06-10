@@ -28,7 +28,7 @@ class ApplicationCIFReferences(BaseModel):
     """
     ApplicationCIFReferences
     """ # noqa: E501
-    application_cart_item_filter_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application Cart Item Filter that is referenced by a campaign.", alias="applicationCartItemFilterId")
+    application_cart_item_filter_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application Cart Item Filter that is referenced by a campaign.", alias="applicationCartItemFilterId", json_schema_extra={"examples": [322]})
     campaigns: Optional[List[CampaignDetail]] = Field(default=None, description="Campaigns that reference a speciifc Application Cart Item Filter.")
     __properties: ClassVar[List[str]] = ["applicationCartItemFilterId", "campaigns"]
 

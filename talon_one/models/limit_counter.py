@@ -28,21 +28,21 @@ class LimitCounter(BaseModel):
     """
     LimitCounter
     """ # noqa: E501
-    campaign_id: StrictInt = Field(description="The ID of the campaign that owns this entity.", alias="campaignId")
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
-    id: StrictInt = Field(description="Unique ID for this entity.")
-    action: StrictStr = Field(description="The limitable action of the limit counter.")
-    profile_id: Optional[StrictInt] = Field(default=None, description="The profile ID for which this limit counter is used.", alias="profileId")
-    profile_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The profile integration ID for which this limit counter is used.", alias="profileIntegrationId")
-    coupon_id: Optional[StrictInt] = Field(default=None, description="The internal coupon ID for which this limit counter is used.", alias="couponId")
-    coupon_value: Optional[StrictStr] = Field(default=None, description="The coupon value for which this limit counter is used.", alias="couponValue")
-    referral_id: Optional[StrictInt] = Field(default=None, description="The referral ID for which this limit counter is used.", alias="referralId")
-    referral_value: Optional[StrictStr] = Field(default=None, description="The referral value for which this limit counter is used.", alias="referralValue")
-    identifier: Optional[StrictStr] = Field(default=None, description="The arbitrary identifier for which this limit counter is used.")
-    period: Optional[StrictStr] = Field(default=None, description="The time period for which this limit counter is used.")
-    limit: Union[StrictFloat, StrictInt] = Field(description="The highest possible value for this limit counter.")
-    counter: Union[StrictFloat, StrictInt] = Field(description="The current value for this limit counter.")
+    campaign_id: StrictInt = Field(description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [211]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    id: StrictInt = Field(description="Unique ID for this entity.", json_schema_extra={"examples": [6]})
+    action: StrictStr = Field(description="The limitable action of the limit counter.", json_schema_extra={"examples": ["setDiscount"]})
+    profile_id: Optional[StrictInt] = Field(default=None, description="The profile ID for which this limit counter is used.", alias="profileId", json_schema_extra={"examples": [335]})
+    profile_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The profile integration ID for which this limit counter is used.", alias="profileIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    coupon_id: Optional[StrictInt] = Field(default=None, description="The internal coupon ID for which this limit counter is used.", alias="couponId", json_schema_extra={"examples": [34]})
+    coupon_value: Optional[StrictStr] = Field(default=None, description="The coupon value for which this limit counter is used.", alias="couponValue", json_schema_extra={"examples": ["XMAS-20-2021"]})
+    referral_id: Optional[StrictInt] = Field(default=None, description="The referral ID for which this limit counter is used.", alias="referralId", json_schema_extra={"examples": [4]})
+    referral_value: Optional[StrictStr] = Field(default=None, description="The referral value for which this limit counter is used.", alias="referralValue", json_schema_extra={"examples": [""]})
+    identifier: Optional[StrictStr] = Field(default=None, description="The arbitrary identifier for which this limit counter is used.", json_schema_extra={"examples": ["91.11.156.141"]})
+    period: Optional[StrictStr] = Field(default=None, description="The time period for which this limit counter is used.", json_schema_extra={"examples": ["Y2021M8"]})
+    limit: Union[StrictFloat, StrictInt] = Field(description="The highest possible value for this limit counter.", json_schema_extra={"examples": [10]})
+    counter: Union[StrictFloat, StrictInt] = Field(description="The current value for this limit counter.", json_schema_extra={"examples": [5]})
     __properties: ClassVar[List[str]] = ["campaignId", "applicationId", "accountId", "id", "action", "profileId", "profileIntegrationId", "couponId", "couponValue", "referralId", "referralValue", "identifier", "period", "limit", "counter"]
 
     model_config = ConfigDict(

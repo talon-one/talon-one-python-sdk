@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **recipient_integration_id** | **str** |  | [optional] 
 **import_id** | **int** |  | [optional] 
 **batch_id** | **str** |  | [optional] 
-**attributes** | **object** |  | [optional] 
+**attributes** | **object** | Arbitrary properties associated with this campaign. | [optional] 
 **limits** | [**List[IntegrationHubEventPayloadCouponBasedNotificationsLimits]**](IntegrationHubEventPayloadCouponBasedNotificationsLimits.md) |  | [optional] 
 **published_at** | **datetime** | Timestamp when the event was published. | 
 **source_of_event** | **str** |  | 

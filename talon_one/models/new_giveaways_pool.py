@@ -27,10 +27,10 @@ class NewGiveawaysPool(BaseModel):
     """
     NewGiveawaysPool
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of this giveaways pool.")
-    description: Optional[StrictStr] = Field(default=None, description="The description of this giveaways pool.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that this giveaways pool is enabled for.", alias="subscribedApplicationsIds")
-    sandbox: StrictBool = Field(description="Indicates if this program is a live or sandbox program. Programs of a given type can only be connected to Applications of the same type.")
+    name: StrictStr = Field(description="The name of this giveaways pool.", json_schema_extra={"examples": ["My giveaway pool"]})
+    description: Optional[StrictStr] = Field(default=None, description="The description of this giveaways pool.", json_schema_extra={"examples": ["Generic pool"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that this giveaways pool is enabled for.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[2, 4]]})
+    sandbox: StrictBool = Field(description="Indicates if this program is a live or sandbox program. Programs of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["name", "description", "subscribedApplicationsIds", "sandbox"]
 
     model_config = ConfigDict(

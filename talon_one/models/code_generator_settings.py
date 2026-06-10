@@ -28,8 +28,8 @@ class CodeGeneratorSettings(BaseModel):
     """
     CodeGeneratorSettings
     """ # noqa: E501
-    valid_characters: List[StrictStr] = Field(description="List of characters used to generate the random parts of a code. ", alias="validCharacters")
-    coupon_pattern: Annotated[str, Field(min_length=3, strict=True, max_length=100)] = Field(description="The pattern used to generate codes, such as coupon codes, referral codes, and loyalty cards. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="couponPattern")
+    valid_characters: List[StrictStr] = Field(description="List of characters used to generate the random parts of a code. ", alias="validCharacters", json_schema_extra={"examples": [["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]]})
+    coupon_pattern: Annotated[str, Field(min_length=3, strict=True, max_length=100)] = Field(description="The pattern used to generate codes, such as coupon codes, referral codes, and loyalty cards. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="couponPattern", json_schema_extra={"examples": ["SUMMER-####-####"]})
     __properties: ClassVar[List[str]] = ["validCharacters", "couponPattern"]
 
     @field_validator('coupon_pattern')

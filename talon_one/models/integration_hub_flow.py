@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.integration_hub_event_type import IntegrationHubEventType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,10 +28,11 @@ class IntegrationHubFlow(BaseModel):
     """
     IntegrationHubFlow
     """ # noqa: E501
-    application_id: Optional[StrictInt] = Field(default=None, description="ID of application the flow is registered for.", alias="ApplicationID")
-    event_type: StrictStr = Field(description="The event type we want to register a flow for.", alias="EventType")
+    application_id: Optional[StrictInt] = Field(default=None, description="ID of the application the flow is registered for.", alias="ApplicationID", json_schema_extra={"examples": [54]})
+    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program the flow is registered for.", alias="LoyaltyProgramID", json_schema_extra={"examples": [12]})
+    event_type: IntegrationHubEventType = Field(alias="EventType")
     integration_hub_flow_url: StrictStr = Field(description="The URL of the integration hub flow that we want to trigger for the event.", alias="IntegrationHubFlowUrl")
-    __properties: ClassVar[List[str]] = ["ApplicationID", "EventType", "IntegrationHubFlowUrl"]
+    __properties: ClassVar[List[str]] = ["ApplicationID", "LoyaltyProgramID", "EventType", "IntegrationHubFlowUrl"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -84,6 +86,7 @@ class IntegrationHubFlow(BaseModel):
 
         _obj = cls.model_validate({
             "ApplicationID": obj.get("ApplicationID"),
+            "LoyaltyProgramID": obj.get("LoyaltyProgramID"),
             "EventType": obj.get("EventType"),
             "IntegrationHubFlowUrl": obj.get("IntegrationHubFlowUrl")
         })

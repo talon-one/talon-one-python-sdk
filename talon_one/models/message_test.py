@@ -27,8 +27,8 @@ class MessageTest(BaseModel):
     """
     MessageTest
     """ # noqa: E501
-    http_response: StrictStr = Field(description="The returned http response.", alias="httpResponse")
-    http_status: StrictInt = Field(description="The returned http status code.", alias="httpStatus")
+    http_response: StrictStr = Field(description="The returned http response.", alias="httpResponse", json_schema_extra={"examples": ["HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Length: 256\n\n{\n  \"message\": \"Hello, world!\",\n  \"status\": \"success\"\n}\n"]})
+    http_status: StrictInt = Field(description="The returned http status code.", alias="httpStatus", json_schema_extra={"examples": [200]})
     __properties: ClassVar[List[str]] = ["httpResponse", "httpStatus"]
 
     model_config = ConfigDict(

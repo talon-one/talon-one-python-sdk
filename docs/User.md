@@ -17,11 +17,11 @@ Name | Type | Description | Notes
 **policy** | **object** | Access level of the user. | 
 **roles** | **List[int]** | A list of the IDs of the roles assigned to the user. | [optional] 
 **auth_method** | **str** | Authentication method for this user. | [optional] 
-**application_notification_subscriptions** | **object** | Application notifications that the user is subscribed to. | [optional] 
+**application_notification_subscriptions** | **object** | Arbitrary properties associated with this campaign. | [optional] 
 **last_signed_in** | **datetime** | Timestamp when the user last signed in to Talon.One. | [optional] 
 **last_accessed** | **datetime** | Timestamp of the user&#39;s last activity after signing in to Talon.One. | [optional] 
 **latest_feed_timestamp** | **datetime** | Timestamp when the user was notified for feed. | [optional] 
-**additional_attributes** | **object** | Additional user attributes, created and used by external identity providers. | [optional] 
+**additional_attributes** | **object** | Arbitrary properties associated with this campaign. | [optional] 
 
 ## Example
 

@@ -27,7 +27,7 @@ class IntegrationProfileEntityV3(BaseModel):
     """
     IntegrationProfileEntityV3
     """ # noqa: E501
-    profile_id: StrictStr = Field(description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId")
+    profile_id: StrictStr = Field(description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId", json_schema_extra={"examples": ["URNGV8294NV"]})
     __properties: ClassVar[List[str]] = ["profileId"]
 
     model_config = ConfigDict(

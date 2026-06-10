@@ -28,7 +28,7 @@ class BaseSamlConnection(BaseModel):
     """
     BaseSamlConnection
     """ # noqa: E501
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3885]})
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="ID of the SAML service.")
     enabled: StrictBool = Field(description="Determines if this SAML connection active.")
     issuer: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Identity Provider Entity ID.")

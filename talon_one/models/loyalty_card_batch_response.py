@@ -27,8 +27,8 @@ class LoyaltyCardBatchResponse(BaseModel):
     """
     LoyaltyCardBatchResponse
     """ # noqa: E501
-    number_of_cards_generated: StrictInt = Field(description="Number of loyalty cards in the batch.", alias="numberOfCardsGenerated")
-    batch_id: StrictStr = Field(description="ID of the loyalty card batch.", alias="batchId")
+    number_of_cards_generated: StrictInt = Field(description="Number of loyalty cards in the batch.", alias="numberOfCardsGenerated", json_schema_extra={"examples": [5000]})
+    batch_id: StrictStr = Field(description="ID of the loyalty card batch.", alias="batchId", json_schema_extra={"examples": ["hwernpjz"]})
     __properties: ClassVar[List[str]] = ["numberOfCardsGenerated", "batchId"]
 
     model_config = ConfigDict(

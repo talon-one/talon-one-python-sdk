@@ -53,7 +53,10 @@ class TestCampaignEligibility(unittest.TestCase):
                     ],
                 rules = [
                     null
-                    ]
+                    ],
+                experiment = talon_one.models.campaign_eligibility_experiment.CampaignEligibilityExperiment(
+                    id = 56, 
+                    variant_id = 56, )
             )
         else:
             return CampaignEligibility(

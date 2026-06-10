@@ -31,10 +31,10 @@ class StrikethroughLabelingNotification(BaseModel):
     The strikethrough labels notification for an application.
     """ # noqa: E501
     version: Optional[StrictStr] = Field(default=None, description="The version of the strikethrough pricing notification. Set for **scheduled** strikethrough pricing updates only. ")
-    valid_from: Optional[datetime] = Field(default=None, description="Timestamp at which the strikethrough pricing update becomes valid. Set for **scheduled** strikethrough pricing updates (version: v2) only. ", alias="validFrom")
-    application_id: StrictInt = Field(description="The ID of the Application to which the catalog items labels belongs.", alias="applicationId")
-    current_batch: StrictInt = Field(description="The batch number of the notification. Notifications might be sent in different batches.", alias="currentBatch")
-    total_batches: StrictInt = Field(description="The total number of batches for the notification.", alias="totalBatches")
+    valid_from: Optional[datetime] = Field(default=None, description="Timestamp at which the strikethrough pricing update becomes valid. Set for **scheduled** strikethrough pricing updates (version: v2) only. ", alias="validFrom", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    application_id: StrictInt = Field(description="The ID of the Application to which the catalog items labels belongs.", alias="applicationId", json_schema_extra={"examples": [322]})
+    current_batch: StrictInt = Field(description="The batch number of the notification. Notifications might be sent in different batches.", alias="currentBatch", json_schema_extra={"examples": [1]})
+    total_batches: StrictInt = Field(description="The total number of batches for the notification.", alias="totalBatches", json_schema_extra={"examples": [10]})
     trigger: StrikethroughTrigger
     changed_items: List[StrikethroughChangedItem] = Field(alias="changedItems")
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")

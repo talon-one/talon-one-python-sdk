@@ -27,8 +27,8 @@ class ProfileAudiencesChanges(BaseModel):
     """
     ProfileAudiencesChanges
     """ # noqa: E501
-    adds: List[StrictInt] = Field(description="The IDs of the audiences for the customer to join.")
-    deletes: List[StrictInt] = Field(description="The IDs of the audiences for the customer to leave.")
+    adds: List[StrictInt] = Field(description="The IDs of the audiences for the customer to join.", json_schema_extra={"examples": [[2, 4]]})
+    deletes: List[StrictInt] = Field(description="The IDs of the audiences for the customer to leave.", json_schema_extra={"examples": [[7]]})
     __properties: ClassVar[List[str]] = ["adds", "deletes"]
 
     model_config = ConfigDict(

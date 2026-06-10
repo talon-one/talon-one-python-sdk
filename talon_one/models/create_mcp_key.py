@@ -28,8 +28,8 @@ class CreateMCPKey(BaseModel):
     """
     CreateMCPKey
     """ # noqa: E501
-    name: StrictStr = Field(description="Name for the MCP key.")
-    expiry_date: datetime = Field(description="The date the MCP key expires.", alias="expiryDate")
+    name: StrictStr = Field(description="Name for the MCP key.", json_schema_extra={"examples": ["My MCP key"]})
+    expiry_date: datetime = Field(description="The date the MCP key expires.", alias="expiryDate", json_schema_extra={"examples": ["2026-08-24T14:00:00Z"]})
     __properties: ClassVar[List[str]] = ["name", "expiryDate"]
 
     model_config = ConfigDict(

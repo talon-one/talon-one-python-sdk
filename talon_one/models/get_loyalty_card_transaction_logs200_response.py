@@ -28,7 +28,7 @@ class GetLoyaltyCardTransactionLogs200Response(BaseModel):
     """
     GetLoyaltyCardTransactionLogs200Response
     """ # noqa: E501
-    has_more: StrictBool = Field(description="true means there is more data in the source collection to request..", alias="hasMore")
+    has_more: StrictBool = Field(description="true means there is more data in the source collection to request..", alias="hasMore", json_schema_extra={"examples": [True]})
     data: List[CardLedgerTransactionLogEntry] = Field(description="List of loyalty card transaction logs.")
     __properties: ClassVar[List[str]] = ["hasMore", "data"]
 

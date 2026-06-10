@@ -28,10 +28,10 @@ class RewardPointsRequired(BaseModel):
     """
     The loyalty points required to activate a reward.
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="The ID of the `pointsRequired` entry. When updating a reward, include this property to update an existing entry. Omit it to create a new one. ")
-    amount: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="The number of loyalty points required to activate the reward.")
-    loyalty_program_id: StrictInt = Field(description="The ID of the associated loyalty program.", alias="loyaltyProgramId")
-    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program from which points are deducted when activating the reward.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerId")
+    id: Optional[StrictInt] = Field(default=None, description="The ID of the `pointsRequired` entry. When updating a reward, include this property to update an existing entry. Omit it to create a new one. ", json_schema_extra={"examples": [1]})
+    amount: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="The number of loyalty points required to activate the reward.", json_schema_extra={"examples": [500]})
+    loyalty_program_id: StrictInt = Field(description="The ID of the associated loyalty program.", alias="loyaltyProgramId", json_schema_extra={"examples": [10]})
+    subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program from which points are deducted when activating the reward.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerId", json_schema_extra={"examples": ["mysubledger"]})
     __properties: ClassVar[List[str]] = ["id", "amount", "loyaltyProgramId", "subledgerId"]
 
     model_config = ConfigDict(

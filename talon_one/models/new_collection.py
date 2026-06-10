@@ -28,9 +28,9 @@ class NewCollection(BaseModel):
     """
     NewCollection
     """ # noqa: E501
-    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications where this collection is enabled.", alias="subscribedApplicationsIds")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this collection.")
+    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.", json_schema_extra={"examples": ["My collection of SKUs"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications where this collection is enabled.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this collection.", json_schema_extra={"examples": ["My collection"]})
     __properties: ClassVar[List[str]] = ["description", "subscribedApplicationsIds", "name"]
 
     @field_validator('name')

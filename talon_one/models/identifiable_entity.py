@@ -27,7 +27,7 @@ class IdentifiableEntity(BaseModel):
     """
     IdentifiableEntity
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.")
+    id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.", json_schema_extra={"examples": [6]})
     __properties: ClassVar[List[str]] = ["id"]
 
     model_config = ConfigDict(

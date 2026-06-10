@@ -30,13 +30,13 @@ class Rule(BaseModel):
     """
     Rule
     """ # noqa: E501
-    id: Optional[UUID] = Field(default=None, description="A unique identifier for the rule.")
-    parent_id: Optional[UUID] = Field(default=None, description="The ID of the rule that was copied to create this rule.", alias="parentId")
-    title: StrictStr = Field(description="A short description of the rule.")
-    description: Optional[StrictStr] = Field(default=None, description="A longer, more detailed description of the rule.")
+    id: Optional[UUID] = Field(default=None, description="A unique identifier for the rule.", json_schema_extra={"examples": ["7fa800a8-ac8d-4792-85dc-c4650dcc8f23"]})
+    parent_id: Optional[UUID] = Field(default=None, description="The ID of the rule that was copied to create this rule.", alias="parentId", json_schema_extra={"examples": ["7fa800a8-ac8d-4792-85dc-c4650dcc8f23"]})
+    title: StrictStr = Field(description="A short description of the rule.", json_schema_extra={"examples": ["Give discount via coupon"]})
+    description: Optional[StrictStr] = Field(default=None, description="A longer, more detailed description of the rule.", json_schema_extra={"examples": ["Creates a discount when a coupon is valid"]})
     bindings: Optional[List[Binding]] = Field(default=None, description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.")
-    condition: Annotated[List[Any], Field(min_length=1)] = Field(description="A Talang expression that will be evaluated in the context of the given event.")
-    effects: List[Dict[str, Any]] = Field(description="An array of effectful Talang expressions in arrays that will be evaluated when a rule matches.")
+    condition: Annotated[List[Any], Field(min_length=1)] = Field(description="A Talang expression that will be evaluated in the context of the given event.", json_schema_extra={"examples": [["and", ["couponValid"]]]})
+    effects: List[Dict[str, Any]] = Field(description="An array of effectful Talang expressions in arrays that will be evaluated when a rule matches.", json_schema_extra={"examples": [["catch", ["noop"], ["setDiscount", "10% off", ["*", [".", "Session", "Total"], ["/", 10, 100]]]]]})
     __properties: ClassVar[List[str]] = ["id", "parentId", "title", "description", "bindings", "condition", "effects"]
 
     model_config = ConfigDict(

@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **user_id** | **int** | The ID of the user associated with this entity. | 
 **application_id** | **int** | ID of application associated with change. | [optional] 
 **entity** | **str** | API endpoint on which the change was initiated. | 
-**old** | **object** | Resource before the change occurred. | [optional] 
-**new** | **object** | Resource after the change occurred. | [optional] 
+**old** | **object** | Arbitrary properties associated with this campaign. | [optional] 
+**new** | **object** | Arbitrary properties associated with this campaign. | [optional] 
 **management_key_id** | **int** | ID of management key used to perform changes. | [optional] 
 
 ## Example

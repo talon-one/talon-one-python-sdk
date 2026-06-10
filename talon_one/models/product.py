@@ -27,7 +27,7 @@ class Product(BaseModel):
     """
     The specific properties of the product this item belongs to, if available.
     """ # noqa: E501
-    name: StrictStr = Field(description="The product the item belongs to.")
+    name: StrictStr = Field(description="The product the item belongs to.", json_schema_extra={"examples": ["sample_product"]})
     __properties: ClassVar[List[str]] = ["name"]
 
     model_config = ConfigDict(

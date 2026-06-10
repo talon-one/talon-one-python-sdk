@@ -27,7 +27,7 @@ class CampaignNotificationBase(BaseModel):
     """
     CampaignNotificationBase
     """ # noqa: E501
-    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType")
+    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType", json_schema_extra={"examples": ["CampaignNotification"]})
     total_result_size: StrictInt = Field(description="The total size of the result set.", alias="TotalResultSize")
     __properties: ClassVar[List[str]] = ["NotificationType", "TotalResultSize"]
 

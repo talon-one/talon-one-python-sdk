@@ -32,8 +32,8 @@ class BaseNotification(BaseModel):
     policy: Dict[str, Any] = Field(description="Indicates which notification properties to apply.")
     enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.")
     webhook: BaseNotificationWebhook
-    id: Annotated[int, Field(strict=True, ge=1)] = Field(description="Unique ID for this entity.")
-    type: StrictStr = Field(description="The notification type.")
+    id: Annotated[int, Field(strict=True, ge=1)] = Field(description="Unique ID for this entity.", json_schema_extra={"examples": [6]})
+    type: StrictStr = Field(description="The notification type.", json_schema_extra={"examples": ["loyalty_added_deducted_points"]})
     __properties: ClassVar[List[str]] = ["policy", "enabled", "webhook", "id", "type"]
 
     @field_validator('type')

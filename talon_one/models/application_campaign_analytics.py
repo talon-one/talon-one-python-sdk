@@ -32,12 +32,12 @@ class ApplicationCampaignAnalytics(BaseModel):
     """
     ApplicationCampaignAnalytics
     """ # noqa: E501
-    start_time: datetime = Field(description="The start of the aggregation time frame in UTC.", alias="startTime")
-    end_time: datetime = Field(description="The end of the aggregation time frame in UTC.", alias="endTime")
-    campaign_id: StrictInt = Field(description="The ID of the campaign.", alias="campaignId")
-    campaign_name: StrictStr = Field(description="The name of the campaign.", alias="campaignName")
-    campaign_tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.", alias="campaignTags")
-    campaign_state: StrictStr = Field(description="The state of the campaign.  **Note:** A disabled or archived campaign is not evaluated for rules or coupons. ", alias="campaignState")
+    start_time: datetime = Field(description="The start of the aggregation time frame in UTC.", alias="startTime", json_schema_extra={"examples": ["2024-02-01T00:00:00Z"]})
+    end_time: datetime = Field(description="The end of the aggregation time frame in UTC.", alias="endTime", json_schema_extra={"examples": ["2024-02-01T23:59:99Z"]})
+    campaign_id: StrictInt = Field(description="The ID of the campaign.", alias="campaignId", json_schema_extra={"examples": [1]})
+    campaign_name: StrictStr = Field(description="The name of the campaign.", alias="campaignName", json_schema_extra={"examples": ["Summer promotions"]})
+    campaign_tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.", alias="campaignTags", json_schema_extra={"examples": [["summer"]]})
+    campaign_state: StrictStr = Field(description="The state of the campaign.  **Note:** A disabled or archived campaign is not evaluated for rules or coupons. ", alias="campaignState", json_schema_extra={"examples": ["running"]})
     total_revenue: Optional[AnalyticsDataPointWithTrendAndInfluencedRate] = Field(default=None, description="The total, pre-discount value of all items purchased in a customer session.", alias="totalRevenue")
     sessions_count: Optional[AnalyticsDataPointWithTrendAndInfluencedRate] = Field(default=None, description="The number of all closed sessions. The `influenced` value includes only sessions with at least one applied effect.", alias="sessionsCount")
     avg_items_per_session: Optional[AnalyticsDataPointWithTrendAndUplift] = Field(default=None, description="The number of items from sessions divided by the number of sessions. The `influenced` value includes only sessions with at least one applied effect.", alias="avgItemsPerSession")

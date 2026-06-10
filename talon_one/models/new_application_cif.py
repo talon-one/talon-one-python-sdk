@@ -28,11 +28,11 @@ class NewApplicationCIF(BaseModel):
     """
     NewApplicationCIF
     """ # noqa: E501
-    name: StrictStr = Field(description="The name of the Application cart item filter used in API requests.")
-    description: Optional[StrictStr] = Field(default=None, description="A short description of the Application cart item filter.")
-    active_expression_id: Optional[StrictInt] = Field(default=None, description="The ID of the expression that the Application cart item filter uses.", alias="activeExpressionId")
-    modified_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who last updated the Application cart item filter.", alias="modifiedBy")
-    created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the Application cart item filter.", alias="createdBy")
+    name: StrictStr = Field(description="The name of the Application cart item filter used in API requests.", json_schema_extra={"examples": ["Filter items by product"]})
+    description: Optional[StrictStr] = Field(default=None, description="A short description of the Application cart item filter.", json_schema_extra={"examples": ["This filter allows filtering by shoes"]})
+    active_expression_id: Optional[StrictInt] = Field(default=None, description="The ID of the expression that the Application cart item filter uses.", alias="activeExpressionId", json_schema_extra={"examples": [1]})
+    modified_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who last updated the Application cart item filter.", alias="modifiedBy", json_schema_extra={"examples": [334]})
+    created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the Application cart item filter.", alias="createdBy", json_schema_extra={"examples": [216]})
     modified: Optional[datetime] = Field(default=None, description="Timestamp of the most recent update to the Application cart item filter.")
     __properties: ClassVar[List[str]] = ["name", "description", "activeExpressionId", "modifiedBy", "createdBy", "modified"]
 

@@ -28,11 +28,11 @@ class NewReward(BaseModel):
     """
     NewReward
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.")
-    api_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique identifier used to reference the reward in API integrations.", alias="apiName")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the reward.")
-    application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds")
-    sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.", json_schema_extra={"examples": ["Free Coffee"]})
+    api_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique identifier used to reference the reward in API integrations.", alias="apiName", json_schema_extra={"examples": ["free-coffee"]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the reward.", json_schema_extra={"examples": ["This reward gets you one free coffee."]})
+    application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox"]
 
     model_config = ConfigDict(

@@ -29,7 +29,7 @@ class SamlConnection(BaseModel):
     """
     SamlConnection
     """ # noqa: E501
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3885]})
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="ID of the SAML service.")
     enabled: StrictBool = Field(description="Determines if this SAML connection active.")
     issuer: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Identity Provider Entity ID.")
@@ -37,8 +37,8 @@ class SamlConnection(BaseModel):
     sign_out_url: Optional[StrictStr] = Field(default=None, description="Single Sign-Out URL.", alias="signOutURL")
     metadata_url: Optional[StrictStr] = Field(default=None, description="Metadata URL.", alias="metadataURL")
     audience_uri: StrictStr = Field(description="The application-defined unique identifier that is the intended audience of the SAML assertion. This is most often the SP Entity ID of your application. When not specified, the ACS URL will be used. ", alias="audienceURI")
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     assertion_consumer_service_url: StrictStr = Field(description="The location where the SAML assertion is sent with a HTTP POST.", alias="assertionConsumerServiceURL")
     __properties: ClassVar[List[str]] = ["accountId", "name", "enabled", "issuer", "signOnURL", "signOutURL", "metadataURL", "audienceURI", "id", "created", "assertionConsumerServiceURL"]
 

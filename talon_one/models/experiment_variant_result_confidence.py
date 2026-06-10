@@ -27,9 +27,9 @@ class ExperimentVariantResultConfidence(BaseModel):
     """
     ExperimentVariantResultConfidence
     """ # noqa: E501
-    avg_session_value: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the average customer session value.", alias="avgSessionValue")
-    avg_discounted_session_value: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the average customer discounted session value.", alias="avgDiscountedSessionValue")
-    avg_items_per_session: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the number of items from sessions value.", alias="avgItemsPerSession")
+    avg_session_value: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the average customer session value.", alias="avgSessionValue", json_schema_extra={"examples": [100]})
+    avg_discounted_session_value: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the average customer discounted session value.", alias="avgDiscountedSessionValue", json_schema_extra={"examples": [100]})
+    avg_items_per_session: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the number of items from sessions value.", alias="avgItemsPerSession", json_schema_extra={"examples": [100]})
     __properties: ClassVar[List[str]] = ["avgSessionValue", "avgDiscountedSessionValue", "avgItemsPerSession"]
 
     model_config = ConfigDict(

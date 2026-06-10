@@ -28,7 +28,7 @@ class LoyaltyLedgerTransactions(BaseModel):
     """
     List of loyalty ledger transactions.
     """ # noqa: E501
-    has_more: Optional[StrictBool] = Field(default=None, description="If `true`, it means that there is more data to request in the source collection.", alias="hasMore")
+    has_more: Optional[StrictBool] = Field(default=None, description="If `true`, it means that there is more data to request in the source collection.", alias="hasMore", json_schema_extra={"examples": [True]})
     data: Optional[List[LoyaltyLedgerEntry]] = Field(default=None, description="List of transaction entries from a loyalty ledger.")
     __properties: ClassVar[List[str]] = ["hasMore", "data"]
 

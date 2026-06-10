@@ -29,18 +29,18 @@ class Collection(BaseModel):
     """
     Collection
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId")
-    modified: datetime = Field(description="The time this entity was last modified.")
-    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications where this collection is enabled.", alias="subscribedApplicationsIds")
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this collection.")
-    modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this effect if available.", alias="modifiedBy")
-    created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy")
-    application_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application that owns this entity.", alias="applicationId")
-    campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that owns this entity.", alias="campaignId")
-    payload: Optional[Annotated[List[StrictStr], Field(max_length=50)]] = Field(default=None, description="The content of the collection.")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.", json_schema_extra={"examples": ["My collection of SKUs"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications where this collection is enabled.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this collection.", json_schema_extra={"examples": ["My collection"]})
+    modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this effect if available.", alias="modifiedBy", json_schema_extra={"examples": [48]})
+    created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy", json_schema_extra={"examples": [134]})
+    application_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [1]})
+    campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [7]})
+    payload: Optional[Annotated[List[StrictStr], Field(max_length=50)]] = Field(default=None, description="The content of the collection.", json_schema_extra={"examples": [["KTL-WH-ET-1", "KTL-BL-ET-1"]]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "description", "subscribedApplicationsIds", "name", "modifiedBy", "createdBy", "applicationId", "campaignId", "payload"]
 
     @field_validator('name')

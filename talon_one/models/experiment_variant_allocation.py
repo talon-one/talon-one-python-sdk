@@ -27,8 +27,8 @@ class ExperimentVariantAllocation(BaseModel):
     """
     ExperimentVariantAllocation
     """ # noqa: E501
-    experiment_id: StrictInt = Field(description="The ID of the experiment.", alias="experimentID")
-    variant_id: StrictInt = Field(description="The ID of the variant to be allocated.", alias="variantID")
+    experiment_id: StrictInt = Field(description="The ID of the experiment.", alias="experimentID", json_schema_extra={"examples": [1]})
+    variant_id: StrictInt = Field(description="The ID of the variant to be allocated.", alias="variantID", json_schema_extra={"examples": [2]})
     __properties: ClassVar[List[str]] = ["experimentID", "variantID"]
 
     model_config = ConfigDict(

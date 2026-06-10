@@ -19,7 +19,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.roles_v2_thresholds import RolesV2Thresholds
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,9 +30,8 @@ class RoleV2ApplicationDetails(BaseModel):
     application: Optional[StrictStr] = Field(default=None, description="Name of the Application-related permission set for the given Application.")
     campaign: Optional[StrictStr] = Field(default=None, description="Name of the campaign-related permission set for the given Application.")
     draft_campaign: Optional[StrictStr] = Field(default=None, description="Name of the draft campaign-related permission set for the given Application.", alias="draftCampaign")
-    tools: Optional[StrictStr] = Field(default=None, description="Name of the tools-related permission set.")
-    thresholds: Optional[RolesV2Thresholds] = Field(default=None, description="Support user limits for actions that require admin approval within the given application.")
-    __properties: ClassVar[List[str]] = ["application", "campaign", "draftCampaign", "tools", "thresholds"]
+    tools: Optional[StrictStr] = Field(default=None, description="Name of the tools-related permission set.", json_schema_extra={"examples": ["Tools permission set"]})
+    __properties: ClassVar[List[str]] = ["application", "campaign", "draftCampaign", "tools"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -74,9 +72,6 @@ class RoleV2ApplicationDetails(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of thresholds
-        if self.thresholds:
-            _dict['thresholds'] = self.thresholds.to_dict()
         return _dict
 
     @classmethod
@@ -92,8 +87,7 @@ class RoleV2ApplicationDetails(BaseModel):
             "application": obj.get("application"),
             "campaign": obj.get("campaign"),
             "draftCampaign": obj.get("draftCampaign"),
-            "tools": obj.get("tools"),
-            "thresholds": RolesV2Thresholds.from_dict(obj["thresholds"]) if obj.get("thresholds") is not None else None
+            "tools": obj.get("tools")
         })
         return _obj
 

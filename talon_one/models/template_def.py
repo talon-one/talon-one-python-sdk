@@ -30,9 +30,9 @@ class TemplateDef(BaseModel):
     """
     TemplateDef
     """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.")
-    created: datetime = Field(description="The time this entity was created.")
-    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId")
+    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
     title: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Campaigner-friendly name for the template that will be shown in the rule editor.")
     description: Optional[StrictStr] = Field(default=None, description="A short description of the template that will be shown in the rule editor.")
     help: Optional[StrictStr] = Field(default=None, description="Extended help text for the template.")

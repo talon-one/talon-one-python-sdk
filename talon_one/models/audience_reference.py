@@ -28,7 +28,7 @@ class AudienceReference(BaseModel):
     """
     AudienceReference
     """ # noqa: E501
-    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.", alias="integrationId")
+    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
     id: StrictInt = Field(description="The ID of the audience.")
     integration: Optional[StrictStr] = Field(default=None, description="The third-party integration of the audience.")
     __properties: ClassVar[List[str]] = ["integrationId", "id", "integration"]

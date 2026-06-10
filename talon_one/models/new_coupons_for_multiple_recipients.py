@@ -29,15 +29,15 @@ class NewCouponsForMultipleRecipients(BaseModel):
     """
     NewCouponsForMultipleRecipients
     """ # noqa: E501
-    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits will still apply. ", alias="usageLimit")
-    discount_limit: Optional[Union[Annotated[float, Field(le=1000000000000000, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="The total discount value that the code can give. Typically used to represent a gift card value. ", alias="discountLimit")
-    reservation_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of reservations that can be made with this coupon code. ", alias="reservationLimit")
-    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="startDate")
-    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
-    recipients_integration_ids: Annotated[List[StrictStr], Field(min_length=1, max_length=1000)] = Field(description="The integration IDs for recipients.", alias="recipientsIntegrationIds")
-    valid_characters: Optional[List[StrictStr]] = Field(default=None, description="List of characters used to generate the random parts of a code. By default, the list of characters is equivalent to the `[A-Z, 0-9]` regular expression. ", alias="validCharacters")
-    coupon_pattern: Optional[Annotated[str, Field(min_length=3, strict=True, max_length=100)]] = Field(default=None, description="The pattern used to generate coupon codes. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="couponPattern")
+    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [100]})
+    discount_limit: Optional[Union[Annotated[float, Field(le=1000000000000000, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="The total discount value that the code can give. Typically used to represent a gift card value. ", alias="discountLimit", json_schema_extra={"examples": [30]})
+    reservation_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of reservations that can be made with this coupon code. ", alias="reservationLimit", json_schema_extra={"examples": [45]})
+    start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="startDate", json_schema_extra={"examples": ["2020-01-24T14:15:22Z"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:15:22Z"]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    recipients_integration_ids: Annotated[List[StrictStr], Field(min_length=1, max_length=1000)] = Field(description="The integration IDs for recipients.", alias="recipientsIntegrationIds", json_schema_extra={"examples": [["URNGV8294NV", "BZGGC2454PA"]]})
+    valid_characters: Optional[List[StrictStr]] = Field(default=None, description="List of characters used to generate the random parts of a code. By default, the list of characters is equivalent to the `[A-Z, 0-9]` regular expression. ", alias="validCharacters", json_schema_extra={"examples": [["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]]})
+    coupon_pattern: Optional[Annotated[str, Field(min_length=3, strict=True, max_length=100)]] = Field(default=None, description="The pattern used to generate coupon codes. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="couponPattern", json_schema_extra={"examples": ["SUMMER-#####"]})
     __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "attributes", "recipientsIntegrationIds", "validCharacters", "couponPattern"]
 
     model_config = ConfigDict(

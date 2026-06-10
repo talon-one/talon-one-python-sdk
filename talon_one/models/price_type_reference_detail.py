@@ -28,9 +28,9 @@ class PriceTypeReferenceDetail(BaseModel):
     PriceTypeReferenceDetail
     """ # noqa: E501
     referencing_type: StrictStr = Field(description="The entity type that references the price type. For example, a campaign or an Application cart item filter.", alias="referencingType")
-    referencing_id: StrictInt = Field(description="The ID of the entity that references the price type.", alias="referencingId")
-    referencing_name: StrictStr = Field(description="The name of the entity that references the price type.", alias="referencingName")
-    application_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application that contains the entity that references the price type.", alias="applicationId")
+    referencing_id: StrictInt = Field(description="The ID of the entity that references the price type.", alias="referencingId", json_schema_extra={"examples": [1]})
+    referencing_name: StrictStr = Field(description="The name of the entity that references the price type.", alias="referencingName", json_schema_extra={"examples": ["Summer promotions"]})
+    application_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application that contains the entity that references the price type.", alias="applicationId", json_schema_extra={"examples": [322]})
     __properties: ClassVar[List[str]] = ["referencingType", "referencingId", "referencingName", "applicationId"]
 
     @field_validator('referencing_type')

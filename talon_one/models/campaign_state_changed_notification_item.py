@@ -30,10 +30,10 @@ class CampaignStateChangedNotificationItem(BaseModel):
     """
     CampaignStateChangedNotificationItem
     """ # noqa: E501
-    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
+    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event", json_schema_extra={"examples": ["campaign_state_changed"]})
     campaign: Campaign = Field(description="The campaign whose state changed.")
-    old_state: StrictStr = Field(description="The campaign's old state. Can be one of the following: ['running', 'disabled', 'scheduled', 'expired', 'archived'] ", alias="oldState")
-    new_state: StrictStr = Field(description="The campaign's new state. Can be one of the following: ['running', 'disabled', 'scheduled', 'expired', 'archived'] ", alias="newState")
+    old_state: StrictStr = Field(description="The campaign's old state. Can be one of the following: ['running', 'disabled', 'scheduled', 'expired', 'archived'] ", alias="oldState", json_schema_extra={"examples": ["disabled"]})
+    new_state: StrictStr = Field(description="The campaign's new state. Can be one of the following: ['running', 'disabled', 'scheduled', 'expired', 'archived'] ", alias="newState", json_schema_extra={"examples": ["running"]})
     ruleset: Optional[Ruleset] = Field(default=None, description="The current ruleset.")
     placeholders: Optional[List[PlaceholderDetails]] = Field(default=None, description="The current details of the [placeholders](https://docs.talon.one/docs/product/campaigns/templates/create-templates#use-placeholders) in the campaign.")
     __properties: ClassVar[List[str]] = ["Event", "campaign", "oldState", "newState", "ruleset", "placeholders"]

@@ -29,7 +29,7 @@ class Revision(BaseModel):
     """
     Revision
     """ # noqa: E501
-    id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.")
+    id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.", json_schema_extra={"examples": [6]})
     activate_at: Optional[datetime] = Field(default=None, alias="activateAt")
     account_id: StrictInt = Field(alias="accountId")
     application_id: StrictInt = Field(alias="applicationId")

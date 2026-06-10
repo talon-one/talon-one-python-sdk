@@ -25,12 +25,12 @@ from pydantic_core import to_jsonable_python
 
 class IncreaseAchievementProgressEffectProps(BaseModel):
     """
-    The properties specific to the \"increaseAchievementProgress\" effect. This gets triggered whenever a validated rule contained an \"increase customer progress\" effect.
+    This effect indicates that the customer's progress in an achievement was updated during the current session. It is triggered when a rule using the [Update customer progress](https://docs.talon.one/docs/product/rules/effects/use-effects#update-customer-progress) effect is successfully validated.  For [on-completion achievements](https://docs.talon.one/docs/product/campaigns/achievements/achievements-overview#recurring-on-completion-achievements), any customer progress exceeding the target automatically starts a new iteration. This generates a new `progressTrackerId` for each iteration, and there can be multiple progress updates for the same achievement from a single validation of this effect.
     """ # noqa: E501
-    achievement_id: StrictInt = Field(description="The internal ID of the achievement.", alias="achievementId")
-    achievement_name: StrictStr = Field(description="The name of the achievement.", alias="achievementName")
-    progress_tracker_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the achievement progress tracker.", alias="progressTrackerId")
-    delta: Union[StrictFloat, StrictInt] = Field(description="The value by which the customer's current progress in the achievement is increased.")
+    achievement_id: StrictInt = Field(description="The internal ID of the achievement.", alias="achievementId", json_schema_extra={"examples": [10]})
+    achievement_name: StrictStr = Field(description="The name of the achievement.", alias="achievementName", json_schema_extra={"examples": ["FreeCoffee10Orders"]})
+    progress_tracker_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the customer progress tracker. For [on-completion achievements](https://docs.talon.one/docs/product/campaigns/achievements/achievements-overview#recurring-on-completion-achievements), this effect generates a unique ID for each iteration.", alias="progressTrackerId")
+    delta: Union[StrictFloat, StrictInt] = Field(description="The value by which the customer's current progress in the achievement has increased.")
     value: Union[StrictFloat, StrictInt] = Field(description="The current progress of the customer in the achievement.")
     target: Union[StrictFloat, StrictInt] = Field(description="The target value to complete the achievement.")
     is_just_completed: StrictBool = Field(description="Indicates if the customer has completed the achievement in the current session.", alias="isJustCompleted")

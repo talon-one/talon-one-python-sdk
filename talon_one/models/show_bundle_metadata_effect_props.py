@@ -25,7 +25,7 @@ from pydantic_core import to_jsonable_python
 
 class ShowBundleMetadataEffectProps(BaseModel):
     """
-    This effect is **deprecated**. The properties specific to the \"ShowBundleMetadata\" effect. This effect contains information that allows you to associate the discounts from a rule in a bundle campaign with specific cart items. This way you can distinguish from \"normal\" discounts that were not the result of a product bundle. 
+    This effect is **deprecated**.  The `ShowBundleMetadata` effect contains information that allows you to associate the discounts from a rule in a bundle campaign with specific cart items. This way you can distinguish from \"normal\" discounts that were not the result of a product bundle.
     """ # noqa: E501
     description: StrictStr = Field(description="Description of the product bundle.")
     bundle_attributes: List[StrictStr] = Field(description="The cart item attributes that determined which items are being bundled together.", alias="bundleAttributes")

@@ -28,8 +28,8 @@ class LoyaltyMembership(BaseModel):
     """
     LoyaltyMembership
     """ # noqa: E501
-    joined: Optional[datetime] = Field(default=None, description="The moment in which the loyalty program was joined.")
-    loyalty_program_id: StrictInt = Field(description="The ID of the loyalty program belonging to this entity.", alias="loyaltyProgramId")
+    joined: Optional[datetime] = Field(default=None, description="The moment in which the loyalty program was joined.", json_schema_extra={"examples": ["2012-03-20T14:15:22Z"]})
+    loyalty_program_id: StrictInt = Field(description="The ID of the loyalty program belonging to this entity.", alias="loyaltyProgramId", json_schema_extra={"examples": [323414846]})
     __properties: ClassVar[List[str]] = ["joined", "loyaltyProgramId"]
 
     model_config = ConfigDict(

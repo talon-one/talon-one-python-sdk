@@ -25,9 +25,9 @@ from pydantic_core import to_jsonable_python
 
 class ReferralCreatedEffectProps(BaseModel):
     """
-    The properties specific to the \"referralCreated\" effect. This gets triggered whenever a validated rule contained a \"create referral\" effect, and a referral code was created for a customer. See \"createdReferrals\" on the response for all details of this referral code.
+    The `referralCreated` effect behaves similarly to [couponCreated](https://docs.talon.one/docs/dev/integration-api/api-effects#couponcreated). If the `friendProfileIntegrationId` parameter is empty, the referral code can be redeemed by anyone.
     """ # noqa: E501
-    value: StrictStr = Field(description="The referral code that was created.")
+    value: StrictStr = Field(description="The referral code provided in the session.")
     __properties: ClassVar[List[str]] = ["value"]
 
     model_config = ConfigDict(

@@ -27,8 +27,8 @@ class OutgoingIntegrationBrazePolicy(BaseModel):
     """
     OutgoingIntegrationBrazePolicy
     """ # noqa: E501
-    base_url: StrictStr = Field(description="The base URL of your Braze deployment.", alias="baseUrl")
-    api_key: StrictStr = Field(description="The API key of your Braze deployment.", alias="apiKey")
+    base_url: StrictStr = Field(description="The base URL of your Braze deployment.", alias="baseUrl", json_schema_extra={"examples": ["your-braze-url.com"]})
+    api_key: StrictStr = Field(description="The API key of your Braze deployment.", alias="apiKey", json_schema_extra={"examples": ["Your-REST-API-Key"]})
     __properties: ClassVar[List[str]] = ["baseUrl", "apiKey"]
 
     model_config = ConfigDict(

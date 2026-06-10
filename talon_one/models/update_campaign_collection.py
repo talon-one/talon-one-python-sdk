@@ -27,7 +27,7 @@ class UpdateCampaignCollection(BaseModel):
     """
     UpdateCampaignCollection
     """ # noqa: E501
-    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.")
+    description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.", json_schema_extra={"examples": ["My collection of SKUs"]})
     __properties: ClassVar[List[str]] = ["description"]
 
     model_config = ConfigDict(

@@ -27,8 +27,8 @@ class RoleAssign(BaseModel):
     """
     RoleAssign
     """ # noqa: E501
-    users: List[StrictInt] = Field(description="An array of user IDs.")
-    roles: List[StrictInt] = Field(description="An array of role IDs.")
+    users: List[StrictInt] = Field(description="An array of user IDs.", json_schema_extra={"examples": [[48, 562, 475, 18]]})
+    roles: List[StrictInt] = Field(description="An array of role IDs.", json_schema_extra={"examples": [[128, 147]]})
     __properties: ClassVar[List[str]] = ["users", "roles"]
 
     model_config = ConfigDict(

@@ -30,13 +30,13 @@ class LoyaltyDashboardData(BaseModel):
     Datapoint for the graphs and cards on a loyalty program dashboard.
     """ # noqa: E501
     var_date: datetime = Field(description="Date at which data point was collected.", alias="date")
-    total_active_points: Union[StrictFloat, StrictInt] = Field(description="Total of active points for this loyalty program.", alias="totalActivePoints")
-    total_pending_points: Union[StrictFloat, StrictInt] = Field(description="Total of pending points for this loyalty program.", alias="totalPendingPoints")
-    total_spent_points: Union[StrictFloat, StrictInt] = Field(description="Total of spent points for this loyalty program.", alias="totalSpentPoints")
-    total_expired_points: Union[StrictFloat, StrictInt] = Field(description="Total of expired points for this loyalty program.", alias="totalExpiredPoints")
-    total_negative_points: Union[StrictFloat, StrictInt] = Field(description="Total of negative points for this loyalty program.", alias="totalNegativePoints")
-    total_members: Union[StrictFloat, StrictInt] = Field(description="Number of loyalty program members.", alias="totalMembers")
-    new_members: Union[StrictFloat, StrictInt] = Field(description="Number of members who joined on this day.", alias="newMembers")
+    total_active_points: Union[StrictFloat, StrictInt] = Field(description="Total of active points for this loyalty program.", alias="totalActivePoints", json_schema_extra={"examples": [9756]})
+    total_pending_points: Union[StrictFloat, StrictInt] = Field(description="Total of pending points for this loyalty program.", alias="totalPendingPoints", json_schema_extra={"examples": [548]})
+    total_spent_points: Union[StrictFloat, StrictInt] = Field(description="Total of spent points for this loyalty program.", alias="totalSpentPoints", json_schema_extra={"examples": [25668]})
+    total_expired_points: Union[StrictFloat, StrictInt] = Field(description="Total of expired points for this loyalty program.", alias="totalExpiredPoints", json_schema_extra={"examples": [1156]})
+    total_negative_points: Union[StrictFloat, StrictInt] = Field(description="Total of negative points for this loyalty program.", alias="totalNegativePoints", json_schema_extra={"examples": [32]})
+    total_members: Union[StrictFloat, StrictInt] = Field(description="Number of loyalty program members.", alias="totalMembers", json_schema_extra={"examples": [2582]})
+    new_members: Union[StrictFloat, StrictInt] = Field(description="Number of members who joined on this day.", alias="newMembers", json_schema_extra={"examples": [3]})
     spent_points: LoyaltyDashboardPointsBreakdown = Field(description="Points spent on this day.", alias="spentPoints")
     earned_points: LoyaltyDashboardPointsBreakdown = Field(description="Points that were earned on this day.", alias="earnedPoints")
     __properties: ClassVar[List[str]] = ["date", "totalActivePoints", "totalPendingPoints", "totalSpentPoints", "totalExpiredPoints", "totalNegativePoints", "totalMembers", "newMembers", "spentPoints", "earnedPoints"]

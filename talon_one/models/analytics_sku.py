@@ -29,11 +29,11 @@ class AnalyticsSKU(BaseModel):
     """
     AnalyticsSKU
     """ # noqa: E501
-    id: StrictInt = Field(description="The ID of the SKU linked to the Application.")
-    sku: StrictStr = Field(description="The SKU linked to the Application.")
-    last_updated: Optional[datetime] = Field(default=None, description="Values in UTC for the date the SKU linked to the product was last updated.", alias="lastUpdated")
-    catalog_id: Optional[StrictInt] = Field(default=None, description="The ID of the catalog that contains the SKU.", alias="catalogId")
-    product_id: Optional[StrictInt] = Field(default=None, description="The ID of the product that the SKU belongs to.", alias="productId")
+    id: StrictInt = Field(description="The ID of the SKU linked to the Application.", json_schema_extra={"examples": [1]})
+    sku: StrictStr = Field(description="The SKU linked to the Application.", json_schema_extra={"examples": ["SKU-123"]})
+    last_updated: Optional[datetime] = Field(default=None, description="Values in UTC for the date the SKU linked to the product was last updated.", alias="lastUpdated", json_schema_extra={"examples": ["2024-02-01T00:00:00Z"]})
+    catalog_id: Optional[StrictInt] = Field(default=None, description="The ID of the catalog that contains the SKU.", alias="catalogId", json_schema_extra={"examples": [1]})
+    product_id: Optional[StrictInt] = Field(default=None, description="The ID of the product that the SKU belongs to.", alias="productId", json_schema_extra={"examples": [1]})
     units_sold: Optional[AnalyticsDataPointWithTrend] = Field(default=None, description="The number of times the product or SKU was purchased.", alias="unitsSold")
     __properties: ClassVar[List[str]] = ["id", "sku", "lastUpdated", "catalogId", "productId", "unitsSold"]
 

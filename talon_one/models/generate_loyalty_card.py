@@ -28,9 +28,9 @@ class GenerateLoyaltyCard(BaseModel):
     """
     The parameters necessary to generate a loyalty card.
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default='active', description="Status of the loyalty card.")
-    customer_profile_ids: Optional[List[StrictStr]] = Field(default=None, description="Integration IDs of the customer profiles linked to the card.", alias="customerProfileIds")
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="cardIdentifier")
+    status: Optional[StrictStr] = Field(default='active', description="Status of the loyalty card.", json_schema_extra={"examples": ["active"]})
+    customer_profile_ids: Optional[List[StrictStr]] = Field(default=None, description="Integration IDs of the customer profiles linked to the card.", alias="customerProfileIds", json_schema_extra={"examples": [["R195412", "G244519"]]})
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     __properties: ClassVar[List[str]] = ["status", "customerProfileIds", "cardIdentifier"]
 
     @field_validator('status')

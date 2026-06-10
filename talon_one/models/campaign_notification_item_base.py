@@ -27,7 +27,7 @@ class CampaignNotificationItemBase(BaseModel):
     """
     CampaignNotificationItemBase
     """ # noqa: E501
-    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event")
+    event: StrictStr = Field(description="The type of the event. Can be one of the following: ['campaign_state_changed', 'campaign_ruleset_changed', 'campaign_edited', 'campaign_created', 'campaign_deleted'] ", alias="Event", json_schema_extra={"examples": ["campaign_state_changed"]})
     __properties: ClassVar[List[str]] = ["Event"]
 
     model_config = ConfigDict(

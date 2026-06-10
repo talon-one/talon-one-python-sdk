@@ -29,14 +29,14 @@ class NewAudience(BaseModel):
     """
     NewAudience
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly display name for this audience.")
-    sandbox: Optional[StrictBool] = Field(default=None, description="Indicates if this is a live or sandbox Application.")
-    description: Optional[StrictStr] = Field(default=None, description="A description of the audience.")
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this audience.", alias="subscribedApplicationsIds")
-    integration: Optional[StrictStr] = Field(default=None, description="The Talon.One-supported [3rd-party platform](https://docs.talon.one/docs/dev/technology-partners/overview) that this audience was created in.  For example, `mParticle`, `Segment`, `Shopify`, `Braze`, or `Iterable`.  **Note:** If you do not integrate with any of these platforms, do not use this property. ")
-    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.  **Note:** To create an audience that doesn't come from a 3rd party platform, do not use this property. ", alias="integrationId")
-    created_in3rd_party: Optional[StrictBool] = Field(default=None, description="Determines if this audience is a 3rd party audience or not.", alias="createdIn3rdParty")
-    last_update: Optional[datetime] = Field(default=None, description="The last time that the audience memberships changed.", alias="lastUpdate")
+    name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly display name for this audience.", json_schema_extra={"examples": ["Travel audience"]})
+    sandbox: Optional[StrictBool] = Field(default=None, description="Indicates if this is a live or sandbox Application.", json_schema_extra={"examples": [True]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the audience.", json_schema_extra={"examples": ["Travel audience 18-27"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this audience.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[3, 13]]})
+    integration: Optional[StrictStr] = Field(default=None, description="The Talon.One-supported [3rd-party platform](https://docs.talon.one/docs/dev/technology-partners/overview) that this audience was created in.  For example, `mParticle`, `Segment`, `Shopify`, `Braze`, or `Iterable`.  **Note:** If you do not integrate with any of these platforms, do not use this property. ", json_schema_extra={"examples": ["mparticle"]})
+    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.  **Note:** To create an audience that doesn't come from a 3rd party platform, do not use this property. ", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
+    created_in3rd_party: Optional[StrictBool] = Field(default=None, description="Determines if this audience is a 3rd party audience or not.", alias="createdIn3rdParty", json_schema_extra={"examples": [False]})
+    last_update: Optional[datetime] = Field(default=None, description="The last time that the audience memberships changed.", alias="lastUpdate", json_schema_extra={"examples": ["2022-04-26T11:02:38Z"]})
     __properties: ClassVar[List[str]] = ["name", "sandbox", "description", "subscribedApplicationsIds", "integration", "integrationId", "createdIn3rdParty", "lastUpdate"]
 
     model_config = ConfigDict(
