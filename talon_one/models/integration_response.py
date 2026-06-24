@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.campaign import Campaign
 from talon_one.models.campaign_eligibility import CampaignEligibility
 from talon_one.models.coupon import Coupon
+from talon_one.models.customer_achievement import CustomerAchievement
 from talon_one.models.customer_profile import CustomerProfile
 from talon_one.models.effect import Effect
 from talon_one.models.giveaway import Giveaway
@@ -45,7 +46,8 @@ class IntegrationResponse(BaseModel):
     created_coupons: List[Coupon] = Field(description="The coupons that were created during the event processing.", alias="createdCoupons")
     created_referrals: List[Referral] = Field(description="The referrals that were created during the event processing.", alias="createdReferrals")
     awarded_giveaways: Optional[List[Giveaway]] = Field(default=None, description="The giveaways that were awarded during the event processing.", alias="awardedGiveaways")
-    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways"]
+    achievements: Optional[List[CustomerAchievement]] = Field(default=None, description="The achievements progress of the customer.")
+    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -141,6 +143,13 @@ class IntegrationResponse(BaseModel):
                 if _item_awarded_giveaways:
                     _items.append(_item_awarded_giveaways.to_dict())
             _dict['awardedGiveaways'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in achievements (list)
+        _items = []
+        if self.achievements:
+            for _item_achievements in self.achievements:
+                if _item_achievements:
+                    _items.append(_item_achievements.to_dict())
+            _dict['achievements'] = _items
         return _dict
 
     @classmethod
@@ -161,7 +170,8 @@ class IntegrationResponse(BaseModel):
             "ruleFailureReasons": [RuleFailureReason.from_dict(_item) for _item in obj["ruleFailureReasons"]] if obj.get("ruleFailureReasons") is not None else None,
             "createdCoupons": [Coupon.from_dict(_item) for _item in obj["createdCoupons"]] if obj.get("createdCoupons") is not None else None,
             "createdReferrals": [Referral.from_dict(_item) for _item in obj["createdReferrals"]] if obj.get("createdReferrals") is not None else None,
-            "awardedGiveaways": [Giveaway.from_dict(_item) for _item in obj["awardedGiveaways"]] if obj.get("awardedGiveaways") is not None else None
+            "awardedGiveaways": [Giveaway.from_dict(_item) for _item in obj["awardedGiveaways"]] if obj.get("awardedGiveaways") is not None else None,
+            "achievements": [CustomerAchievement.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None
         })
         return _obj
 

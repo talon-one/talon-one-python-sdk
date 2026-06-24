@@ -35,7 +35,7 @@ class TestPriceHistoryResponse(unittest.TestCase):
         model = PriceHistoryResponse()
         if include_optional:
             return PriceHistoryResponse(
-                sku = '[SKU1241028]',
+                sku = 'SKU1241028',
                 history = [
                     talon_one.models.history.History(
                         id = 1, 
@@ -55,7 +55,7 @@ class TestPriceHistoryResponse(unittest.TestCase):
             )
         else:
             return PriceHistoryResponse(
-                sku = '[SKU1241028]',
+                sku = 'SKU1241028',
                 history = [
                     talon_one.models.history.History(
                         id = 1, 

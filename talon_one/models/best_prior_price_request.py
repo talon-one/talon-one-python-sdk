@@ -30,7 +30,7 @@ class BestPriorPriceRequest(BaseModel):
     """
     BestPriorPriceRequest
     """ # noqa: E501
-    skus: Annotated[List[StrictStr], Field(min_length=1)] = Field(description="List of product SKUs to check when determining the best prior price.", json_schema_extra={"examples": [["comma", "period"]]})
+    skus: Annotated[List[StrictStr], Field(min_length=1)] = Field(description="List of product SKUs to check when determining the best prior price.", json_schema_extra={"examples": [["SKU1241028", "SKU7345278"]]})
     timeframe_end_date: datetime = Field(description="The end date and time that defines the latest time for retrieving historical SKU prices.", alias="timeframeEndDate", json_schema_extra={"examples": ["2020-11-10T23:00:00Z"]})
     timeframe: StrictStr = Field(description="The number of days prior to the timeframeEndDate. Only prices within this look back period are considered for the best prior price evaluation.", json_schema_extra={"examples": ["30"]})
     timeframe_end_date_type: StrictStr = Field(description="Sets the timeframe for retrieving historical pricing data. Can be one of the following values: - `strict`: The timeframe ends at the `timeframeEndDate` value. - `price`: The timeframe ends at the start of current price value and takes the prices prior to the start of the current price value into account. - `sale`:  The timeframe ends at the start of current `contextId` and takes the prices prior to the start of the `contextId` into account. ", alias="timeframeEndDateType", json_schema_extra={"examples": ["sale"]})

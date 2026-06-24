@@ -41,6 +41,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification
                 subledger_id = '',
                 source_of_event = '',
                 current_tier = '',
+                session_integration_id = '',
                 employee_name = '',
                 user_id = 56,
                 current_points = 1.337,

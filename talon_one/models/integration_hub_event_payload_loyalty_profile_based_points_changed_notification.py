@@ -35,12 +35,13 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
     subledger_id: StrictStr = Field(alias="SubledgerID")
     source_of_event: StrictStr = Field(alias="SourceOfEvent")
     current_tier: StrictStr = Field(description="The name of the customer's current tier.", alias="CurrentTier")
+    session_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the session through which the points were earned or lost. Only set when the change results from a rule engine execution; empty otherwise.", alias="SessionIntegrationID")
     employee_name: Optional[StrictStr] = Field(default=None, alias="EmployeeName")
     user_id: Optional[StrictInt] = Field(default=None, alias="UserID")
     current_points: Union[StrictFloat, StrictInt] = Field(alias="CurrentPoints")
     actions: Optional[List[IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction]] = Field(default=None, alias="Actions")
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
-    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt"]
+    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "SessionIntegrationID", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -106,6 +107,7 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
             "SubledgerID": obj.get("SubledgerID"),
             "SourceOfEvent": obj.get("SourceOfEvent"),
             "CurrentTier": obj.get("CurrentTier"),
+            "SessionIntegrationID": obj.get("SessionIntegrationID"),
             "EmployeeName": obj.get("EmployeeName"),
             "UserID": obj.get("UserID"),
             "CurrentPoints": obj.get("CurrentPoints"),

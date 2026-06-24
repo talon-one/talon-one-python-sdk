@@ -40,13 +40,13 @@ class Reward(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="A description of the reward.", json_schema_extra={"examples": ["This reward gets you one free coffee."]})
     application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
     sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
-    visibility_conditions: Optional[Rule] = Field(default=None, description="An optional rule that manages who can see this reward. If not specified, the reward is visible to all customers.  **Note:** Only the `condition` field is evaluated within this rule. The `effects` field must be an empty array, and `bindings` are not supported. ", alias="visibilityConditions")
+    eligibility_conditions: Optional[Rule] = Field(default=None, description="An optional rule that manages who can see this reward. If not specified, the reward is visible to all customers.  **Note:** Only the `condition` field is evaluated within this rule. The `effects` field must be an empty array, and `bindings` are not supported. ", alias="eligibilityConditions")
     rule: Optional[Rule] = Field(default=None, description="Rule to apply.  **Note**: The `bindings` field inside the rule must not be used in this endpoint. All bindings should be defined at the reward level via the top-level `bindings` field. ")
     bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.", json_schema_extra={"examples": [[]]})
     modified: Optional[datetime] = Field(default=None, description="The timestamp when the reward was last updated in RFC3339 format.")
     status: StrictStr = Field(description="The status of the reward.", json_schema_extra={"examples": ["active"]})
     points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate a reward.", alias="pointsRequired")
-    __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "apiName", "description", "applicationIds", "sandbox", "visibilityConditions", "rule", "bindings", "modified", "status", "pointsRequired"]
+    __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "apiName", "description", "applicationIds", "sandbox", "eligibilityConditions", "rule", "bindings", "modified", "status", "pointsRequired"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -94,9 +94,9 @@ class Reward(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of visibility_conditions
-        if self.visibility_conditions:
-            _dict['visibilityConditions'] = self.visibility_conditions.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of eligibility_conditions
+        if self.eligibility_conditions:
+            _dict['eligibilityConditions'] = self.eligibility_conditions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of rule
         if self.rule:
             _dict['rule'] = self.rule.to_dict()
@@ -134,7 +134,7 @@ class Reward(BaseModel):
             "description": obj.get("description"),
             "applicationIds": obj.get("applicationIds"),
             "sandbox": obj.get("sandbox"),
-            "visibilityConditions": Rule.from_dict(obj["visibilityConditions"]) if obj.get("visibilityConditions") is not None else None,
+            "eligibilityConditions": Rule.from_dict(obj["eligibilityConditions"]) if obj.get("eligibilityConditions") is not None else None,
             "rule": Rule.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
             "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None,
             "modified": obj.get("modified"),

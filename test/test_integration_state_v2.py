@@ -86,6 +86,25 @@ class TestIntegrationStateV2(unittest.TestCase):
                 awarded_giveaways = [
                     null
                     ],
+                achievements = [
+                    talon_one.models.customer_achievement.CustomerAchievement(
+                        id = 3, 
+                        name = 'FreeCoffee10Orders', 
+                        title = '50% off on 50th purchase.', 
+                        description = '50% off for every 50th purchase in a year.', 
+                        target = 10, 
+                        recurrence_policy = 'no_recurrence', 
+                        activation_policy = 'fixed_schedule', 
+                        fixed_start_date = '2024-01-15T15:04:05Z07:00', 
+                        end_date = '2024-02-15T15:04:05Z07:00', 
+                        allow_rollback_after_completion = False, 
+                        current_progress = talon_one.models.achievement_progress.AchievementProgress(
+                            status = 'completed', 
+                            progress = 10, 
+                            start_date = '2024-01-01T15:04:05Z07:00', 
+                            completion_date = '2024-01-15T15:04:05Z07:00', 
+                            end_date = '2024-02-01T15:04:05Z07:00', ), )
+                    ],
                 referral = None,
                 coupons = [
                     null

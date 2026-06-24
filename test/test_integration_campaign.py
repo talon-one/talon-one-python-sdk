@@ -51,7 +51,9 @@ class TestIntegrationCampaign(unittest.TestCase):
                         display_name = '20% off all shoes!', 
                         display_description = 'Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only.', 
                         related_data = 'https://example.com/discounts/20-off-shoes.png', )
-                    ]
+                    ],
+                linked_store_ids = [1, 2],
+                linked_audience_ids = [3, 4]
             )
         else:
             return IntegrationCampaign(

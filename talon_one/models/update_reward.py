@@ -34,11 +34,11 @@ class UpdateReward(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the reward.", json_schema_extra={"examples": ["Free Coffee"]})
     description: Optional[StrictStr] = Field(default=None, description="A description of the reward.", json_schema_extra={"examples": ["This reward gets you one free coffee."]})
     status: StrictStr = Field(description="The status of the reward.", json_schema_extra={"examples": ["active"]})
-    visibility_conditions: Optional[Rule] = Field(default=None, description="An optional rule that manages who can see this reward. If not specified, the reward is visible to all customers.  **Note:** Only the `condition` field is evaluated within this rule. The `effects` field must be an empty array, and `bindings` are not supported. ", alias="visibilityConditions")
+    eligibility_conditions: Optional[Rule] = Field(default=None, description="An optional rule that manages who can see this reward. If not specified, the reward is visible to all customers.  **Note:** Only the `condition` field is evaluated within this rule. The `effects` field must be an empty array, and `bindings` are not supported. ", alias="eligibilityConditions")
     rule: Optional[Rule] = Field(default=None, description="Rule to apply.  **Note**: The `bindings` field inside the rule must not be used in this endpoint. All bindings should be defined at the reward level via the top-level `bindings` field. ")
     bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated.  Each binding pairs a name with a talang expression. The expression is evaluated once  and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.", json_schema_extra={"examples": [[]]})
     points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate the reward. Each object defines the specific loyalty program and subledger from which points are deducted when activating the reward.  **Note:** - Objects with an `id` are updated. - Objects without an `id` are created. - Existing objects omitted from the payload are deleted. ", alias="pointsRequired")
-    __properties: ClassVar[List[str]] = ["name", "description", "status", "visibilityConditions", "rule", "bindings", "pointsRequired"]
+    __properties: ClassVar[List[str]] = ["name", "description", "status", "eligibilityConditions", "rule", "bindings", "pointsRequired"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -86,9 +86,9 @@ class UpdateReward(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of visibility_conditions
-        if self.visibility_conditions:
-            _dict['visibilityConditions'] = self.visibility_conditions.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of eligibility_conditions
+        if self.eligibility_conditions:
+            _dict['eligibilityConditions'] = self.eligibility_conditions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of rule
         if self.rule:
             _dict['rule'] = self.rule.to_dict()
@@ -121,7 +121,7 @@ class UpdateReward(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "status": obj.get("status"),
-            "visibilityConditions": Rule.from_dict(obj["visibilityConditions"]) if obj.get("visibilityConditions") is not None else None,
+            "eligibilityConditions": Rule.from_dict(obj["eligibilityConditions"]) if obj.get("eligibilityConditions") is not None else None,
             "rule": Rule.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
             "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None,
             "pointsRequired": [RewardPointsRequired.from_dict(_item) for _item in obj["pointsRequired"]] if obj.get("pointsRequired") is not None else None

@@ -89,6 +89,7 @@ docs/AudienceIntegrationID.md
 docs/AudienceMembership.md
 docs/AudienceReference.md
 docs/AwardGiveawayEffectProps.md
+docs/BaseBlock.md
 docs/BaseCampaign.md
 docs/BaseLoyaltyProgram.md
 docs/BaseNotification.md
@@ -206,6 +207,7 @@ docs/CreateTemplateCampaign.md
 docs/CreateTemplateCampaignResponse.md
 docs/CustomEffect.md
 docs/CustomEffectProps.md
+docs/CustomerAchievement.md
 docs/CustomerActivityReport.md
 docs/CustomerAnalytics.md
 docs/CustomerInventory.md
@@ -546,6 +548,7 @@ docs/OutgoingIntegrationTemplateWithConfigurationDetails.md
 docs/OutgoingIntegrationTemplates.md
 docs/OutgoingIntegrationType.md
 docs/OutgoingIntegrationTypes.md
+docs/PassthroughBlock.md
 docs/PatchItemCatalogAction.md
 docs/PatchManyItemsCatalogAction.md
 docs/PendingActivePointsData.md
@@ -567,6 +570,8 @@ docs/ProductUnitAnalyticsTotals.md
 docs/ProfileAudiencesChanges.md
 docs/ProjectedTier.md
 docs/PromoteExperiment.md
+docs/PromotionGroupBlock.md
+docs/PromotionRuleV2.md
 docs/RedeemReferralEffectProps.md
 docs/Referral.md
 docs/ReferralConstraints.md
@@ -588,6 +593,9 @@ docs/RevisionActivationRequest.md
 docs/RevisionVersion.md
 docs/Reward.md
 docs/RewardPointsRequired.md
+docs/Risk.md
+docs/RiskAffectedEntityItem.md
+docs/RiskDetail.md
 docs/RiskNotification.md
 docs/Role.md
 docs/RoleAssign.md
@@ -612,7 +620,9 @@ docs/RuleEligibilityFailureDetails.md
 docs/RuleFailureReason.md
 docs/RuleMetadata.md
 docs/RuleMetadataEligibility.md
+docs/RuleV2.md
 docs/Ruleset.md
+docs/RulesetV2.md
 docs/SSOConfig.md
 docs/SamlConnection.md
 docs/SamlConnectionInternal.md
@@ -654,7 +664,9 @@ docs/StrikethroughChangedItem.md
 docs/StrikethroughCustomEffectPerItemProps.md
 docs/StrikethroughDebugResponse.md
 docs/StrikethroughEffect.md
+docs/StrikethroughGroupBlock.md
 docs/StrikethroughLabelingNotification.md
+docs/StrikethroughRuleV2.md
 docs/StrikethroughSetDiscountPerItemEffectProps.md
 docs/StrikethroughSetDiscountPerItemMemberEffectProps.md
 docs/StrikethroughTrigger.md
@@ -825,6 +837,7 @@ talon_one/models/audience_integration_id.py
 talon_one/models/audience_membership.py
 talon_one/models/audience_reference.py
 talon_one/models/award_giveaway_effect_props.py
+talon_one/models/base_block.py
 talon_one/models/base_campaign.py
 talon_one/models/base_loyalty_program.py
 talon_one/models/base_notification.py
@@ -942,6 +955,7 @@ talon_one/models/create_template_campaign.py
 talon_one/models/create_template_campaign_response.py
 talon_one/models/custom_effect.py
 talon_one/models/custom_effect_props.py
+talon_one/models/customer_achievement.py
 talon_one/models/customer_activity_report.py
 talon_one/models/customer_analytics.py
 talon_one/models/customer_inventory.py
@@ -1280,6 +1294,7 @@ talon_one/models/outgoing_integration_template_with_configuration_details.py
 talon_one/models/outgoing_integration_templates.py
 talon_one/models/outgoing_integration_type.py
 talon_one/models/outgoing_integration_types.py
+talon_one/models/passthrough_block.py
 talon_one/models/patch_item_catalog_action.py
 talon_one/models/patch_many_items_catalog_action.py
 talon_one/models/pending_active_points_data.py
@@ -1301,6 +1316,8 @@ talon_one/models/product_unit_analytics_totals.py
 talon_one/models/profile_audiences_changes.py
 talon_one/models/projected_tier.py
 talon_one/models/promote_experiment.py
+talon_one/models/promotion_group_block.py
+talon_one/models/promotion_rule_v2.py
 talon_one/models/redeem_referral_effect_props.py
 talon_one/models/referral.py
 talon_one/models/referral_constraints.py
@@ -1322,6 +1339,9 @@ talon_one/models/revision_activation_request.py
 talon_one/models/revision_version.py
 talon_one/models/reward.py
 talon_one/models/reward_points_required.py
+talon_one/models/risk.py
+talon_one/models/risk_affected_entity_item.py
+talon_one/models/risk_detail.py
 talon_one/models/risk_notification.py
 talon_one/models/role.py
 talon_one/models/role_assign.py
@@ -1346,7 +1366,9 @@ talon_one/models/rule_eligibility_failure_details.py
 talon_one/models/rule_failure_reason.py
 talon_one/models/rule_metadata.py
 talon_one/models/rule_metadata_eligibility.py
+talon_one/models/rule_v2.py
 talon_one/models/ruleset.py
+talon_one/models/ruleset_v2.py
 talon_one/models/saml_connection.py
 talon_one/models/saml_connection_internal.py
 talon_one/models/saml_connection_metadata.py
@@ -1388,7 +1410,9 @@ talon_one/models/strikethrough_changed_item.py
 talon_one/models/strikethrough_custom_effect_per_item_props.py
 talon_one/models/strikethrough_debug_response.py
 talon_one/models/strikethrough_effect.py
+talon_one/models/strikethrough_group_block.py
 talon_one/models/strikethrough_labeling_notification.py
+talon_one/models/strikethrough_rule_v2.py
 talon_one/models/strikethrough_set_discount_per_item_effect_props.py
 talon_one/models/strikethrough_set_discount_per_item_member_effect_props.py
 talon_one/models/strikethrough_trigger.py
@@ -1548,6 +1572,7 @@ test/test_audience_integration_id.py
 test/test_audience_membership.py
 test/test_audience_reference.py
 test/test_award_giveaway_effect_props.py
+test/test_base_block.py
 test/test_base_campaign.py
 test/test_base_loyalty_program.py
 test/test_base_notification.py
@@ -1665,6 +1690,7 @@ test/test_create_template_campaign.py
 test/test_create_template_campaign_response.py
 test/test_custom_effect.py
 test/test_custom_effect_props.py
+test/test_customer_achievement.py
 test/test_customer_activity_report.py
 test/test_customer_analytics.py
 test/test_customer_inventory.py
@@ -2005,6 +2031,7 @@ test/test_outgoing_integration_template_with_configuration_details.py
 test/test_outgoing_integration_templates.py
 test/test_outgoing_integration_type.py
 test/test_outgoing_integration_types.py
+test/test_passthrough_block.py
 test/test_patch_item_catalog_action.py
 test/test_patch_many_items_catalog_action.py
 test/test_pending_active_points_data.py
@@ -2026,6 +2053,8 @@ test/test_product_unit_analytics_totals.py
 test/test_profile_audiences_changes.py
 test/test_projected_tier.py
 test/test_promote_experiment.py
+test/test_promotion_group_block.py
+test/test_promotion_rule_v2.py
 test/test_redeem_referral_effect_props.py
 test/test_referral.py
 test/test_referral_constraints.py
@@ -2047,6 +2076,9 @@ test/test_revision_activation_request.py
 test/test_revision_version.py
 test/test_reward.py
 test/test_reward_points_required.py
+test/test_risk.py
+test/test_risk_affected_entity_item.py
+test/test_risk_detail.py
 test/test_risk_notification.py
 test/test_role.py
 test/test_role_assign.py
@@ -2071,7 +2103,9 @@ test/test_rule_eligibility_failure_details.py
 test/test_rule_failure_reason.py
 test/test_rule_metadata.py
 test/test_rule_metadata_eligibility.py
+test/test_rule_v2.py
 test/test_ruleset.py
+test/test_ruleset_v2.py
 test/test_saml_connection.py
 test/test_saml_connection_internal.py
 test/test_saml_connection_metadata.py
@@ -2113,7 +2147,9 @@ test/test_strikethrough_changed_item.py
 test/test_strikethrough_custom_effect_per_item_props.py
 test/test_strikethrough_debug_response.py
 test/test_strikethrough_effect.py
+test/test_strikethrough_group_block.py
 test/test_strikethrough_labeling_notification.py
+test/test_strikethrough_rule_v2.py
 test/test_strikethrough_set_discount_per_item_effect_props.py
 test/test_strikethrough_set_discount_per_item_member_effect_props.py
 test/test_strikethrough_trigger.py

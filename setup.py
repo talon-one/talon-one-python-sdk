@@ -19,7 +19,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "talon_one"
-VERSION = "26.12.0"
+VERSION = "26.13.0"
 PYTHON_REQUIRES = ">= 3.10"
 REQUIRES = [
     "urllib3 >= 2.1.0, < 3.0.0",

@@ -4663,7 +4663,7 @@ class IntegrationApi:
     @validate_call
     def get_customer_session(
         self,
-        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4681,7 +4681,7 @@ class IntegrationApi:
 
         Get the details of the given customer session.  You can get the same data via other endpoints that also apply changes, which can help you save requests and increase performance. See:  - [Update customer session](#tag/Customer-sessions/operation/updateCustomerSessionV2) - [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) 
 
-        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
+        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4732,7 +4732,7 @@ class IntegrationApi:
     @validate_call
     def get_customer_session_with_http_info(
         self,
-        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4750,7 +4750,7 @@ class IntegrationApi:
 
         Get the details of the given customer session.  You can get the same data via other endpoints that also apply changes, which can help you save requests and increase performance. See:  - [Update customer session](#tag/Customer-sessions/operation/updateCustomerSessionV2) - [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) 
 
-        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
+        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4801,7 +4801,7 @@ class IntegrationApi:
     @validate_call
     def get_customer_session_without_preload_content(
         self,
-        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4819,7 +4819,7 @@ class IntegrationApi:
 
         Get the details of the given customer session.  You can get the same data via other endpoints that also apply changes, which can help you save requests and increase performance. See:  - [Update customer session](#tag/Customer-sessions/operation/updateCustomerSessionV2) - [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) 
 
-        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
+        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7893,6 +7893,8 @@ class IntegrationApi:
         start_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        store_id: Annotated[Optional[StrictInt], Field(description="Filter results to campaigns linked to the specified store ID.")] = None,
+        audience_id: Annotated[Optional[StrictInt], Field(description="Filter results to campaigns linked to the specified audience ID.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7924,6 +7926,10 @@ class IntegrationApi:
         :type end_after: datetime
         :param end_before: Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_before: datetime
+        :param store_id: Filter results to campaigns linked to the specified store ID.
+        :type store_id: int
+        :param audience_id: Filter results to campaigns linked to the specified audience ID.
+        :type audience_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7954,6 +7960,8 @@ class IntegrationApi:
             start_before=start_before,
             end_after=end_after,
             end_before=end_before,
+            store_id=store_id,
+            audience_id=audience_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7987,6 +7995,8 @@ class IntegrationApi:
         start_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        store_id: Annotated[Optional[StrictInt], Field(description="Filter results to campaigns linked to the specified store ID.")] = None,
+        audience_id: Annotated[Optional[StrictInt], Field(description="Filter results to campaigns linked to the specified audience ID.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8018,6 +8028,10 @@ class IntegrationApi:
         :type end_after: datetime
         :param end_before: Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_before: datetime
+        :param store_id: Filter results to campaigns linked to the specified store ID.
+        :type store_id: int
+        :param audience_id: Filter results to campaigns linked to the specified audience ID.
+        :type audience_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8048,6 +8062,8 @@ class IntegrationApi:
             start_before=start_before,
             end_after=end_after,
             end_before=end_before,
+            store_id=store_id,
+            audience_id=audience_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8081,6 +8097,8 @@ class IntegrationApi:
         start_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that start on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_after: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or after  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_before: Annotated[Optional[datetime], Field(description="Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
+        store_id: Annotated[Optional[StrictInt], Field(description="Filter results to campaigns linked to the specified store ID.")] = None,
+        audience_id: Annotated[Optional[StrictInt], Field(description="Filter results to campaigns linked to the specified audience ID.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8112,6 +8130,10 @@ class IntegrationApi:
         :type end_after: datetime
         :param end_before: Filter results to only include campaigns that end on or before  the specified timestamp.  **Note:**  - It must be an RFC3339 timestamp string.  - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
         :type end_before: datetime
+        :param store_id: Filter results to campaigns linked to the specified store ID.
+        :type store_id: int
+        :param audience_id: Filter results to campaigns linked to the specified audience ID.
+        :type audience_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8142,6 +8164,8 @@ class IntegrationApi:
             start_before=start_before,
             end_after=end_after,
             end_before=end_before,
+            store_id=store_id,
+            audience_id=audience_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8170,6 +8194,8 @@ class IntegrationApi:
         start_before,
         end_after,
         end_before,
+        store_id,
+        audience_id,
         _request_auth,
         _content_type,
         _headers,
@@ -8257,6 +8283,14 @@ class IntegrationApi:
             else:
                 _query_params.append(('endBefore', end_before))
             
+        if store_id is not None:
+            
+            _query_params.append(('storeId', store_id))
+            
+        if audience_id is not None:
+            
+            _query_params.append(('audienceId', audience_id))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -8279,6 +8313,291 @@ class IntegrationApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/integration/campaigns',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def join_loyalty_program(
+        self,
+        loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
+        integration_id: Annotated[StrictStr, Field(description="The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint. ")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> None:
+        """Join customer profile to loyalty program
+
+        Join a customer profile to the specified loyalty program.  If the customer profile does not exist, it will be created first using the provided `integrationId`, then joined to the loyalty program.  > [!note] This endpoint only works with profile-based loyalty programs.  **Behavior**: - If the loyalty program does not exist, the request fails. - If the customer profile is already joined to the loyalty program, the request fails. - If the customer profile does not exist, it is created and then joined to the loyalty program. 
+
+        :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
+        :type loyalty_program_id: int
+        :param integration_id: The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  (required)
+        :type integration_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._join_loyalty_program_serialize(
+            loyalty_program_id=loyalty_program_id,
+            integration_id=integration_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def join_loyalty_program_with_http_info(
+        self,
+        loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
+        integration_id: Annotated[StrictStr, Field(description="The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint. ")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[None]:
+        """Join customer profile to loyalty program
+
+        Join a customer profile to the specified loyalty program.  If the customer profile does not exist, it will be created first using the provided `integrationId`, then joined to the loyalty program.  > [!note] This endpoint only works with profile-based loyalty programs.  **Behavior**: - If the loyalty program does not exist, the request fails. - If the customer profile is already joined to the loyalty program, the request fails. - If the customer profile does not exist, it is created and then joined to the loyalty program. 
+
+        :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
+        :type loyalty_program_id: int
+        :param integration_id: The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  (required)
+        :type integration_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._join_loyalty_program_serialize(
+            loyalty_program_id=loyalty_program_id,
+            integration_id=integration_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def join_loyalty_program_without_preload_content(
+        self,
+        loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
+        integration_id: Annotated[StrictStr, Field(description="The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint. ")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Join customer profile to loyalty program
+
+        Join a customer profile to the specified loyalty program.  If the customer profile does not exist, it will be created first using the provided `integrationId`, then joined to the loyalty program.  > [!note] This endpoint only works with profile-based loyalty programs.  **Behavior**: - If the loyalty program does not exist, the request fails. - If the customer profile is already joined to the loyalty program, the request fails. - If the customer profile does not exist, it is created and then joined to the loyalty program. 
+
+        :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
+        :type loyalty_program_id: int
+        :param integration_id: The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  (required)
+        :type integration_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._join_loyalty_program_serialize(
+            loyalty_program_id=loyalty_program_id,
+            integration_id=integration_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _join_loyalty_program_serialize(
+        self,
+        loyalty_program_id,
+        integration_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if loyalty_program_id is not None:
+            _path_params['loyaltyProgramId'] = loyalty_program_id
+        if integration_id is not None:
+            _path_params['integrationId'] = integration_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/join',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -11361,7 +11680,7 @@ class IntegrationApi:
     @validate_call
     def update_customer_profile_v2(
         self,
-        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
+        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         customer_profile_integration_request_v2: Annotated[CustomerProfileIntegrationRequestV2, Field(description="body")],
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="Indicates whether to run the Rule Engine.  If `true`, the response includes: - The effects generated by the triggered campaigns are returned in the `effects` property. - The created coupons and referral objects.  If `false`: - The rules are not executed and the `effects` property is always empty. - The response time improves. - You cannot use `responseContent` in the body. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="(Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. ")] = None,
@@ -11382,7 +11701,7 @@ class IntegrationApi:
 
         Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`. 
 
-        :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  (required)
+        :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type integration_id: str
         :param customer_profile_integration_request_v2: body (required)
         :type customer_profile_integration_request_v2: CustomerProfileIntegrationRequestV2
@@ -11443,7 +11762,7 @@ class IntegrationApi:
     @validate_call
     def update_customer_profile_v2_with_http_info(
         self,
-        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
+        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         customer_profile_integration_request_v2: Annotated[CustomerProfileIntegrationRequestV2, Field(description="body")],
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="Indicates whether to run the Rule Engine.  If `true`, the response includes: - The effects generated by the triggered campaigns are returned in the `effects` property. - The created coupons and referral objects.  If `false`: - The rules are not executed and the `effects` property is always empty. - The response time improves. - You cannot use `responseContent` in the body. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="(Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. ")] = None,
@@ -11464,7 +11783,7 @@ class IntegrationApi:
 
         Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`. 
 
-        :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  (required)
+        :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type integration_id: str
         :param customer_profile_integration_request_v2: body (required)
         :type customer_profile_integration_request_v2: CustomerProfileIntegrationRequestV2
@@ -11525,7 +11844,7 @@ class IntegrationApi:
     @validate_call
     def update_customer_profile_v2_without_preload_content(
         self,
-        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
+        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         customer_profile_integration_request_v2: Annotated[CustomerProfileIntegrationRequestV2, Field(description="body")],
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="Indicates whether to run the Rule Engine.  If `true`, the response includes: - The effects generated by the triggered campaigns are returned in the `effects` property. - The created coupons and referral objects.  If `false`: - The rules are not executed and the `effects` property is always empty. - The response time improves. - You cannot use `responseContent` in the body. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="(Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. ")] = None,
@@ -11546,7 +11865,7 @@ class IntegrationApi:
 
         Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`. 
 
-        :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  (required)
+        :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type integration_id: str
         :param customer_profile_integration_request_v2: body (required)
         :type customer_profile_integration_request_v2: CustomerProfileIntegrationRequestV2
@@ -11993,7 +12312,7 @@ class IntegrationApi:
     @validate_call
     def update_customer_session_v2(
         self,
-        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         integration_request: Annotated[IntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`: - The endpoint considers **only** the payload that you pass when **closing** the session.   When you do not use the `dry` parameter, the endpoint behaves as a typical PUT endpoint. Each update builds upon the previous ones. - You can use the `evaluableCampaignIds` body property to select specific campaigns to run.  [See the docs](https://docs.talon.one/docs/dev/integration-api/dry-requests). ")] = None,
         now: Annotated[Optional[datetime], Field(description="A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. ")] = None,
@@ -12014,7 +12333,7 @@ class IntegrationApi:
 
         Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one). 
 
-        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
+        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
         :param integration_request: body (required)
         :type integration_request: IntegrationRequest
@@ -12075,7 +12394,7 @@ class IntegrationApi:
     @validate_call
     def update_customer_session_v2_with_http_info(
         self,
-        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         integration_request: Annotated[IntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`: - The endpoint considers **only** the payload that you pass when **closing** the session.   When you do not use the `dry` parameter, the endpoint behaves as a typical PUT endpoint. Each update builds upon the previous ones. - You can use the `evaluableCampaignIds` body property to select specific campaigns to run.  [See the docs](https://docs.talon.one/docs/dev/integration-api/dry-requests). ")] = None,
         now: Annotated[Optional[datetime], Field(description="A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. ")] = None,
@@ -12096,7 +12415,7 @@ class IntegrationApi:
 
         Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one). 
 
-        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
+        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
         :param integration_request: body (required)
         :type integration_request: IntegrationRequest
@@ -12157,7 +12476,7 @@ class IntegrationApi:
     @validate_call
     def update_customer_session_v2_without_preload_content(
         self,
-        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp). ")],
         integration_request: Annotated[IntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`: - The endpoint considers **only** the payload that you pass when **closing** the session.   When you do not use the `dry` parameter, the endpoint behaves as a typical PUT endpoint. Each update builds upon the previous ones. - You can use the `evaluableCampaignIds` body property to select specific campaigns to run.  [See the docs](https://docs.talon.one/docs/dev/integration-api/dry-requests). ")] = None,
         now: Annotated[Optional[datetime], Field(description="A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. ")] = None,
@@ -12178,7 +12497,7 @@ class IntegrationApi:
 
         Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one). 
 
-        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
+        :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
         :param integration_request: body (required)
         :type integration_request: IntegrationRequest
