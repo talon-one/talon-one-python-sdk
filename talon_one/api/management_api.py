@@ -127,6 +127,7 @@ from talon_one.models.referral import Referral
 from talon_one.models.role_v2 import RoleV2
 from talon_one.models.role_v2_base import RoleV2Base
 from talon_one.models.ruleset import Ruleset
+from talon_one.models.ruleset_v2 import RulesetV2
 from talon_one.models.scim_base_group import ScimBaseGroup
 from talon_one.models.scim_group import ScimGroup
 from talon_one.models.scim_groups_list_response import ScimGroupsListResponse
@@ -13483,6 +13484,8 @@ class ManagementApi:
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
         campaign_state: Annotated[Optional[StrictStr], Field(description="Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived. ")] = None,
         values_only: Annotated[Optional[StrictBool], Field(description="Filter results to only return the coupon codes (`value` column) without the associated coupon data.")] = None,
+        deleted_before: Annotated[Optional[datetime], Field(description="Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.")] = None,
+        deleted_after: Annotated[Optional[datetime], Field(description="Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -13530,6 +13533,10 @@ class ManagementApi:
         :type campaign_state: str
         :param values_only: Filter results to only return the coupon codes (`value` column) without the associated coupon data.
         :type values_only: bool
+        :param deleted_before: Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.
+        :type deleted_before: datetime
+        :param deleted_after: Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.
+        :type deleted_after: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -13568,6 +13575,8 @@ class ManagementApi:
             date_format=date_format,
             campaign_state=campaign_state,
             values_only=values_only,
+            deleted_before=deleted_before,
+            deleted_after=deleted_after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -13606,6 +13615,8 @@ class ManagementApi:
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
         campaign_state: Annotated[Optional[StrictStr], Field(description="Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived. ")] = None,
         values_only: Annotated[Optional[StrictBool], Field(description="Filter results to only return the coupon codes (`value` column) without the associated coupon data.")] = None,
+        deleted_before: Annotated[Optional[datetime], Field(description="Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.")] = None,
+        deleted_after: Annotated[Optional[datetime], Field(description="Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -13653,6 +13664,10 @@ class ManagementApi:
         :type campaign_state: str
         :param values_only: Filter results to only return the coupon codes (`value` column) without the associated coupon data.
         :type values_only: bool
+        :param deleted_before: Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.
+        :type deleted_before: datetime
+        :param deleted_after: Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.
+        :type deleted_after: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -13691,6 +13706,8 @@ class ManagementApi:
             date_format=date_format,
             campaign_state=campaign_state,
             values_only=values_only,
+            deleted_before=deleted_before,
+            deleted_after=deleted_after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -13729,6 +13746,8 @@ class ManagementApi:
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
         campaign_state: Annotated[Optional[StrictStr], Field(description="Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived. ")] = None,
         values_only: Annotated[Optional[StrictBool], Field(description="Filter results to only return the coupon codes (`value` column) without the associated coupon data.")] = None,
+        deleted_before: Annotated[Optional[datetime], Field(description="Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.")] = None,
+        deleted_after: Annotated[Optional[datetime], Field(description="Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -13776,6 +13795,10 @@ class ManagementApi:
         :type campaign_state: str
         :param values_only: Filter results to only return the coupon codes (`value` column) without the associated coupon data.
         :type values_only: bool
+        :param deleted_before: Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.
+        :type deleted_before: datetime
+        :param deleted_after: Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results.
+        :type deleted_after: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -13814,6 +13837,8 @@ class ManagementApi:
             date_format=date_format,
             campaign_state=campaign_state,
             values_only=values_only,
+            deleted_before=deleted_before,
+            deleted_after=deleted_after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -13847,6 +13872,8 @@ class ManagementApi:
         date_format,
         campaign_state,
         values_only,
+        deleted_before,
+        deleted_after,
         _request_auth,
         _content_type,
         _headers,
@@ -13944,6 +13971,32 @@ class ManagementApi:
         if values_only is not None:
             
             _query_params.append(('valuesOnly', values_only))
+            
+        if deleted_before is not None:
+            if isinstance(deleted_before, datetime):
+                _query_params.append(
+                    (
+                        'deletedBefore',
+                        deleted_before.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('deletedBefore', deleted_before))
+            
+        if deleted_after is not None:
+            if isinstance(deleted_after, datetime):
+                _query_params.append(
+                    (
+                        'deletedAfter',
+                        deleted_after.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('deletedAfter', deleted_after))
             
         # process the header parameters
         # process the form parameters
@@ -24648,6 +24701,7 @@ class ManagementApi:
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         entity: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied entity.")] = None,
         application_ids: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied application ids")] = None,
+        loyalty_program_ids: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by the specified loyalty program ids, separated by commas. You can only use this parameter when `entity` is `LoyaltyCard`.")] = None,
         type: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied type")] = None,
         kind: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied kind (builtin or custom)")] = None,
         search: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by searching case insensitive through Attribute name, description and type")] = None,
@@ -24678,6 +24732,8 @@ class ManagementApi:
         :type entity: str
         :param application_ids: Returned attributes will be filtered by supplied application ids
         :type application_ids: str
+        :param loyalty_program_ids: Returned attributes will be filtered by the specified loyalty program ids, separated by commas. You can only use this parameter when `entity` is `LoyaltyCard`.
+        :type loyalty_program_ids: str
         :param type: Returned attributes will be filtered by supplied type
         :type type: str
         :param kind: Returned attributes will be filtered by supplied kind (builtin or custom)
@@ -24712,6 +24768,7 @@ class ManagementApi:
             sort=sort,
             entity=entity,
             application_ids=application_ids,
+            loyalty_program_ids=loyalty_program_ids,
             type=type,
             kind=kind,
             search=search,
@@ -24743,6 +24800,7 @@ class ManagementApi:
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         entity: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied entity.")] = None,
         application_ids: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied application ids")] = None,
+        loyalty_program_ids: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by the specified loyalty program ids, separated by commas. You can only use this parameter when `entity` is `LoyaltyCard`.")] = None,
         type: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied type")] = None,
         kind: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied kind (builtin or custom)")] = None,
         search: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by searching case insensitive through Attribute name, description and type")] = None,
@@ -24773,6 +24831,8 @@ class ManagementApi:
         :type entity: str
         :param application_ids: Returned attributes will be filtered by supplied application ids
         :type application_ids: str
+        :param loyalty_program_ids: Returned attributes will be filtered by the specified loyalty program ids, separated by commas. You can only use this parameter when `entity` is `LoyaltyCard`.
+        :type loyalty_program_ids: str
         :param type: Returned attributes will be filtered by supplied type
         :type type: str
         :param kind: Returned attributes will be filtered by supplied kind (builtin or custom)
@@ -24807,6 +24867,7 @@ class ManagementApi:
             sort=sort,
             entity=entity,
             application_ids=application_ids,
+            loyalty_program_ids=loyalty_program_ids,
             type=type,
             kind=kind,
             search=search,
@@ -24838,6 +24899,7 @@ class ManagementApi:
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         entity: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied entity.")] = None,
         application_ids: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied application ids")] = None,
+        loyalty_program_ids: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by the specified loyalty program ids, separated by commas. You can only use this parameter when `entity` is `LoyaltyCard`.")] = None,
         type: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied type")] = None,
         kind: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by supplied kind (builtin or custom)")] = None,
         search: Annotated[Optional[StrictStr], Field(description="Returned attributes will be filtered by searching case insensitive through Attribute name, description and type")] = None,
@@ -24868,6 +24930,8 @@ class ManagementApi:
         :type entity: str
         :param application_ids: Returned attributes will be filtered by supplied application ids
         :type application_ids: str
+        :param loyalty_program_ids: Returned attributes will be filtered by the specified loyalty program ids, separated by commas. You can only use this parameter when `entity` is `LoyaltyCard`.
+        :type loyalty_program_ids: str
         :param type: Returned attributes will be filtered by supplied type
         :type type: str
         :param kind: Returned attributes will be filtered by supplied kind (builtin or custom)
@@ -24902,6 +24966,7 @@ class ManagementApi:
             sort=sort,
             entity=entity,
             application_ids=application_ids,
+            loyalty_program_ids=loyalty_program_ids,
             type=type,
             kind=kind,
             search=search,
@@ -24928,6 +24993,7 @@ class ManagementApi:
         sort,
         entity,
         application_ids,
+        loyalty_program_ids,
         type,
         kind,
         search,
@@ -24972,6 +25038,10 @@ class ManagementApi:
         if application_ids is not None:
             
             _query_params.append(('applicationIds', application_ids))
+            
+        if loyalty_program_ids is not None:
+            
+            _query_params.append(('loyaltyProgramIds', loyalty_program_ids))
             
         if type is not None:
             
@@ -38597,6 +38667,297 @@ class ManagementApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/applications/{applicationId}/campaigns/{campaignId}/rulesets/{rulesetId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_ruleset_v2(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        ruleset_id: Annotated[StrictInt, Field(description="The ID of the ruleset.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RulesetV2:
+        """Get ruleset (V2)
+
+        Retrieve the specified ruleset as a JSON object.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param ruleset_id: The ID of the ruleset. (required)
+        :type ruleset_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_ruleset_v2_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            ruleset_id=ruleset_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "RulesetV2",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_ruleset_v2_with_http_info(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        ruleset_id: Annotated[StrictInt, Field(description="The ID of the ruleset.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[RulesetV2]:
+        """Get ruleset (V2)
+
+        Retrieve the specified ruleset as a JSON object.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param ruleset_id: The ID of the ruleset. (required)
+        :type ruleset_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_ruleset_v2_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            ruleset_id=ruleset_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "RulesetV2",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_ruleset_v2_without_preload_content(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        ruleset_id: Annotated[StrictInt, Field(description="The ID of the ruleset.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get ruleset (V2)
+
+        Retrieve the specified ruleset as a JSON object.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param ruleset_id: The ID of the ruleset. (required)
+        :type ruleset_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_ruleset_v2_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            ruleset_id=ruleset_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "RulesetV2",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_ruleset_v2_serialize(
+        self,
+        application_id,
+        campaign_id,
+        ruleset_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if application_id is not None:
+            _path_params['applicationId'] = application_id
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        if ruleset_id is not None:
+            _path_params['rulesetId'] = ruleset_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v2/applications/{applicationId}/campaigns/{campaignId}/rulesets/{rulesetId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

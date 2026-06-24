@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **subledger_id** | **str** |  | 
 **source_of_event** | **str** |  | 
 **current_tier** | **str** | The name of the customer&#39;s current tier. | 
+**session_integration_id** | **str** | The integration ID of the session through which the points were earned or lost. Only set when the change results from a rule engine execution; empty otherwise. | [optional] 
 **employee_name** | **str** |  | [optional] 
 **user_id** | **int** |  | [optional] 
 **current_points** | **float** |  | 

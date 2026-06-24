@@ -859,6 +859,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_get_ruleset_v2(self) -> None:
+        """Test case for get_ruleset_v2
+
+        Get ruleset (V2)
+        """
+        pass
+
     def test_get_rulesets(self) -> None:
         """Test case for get_rulesets
 

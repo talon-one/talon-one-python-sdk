@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **tags** | **List[str]** | A list of tags for the campaign. | 
 **features** | **List[str]** | The features enabled in this campaign. | 
 **rules** | [**List[RuleMetadata]**](RuleMetadata.md) | A list of rules containing customer-facing details of the rewards defined in the campaign. | 
+**linked_store_ids** | **List[int]** | A list of store IDs linked to this campaign. | [optional] 
+**linked_audience_ids** | **List[int]** | A list of audience IDs linked to this campaign. | [optional] 
 
 ## Example
 

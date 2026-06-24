@@ -201,6 +201,13 @@ class TestIntegrationApi(unittest.TestCase):
         """
         pass
 
+    def test_join_loyalty_program(self) -> None:
+        """Test case for join_loyalty_program
+
+        Join customer profile to loyalty program
+        """
+        pass
+
     def test_link_loyalty_card_to_profile(self) -> None:
         """Test case for link_loyalty_card_to_profile
 

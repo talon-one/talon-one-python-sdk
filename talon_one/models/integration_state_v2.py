@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.campaign import Campaign
 from talon_one.models.campaign_eligibility import CampaignEligibility
 from talon_one.models.coupon import Coupon
+from talon_one.models.customer_achievement import CustomerAchievement
 from talon_one.models.customer_profile import CustomerProfile
 from talon_one.models.customer_session_v2 import CustomerSessionV2
 from talon_one.models.effect import Effect
@@ -51,6 +52,7 @@ class IntegrationStateV2(BaseModel):
     created_coupons: List[Coupon] = Field(description="The coupons that were created during the event processing.", alias="createdCoupons")
     created_referrals: List[Referral] = Field(description="The referrals that were created during the event processing.", alias="createdReferrals")
     awarded_giveaways: Optional[List[Giveaway]] = Field(default=None, description="The giveaways that were awarded during the event processing.", alias="awardedGiveaways")
+    achievements: Optional[List[CustomerAchievement]] = Field(default=None, description="The achievements progress of the customer.")
     referral: Optional[InventoryReferral] = Field(default=None, description="The referral that was processed.")
     coupons: Optional[List[IntegrationCoupon]] = Field(default=None, description="The coupons that were processed.")
     event: Optional[Event] = Field(default=None, description="The event that was processed.")
@@ -58,7 +60,7 @@ class IntegrationStateV2(BaseModel):
     customer_session: Optional[CustomerSessionV2] = Field(default=None, description="The session that was processed.", alias="customerSession")
     var_return: Optional[ModelReturn] = Field(default=None, description="The return that was processed.", alias="return")
     previous_returns: Optional[List[ModelReturn]] = Field(default=None, description="The previous returns associated with the event.", alias="previousReturns")
-    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "referral", "coupons", "event", "advancedEvent", "customerSession", "return", "previousReturns"]
+    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "referral", "coupons", "event", "advancedEvent", "customerSession", "return", "previousReturns"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -154,6 +156,13 @@ class IntegrationStateV2(BaseModel):
                 if _item_awarded_giveaways:
                     _items.append(_item_awarded_giveaways.to_dict())
             _dict['awardedGiveaways'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in achievements (list)
+        _items = []
+        if self.achievements:
+            for _item_achievements in self.achievements:
+                if _item_achievements:
+                    _items.append(_item_achievements.to_dict())
+            _dict['achievements'] = _items
         # override the default output from pydantic by calling `to_dict()` of referral
         if self.referral:
             _dict['referral'] = self.referral.to_dict()
@@ -204,6 +213,7 @@ class IntegrationStateV2(BaseModel):
             "createdCoupons": [Coupon.from_dict(_item) for _item in obj["createdCoupons"]] if obj.get("createdCoupons") is not None else None,
             "createdReferrals": [Referral.from_dict(_item) for _item in obj["createdReferrals"]] if obj.get("createdReferrals") is not None else None,
             "awardedGiveaways": [Giveaway.from_dict(_item) for _item in obj["awardedGiveaways"]] if obj.get("awardedGiveaways") is not None else None,
+            "achievements": [CustomerAchievement.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None,
             "referral": InventoryReferral.from_dict(obj["referral"]) if obj.get("referral") is not None else None,
             "coupons": [IntegrationCoupon.from_dict(_item) for _item in obj["coupons"]] if obj.get("coupons") is not None else None,
             "event": Event.from_dict(obj["event"]) if obj.get("event") is not None else None,

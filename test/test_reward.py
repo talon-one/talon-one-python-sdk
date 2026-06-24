@@ -43,7 +43,7 @@ class TestReward(unittest.TestCase):
                 description = 'This reward gets you one free coffee.',
                 application_ids = [1, 2, 3],
                 sandbox = True,
-                visibility_conditions = talon_one.models.rule.Rule(
+                eligibility_conditions = talon_one.models.rule.Rule(
                     id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
                     parent_id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
                     title = 'Give discount via coupon', 

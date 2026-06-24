@@ -41,7 +41,9 @@ class IntegrationCampaign(BaseModel):
     tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.", json_schema_extra={"examples": [["summer"]]})
     features: List[StrictStr] = Field(description="The features enabled in this campaign.", json_schema_extra={"examples": [["coupons", "referrals"]]})
     rules: List[RuleMetadata] = Field(description="A list of rules containing customer-facing details of the rewards defined in the campaign.")
-    __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "rules"]
+    linked_store_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of store IDs linked to this campaign.", alias="linkedStoreIds", json_schema_extra={"examples": [[1, 2]]})
+    linked_audience_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of audience IDs linked to this campaign.", alias="linkedAudienceIds", json_schema_extra={"examples": [[3, 4]]})
+    __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "rules", "linkedStoreIds", "linkedAudienceIds"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -126,7 +128,9 @@ class IntegrationCampaign(BaseModel):
             "state": obj.get("state") if obj.get("state") is not None else 'enabled',
             "tags": obj.get("tags"),
             "features": obj.get("features"),
-            "rules": [RuleMetadata.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None
+            "rules": [RuleMetadata.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None,
+            "linkedStoreIds": obj.get("linkedStoreIds"),
+            "linkedAudienceIds": obj.get("linkedAudienceIds")
         })
         return _obj
 

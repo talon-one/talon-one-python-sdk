@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.campaign import Campaign
 from talon_one.models.campaign_eligibility import CampaignEligibility
 from talon_one.models.coupon import Coupon
+from talon_one.models.customer_achievement import CustomerAchievement
 from talon_one.models.customer_profile import CustomerProfile
 from talon_one.models.effect import Effect
 from talon_one.models.event_v3 import EventV3
@@ -46,8 +47,9 @@ class IntegrationEventV3Response(BaseModel):
     created_coupons: List[Coupon] = Field(description="The coupons that were created during the event processing.", alias="createdCoupons")
     created_referrals: List[Referral] = Field(description="The referrals that were created during the event processing.", alias="createdReferrals")
     awarded_giveaways: Optional[List[Giveaway]] = Field(default=None, description="The giveaways that were awarded during the event processing.", alias="awardedGiveaways")
+    achievements: Optional[List[CustomerAchievement]] = Field(default=None, description="The achievements progress of the customer.")
     advanced_event: Optional[EventV3] = Field(default=None, description="The advanced event that was processed.", alias="advancedEvent")
-    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "advancedEvent"]
+    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "advancedEvent"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -143,6 +145,13 @@ class IntegrationEventV3Response(BaseModel):
                 if _item_awarded_giveaways:
                     _items.append(_item_awarded_giveaways.to_dict())
             _dict['awardedGiveaways'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in achievements (list)
+        _items = []
+        if self.achievements:
+            for _item_achievements in self.achievements:
+                if _item_achievements:
+                    _items.append(_item_achievements.to_dict())
+            _dict['achievements'] = _items
         # override the default output from pydantic by calling `to_dict()` of advanced_event
         if self.advanced_event:
             _dict['advancedEvent'] = self.advanced_event.to_dict()
@@ -167,6 +176,7 @@ class IntegrationEventV3Response(BaseModel):
             "createdCoupons": [Coupon.from_dict(_item) for _item in obj["createdCoupons"]] if obj.get("createdCoupons") is not None else None,
             "createdReferrals": [Referral.from_dict(_item) for _item in obj["createdReferrals"]] if obj.get("createdReferrals") is not None else None,
             "awardedGiveaways": [Giveaway.from_dict(_item) for _item in obj["awardedGiveaways"]] if obj.get("awardedGiveaways") is not None else None,
+            "achievements": [CustomerAchievement.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None,
             "advancedEvent": EventV3.from_dict(obj["advancedEvent"]) if obj.get("advancedEvent") is not None else None
         })
         return _obj

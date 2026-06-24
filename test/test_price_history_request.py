@@ -35,13 +35,13 @@ class TestPriceHistoryRequest(unittest.TestCase):
         model = PriceHistoryRequest()
         if include_optional:
             return PriceHistoryRequest(
-                sku = '[sku-124]',
+                sku = 'SKU1241028',
                 start_date = '2020-11-10T23:00:00Z',
                 end_date = '2020-12-10T23:00:00Z'
             )
         else:
             return PriceHistoryRequest(
-                sku = '[sku-124]',
+                sku = 'SKU1241028',
                 start_date = '2020-11-10T23:00:00Z',
                 end_date = '2020-12-10T23:00:00Z',
         )

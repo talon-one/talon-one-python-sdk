@@ -123,6 +123,7 @@ Method | HTTP request | Description
 [**get_referrals_without_total_count**](ManagementApi.md#get_referrals_without_total_count) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/referrals/no_total | List referrals
 [**get_role_v2**](ManagementApi.md#get_role_v2) | **GET** /v2/roles/{roleId} | Get role
 [**get_ruleset**](ManagementApi.md#get_ruleset) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/rulesets/{rulesetId} | Get ruleset
+[**get_ruleset_v2**](ManagementApi.md#get_ruleset_v2) | **GET** /v2/applications/{applicationId}/campaigns/{campaignId}/rulesets/{rulesetId} | Get ruleset (V2)
 [**get_rulesets**](ManagementApi.md#get_rulesets) | **GET** /v1/applications/{applicationId}/campaigns/{campaignId}/rulesets | List campaign rulesets
 [**get_store**](ManagementApi.md#get_store) | **GET** /v1/applications/{applicationId}/stores/{storeId} | Get store
 [**get_user**](ManagementApi.md#get_user) | **GET** /v1/users/{userId} | Get user
@@ -4034,7 +4035,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_coupons**
-> str export_coupons(application_id, campaign_id=campaign_id, sort=sort, value=value, created_before=created_before, created_after=created_after, valid=valid, usable=usable, referral_id=referral_id, recipient_integration_id=recipient_integration_id, batch_id=batch_id, exact_match=exact_match, date_format=date_format, campaign_state=campaign_state, values_only=values_only)
+> str export_coupons(application_id, campaign_id=campaign_id, sort=sort, value=value, created_before=created_before, created_after=created_after, valid=valid, usable=usable, referral_id=referral_id, recipient_integration_id=recipient_integration_id, batch_id=batch_id, exact_match=exact_match, date_format=date_format, campaign_state=campaign_state, values_only=values_only, deleted_before=deleted_before, deleted_after=deleted_after)
 
 Export coupons
 
@@ -4117,10 +4118,12 @@ with talon_one.ApiClient(configuration) as api_client:
     date_format = 'date_format_example' # str | Determines the format of dates in the export document. (optional)
     campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
     values_only = False # bool | Filter results to only return the coupon codes (`value` column) without the associated coupon data. (optional) (default to False)
+    deleted_before = '2013-10-20T19:20:30+01:00' # datetime | Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results. (optional)
+    deleted_after = '2013-10-20T19:20:30+01:00' # datetime | Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results. (optional)
 
     try:
         # Export coupons
-        api_response = api_instance.export_coupons(application_id, campaign_id=campaign_id, sort=sort, value=value, created_before=created_before, created_after=created_after, valid=valid, usable=usable, referral_id=referral_id, recipient_integration_id=recipient_integration_id, batch_id=batch_id, exact_match=exact_match, date_format=date_format, campaign_state=campaign_state, values_only=values_only)
+        api_response = api_instance.export_coupons(application_id, campaign_id=campaign_id, sort=sort, value=value, created_before=created_before, created_after=created_after, valid=valid, usable=usable, referral_id=referral_id, recipient_integration_id=recipient_integration_id, batch_id=batch_id, exact_match=exact_match, date_format=date_format, campaign_state=campaign_state, values_only=values_only, deleted_before=deleted_before, deleted_after=deleted_after)
         print("The response of ManagementApi->export_coupons:\n")
         pprint(api_response)
     except Exception as e:
@@ -4149,6 +4152,8 @@ Name | Type | Description  | Notes
  **date_format** | **str**| Determines the format of dates in the export document. | [optional] 
  **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (activated), or expired. - &#x60;running&#x60;: Campaigns that are running (activated). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
  **values_only** | **bool**| Filter results to only return the coupon codes (&#x60;value&#x60; column) without the associated coupon data. | [optional] [default to False]
+ **deleted_before** | **datetime**| Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results. | [optional] 
+ **deleted_after** | **datetime**| Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results. | [optional] 
 
 ### Return type
 
@@ -7220,7 +7225,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_attributes**
-> GetAttributes200Response get_attributes(page_size=page_size, skip=skip, sort=sort, entity=entity, application_ids=application_ids, type=type, kind=kind, search=search)
+> GetAttributes200Response get_attributes(page_size=page_size, skip=skip, sort=sort, entity=entity, application_ids=application_ids, loyalty_program_ids=loyalty_program_ids, type=type, kind=kind, search=search)
 
 List custom attributes
 
@@ -7263,13 +7268,14 @@ with talon_one.ApiClient(configuration) as api_client:
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
     entity = 'entity_example' # str | Returned attributes will be filtered by supplied entity. (optional)
     application_ids = 'application_ids_example' # str | Returned attributes will be filtered by supplied application ids (optional)
+    loyalty_program_ids = 'loyalty_program_ids_example' # str | Returned attributes will be filtered by the specified loyalty program ids, separated by commas. You can only use this parameter when `entity` is `LoyaltyCard`. (optional)
     type = 'type_example' # str | Returned attributes will be filtered by supplied type (optional)
     kind = 'kind_example' # str | Returned attributes will be filtered by supplied kind (builtin or custom) (optional)
     search = 'search_example' # str | Returned attributes will be filtered by searching case insensitive through Attribute name, description and type (optional)
 
     try:
         # List custom attributes
-        api_response = api_instance.get_attributes(page_size=page_size, skip=skip, sort=sort, entity=entity, application_ids=application_ids, type=type, kind=kind, search=search)
+        api_response = api_instance.get_attributes(page_size=page_size, skip=skip, sort=sort, entity=entity, application_ids=application_ids, loyalty_program_ids=loyalty_program_ids, type=type, kind=kind, search=search)
         print("The response of ManagementApi->get_attributes:\n")
         pprint(api_response)
     except Exception as e:
@@ -7288,6 +7294,7 @@ Name | Type | Description  | Notes
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
  **entity** | **str**| Returned attributes will be filtered by supplied entity. | [optional] 
  **application_ids** | **str**| Returned attributes will be filtered by supplied application ids | [optional] 
+ **loyalty_program_ids** | **str**| Returned attributes will be filtered by the specified loyalty program ids, separated by commas. You can only use this parameter when &#x60;entity&#x60; is &#x60;LoyaltyCard&#x60;. | [optional] 
  **type** | **str**| Returned attributes will be filtered by supplied type | [optional] 
  **kind** | **str**| Returned attributes will be filtered by supplied kind (builtin or custom) | [optional] 
  **search** | **str**| Returned attributes will be filtered by searching case insensitive through Attribute name, description and type | [optional] 
@@ -10863,6 +10870,89 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Ruleset**](Ruleset.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_ruleset_v2**
+> RulesetV2 get_ruleset_v2(application_id, campaign_id, ruleset_id)
+
+Get ruleset (V2)
+
+Retrieve the specified ruleset as a JSON object.
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.ruleset_v2 import RulesetV2
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
+    campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
+    ruleset_id = 56 # int | The ID of the ruleset.
+
+    try:
+        # Get ruleset (V2)
+        api_response = api_instance.get_ruleset_v2(application_id, campaign_id, ruleset_id)
+        print("The response of ManagementApi->get_ruleset_v2:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->get_ruleset_v2: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
+ **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
+ **ruleset_id** | **int**| The ID of the ruleset. | 
+
+### Return type
+
+[**RulesetV2**](RulesetV2.md)
 
 ### Authorization
 

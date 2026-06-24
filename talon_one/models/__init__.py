@@ -92,6 +92,7 @@ from talon_one.models.audience_integration_id import AudienceIntegrationID
 from talon_one.models.audience_membership import AudienceMembership
 from talon_one.models.audience_reference import AudienceReference
 from talon_one.models.award_giveaway_effect_props import AwardGiveawayEffectProps
+from talon_one.models.base_block import BaseBlock
 from talon_one.models.base_campaign import BaseCampaign
 from talon_one.models.base_loyalty_program import BaseLoyaltyProgram
 from talon_one.models.base_notification import BaseNotification
@@ -209,6 +210,7 @@ from talon_one.models.create_template_campaign import CreateTemplateCampaign
 from talon_one.models.create_template_campaign_response import CreateTemplateCampaignResponse
 from talon_one.models.custom_effect import CustomEffect
 from talon_one.models.custom_effect_props import CustomEffectProps
+from talon_one.models.customer_achievement import CustomerAchievement
 from talon_one.models.customer_activity_report import CustomerActivityReport
 from talon_one.models.customer_analytics import CustomerAnalytics
 from talon_one.models.customer_inventory import CustomerInventory
@@ -547,6 +549,7 @@ from talon_one.models.outgoing_integration_template_with_configuration_details i
 from talon_one.models.outgoing_integration_templates import OutgoingIntegrationTemplates
 from talon_one.models.outgoing_integration_type import OutgoingIntegrationType
 from talon_one.models.outgoing_integration_types import OutgoingIntegrationTypes
+from talon_one.models.passthrough_block import PassthroughBlock
 from talon_one.models.patch_item_catalog_action import PatchItemCatalogAction
 from talon_one.models.patch_many_items_catalog_action import PatchManyItemsCatalogAction
 from talon_one.models.pending_active_points_data import PendingActivePointsData
@@ -568,6 +571,8 @@ from talon_one.models.product_unit_analytics_totals import ProductUnitAnalyticsT
 from talon_one.models.profile_audiences_changes import ProfileAudiencesChanges
 from talon_one.models.projected_tier import ProjectedTier
 from talon_one.models.promote_experiment import PromoteExperiment
+from talon_one.models.promotion_group_block import PromotionGroupBlock
+from talon_one.models.promotion_rule_v2 import PromotionRuleV2
 from talon_one.models.redeem_referral_effect_props import RedeemReferralEffectProps
 from talon_one.models.referral import Referral
 from talon_one.models.referral_constraints import ReferralConstraints
@@ -589,6 +594,9 @@ from talon_one.models.revision_activation_request import RevisionActivationReque
 from talon_one.models.revision_version import RevisionVersion
 from talon_one.models.reward import Reward
 from talon_one.models.reward_points_required import RewardPointsRequired
+from talon_one.models.risk import Risk
+from talon_one.models.risk_affected_entity_item import RiskAffectedEntityItem
+from talon_one.models.risk_detail import RiskDetail
 from talon_one.models.risk_notification import RiskNotification
 from talon_one.models.role import Role
 from talon_one.models.role_assign import RoleAssign
@@ -613,7 +621,9 @@ from talon_one.models.rule_eligibility_failure_details import RuleEligibilityFai
 from talon_one.models.rule_failure_reason import RuleFailureReason
 from talon_one.models.rule_metadata import RuleMetadata
 from talon_one.models.rule_metadata_eligibility import RuleMetadataEligibility
+from talon_one.models.rule_v2 import RuleV2
 from talon_one.models.ruleset import Ruleset
+from talon_one.models.ruleset_v2 import RulesetV2
 from talon_one.models.sso_config import SSOConfig
 from talon_one.models.saml_connection import SamlConnection
 from talon_one.models.saml_connection_internal import SamlConnectionInternal
@@ -655,7 +665,9 @@ from talon_one.models.strikethrough_changed_item import StrikethroughChangedItem
 from talon_one.models.strikethrough_custom_effect_per_item_props import StrikethroughCustomEffectPerItemProps
 from talon_one.models.strikethrough_debug_response import StrikethroughDebugResponse
 from talon_one.models.strikethrough_effect import StrikethroughEffect
+from talon_one.models.strikethrough_group_block import StrikethroughGroupBlock
 from talon_one.models.strikethrough_labeling_notification import StrikethroughLabelingNotification
+from talon_one.models.strikethrough_rule_v2 import StrikethroughRuleV2
 from talon_one.models.strikethrough_set_discount_per_item_effect_props import StrikethroughSetDiscountPerItemEffectProps
 from talon_one.models.strikethrough_set_discount_per_item_member_effect_props import StrikethroughSetDiscountPerItemMemberEffectProps
 from talon_one.models.strikethrough_trigger import StrikethroughTrigger
