@@ -88,7 +88,10 @@ docs/AudienceCustomer.md
 docs/AudienceIntegrationID.md
 docs/AudienceMembership.md
 docs/AudienceReference.md
+docs/AwardGiveawayBlock.md
+docs/AwardGiveawayBlock1GiveawayPool.md
 docs/AwardGiveawayEffectProps.md
+docs/AwardItemBlock.md
 docs/BaseBlock.md
 docs/BaseCampaign.md
 docs/BaseLoyaltyProgram.md
@@ -100,7 +103,9 @@ docs/BaseSamlConnection.md
 docs/BestPriorPrice.md
 docs/BestPriorPriceMetadata.md
 docs/BestPriorPriceRequest.md
+docs/BestPriorPriceSettings.md
 docs/BestPriorTarget.md
+docs/BetweenCheckAttributeBlock.md
 docs/Binding.md
 docs/Blueprint.md
 docs/BulkApplicationNotification.md
@@ -175,6 +180,11 @@ docs/CatalogsStrikethroughNotificationPolicy.md
 docs/Change.md
 docs/ChangeLoyaltyTierLevelEffectProps.md
 docs/ChangeProfilePassword.md
+docs/CheckAttributeBlock.md
+docs/CheckAudienceBlock.md
+docs/CheckAudienceBlock1Audience.md
+docs/CheckCouponBlock.md
+docs/CheckReferralBlock.md
 docs/CodeGeneratorSettings.md
 docs/Collection.md
 docs/CollectionItem.md
@@ -308,6 +318,7 @@ docs/GetApplicationCustomersByAttributes200Response.md
 docs/GetApplicationEventTypes200Response.md
 docs/GetApplicationEventsWithoutTotalCount200Response.md
 docs/GetApplicationSessions200Response.md
+docs/GetApplicationSessionsByCustomerAttributes200Response.md
 docs/GetApplications200Response.md
 docs/GetAttributes200Response.md
 docs/GetAudienceMemberships200Response.md
@@ -410,8 +421,10 @@ docs/ListCampaignStoreBudgetLimits200Response.md
 docs/ListCampaignStoreBudgets.md
 docs/ListCampaignStoreBudgetsStore.md
 docs/ListCatalogItems200Response.md
+docs/ListCheckAttributeBlock.md
 docs/ListExperiments200Response.md
 docs/ListStores200Response.md
+docs/ListWithCountCheckAttributeBlock.md
 docs/LoginParams.md
 docs/Loyalty.md
 docs/LoyaltyBalance.md
@@ -570,6 +583,7 @@ docs/ProductUnitAnalyticsTotals.md
 docs/ProfileAudiencesChanges.md
 docs/ProjectedTier.md
 docs/PromoteExperiment.md
+docs/PromotionCheckAttributeBlock.md
 docs/PromotionGroupBlock.md
 docs/PromotionRuleV2.md
 docs/RedeemReferralEffectProps.md
@@ -628,6 +642,7 @@ docs/SamlConnection.md
 docs/SamlConnectionInternal.md
 docs/SamlConnectionMetadata.md
 docs/SamlLoginEndpoint.md
+docs/ScalarCheckAttributeBlock.md
 docs/ScimBaseGroup.md
 docs/ScimBaseUser.md
 docs/ScimBaseUserName.md
@@ -655,12 +670,14 @@ docs/SetDiscountPerAdditionalCostPerItemEffectProps.md
 docs/SetDiscountPerItemEffectProps.md
 docs/SetLoyaltyPointsExpiryDateEffectProps.md
 docs/ShowBundleMetadataEffectProps.md
+docs/ShowNotificationBlock.md
 docs/ShowNotificationEffectProps.md
 docs/SkuUnitAnalytics.md
 docs/SkuUnitAnalyticsDataPoint.md
 docs/SlotDef.md
 docs/Store.md
 docs/StrikethroughChangedItem.md
+docs/StrikethroughCheckAttributeBlock.md
 docs/StrikethroughCustomEffectPerItemProps.md
 docs/StrikethroughDebugResponse.md
 docs/StrikethroughEffect.md
@@ -694,6 +711,7 @@ docs/TimePoint.md
 docs/TransferLoyaltyCard.md
 docs/TriggerWebhookEffectProps.md
 docs/TwoFAConfig.md
+docs/UnaryCheckAttributeBlock.md
 docs/UpdateAccount.md
 docs/UpdateAchievement.md
 docs/UpdateAchievementV2.md
@@ -836,7 +854,10 @@ talon_one/models/audience_customer.py
 talon_one/models/audience_integration_id.py
 talon_one/models/audience_membership.py
 talon_one/models/audience_reference.py
+talon_one/models/award_giveaway_block.py
+talon_one/models/award_giveaway_block1_giveaway_pool.py
 talon_one/models/award_giveaway_effect_props.py
+talon_one/models/award_item_block.py
 talon_one/models/base_block.py
 talon_one/models/base_campaign.py
 talon_one/models/base_loyalty_program.py
@@ -848,7 +869,9 @@ talon_one/models/base_saml_connection.py
 talon_one/models/best_prior_price.py
 talon_one/models/best_prior_price_metadata.py
 talon_one/models/best_prior_price_request.py
+talon_one/models/best_prior_price_settings.py
 talon_one/models/best_prior_target.py
+talon_one/models/between_check_attribute_block.py
 talon_one/models/binding.py
 talon_one/models/blueprint.py
 talon_one/models/bulk_application_notification.py
@@ -923,6 +946,11 @@ talon_one/models/catalogs_strikethrough_notification_policy.py
 talon_one/models/change.py
 talon_one/models/change_loyalty_tier_level_effect_props.py
 talon_one/models/change_profile_password.py
+talon_one/models/check_attribute_block.py
+talon_one/models/check_audience_block.py
+talon_one/models/check_audience_block1_audience.py
+talon_one/models/check_coupon_block.py
+talon_one/models/check_referral_block.py
 talon_one/models/code_generator_settings.py
 talon_one/models/collection.py
 talon_one/models/collection_item.py
@@ -1056,6 +1084,7 @@ talon_one/models/get_application_customers_by_attributes200_response.py
 talon_one/models/get_application_event_types200_response.py
 talon_one/models/get_application_events_without_total_count200_response.py
 talon_one/models/get_application_sessions200_response.py
+talon_one/models/get_application_sessions_by_customer_attributes200_response.py
 talon_one/models/get_applications200_response.py
 talon_one/models/get_attributes200_response.py
 talon_one/models/get_audience_memberships200_response.py
@@ -1157,8 +1186,10 @@ talon_one/models/list_campaign_store_budget_limits200_response.py
 talon_one/models/list_campaign_store_budgets.py
 talon_one/models/list_campaign_store_budgets_store.py
 talon_one/models/list_catalog_items200_response.py
+talon_one/models/list_check_attribute_block.py
 talon_one/models/list_experiments200_response.py
 talon_one/models/list_stores200_response.py
+talon_one/models/list_with_count_check_attribute_block.py
 talon_one/models/login_params.py
 talon_one/models/loyalty.py
 talon_one/models/loyalty_balance.py
@@ -1316,6 +1347,7 @@ talon_one/models/product_unit_analytics_totals.py
 talon_one/models/profile_audiences_changes.py
 talon_one/models/projected_tier.py
 talon_one/models/promote_experiment.py
+talon_one/models/promotion_check_attribute_block.py
 talon_one/models/promotion_group_block.py
 talon_one/models/promotion_rule_v2.py
 talon_one/models/redeem_referral_effect_props.py
@@ -1373,6 +1405,7 @@ talon_one/models/saml_connection.py
 talon_one/models/saml_connection_internal.py
 talon_one/models/saml_connection_metadata.py
 talon_one/models/saml_login_endpoint.py
+talon_one/models/scalar_check_attribute_block.py
 talon_one/models/scim_base_group.py
 talon_one/models/scim_base_user.py
 talon_one/models/scim_base_user_name.py
@@ -1400,6 +1433,7 @@ talon_one/models/set_discount_per_additional_cost_per_item_effect_props.py
 talon_one/models/set_discount_per_item_effect_props.py
 talon_one/models/set_loyalty_points_expiry_date_effect_props.py
 talon_one/models/show_bundle_metadata_effect_props.py
+talon_one/models/show_notification_block.py
 talon_one/models/show_notification_effect_props.py
 talon_one/models/sku_unit_analytics.py
 talon_one/models/sku_unit_analytics_data_point.py
@@ -1407,6 +1441,7 @@ talon_one/models/slot_def.py
 talon_one/models/sso_config.py
 talon_one/models/store.py
 talon_one/models/strikethrough_changed_item.py
+talon_one/models/strikethrough_check_attribute_block.py
 talon_one/models/strikethrough_custom_effect_per_item_props.py
 talon_one/models/strikethrough_debug_response.py
 talon_one/models/strikethrough_effect.py
@@ -1440,6 +1475,7 @@ talon_one/models/time_point.py
 talon_one/models/transfer_loyalty_card.py
 talon_one/models/trigger_webhook_effect_props.py
 talon_one/models/two_fa_config.py
+talon_one/models/unary_check_attribute_block.py
 talon_one/models/update_account.py
 talon_one/models/update_achievement.py
 talon_one/models/update_achievement_v2.py
@@ -1571,7 +1607,10 @@ test/test_audience_customer.py
 test/test_audience_integration_id.py
 test/test_audience_membership.py
 test/test_audience_reference.py
+test/test_award_giveaway_block.py
+test/test_award_giveaway_block1_giveaway_pool.py
 test/test_award_giveaway_effect_props.py
+test/test_award_item_block.py
 test/test_base_block.py
 test/test_base_campaign.py
 test/test_base_loyalty_program.py
@@ -1583,7 +1622,9 @@ test/test_base_saml_connection.py
 test/test_best_prior_price.py
 test/test_best_prior_price_metadata.py
 test/test_best_prior_price_request.py
+test/test_best_prior_price_settings.py
 test/test_best_prior_target.py
+test/test_between_check_attribute_block.py
 test/test_binding.py
 test/test_blueprint.py
 test/test_bulk_application_notification.py
@@ -1658,6 +1699,11 @@ test/test_catalogs_strikethrough_notification_policy.py
 test/test_change.py
 test/test_change_loyalty_tier_level_effect_props.py
 test/test_change_profile_password.py
+test/test_check_attribute_block.py
+test/test_check_audience_block.py
+test/test_check_audience_block1_audience.py
+test/test_check_coupon_block.py
+test/test_check_referral_block.py
 test/test_code_generator_settings.py
 test/test_collection.py
 test/test_collection_item.py
@@ -1791,6 +1837,7 @@ test/test_get_application_customers_by_attributes200_response.py
 test/test_get_application_event_types200_response.py
 test/test_get_application_events_without_total_count200_response.py
 test/test_get_application_sessions200_response.py
+test/test_get_application_sessions_by_customer_attributes200_response.py
 test/test_get_applications200_response.py
 test/test_get_attributes200_response.py
 test/test_get_audience_memberships200_response.py
@@ -1893,8 +1940,10 @@ test/test_list_campaign_store_budget_limits200_response.py
 test/test_list_campaign_store_budgets.py
 test/test_list_campaign_store_budgets_store.py
 test/test_list_catalog_items200_response.py
+test/test_list_check_attribute_block.py
 test/test_list_experiments200_response.py
 test/test_list_stores200_response.py
+test/test_list_with_count_check_attribute_block.py
 test/test_login_params.py
 test/test_loyalty.py
 test/test_loyalty_balance.py
@@ -2053,6 +2102,7 @@ test/test_product_unit_analytics_totals.py
 test/test_profile_audiences_changes.py
 test/test_projected_tier.py
 test/test_promote_experiment.py
+test/test_promotion_check_attribute_block.py
 test/test_promotion_group_block.py
 test/test_promotion_rule_v2.py
 test/test_redeem_referral_effect_props.py
@@ -2110,6 +2160,7 @@ test/test_saml_connection.py
 test/test_saml_connection_internal.py
 test/test_saml_connection_metadata.py
 test/test_saml_login_endpoint.py
+test/test_scalar_check_attribute_block.py
 test/test_scim_base_group.py
 test/test_scim_base_user.py
 test/test_scim_base_user_name.py
@@ -2137,6 +2188,7 @@ test/test_set_discount_per_additional_cost_per_item_effect_props.py
 test/test_set_discount_per_item_effect_props.py
 test/test_set_loyalty_points_expiry_date_effect_props.py
 test/test_show_bundle_metadata_effect_props.py
+test/test_show_notification_block.py
 test/test_show_notification_effect_props.py
 test/test_sku_unit_analytics.py
 test/test_sku_unit_analytics_data_point.py
@@ -2144,6 +2196,7 @@ test/test_slot_def.py
 test/test_sso_config.py
 test/test_store.py
 test/test_strikethrough_changed_item.py
+test/test_strikethrough_check_attribute_block.py
 test/test_strikethrough_custom_effect_per_item_props.py
 test/test_strikethrough_debug_response.py
 test/test_strikethrough_effect.py
@@ -2177,6 +2230,7 @@ test/test_time_point.py
 test/test_transfer_loyalty_card.py
 test/test_trigger_webhook_effect_props.py
 test/test_two_fa_config.py
+test/test_unary_check_attribute_block.py
 test/test_update_account.py
 test/test_update_achievement.py
 test/test_update_achievement_v2.py

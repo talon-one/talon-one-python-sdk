@@ -91,7 +91,10 @@ from talon_one.models.audience_customer import AudienceCustomer
 from talon_one.models.audience_integration_id import AudienceIntegrationID
 from talon_one.models.audience_membership import AudienceMembership
 from talon_one.models.audience_reference import AudienceReference
+from talon_one.models.award_giveaway_block import AwardGiveawayBlock
+from talon_one.models.award_giveaway_block1_giveaway_pool import AwardGiveawayBlock1GiveawayPool
 from talon_one.models.award_giveaway_effect_props import AwardGiveawayEffectProps
+from talon_one.models.award_item_block import AwardItemBlock
 from talon_one.models.base_block import BaseBlock
 from talon_one.models.base_campaign import BaseCampaign
 from talon_one.models.base_loyalty_program import BaseLoyaltyProgram
@@ -103,7 +106,9 @@ from talon_one.models.base_saml_connection import BaseSamlConnection
 from talon_one.models.best_prior_price import BestPriorPrice
 from talon_one.models.best_prior_price_metadata import BestPriorPriceMetadata
 from talon_one.models.best_prior_price_request import BestPriorPriceRequest
+from talon_one.models.best_prior_price_settings import BestPriorPriceSettings
 from talon_one.models.best_prior_target import BestPriorTarget
+from talon_one.models.between_check_attribute_block import BetweenCheckAttributeBlock
 from talon_one.models.binding import Binding
 from talon_one.models.blueprint import Blueprint
 from talon_one.models.bulk_application_notification import BulkApplicationNotification
@@ -178,6 +183,11 @@ from talon_one.models.catalogs_strikethrough_notification_policy import Catalogs
 from talon_one.models.change import Change
 from talon_one.models.change_loyalty_tier_level_effect_props import ChangeLoyaltyTierLevelEffectProps
 from talon_one.models.change_profile_password import ChangeProfilePassword
+from talon_one.models.check_attribute_block import CheckAttributeBlock
+from talon_one.models.check_audience_block import CheckAudienceBlock
+from talon_one.models.check_audience_block1_audience import CheckAudienceBlock1Audience
+from talon_one.models.check_coupon_block import CheckCouponBlock
+from talon_one.models.check_referral_block import CheckReferralBlock
 from talon_one.models.code_generator_settings import CodeGeneratorSettings
 from talon_one.models.collection import Collection
 from talon_one.models.collection_item import CollectionItem
@@ -311,6 +321,7 @@ from talon_one.models.get_application_customers_by_attributes200_response import
 from talon_one.models.get_application_event_types200_response import GetApplicationEventTypes200Response
 from talon_one.models.get_application_events_without_total_count200_response import GetApplicationEventsWithoutTotalCount200Response
 from talon_one.models.get_application_sessions200_response import GetApplicationSessions200Response
+from talon_one.models.get_application_sessions_by_customer_attributes200_response import GetApplicationSessionsByCustomerAttributes200Response
 from talon_one.models.get_applications200_response import GetApplications200Response
 from talon_one.models.get_attributes200_response import GetAttributes200Response
 from talon_one.models.get_audience_memberships200_response import GetAudienceMemberships200Response
@@ -412,8 +423,10 @@ from talon_one.models.list_campaign_store_budget_limits200_response import ListC
 from talon_one.models.list_campaign_store_budgets import ListCampaignStoreBudgets
 from talon_one.models.list_campaign_store_budgets_store import ListCampaignStoreBudgetsStore
 from talon_one.models.list_catalog_items200_response import ListCatalogItems200Response
+from talon_one.models.list_check_attribute_block import ListCheckAttributeBlock
 from talon_one.models.list_experiments200_response import ListExperiments200Response
 from talon_one.models.list_stores200_response import ListStores200Response
+from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock
 from talon_one.models.login_params import LoginParams
 from talon_one.models.loyalty import Loyalty
 from talon_one.models.loyalty_balance import LoyaltyBalance
@@ -571,6 +584,7 @@ from talon_one.models.product_unit_analytics_totals import ProductUnitAnalyticsT
 from talon_one.models.profile_audiences_changes import ProfileAudiencesChanges
 from talon_one.models.projected_tier import ProjectedTier
 from talon_one.models.promote_experiment import PromoteExperiment
+from talon_one.models.promotion_check_attribute_block import PromotionCheckAttributeBlock
 from talon_one.models.promotion_group_block import PromotionGroupBlock
 from talon_one.models.promotion_rule_v2 import PromotionRuleV2
 from talon_one.models.redeem_referral_effect_props import RedeemReferralEffectProps
@@ -629,6 +643,7 @@ from talon_one.models.saml_connection import SamlConnection
 from talon_one.models.saml_connection_internal import SamlConnectionInternal
 from talon_one.models.saml_connection_metadata import SamlConnectionMetadata
 from talon_one.models.saml_login_endpoint import SamlLoginEndpoint
+from talon_one.models.scalar_check_attribute_block import ScalarCheckAttributeBlock
 from talon_one.models.scim_base_group import ScimBaseGroup
 from talon_one.models.scim_base_user import ScimBaseUser
 from talon_one.models.scim_base_user_name import ScimBaseUserName
@@ -656,12 +671,14 @@ from talon_one.models.set_discount_per_additional_cost_per_item_effect_props imp
 from talon_one.models.set_discount_per_item_effect_props import SetDiscountPerItemEffectProps
 from talon_one.models.set_loyalty_points_expiry_date_effect_props import SetLoyaltyPointsExpiryDateEffectProps
 from talon_one.models.show_bundle_metadata_effect_props import ShowBundleMetadataEffectProps
+from talon_one.models.show_notification_block import ShowNotificationBlock
 from talon_one.models.show_notification_effect_props import ShowNotificationEffectProps
 from talon_one.models.sku_unit_analytics import SkuUnitAnalytics
 from talon_one.models.sku_unit_analytics_data_point import SkuUnitAnalyticsDataPoint
 from talon_one.models.slot_def import SlotDef
 from talon_one.models.store import Store
 from talon_one.models.strikethrough_changed_item import StrikethroughChangedItem
+from talon_one.models.strikethrough_check_attribute_block import StrikethroughCheckAttributeBlock
 from talon_one.models.strikethrough_custom_effect_per_item_props import StrikethroughCustomEffectPerItemProps
 from talon_one.models.strikethrough_debug_response import StrikethroughDebugResponse
 from talon_one.models.strikethrough_effect import StrikethroughEffect
@@ -695,6 +712,7 @@ from talon_one.models.time_point import TimePoint
 from talon_one.models.transfer_loyalty_card import TransferLoyaltyCard
 from talon_one.models.trigger_webhook_effect_props import TriggerWebhookEffectProps
 from talon_one.models.two_fa_config import TwoFAConfig
+from talon_one.models.unary_check_attribute_block import UnaryCheckAttributeBlock
 from talon_one.models.update_account import UpdateAccount
 from talon_one.models.update_achievement import UpdateAchievement
 from talon_one.models.update_achievement_v2 import UpdateAchievementV2

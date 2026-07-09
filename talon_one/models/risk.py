@@ -31,19 +31,19 @@ class Risk(BaseModel):
     id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     notification_id: StrictInt = Field(description="The ID of the risk notification rule that flagged this risk.", alias="notificationId", json_schema_extra={"examples": [3]})
-    run_date: date = Field(description="The date of the ML pipeline run that detected this risk.", alias="runDate", json_schema_extra={"examples": ["2026-06-05"]})
+    feature_date: date = Field(description="The date of the activity data in which this risk was detected. The anomaly detection pipeline scores complete 24-hour cycles, so this is always the day before the risk was reported, not the reporting date itself. ", alias="featureDate", json_schema_extra={"examples": ["2026-06-05"]})
     group_key: StrictStr = Field(description="The Application group this risk was detected in. Contains the Application ID, or `__GLOBAL__` for metrics that are not grouped by Application. ", alias="groupKey", json_schema_extra={"examples": ["7"]})
     application_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application this risk belongs to. Absent for global metrics.", alias="applicationId", json_schema_extra={"examples": [7]})
     status: StrictStr = Field(description="The triage lifecycle status of this risk.", json_schema_extra={"examples": ["active"]})
     criticality: StrictStr = Field(description="The critical classification bucket of this risk.", json_schema_extra={"examples": ["critical"]})
     entity: StrictStr = Field(description="The entity type the risk was detected in.", json_schema_extra={"examples": ["customer_profile"]})
     activity: StrictStr = Field(description="The activity metric the risk was detected in.", json_schema_extra={"examples": ["discounted_amount"]})
-    time_frame: StrictStr = Field(description="The rolling time window of the risk evaluation.", alias="timeFrame", json_schema_extra={"examples": ["1_week"]})
+    time_frame: StrictStr = Field(description="The rolling time window of the risk evaluation.", alias="timeFrame", json_schema_extra={"examples": ["7D"]})
     reported_date: datetime = Field(description="The time the ML service reported this risk.", alias="reportedDate", json_schema_extra={"examples": ["2026-06-05T06:26:13.698884Z"]})
     affected_entity_count: StrictInt = Field(description="The total number of entities affected by this risk.", alias="affectedEntityCount", json_schema_extra={"examples": [4437]})
     description: Optional[StrictStr] = Field(default=None, description="Human-readable description of the detected anomaly.", json_schema_extra={"examples": ["Unusual discount usage detected for 4437 customer profiles."]})
     modified: datetime = Field(description="Timestamp of the most recent update.", json_schema_extra={"examples": ["2026-06-05T06:26:13.698884Z"]})
-    __properties: ClassVar[List[str]] = ["id", "created", "notificationId", "runDate", "groupKey", "applicationId", "status", "criticality", "entity", "activity", "timeFrame", "reportedDate", "affectedEntityCount", "description", "modified"]
+    __properties: ClassVar[List[str]] = ["id", "created", "notificationId", "featureDate", "groupKey", "applicationId", "status", "criticality", "entity", "activity", "timeFrame", "reportedDate", "affectedEntityCount", "description", "modified"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -76,8 +76,8 @@ class Risk(BaseModel):
     @field_validator('time_frame')
     def time_frame_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['1_day', '1_week', '1_month']):
-            raise ValueError("must be one of enum values ('1_day', '1_week', '1_month')")
+        if value not in set(['1D', '7D', '30D']):
+            raise ValueError("must be one of enum values ('1D', '7D', '30D')")
         return value
 
     model_config = ConfigDict(
@@ -134,7 +134,7 @@ class Risk(BaseModel):
             "id": obj.get("id"),
             "created": obj.get("created"),
             "notificationId": obj.get("notificationId"),
-            "runDate": obj.get("runDate"),
+            "featureDate": obj.get("featureDate"),
             "groupKey": obj.get("groupKey"),
             "applicationId": obj.get("applicationId"),
             "status": obj.get("status"),

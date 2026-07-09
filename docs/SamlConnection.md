@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **id** | **int** | The internal ID of this entity. | 
 **created** | **datetime** | The time this entity was created. | 
 **assertion_consumer_service_url** | **str** | The location where the SAML assertion is sent with a HTTP POST. | 
+**certificate_expiry** | **datetime** | The expiry date of the X.509 certificate. | [optional] 
 
 ## Example
 

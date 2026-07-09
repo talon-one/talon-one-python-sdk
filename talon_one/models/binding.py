@@ -27,14 +27,14 @@ class Binding(BaseModel):
     """
     Binding
     """ # noqa: E501
-    name: StrictStr = Field(description="A descriptive name for the value to be bound.", json_schema_extra={"examples": ["my property"]})
+    name: StrictStr = Field(description="A descriptive name for the value to be bound.", json_schema_extra={"examples": ["Discount percentage"]})
     type: Optional[StrictStr] = Field(default=None, description="The kind of binding. Possible values are: - `bundle` - `cartItemFilter` - `subledgerBalance` - `templateParameter` ", json_schema_extra={"examples": ["templateParameter"]})
-    expression: List[Any] = Field(description="A Talang expression that will be evaluated and its result attached to the name of the binding.", json_schema_extra={"examples": [["string1", "string2"]]})
-    value_type: Optional[StrictStr] = Field(default=None, description="Can be one of the following: - `string` - `number` - `boolean` ", alias="valueType", json_schema_extra={"examples": ["string"]})
+    expression: List[Any] = Field(description="A Talang expression that is evaluated, and its result is bound to the name of the binding. The first element must be one of the functions or operators supported by Talang, followed by its arguments. The arguments can be strings, numbers, or nested expressions. For example: - `[\"list\", \"10014\", \"10015\"]` calls the `list` function to build a list of strings. - `[\"+\", 2, 0]` uses the `+` operator to add two numbers. ", json_schema_extra={"examples": [["identity", 10]]})
+    value_type: Optional[StrictStr] = Field(default=None, description="The data type of the value. One of the following: - `string` - `number` - `boolean` ", alias="valueType", json_schema_extra={"examples": ["number"]})
     min_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The minimum value allowed for this placeholder.", alias="minValue", json_schema_extra={"examples": [0]})
     max_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The maximum value allowed for this placeholder.", alias="maxValue", json_schema_extra={"examples": [19.9]})
-    attribute_id: Optional[StrictInt] = Field(default=None, description="Id of the attribute attached to the placeholder.", alias="attributeId", json_schema_extra={"examples": [100]})
-    description: Optional[StrictStr] = Field(default=None, description="Describes the placeholder field and value in the template. This description can be used when creating campaigns from this template.", json_schema_extra={"examples": ["This is a template parameter of type `number`."]})
+    attribute_id: Optional[StrictInt] = Field(default=None, description="Identifier of the attribute attached to the placeholder.", alias="attributeId", json_schema_extra={"examples": [100]})
+    description: Optional[StrictStr] = Field(default=None, description="Description of the placeholder field and its value in the template. This text can be shown when creating campaigns from this template.", json_schema_extra={"examples": ["The percentage discount applied to the cart total."]})
     __properties: ClassVar[List[str]] = ["name", "type", "expression", "valueType", "minValue", "maxValue", "attributeId", "description"]
 
     model_config = ConfigDict(

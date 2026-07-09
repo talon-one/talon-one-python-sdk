@@ -34,7 +34,7 @@ class LoyaltyProgramLedgers(BaseModel):
     name: StrictStr = Field(description="Internal name of loyalty program.", json_schema_extra={"examples": ["program1"]})
     join_date: Optional[datetime] = Field(default=None, description="The date on which the customer joined the loyalty program in RFC3339.  **Note**: This is in the loyalty program's time zone. ", alias="joinDate", json_schema_extra={"examples": ["2024-04-30T15:04:05Z07:00"]})
     ledger: LedgerInfo = Field(description="Information about the main ledger in the loyalty program.")
-    sub_ledgers: Optional[Dict[str, LedgerInfo]] = Field(default=None, description="A map containing information about each loyalty subledger.", alias="subLedgers")
+    sub_ledgers: Optional[Dict[str, LedgerInfo]] = Field(default=None, description="A map containing information about each loyalty subledger. Subledgers for which all balances are zero are excluded from the response.", alias="subLedgers")
     __properties: ClassVar[List[str]] = ["id", "title", "name", "joinDate", "ledger", "subLedgers"]
 
     model_config = ConfigDict(

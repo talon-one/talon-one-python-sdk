@@ -45,7 +45,8 @@ class TestSamlConnection(unittest.TestCase):
                 audience_uri = '',
                 id = 6,
                 created = '2020-06-10T09:05:27.993483Z',
-                assertion_consumer_service_url = ''
+                assertion_consumer_service_url = '',
+                certificate_expiry = '2021-07-20T21:59:00Z'
             )
         else:
             return SamlConnection(

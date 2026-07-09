@@ -40,7 +40,8 @@ class SamlConnection(BaseModel):
     id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     assertion_consumer_service_url: StrictStr = Field(description="The location where the SAML assertion is sent with a HTTP POST.", alias="assertionConsumerServiceURL")
-    __properties: ClassVar[List[str]] = ["accountId", "name", "enabled", "issuer", "signOnURL", "signOutURL", "metadataURL", "audienceURI", "id", "created", "assertionConsumerServiceURL"]
+    certificate_expiry: Optional[datetime] = Field(default=None, description="The expiry date of the X.509 certificate.", alias="certificateExpiry", json_schema_extra={"examples": ["2021-07-20T21:59:00Z"]})
+    __properties: ClassVar[List[str]] = ["accountId", "name", "enabled", "issuer", "signOnURL", "signOutURL", "metadataURL", "audienceURI", "id", "created", "assertionConsumerServiceURL", "certificateExpiry"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -103,7 +104,8 @@ class SamlConnection(BaseModel):
             "audienceURI": obj.get("audienceURI"),
             "id": obj.get("id"),
             "created": obj.get("created"),
-            "assertionConsumerServiceURL": obj.get("assertionConsumerServiceURL")
+            "assertionConsumerServiceURL": obj.get("assertionConsumerServiceURL"),
+            "certificateExpiry": obj.get("certificateExpiry")
         })
         return _obj
 

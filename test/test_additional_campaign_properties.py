@@ -57,7 +57,7 @@ class TestAdditionalCampaignProperties(unittest.TestCase):
                 call_api_effect_count = 0,
                 reservecoupon_effect_count = 9,
                 last_activity = '2022-11-10T23:00:00Z',
-                updated = '2022-10-97T35:00:00Z',
+                updated = '2022-10-27T15:00:00Z',
                 created_by = 'John Doe',
                 updated_by = 'Jane Doe',
                 template_id = 3,

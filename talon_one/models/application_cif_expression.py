@@ -32,7 +32,7 @@ class ApplicationCIFExpression(BaseModel):
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     cart_item_filter_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application cart item filter.", alias="cartItemFilterId", json_schema_extra={"examples": [216]})
     created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the Application cart item filter.", alias="createdBy", json_schema_extra={"examples": [216]})
-    expression: Optional[List[Any]] = Field(default=None, description="Arbitrary additional JSON data associated with the Application cart item filter.", json_schema_extra={"examples": [{"expr": ["filter", [".", "Session", "CartItems"], [["Item"], ["catch", False, ["=", [".", "Item", "Category"], "Kitchen"]]]]}]})
+    expression: Optional[List[Any]] = Field(default=None, description="Arbitrary additional JSON data associated with the Application cart item filter.", json_schema_extra={"examples": [{"expr": ["filter", [".", "Session", "CartItems"], [["Item"], ["catch", False, ["contains", [".", "Item", "Category"], "Kitchen"]]]]}]})
     application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
     __properties: ClassVar[List[str]] = ["id", "created", "cartItemFilterId", "createdBy", "expression", "applicationId"]
 
