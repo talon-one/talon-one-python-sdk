@@ -29,7 +29,7 @@ class UpdateRiskNotification(BaseModel):
     """ # noqa: E501
     entity: StrictStr = Field(description="The entity type to analyze within the given time frame.", json_schema_extra={"examples": ["customer_profile"]})
     activity: StrictStr = Field(description="The activity metric to analyze within the given entity.", json_schema_extra={"examples": ["loyalty_points_earned"]})
-    time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame", json_schema_extra={"examples": ["1_week"]})
+    time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame", json_schema_extra={"examples": ["7D"]})
     active: StrictBool = Field(description="Indicates whether this risk notification is active.", json_schema_extra={"examples": [True]})
     __properties: ClassVar[List[str]] = ["entity", "activity", "timeFrame", "active"]
 
@@ -50,8 +50,8 @@ class UpdateRiskNotification(BaseModel):
     @field_validator('time_frame')
     def time_frame_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['1_day', '1_week', '1_month']):
-            raise ValueError("must be one of enum values ('1_day', '1_week', '1_month')")
+        if value not in set(['1D', '7D', '30D']):
+            raise ValueError("must be one of enum values ('1D', '7D', '30D')")
         return value
 
     model_config = ConfigDict(

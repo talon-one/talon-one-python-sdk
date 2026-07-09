@@ -50,14 +50,14 @@ class TestReward(unittest.TestCase):
                     description = 'Creates a discount when a coupon is valid', 
                     bindings = [
                         talon_one.models.binding.Binding(
-                            name = 'my property', 
+                            name = 'Discount percentage', 
                             type = 'templateParameter', 
-                            expression = [string1, string2], 
-                            value_type = 'string', 
+                            expression = [identity, 10], 
+                            value_type = 'number', 
                             min_value = 0, 
                             max_value = 19.9, 
                             attribute_id = 100, 
-                            description = 'This is a template parameter of type `number`.', )
+                            description = 'The percentage discount applied to the cart total.', )
                         ], 
                     condition = [and, [couponValid]], 
                     effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], ),
@@ -68,27 +68,27 @@ class TestReward(unittest.TestCase):
                     description = 'Creates a discount when a coupon is valid', 
                     bindings = [
                         talon_one.models.binding.Binding(
-                            name = 'my property', 
+                            name = 'Discount percentage', 
                             type = 'templateParameter', 
-                            expression = [string1, string2], 
-                            value_type = 'string', 
+                            expression = [identity, 10], 
+                            value_type = 'number', 
                             min_value = 0, 
                             max_value = 19.9, 
                             attribute_id = 100, 
-                            description = 'This is a template parameter of type `number`.', )
+                            description = 'The percentage discount applied to the cart total.', )
                         ], 
                     condition = [and, [couponValid]], 
                     effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], ),
                 bindings = [],
-                modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                status = 'active',
                 points_required = [
                     talon_one.models.reward_points_required.RewardPointsRequired(
                         id = 1, 
                         amount = 500, 
                         loyalty_program_id = 10, 
                         subledger_id = 'mysubledger', )
-                    ]
+                    ],
+                modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                status = 'active'
             )
         else:
             return Reward(

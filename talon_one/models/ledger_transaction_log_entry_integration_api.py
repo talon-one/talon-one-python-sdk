@@ -34,6 +34,7 @@ class LedgerTransactionLogEntryIntegrationAPI(BaseModel):
     created: datetime = Field(description="Date and time the loyalty transaction occurred.", json_schema_extra={"examples": ["2022-01-02T15:04:05Z07:00"]})
     program_id: StrictInt = Field(description="ID of the loyalty program.", alias="programId", json_schema_extra={"examples": [324]})
     customer_session_id: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="ID of the customer session where the transaction occurred.", alias="customerSessionId", json_schema_extra={"examples": ["05c2da0d-48fa-4aa1-b629-898f58f1584d"]})
+    store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store where the transaction occurred. Only set for transactions created by a customer session or event that referenced a store.", alias="storeIntegrationId", json_schema_extra={"examples": ["STORE-001"]})
     type: Annotated[str, Field(strict=True, max_length=255)] = Field(description="Type of transaction. Possible values:   - `addition`: Signifies added points.   - `subtraction`: Signifies deducted points. ", json_schema_extra={"examples": ["addition"]})
     name: Annotated[str, Field(strict=True, max_length=255)] = Field(description="Name or reason of the loyalty ledger transaction.", json_schema_extra={"examples": ["Reward 10% points of a purchase's current total"]})
     start_date: Annotated[str, Field(strict=True, max_length=64)] = Field(description="When points become active. Possible values:   - `immediate`: Points are immediately active.   - `on_action`: Points become active based on the customer's action.   - a timestamp value: Points become active at a given date and time. ", alias="startDate", json_schema_extra={"examples": ["2022-01-02T15:04:05Z07:00"]})
@@ -45,7 +46,7 @@ class LedgerTransactionLogEntryIntegrationAPI(BaseModel):
     rule_name: Optional[StrictStr] = Field(default=None, description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Add 2 points"]})
     flags: Optional[LoyaltyLedgerEntryFlags] = Field(default=None, description="The flags of the transaction, when applicable. The `createsNegativeBalance`  flag indicates whether the transaction results in a negative balance.")
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
-    __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "flags", "validityDuration"]
+    __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "customerSessionId", "storeIntegrationId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "flags", "validityDuration"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -112,6 +113,7 @@ class LedgerTransactionLogEntryIntegrationAPI(BaseModel):
             "created": obj.get("created"),
             "programId": obj.get("programId"),
             "customerSessionId": obj.get("customerSessionId"),
+            "storeIntegrationId": obj.get("storeIntegrationId"),
             "type": obj.get("type"),
             "name": obj.get("name"),
             "startDate": obj.get("startDate"),

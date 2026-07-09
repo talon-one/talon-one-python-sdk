@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.13.0"
+__version__ = "26.14.0"
 
 # Define package exports
 __all__ = [
@@ -107,7 +107,10 @@ __all__ = [
     "AudienceIntegrationID",
     "AudienceMembership",
     "AudienceReference",
+    "AwardGiveawayBlock",
+    "AwardGiveawayBlock1GiveawayPool",
     "AwardGiveawayEffectProps",
+    "AwardItemBlock",
     "BaseBlock",
     "BaseCampaign",
     "BaseLoyaltyProgram",
@@ -119,7 +122,9 @@ __all__ = [
     "BestPriorPrice",
     "BestPriorPriceMetadata",
     "BestPriorPriceRequest",
+    "BestPriorPriceSettings",
     "BestPriorTarget",
+    "BetweenCheckAttributeBlock",
     "Binding",
     "Blueprint",
     "BulkApplicationNotification",
@@ -194,6 +199,11 @@ __all__ = [
     "Change",
     "ChangeLoyaltyTierLevelEffectProps",
     "ChangeProfilePassword",
+    "CheckAttributeBlock",
+    "CheckAudienceBlock",
+    "CheckAudienceBlock1Audience",
+    "CheckCouponBlock",
+    "CheckReferralBlock",
     "CodeGeneratorSettings",
     "Collection",
     "CollectionItem",
@@ -327,6 +337,7 @@ __all__ = [
     "GetApplicationEventTypes200Response",
     "GetApplicationEventsWithoutTotalCount200Response",
     "GetApplicationSessions200Response",
+    "GetApplicationSessionsByCustomerAttributes200Response",
     "GetApplications200Response",
     "GetAttributes200Response",
     "GetAudienceMemberships200Response",
@@ -428,8 +439,10 @@ __all__ = [
     "ListCampaignStoreBudgets",
     "ListCampaignStoreBudgetsStore",
     "ListCatalogItems200Response",
+    "ListCheckAttributeBlock",
     "ListExperiments200Response",
     "ListStores200Response",
+    "ListWithCountCheckAttributeBlock",
     "LoginParams",
     "Loyalty",
     "LoyaltyBalance",
@@ -587,6 +600,7 @@ __all__ = [
     "ProfileAudiencesChanges",
     "ProjectedTier",
     "PromoteExperiment",
+    "PromotionCheckAttributeBlock",
     "PromotionGroupBlock",
     "PromotionRuleV2",
     "RedeemReferralEffectProps",
@@ -645,6 +659,7 @@ __all__ = [
     "SamlConnectionInternal",
     "SamlConnectionMetadata",
     "SamlLoginEndpoint",
+    "ScalarCheckAttributeBlock",
     "ScimBaseGroup",
     "ScimBaseUser",
     "ScimBaseUserName",
@@ -672,12 +687,14 @@ __all__ = [
     "SetDiscountPerItemEffectProps",
     "SetLoyaltyPointsExpiryDateEffectProps",
     "ShowBundleMetadataEffectProps",
+    "ShowNotificationBlock",
     "ShowNotificationEffectProps",
     "SkuUnitAnalytics",
     "SkuUnitAnalyticsDataPoint",
     "SlotDef",
     "Store",
     "StrikethroughChangedItem",
+    "StrikethroughCheckAttributeBlock",
     "StrikethroughCustomEffectPerItemProps",
     "StrikethroughDebugResponse",
     "StrikethroughEffect",
@@ -711,6 +728,7 @@ __all__ = [
     "TransferLoyaltyCard",
     "TriggerWebhookEffectProps",
     "TwoFAConfig",
+    "UnaryCheckAttributeBlock",
     "UpdateAccount",
     "UpdateAchievement",
     "UpdateAchievementV2",
@@ -856,7 +874,10 @@ from talon_one.models.audience_customer import AudienceCustomer as AudienceCusto
 from talon_one.models.audience_integration_id import AudienceIntegrationID as AudienceIntegrationID
 from talon_one.models.audience_membership import AudienceMembership as AudienceMembership
 from talon_one.models.audience_reference import AudienceReference as AudienceReference
+from talon_one.models.award_giveaway_block import AwardGiveawayBlock as AwardGiveawayBlock
+from talon_one.models.award_giveaway_block1_giveaway_pool import AwardGiveawayBlock1GiveawayPool as AwardGiveawayBlock1GiveawayPool
 from talon_one.models.award_giveaway_effect_props import AwardGiveawayEffectProps as AwardGiveawayEffectProps
+from talon_one.models.award_item_block import AwardItemBlock as AwardItemBlock
 from talon_one.models.base_block import BaseBlock as BaseBlock
 from talon_one.models.base_campaign import BaseCampaign as BaseCampaign
 from talon_one.models.base_loyalty_program import BaseLoyaltyProgram as BaseLoyaltyProgram
@@ -868,7 +889,9 @@ from talon_one.models.base_saml_connection import BaseSamlConnection as BaseSaml
 from talon_one.models.best_prior_price import BestPriorPrice as BestPriorPrice
 from talon_one.models.best_prior_price_metadata import BestPriorPriceMetadata as BestPriorPriceMetadata
 from talon_one.models.best_prior_price_request import BestPriorPriceRequest as BestPriorPriceRequest
+from talon_one.models.best_prior_price_settings import BestPriorPriceSettings as BestPriorPriceSettings
 from talon_one.models.best_prior_target import BestPriorTarget as BestPriorTarget
+from talon_one.models.between_check_attribute_block import BetweenCheckAttributeBlock as BetweenCheckAttributeBlock
 from talon_one.models.binding import Binding as Binding
 from talon_one.models.blueprint import Blueprint as Blueprint
 from talon_one.models.bulk_application_notification import BulkApplicationNotification as BulkApplicationNotification
@@ -943,6 +966,11 @@ from talon_one.models.catalogs_strikethrough_notification_policy import Catalogs
 from talon_one.models.change import Change as Change
 from talon_one.models.change_loyalty_tier_level_effect_props import ChangeLoyaltyTierLevelEffectProps as ChangeLoyaltyTierLevelEffectProps
 from talon_one.models.change_profile_password import ChangeProfilePassword as ChangeProfilePassword
+from talon_one.models.check_attribute_block import CheckAttributeBlock as CheckAttributeBlock
+from talon_one.models.check_audience_block import CheckAudienceBlock as CheckAudienceBlock
+from talon_one.models.check_audience_block1_audience import CheckAudienceBlock1Audience as CheckAudienceBlock1Audience
+from talon_one.models.check_coupon_block import CheckCouponBlock as CheckCouponBlock
+from talon_one.models.check_referral_block import CheckReferralBlock as CheckReferralBlock
 from talon_one.models.code_generator_settings import CodeGeneratorSettings as CodeGeneratorSettings
 from talon_one.models.collection import Collection as Collection
 from talon_one.models.collection_item import CollectionItem as CollectionItem
@@ -1076,6 +1104,7 @@ from talon_one.models.get_application_customers_by_attributes200_response import
 from talon_one.models.get_application_event_types200_response import GetApplicationEventTypes200Response as GetApplicationEventTypes200Response
 from talon_one.models.get_application_events_without_total_count200_response import GetApplicationEventsWithoutTotalCount200Response as GetApplicationEventsWithoutTotalCount200Response
 from talon_one.models.get_application_sessions200_response import GetApplicationSessions200Response as GetApplicationSessions200Response
+from talon_one.models.get_application_sessions_by_customer_attributes200_response import GetApplicationSessionsByCustomerAttributes200Response as GetApplicationSessionsByCustomerAttributes200Response
 from talon_one.models.get_applications200_response import GetApplications200Response as GetApplications200Response
 from talon_one.models.get_attributes200_response import GetAttributes200Response as GetAttributes200Response
 from talon_one.models.get_audience_memberships200_response import GetAudienceMemberships200Response as GetAudienceMemberships200Response
@@ -1177,8 +1206,10 @@ from talon_one.models.list_campaign_store_budget_limits200_response import ListC
 from talon_one.models.list_campaign_store_budgets import ListCampaignStoreBudgets as ListCampaignStoreBudgets
 from talon_one.models.list_campaign_store_budgets_store import ListCampaignStoreBudgetsStore as ListCampaignStoreBudgetsStore
 from talon_one.models.list_catalog_items200_response import ListCatalogItems200Response as ListCatalogItems200Response
+from talon_one.models.list_check_attribute_block import ListCheckAttributeBlock as ListCheckAttributeBlock
 from talon_one.models.list_experiments200_response import ListExperiments200Response as ListExperiments200Response
 from talon_one.models.list_stores200_response import ListStores200Response as ListStores200Response
+from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock as ListWithCountCheckAttributeBlock
 from talon_one.models.login_params import LoginParams as LoginParams
 from talon_one.models.loyalty import Loyalty as Loyalty
 from talon_one.models.loyalty_balance import LoyaltyBalance as LoyaltyBalance
@@ -1336,6 +1367,7 @@ from talon_one.models.product_unit_analytics_totals import ProductUnitAnalyticsT
 from talon_one.models.profile_audiences_changes import ProfileAudiencesChanges as ProfileAudiencesChanges
 from talon_one.models.projected_tier import ProjectedTier as ProjectedTier
 from talon_one.models.promote_experiment import PromoteExperiment as PromoteExperiment
+from talon_one.models.promotion_check_attribute_block import PromotionCheckAttributeBlock as PromotionCheckAttributeBlock
 from talon_one.models.promotion_group_block import PromotionGroupBlock as PromotionGroupBlock
 from talon_one.models.promotion_rule_v2 import PromotionRuleV2 as PromotionRuleV2
 from talon_one.models.redeem_referral_effect_props import RedeemReferralEffectProps as RedeemReferralEffectProps
@@ -1394,6 +1426,7 @@ from talon_one.models.saml_connection import SamlConnection as SamlConnection
 from talon_one.models.saml_connection_internal import SamlConnectionInternal as SamlConnectionInternal
 from talon_one.models.saml_connection_metadata import SamlConnectionMetadata as SamlConnectionMetadata
 from talon_one.models.saml_login_endpoint import SamlLoginEndpoint as SamlLoginEndpoint
+from talon_one.models.scalar_check_attribute_block import ScalarCheckAttributeBlock as ScalarCheckAttributeBlock
 from talon_one.models.scim_base_group import ScimBaseGroup as ScimBaseGroup
 from talon_one.models.scim_base_user import ScimBaseUser as ScimBaseUser
 from talon_one.models.scim_base_user_name import ScimBaseUserName as ScimBaseUserName
@@ -1421,12 +1454,14 @@ from talon_one.models.set_discount_per_additional_cost_per_item_effect_props imp
 from talon_one.models.set_discount_per_item_effect_props import SetDiscountPerItemEffectProps as SetDiscountPerItemEffectProps
 from talon_one.models.set_loyalty_points_expiry_date_effect_props import SetLoyaltyPointsExpiryDateEffectProps as SetLoyaltyPointsExpiryDateEffectProps
 from talon_one.models.show_bundle_metadata_effect_props import ShowBundleMetadataEffectProps as ShowBundleMetadataEffectProps
+from talon_one.models.show_notification_block import ShowNotificationBlock as ShowNotificationBlock
 from talon_one.models.show_notification_effect_props import ShowNotificationEffectProps as ShowNotificationEffectProps
 from talon_one.models.sku_unit_analytics import SkuUnitAnalytics as SkuUnitAnalytics
 from talon_one.models.sku_unit_analytics_data_point import SkuUnitAnalyticsDataPoint as SkuUnitAnalyticsDataPoint
 from talon_one.models.slot_def import SlotDef as SlotDef
 from talon_one.models.store import Store as Store
 from talon_one.models.strikethrough_changed_item import StrikethroughChangedItem as StrikethroughChangedItem
+from talon_one.models.strikethrough_check_attribute_block import StrikethroughCheckAttributeBlock as StrikethroughCheckAttributeBlock
 from talon_one.models.strikethrough_custom_effect_per_item_props import StrikethroughCustomEffectPerItemProps as StrikethroughCustomEffectPerItemProps
 from talon_one.models.strikethrough_debug_response import StrikethroughDebugResponse as StrikethroughDebugResponse
 from talon_one.models.strikethrough_effect import StrikethroughEffect as StrikethroughEffect
@@ -1460,6 +1495,7 @@ from talon_one.models.time_point import TimePoint as TimePoint
 from talon_one.models.transfer_loyalty_card import TransferLoyaltyCard as TransferLoyaltyCard
 from talon_one.models.trigger_webhook_effect_props import TriggerWebhookEffectProps as TriggerWebhookEffectProps
 from talon_one.models.two_fa_config import TwoFAConfig as TwoFAConfig
+from talon_one.models.unary_check_attribute_block import UnaryCheckAttributeBlock as UnaryCheckAttributeBlock
 from talon_one.models.update_account import UpdateAccount as UpdateAccount
 from talon_one.models.update_achievement import UpdateAchievement as UpdateAchievement
 from talon_one.models.update_achievement_v2 import UpdateAchievementV2 as UpdateAchievementV2

@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, Strict
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.attributes_settings import AttributesSettings
+from talon_one.models.best_prior_price_settings import BestPriorPriceSettings
 from talon_one.models.limit_config import LimitConfig
 from talon_one.models.loyalty_program import LoyaltyProgram
 from typing import Optional, Set
@@ -53,8 +54,9 @@ class Application(BaseModel):
     default_evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the default campaign evaluation group to which new campaigns will be added unless a different group is selected when creating the campaign.", alias="defaultEvaluationGroupId", json_schema_extra={"examples": [3]})
     default_cart_item_filter_id: Optional[StrictInt] = Field(default=None, description="The ID of the default Cart-Item-Filter for this application.", alias="defaultCartItemFilterId", json_schema_extra={"examples": [3]})
     enable_campaign_state_management: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign staging and revisions feature is enabled for the Application.  **Important:** After this feature is enabled, it cannot be disabled. ", alias="enableCampaignStateManagement", json_schema_extra={"examples": [False]})
+    best_prior_price_settings: Optional[BestPriorPriceSettings] = Field(default=None, alias="bestPriorPriceSettings")
     loyalty_programs: List[LoyaltyProgram] = Field(description="An array containing all the loyalty programs to which this application is subscribed.", alias="loyaltyPrograms")
-    __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "name", "description", "timezone", "currency", "caseSensitivity", "attributes", "limits", "defaultDiscountScope", "enableCascadingDiscounts", "enableFlattenedCartItems", "attributesSettings", "sandbox", "enablePartialDiscounts", "defaultDiscountAdditionalCostPerItemScope", "defaultEvaluationGroupId", "defaultCartItemFilterId", "enableCampaignStateManagement", "loyaltyPrograms"]
+    __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "name", "description", "timezone", "currency", "caseSensitivity", "attributes", "limits", "defaultDiscountScope", "enableCascadingDiscounts", "enableFlattenedCartItems", "attributesSettings", "sandbox", "enablePartialDiscounts", "defaultDiscountAdditionalCostPerItemScope", "defaultEvaluationGroupId", "defaultCartItemFilterId", "enableCampaignStateManagement", "bestPriorPriceSettings", "loyaltyPrograms"]
 
     @field_validator('case_sensitivity')
     def case_sensitivity_validate_enum(cls, value):
@@ -135,6 +137,9 @@ class Application(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of attributes_settings
         if self.attributes_settings:
             _dict['attributesSettings'] = self.attributes_settings.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of best_prior_price_settings
+        if self.best_prior_price_settings:
+            _dict['bestPriorPriceSettings'] = self.best_prior_price_settings.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in loyalty_programs (list)
         _items = []
         if self.loyalty_programs:
@@ -175,6 +180,7 @@ class Application(BaseModel):
             "defaultEvaluationGroupId": obj.get("defaultEvaluationGroupId"),
             "defaultCartItemFilterId": obj.get("defaultCartItemFilterId"),
             "enableCampaignStateManagement": obj.get("enableCampaignStateManagement"),
+            "bestPriorPriceSettings": BestPriorPriceSettings.from_dict(obj["bestPriorPriceSettings"]) if obj.get("bestPriorPriceSettings") is not None else None,
             "loyaltyPrograms": [LoyaltyProgram.from_dict(_item) for _item in obj["loyaltyPrograms"]] if obj.get("loyaltyPrograms") is not None else None
         })
         return _obj

@@ -29,7 +29,7 @@ class NewApplicationCIFExpression(BaseModel):
     """ # noqa: E501
     cart_item_filter_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application cart item filter.", alias="cartItemFilterId", json_schema_extra={"examples": [216]})
     created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the Application cart item filter.", alias="createdBy", json_schema_extra={"examples": [216]})
-    expression: Optional[List[Any]] = Field(default=None, description="Arbitrary additional JSON data associated with the Application cart item filter.", json_schema_extra={"examples": [{"expr": ["filter", [".", "Session", "CartItems"], [["Item"], ["catch", False, ["=", [".", "Item", "Category"], "Kitchen"]]]]}]})
+    expression: Optional[List[Any]] = Field(default=None, description="Arbitrary additional JSON data associated with the Application cart item filter.", json_schema_extra={"examples": [{"expr": ["filter", [".", "Session", "CartItems"], [["Item"], ["catch", False, ["contains", [".", "Item", "Category"], "Kitchen"]]]]}]})
     __properties: ClassVar[List[str]] = ["cartItemFilterId", "createdBy", "expression"]
 
     model_config = ConfigDict(

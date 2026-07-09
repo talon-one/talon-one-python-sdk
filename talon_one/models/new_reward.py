@@ -20,6 +20,9 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from talon_one.models.binding import Binding
+from talon_one.models.reward_points_required import RewardPointsRequired
+from talon_one.models.rule import Rule
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +36,11 @@ class NewReward(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="A description of the reward.", json_schema_extra={"examples": ["This reward gets you one free coffee."]})
     application_ids: List[StrictInt] = Field(description="The IDs of the Applications this reward is connected to.   **Note**: Currently, a reward can only be connected to one Application. ", alias="applicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
     sandbox: StrictBool = Field(description="Indicates if this is a live or sandbox reward. Rewards of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
-    __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox"]
+    eligibility_conditions: Optional[Rule] = Field(default=None, description="An optional rule that manages who can see this reward. If not specified, the reward is visible to all customers.  **Note:** Only the `condition` field is evaluated within this rule. The `effects` field must be an empty array, and `bindings` are not supported. ", alias="eligibilityConditions")
+    rule: Optional[Rule] = Field(default=None, description="Rule to apply.  **Note**: The `bindings` field inside the rule must not be used in this endpoint. All bindings should be defined at the reward level via the top-level `bindings` field. ")
+    bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated. Each binding pairs a name with a talang expression. The expression is evaluated once and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.", json_schema_extra={"examples": [[]]})
+    points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate the reward. Each object defines the specific loyalty program and subledger from which points are deducted when activating the reward.  **Note:** When creating a reward, the `id` of each entry is ignored and a new entry is always created. ", alias="pointsRequired")
+    __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox", "eligibilityConditions", "rule", "bindings", "pointsRequired"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -74,6 +81,26 @@ class NewReward(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of eligibility_conditions
+        if self.eligibility_conditions:
+            _dict['eligibilityConditions'] = self.eligibility_conditions.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of rule
+        if self.rule:
+            _dict['rule'] = self.rule.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in bindings (list)
+        _items = []
+        if self.bindings:
+            for _item_bindings in self.bindings:
+                if _item_bindings:
+                    _items.append(_item_bindings.to_dict())
+            _dict['bindings'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in points_required (list)
+        _items = []
+        if self.points_required:
+            for _item_points_required in self.points_required:
+                if _item_points_required:
+                    _items.append(_item_points_required.to_dict())
+            _dict['pointsRequired'] = _items
         return _dict
 
     @classmethod
@@ -90,7 +117,11 @@ class NewReward(BaseModel):
             "apiName": obj.get("apiName"),
             "description": obj.get("description"),
             "applicationIds": obj.get("applicationIds"),
-            "sandbox": obj.get("sandbox")
+            "sandbox": obj.get("sandbox"),
+            "eligibilityConditions": Rule.from_dict(obj["eligibilityConditions"]) if obj.get("eligibilityConditions") is not None else None,
+            "rule": Rule.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
+            "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None,
+            "pointsRequired": [RewardPointsRequired.from_dict(_item) for _item in obj["pointsRequired"]] if obj.get("pointsRequired") is not None else None
         })
         return _obj
 

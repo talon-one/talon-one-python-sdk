@@ -37,13 +37,13 @@ class TestNewRiskNotification(unittest.TestCase):
             return NewRiskNotification(
                 entity = 'customer_profile',
                 activity = 'loyalty_points_earned',
-                time_frame = '1_week'
+                time_frame = '7D'
             )
         else:
             return NewRiskNotification(
                 entity = 'customer_profile',
                 activity = 'loyalty_points_earned',
-                time_frame = '1_week',
+                time_frame = '7D',
         )
         """
 

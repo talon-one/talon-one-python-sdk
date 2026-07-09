@@ -60,6 +60,7 @@ from talon_one.models.get_application_customers_by_attributes200_response import
 from talon_one.models.get_application_event_types200_response import GetApplicationEventTypes200Response
 from talon_one.models.get_application_events_without_total_count200_response import GetApplicationEventsWithoutTotalCount200Response
 from talon_one.models.get_application_sessions200_response import GetApplicationSessions200Response
+from talon_one.models.get_application_sessions_by_customer_attributes200_response import GetApplicationSessionsByCustomerAttributes200Response
 from talon_one.models.get_applications200_response import GetApplications200Response
 from talon_one.models.get_attributes200_response import GetAttributes200Response
 from talon_one.models.get_audience_memberships200_response import GetAudienceMemberships200Response
@@ -24136,6 +24137,346 @@ class ManagementApi:
 
 
     @validate_call
+    def get_application_sessions_by_customer_attributes(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        customer_profile_search_query: Annotated[CustomerProfileSearchQuery, Field(description="body")],
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets. - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetApplicationSessionsByCustomerAttributes200Response:
+        """List Application sessions matching the given customer attributes
+
+        Get a list of the Application sessions matching the provided customer profile attributes.  The match is successful if all the attributes of the request are found in a profile, even if the profile has more attributes that are not present on the request. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param customer_profile_search_query: body (required)
+        :type customer_profile_search_query: CustomerProfileSearchQuery
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets. - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
+        :type with_total_result_size: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_application_sessions_by_customer_attributes_serialize(
+            application_id=application_id,
+            customer_profile_search_query=customer_profile_search_query,
+            page_size=page_size,
+            skip=skip,
+            with_total_result_size=with_total_result_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetApplicationSessionsByCustomerAttributes200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_application_sessions_by_customer_attributes_with_http_info(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        customer_profile_search_query: Annotated[CustomerProfileSearchQuery, Field(description="body")],
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets. - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetApplicationSessionsByCustomerAttributes200Response]:
+        """List Application sessions matching the given customer attributes
+
+        Get a list of the Application sessions matching the provided customer profile attributes.  The match is successful if all the attributes of the request are found in a profile, even if the profile has more attributes that are not present on the request. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param customer_profile_search_query: body (required)
+        :type customer_profile_search_query: CustomerProfileSearchQuery
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets. - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
+        :type with_total_result_size: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_application_sessions_by_customer_attributes_serialize(
+            application_id=application_id,
+            customer_profile_search_query=customer_profile_search_query,
+            page_size=page_size,
+            skip=skip,
+            with_total_result_size=with_total_result_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetApplicationSessionsByCustomerAttributes200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_application_sessions_by_customer_attributes_without_preload_content(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        customer_profile_search_query: Annotated[CustomerProfileSearchQuery, Field(description="body")],
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets. - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Application sessions matching the given customer attributes
+
+        Get a list of the Application sessions matching the provided customer profile attributes.  The match is successful if all the attributes of the request are found in a profile, even if the profile has more attributes that are not present on the request. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param customer_profile_search_query: body (required)
+        :type customer_profile_search_query: CustomerProfileSearchQuery
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets. - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
+        :type with_total_result_size: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_application_sessions_by_customer_attributes_serialize(
+            application_id=application_id,
+            customer_profile_search_query=customer_profile_search_query,
+            page_size=page_size,
+            skip=skip,
+            with_total_result_size=with_total_result_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetApplicationSessionsByCustomerAttributes200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_application_sessions_by_customer_attributes_serialize(
+        self,
+        application_id,
+        customer_profile_search_query,
+        page_size,
+        skip,
+        with_total_result_size,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if application_id is not None:
+            _path_params['applicationId'] = application_id
+        # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if skip is not None:
+            
+            _query_params.append(('skip', skip))
+            
+        if with_total_result_size is not None:
+            
+            _query_params.append(('withTotalResultSize', with_total_result_size))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if customer_profile_search_query is not None:
+            _body_params = customer_profile_search_query
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/applications/{applicationId}/sessions_search',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_applications(
         self,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
@@ -27928,7 +28269,7 @@ class ManagementApi:
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         campaign_state: Annotated[Optional[StrictStr], Field(description="Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter results performing case-insensitive matching against the name of the campaign.")] = None,
-        tags: Annotated[Optional[StrictStr], Field(description="Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \"name\" query parameter, a logical OR will be performed to search both tags and name for the provided values ")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Filter results performing case-insensitive matching against the tags of the campaign. ")] = None,
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         start_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
@@ -27967,8 +28308,8 @@ class ManagementApi:
         :type campaign_state: str
         :param name: Filter results performing case-insensitive matching against the name of the campaign.
         :type name: str
-        :param tags: Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \"name\" query parameter, a logical OR will be performed to search both tags and name for the provided values 
-        :type tags: str
+        :param tags: Filter results performing case-insensitive matching against the tags of the campaign. 
+        :type tags: List[str]
         :param created_before: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
@@ -28056,7 +28397,7 @@ class ManagementApi:
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         campaign_state: Annotated[Optional[StrictStr], Field(description="Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter results performing case-insensitive matching against the name of the campaign.")] = None,
-        tags: Annotated[Optional[StrictStr], Field(description="Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \"name\" query parameter, a logical OR will be performed to search both tags and name for the provided values ")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Filter results performing case-insensitive matching against the tags of the campaign. ")] = None,
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         start_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
@@ -28095,8 +28436,8 @@ class ManagementApi:
         :type campaign_state: str
         :param name: Filter results performing case-insensitive matching against the name of the campaign.
         :type name: str
-        :param tags: Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \"name\" query parameter, a logical OR will be performed to search both tags and name for the provided values 
-        :type tags: str
+        :param tags: Filter results performing case-insensitive matching against the tags of the campaign. 
+        :type tags: List[str]
         :param created_before: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
@@ -28184,7 +28525,7 @@ class ManagementApi:
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         campaign_state: Annotated[Optional[StrictStr], Field(description="Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived. ")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter results performing case-insensitive matching against the name of the campaign.")] = None,
-        tags: Annotated[Optional[StrictStr], Field(description="Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \"name\" query parameter, a logical OR will be performed to search both tags and name for the provided values ")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Filter results performing case-insensitive matching against the tags of the campaign. ")] = None,
         created_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
         start_before: Annotated[Optional[datetime], Field(description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.")] = None,
@@ -28223,8 +28564,8 @@ class ManagementApi:
         :type campaign_state: str
         :param name: Filter results performing case-insensitive matching against the name of the campaign.
         :type name: str
-        :param tags: Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \"name\" query parameter, a logical OR will be performed to search both tags and name for the provided values 
-        :type tags: str
+        :param tags: Filter results performing case-insensitive matching against the tags of the campaign. 
+        :type tags: List[str]
         :param created_before: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
         :type created_before: datetime
         :param created_after: Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.
@@ -28326,6 +28667,7 @@ class ManagementApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'tags': 'multi',
         }
 
         _path_params: Dict[str, str] = {}

@@ -81,6 +81,7 @@ Method | HTTP request | Description
 [**get_application_events_without_total_count**](ManagementApi.md#get_application_events_without_total_count) | **GET** /v1/applications/{applicationId}/events/no_total | List Applications events
 [**get_application_session**](ManagementApi.md#get_application_session) | **GET** /v1/applications/{applicationId}/sessions/{sessionId} | Get Application session
 [**get_application_sessions**](ManagementApi.md#get_application_sessions) | **GET** /v1/applications/{applicationId}/sessions | List Application sessions
+[**get_application_sessions_by_customer_attributes**](ManagementApi.md#get_application_sessions_by_customer_attributes) | **POST** /v1/applications/{applicationId}/sessions_search | List Application sessions matching the given customer attributes
 [**get_applications**](ManagementApi.md#get_applications) | **GET** /v1/applications | List Applications
 [**get_attribute**](ManagementApi.md#get_attribute) | **GET** /v1/attributes/{attributeId} | Get custom attribute
 [**get_attributes**](ManagementApi.md#get_attributes) | **GET** /v1/attributes | List custom attributes
@@ -7061,6 +7062,100 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_application_sessions_by_customer_attributes**
+> GetApplicationSessionsByCustomerAttributes200Response get_application_sessions_by_customer_attributes(application_id, customer_profile_search_query, page_size=page_size, skip=skip, with_total_result_size=with_total_result_size)
+
+List Application sessions matching the given customer attributes
+
+Get a list of the Application sessions matching the provided customer profile
+attributes.
+
+The match is successful if all the attributes of the request are found in a
+profile, even if the profile has more attributes that are not present on the
+request.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.customer_profile_search_query import CustomerProfileSearchQuery
+from talon_one.models.get_application_sessions_by_customer_attributes200_response import GetApplicationSessionsByCustomerAttributes200Response
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
+    customer_profile_search_query = talon_one.CustomerProfileSearchQuery() # CustomerProfileSearchQuery | body
+    page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
+    skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
+    with_total_result_size = True # bool | When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets. - When `true`: `totalResultSize` contains the total number of results for this query. - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page.  (optional)
+
+    try:
+        # List Application sessions matching the given customer attributes
+        api_response = api_instance.get_application_sessions_by_customer_attributes(application_id, customer_profile_search_query, page_size=page_size, skip=skip, with_total_result_size=with_total_result_size)
+        print("The response of ManagementApi->get_application_sessions_by_customer_attributes:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->get_application_sessions_by_customer_attributes: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
+ **customer_profile_search_query** | [**CustomerProfileSearchQuery**](CustomerProfileSearchQuery.md)| body | 
+ **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
+ **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
+ **with_total_result_size** | **bool**| When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets. - When &#x60;true&#x60;: &#x60;totalResultSize&#x60; contains the total number of results for this query. - When &#x60;false&#x60;: Only &#x60;hasMore&#x60; is returned, and it is set to &#x60;true&#x60; when there are more results than shown on the page.  | [optional] 
+
+### Return type
+
+[**GetApplicationSessionsByCustomerAttributes200Response**](GetApplicationSessionsByCustomerAttributes200Response.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_applications**
 > GetApplications200Response get_applications(page_size=page_size, skip=skip, sort=sort)
 
@@ -8136,7 +8231,7 @@ with talon_one.ApiClient(configuration) as api_client:
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
     campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
     name = 'name_example' # str | Filter results performing case-insensitive matching against the name of the campaign. (optional)
-    tags = 'tags_example' # str | Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \"name\" query parameter, a logical OR will be performed to search both tags and name for the provided values  (optional)
+    tags = ['tags_example'] # List[str] | Filter results performing case-insensitive matching against the tags of the campaign.  (optional)
     created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
     created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
     start_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
@@ -8169,7 +8264,7 @@ Name | Type | Description  | Notes
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
  **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (activated), or expired. - &#x60;running&#x60;: Campaigns that are running (activated). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
  **name** | **str**| Filter results performing case-insensitive matching against the name of the campaign. | [optional] 
- **tags** | **str**| Filter results performing case-insensitive matching against the tags of the campaign. When used in conjunction with the \&quot;name\&quot; query parameter, a logical OR will be performed to search both tags and name for the provided values  | [optional] 
+ **tags** | [**List[str]**](str.md)| Filter results performing case-insensitive matching against the tags of the campaign.  | [optional] 
  **created_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
  **created_after** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
  **start_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign start time timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 

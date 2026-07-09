@@ -565,6 +565,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_get_application_sessions_by_customer_attributes(self) -> None:
+        """Test case for get_application_sessions_by_customer_attributes
+
+        List Application sessions matching the given customer attributes
+        """
+        pass
+
     def test_get_applications(self) -> None:
         """Test case for get_applications
 

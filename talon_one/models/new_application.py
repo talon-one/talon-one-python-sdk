@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.attributes_settings import AttributesSettings
+from talon_one.models.best_prior_price_settings import BestPriorPriceSettings
 from talon_one.models.limit_config import LimitConfig
 from typing import Optional, Set
 from typing_extensions import Self
@@ -46,7 +47,8 @@ class NewApplication(BaseModel):
     default_discount_additional_cost_per_item_scope: Optional[StrictStr] = Field(default=None, description="The default scope to apply `setDiscountPerItem` effects on if no scope was provided with the effect. ", alias="defaultDiscountAdditionalCostPerItemScope")
     key: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Hex key for HMAC-signing API calls as coming from this application (16 hex digits).")
     enable_campaign_state_management: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign staging and revisions feature is enabled for the Application.  **Important:** After this feature is enabled, it cannot be disabled. ", alias="enableCampaignStateManagement", json_schema_extra={"examples": [False]})
-    __properties: ClassVar[List[str]] = ["name", "description", "timezone", "currency", "caseSensitivity", "attributes", "limits", "defaultDiscountScope", "enableCascadingDiscounts", "enableFlattenedCartItems", "attributesSettings", "sandbox", "enablePartialDiscounts", "defaultDiscountAdditionalCostPerItemScope", "key", "enableCampaignStateManagement"]
+    best_prior_price_settings: Optional[BestPriorPriceSettings] = Field(default=None, alias="bestPriorPriceSettings")
+    __properties: ClassVar[List[str]] = ["name", "description", "timezone", "currency", "caseSensitivity", "attributes", "limits", "defaultDiscountScope", "enableCascadingDiscounts", "enableFlattenedCartItems", "attributesSettings", "sandbox", "enablePartialDiscounts", "defaultDiscountAdditionalCostPerItemScope", "key", "enableCampaignStateManagement", "bestPriorPriceSettings"]
 
     @field_validator('case_sensitivity')
     def case_sensitivity_validate_enum(cls, value):
@@ -140,6 +142,9 @@ class NewApplication(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of attributes_settings
         if self.attributes_settings:
             _dict['attributesSettings'] = self.attributes_settings.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of best_prior_price_settings
+        if self.best_prior_price_settings:
+            _dict['bestPriorPriceSettings'] = self.best_prior_price_settings.to_dict()
         return _dict
 
     @classmethod
@@ -167,7 +172,8 @@ class NewApplication(BaseModel):
             "enablePartialDiscounts": obj.get("enablePartialDiscounts"),
             "defaultDiscountAdditionalCostPerItemScope": obj.get("defaultDiscountAdditionalCostPerItemScope"),
             "key": obj.get("key"),
-            "enableCampaignStateManagement": obj.get("enableCampaignStateManagement")
+            "enableCampaignStateManagement": obj.get("enableCampaignStateManagement"),
+            "bestPriorPriceSettings": BestPriorPriceSettings.from_dict(obj["bestPriorPriceSettings"]) if obj.get("bestPriorPriceSettings") is not None else None
         })
         return _obj
 

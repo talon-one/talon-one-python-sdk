@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **default_evaluation_group_id** | **int** | The ID of the default campaign evaluation group to which new campaigns will be added unless a different group is selected when creating the campaign. | [optional] 
 **default_cart_item_filter_id** | **int** | The ID of the default Cart-Item-Filter for this application. | [optional] 
 **enable_campaign_state_management** | **bool** | Indicates whether the campaign staging and revisions feature is enabled for the Application.  **Important:** After this feature is enabled, it cannot be disabled.  | [optional] 
+**best_prior_price_settings** | [**BestPriorPriceSettings**](BestPriorPriceSettings.md) |  | [optional] 
 **loyalty_programs** | [**List[LoyaltyProgram]**](LoyaltyProgram.md) | An array containing all the loyalty programs to which this application is subscribed. | 
 
 ## Example
