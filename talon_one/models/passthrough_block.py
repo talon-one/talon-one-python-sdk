@@ -29,7 +29,7 @@ class PassthroughBlock(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="The type discriminator for this block.")
-    expression: List[Any] = Field(description="The raw Talang expression as an array. The first element is the function name; subsequent elements are its arguments, which may themselves be nested expressions.")
+    expression: List[Any] = Field(description="The raw Talang expression as an array. For a function call, the first element is the function name and subsequent elements are its arguments. For any other expression (for example a bare attribute path or a literal value), this is a single-element array containing that value.")
     __properties: ClassVar[List[str]] = ["id", "type", "expression"]
 
     @field_validator('type')

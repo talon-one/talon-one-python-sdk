@@ -44,7 +44,7 @@ class ApplicationSession(BaseModel):
     discounts: Dict[str, Union[StrictFloat, StrictInt]] = Field(description="**API V1 only.** A map of labeled discount values, in the same currency as the session.  If you are using the V2 endpoints, refer to the `totalDiscounts` property instead. ")
     total_discounts: Union[StrictFloat, StrictInt] = Field(description="The total sum of the discounts applied to this session.  **Note:** If more than one session is returned, this value is displayed as `0`. ", alias="totalDiscounts", json_schema_extra={"examples": [100]})
     total: Union[StrictFloat, StrictInt] = Field(description="The total sum of the session before any discounts applied.", json_schema_extra={"examples": [200]})
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
     __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "storeIntegrationId", "applicationId", "profileId", "profileintegrationid", "coupon", "referral", "state", "cartItems", "discounts", "totalDiscounts", "total", "attributes"]
 
     @field_validator('state')

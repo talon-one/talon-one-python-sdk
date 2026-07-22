@@ -49,7 +49,8 @@ class TestSupportRequest(unittest.TestCase):
                 request_status = 'approved',
                 processed_at = '2025-07-20T22:10:00Z',
                 processing_note = 'Rejected as the customer was awarded points already.',
-                processed_by_user = 'admin.name@company.com'
+                processed_by_user = 'admin.name@company.com',
+                coupon_code = 'SUMMER-2025-XYZ'
             )
         else:
             return SupportRequest(

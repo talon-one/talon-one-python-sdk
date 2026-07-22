@@ -47,16 +47,13 @@ class AddLoyaltyPointsEffectProps(BaseModel):
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, calculated relative to their start date.", alias="validityDuration")
     __properties: ClassVar[List[str]] = ["name", "programId", "subLedgerId", "value", "desiredValue", "recipientIntegrationId", "startDate", "expiryDate", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier", "bundleIndex", "bundleName", "awaitsActivation", "validityDuration"]
 
-    @field_validator('card_identifier')
+    @field_validator('card_identifier', mode="before")
     def card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 

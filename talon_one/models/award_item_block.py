@@ -34,8 +34,8 @@ class AwardItemBlock(BaseModel):
     name: StrictStr = Field(description="The display name of the item to award.", json_schema_extra={"examples": ["Free Tote Bag"]})
     quantity: StrictStr = Field(description="The number of items to award. Supports template placeholders (e.g. \"{{$Session.Total / 2}}\") for dynamic quantities.", json_schema_extra={"examples": ["1"]})
     partial: Optional[StrictBool] = Field(default=None, description="When set to `true`, applies a partial item reward if the remaining budget is insufficient to award the full reward.", json_schema_extra={"examples": [False]})
-    on_failure: Optional[List[Any]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
-    on_error: Optional[Dict[str, List[Any]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
+    on_failure: Optional[List[PromotionBlock]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
+    on_error: Optional[Dict[str, List[PromotionBlock]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "sku", "name", "quantity", "partial", "onFailure", "onError"]
 
     model_config = ConfigDict(
@@ -77,6 +77,22 @@ class AwardItemBlock(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
+        _items = []
+        if self.on_failure:
+            for _item_on_failure in self.on_failure:
+                if _item_on_failure:
+                    _items.append(_item_on_failure.to_dict())
+            _dict['onFailure'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each value in on_error (dict of array)
+        _field_dict_of_array = {}
+        if self.on_error:
+            for _key_on_error in self.on_error:
+                if self.on_error[_key_on_error] is not None:
+                    _field_dict_of_array[_key_on_error] = [
+                        _item.to_dict() for _item in self.on_error[_key_on_error]
+                    ]
+            _dict['onError'] = _field_dict_of_array
         return _dict
 
     @classmethod
@@ -96,9 +112,17 @@ class AwardItemBlock(BaseModel):
             "name": obj.get("name"),
             "quantity": obj.get("quantity"),
             "partial": obj.get("partial"),
-            "onFailure": obj.get("onFailure"),
-            "onError": obj.get("onError")
+            "onFailure": [PromotionBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None,
+            "onError": {
+                _k: [PromotionBlock.from_dict(_item) for _item in _v] if _v is not None else None
+                for _k, _v in obj["onError"].items()
+            }
+            if obj.get("onError") is not None
+            else None
         })
         return _obj
 
+from talon_one.models.promotion_block import PromotionBlock
+# TODO: Rewrite to not use raise_errors
+AwardItemBlock.model_rebuild(raise_errors=False)
 

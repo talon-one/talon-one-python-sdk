@@ -32,13 +32,10 @@ class NewCampaignCollection(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of this collection.", json_schema_extra={"examples": ["My collection"]})
     __properties: ClassVar[List[str]] = ["description", "name"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
             raise ValueError(r"must validate the regular expression /^[^[:cntrl:]\s][^[:cntrl:]]*$/")
         return value
 

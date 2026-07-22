@@ -33,8 +33,8 @@ class Change(BaseModel):
     user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId", json_schema_extra={"examples": [388]})
     application_id: Optional[StrictInt] = Field(default=None, description="ID of application associated with change.", alias="applicationId", json_schema_extra={"examples": [359]})
     entity: StrictStr = Field(description="API endpoint on which the change was initiated.", json_schema_extra={"examples": ["/v1/applications/359/campaigns/6727"]})
-    old: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
-    new: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    old: Optional[Dict[str, Any]] = Field(default=None, description="Resource before the change occurred.", json_schema_extra={"examples": ["{}"]})
+    new: Optional[Dict[str, Any]] = Field(default=None, description="Resource after the change occurred.", json_schema_extra={"examples": ["{applicationId\"=359, attributes\"={}, campaignGroups\"=[], created\"=2022-07-08T13:04:02.972762328Z, description\"=, features\"=[referrals, loyalty], id=6727}"]})
     management_key_id: Optional[StrictInt] = Field(default=None, description="ID of management key used to perform changes.", alias="managementKeyId", json_schema_extra={"examples": [3]})
     __properties: ClassVar[List[str]] = ["id", "created", "userId", "applicationId", "entity", "old", "new", "managementKeyId"]
 

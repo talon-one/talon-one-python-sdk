@@ -5,7 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**on_failure** | **List[object]** | Strikethrough blocks evaluated when this block fails or returns false. | [optional] 
+**id** | **str** | Unique identifier for this block. | 
+**type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
+**tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
+**operator** | **str** | The comparison operator applied to the attribute. | 
+**attribute** | **str** | The attribute path identifier (e.g. \&quot;$Session.Total\&quot;). | 
+**value** | **object** |  | [optional] 
+**min** | **object** |  | [optional] 
+**max** | **object** |  | [optional] 
+**values** | **object** |  | [optional] 
+**count** | **object** |  | [optional] 
+**on_failure** | [**List[StrikethroughBlock]**](StrikethroughBlock.md) | Strikethrough blocks evaluated when this block fails or returns false. | [optional] 
 
 ## Example
 

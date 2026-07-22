@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **parent_id** | **str** | ID of the parent rule, if any. | [optional] 
 **title** | **str** | A short description of the rule. | 
 **description** | **str** | A longer description of the rule. | [optional] 
-**blocks** | **List[object]** | The condition and effect blocks that make up this strikethrough rule. | 
+**blocks** | [**List[StrikethroughBlock]**](StrikethroughBlock.md) | The condition and effect blocks that make up this strikethrough rule. | 
 
 ## Example
 

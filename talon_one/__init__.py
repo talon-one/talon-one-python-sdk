@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.14.0"
+__version__ = "26.15.0"
 
 # Define package exports
 __all__ = [
@@ -90,7 +90,6 @@ __all__ = [
     "ApplicationCustomerEntity",
     "ApplicationEntity",
     "ApplicationEvent",
-    "ApplicationNotification",
     "ApplicationReferee",
     "ApplicationSession",
     "ApplicationSessionEntity",
@@ -116,6 +115,7 @@ __all__ = [
     "BaseLoyaltyProgram",
     "BaseNotification",
     "BaseNotificationEntity",
+    "BaseNotificationPolicy",
     "BaseNotificationWebhook",
     "BaseNotifications",
     "BaseSamlConnection",
@@ -124,7 +124,6 @@ __all__ = [
     "BestPriorPriceRequest",
     "BestPriorPriceSettings",
     "BestPriorTarget",
-    "BetweenCheckAttributeBlock",
     "Binding",
     "Blueprint",
     "BulkApplicationNotification",
@@ -192,6 +191,12 @@ __all__ = [
     "Catalog",
     "CatalogAction",
     "CatalogActionFilter",
+    "CatalogActionOneOf",
+    "CatalogActionOneOf1",
+    "CatalogActionOneOf2",
+    "CatalogActionOneOf3",
+    "CatalogActionOneOf4",
+    "CatalogActionOneOf5",
     "CatalogItem",
     "CatalogRule",
     "CatalogSyncRequest",
@@ -199,7 +204,7 @@ __all__ = [
     "Change",
     "ChangeLoyaltyTierLevelEffectProps",
     "ChangeProfilePassword",
-    "CheckAttributeBlock",
+    "CheckAttributeBlockBase",
     "CheckAudienceBlock",
     "CheckAudienceBlock1Audience",
     "CheckCouponBlock",
@@ -208,6 +213,7 @@ __all__ = [
     "Collection",
     "CollectionItem",
     "CollectionWithoutPayload",
+    "ConfirmRisksRequest",
     "Coupon",
     "CouponConstraints",
     "CouponCreatedEffectProps",
@@ -246,6 +252,7 @@ __all__ = [
     "CustomerProfileEntity",
     "CustomerProfileIntegrationRequestV2",
     "CustomerProfileIntegrationResponseV2",
+    "CustomerProfileReward",
     "CustomerProfileSearchQuery",
     "CustomerProfileUpdateV2Response",
     "CustomerSession",
@@ -256,8 +263,12 @@ __all__ = [
     "DeleteCouponsData",
     "DeleteLoyaltyTransactionsRequest",
     "DeleteUserRequest",
+    "DigitalPass",
+    "DiscardRisksRequest",
     "Effect",
+    "EffectAllOfProps",
     "EffectEntity",
+    "EffectProps",
     "EmailEntity",
     "EmbeddedAnalyticsConfiguration",
     "EmbeddedAnalyticsConfigurationDashboards",
@@ -412,6 +423,7 @@ __all__ = [
     "IntegrationHubFlowResponse",
     "IntegrationHubFlowWithConfig",
     "IntegrationHubPaginatedEventPayload",
+    "IntegrationHubPaginatedEventPayloadDataInner",
     "IntegrationProfileEntity",
     "IntegrationProfileEntityV3",
     "IntegrationRequest",
@@ -422,6 +434,7 @@ __all__ = [
     "InventoryCoupon",
     "InventoryReferral",
     "ItemAttribute",
+    "LabelTarget",
     "LabelTargetAudience",
     "LabelTargetNone",
     "LedgerEntry",
@@ -439,10 +452,8 @@ __all__ = [
     "ListCampaignStoreBudgets",
     "ListCampaignStoreBudgetsStore",
     "ListCatalogItems200Response",
-    "ListCheckAttributeBlock",
     "ListExperiments200Response",
     "ListStores200Response",
-    "ListWithCountCheckAttributeBlock",
     "LoginParams",
     "Loyalty",
     "LoyaltyBalance",
@@ -471,6 +482,8 @@ __all__ = [
     "LoyaltySubLedger",
     "LoyaltyTier",
     "MCPKey",
+    "MCPOAuthProtectedResource",
+    "MCPOAuthServerMetadata",
     "ManagementKey",
     "ManagerConfig",
     "MessageLogEntries",
@@ -521,6 +534,7 @@ __all__ = [
     "NewCustomerProfile",
     "NewCustomerSession",
     "NewCustomerSessionV2",
+    "NewDigitalPass",
     "NewEvent",
     "NewEventType",
     "NewEventV3Entity",
@@ -571,6 +585,7 @@ __all__ = [
     "OutgoingIntegrationBrazePolicy",
     "OutgoingIntegrationCleverTapPolicy",
     "OutgoingIntegrationConfiguration",
+    "OutgoingIntegrationConfigurationPolicy",
     "OutgoingIntegrationIterablePolicy",
     "OutgoingIntegrationMoEngagePolicy",
     "OutgoingIntegrationTemplate",
@@ -600,6 +615,7 @@ __all__ = [
     "ProfileAudiencesChanges",
     "ProjectedTier",
     "PromoteExperiment",
+    "PromotionBlock",
     "PromotionCheckAttributeBlock",
     "PromotionGroupBlock",
     "PromotionRuleV2",
@@ -618,6 +634,7 @@ __all__ = [
     "ResponseContentObject",
     "ReturnIntegrationRequest",
     "ReturnedCartItem",
+    "ReviewRisksRequest",
     "Revision",
     "RevisionActivation",
     "RevisionActivationRequest",
@@ -626,6 +643,7 @@ __all__ = [
     "RewardPointsRequired",
     "Risk",
     "RiskAffectedEntityItem",
+    "RiskCriticalityUpdate",
     "RiskDetail",
     "RiskNotification",
     "Role",
@@ -659,7 +677,6 @@ __all__ = [
     "SamlConnectionInternal",
     "SamlConnectionMetadata",
     "SamlLoginEndpoint",
-    "ScalarCheckAttributeBlock",
     "ScimBaseGroup",
     "ScimBaseUser",
     "ScimBaseUserName",
@@ -677,6 +694,8 @@ __all__ = [
     "ScimServiceProviderConfigResponseBulk",
     "ScimServiceProviderConfigResponseChangePassword",
     "ScimServiceProviderConfigResponseFilter",
+    "ScimServiceProviderConfigResponsePatch",
+    "ScimServiceProviderConfigResponseSort",
     "ScimUser",
     "ScimUsersListResponse",
     "SecondaryDeployment",
@@ -693,11 +712,13 @@ __all__ = [
     "SkuUnitAnalyticsDataPoint",
     "SlotDef",
     "Store",
+    "StrikethroughBlock",
     "StrikethroughChangedItem",
     "StrikethroughCheckAttributeBlock",
     "StrikethroughCustomEffectPerItemProps",
     "StrikethroughDebugResponse",
     "StrikethroughEffect",
+    "StrikethroughEffectProps",
     "StrikethroughGroupBlock",
     "StrikethroughLabelingNotification",
     "StrikethroughRuleV2",
@@ -728,15 +749,21 @@ __all__ = [
     "TransferLoyaltyCard",
     "TriggerWebhookEffectProps",
     "TwoFAConfig",
-    "UnaryCheckAttributeBlock",
     "UpdateAccount",
     "UpdateAchievement",
+    "UpdateAchievementProgressBlock",
+    "UpdateAchievementProgressBlock1Achievement",
     "UpdateAchievementV2",
     "UpdateApplication",
     "UpdateApplicationAPIKey",
     "UpdateApplicationCIF",
     "UpdateAttributeEffectProps",
+    "UpdateAttributeValueBlock",
+    "UpdateAttributeValueBlock1Attribute",
+    "UpdateAttributeValueBlock1Target",
     "UpdateAudience",
+    "UpdateAudienceMembershipBlock",
+    "UpdateAudienceMembershipBlock1Audience",
     "UpdateBlueprint",
     "UpdateCampaign",
     "UpdateCampaignCollection",
@@ -749,6 +776,7 @@ __all__ = [
     "UpdateCouponBatch",
     "UpdateCouponsData",
     "UpdateCustomEffect",
+    "UpdateCustomerProfileV2409Response",
     "UpdateCustomerSessionV2409Response",
     "UpdateExperiment",
     "UpdateExperimentVariant",
@@ -773,6 +801,10 @@ __all__ = [
     "ValueMap",
     "Webhook",
     "WebhookAuthentication",
+    "WebhookAuthenticationAllOfData",
+    "WebhookAuthenticationBase",
+    "WebhookAuthenticationBaseOneOf",
+    "WebhookAuthenticationBaseOneOf1",
     "WebhookAuthenticationDataBasic",
     "WebhookAuthenticationDataCustom",
     "WebhookAuthenticationWebhookRef",
@@ -857,7 +889,6 @@ from talon_one.models.application_customer import ApplicationCustomer as Applica
 from talon_one.models.application_customer_entity import ApplicationCustomerEntity as ApplicationCustomerEntity
 from talon_one.models.application_entity import ApplicationEntity as ApplicationEntity
 from talon_one.models.application_event import ApplicationEvent as ApplicationEvent
-from talon_one.models.application_notification import ApplicationNotification as ApplicationNotification
 from talon_one.models.application_referee import ApplicationReferee as ApplicationReferee
 from talon_one.models.application_session import ApplicationSession as ApplicationSession
 from talon_one.models.application_session_entity import ApplicationSessionEntity as ApplicationSessionEntity
@@ -883,6 +914,7 @@ from talon_one.models.base_campaign import BaseCampaign as BaseCampaign
 from talon_one.models.base_loyalty_program import BaseLoyaltyProgram as BaseLoyaltyProgram
 from talon_one.models.base_notification import BaseNotification as BaseNotification
 from talon_one.models.base_notification_entity import BaseNotificationEntity as BaseNotificationEntity
+from talon_one.models.base_notification_policy import BaseNotificationPolicy as BaseNotificationPolicy
 from talon_one.models.base_notification_webhook import BaseNotificationWebhook as BaseNotificationWebhook
 from talon_one.models.base_notifications import BaseNotifications as BaseNotifications
 from talon_one.models.base_saml_connection import BaseSamlConnection as BaseSamlConnection
@@ -891,7 +923,6 @@ from talon_one.models.best_prior_price_metadata import BestPriorPriceMetadata as
 from talon_one.models.best_prior_price_request import BestPriorPriceRequest as BestPriorPriceRequest
 from talon_one.models.best_prior_price_settings import BestPriorPriceSettings as BestPriorPriceSettings
 from talon_one.models.best_prior_target import BestPriorTarget as BestPriorTarget
-from talon_one.models.between_check_attribute_block import BetweenCheckAttributeBlock as BetweenCheckAttributeBlock
 from talon_one.models.binding import Binding as Binding
 from talon_one.models.blueprint import Blueprint as Blueprint
 from talon_one.models.bulk_application_notification import BulkApplicationNotification as BulkApplicationNotification
@@ -959,6 +990,12 @@ from talon_one.models.cart_item_filter_template import CartItemFilterTemplate as
 from talon_one.models.catalog import Catalog as Catalog
 from talon_one.models.catalog_action import CatalogAction as CatalogAction
 from talon_one.models.catalog_action_filter import CatalogActionFilter as CatalogActionFilter
+from talon_one.models.catalog_action_one_of import CatalogActionOneOf as CatalogActionOneOf
+from talon_one.models.catalog_action_one_of1 import CatalogActionOneOf1 as CatalogActionOneOf1
+from talon_one.models.catalog_action_one_of2 import CatalogActionOneOf2 as CatalogActionOneOf2
+from talon_one.models.catalog_action_one_of3 import CatalogActionOneOf3 as CatalogActionOneOf3
+from talon_one.models.catalog_action_one_of4 import CatalogActionOneOf4 as CatalogActionOneOf4
+from talon_one.models.catalog_action_one_of5 import CatalogActionOneOf5 as CatalogActionOneOf5
 from talon_one.models.catalog_item import CatalogItem as CatalogItem
 from talon_one.models.catalog_rule import CatalogRule as CatalogRule
 from talon_one.models.catalog_sync_request import CatalogSyncRequest as CatalogSyncRequest
@@ -966,7 +1003,7 @@ from talon_one.models.catalogs_strikethrough_notification_policy import Catalogs
 from talon_one.models.change import Change as Change
 from talon_one.models.change_loyalty_tier_level_effect_props import ChangeLoyaltyTierLevelEffectProps as ChangeLoyaltyTierLevelEffectProps
 from talon_one.models.change_profile_password import ChangeProfilePassword as ChangeProfilePassword
-from talon_one.models.check_attribute_block import CheckAttributeBlock as CheckAttributeBlock
+from talon_one.models.check_attribute_block_base import CheckAttributeBlockBase as CheckAttributeBlockBase
 from talon_one.models.check_audience_block import CheckAudienceBlock as CheckAudienceBlock
 from talon_one.models.check_audience_block1_audience import CheckAudienceBlock1Audience as CheckAudienceBlock1Audience
 from talon_one.models.check_coupon_block import CheckCouponBlock as CheckCouponBlock
@@ -975,6 +1012,7 @@ from talon_one.models.code_generator_settings import CodeGeneratorSettings as Co
 from talon_one.models.collection import Collection as Collection
 from talon_one.models.collection_item import CollectionItem as CollectionItem
 from talon_one.models.collection_without_payload import CollectionWithoutPayload as CollectionWithoutPayload
+from talon_one.models.confirm_risks_request import ConfirmRisksRequest as ConfirmRisksRequest
 from talon_one.models.coupon import Coupon as Coupon
 from talon_one.models.coupon_constraints import CouponConstraints as CouponConstraints
 from talon_one.models.coupon_created_effect_props import CouponCreatedEffectProps as CouponCreatedEffectProps
@@ -1013,6 +1051,7 @@ from talon_one.models.customer_profile_audience_request_item import CustomerProf
 from talon_one.models.customer_profile_entity import CustomerProfileEntity as CustomerProfileEntity
 from talon_one.models.customer_profile_integration_request_v2 import CustomerProfileIntegrationRequestV2 as CustomerProfileIntegrationRequestV2
 from talon_one.models.customer_profile_integration_response_v2 import CustomerProfileIntegrationResponseV2 as CustomerProfileIntegrationResponseV2
+from talon_one.models.customer_profile_reward import CustomerProfileReward as CustomerProfileReward
 from talon_one.models.customer_profile_search_query import CustomerProfileSearchQuery as CustomerProfileSearchQuery
 from talon_one.models.customer_profile_update_v2_response import CustomerProfileUpdateV2Response as CustomerProfileUpdateV2Response
 from talon_one.models.customer_session import CustomerSession as CustomerSession
@@ -1023,8 +1062,12 @@ from talon_one.models.deduct_loyalty_points_effect_props import DeductLoyaltyPoi
 from talon_one.models.delete_coupons_data import DeleteCouponsData as DeleteCouponsData
 from talon_one.models.delete_loyalty_transactions_request import DeleteLoyaltyTransactionsRequest as DeleteLoyaltyTransactionsRequest
 from talon_one.models.delete_user_request import DeleteUserRequest as DeleteUserRequest
+from talon_one.models.digital_pass import DigitalPass as DigitalPass
+from talon_one.models.discard_risks_request import DiscardRisksRequest as DiscardRisksRequest
 from talon_one.models.effect import Effect as Effect
+from talon_one.models.effect_all_of_props import EffectAllOfProps as EffectAllOfProps
 from talon_one.models.effect_entity import EffectEntity as EffectEntity
+from talon_one.models.effect_props import EffectProps as EffectProps
 from talon_one.models.email_entity import EmailEntity as EmailEntity
 from talon_one.models.embedded_analytics_configuration import EmbeddedAnalyticsConfiguration as EmbeddedAnalyticsConfiguration
 from talon_one.models.embedded_analytics_configuration_dashboards import EmbeddedAnalyticsConfigurationDashboards as EmbeddedAnalyticsConfigurationDashboards
@@ -1179,6 +1222,7 @@ from talon_one.models.integration_hub_flow_config_response import IntegrationHub
 from talon_one.models.integration_hub_flow_response import IntegrationHubFlowResponse as IntegrationHubFlowResponse
 from talon_one.models.integration_hub_flow_with_config import IntegrationHubFlowWithConfig as IntegrationHubFlowWithConfig
 from talon_one.models.integration_hub_paginated_event_payload import IntegrationHubPaginatedEventPayload as IntegrationHubPaginatedEventPayload
+from talon_one.models.integration_hub_paginated_event_payload_data_inner import IntegrationHubPaginatedEventPayloadDataInner as IntegrationHubPaginatedEventPayloadDataInner
 from talon_one.models.integration_profile_entity import IntegrationProfileEntity as IntegrationProfileEntity
 from talon_one.models.integration_profile_entity_v3 import IntegrationProfileEntityV3 as IntegrationProfileEntityV3
 from talon_one.models.integration_request import IntegrationRequest as IntegrationRequest
@@ -1189,6 +1233,7 @@ from talon_one.models.integration_store_entity import IntegrationStoreEntity as 
 from talon_one.models.inventory_coupon import InventoryCoupon as InventoryCoupon
 from talon_one.models.inventory_referral import InventoryReferral as InventoryReferral
 from talon_one.models.item_attribute import ItemAttribute as ItemAttribute
+from talon_one.models.label_target import LabelTarget as LabelTarget
 from talon_one.models.label_target_audience import LabelTargetAudience as LabelTargetAudience
 from talon_one.models.label_target_none import LabelTargetNone as LabelTargetNone
 from talon_one.models.ledger_entry import LedgerEntry as LedgerEntry
@@ -1206,10 +1251,8 @@ from talon_one.models.list_campaign_store_budget_limits200_response import ListC
 from talon_one.models.list_campaign_store_budgets import ListCampaignStoreBudgets as ListCampaignStoreBudgets
 from talon_one.models.list_campaign_store_budgets_store import ListCampaignStoreBudgetsStore as ListCampaignStoreBudgetsStore
 from talon_one.models.list_catalog_items200_response import ListCatalogItems200Response as ListCatalogItems200Response
-from talon_one.models.list_check_attribute_block import ListCheckAttributeBlock as ListCheckAttributeBlock
 from talon_one.models.list_experiments200_response import ListExperiments200Response as ListExperiments200Response
 from talon_one.models.list_stores200_response import ListStores200Response as ListStores200Response
-from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock as ListWithCountCheckAttributeBlock
 from talon_one.models.login_params import LoginParams as LoginParams
 from talon_one.models.loyalty import Loyalty as Loyalty
 from talon_one.models.loyalty_balance import LoyaltyBalance as LoyaltyBalance
@@ -1238,6 +1281,8 @@ from talon_one.models.loyalty_program_transaction import LoyaltyProgramTransacti
 from talon_one.models.loyalty_sub_ledger import LoyaltySubLedger as LoyaltySubLedger
 from talon_one.models.loyalty_tier import LoyaltyTier as LoyaltyTier
 from talon_one.models.mcp_key import MCPKey as MCPKey
+from talon_one.models.mcpo_auth_protected_resource import MCPOAuthProtectedResource as MCPOAuthProtectedResource
+from talon_one.models.mcpo_auth_server_metadata import MCPOAuthServerMetadata as MCPOAuthServerMetadata
 from talon_one.models.management_key import ManagementKey as ManagementKey
 from talon_one.models.manager_config import ManagerConfig as ManagerConfig
 from talon_one.models.message_log_entries import MessageLogEntries as MessageLogEntries
@@ -1288,6 +1333,7 @@ from talon_one.models.new_custom_effect import NewCustomEffect as NewCustomEffec
 from talon_one.models.new_customer_profile import NewCustomerProfile as NewCustomerProfile
 from talon_one.models.new_customer_session import NewCustomerSession as NewCustomerSession
 from talon_one.models.new_customer_session_v2 import NewCustomerSessionV2 as NewCustomerSessionV2
+from talon_one.models.new_digital_pass import NewDigitalPass as NewDigitalPass
 from talon_one.models.new_event import NewEvent as NewEvent
 from talon_one.models.new_event_type import NewEventType as NewEventType
 from talon_one.models.new_event_v3_entity import NewEventV3Entity as NewEventV3Entity
@@ -1338,6 +1384,7 @@ from talon_one.models.one_time_code import OneTimeCode as OneTimeCode
 from talon_one.models.outgoing_integration_braze_policy import OutgoingIntegrationBrazePolicy as OutgoingIntegrationBrazePolicy
 from talon_one.models.outgoing_integration_clever_tap_policy import OutgoingIntegrationCleverTapPolicy as OutgoingIntegrationCleverTapPolicy
 from talon_one.models.outgoing_integration_configuration import OutgoingIntegrationConfiguration as OutgoingIntegrationConfiguration
+from talon_one.models.outgoing_integration_configuration_policy import OutgoingIntegrationConfigurationPolicy as OutgoingIntegrationConfigurationPolicy
 from talon_one.models.outgoing_integration_iterable_policy import OutgoingIntegrationIterablePolicy as OutgoingIntegrationIterablePolicy
 from talon_one.models.outgoing_integration_mo_engage_policy import OutgoingIntegrationMoEngagePolicy as OutgoingIntegrationMoEngagePolicy
 from talon_one.models.outgoing_integration_template import OutgoingIntegrationTemplate as OutgoingIntegrationTemplate
@@ -1367,6 +1414,7 @@ from talon_one.models.product_unit_analytics_totals import ProductUnitAnalyticsT
 from talon_one.models.profile_audiences_changes import ProfileAudiencesChanges as ProfileAudiencesChanges
 from talon_one.models.projected_tier import ProjectedTier as ProjectedTier
 from talon_one.models.promote_experiment import PromoteExperiment as PromoteExperiment
+from talon_one.models.promotion_block import PromotionBlock as PromotionBlock
 from talon_one.models.promotion_check_attribute_block import PromotionCheckAttributeBlock as PromotionCheckAttributeBlock
 from talon_one.models.promotion_group_block import PromotionGroupBlock as PromotionGroupBlock
 from talon_one.models.promotion_rule_v2 import PromotionRuleV2 as PromotionRuleV2
@@ -1385,6 +1433,7 @@ from talon_one.models.reserve_coupon_effect_props import ReserveCouponEffectProp
 from talon_one.models.response_content_object import ResponseContentObject as ResponseContentObject
 from talon_one.models.return_integration_request import ReturnIntegrationRequest as ReturnIntegrationRequest
 from talon_one.models.returned_cart_item import ReturnedCartItem as ReturnedCartItem
+from talon_one.models.review_risks_request import ReviewRisksRequest as ReviewRisksRequest
 from talon_one.models.revision import Revision as Revision
 from talon_one.models.revision_activation import RevisionActivation as RevisionActivation
 from talon_one.models.revision_activation_request import RevisionActivationRequest as RevisionActivationRequest
@@ -1393,6 +1442,7 @@ from talon_one.models.reward import Reward as Reward
 from talon_one.models.reward_points_required import RewardPointsRequired as RewardPointsRequired
 from talon_one.models.risk import Risk as Risk
 from talon_one.models.risk_affected_entity_item import RiskAffectedEntityItem as RiskAffectedEntityItem
+from talon_one.models.risk_criticality_update import RiskCriticalityUpdate as RiskCriticalityUpdate
 from talon_one.models.risk_detail import RiskDetail as RiskDetail
 from talon_one.models.risk_notification import RiskNotification as RiskNotification
 from talon_one.models.role import Role as Role
@@ -1426,7 +1476,6 @@ from talon_one.models.saml_connection import SamlConnection as SamlConnection
 from talon_one.models.saml_connection_internal import SamlConnectionInternal as SamlConnectionInternal
 from talon_one.models.saml_connection_metadata import SamlConnectionMetadata as SamlConnectionMetadata
 from talon_one.models.saml_login_endpoint import SamlLoginEndpoint as SamlLoginEndpoint
-from talon_one.models.scalar_check_attribute_block import ScalarCheckAttributeBlock as ScalarCheckAttributeBlock
 from talon_one.models.scim_base_group import ScimBaseGroup as ScimBaseGroup
 from talon_one.models.scim_base_user import ScimBaseUser as ScimBaseUser
 from talon_one.models.scim_base_user_name import ScimBaseUserName as ScimBaseUserName
@@ -1444,6 +1493,8 @@ from talon_one.models.scim_service_provider_config_response import ScimServicePr
 from talon_one.models.scim_service_provider_config_response_bulk import ScimServiceProviderConfigResponseBulk as ScimServiceProviderConfigResponseBulk
 from talon_one.models.scim_service_provider_config_response_change_password import ScimServiceProviderConfigResponseChangePassword as ScimServiceProviderConfigResponseChangePassword
 from talon_one.models.scim_service_provider_config_response_filter import ScimServiceProviderConfigResponseFilter as ScimServiceProviderConfigResponseFilter
+from talon_one.models.scim_service_provider_config_response_patch import ScimServiceProviderConfigResponsePatch as ScimServiceProviderConfigResponsePatch
+from talon_one.models.scim_service_provider_config_response_sort import ScimServiceProviderConfigResponseSort as ScimServiceProviderConfigResponseSort
 from talon_one.models.scim_user import ScimUser as ScimUser
 from talon_one.models.scim_users_list_response import ScimUsersListResponse as ScimUsersListResponse
 from talon_one.models.secondary_deployment import SecondaryDeployment as SecondaryDeployment
@@ -1460,11 +1511,13 @@ from talon_one.models.sku_unit_analytics import SkuUnitAnalytics as SkuUnitAnaly
 from talon_one.models.sku_unit_analytics_data_point import SkuUnitAnalyticsDataPoint as SkuUnitAnalyticsDataPoint
 from talon_one.models.slot_def import SlotDef as SlotDef
 from talon_one.models.store import Store as Store
+from talon_one.models.strikethrough_block import StrikethroughBlock as StrikethroughBlock
 from talon_one.models.strikethrough_changed_item import StrikethroughChangedItem as StrikethroughChangedItem
 from talon_one.models.strikethrough_check_attribute_block import StrikethroughCheckAttributeBlock as StrikethroughCheckAttributeBlock
 from talon_one.models.strikethrough_custom_effect_per_item_props import StrikethroughCustomEffectPerItemProps as StrikethroughCustomEffectPerItemProps
 from talon_one.models.strikethrough_debug_response import StrikethroughDebugResponse as StrikethroughDebugResponse
 from talon_one.models.strikethrough_effect import StrikethroughEffect as StrikethroughEffect
+from talon_one.models.strikethrough_effect_props import StrikethroughEffectProps as StrikethroughEffectProps
 from talon_one.models.strikethrough_group_block import StrikethroughGroupBlock as StrikethroughGroupBlock
 from talon_one.models.strikethrough_labeling_notification import StrikethroughLabelingNotification as StrikethroughLabelingNotification
 from talon_one.models.strikethrough_rule_v2 import StrikethroughRuleV2 as StrikethroughRuleV2
@@ -1495,15 +1548,21 @@ from talon_one.models.time_point import TimePoint as TimePoint
 from talon_one.models.transfer_loyalty_card import TransferLoyaltyCard as TransferLoyaltyCard
 from talon_one.models.trigger_webhook_effect_props import TriggerWebhookEffectProps as TriggerWebhookEffectProps
 from talon_one.models.two_fa_config import TwoFAConfig as TwoFAConfig
-from talon_one.models.unary_check_attribute_block import UnaryCheckAttributeBlock as UnaryCheckAttributeBlock
 from talon_one.models.update_account import UpdateAccount as UpdateAccount
 from talon_one.models.update_achievement import UpdateAchievement as UpdateAchievement
+from talon_one.models.update_achievement_progress_block import UpdateAchievementProgressBlock as UpdateAchievementProgressBlock
+from talon_one.models.update_achievement_progress_block1_achievement import UpdateAchievementProgressBlock1Achievement as UpdateAchievementProgressBlock1Achievement
 from talon_one.models.update_achievement_v2 import UpdateAchievementV2 as UpdateAchievementV2
 from talon_one.models.update_application import UpdateApplication as UpdateApplication
 from talon_one.models.update_application_api_key import UpdateApplicationAPIKey as UpdateApplicationAPIKey
 from talon_one.models.update_application_cif import UpdateApplicationCIF as UpdateApplicationCIF
 from talon_one.models.update_attribute_effect_props import UpdateAttributeEffectProps as UpdateAttributeEffectProps
+from talon_one.models.update_attribute_value_block import UpdateAttributeValueBlock as UpdateAttributeValueBlock
+from talon_one.models.update_attribute_value_block1_attribute import UpdateAttributeValueBlock1Attribute as UpdateAttributeValueBlock1Attribute
+from talon_one.models.update_attribute_value_block1_target import UpdateAttributeValueBlock1Target as UpdateAttributeValueBlock1Target
 from talon_one.models.update_audience import UpdateAudience as UpdateAudience
+from talon_one.models.update_audience_membership_block import UpdateAudienceMembershipBlock as UpdateAudienceMembershipBlock
+from talon_one.models.update_audience_membership_block1_audience import UpdateAudienceMembershipBlock1Audience as UpdateAudienceMembershipBlock1Audience
 from talon_one.models.update_blueprint import UpdateBlueprint as UpdateBlueprint
 from talon_one.models.update_campaign import UpdateCampaign as UpdateCampaign
 from talon_one.models.update_campaign_collection import UpdateCampaignCollection as UpdateCampaignCollection
@@ -1516,6 +1575,7 @@ from talon_one.models.update_coupon import UpdateCoupon as UpdateCoupon
 from talon_one.models.update_coupon_batch import UpdateCouponBatch as UpdateCouponBatch
 from talon_one.models.update_coupons_data import UpdateCouponsData as UpdateCouponsData
 from talon_one.models.update_custom_effect import UpdateCustomEffect as UpdateCustomEffect
+from talon_one.models.update_customer_profile_v2409_response import UpdateCustomerProfileV2409Response as UpdateCustomerProfileV2409Response
 from talon_one.models.update_customer_session_v2409_response import UpdateCustomerSessionV2409Response as UpdateCustomerSessionV2409Response
 from talon_one.models.update_experiment import UpdateExperiment as UpdateExperiment
 from talon_one.models.update_experiment_variant import UpdateExperimentVariant as UpdateExperimentVariant
@@ -1540,6 +1600,10 @@ from talon_one.models.user_entity import UserEntity as UserEntity
 from talon_one.models.value_map import ValueMap as ValueMap
 from talon_one.models.webhook import Webhook as Webhook
 from talon_one.models.webhook_authentication import WebhookAuthentication as WebhookAuthentication
+from talon_one.models.webhook_authentication_all_of_data import WebhookAuthenticationAllOfData as WebhookAuthenticationAllOfData
+from talon_one.models.webhook_authentication_base import WebhookAuthenticationBase as WebhookAuthenticationBase
+from talon_one.models.webhook_authentication_base_one_of import WebhookAuthenticationBaseOneOf as WebhookAuthenticationBaseOneOf
+from talon_one.models.webhook_authentication_base_one_of1 import WebhookAuthenticationBaseOneOf1 as WebhookAuthenticationBaseOneOf1
 from talon_one.models.webhook_authentication_data_basic import WebhookAuthenticationDataBasic as WebhookAuthenticationDataBasic
 from talon_one.models.webhook_authentication_data_custom import WebhookAuthenticationDataCustom as WebhookAuthenticationDataCustom
 from talon_one.models.webhook_authentication_webhook_ref import WebhookAuthenticationWebhookRef as WebhookAuthenticationWebhookRef

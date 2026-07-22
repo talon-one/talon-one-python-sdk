@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **int** | Unique ID for this entity. | 
 **account_id** | **int** | The ID of the account to which this configuration belongs. | 
 **type_id** | **int** | The outgoing integration type ID. | 
-**policy** | **object** | The outgoing integration policy specific to each integration type. | 
+**policy** | [**OutgoingIntegrationConfigurationPolicy**](OutgoingIntegrationConfigurationPolicy.md) |  | 
 
 ## Example
 

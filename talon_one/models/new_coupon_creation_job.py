@@ -37,7 +37,7 @@ class NewCouponCreationJob(BaseModel):
     expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:15:22Z"]})
     number_of_coupons: Annotated[int, Field(le=5000000, strict=True, ge=1)] = Field(description="The number of new coupon codes to generate for the campaign.", alias="numberOfCoupons", json_schema_extra={"examples": [200000]})
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
-    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with this campaign.")
+    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with coupons.")
     is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "numberOfCoupons", "couponSettings", "attributes", "isReservationMandatory"]
 

@@ -42,16 +42,13 @@ class AchievementBaseV2(BaseModel):
     subscribed_applications: Optional[Annotated[List[StrictInt], Field(min_length=0)]] = Field(default=None, description="A list containing the IDs of all applications that are subscribed to A list containing the IDs of all Applications that are connected to this achievement.", alias="subscribedApplications", json_schema_extra={"examples": [[132, 97]]})
     __properties: ClassVar[List[str]] = ["name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "subscribedApplications"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z]\w+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z]\w+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z]\w+$/")
         return value
 

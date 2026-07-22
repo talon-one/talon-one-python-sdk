@@ -45,13 +45,10 @@ class CardLedgerTransactionLogEntry(BaseModel):
     id: StrictInt = Field(description="ID of the loyalty ledger entry.", json_schema_extra={"examples": [123]})
     __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "cardIdentifier", "applicationId", "sessionId", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id"]
 
-    @field_validator('card_identifier')
+    @field_validator('card_identifier', mode="before")
     def card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 

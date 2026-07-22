@@ -41,7 +41,7 @@ class TestNewReferral(unittest.TestCase):
                 campaign_id = 78,
                 advocate_profile_integration_id = 'URNGV8294NV',
                 friend_profile_integration_id = 'BZGGC2454PA',
-                attributes = None
+                attributes = {channel=web}
             )
         else:
             return NewReferral(

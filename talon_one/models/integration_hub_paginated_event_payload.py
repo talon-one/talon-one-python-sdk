@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.integration_hub_event_type import IntegrationHubEventType
+from talon_one.models.integration_hub_paginated_event_payload_data_inner import IntegrationHubPaginatedEventPayloadDataInner
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -32,7 +33,7 @@ class IntegrationHubPaginatedEventPayload(BaseModel):
     total_result_size: StrictInt = Field(alias="TotalResultSize")
     batched_at: Optional[datetime] = Field(default=None, description="Timestamp when the batch was created.", alias="BatchedAt")
     event_type: IntegrationHubEventType = Field(alias="EventType")
-    data: List[Any] = Field(alias="Data")
+    data: List[IntegrationHubPaginatedEventPayloadDataInner] = Field(alias="Data")
     __properties: ClassVar[List[str]] = ["TotalResultSize", "BatchedAt", "EventType", "Data"]
 
     model_config = ConfigDict(
@@ -74,6 +75,13 @@ class IntegrationHubPaginatedEventPayload(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
+        _items = []
+        if self.data:
+            for _item_data in self.data:
+                if _item_data:
+                    _items.append(_item_data.to_dict())
+            _dict['Data'] = _items
         return _dict
 
     @classmethod
@@ -89,7 +97,7 @@ class IntegrationHubPaginatedEventPayload(BaseModel):
             "TotalResultSize": obj.get("TotalResultSize"),
             "BatchedAt": obj.get("BatchedAt"),
             "EventType": obj.get("EventType"),
-            "Data": obj.get("Data")
+            "Data": [IntegrationHubPaginatedEventPayloadDataInner.from_dict(_item) for _item in obj["Data"]] if obj.get("Data") is not None else None
         })
         return _obj
 

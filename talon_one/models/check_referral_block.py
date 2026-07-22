@@ -31,7 +31,7 @@ class CheckReferralBlock(BaseModel):
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     redeem: StrictBool = Field(description="When `true`, the referral code is redeemed.", json_schema_extra={"examples": [True]})
-    on_failure: Optional[List[Any]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    on_failure: Optional[List[PromotionBlock]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "redeem", "onFailure"]
 
     model_config = ConfigDict(
@@ -73,6 +73,13 @@ class CheckReferralBlock(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
+        _items = []
+        if self.on_failure:
+            for _item_on_failure in self.on_failure:
+                if _item_on_failure:
+                    _items.append(_item_on_failure.to_dict())
+            _dict['onFailure'] = _items
         return _dict
 
     @classmethod
@@ -89,8 +96,11 @@ class CheckReferralBlock(BaseModel):
             "type": obj.get("type"),
             "tags": obj.get("tags"),
             "redeem": obj.get("redeem"),
-            "onFailure": obj.get("onFailure")
+            "onFailure": [PromotionBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj
 
+from talon_one.models.promotion_block import PromotionBlock
+# TODO: Rewrite to not use raise_errors
+CheckReferralBlock.model_rebuild(raise_errors=False)
 

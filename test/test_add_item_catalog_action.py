@@ -37,7 +37,7 @@ class TestAddItemCatalogAction(unittest.TestCase):
             return AddItemCatalogAction(
                 sku = 'SKU1241028',
                 price = 99.99,
-                attributes = {"origin":"germany","color":"blue"},
+                attributes = {origin=germany, color=blue},
                 product = talon_one.models.product.Product(
                     name = 'sample_product', ),
                 replace_if_exists = False

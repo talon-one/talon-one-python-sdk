@@ -35,7 +35,7 @@ class TestNewBaseNotification(unittest.TestCase):
         model = NewBaseNotification()
         if include_optional:
             return NewBaseNotification(
-                policy = talon_one.models.policy.policy(),
+                policy = talon_one.models.base_notification_policy.BaseNotificationPolicy(),
                 enabled = True,
                 webhook = talon_one.models.new_notification_webhook.NewNotificationWebhook(
                     url = 'www.my-company.com/my-endpoint-name', 
@@ -46,7 +46,7 @@ class TestNewBaseNotification(unittest.TestCase):
             )
         else:
             return NewBaseNotification(
-                policy = talon_one.models.policy.policy(),
+                policy = talon_one.models.base_notification_policy.BaseNotificationPolicy(),
                 webhook = talon_one.models.new_notification_webhook.NewNotificationWebhook(
                     url = 'www.my-company.com/my-endpoint-name', 
                     headers = [

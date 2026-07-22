@@ -35,12 +35,12 @@ class TestBaseNotificationEntity(unittest.TestCase):
         model = BaseNotificationEntity()
         if include_optional:
             return BaseNotificationEntity(
-                policy = None,
+                policy = talon_one.models.base_notification_policy.BaseNotificationPolicy(),
                 enabled = True
             )
         else:
             return BaseNotificationEntity(
-                policy = None,
+                policy = talon_one.models.base_notification_policy.BaseNotificationPolicy(),
         )
         """
 

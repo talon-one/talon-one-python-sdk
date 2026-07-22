@@ -80,16 +80,13 @@ class NewApplication(BaseModel):
             raise ValueError("must be one of enum values ('price', 'itemTotal', 'additionalCosts')")
         return value
 
-    @field_validator('key')
+    @field_validator('key', mode="before")
     def key_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-fA-F0-9]{16}$", value):
+        if isinstance(value, str) and not re.match(r"^[a-fA-F0-9]{16}$", value):
             raise ValueError(r"must validate the regular expression /^[a-fA-F0-9]{16}$/")
         return value
 

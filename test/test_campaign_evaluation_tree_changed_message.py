@@ -38,8 +38,10 @@ class TestCampaignEvaluationTreeChangedMessage(unittest.TestCase):
                 notification_type = 'CampaignNotification',
                 total_result_size = 56,
                 data = [
-                    talon_one.models.application_notification.ApplicationNotification(
-                        event = '', )
+                    talon_one.models.campaign_evaluation_tree_changed_notification.CampaignEvaluationTreeChangedNotification(
+                        application_id = 78, 
+                        old_evaluation_tree = null, 
+                        evaluation_tree = null, )
                     ]
             )
         else:

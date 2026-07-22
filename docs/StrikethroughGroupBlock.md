@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
 **operator** | **str** | Logical operator applied across child blocks. &#x60;all&#x60; requires every child to pass, &#x60;atLeastOne&#x60; requires at least one, &#x60;none&#x60; requires all to fail. | 
-**blocks** | **List[object]** | Child blocks evaluated according to the operator. | 
-**on_failure** | **List[object]** | Strikethrough blocks evaluated when this block fails or returns false. | [optional] 
-**on_error** | **Dict[str, List[object]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
+**blocks** | [**List[StrikethroughBlock]**](StrikethroughBlock.md) | Child blocks evaluated according to the operator. | 
+**on_failure** | [**List[StrikethroughBlock]**](StrikethroughBlock.md) | Strikethrough blocks evaluated when this block fails or returns false. | [optional] 
+**on_error** | **Dict[str, List[StrikethroughBlock]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
 
 ## Example
 

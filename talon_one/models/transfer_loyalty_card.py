@@ -32,13 +32,10 @@ class TransferLoyaltyCard(BaseModel):
     block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason", json_schema_extra={"examples": ["Current card lost. Customer needs a new card."]})
     __properties: ClassVar[List[str]] = ["newCardIdentifier", "blockReason"]
 
-    @field_validator('new_card_identifier')
+    @field_validator('new_card_identifier', mode="before")
     def new_card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 

@@ -54,13 +54,10 @@ class AchievementProgressWithDefinition(BaseModel):
             raise ValueError("must be one of enum values ('inprogress', 'completed', 'expired', 'not_started')")
         return value
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z]\w+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z]\w+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z]\w+$/")
         return value
 

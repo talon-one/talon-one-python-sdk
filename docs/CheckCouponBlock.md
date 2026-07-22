@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
 **redeem** | **bool** | When &#x60;true&#x60;, the coupon code is redeemed. | 
-**on_failure** | **List[object]** | Promotion blocks evaluated when this block fails or returns false. | [optional] 
+**on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
 
 ## Example
 

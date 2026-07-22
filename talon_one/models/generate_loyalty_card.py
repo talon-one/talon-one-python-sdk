@@ -43,16 +43,13 @@ class GenerateLoyaltyCard(BaseModel):
             raise ValueError("must be one of enum values ('active', 'inactive')")
         return value
 
-    @field_validator('card_identifier')
+    @field_validator('card_identifier', mode="before")
     def card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 

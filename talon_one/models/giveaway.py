@@ -34,7 +34,7 @@ class Giveaway(BaseModel):
     pool_id: StrictInt = Field(description="The ID of the pool to return giveaway codes from.", alias="poolId", json_schema_extra={"examples": [1]})
     start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the giveaway becomes valid.", alias="startDate", json_schema_extra={"examples": ["2022-01-02T15:04:05Z07:00"]})
     end_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the giveaway becomes invalid.", alias="endDate", json_schema_extra={"examples": ["2023-01-02T15:04:05Z07:00"]})
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this giveaway.")
     used: Optional[StrictBool] = Field(default=None, description="Indicates whether this giveaway code was given before.", json_schema_extra={"examples": [True]})
     import_id: Optional[StrictInt] = Field(default=None, description="The ID of the Import which created this giveaway.", alias="importId", json_schema_extra={"examples": [4]})
     profile_integration_id: Optional[StrictStr] = Field(default=None, description="The third-party integration ID of the customer profile that was awarded the giveaway, if the giveaway was awarded.", alias="profileIntegrationId", json_schema_extra={"examples": ["R195412"]})

@@ -49,39 +49,30 @@ class LoyaltyCard(BaseModel):
     batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch in which the loyalty card was created.", alias="batchId", json_schema_extra={"examples": ["wdefpov"]})
     __properties: ClassVar[List[str]] = ["id", "created", "programID", "programName", "programTitle", "status", "blockReason", "identifier", "usersPerCardLimit", "profiles", "ledger", "subledgers", "modified", "oldCardIdentifier", "newCardIdentifier", "batchId"]
 
-    @field_validator('identifier')
+    @field_validator('identifier', mode="before")
     def identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
-    @field_validator('old_card_identifier')
+    @field_validator('old_card_identifier', mode="before")
     def old_card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 
-    @field_validator('new_card_identifier')
+    @field_validator('new_card_identifier', mode="before")
     def new_card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 

@@ -33,8 +33,8 @@ class AwardGiveawayBlock(BaseModel):
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     giveaway_pool: AwardGiveawayBlock1GiveawayPool = Field(alias="giveawayPool")
     profile: StrictStr = Field(description="The customer profile to award the giveaway to. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program.", json_schema_extra={"examples": ["Current"]})
-    on_failure: Optional[List[Any]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
-    on_error: Optional[Dict[str, List[Any]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
+    on_failure: Optional[List[PromotionBlock]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
+    on_error: Optional[Dict[str, List[PromotionBlock]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "giveawayPool", "profile", "onFailure", "onError"]
 
     @field_validator('profile')
@@ -86,6 +86,22 @@ class AwardGiveawayBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of giveaway_pool
         if self.giveaway_pool:
             _dict['giveawayPool'] = self.giveaway_pool.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
+        _items = []
+        if self.on_failure:
+            for _item_on_failure in self.on_failure:
+                if _item_on_failure:
+                    _items.append(_item_on_failure.to_dict())
+            _dict['onFailure'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each value in on_error (dict of array)
+        _field_dict_of_array = {}
+        if self.on_error:
+            for _key_on_error in self.on_error:
+                if self.on_error[_key_on_error] is not None:
+                    _field_dict_of_array[_key_on_error] = [
+                        _item.to_dict() for _item in self.on_error[_key_on_error]
+                    ]
+            _dict['onError'] = _field_dict_of_array
         return _dict
 
     @classmethod
@@ -103,9 +119,17 @@ class AwardGiveawayBlock(BaseModel):
             "tags": obj.get("tags"),
             "giveawayPool": AwardGiveawayBlock1GiveawayPool.from_dict(obj["giveawayPool"]) if obj.get("giveawayPool") is not None else None,
             "profile": obj.get("profile"),
-            "onFailure": obj.get("onFailure"),
-            "onError": obj.get("onError")
+            "onFailure": [PromotionBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None,
+            "onError": {
+                _k: [PromotionBlock.from_dict(_item) for _item in _v] if _v is not None else None
+                for _k, _v in obj["onError"].items()
+            }
+            if obj.get("onError") is not None
+            else None
         })
         return _obj
 
+from talon_one.models.promotion_block import PromotionBlock
+# TODO: Rewrite to not use raise_errors
+AwardGiveawayBlock.model_rebuild(raise_errors=False)
 

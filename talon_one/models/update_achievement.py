@@ -43,16 +43,13 @@ class UpdateAchievement(BaseModel):
     allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["name", "title", "description", "target", "period", "periodEndOverride", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z]\w+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z]\w+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z]\w+$/")
         return value
 

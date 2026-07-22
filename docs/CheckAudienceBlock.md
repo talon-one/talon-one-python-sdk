@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **operator** | **str** | An indicator of how the block compares its elements. | 
 **profile** | **str** | The customer profile to check against the audience. &#x60;Current&#x60; targets the customer in the current session; &#x60;Advocate&#x60; targets the person who invited their friend via referral program. | 
 **audience** | [**CheckAudienceBlock1Audience**](CheckAudienceBlock1Audience.md) |  | 
-**on_failure** | **List[object]** | Promotion blocks evaluated when this block fails or returns false. | [optional] 
+**on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
 
 ## Example
 

@@ -39,23 +39,17 @@ class UpdateCustomEffect(BaseModel):
     params: Optional[List[TemplateArgDef]] = Field(default=None, description="Array of template argument definitions.")
     __properties: ClassVar[List[str]] = ["applicationIds", "isPerItem", "name", "title", "payload", "description", "enabled", "params"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z](\w|\s)*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z](\w|\s)*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z](\w|\s)*$/")
         return value
 
-    @field_validator('title')
+    @field_validator('title', mode="before")
     def title_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
             raise ValueError(r"must validate the regular expression /^[^[:cntrl:]\s][^[:cntrl:]]*$/")
         return value
 

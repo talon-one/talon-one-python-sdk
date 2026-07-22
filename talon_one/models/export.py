@@ -33,7 +33,7 @@ class Export(BaseModel):
     account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
     user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId", json_schema_extra={"examples": [388]})
     entity: StrictStr = Field(description="The name of the entity that was exported.")
-    filter: Dict[str, Any] = Field(description="Arbitrary properties associated with this campaign.")
+    filter: Dict[str, Any] = Field(description="Map of keys and values that were used to filter the exported rows.")
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "userId", "entity", "filter"]
 
     @field_validator('entity')

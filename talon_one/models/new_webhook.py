@@ -42,13 +42,10 @@ class NewWebhook(BaseModel):
     authentication_id: Optional[StrictInt] = Field(default=None, description="The ID of the credential that this webhook is using.", alias="authenticationId", json_schema_extra={"examples": [1]})
     __properties: ClassVar[List[str]] = ["applicationIds", "title", "description", "draft", "verb", "url", "headers", "payload", "params", "enabled", "authenticationId"]
 
-    @field_validator('title')
+    @field_validator('title', mode="before")
     def title_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z][A-Za-z0-9_.!~*\'() -]*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z][A-Za-z0-9_.!~*\'() -]*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z][A-Za-z0-9_.!~*'() -]*$/")
         return value
 

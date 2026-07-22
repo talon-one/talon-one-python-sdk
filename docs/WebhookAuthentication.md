@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **webhooks** | [**List[WebhookAuthenticationWebhookRef]**](WebhookAuthenticationWebhookRef.md) |  | 
 **name** | **str** | The name of the webhook authentication. | 
 **type** | **str** |  | 
-**data** | **object** |  | 
+**data** | [**WebhookAuthenticationAllOfData**](WebhookAuthenticationAllOfData.md) |  | 
 
 ## Example
 

@@ -35,11 +35,34 @@ class TestCampaignSetNode(unittest.TestCase):
         model = CampaignSetNode()
         if include_optional:
             return CampaignSetNode(
-                type = 'type'
+                type = 'type',
+                name = 'name',
+                operator = 'ALL',
+                elements = [
+                    talon_one.models.campaign_set_node.CampaignSetNode(
+                        type = 'type', )
+                    ],
+                group_id = 56,
+                locked = True,
+                description = '',
+                evaluation_mode = 'stackable',
+                evaluation_scope = 'cartItem',
+                campaign_id = 56
             )
         else:
             return CampaignSetNode(
                 type = 'type',
+                name = 'name',
+                operator = 'ALL',
+                elements = [
+                    talon_one.models.campaign_set_node.CampaignSetNode(
+                        type = 'type', )
+                    ],
+                group_id = 56,
+                locked = True,
+                evaluation_mode = 'stackable',
+                evaluation_scope = 'cartItem',
+                campaign_id = 56,
         )
         """
 

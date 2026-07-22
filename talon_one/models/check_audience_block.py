@@ -34,7 +34,7 @@ class CheckAudienceBlock(BaseModel):
     operator: StrictStr = Field(description="An indicator of how the block compares its elements.", json_schema_extra={"examples": ["member"]})
     profile: StrictStr = Field(description="The customer profile to check against the audience. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program.", json_schema_extra={"examples": ["Current"]})
     audience: CheckAudienceBlock1Audience
-    on_failure: Optional[List[Any]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    on_failure: Optional[List[PromotionBlock]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "profile", "audience", "onFailure"]
 
     @field_validator('operator')
@@ -93,6 +93,13 @@ class CheckAudienceBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of audience
         if self.audience:
             _dict['audience'] = self.audience.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
+        _items = []
+        if self.on_failure:
+            for _item_on_failure in self.on_failure:
+                if _item_on_failure:
+                    _items.append(_item_on_failure.to_dict())
+            _dict['onFailure'] = _items
         return _dict
 
     @classmethod
@@ -111,8 +118,11 @@ class CheckAudienceBlock(BaseModel):
             "operator": obj.get("operator"),
             "profile": obj.get("profile"),
             "audience": CheckAudienceBlock1Audience.from_dict(obj["audience"]) if obj.get("audience") is not None else None,
-            "onFailure": obj.get("onFailure")
+            "onFailure": [PromotionBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj
 
+from talon_one.models.promotion_block import PromotionBlock
+# TODO: Rewrite to not use raise_errors
+CheckAudienceBlock.model_rebuild(raise_errors=False)
 

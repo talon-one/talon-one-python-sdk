@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **method** | **str** | API method for this webhook. | 
 **relative_url** | **str** | The relative URL corresponding to each integration template. | 
 **headers** | **List[str]** | The list of HTTP headers for this integration template. | 
-**policy** | **object** | The outgoing integration policy specific to each integration type. | 
+**policy** | [**OutgoingIntegrationConfigurationPolicy**](OutgoingIntegrationConfigurationPolicy.md) |  | 
 
 ## Example
 

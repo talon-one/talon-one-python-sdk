@@ -35,16 +35,13 @@ class LoyaltyCardBatch(BaseModel):
     card_code_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="cardCodeSettings")
     __properties: ClassVar[List[str]] = ["numberOfCards", "batchId", "status", "cardCodeSettings"]
 
-    @field_validator('batch_id')
+    @field_validator('batch_id', mode="before")
     def batch_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9_-]*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9_-]*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9_-]*$/")
         return value
 

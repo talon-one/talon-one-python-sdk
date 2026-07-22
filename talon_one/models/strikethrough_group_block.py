@@ -31,9 +31,9 @@ class StrikethroughGroupBlock(BaseModel):
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="Logical operator applied across child blocks. `all` requires every child to pass, `atLeastOne` requires at least one, `none` requires all to fail.")
-    blocks: List[Any] = Field(description="Child blocks evaluated according to the operator.")
-    on_failure: Optional[List[Any]] = Field(default=None, description="Strikethrough blocks evaluated when this block fails or returns false.", alias="onFailure")
-    on_error: Optional[Dict[str, List[Any]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
+    blocks: List[StrikethroughBlock] = Field(description="Child blocks evaluated according to the operator.")
+    on_failure: Optional[List[StrikethroughBlock]] = Field(default=None, description="Strikethrough blocks evaluated when this block fails or returns false.", alias="onFailure")
+    on_error: Optional[Dict[str, List[StrikethroughBlock]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "blocks", "onFailure", "onError"]
 
     @field_validator('operator')
@@ -82,6 +82,29 @@ class StrikethroughGroupBlock(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in blocks (list)
+        _items = []
+        if self.blocks:
+            for _item_blocks in self.blocks:
+                if _item_blocks:
+                    _items.append(_item_blocks.to_dict())
+            _dict['blocks'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
+        _items = []
+        if self.on_failure:
+            for _item_on_failure in self.on_failure:
+                if _item_on_failure:
+                    _items.append(_item_on_failure.to_dict())
+            _dict['onFailure'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each value in on_error (dict of array)
+        _field_dict_of_array = {}
+        if self.on_error:
+            for _key_on_error in self.on_error:
+                if self.on_error[_key_on_error] is not None:
+                    _field_dict_of_array[_key_on_error] = [
+                        _item.to_dict() for _item in self.on_error[_key_on_error]
+                    ]
+            _dict['onError'] = _field_dict_of_array
         return _dict
 
     @classmethod
@@ -98,10 +121,18 @@ class StrikethroughGroupBlock(BaseModel):
             "type": obj.get("type"),
             "tags": obj.get("tags"),
             "operator": obj.get("operator"),
-            "blocks": obj.get("blocks"),
-            "onFailure": obj.get("onFailure"),
-            "onError": obj.get("onError")
+            "blocks": [StrikethroughBlock.from_dict(_item) for _item in obj["blocks"]] if obj.get("blocks") is not None else None,
+            "onFailure": [StrikethroughBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None,
+            "onError": {
+                _k: [StrikethroughBlock.from_dict(_item) for _item in _v] if _v is not None else None
+                for _k, _v in obj["onError"].items()
+            }
+            if obj.get("onError") is not None
+            else None
         })
         return _obj
 
+from talon_one.models.strikethrough_block import StrikethroughBlock
+# TODO: Rewrite to not use raise_errors
+StrikethroughGroupBlock.model_rebuild(raise_errors=False)
 

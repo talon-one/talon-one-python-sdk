@@ -55,23 +55,17 @@ class Attribute(BaseModel):
             raise ValueError("must be one of enum values ('Application', 'Campaign', 'CustomerProfile', 'CustomerSession', 'CartItem', 'Coupon', 'Event', 'Giveaway', 'LoyaltyCard', 'Referral', 'Store')")
         return value
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z]\w*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z]\w*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z]\w*$/")
         return value
 
-    @field_validator('title')
+    @field_validator('title', mode="before")
     def title_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z][A-Za-z0-9_.!~*\'() -]*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z][A-Za-z0-9_.!~*\'() -]*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z][A-Za-z0-9_.!~*'() -]*$/")
         return value
 

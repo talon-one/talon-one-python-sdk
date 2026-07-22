@@ -49,6 +49,10 @@ class TestRisk(unittest.TestCase):
                 reported_date = '2026-06-05T06:26:13.698884Z',
                 affected_entity_count = 4437,
                 description = 'Unusual discount usage detected for 4437 customer profiles.',
+                discard_reason = 'expected_behavior',
+                status_comment = 'Investigated with the customer and fixed the loyalty rule.',
+                status_changed_by = 42,
+                status_changed_at = '2026-06-06T09:12:45.000000Z',
                 modified = '2026-06-05T06:26:13.698884Z'
             )
         else:

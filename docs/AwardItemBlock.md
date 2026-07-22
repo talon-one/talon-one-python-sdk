@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **name** | **str** | The display name of the item to award. | 
 **quantity** | **str** | The number of items to award. Supports template placeholders (e.g. \&quot;{{$Session.Total / 2}}\&quot;) for dynamic quantities. | 
 **partial** | **bool** | When set to &#x60;true&#x60;, applies a partial item reward if the remaining budget is insufficient to award the full reward. | [optional] 
-**on_failure** | **List[object]** | Blocks evaluated when this block fails or returns false. | [optional] 
-**on_error** | **Dict[str, List[object]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
+**on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Blocks evaluated when this block fails or returns false. | [optional] 
+**on_error** | **Dict[str, List[PromotionBlock]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
 
 ## Example
 

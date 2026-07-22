@@ -41,13 +41,10 @@ class CampaignCollectionWithoutPayload(BaseModel):
     campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [7]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "description", "name", "modifiedBy", "createdBy", "applicationId", "campaignId"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
             raise ValueError(r"must validate the regular expression /^[^[:cntrl:]\s][^[:cntrl:]]*$/")
         return value
 

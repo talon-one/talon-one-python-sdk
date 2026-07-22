@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **processed_at** | **datetime** | Timestamp when the request was approved or rejected. | [optional] 
 **processing_note** | **str** | Notes attached by the admin when rejecting or approving a request. | [optional] 
 **processed_by_user** | **str** | Email address of the admin who approved or rejected the support request. | [optional] 
+**coupon_code** | **str** | Coupon code associated with the approved support request. | [optional] 
 
 ## Example
 

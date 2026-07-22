@@ -35,7 +35,7 @@ class TestBaseNotification(unittest.TestCase):
         model = BaseNotification()
         if include_optional:
             return BaseNotification(
-                policy = talon_one.models.policy.policy(),
+                policy = talon_one.models.base_notification_policy.BaseNotificationPolicy(),
                 enabled = True,
                 webhook = None,
                 id = 6,
@@ -43,7 +43,7 @@ class TestBaseNotification(unittest.TestCase):
             )
         else:
             return BaseNotification(
-                policy = talon_one.models.policy.policy(),
+                policy = talon_one.models.base_notification_policy.BaseNotificationPolicy(),
                 webhook = None,
                 id = 6,
                 type = 'loyalty_added_deducted_points',
