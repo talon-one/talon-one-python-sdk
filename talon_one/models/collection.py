@@ -43,13 +43,10 @@ class Collection(BaseModel):
     payload: Optional[Annotated[List[StrictStr], Field(max_length=50)]] = Field(default=None, description="The content of the collection.", json_schema_extra={"examples": [["KTL-WH-ET-1", "KTL-BL-ET-1"]]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "description", "subscribedApplicationsIds", "name", "modifiedBy", "createdBy", "applicationId", "campaignId", "payload"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
             raise ValueError(r"must validate the regular expression /^[^[:cntrl:]\s][^[:cntrl:]]*$/")
         return value
 

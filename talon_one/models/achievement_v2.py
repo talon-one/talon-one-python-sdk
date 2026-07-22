@@ -52,13 +52,10 @@ class AchievementV2(BaseModel):
     timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.", json_schema_extra={"examples": ["Europe/Berlin"]})
     __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "subscribedApplications", "userId", "createdBy", "periodEndOverride", "hasProgress", "status", "sandbox", "timezone"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z]\w+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z]\w+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z]\w+$/")
         return value
 

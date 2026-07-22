@@ -35,12 +35,28 @@ class TestPromotionCheckAttributeBlock(unittest.TestCase):
         model = PromotionCheckAttributeBlock()
         if include_optional:
             return PromotionCheckAttributeBlock(
+                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                type = '',
+                tags = [
+                    ''
+                    ],
+                operator = 'greaterThan',
+                attribute = '$Session.Total',
+                value = None,
+                min = None,
+                max = None,
+                values = None,
+                count = None,
                 on_failure = [
                     null
                     ]
             )
         else:
             return PromotionCheckAttributeBlock(
+                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                type = '',
+                operator = 'greaterThan',
+                attribute = '$Session.Total',
         )
         """
 

@@ -32,13 +32,10 @@ class CodeGeneratorSettings(BaseModel):
     coupon_pattern: Annotated[str, Field(min_length=3, strict=True, max_length=100)] = Field(description="The pattern used to generate codes, such as coupon codes, referral codes, and loyalty cards. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="couponPattern", json_schema_extra={"examples": ["SUMMER-####-####"]})
     __properties: ClassVar[List[str]] = ["validCharacters", "couponPattern"]
 
-    @field_validator('coupon_pattern')
+    @field_validator('coupon_pattern', mode="before")
     def coupon_pattern_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@#-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@#-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@#-]+$/")
         return value
 

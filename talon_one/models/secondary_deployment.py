@@ -39,13 +39,10 @@ class SecondaryDeployment(BaseModel):
     deleted_at: Optional[datetime] = Field(default=None, description="Timestamp when the deployment was deleted.", alias="deletedAt", json_schema_extra={"examples": ["2023-01-18T16:00:00.700763Z"]})
     __properties: ClassVar[List[str]] = ["id", "name", "userId", "status", "createdAt", "activeAt", "failedAt", "deletedAt"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-z0-9]+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-z0-9]+$", value):
             raise ValueError(r"must validate the regular expression /^[a-z0-9]+$/")
         return value
 

@@ -38,16 +38,13 @@ class RollbackAddedLoyaltyPointsEffectProps(BaseModel):
     card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card on which these points were originally added.", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     __properties: ClassVar[List[str]] = ["programId", "subLedgerId", "value", "recipientIntegrationId", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier"]
 
-    @field_validator('card_identifier')
+    @field_validator('card_identifier', mode="before")
     def card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 

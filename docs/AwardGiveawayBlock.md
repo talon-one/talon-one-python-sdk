@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
 **giveaway_pool** | [**AwardGiveawayBlock1GiveawayPool**](AwardGiveawayBlock1GiveawayPool.md) |  | 
 **profile** | **str** | The customer profile to award the giveaway to. &#x60;Current&#x60; targets the customer in the current session; &#x60;Advocate&#x60; targets the person who invited their friend via referral program. | 
-**on_failure** | **List[object]** | Blocks evaluated when this block fails or returns false. | [optional] 
-**on_error** | **Dict[str, List[object]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
+**on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Blocks evaluated when this block fails or returns false. | [optional] 
+**on_error** | **Dict[str, List[PromotionBlock]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
 
 ## Example
 

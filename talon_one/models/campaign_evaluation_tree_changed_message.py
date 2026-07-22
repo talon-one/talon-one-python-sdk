@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.application_notification import ApplicationNotification
+from talon_one.models.campaign_evaluation_tree_changed_notification import CampaignEvaluationTreeChangedNotification
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,7 +30,7 @@ class CampaignEvaluationTreeChangedMessage(BaseModel):
     """ # noqa: E501
     notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType", json_schema_extra={"examples": ["CampaignNotification"]})
     total_result_size: StrictInt = Field(description="The total size of the result set.", alias="TotalResultSize")
-    data: Optional[List[ApplicationNotification]] = Field(default=None, description="The array of changes.", alias="Data")
+    data: Optional[List[CampaignEvaluationTreeChangedNotification]] = Field(default=None, description="The array of changes.", alias="Data")
     __properties: ClassVar[List[str]] = ["NotificationType", "TotalResultSize", "Data"]
 
     @field_validator('notification_type')
@@ -100,7 +100,7 @@ class CampaignEvaluationTreeChangedMessage(BaseModel):
         _obj = cls.model_validate({
             "NotificationType": obj.get("NotificationType"),
             "TotalResultSize": obj.get("TotalResultSize"),
-            "Data": [ApplicationNotification.from_dict(_item) for _item in obj["Data"]] if obj.get("Data") is not None else None
+            "Data": [CampaignEvaluationTreeChangedNotification.from_dict(_item) for _item in obj["Data"]] if obj.get("Data") is not None else None
         })
         return _obj
 

@@ -42,7 +42,7 @@ class CouponCreationJob(BaseModel):
     expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:15:22Z"]})
     number_of_coupons: Annotated[int, Field(le=5000000, strict=True, ge=1)] = Field(description="The number of new coupon codes to generate for the campaign.", alias="numberOfCoupons", json_schema_extra={"examples": [200000]})
     coupon_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="couponSettings")
-    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with this campaign.")
+    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with coupons.")
     is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory", json_schema_extra={"examples": [False]})
     batch_id: StrictStr = Field(description="The batch ID coupons created by this job will bear.", alias="batchId", json_schema_extra={"examples": ["tqyrgahe"]})
     status: StrictStr = Field(description="The current status of this request. Possible values: - `pending verification` - `pending` - `completed` - `failed` - `coupon pattern full` ", json_schema_extra={"examples": ["pending"]})

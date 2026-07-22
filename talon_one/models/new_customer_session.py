@@ -36,7 +36,7 @@ class NewCustomerSession(BaseModel):
     cart_items: Optional[List[CartItem]] = Field(default=None, description="Serialized JSON representation.", alias="cartItems")
     identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers). ", json_schema_extra={"examples": [["91.11.156.141"]]})
     total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total sum of the cart in one session.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="A key-value map of the sessions attributes. The potentially valid attributes are configured in your accounts developer settings. ")
     __properties: ClassVar[List[str]] = ["profileId", "coupon", "referral", "state", "cartItems", "identifiers", "total", "attributes"]
 
     @field_validator('state')

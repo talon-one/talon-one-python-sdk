@@ -42,8 +42,12 @@ class Risk(BaseModel):
     reported_date: datetime = Field(description="The time the ML service reported this risk.", alias="reportedDate", json_schema_extra={"examples": ["2026-06-05T06:26:13.698884Z"]})
     affected_entity_count: StrictInt = Field(description="The total number of entities affected by this risk.", alias="affectedEntityCount", json_schema_extra={"examples": [4437]})
     description: Optional[StrictStr] = Field(default=None, description="Human-readable description of the detected anomaly.", json_schema_extra={"examples": ["Unusual discount usage detected for 4437 customer profiles."]})
+    discard_reason: Optional[StrictStr] = Field(default=None, description="The reason this risk was discarded. Only present on discarded risks.", alias="discardReason", json_schema_extra={"examples": ["expected_behavior"]})
+    status_comment: Optional[StrictStr] = Field(default=None, description="The free-text details of the latest reclassification action: the description for resolving confirmed risks, or the details for discarding risks. ", alias="statusComment", json_schema_extra={"examples": ["Investigated with the customer and fixed the loyalty rule."]})
+    status_changed_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who performed the latest reclassification action.", alias="statusChangedBy", json_schema_extra={"examples": [42]})
+    status_changed_at: Optional[datetime] = Field(default=None, description="The time of the latest reclassification action.", alias="statusChangedAt", json_schema_extra={"examples": ["2026-06-06T09:12:45.000000Z"]})
     modified: datetime = Field(description="Timestamp of the most recent update.", json_schema_extra={"examples": ["2026-06-05T06:26:13.698884Z"]})
-    __properties: ClassVar[List[str]] = ["id", "created", "notificationId", "featureDate", "groupKey", "applicationId", "status", "criticality", "entity", "activity", "timeFrame", "reportedDate", "affectedEntityCount", "description", "modified"]
+    __properties: ClassVar[List[str]] = ["id", "created", "notificationId", "featureDate", "groupKey", "applicationId", "status", "criticality", "entity", "activity", "timeFrame", "reportedDate", "affectedEntityCount", "description", "discardReason", "statusComment", "statusChangedBy", "statusChangedAt", "modified"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -78,6 +82,16 @@ class Risk(BaseModel):
         """Validates the enum"""
         if value not in set(['1D', '7D', '30D']):
             raise ValueError("must be one of enum values ('1D', '7D', '30D')")
+        return value
+
+    @field_validator('discard_reason')
+    def discard_reason_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['expected_behavior', 'other']):
+            raise ValueError("must be one of enum values ('expected_behavior', 'other')")
         return value
 
     model_config = ConfigDict(
@@ -145,6 +159,10 @@ class Risk(BaseModel):
             "reportedDate": obj.get("reportedDate"),
             "affectedEntityCount": obj.get("affectedEntityCount"),
             "description": obj.get("description"),
+            "discardReason": obj.get("discardReason"),
+            "statusComment": obj.get("statusComment"),
+            "statusChangedBy": obj.get("statusChangedBy"),
+            "statusChangedAt": obj.get("statusChangedAt"),
             "modified": obj.get("modified")
         })
         return _obj

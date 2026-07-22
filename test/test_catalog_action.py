@@ -35,13 +35,35 @@ class TestCatalogAction(unittest.TestCase):
         model = CatalogAction()
         if include_optional:
             return CatalogAction(
-                type = 'ADD',
-                payload = None
+                type = None,
+                payload = talon_one.models.add_price_adjustment_catalog_action.AddPriceAdjustmentCatalogAction(
+                    sku = 'SKU1241028', 
+                    adjustments = [
+                        talon_one.models.new_price_adjustment.NewPriceAdjustment(
+                            price_type = 'member', 
+                            price = 100, 
+                            reference_id = '68851723-e6fa-488f-ace9-112581e6c19b', 
+                            calculated_at = '2021-09-12T10:12:42Z', 
+                            effective_from = '2021-09-12T10:12:42Z', 
+                            effective_until = '2021-09-12T10:12:42Z', 
+                            context_id = 'Summer2025', )
+                        ], )
             )
         else:
             return CatalogAction(
-                type = 'ADD',
-                payload = None,
+                type = None,
+                payload = talon_one.models.add_price_adjustment_catalog_action.AddPriceAdjustmentCatalogAction(
+                    sku = 'SKU1241028', 
+                    adjustments = [
+                        talon_one.models.new_price_adjustment.NewPriceAdjustment(
+                            price_type = 'member', 
+                            price = 100, 
+                            reference_id = '68851723-e6fa-488f-ace9-112581e6c19b', 
+                            calculated_at = '2021-09-12T10:12:42Z', 
+                            effective_from = '2021-09-12T10:12:42Z', 
+                            effective_until = '2021-09-12T10:12:42Z', 
+                            context_id = 'Summer2025', )
+                        ], ),
         )
         """
 

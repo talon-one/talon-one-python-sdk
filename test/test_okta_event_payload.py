@@ -35,31 +35,11 @@ class TestOktaEventPayload(unittest.TestCase):
         model = OktaEventPayload()
         if include_optional:
             return OktaEventPayload(
-                data = talon_one.models.okta_event_payload_data.OktaEventPayloadData(
-                    events = [
-                        talon_one.models.okta_event.OktaEvent(
-                            event_type = 'application.user_membership.add', 
-                            target = [
-                                talon_one.models.okta_event_target.OktaEventTarget(
-                                    type = 'AppUser', 
-                                    alternate_id = 'john.doe@example.com', 
-                                    display_name = 'John Doe', )
-                                ], )
-                        ], )
+                data = {"data":{"events":[{"eventType":"application.user_membership.add","target":[{"type":"AppUser","alternateId":"john.doe@example.com","displayName":"John Doe"}]}]}}
             )
         else:
             return OktaEventPayload(
-                data = talon_one.models.okta_event_payload_data.OktaEventPayloadData(
-                    events = [
-                        talon_one.models.okta_event.OktaEvent(
-                            event_type = 'application.user_membership.add', 
-                            target = [
-                                talon_one.models.okta_event_target.OktaEventTarget(
-                                    type = 'AppUser', 
-                                    alternate_id = 'john.doe@example.com', 
-                                    display_name = 'John Doe', )
-                                ], )
-                        ], ),
+                data = {"data":{"events":[{"eventType":"application.user_membership.add","target":[{"type":"AppUser","alternateId":"john.doe@example.com","displayName":"John Doe"}]}]}},
         )
         """
 

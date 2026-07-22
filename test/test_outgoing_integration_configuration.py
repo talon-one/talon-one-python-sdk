@@ -38,14 +38,14 @@ class TestOutgoingIntegrationConfiguration(unittest.TestCase):
                 id = 6,
                 account_id = 3886,
                 type_id = 12,
-                policy = None
+                policy = talon_one.models.outgoing_integration_configuration_policy.OutgoingIntegrationConfigurationPolicy()
             )
         else:
             return OutgoingIntegrationConfiguration(
                 id = 6,
                 account_id = 3886,
                 type_id = 12,
-                policy = None,
+                policy = talon_one.models.outgoing_integration_configuration_policy.OutgoingIntegrationConfigurationPolicy(),
         )
         """
 

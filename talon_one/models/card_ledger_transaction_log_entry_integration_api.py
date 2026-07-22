@@ -46,13 +46,10 @@ class CardLedgerTransactionLogEntryIntegrationAPI(BaseModel):
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
     __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "cardIdentifier", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "validityDuration"]
 
-    @field_validator('card_identifier')
+    @field_validator('card_identifier', mode="before")
     def card_identifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
         return value
 

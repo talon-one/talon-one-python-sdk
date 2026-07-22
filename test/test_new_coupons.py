@@ -49,12 +49,14 @@ class TestNewCoupons(unittest.TestCase):
                     ],
                 number_of_coupons = 1,
                 unique_prefix = '',
-                attributes = None,
+                attributes = {venueId=12},
                 recipient_integration_id = 'URNGV8294NV',
                 valid_characters = [A, B, G, Y],
                 coupon_pattern = 'SUMMER-#####',
                 is_reservation_mandatory = False,
-                implicitly_reserved = False
+                implicitly_reserved = False,
+                support_request_id = 42,
+                support_request_note = 'Approved as compensation for the delayed order.'
             )
         else:
             return NewCoupons(

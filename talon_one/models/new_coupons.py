@@ -38,13 +38,15 @@ class NewCoupons(BaseModel):
     limits: Optional[List[LimitConfig]] = Field(default=None, description="Limits configuration for a coupon. These limits will override the limits set from the campaign.  **Note:** Only usable when creating a single coupon which is not tied to a specific recipient. Only per-profile limits are allowed to be configured. ")
     number_of_coupons: StrictInt = Field(description="The number of new coupon codes to generate for the campaign. Must be at least 1.", alias="numberOfCoupons", json_schema_extra={"examples": [1]})
     unique_prefix: Optional[StrictStr] = Field(default=None, description="**DEPRECATED** To create more than 20,000 coupons in one request, use [Create coupons asynchronously](https://docs.talon.one/management-api#tag/Coupons/operation/createCouponsAsync) endpoint. ", alias="uniquePrefix", json_schema_extra={"examples": [""]})
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": ["{venueId=12}"]})
     recipient_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The integration ID for this coupon's beneficiary's profile.", alias="recipientIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
     valid_characters: Optional[List[StrictStr]] = Field(default=None, description="List of characters used to generate the random parts of a code. By default, the list of characters is equivalent to the `[A-Z, 0-9]` regular expression. ", alias="validCharacters", json_schema_extra={"examples": [["A", "B", "G", "Y"]]})
     coupon_pattern: Optional[Annotated[str, Field(min_length=3, strict=True, max_length=100)]] = Field(default=None, description="The pattern used to generate coupon codes. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="couponPattern", json_schema_extra={"examples": ["SUMMER-#####"]})
     is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory", json_schema_extra={"examples": [False]})
     implicitly_reserved: Optional[StrictBool] = Field(default=None, description="An indication of whether the coupon is implicitly reserved for all customers.", alias="implicitlyReserved", json_schema_extra={"examples": [False]})
-    __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "limits", "numberOfCoupons", "uniquePrefix", "attributes", "recipientIntegrationId", "validCharacters", "couponPattern", "isReservationMandatory", "implicitlyReserved"]
+    support_request_id: Optional[StrictInt] = Field(default=None, description="The identifier of the support request to link to the coupon creation. The request must exist and not yet be processed.", alias="supportRequestId", json_schema_extra={"examples": [42]})
+    support_request_note: Optional[StrictStr] = Field(default=None, description="A note recorded when the linked support request is approved or rejected. Applied when `supportRequestId` is provided.", alias="supportRequestNote", json_schema_extra={"examples": ["Approved as compensation for the delayed order."]})
+    __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "limits", "numberOfCoupons", "uniquePrefix", "attributes", "recipientIntegrationId", "validCharacters", "couponPattern", "isReservationMandatory", "implicitlyReserved", "supportRequestId", "supportRequestNote"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -117,7 +119,9 @@ class NewCoupons(BaseModel):
             "validCharacters": obj.get("validCharacters"),
             "couponPattern": obj.get("couponPattern"),
             "isReservationMandatory": obj.get("isReservationMandatory") if obj.get("isReservationMandatory") is not None else False,
-            "implicitlyReserved": obj.get("implicitlyReserved")
+            "implicitlyReserved": obj.get("implicitlyReserved"),
+            "supportRequestId": obj.get("supportRequestId"),
+            "supportRequestNote": obj.get("supportRequestNote")
         })
         return _obj
 

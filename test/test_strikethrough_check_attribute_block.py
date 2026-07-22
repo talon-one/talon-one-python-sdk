@@ -35,12 +35,28 @@ class TestStrikethroughCheckAttributeBlock(unittest.TestCase):
         model = StrikethroughCheckAttributeBlock()
         if include_optional:
             return StrikethroughCheckAttributeBlock(
+                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                type = '',
+                tags = [
+                    ''
+                    ],
+                operator = 'greaterThan',
+                attribute = '$Session.Total',
+                value = None,
+                min = None,
+                max = None,
+                values = None,
+                count = None,
                 on_failure = [
                     null
                     ]
             )
         else:
             return StrikethroughCheckAttributeBlock(
+                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                type = '',
+                operator = 'greaterThan',
+                attribute = '$Session.Total',
         )
         """
 

@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.base_notification_policy import BaseNotificationPolicy
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,7 +28,7 @@ class BaseNotificationEntity(BaseModel):
     """
     BaseNotificationEntity
     """ # noqa: E501
-    policy: Dict[str, Any] = Field(description="Indicates which notification properties to apply.")
+    policy: BaseNotificationPolicy
     enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.")
     __properties: ClassVar[List[str]] = ["policy", "enabled"]
 
@@ -70,6 +71,9 @@ class BaseNotificationEntity(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of policy
+        if self.policy:
+            _dict['policy'] = self.policy.to_dict()
         return _dict
 
     @classmethod
@@ -82,7 +86,7 @@ class BaseNotificationEntity(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "policy": obj.get("policy"),
+            "policy": BaseNotificationPolicy.from_dict(obj["policy"]) if obj.get("policy") is not None else None,
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else True
         })
         return _obj

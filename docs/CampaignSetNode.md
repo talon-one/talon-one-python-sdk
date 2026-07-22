@@ -6,6 +6,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **str** |  | 
+**name** | **str** | Name of the set. | 
+**operator** | **str** | An indicator of how the set operates on its elements. | 
+**elements** | [**List[CampaignSetNode]**](CampaignSetNode.md) | Child elements of this set. | 
+**group_id** | **int** | The ID of the campaign set. | 
+**locked** | **bool** | An indicator of whether the campaign set is locked for modification. | 
+**description** | **str** | A description of the campaign set. | [optional] 
+**evaluation_mode** | **str** | The mode by which campaigns in the campaign evaluation group are evaluated. | 
+**evaluation_scope** | **str** | The evaluation scope of the campaign evaluation group. | 
+**campaign_id** | **int** | ID of the campaign | 
 
 ## Example
 

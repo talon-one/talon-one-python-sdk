@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **context_id** | **str** | This property is **deprecated**. Use &#x60;contextIds&#x60; instead. Defaults to an empty string.  | [optional] [default to '']
 **price** | **float** | Price of the item. | 
 **metadata** | [**BestPriorPriceMetadata**](BestPriorPriceMetadata.md) |  | 
-**target** | **object** |  | 
+**target** | [**LabelTarget**](LabelTarget.md) |  | 
 
 ## Example
 

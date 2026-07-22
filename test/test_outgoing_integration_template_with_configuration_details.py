@@ -45,7 +45,7 @@ class TestOutgoingIntegrationTemplateWithConfigurationDetails(unittest.TestCase)
                 method = 'POST',
                 relative_url = '/campaigns/trigger/send',
                 headers = [{"Content-Type": "application/json"}],
-                policy = None
+                policy = talon_one.models.outgoing_integration_configuration_policy.OutgoingIntegrationConfigurationPolicy()
             )
         else:
             return OutgoingIntegrationTemplateWithConfigurationDetails(
@@ -59,7 +59,7 @@ class TestOutgoingIntegrationTemplateWithConfigurationDetails(unittest.TestCase)
                 method = 'POST',
                 relative_url = '/campaigns/trigger/send',
                 headers = [{"Content-Type": "application/json"}],
-                policy = None,
+                policy = talon_one.models.outgoing_integration_configuration_policy.OutgoingIntegrationConfigurationPolicy(),
         )
         """
 

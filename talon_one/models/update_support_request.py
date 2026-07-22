@@ -34,8 +34,8 @@ class UpdateSupportRequest(BaseModel):
     @field_validator('request_status')
     def request_status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['approved', 'rejected']):
-            raise ValueError("must be one of enum values ('approved', 'rejected')")
+        if value not in set(['approved', 'rejected', 'expired']):
+            raise ValueError("must be one of enum values ('approved', 'rejected', 'expired')")
         return value
 
     model_config = ConfigDict(

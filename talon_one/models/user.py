@@ -40,11 +40,11 @@ class User(BaseModel):
     policy: Dict[str, Any] = Field(description="Access level of the user.", json_schema_extra={"examples": ["{Role=127}"]})
     roles: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the roles assigned to the user.", json_schema_extra={"examples": [[71]]})
     auth_method: Optional[StrictStr] = Field(default=None, description="Authentication method for this user.", alias="authMethod", json_schema_extra={"examples": ["basic_auth"]})
-    application_notification_subscriptions: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.", alias="applicationNotificationSubscriptions")
+    application_notification_subscriptions: Optional[Dict[str, Any]] = Field(default=None, description="Application notifications that the user is subscribed to.", alias="applicationNotificationSubscriptions", json_schema_extra={"examples": ["{}"]})
     last_signed_in: Optional[datetime] = Field(default=None, description="Timestamp when the user last signed in to Talon.One.", alias="lastSignedIn", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     last_accessed: Optional[datetime] = Field(default=None, description="Timestamp of the user's last activity after signing in to Talon.One.", alias="lastAccessed", json_schema_extra={"examples": ["2021-09-12T10:14:42Z"]})
     latest_feed_timestamp: Optional[datetime] = Field(default=None, description="Timestamp when the user was notified for feed.", alias="latestFeedTimestamp", json_schema_extra={"examples": ["2020-06-01T00:00:00Z"]})
-    additional_attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.", alias="additionalAttributes")
+    additional_attributes: Optional[Dict[str, Any]] = Field(default=None, description="Additional user attributes, created and used by external identity providers.", alias="additionalAttributes", json_schema_extra={"examples": ["{}"]})
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "email", "accountId", "name", "state", "inviteToken", "isAdmin", "policy", "roles", "authMethod", "applicationNotificationSubscriptions", "lastSignedIn", "lastAccessed", "latestFeedTimestamp", "additionalAttributes"]
 
     @field_validator('state')

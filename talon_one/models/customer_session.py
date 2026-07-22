@@ -40,7 +40,7 @@ class CustomerSession(BaseModel):
     cart_items: Optional[List[CartItem]] = Field(default=None, description="Serialized JSON representation.", alias="cartItems")
     identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers). ", json_schema_extra={"examples": [["91.11.156.141"]]})
     total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total sum of the cart in one session.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="A key-value map of the sessions attributes. The potentially valid attributes are configured in your accounts developer settings. ")
     first_session: StrictBool = Field(description="Indicates whether this is the first session for the customer's profile. Will always be true for anonymous sessions.", alias="firstSession", json_schema_extra={"examples": [True]})
     update_count: StrictInt = Field(description="The number of times the session was updated. When the session is created, this value is initialized to `1`.", alias="updateCount", json_schema_extra={"examples": [3]})
     discounts: Dict[str, Union[StrictFloat, StrictInt]] = Field(description="A map of labelled discount values, values will be in the same currency as the application associated with the session.")

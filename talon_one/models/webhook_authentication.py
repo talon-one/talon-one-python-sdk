@@ -19,7 +19,8 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
+from talon_one.models.webhook_authentication_all_of_data import WebhookAuthenticationAllOfData
 from talon_one.models.webhook_authentication_webhook_ref import WebhookAuthenticationWebhookRef
 from typing import Optional, Set
 from typing_extensions import Self
@@ -37,7 +38,7 @@ class WebhookAuthentication(BaseModel):
     webhooks: List[WebhookAuthenticationWebhookRef]
     name: StrictStr = Field(description="The name of the webhook authentication.", json_schema_extra={"examples": ["My basic auth"]})
     type: StrictStr
-    data: Optional[Any]
+    data: WebhookAuthenticationAllOfData
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "createdBy", "modifiedBy", "webhooks", "name", "type", "data"]
 
     @field_validator('type')
@@ -93,11 +94,9 @@ class WebhookAuthentication(BaseModel):
                 if _item_webhooks:
                     _items.append(_item_webhooks.to_dict())
             _dict['webhooks'] = _items
-        # set to None if data (nullable) is None
-        # and model_fields_set contains the field
-        if self.data is None and "data" in self.model_fields_set:
-            _dict['data'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of data
+        if self.data:
+            _dict['data'] = self.data.to_dict()
         return _dict
 
     @classmethod
@@ -118,7 +117,7 @@ class WebhookAuthentication(BaseModel):
             "webhooks": [WebhookAuthenticationWebhookRef.from_dict(_item) for _item in obj["webhooks"]] if obj.get("webhooks") is not None else None,
             "name": obj.get("name"),
             "type": obj.get("type"),
-            "data": obj.get("data")
+            "data": WebhookAuthenticationAllOfData.from_dict(obj["data"]) if obj.get("data") is not None else None
         })
         return _obj
 

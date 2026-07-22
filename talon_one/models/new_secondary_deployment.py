@@ -31,13 +31,10 @@ class NewSecondaryDeployment(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the deployment. Used as subdomain, e.g. experimental.your-company.europe-west1.talon.one", json_schema_extra={"examples": ["experimental"]})
     __properties: ClassVar[List[str]] = ["name"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-z0-9]+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-z0-9]+$", value):
             raise ValueError(r"must validate the regular expression /^[a-z0-9]+$/")
         return value
 

@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
+from talon_one.models.outgoing_integration_configuration_policy import OutgoingIntegrationConfigurationPolicy
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -36,7 +37,7 @@ class OutgoingIntegrationTemplateWithConfigurationDetails(BaseModel):
     method: StrictStr = Field(description="API method for this webhook.", json_schema_extra={"examples": ["POST"]})
     relative_url: StrictStr = Field(description="The relative URL corresponding to each integration template.", alias="relativeUrl", json_schema_extra={"examples": ["/campaigns/trigger/send"]})
     headers: List[Annotated[str, Field(strict=True)]] = Field(description="The list of HTTP headers for this integration template.", json_schema_extra={"examples": [["{\"Content-Type\": \"application/json\"}"]]})
-    policy: Dict[str, Any] = Field(description="The outgoing integration policy specific to each integration type.")
+    policy: OutgoingIntegrationConfigurationPolicy
     __properties: ClassVar[List[str]] = ["id", "integrationType", "title", "description", "payload", "method", "relativeUrl", "headers", "policy"]
 
     @field_validator('method')
@@ -85,6 +86,9 @@ class OutgoingIntegrationTemplateWithConfigurationDetails(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of policy
+        if self.policy:
+            _dict['policy'] = self.policy.to_dict()
         return _dict
 
     @classmethod
@@ -105,7 +109,7 @@ class OutgoingIntegrationTemplateWithConfigurationDetails(BaseModel):
             "method": obj.get("method"),
             "relativeUrl": obj.get("relativeUrl"),
             "headers": obj.get("headers"),
-            "policy": obj.get("policy")
+            "policy": OutgoingIntegrationConfigurationPolicy.from_dict(obj["policy"]) if obj.get("policy") is not None else None
         })
         return _obj
 

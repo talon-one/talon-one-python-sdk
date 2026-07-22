@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.promotion_block import PromotionBlock
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,7 +32,7 @@ class PromotionRuleV2(BaseModel):
     parent_id: Optional[StrictStr] = Field(default=None, description="ID of the parent rule, if any.", alias="parentId")
     title: StrictStr = Field(description="A short description of the rule.", json_schema_extra={"examples": ["10% off for loyalty members"]})
     description: Optional[StrictStr] = Field(default=None, description="A longer description of the rule.")
-    blocks: List[Any] = Field(description="The condition and effect blocks that make up this promotion rule.")
+    blocks: List[PromotionBlock] = Field(description="The condition and effect blocks that make up this promotion rule.")
     __properties: ClassVar[List[str]] = ["id", "parentId", "title", "description", "blocks"]
 
     model_config = ConfigDict(
@@ -73,6 +74,13 @@ class PromotionRuleV2(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in blocks (list)
+        _items = []
+        if self.blocks:
+            for _item_blocks in self.blocks:
+                if _item_blocks:
+                    _items.append(_item_blocks.to_dict())
+            _dict['blocks'] = _items
         return _dict
 
     @classmethod
@@ -89,7 +97,7 @@ class PromotionRuleV2(BaseModel):
             "parentId": obj.get("parentId"),
             "title": obj.get("title"),
             "description": obj.get("description"),
-            "blocks": obj.get("blocks")
+            "blocks": [PromotionBlock.from_dict(_item) for _item in obj["blocks"]] if obj.get("blocks") is not None else None
         })
         return _obj
 

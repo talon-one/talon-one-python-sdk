@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from talon_one.models.base_notification_policy import BaseNotificationPolicy
 from talon_one.models.base_notification_webhook import BaseNotificationWebhook
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +30,7 @@ class BaseNotification(BaseModel):
     """
     BaseNotification
     """ # noqa: E501
-    policy: Dict[str, Any] = Field(description="Indicates which notification properties to apply.")
+    policy: BaseNotificationPolicy
     enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.")
     webhook: BaseNotificationWebhook
     id: Annotated[int, Field(strict=True, ge=1)] = Field(description="Unique ID for this entity.", json_schema_extra={"examples": [6]})
@@ -82,6 +83,9 @@ class BaseNotification(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of policy
+        if self.policy:
+            _dict['policy'] = self.policy.to_dict()
         # override the default output from pydantic by calling `to_dict()` of webhook
         if self.webhook:
             _dict['webhook'] = self.webhook.to_dict()
@@ -97,7 +101,7 @@ class BaseNotification(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "policy": obj.get("policy"),
+            "policy": BaseNotificationPolicy.from_dict(obj["policy"]) if obj.get("policy") is not None else None,
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
             "webhook": BaseNotificationWebhook.from_dict(obj["webhook"]) if obj.get("webhook") is not None else None,
             "id": obj.get("id"),

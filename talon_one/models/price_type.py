@@ -40,13 +40,10 @@ class PriceType(BaseModel):
     targeted_audiences_ids: List[StrictInt] = Field(description="A list of the IDs of the audiences targeted by this price type.", alias="targetedAudiencesIds", json_schema_extra={"examples": [[1, 2, 3]]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "title", "description", "modified", "subscribedCatalogsIds", "targetedAudiencesIds"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z]\w*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z]\w*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z]\w*$/")
         return value
 

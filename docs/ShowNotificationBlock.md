@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **notification_type** | **str** | The type of notification to display. | 
 **title** | **str** | The notification heading shown to the customer. | 
 **body** | **str** | The notification body text. Supports template placeholders (e.g. \&quot;{{$Session.Total}}\&quot;) evaluated at rule execution time. | [optional] 
-**on_failure** | **List[object]** | Blocks evaluated when this block fails or returns false. | [optional] 
-**on_error** | **Dict[str, List[object]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
+**on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Blocks evaluated when this block fails or returns false. | [optional] 
+**on_error** | **Dict[str, List[PromotionBlock]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
 
 ## Example
 

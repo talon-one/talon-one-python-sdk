@@ -43,13 +43,10 @@ class CustomerAchievement(BaseModel):
     current_progress: Optional[AchievementProgress] = Field(default=None, alias="currentProgress")
     __properties: ClassVar[List[str]] = ["id", "name", "title", "description", "target", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "currentProgress"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z]\w+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z]\w+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z]\w+$/")
         return value
 

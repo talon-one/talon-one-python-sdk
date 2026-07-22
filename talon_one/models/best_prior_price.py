@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from talon_one.models.best_prior_price_metadata import BestPriorPriceMetadata
+from talon_one.models.label_target import LabelTarget
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -36,7 +37,7 @@ class BestPriorPrice(BaseModel):
     context_id: Optional[StrictStr] = Field(default='', description="This property is **deprecated**. Use `contextIds` instead. Defaults to an empty string. ", alias="contextId", json_schema_extra={"examples": [""]})
     price: Union[StrictFloat, StrictInt] = Field(description="Price of the item.", json_schema_extra={"examples": [99.99]})
     metadata: BestPriorPriceMetadata
-    target: Dict[str, Any]
+    target: LabelTarget
     __properties: ClassVar[List[str]] = ["id", "sku", "observedAt", "contextIds", "contextId", "price", "metadata", "target"]
 
     model_config = ConfigDict(
@@ -81,6 +82,9 @@ class BestPriorPrice(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of metadata
         if self.metadata:
             _dict['metadata'] = self.metadata.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of target
+        if self.target:
+            _dict['target'] = self.target.to_dict()
         return _dict
 
     @classmethod
@@ -100,7 +104,7 @@ class BestPriorPrice(BaseModel):
             "contextId": obj.get("contextId") if obj.get("contextId") is not None else '',
             "price": obj.get("price"),
             "metadata": BestPriorPriceMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None,
-            "target": obj.get("target")
+            "target": LabelTarget.from_dict(obj["target"]) if obj.get("target") is not None else None
         })
         return _obj
 

@@ -1847,7 +1847,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.IntegrationApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     loyalty_card_id = 'loyalty_card_id_example' # str | Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  **Important**: The loyalty card ID requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `NewCard2026%` as `NewCard2026%25`. 
-    status = active # str | Filter points based on their status. (optional) (default to active)
+    status = 'active' # str | Filter points based on their status. (optional) (default to 'active')
     subledger_id = ['subledger_id_example'] # List[str] | Filter results by one or more subledger IDs. Must be exact match. (optional)
     customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
     transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
@@ -1873,7 +1873,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **loyalty_card_id** | **str**| Identifier of the loyalty card. You can get the identifier with the [List loyalty cards](https://docs.talon.one/management-api#tag/Loyalty-cards/operation/getLoyaltyCards) endpoint.  **Important**: The loyalty card ID requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode &#x60;NewCard2026%&#x60; as &#x60;NewCard2026%25&#x60;.  | 
- **status** | **str**| Filter points based on their status. | [optional] [default to active]
+ **status** | **str**| Filter points based on their status. | [optional] [default to &#39;active&#39;]
  **subledger_id** | [**List[str]**](str.md)| Filter results by one or more subledger IDs. Must be exact match. | [optional] 
  **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
  **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
@@ -2055,7 +2055,7 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.IntegrationApi(api_client)
     loyalty_program_id = 56 # int | Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. 
     integration_id = 'integration_id_example' # str | The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. 
-    status = active # str | Filter points based on their status. (optional) (default to active)
+    status = 'active' # str | Filter points based on their status. (optional) (default to 'active')
     subledger_id = ['subledger_id_example'] # List[str] | Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers.  (optional)
     customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
     transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
@@ -2081,7 +2081,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loyalty_program_id** | **int**| Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  | 
  **integration_id** | **str**| The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  | 
- **status** | **str**| Filter points based on their status. | [optional] [default to active]
+ **status** | **str**| Filter points based on their status. | [optional] [default to &#39;active&#39;]
  **subledger_id** | [**List[str]**](str.md)| Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?subledgerId&#x3D;id1&amp;subledgerId&#x3D;id2&#x60;.  The response contains only data associated with the specified subledgers.  | [optional] 
  **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
  **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
@@ -2652,6 +2652,11 @@ To see an example of a rollback, see the
 > [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2)
 > endpoint to cancel a closed session and create a new one.
 
+> [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Also:
+> - Requests with the `Idempotency-Key` header are logged in the Talon.One access logs.
+> - Responses for idempotent requests are stored in the database and expire 24 hours after the request is sent.
+> - Idempotency keys are typically UUID keys and should not exceed 255 characters in length.
+
 
 ### Example
 
@@ -3188,6 +3193,11 @@ link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutori
 > - If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered.
 > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).
 > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation.
+
+> [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Also:
+> - Requests with the `Idempotency-Key` header are logged in the Talon.One access logs.
+> - Responses for idempotent requests are stored in the database and expire 24 hours after the request is sent.
+> - Idempotency keys are typically UUID keys and should not exceed 255 characters in length.
 
 
 ### Example
@@ -3751,6 +3761,11 @@ You can use this endpoint to:
 >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).
 > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`.
 
+> [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Also:
+> - Requests with the `Idempotency-Key` header are logged in the Talon.One access logs.
+> - Responses for idempotent requests are stored in the database and expire 24 hours after the request is sent.
+> - Idempotency keys are typically UUID keys and should not exceed 255 characters in length.
+
 
 ### Example
 
@@ -3854,6 +3869,11 @@ sessions](https://docs.talon.one/integration-api#tag/Customer-sessions).
 > To trigger the Rule Engine for customer profile updates,
 > use the [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint.
 
+> [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Also:
+> - Requests with the `Idempotency-Key` header are logged in the Talon.One access logs.
+> - Responses for idempotent requests are stored in the database and expire 24 hours after the request is sent.
+> - Idempotency keys are typically UUID keys and should not exceed 255 characters in length.
+
 
 ### Example
 
@@ -3951,6 +3971,11 @@ with Talon.One.
 > [!note] **Note**
 > - The currency for the session and the cart items in it is the currency set for the Application linked to this session.
 > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.
+
+> [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Also:
+> - Requests with the `Idempotency-Key` header are logged in the Talon.One access logs.
+> - Responses for idempotent requests are stored in the database and expire 24 hours after the request is sent.
+> - Idempotency keys are typically UUID keys and should not exceed 255 characters in length.
 
 ### Session management
 

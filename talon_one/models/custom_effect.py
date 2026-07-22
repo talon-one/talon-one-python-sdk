@@ -46,23 +46,17 @@ class CustomEffect(BaseModel):
     created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy", json_schema_extra={"examples": [216]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "applicationIds", "isPerItem", "name", "title", "payload", "description", "enabled", "params", "modifiedBy", "createdBy"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z](\w|\s)*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z](\w|\s)*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z](\w|\s)*$/")
         return value
 
-    @field_validator('title')
+    @field_validator('title', mode="before")
     def title_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^[:cntrl:]\s][^[:cntrl:]]*$", value):
             raise ValueError(r"must validate the regular expression /^[^[:cntrl:]\s][^[:cntrl:]]*$/")
         return value
 

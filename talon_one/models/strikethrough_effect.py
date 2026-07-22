@@ -20,6 +20,8 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from talon_one.models.label_target import LabelTarget
+from talon_one.models.strikethrough_effect_props import StrikethroughEffectProps
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,13 +35,13 @@ class StrikethroughEffect(BaseModel):
     rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex", json_schema_extra={"examples": [2]})
     rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Add 2 points"]})
     type: StrictStr = Field(description="The type of this effect.", json_schema_extra={"examples": ["setDiscountPerItem"]})
-    props: Dict[str, Any] = Field(description="Arbitrary properties associated with this effect type.")
+    props: StrikethroughEffectProps = Field(description="Arbitrary properties associated with this effect type.")
     start_time: Optional[datetime] = Field(default=None, description="The start of the time frame where the effect is active in UTC.", alias="startTime", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
     end_time: Optional[datetime] = Field(default=None, description="The end of the time frame where the effect is active in UTC.", alias="endTime", json_schema_extra={"examples": ["2021-10-01T02:00:00Z"]})
     selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for this cart item (e.g. the price for members only).", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
     selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice", json_schema_extra={"examples": [100]})
     adjustment_reference_id: Optional[StrictStr] = Field(default=None, description="The reference identifier of the selected price adjustment for this cart item.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
-    targets: Optional[List[Dict[str, Any]]] = Field(default=None, description="A list of entities (e.g. audiences) targeted by this effect.")
+    targets: Optional[List[LabelTarget]] = Field(default=None, description="A list of entities (e.g. audiences) targeted by this effect.")
     __properties: ClassVar[List[str]] = ["campaignId", "rulesetId", "ruleIndex", "ruleName", "type", "props", "startTime", "endTime", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "targets"]
 
     model_config = ConfigDict(
@@ -81,6 +83,16 @@ class StrikethroughEffect(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of props
+        if self.props:
+            _dict['props'] = self.props.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
+        _items = []
+        if self.targets:
+            for _item_targets in self.targets:
+                if _item_targets:
+                    _items.append(_item_targets.to_dict())
+            _dict['targets'] = _items
         return _dict
 
     @classmethod
@@ -98,13 +110,13 @@ class StrikethroughEffect(BaseModel):
             "ruleIndex": obj.get("ruleIndex"),
             "ruleName": obj.get("ruleName"),
             "type": obj.get("type"),
-            "props": obj.get("props"),
+            "props": StrikethroughEffectProps.from_dict(obj["props"]) if obj.get("props") is not None else None,
             "startTime": obj.get("startTime"),
             "endTime": obj.get("endTime"),
             "selectedPriceType": obj.get("selectedPriceType"),
             "selectedPrice": obj.get("selectedPrice"),
             "adjustmentReferenceId": obj.get("adjustmentReferenceId"),
-            "targets": obj.get("targets")
+            "targets": [LabelTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
         })
         return _obj
 

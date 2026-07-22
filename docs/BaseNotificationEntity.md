@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**policy** | **object** | Indicates which notification properties to apply. | 
+**policy** | [**BaseNotificationPolicy**](BaseNotificationPolicy.md) |  | 
 **enabled** | **bool** | Indicates whether the notification is activated. | [optional] [default to True]
 
 ## Example

@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
+from talon_one.models.outgoing_integration_configuration_policy import OutgoingIntegrationConfigurationPolicy
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,7 +31,7 @@ class OutgoingIntegrationConfiguration(BaseModel):
     id: StrictInt = Field(description="Unique ID for this entity.", json_schema_extra={"examples": [6]})
     account_id: StrictInt = Field(description="The ID of the account to which this configuration belongs.", alias="accountId", json_schema_extra={"examples": [3886]})
     type_id: StrictInt = Field(description="The outgoing integration type ID.", alias="typeId", json_schema_extra={"examples": [12]})
-    policy: Dict[str, Any] = Field(description="The outgoing integration policy specific to each integration type.")
+    policy: OutgoingIntegrationConfigurationPolicy
     __properties: ClassVar[List[str]] = ["id", "accountId", "typeId", "policy"]
 
     model_config = ConfigDict(
@@ -72,6 +73,9 @@ class OutgoingIntegrationConfiguration(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of policy
+        if self.policy:
+            _dict['policy'] = self.policy.to_dict()
         return _dict
 
     @classmethod
@@ -87,7 +91,7 @@ class OutgoingIntegrationConfiguration(BaseModel):
             "id": obj.get("id"),
             "accountId": obj.get("accountId"),
             "typeId": obj.get("typeId"),
-            "policy": obj.get("policy")
+            "policy": OutgoingIntegrationConfigurationPolicy.from_dict(obj["policy"]) if obj.get("policy") is not None else None
         })
         return _obj
 

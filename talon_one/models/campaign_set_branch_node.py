@@ -19,7 +19,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.campaign_set_node import CampaignSetNode
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -137,4 +136,7 @@ class CampaignSetBranchNode(BaseModel):
         })
         return _obj
 
+from talon_one.models.campaign_set_node import CampaignSetNode
+# TODO: Rewrite to not use raise_errors
+CampaignSetBranchNode.model_rebuild(raise_errors=False)
 

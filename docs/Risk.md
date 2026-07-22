@@ -20,6 +20,10 @@ Name | Type | Description | Notes
 **reported_date** | **datetime** | The time the ML service reported this risk. | 
 **affected_entity_count** | **int** | The total number of entities affected by this risk. | 
 **description** | **str** | Human-readable description of the detected anomaly. | [optional] 
+**discard_reason** | **str** | The reason this risk was discarded. Only present on discarded risks. | [optional] 
+**status_comment** | **str** | The free-text details of the latest reclassification action: the description for resolving confirmed risks, or the details for discarding risks.  | [optional] 
+**status_changed_by** | **int** | The ID of the user who performed the latest reclassification action. | [optional] 
+**status_changed_at** | **datetime** | The time of the latest reclassification action. | [optional] 
 **modified** | **datetime** | Timestamp of the most recent update. | 
 
 ## Example

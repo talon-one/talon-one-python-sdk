@@ -44,7 +44,8 @@ class SupportRequest(BaseModel):
     processed_at: Optional[datetime] = Field(default=None, description="Timestamp when the request was approved or rejected.", alias="processedAt", json_schema_extra={"examples": ["2025-07-20T22:10:00Z"]})
     processing_note: Optional[StrictStr] = Field(default=None, description="Notes attached by the admin when rejecting or approving a request.", alias="processingNote", json_schema_extra={"examples": ["Rejected as the customer was awarded points already."]})
     processed_by_user: Optional[StrictStr] = Field(default=None, description="Email address of the admin who approved or rejected the support request.", alias="processedByUser", json_schema_extra={"examples": ["admin.name@company.com"]})
-    __properties: ClassVar[List[str]] = ["id", "applicationId", "campaignId", "loyaltyProgramId", "subledgerId", "createdByUser", "createdAt", "customerProfileId", "requestType", "requestValue", "requestNote", "requestStatus", "processedAt", "processingNote", "processedByUser"]
+    coupon_code: Optional[StrictStr] = Field(default=None, description="Coupon code associated with the approved support request.", alias="couponCode", json_schema_extra={"examples": ["SUMMER-2025-XYZ"]})
+    __properties: ClassVar[List[str]] = ["id", "applicationId", "campaignId", "loyaltyProgramId", "subledgerId", "createdByUser", "createdAt", "customerProfileId", "requestType", "requestValue", "requestNote", "requestStatus", "processedAt", "processingNote", "processedByUser", "couponCode"]
 
     @field_validator('request_type')
     def request_type_validate_enum(cls, value):
@@ -56,8 +57,8 @@ class SupportRequest(BaseModel):
     @field_validator('request_status')
     def request_status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['pending_approval', 'approved', 'rejected']):
-            raise ValueError("must be one of enum values ('pending_approval', 'approved', 'rejected')")
+        if value not in set(['pending_approval', 'approved', 'rejected', 'expired']):
+            raise ValueError("must be one of enum values ('pending_approval', 'approved', 'rejected', 'expired')")
         return value
 
     model_config = ConfigDict(
@@ -125,7 +126,8 @@ class SupportRequest(BaseModel):
             "requestStatus": obj.get("requestStatus"),
             "processedAt": obj.get("processedAt"),
             "processingNote": obj.get("processingNote"),
-            "processedByUser": obj.get("processedByUser")
+            "processedByUser": obj.get("processedByUser"),
+            "couponCode": obj.get("couponCode")
         })
         return _obj
 

@@ -39,23 +39,17 @@ class AccountAdditionalCost(BaseModel):
     type: Optional[StrictStr] = Field(default='session', description="The type of additional cost. Possible value: - `session`: Additional cost will be added per session. - `item`: Additional cost will be added per item. - `both`: Additional cost will be added per item and session. ", json_schema_extra={"examples": ["session"]})
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "title", "description", "subscribedApplicationsIds", "type"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z]\w*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z]\w*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z]\w*$/")
         return value
 
-    @field_validator('title')
+    @field_validator('title', mode="before")
     def title_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z][A-Za-z0-9_.!~*\'() -]*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z][A-Za-z0-9_.!~*\'() -]*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z][A-Za-z0-9_.!~*'() -]*$/")
         return value
 

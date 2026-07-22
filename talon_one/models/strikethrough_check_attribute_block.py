@@ -17,19 +17,35 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.check_attribute_block import CheckAttributeBlock
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class StrikethroughCheckAttributeBlock(CheckAttributeBlock):
+class StrikethroughCheckAttributeBlock(BaseModel):
     """
     StrikethroughCheckAttributeBlock
     """ # noqa: E501
-    on_failure: Optional[List[Any]] = Field(default=None, description="Strikethrough blocks evaluated when this block fails or returns false.", alias="onFailure")
+    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
+    tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
+    operator: StrictStr = Field(description="The comparison operator applied to the attribute.", json_schema_extra={"examples": ["greaterThan"]})
+    attribute: StrictStr = Field(description="The attribute path identifier (e.g. \"$Session.Total\").", json_schema_extra={"examples": ["$Session.Total"]})
+    value: Optional[Any] = None
+    min: Optional[Any] = None
+    max: Optional[Any] = None
+    values: Optional[Any] = None
+    count: Optional[Any] = None
+    on_failure: Optional[List[StrikethroughBlock]] = Field(default=None, description="Strikethrough blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "min", "max", "values", "count", "onFailure"]
+
+    @field_validator('operator')
+    def operator_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf']):
+            raise ValueError("must be one of enum values ('equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -70,6 +86,13 @@ class StrikethroughCheckAttributeBlock(CheckAttributeBlock):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
+        _items = []
+        if self.on_failure:
+            for _item_on_failure in self.on_failure:
+                if _item_on_failure:
+                    _items.append(_item_on_failure.to_dict())
+            _dict['onFailure'] = _items
         # set to None if value (nullable) is None
         # and model_fields_set contains the field
         if self.value is None and "value" in self.model_fields_set:
@@ -117,8 +140,11 @@ class StrikethroughCheckAttributeBlock(CheckAttributeBlock):
             "max": obj.get("max"),
             "values": obj.get("values"),
             "count": obj.get("count"),
-            "onFailure": obj.get("onFailure")
+            "onFailure": [StrikethroughBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj
 
+from talon_one.models.strikethrough_block import StrikethroughBlock
+# TODO: Rewrite to not use raise_errors
+StrikethroughCheckAttributeBlock.model_rebuild(raise_errors=False)
 

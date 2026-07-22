@@ -6,8 +6,8 @@ Definition of all the properties that are needed for a single catalog sync actio
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | The type of sync action. | 
-**payload** | **object** |  | 
+**type** | **object** |  | 
+**payload** | [**AddPriceAdjustmentCatalogAction**](AddPriceAdjustmentCatalogAction.md) |  | 
 
 ## Example
 

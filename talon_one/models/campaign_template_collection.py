@@ -32,13 +32,10 @@ class CampaignTemplateCollection(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.", json_schema_extra={"examples": ["My collection of SKUs"]})
     __properties: ClassVar[List[str]] = ["name", "description"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z](\w|\s)*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z](\w|\s)*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z](\w|\s)*$/")
         return value
 
