@@ -285,6 +285,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_exclude_price_history(self) -> None:
+        """Test case for exclude_price_history
+
+        Exclude price records from price history
+        """
+        pass
+
     def test_export_account_collection_items(self) -> None:
         """Test case for export_account_collection_items
 

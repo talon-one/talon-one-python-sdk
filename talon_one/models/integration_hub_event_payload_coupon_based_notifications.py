@@ -29,6 +29,7 @@ class IntegrationHubEventPayloadCouponBasedNotifications(BaseModel):
     """
     IntegrationHubEventPayloadCouponBasedNotifications
     """ # noqa: E501
+    event_id: StrictInt = Field(description="The ID of the integration hub event. Return this value in the delivery-status callback to mark the event delivered or failed.", alias="EventId", json_schema_extra={"examples": [123]})
     id: StrictInt = Field(alias="Id")
     created: datetime = Field(alias="Created")
     campaign_id: StrictInt = Field(alias="CampaignId")
@@ -50,7 +51,7 @@ class IntegrationHubEventPayloadCouponBasedNotifications(BaseModel):
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
     source_of_event: StrictStr = Field(alias="SourceOfEvent")
     employee_name: StrictStr = Field(alias="EmployeeName")
-    __properties: ClassVar[List[str]] = ["Id", "Created", "CampaignId", "Value", "UsageLimit", "DiscountLimit", "ReservationLimit", "StartDate", "ExpiryDate", "UsageCounter", "DiscountCounter", "DiscountRemainder", "ReferralId", "RecipientIntegrationId", "ImportId", "BatchId", "Attributes", "Limits", "PublishedAt", "SourceOfEvent", "EmployeeName"]
+    __properties: ClassVar[List[str]] = ["EventId", "Id", "Created", "CampaignId", "Value", "UsageLimit", "DiscountLimit", "ReservationLimit", "StartDate", "ExpiryDate", "UsageCounter", "DiscountCounter", "DiscountRemainder", "ReferralId", "RecipientIntegrationId", "ImportId", "BatchId", "Attributes", "Limits", "PublishedAt", "SourceOfEvent", "EmployeeName"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -110,6 +111,7 @@ class IntegrationHubEventPayloadCouponBasedNotifications(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "EventId": obj.get("EventId"),
             "Id": obj.get("Id"),
             "Created": obj.get("Created"),
             "CampaignId": obj.get("CampaignId"),

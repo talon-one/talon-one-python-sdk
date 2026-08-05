@@ -37,7 +37,9 @@ class History(BaseModel):
     price: Union[StrictFloat, StrictInt] = Field(description="Price of the item.", json_schema_extra={"examples": [99.99]})
     metadata: BestPriorPriceMetadata
     target: LabelTarget
-    __properties: ClassVar[List[str]] = ["id", "observedAt", "contextIds", "contextId", "price", "metadata", "target"]
+    excluded_at: Optional[datetime] = Field(default=None, description="The date and time when the historical price ID was excluded.", alias="excludedAt", json_schema_extra={"examples": ["2025-11-10T23:00:00Z"]})
+    exclusion_reason: Optional[StrictStr] = Field(default=None, description="The reason for excluding this historical price ID.", alias="exclusionReason", json_schema_extra={"examples": ["Incorrect contextID value"]})
+    __properties: ClassVar[List[str]] = ["id", "observedAt", "contextIds", "contextId", "price", "metadata", "target", "excludedAt", "exclusionReason"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -102,7 +104,9 @@ class History(BaseModel):
             "contextId": obj.get("contextId") if obj.get("contextId") is not None else '',
             "price": obj.get("price"),
             "metadata": BestPriorPriceMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None,
-            "target": LabelTarget.from_dict(obj["target"]) if obj.get("target") is not None else None
+            "target": LabelTarget.from_dict(obj["target"]) if obj.get("target") is not None else None,
+            "excludedAt": obj.get("excludedAt"),
+            "exclusionReason": obj.get("exclusionReason")
         })
         return _obj
 

@@ -35,6 +35,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification
         model = IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification()
         if include_optional:
             return IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(
+                event_id = 123,
                 profile_integration_id = '',
                 loyalty_program_id = 56,
                 loyalty_program_name = '',
@@ -52,6 +53,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification
             )
         else:
             return IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(
+                event_id = 123,
                 profile_integration_id = '',
                 loyalty_program_id = 56,
                 loyalty_program_name = '',

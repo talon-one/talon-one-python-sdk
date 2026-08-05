@@ -29,6 +29,7 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
     """
     IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification
     """ # noqa: E501
+    event_id: StrictInt = Field(description="The ID of the integration hub event. Return this value in the delivery-status callback to mark the event delivered or failed.", alias="EventId", json_schema_extra={"examples": [123]})
     profile_integration_id: StrictStr = Field(alias="ProfileIntegrationID")
     loyalty_program_id: StrictInt = Field(alias="LoyaltyProgramID")
     loyalty_program_name: StrictStr = Field(description="The name of the loyalty program.", alias="LoyaltyProgramName")
@@ -41,7 +42,7 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
     current_points: Union[StrictFloat, StrictInt] = Field(alias="CurrentPoints")
     actions: Optional[List[IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction]] = Field(default=None, alias="Actions")
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
-    __properties: ClassVar[List[str]] = ["ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "SessionIntegrationID", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt"]
+    __properties: ClassVar[List[str]] = ["EventId", "ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "SessionIntegrationID", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -101,6 +102,7 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "EventId": obj.get("EventId"),
             "ProfileIntegrationID": obj.get("ProfileIntegrationID"),
             "LoyaltyProgramID": obj.get("LoyaltyProgramID"),
             "LoyaltyProgramName": obj.get("LoyaltyProgramName"),

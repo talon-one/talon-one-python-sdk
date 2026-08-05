@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **price** | **float** | Price of the item. | 
 **metadata** | [**BestPriorPriceMetadata**](BestPriorPriceMetadata.md) |  | 
 **target** | [**LabelTarget**](LabelTarget.md) |  | 
+**excluded_at** | **datetime** | The date and time when the historical price ID was excluded. | [optional] 
+**exclusion_reason** | **str** | The reason for excluding this historical price ID. | [optional] 
 
 ## Example
 

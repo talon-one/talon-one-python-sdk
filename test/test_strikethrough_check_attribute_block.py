@@ -41,10 +41,15 @@ class TestStrikethroughCheckAttributeBlock(unittest.TestCase):
                     ''
                     ],
                 operator = 'greaterThan',
-                attribute = '$Session.Total',
+                attribute = None,
                 value = None,
                 min = None,
                 max = None,
+                start = None,
+                end = None,
+                start_inclusive = True,
+                end_inclusive = True,
+                timezone_insensitive = False,
                 values = None,
                 count = None,
                 on_failure = [
@@ -56,7 +61,7 @@ class TestStrikethroughCheckAttributeBlock(unittest.TestCase):
                 id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 operator = 'greaterThan',
-                attribute = '$Session.Total',
+                attribute = None,
         )
         """
 

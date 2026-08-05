@@ -62,7 +62,7 @@ class TestEffectAllOfProps(unittest.TestCase):
                 program_id = 56,
                 sub_ledger_id = '',
                 recipient_integration_id = 'URNGV8294NV',
-                start_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                start_date = '2026-04-16T15:25:37Z',
                 expiry_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 transaction_uuid = '',
                 cart_item_position = 1,
@@ -100,9 +100,9 @@ class TestEffectAllOfProps(unittest.TestCase):
                 audience_name = 'My audience',
                 achievement_id = 10,
                 achievement_name = 'FreeCoffee10Orders',
-                progress_tracker_id = 56,
+                progress_tracker_id = 42,
                 delta = 1.337,
-                target = 1.337,
+                target = 10,
                 is_just_completed = True,
                 decrease_progress_by = 1.337,
                 current_progress = 1.337,
@@ -113,7 +113,8 @@ class TestEffectAllOfProps(unittest.TestCase):
                         previous_expiry_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         new_expiry_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
                     ],
-                new_expiry_date = '2024-07-24T14:15:22Z'
+                new_expiry_date = '2024-07-24T14:15:22Z',
+                end_date = '2026-04-30T11:24:59Z'
             )
         else:
             return EffectAllOfProps(
@@ -130,6 +131,7 @@ class TestEffectAllOfProps(unittest.TestCase):
                 program_id = 56,
                 sub_ledger_id = '',
                 recipient_integration_id = 'URNGV8294NV',
+                start_date = '2026-04-16T15:25:37Z',
                 transaction_uuid = '',
                 rule_title = '',
                 new_tier_name = '',
@@ -157,9 +159,9 @@ class TestEffectAllOfProps(unittest.TestCase):
                 is_new_reservation = True,
                 achievement_id = 10,
                 achievement_name = 'FreeCoffee10Orders',
-                progress_tracker_id = 56,
+                progress_tracker_id = 42,
                 delta = 1.337,
-                target = 1.337,
+                target = 10,
                 is_just_completed = True,
                 decrease_progress_by = 1.337,
                 current_progress = 1.337,

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,19 +31,24 @@ class CheckAttributeBlockBase(BaseModel):
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="The comparison operator applied to the attribute.", json_schema_extra={"examples": ["greaterThan"]})
-    attribute: StrictStr = Field(description="The attribute path identifier (e.g. \"$Session.Total\").", json_schema_extra={"examples": ["$Session.Total"]})
+    attribute: Optional[Any]
     value: Optional[Any] = None
     min: Optional[Any] = None
     max: Optional[Any] = None
+    start: Optional[Any] = None
+    end: Optional[Any] = None
+    start_inclusive: Optional[StrictBool] = Field(default=None, description="When `true`, the `start` value is included in the range for the `within` operator.", alias="startInclusive", json_schema_extra={"examples": [True]})
+    end_inclusive: Optional[StrictBool] = Field(default=None, description="When `true`, the `end` value is included in the range for the `within` operator.", alias="endInclusive", json_schema_extra={"examples": [True]})
+    timezone_insensitive: Optional[StrictBool] = Field(default=None, description="Indicates whether the `within` operator ignores time zones and compares the wall-clock time only. When `false`, time zones are taken into account.", alias="timezoneInsensitive", json_schema_extra={"examples": [False]})
     values: Optional[Any] = None
     count: Optional[Any] = None
-    __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "min", "max", "values", "count"]
+    __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "min", "max", "start", "end", "startInclusive", "endInclusive", "timezoneInsensitive", "values", "count"]
 
     @field_validator('operator')
     def operator_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf']):
-            raise ValueError("must be one of enum values ('equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf')")
+        if value not in set(['equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf', 'after', 'before', 'within', 'not(within)']):
+            raise ValueError("must be one of enum values ('equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf', 'after', 'before', 'within', 'not(within)')")
         return value
 
     model_config = ConfigDict(
@@ -85,6 +90,11 @@ class CheckAttributeBlockBase(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if attribute (nullable) is None
+        # and model_fields_set contains the field
+        if self.attribute is None and "attribute" in self.model_fields_set:
+            _dict['attribute'] = None
+
         # set to None if value (nullable) is None
         # and model_fields_set contains the field
         if self.value is None and "value" in self.model_fields_set:
@@ -99,6 +109,16 @@ class CheckAttributeBlockBase(BaseModel):
         # and model_fields_set contains the field
         if self.max is None and "max" in self.model_fields_set:
             _dict['max'] = None
+
+        # set to None if start (nullable) is None
+        # and model_fields_set contains the field
+        if self.start is None and "start" in self.model_fields_set:
+            _dict['start'] = None
+
+        # set to None if end (nullable) is None
+        # and model_fields_set contains the field
+        if self.end is None and "end" in self.model_fields_set:
+            _dict['end'] = None
 
         # set to None if values (nullable) is None
         # and model_fields_set contains the field
@@ -130,6 +150,11 @@ class CheckAttributeBlockBase(BaseModel):
             "value": obj.get("value"),
             "min": obj.get("min"),
             "max": obj.get("max"),
+            "start": obj.get("start"),
+            "end": obj.get("end"),
+            "startInclusive": obj.get("startInclusive"),
+            "endInclusive": obj.get("endInclusive"),
+            "timezoneInsensitive": obj.get("timezoneInsensitive"),
             "values": obj.get("values"),
             "count": obj.get("count")
         })

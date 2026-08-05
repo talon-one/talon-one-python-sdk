@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,7 +32,15 @@ class AchievementReference(BaseModel):
     application_name: StrictStr = Field(description="The name of the Application associated with the campaign that references this achievement.", alias="applicationName", json_schema_extra={"examples": ["North America Storefront"]})
     campaign_id: StrictInt = Field(description="The ID of the campaign that references this achievement.", alias="campaignId", json_schema_extra={"examples": [4501]})
     campaign_name: StrictStr = Field(description="The name of the campaign that references this achievement.", alias="campaignName", json_schema_extra={"examples": ["Summer promotions"]})
-    __properties: ClassVar[List[str]] = ["achievementId", "applicationId", "applicationName", "campaignId", "campaignName"]
+    campaign_state: StrictStr = Field(description="The state of the campaign that references this achievement.", alias="campaignState", json_schema_extra={"examples": ["enabled"]})
+    __properties: ClassVar[List[str]] = ["achievementId", "applicationId", "applicationName", "campaignId", "campaignName", "campaignState"]
+
+    @field_validator('campaign_state')
+    def campaign_state_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['enabled', 'disabled', 'archived']):
+            raise ValueError("must be one of enum values ('enabled', 'disabled', 'archived')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -89,7 +97,8 @@ class AchievementReference(BaseModel):
             "applicationId": obj.get("applicationId"),
             "applicationName": obj.get("applicationName"),
             "campaignId": obj.get("campaignId"),
-            "campaignName": obj.get("campaignName")
+            "campaignName": obj.get("campaignName"),
+            "campaignState": obj.get("campaignState")
         })
         return _obj
 

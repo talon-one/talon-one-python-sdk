@@ -52,13 +52,21 @@ class TestStrikethroughBlock(unittest.TestCase):
                         null
                         ]
                     },
+                name = '10% Off',
+                value = None,
+                partial = False,
+                target = None,
                 expression = [
                     null
                     ],
-                attribute = '$Session.Total',
-                value = None,
+                attribute = None,
                 min = None,
                 max = None,
+                start = None,
+                end = None,
+                start_inclusive = True,
+                end_inclusive = True,
+                timezone_insensitive = False,
                 values = None,
                 count = None
             )
@@ -70,10 +78,14 @@ class TestStrikethroughBlock(unittest.TestCase):
                 blocks = [
                     null
                     ],
+                name = '10% Off',
+                value = None,
+                partial = False,
+                target = None,
                 expression = [
                     null
                     ],
-                attribute = '$Session.Total',
+                attribute = None,
         )
         """
 

@@ -50,7 +50,9 @@ class TestPriceHistoryResponse(unittest.TestCase):
                                     discount_value = 1.337, )
                                 ], 
                             adjustment_details = null, ), 
-                        target = talon_one.models.label_target.LabelTarget(), )
+                        target = talon_one.models.label_target.LabelTarget(), 
+                        excluded_at = '2025-11-10T23:00:00Z', 
+                        exclusion_reason = 'Incorrect contextID value', )
                     ]
             )
         else:
@@ -70,7 +72,9 @@ class TestPriceHistoryResponse(unittest.TestCase):
                                     discount_value = 1.337, )
                                 ], 
                             adjustment_details = null, ), 
-                        target = talon_one.models.label_target.LabelTarget(), )
+                        target = talon_one.models.label_target.LabelTarget(), 
+                        excluded_at = '2025-11-10T23:00:00Z', 
+                        exclusion_reason = 'Incorrect contextID value', )
                     ],
         )
         """

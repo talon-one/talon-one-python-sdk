@@ -17,12 +17,13 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
+from talon_one.models.award_discount_block import AwardDiscountBlock
 from talon_one.models.passthrough_block import PassthroughBlock
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-STRIKETHROUGHBLOCK_ONE_OF_SCHEMAS = ["PassthroughBlock", "StrikethroughCheckAttributeBlock", "StrikethroughGroupBlock"]
+STRIKETHROUGHBLOCK_ONE_OF_SCHEMAS = ["AwardDiscountBlock", "PassthroughBlock", "StrikethroughCheckAttributeBlock", "StrikethroughGroupBlock"]
 
 class StrikethroughBlock(BaseModel):
     """
@@ -30,12 +31,14 @@ class StrikethroughBlock(BaseModel):
     """
     # data type: StrikethroughGroupBlock
     oneof_schema_1_validator: Optional[StrikethroughGroupBlock] = None
+    # data type: AwardDiscountBlock
+    oneof_schema_2_validator: Optional[AwardDiscountBlock] = None
     # data type: PassthroughBlock
-    oneof_schema_2_validator: Optional[PassthroughBlock] = None
+    oneof_schema_3_validator: Optional[PassthroughBlock] = None
     # data type: StrikethroughCheckAttributeBlock
-    oneof_schema_3_validator: Optional[StrikethroughCheckAttributeBlock] = None
-    actual_instance: Optional[Union[PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock]] = None
-    one_of_schemas: Set[str] = { "PassthroughBlock", "StrikethroughCheckAttributeBlock", "StrikethroughGroupBlock" }
+    oneof_schema_4_validator: Optional[StrikethroughCheckAttributeBlock] = None
+    actual_instance: Optional[Union[AwardDiscountBlock, PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock]] = None
+    one_of_schemas: Set[str] = { "AwardDiscountBlock", "PassthroughBlock", "StrikethroughCheckAttributeBlock", "StrikethroughGroupBlock" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -66,6 +69,11 @@ class StrikethroughBlock(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `StrikethroughGroupBlock`")
         else:
             match += 1
+        # validate data type: AwardDiscountBlock
+        if not isinstance(v, AwardDiscountBlock):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `AwardDiscountBlock`")
+        else:
+            match += 1
         # validate data type: PassthroughBlock
         if not isinstance(v, PassthroughBlock):
             error_messages.append(f"Error! Input type `{type(v)}` is not `PassthroughBlock`")
@@ -78,10 +86,10 @@ class StrikethroughBlock(BaseModel):
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in StrikethroughBlock with oneOf schemas: PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in StrikethroughBlock with oneOf schemas: AwardDiscountBlock, PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in StrikethroughBlock with oneOf schemas: PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in StrikethroughBlock with oneOf schemas: AwardDiscountBlock, PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -102,6 +110,12 @@ class StrikethroughBlock(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
+        # deserialize data into AwardDiscountBlock
+        try:
+            instance.actual_instance = AwardDiscountBlock.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
         # deserialize data into PassthroughBlock
         try:
             instance.actual_instance = PassthroughBlock.from_json(json_str)
@@ -117,10 +131,10 @@ class StrikethroughBlock(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into StrikethroughBlock with oneOf schemas: PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into StrikethroughBlock with oneOf schemas: AwardDiscountBlock, PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into StrikethroughBlock with oneOf schemas: PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into StrikethroughBlock with oneOf schemas: AwardDiscountBlock, PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -134,7 +148,7 @@ class StrikethroughBlock(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], AwardDiscountBlock, PassthroughBlock, StrikethroughCheckAttributeBlock, StrikethroughGroupBlock]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None
