@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,7 +28,8 @@ class UpdateAttributeValueBlock1Target(BaseModel):
     The entity or item scope that this effect operates on.
     """ # noqa: E501
     type: StrictStr = Field(description="Identifies the target scope of the attribute update.", json_schema_extra={"examples": ["profile"]})
-    __properties: ClassVar[List[str]] = ["type"]
+    name: Optional[StrictStr] = Field(default=None, description="Identifies the name of the target when its type is set to `selector` or `globalFilter`.", json_schema_extra={"examples": ["Filter items by product"]})
+    __properties: ClassVar[List[str]] = ["type", "name"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -88,7 +89,8 @@ class UpdateAttributeValueBlock1Target(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "type": obj.get("type")
+            "type": obj.get("type"),
+            "name": obj.get("name")
         })
         return _obj
 

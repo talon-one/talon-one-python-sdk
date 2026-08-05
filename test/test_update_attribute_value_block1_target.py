@@ -35,7 +35,8 @@ class TestUpdateAttributeValueBlock1Target(unittest.TestCase):
         model = UpdateAttributeValueBlock1Target()
         if include_optional:
             return UpdateAttributeValueBlock1Target(
-                type = 'profile'
+                type = 'profile',
+                name = 'Filter items by product'
             )
         else:
             return UpdateAttributeValueBlock1Target(

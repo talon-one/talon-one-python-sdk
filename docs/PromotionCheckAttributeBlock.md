@@ -9,10 +9,15 @@ Name | Type | Description | Notes
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
 **operator** | **str** | The comparison operator applied to the attribute. | 
-**attribute** | **str** | The attribute path identifier (e.g. \&quot;$Session.Total\&quot;). | 
+**attribute** | **object** |  | 
 **value** | **object** |  | [optional] 
 **min** | **object** |  | [optional] 
 **max** | **object** |  | [optional] 
+**start** | **object** |  | [optional] 
+**end** | **object** |  | [optional] 
+**start_inclusive** | **bool** | When &#x60;true&#x60;, the &#x60;start&#x60; value is included in the range for the &#x60;within&#x60; operator. | [optional] 
+**end_inclusive** | **bool** | When &#x60;true&#x60;, the &#x60;end&#x60; value is included in the range for the &#x60;within&#x60; operator. | [optional] 
+**timezone_insensitive** | **bool** | Indicates whether the &#x60;within&#x60; operator ignores time zones and compares the wall-clock time only. When &#x60;false&#x60;, time zones are taken into account. | [optional] 
 **values** | **object** |  | [optional] 
 **count** | **object** |  | [optional] 
 **on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 

@@ -35,6 +35,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification(u
         model = IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification()
         if include_optional:
             return IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification(
+                event_id = 123,
                 profile_integration_id = '',
                 loyalty_program_id = 56,
                 loyalty_program_name = '',
@@ -51,6 +52,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification(u
             )
         else:
             return IntegrationHubEventPayloadLoyaltyProfileBasedTierUpgradeNotification(
+                event_id = 123,
                 profile_integration_id = '',
                 loyalty_program_id = 56,
                 loyalty_program_name = '',

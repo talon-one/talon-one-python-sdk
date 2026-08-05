@@ -35,6 +35,7 @@ class TestIntegrationHubPaginatedEventPayloadDataInner(unittest.TestCase):
         model = IntegrationHubPaginatedEventPayloadDataInner()
         if include_optional:
             return IntegrationHubPaginatedEventPayloadDataInner(
+                event_id = 123,
                 profile_integration_id = '',
                 loyalty_program_id = 56,
                 loyalty_program_name = '',
@@ -83,6 +84,7 @@ class TestIntegrationHubPaginatedEventPayloadDataInner(unittest.TestCase):
             )
         else:
             return IntegrationHubPaginatedEventPayloadDataInner(
+                event_id = 123,
                 profile_integration_id = '',
                 loyalty_program_id = 56,
                 loyalty_program_name = '',

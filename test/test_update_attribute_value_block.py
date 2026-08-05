@@ -49,7 +49,8 @@ class TestUpdateAttributeValueBlock(unittest.TestCase):
                     type = 'string', ),
                 value = None,
                 target = talon_one.models.update_attribute_value_block_1_target.UpdateAttributeValueBlock_1_target(
-                    type = 'profile', )
+                    type = 'profile', 
+                    name = 'Filter items by product', )
             )
         else:
             return UpdateAttributeValueBlock(
@@ -63,7 +64,8 @@ class TestUpdateAttributeValueBlock(unittest.TestCase):
                     title = 'City', 
                     type = 'string', ),
                 target = talon_one.models.update_attribute_value_block_1_target.UpdateAttributeValueBlock_1_target(
-                    type = 'profile', ),
+                    type = 'profile', 
+                    name = 'Filter items by product', ),
         )
         """
 

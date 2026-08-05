@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **activated_at** | **datetime** | Timestamp indicating when this ruleset was activated. | [optional] 
 **promotion_rules** | [**List[PromotionRuleV2]**](PromotionRuleV2.md) | Set of promotion rules. | 
 **strikethrough_rules** | [**List[StrikethroughRuleV2]**](StrikethroughRuleV2.md) | Set of strikethrough rules. | 
-**selectors** | **List[Dict[str, object]]** | Variable bindings of type selector. | [optional] 
+**selectors** | [**List[Selector]**](Selector.md) | Variable bindings of type selector. | [optional] 
 **bundles** | **List[Dict[str, object]]** | Variable bindings of type bundle. | [optional] 
 **parameters** | **List[Dict[str, object]]** | Variable bindings of type template parameter. | [optional] 
 

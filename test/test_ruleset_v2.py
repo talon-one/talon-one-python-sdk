@@ -48,7 +48,13 @@ class TestRulesetV2(unittest.TestCase):
                     null
                     ],
                 selectors = [
-                    { }
+                    talon_one.models.selector.Selector(
+                        name = 'discountedCartItems', 
+                        type = 'selector', 
+                        source = '$Session.CartItems', 
+                        steps = [
+                            null
+                            ], )
                     ],
                 bundles = [
                     { }

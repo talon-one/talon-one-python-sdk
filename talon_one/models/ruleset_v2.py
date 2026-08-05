@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.promotion_rule_v2 import PromotionRuleV2
+from talon_one.models.selector import Selector
 from talon_one.models.strikethrough_rule_v2 import StrikethroughRuleV2
 from typing import Optional, Set
 from typing_extensions import Self
@@ -38,7 +39,7 @@ class RulesetV2(BaseModel):
     activated_at: Optional[datetime] = Field(default=None, description="Timestamp indicating when this ruleset was activated.", alias="activatedAt")
     promotion_rules: List[PromotionRuleV2] = Field(description="Set of promotion rules.", alias="promotionRules")
     strikethrough_rules: List[StrikethroughRuleV2] = Field(description="Set of strikethrough rules.", alias="strikethroughRules")
-    selectors: Optional[List[Dict[str, Any]]] = Field(default=None, description="Variable bindings of type selector.")
+    selectors: Optional[List[Selector]] = Field(default=None, description="Variable bindings of type selector.")
     bundles: Optional[List[Dict[str, Any]]] = Field(default=None, description="Variable bindings of type bundle.")
     parameters: Optional[List[Dict[str, Any]]] = Field(default=None, description="Variable bindings of type template parameter.")
     __properties: ClassVar[List[str]] = ["id", "created", "userId", "campaignId", "templateId", "activatedAt", "promotionRules", "strikethroughRules", "selectors", "bundles", "parameters"]
@@ -96,6 +97,13 @@ class RulesetV2(BaseModel):
                 if _item_strikethrough_rules:
                     _items.append(_item_strikethrough_rules.to_dict())
             _dict['strikethroughRules'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in selectors (list)
+        _items = []
+        if self.selectors:
+            for _item_selectors in self.selectors:
+                if _item_selectors:
+                    _items.append(_item_selectors.to_dict())
+            _dict['selectors'] = _items
         return _dict
 
     @classmethod
@@ -116,7 +124,7 @@ class RulesetV2(BaseModel):
             "activatedAt": obj.get("activatedAt"),
             "promotionRules": [PromotionRuleV2.from_dict(_item) for _item in obj["promotionRules"]] if obj.get("promotionRules") is not None else None,
             "strikethroughRules": [StrikethroughRuleV2.from_dict(_item) for _item in obj["strikethroughRules"]] if obj.get("strikethroughRules") is not None else None,
-            "selectors": obj.get("selectors"),
+            "selectors": [Selector.from_dict(_item) for _item in obj["selectors"]] if obj.get("selectors") is not None else None,
             "bundles": obj.get("bundles"),
             "parameters": obj.get("parameters")
         })

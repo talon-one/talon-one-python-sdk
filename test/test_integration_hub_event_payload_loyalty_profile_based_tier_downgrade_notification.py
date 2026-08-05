@@ -35,6 +35,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
         model = IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification()
         if include_optional:
             return IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(
+                event_id = 123,
                 profile_integration_id = '',
                 loyalty_program_id = 56,
                 loyalty_program_name = '',
@@ -49,6 +50,7 @@ class TestIntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification
             )
         else:
             return IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(
+                event_id = 123,
                 profile_integration_id = '',
                 loyalty_program_id = 56,
                 loyalty_program_name = '',
