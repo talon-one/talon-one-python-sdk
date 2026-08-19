@@ -35,7 +35,7 @@ class TestCatalogAction(unittest.TestCase):
         model = CatalogAction()
         if include_optional:
             return CatalogAction(
-                type = None,
+                type = 'ADD',
                 payload = talon_one.models.add_price_adjustment_catalog_action.AddPriceAdjustmentCatalogAction(
                     sku = 'SKU1241028', 
                     adjustments = [
@@ -51,7 +51,7 @@ class TestCatalogAction(unittest.TestCase):
             )
         else:
             return CatalogAction(
-                type = None,
+                type = 'ADD',
                 payload = talon_one.models.add_price_adjustment_catalog_action.AddPriceAdjustmentCatalogAction(
                     sku = 'SKU1241028', 
                     adjustments = [

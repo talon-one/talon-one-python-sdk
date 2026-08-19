@@ -36,19 +36,21 @@ class TestCustomerProfileReward(unittest.TestCase):
         if include_optional:
             return CustomerProfileReward(
                 id = 6,
+                integration_id = 'reward-unlock-123',
                 reward_id = 12,
                 reward_name = 'Free coffee',
                 status = 'unlocked',
                 unlocked_at = '2026-07-01T09:00:00Z',
-                unlocked_by_integration_id = 'customer2839',
+                unlocked_by_profile_integration_id = 'customer2839',
                 used_at = '2026-07-02T10:30:00Z',
-                used_by_integration_id = 'customer2840',
+                used_by_profile_integration_id = 'customer2840',
                 loyalty_program_id = 9,
                 loyalty_card_identifier = 'summer-loyalty-card-0543'
             )
         else:
             return CustomerProfileReward(
                 id = 6,
+                integration_id = 'reward-unlock-123',
                 reward_id = 12,
                 reward_name = 'Free coffee',
                 status = 'unlocked',

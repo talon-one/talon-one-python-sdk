@@ -62,6 +62,9 @@ class TestCustomerInventory(unittest.TestCase):
                     ],
                 achievements = [
                     null
+                    ],
+                rewards = [
+                    null
                     ]
             )
         else:

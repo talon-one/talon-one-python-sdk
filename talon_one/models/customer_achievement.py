@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from talon_one.models.achievement_progress import AchievementProgress
+from talon_one.models.campaign_reference import CampaignReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -40,8 +41,11 @@ class CustomerAchievement(BaseModel):
     fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is equal to `fixed_schedule`.  **Note:** It is an RFC3339 timestamp string. ", alias="fixedStartDate", json_schema_extra={"examples": ["2024-01-15T15:04:05Z07:00"]})
     end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It is an RFC3339 timestamp string. ", alias="endDate", json_schema_extra={"examples": ["2024-02-15T15:04:05Z07:00"]})
     allow_rollback_after_completion: StrictBool = Field(description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion", json_schema_extra={"examples": [False]})
+    campaign_id: Optional[StrictInt] = Field(default=None, description="This property is **deprecated**. Use `campaignIds` (Integration API) or `referencedByCampaigns` (Management API) instead. The first campaign ID in `campaignIds`. Only returned when `campaignIds` is not empty.", alias="campaignId", json_schema_extra={"examples": [3]})
+    campaign_ids: List[StrictInt] = Field(description="The IDs of the campaigns that reference this achievement, in ascending order.", alias="campaignIds", json_schema_extra={"examples": [[1, 14, 27]]})
+    referenced_by_campaigns: List[CampaignReference] = Field(description="The campaigns that reference this achievement. They are sorted in ascending order by their `id`.", alias="referencedByCampaigns")
     current_progress: Optional[AchievementProgress] = Field(default=None, alias="currentProgress")
-    __properties: ClassVar[List[str]] = ["id", "name", "title", "description", "target", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "currentProgress"]
+    __properties: ClassVar[List[str]] = ["id", "name", "title", "description", "target", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "campaignId", "campaignIds", "referencedByCampaigns", "currentProgress"]
 
     @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
@@ -103,6 +107,13 @@ class CustomerAchievement(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in referenced_by_campaigns (list)
+        _items = []
+        if self.referenced_by_campaigns:
+            for _item_referenced_by_campaigns in self.referenced_by_campaigns:
+                if _item_referenced_by_campaigns:
+                    _items.append(_item_referenced_by_campaigns.to_dict())
+            _dict['referencedByCampaigns'] = _items
         # override the default output from pydantic by calling `to_dict()` of current_progress
         if self.current_progress:
             _dict['currentProgress'] = self.current_progress.to_dict()
@@ -128,6 +139,9 @@ class CustomerAchievement(BaseModel):
             "fixedStartDate": obj.get("fixedStartDate"),
             "endDate": obj.get("endDate"),
             "allowRollbackAfterCompletion": obj.get("allowRollbackAfterCompletion"),
+            "campaignId": obj.get("campaignId"),
+            "campaignIds": obj.get("campaignIds"),
+            "referencedByCampaigns": [CampaignReference.from_dict(_item) for _item in obj["referencedByCampaigns"]] if obj.get("referencedByCampaigns") is not None else None,
             "currentProgress": AchievementProgress.from_dict(obj["currentProgress"]) if obj.get("currentProgress") is not None else None
         })
         return _obj

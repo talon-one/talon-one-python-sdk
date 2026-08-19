@@ -51,10 +51,6 @@ class TestCreateAchievementV2(unittest.TestCase):
             )
         else:
             return CreateAchievementV2(
-                name = 'Order50Discount',
-                title = '50% off on 50th purchase.',
-                description = '50% off for every 50th purchase in a year.',
-                target = 50,
                 sandbox = True,
                 timezone = 'Europe/Berlin',
         )

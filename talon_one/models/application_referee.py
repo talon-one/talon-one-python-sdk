@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,11 +31,12 @@ class ApplicationReferee(BaseModel):
     """ # noqa: E501
     application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
     session_id: StrictStr = Field(description="Integration ID of the session in which the customer redeemed the referral.", alias="sessionId")
+    advanced_event_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The unique ID of the advanced event in which the customer redeemed the referral. Omitted when the referral was redeemed through a customer session rather than an advanced event.", alias="advancedEventIntegrationId", json_schema_extra={"examples": ["advanced_event_1234"]})
     advocate_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Integration ID of the Advocate's Profile.", alias="advocateIntegrationId")
     friend_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Integration ID of the Friend's Profile.", alias="friendIntegrationId")
     code: StrictStr = Field(description="Advocate's referral code.")
     created: datetime = Field(description="Timestamp of the moment the customer redeemed the referral.")
-    __properties: ClassVar[List[str]] = ["applicationId", "sessionId", "advocateIntegrationId", "friendIntegrationId", "code", "created"]
+    __properties: ClassVar[List[str]] = ["applicationId", "sessionId", "advancedEventIntegrationId", "advocateIntegrationId", "friendIntegrationId", "code", "created"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -90,6 +91,7 @@ class ApplicationReferee(BaseModel):
         _obj = cls.model_validate({
             "applicationId": obj.get("applicationId"),
             "sessionId": obj.get("sessionId"),
+            "advancedEventIntegrationId": obj.get("advancedEventIntegrationId"),
             "advocateIntegrationId": obj.get("advocateIntegrationId"),
             "friendIntegrationId": obj.get("friendIntegrationId"),
             "code": obj.get("code"),

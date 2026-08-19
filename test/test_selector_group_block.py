@@ -36,7 +36,7 @@ class TestSelectorGroupBlock(unittest.TestCase):
         if include_optional:
             return SelectorGroupBlock(
                 id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-                type = '',
+                type = 'group',
                 tags = [
                     ''
                     ],
@@ -48,7 +48,7 @@ class TestSelectorGroupBlock(unittest.TestCase):
         else:
             return SelectorGroupBlock(
                 id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-                type = '',
+                type = 'group',
                 operator = 'all',
                 blocks = [
                     null

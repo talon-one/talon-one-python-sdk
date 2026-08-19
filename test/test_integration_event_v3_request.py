@@ -42,6 +42,7 @@ class TestIntegrationEventV3Request(unittest.TestCase):
                 attributes = {myAttribute=myValue},
                 integration_id = '175KJPS947296',
                 connected_session_id = '175KJPS947296',
+                referral_code = 'NT2K54D9',
                 loyalty_cards = [loyalty-card-1],
                 response_content = [triggeredCampaigns, customerProfile]
             )

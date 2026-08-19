@@ -44,6 +44,7 @@ class TestEventV3(unittest.TestCase):
                 type = 'pageViewed',
                 attributes = {myAttribute=myValue},
                 integration_id = '175KJPS947296',
+                referral_code = 'NT2K54D9',
                 effects = [
                     None
                     ]

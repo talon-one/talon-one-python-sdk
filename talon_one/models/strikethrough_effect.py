@@ -21,7 +21,6 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from talon_one.models.label_target import LabelTarget
-from talon_one.models.strikethrough_effect_props import StrikethroughEffectProps
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -35,7 +34,7 @@ class StrikethroughEffect(BaseModel):
     rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex", json_schema_extra={"examples": [2]})
     rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Add 2 points"]})
     type: StrictStr = Field(description="The type of this effect.", json_schema_extra={"examples": ["setDiscountPerItem"]})
-    props: StrikethroughEffectProps = Field(description="Arbitrary properties associated with this effect type.")
+    props: Dict[str, Any] = Field(description="Arbitrary properties associated with this effect type.")
     start_time: Optional[datetime] = Field(default=None, description="The start of the time frame where the effect is active in UTC.", alias="startTime", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
     end_time: Optional[datetime] = Field(default=None, description="The end of the time frame where the effect is active in UTC.", alias="endTime", json_schema_extra={"examples": ["2021-10-01T02:00:00Z"]})
     selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for this cart item (e.g. the price for members only).", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
@@ -83,9 +82,6 @@ class StrikethroughEffect(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of props
-        if self.props:
-            _dict['props'] = self.props.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
         _items = []
         if self.targets:
@@ -110,7 +106,7 @@ class StrikethroughEffect(BaseModel):
             "ruleIndex": obj.get("ruleIndex"),
             "ruleName": obj.get("ruleName"),
             "type": obj.get("type"),
-            "props": StrikethroughEffectProps.from_dict(obj["props"]) if obj.get("props") is not None else None,
+            "props": obj.get("props"),
             "startTime": obj.get("startTime"),
             "endTime": obj.get("endTime"),
             "selectedPriceType": obj.get("selectedPriceType"),

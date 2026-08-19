@@ -7,7 +7,7 @@ A predicate block valid inside a selector filter step. The `type` field determin
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique identifier for this block. | 
-**type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
+**type** | **str** | A block discriminator of type &#x60;group&#x60;. | 
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
 **operator** | **str** | Logical operator applied across child blocks. &#x60;all&#x60; requires every child to pass, &#x60;atLeastOne&#x60; requires at least one, &#x60;none&#x60; requires all to fail. | 
 **blocks** | [**List[SelectorBlock]**](SelectorBlock.md) | Child predicate blocks evaluated according to the operator. | 

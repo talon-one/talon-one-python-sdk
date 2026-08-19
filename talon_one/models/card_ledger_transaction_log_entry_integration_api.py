@@ -43,7 +43,7 @@ class CardLedgerTransactionLogEntryIntegrationAPI(BaseModel):
     id: StrictInt = Field(description="ID of the loyalty ledger transaction.", json_schema_extra={"examples": [123]})
     ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset containing the rule that triggered this effect.", alias="rulesetId", json_schema_extra={"examples": [11]})
     rule_name: Optional[StrictStr] = Field(default=None, description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Add 2 points"]})
-    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
     __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "cardIdentifier", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "validityDuration"]
 
     @field_validator('card_identifier', mode="before")

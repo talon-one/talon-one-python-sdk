@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **awarded_giveaways** | [**List[Giveaway]**](Giveaway.md) | The giveaways that were awarded during the event processing. | [optional] 
 **achievements** | [**List[CustomerAchievement]**](CustomerAchievement.md) | The achievements progress of the customer. | [optional] 
 **advanced_event** | [**EventV3**](EventV3.md) | The advanced event that was processed. | [optional] 
+**referral** | [**InventoryReferral**](InventoryReferral.md) | The referral that was processed. | [optional] 
 
 ## Example
 

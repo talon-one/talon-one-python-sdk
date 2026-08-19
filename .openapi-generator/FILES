@@ -42,6 +42,7 @@ docs/AddFreeItemEffectProps.md
 docs/AddItemCatalogAction.md
 docs/AddLoyaltyPoints.md
 docs/AddLoyaltyPointsEffectProps.md
+docs/AddLoyaltyPointsSupport.md
 docs/AddPriceAdjustmentCatalogAction.md
 docs/AddToAudienceEffectProps.md
 docs/AddedDeductedPointsBalancesAction.md
@@ -72,6 +73,7 @@ docs/ApplicationCustomer.md
 docs/ApplicationCustomerEntity.md
 docs/ApplicationEntity.md
 docs/ApplicationEvent.md
+docs/ApplicationMembership.md
 docs/ApplicationReferee.md
 docs/ApplicationSession.md
 docs/ApplicationSessionEntity.md
@@ -124,6 +126,7 @@ docs/Binding.md
 docs/Blueprint.md
 docs/BulkApplicationNotification.md
 docs/BulkOperationOnCampaigns.md
+docs/Bundle.md
 docs/Campaign.md
 docs/CampaignActivationRequest.md
 docs/CampaignAnalytics.md
@@ -157,6 +160,7 @@ docs/CampaignNotificationBase.md
 docs/CampaignNotificationGeneric.md
 docs/CampaignNotificationItemBase.md
 docs/CampaignNotificationPolicy.md
+docs/CampaignReference.md
 docs/CampaignRulesetChangedNotification.md
 docs/CampaignRulesetChangedNotificationItem.md
 docs/CampaignSearch.md
@@ -186,13 +190,13 @@ docs/CartItem.md
 docs/CartItemFilterTemplate.md
 docs/Catalog.md
 docs/CatalogAction.md
+docs/CatalogActionAdd.md
+docs/CatalogActionAddPriceAdjustment.md
 docs/CatalogActionFilter.md
-docs/CatalogActionOneOf.md
-docs/CatalogActionOneOf1.md
-docs/CatalogActionOneOf2.md
-docs/CatalogActionOneOf3.md
-docs/CatalogActionOneOf4.md
-docs/CatalogActionOneOf5.md
+docs/CatalogActionPatch.md
+docs/CatalogActionPatchMany.md
+docs/CatalogActionRemove.md
+docs/CatalogActionRemoveMany.md
 docs/CatalogItem.md
 docs/CatalogRule.md
 docs/CatalogSyncRequest.md
@@ -211,7 +215,10 @@ docs/CheckCouponBlock.md
 docs/CheckEventBlock.md
 docs/CheckLoyaltyBalanceBlock.md
 docs/CheckLoyaltyBalanceBlock1Program.md
+docs/CheckLoyaltyCardBlock.md
 docs/CheckReferralBlock.md
+docs/CheckTierBlock.md
+docs/CheckTierBlock1Tier.md
 docs/CodeGeneratorSettings.md
 docs/Collection.md
 docs/CollectionItem.md
@@ -265,6 +272,7 @@ docs/CustomerProfileIntegrationResponseV2.md
 docs/CustomerProfileReward.md
 docs/CustomerProfileSearchQuery.md
 docs/CustomerProfileUpdateV2Response.md
+docs/CustomerReward.md
 docs/CustomerSession.md
 docs/CustomerSessionV2.md
 docs/DeactivateUserRequest.md
@@ -276,9 +284,7 @@ docs/DeleteUserRequest.md
 docs/DigitalPass.md
 docs/DiscardRisksRequest.md
 docs/Effect.md
-docs/EffectAllOfProps.md
 docs/EffectEntity.md
-docs/EffectProps.md
 docs/EmailEntity.md
 docs/EmbeddedAnalyticsConfiguration.md
 docs/EmbeddedAnalyticsConfigurationDashboards.md
@@ -299,6 +305,7 @@ docs/EventV2.md
 docs/EventV3.md
 docs/EventV3Connections.md
 docs/EventV3Entity.md
+docs/EventV3ReferralEntity.md
 docs/EventV3RequestEntity.md
 docs/ExcludePriceObservationsRequest.md
 docs/Experiment.md
@@ -445,6 +452,7 @@ docs/IntegrationResponse.md
 docs/IntegrationState.md
 docs/IntegrationStateV2.md
 docs/IntegrationStoreEntity.md
+docs/IntegrationUnlockRewardRequest.md
 docs/InventoryCoupon.md
 docs/InventoryReferral.md
 docs/ItemAttribute.md
@@ -460,6 +468,7 @@ docs/LimitConfig.md
 docs/LimitCounter.md
 docs/ListAccountCollections200Response.md
 docs/ListAchievements200Response.md
+docs/ListAchievementsV2200Response.md
 docs/ListAllRolesV2200Response.md
 docs/ListApplicationCartItemFilters200Response.md
 docs/ListCampaignStoreBudgetLimits200Response.md
@@ -503,6 +512,7 @@ docs/MCPOAuthClient.md
 docs/MCPOAuthCompleteResult.md
 docs/MCPOAuthProtectedResource.md
 docs/MCPOAuthServerMetadata.md
+docs/MCPOAuthSessionInfo.md
 docs/MCPOAuthToken.md
 docs/MCPOAuthTokenError.md
 docs/MCPOAuthTokenRequest.md
@@ -644,6 +654,9 @@ docs/PromotionBlock.md
 docs/PromotionCheckAttributeBlock.md
 docs/PromotionGroupBlock.md
 docs/PromotionRuleV2.md
+docs/RedeemLoyaltyPointsBlock.md
+docs/RedeemLoyaltyPointsBlock1Program.md
+docs/RedeemLoyaltyPointsBlock1Value.md
 docs/RedeemReferralEffectProps.md
 docs/ReduceSelectorStep.md
 docs/Referral.md
@@ -668,6 +681,9 @@ docs/RevisionActivation.md
 docs/RevisionActivationRequest.md
 docs/RevisionVersion.md
 docs/Reward.md
+docs/RewardCatalogItem.md
+docs/RewardEligibility.md
+docs/RewardEligibilityFailureDetails.md
 docs/RewardPointsRequired.md
 docs/Risk.md
 docs/RiskAffectedEntityItem.md
@@ -691,6 +707,7 @@ docs/RollbackDeductedLoyaltyPointsEffectProps.md
 docs/RollbackDiscountEffectProps.md
 docs/RollbackIncreasedAchievementProgressEffectProps.md
 docs/RollbackReferralEffectProps.md
+docs/RollbackUseRewardEffectProps.md
 docs/Rule.md
 docs/RuleEligibility.md
 docs/RuleEligibilityFailureDetails.md
@@ -757,7 +774,6 @@ docs/StrikethroughCheckAttributeBlock.md
 docs/StrikethroughCustomEffectPerItemProps.md
 docs/StrikethroughDebugResponse.md
 docs/StrikethroughEffect.md
-docs/StrikethroughEffectProps.md
 docs/StrikethroughGroupBlock.md
 docs/StrikethroughLabelingNotification.md
 docs/StrikethroughRuleV2.md
@@ -766,6 +782,7 @@ docs/StrikethroughSetDiscountPerItemMemberEffectProps.md
 docs/StrikethroughTrigger.md
 docs/SummarizeCampaignStoreBudget200Response.md
 docs/SummaryCampaignStoreBudget.md
+docs/SupportCustomerProfile.md
 docs/SupportRequest.md
 docs/SupportRequestInput.md
 docs/TalangAttribute.md
@@ -773,6 +790,7 @@ docs/TalangAttributeVisibility.md
 docs/TemplateArgDef.md
 docs/TemplateDef.md
 docs/TemplateLimitConfig.md
+docs/TemplateParameter.md
 docs/Tier.md
 docs/TierDowngradeData.md
 docs/TierDowngradeNotification.md
@@ -794,6 +812,7 @@ docs/TriggerWebhookBlock1Webhook.md
 docs/TriggerWebhookEffectProps.md
 docs/TwoFAConfig.md
 docs/UnaryCheckAttributeBlock.md
+docs/UnlockRewardEffectProps.md
 docs/UpdateAccount.md
 docs/UpdateAchievement.md
 docs/UpdateAchievementProgressBlock.md
@@ -841,6 +860,7 @@ docs/UpdateRole.md
 docs/UpdateStore.md
 docs/UpdateSupportRequest.md
 docs/UpdateUser.md
+docs/UseRewardEffectProps.md
 docs/User.md
 docs/UserEntity.md
 docs/ValueMap.md
@@ -902,6 +922,7 @@ talon_one/models/add_free_item_effect_props.py
 talon_one/models/add_item_catalog_action.py
 talon_one/models/add_loyalty_points.py
 talon_one/models/add_loyalty_points_effect_props.py
+talon_one/models/add_loyalty_points_support.py
 talon_one/models/add_price_adjustment_catalog_action.py
 talon_one/models/add_to_audience_effect_props.py
 talon_one/models/added_deducted_points_balances_action.py
@@ -933,6 +954,7 @@ talon_one/models/application_customer.py
 talon_one/models/application_customer_entity.py
 talon_one/models/application_entity.py
 talon_one/models/application_event.py
+talon_one/models/application_membership.py
 talon_one/models/application_referee.py
 talon_one/models/application_session.py
 talon_one/models/application_session_entity.py
@@ -985,6 +1007,7 @@ talon_one/models/binding.py
 talon_one/models/blueprint.py
 talon_one/models/bulk_application_notification.py
 talon_one/models/bulk_operation_on_campaigns.py
+talon_one/models/bundle.py
 talon_one/models/campaign.py
 talon_one/models/campaign_activation_request.py
 talon_one/models/campaign_analytics.py
@@ -1018,6 +1041,7 @@ talon_one/models/campaign_notification_base.py
 talon_one/models/campaign_notification_generic.py
 talon_one/models/campaign_notification_item_base.py
 talon_one/models/campaign_notification_policy.py
+talon_one/models/campaign_reference.py
 talon_one/models/campaign_ruleset_changed_notification.py
 talon_one/models/campaign_ruleset_changed_notification_item.py
 talon_one/models/campaign_search.py
@@ -1047,13 +1071,13 @@ talon_one/models/cart_item.py
 talon_one/models/cart_item_filter_template.py
 talon_one/models/catalog.py
 talon_one/models/catalog_action.py
+talon_one/models/catalog_action_add.py
+talon_one/models/catalog_action_add_price_adjustment.py
 talon_one/models/catalog_action_filter.py
-talon_one/models/catalog_action_one_of.py
-talon_one/models/catalog_action_one_of1.py
-talon_one/models/catalog_action_one_of2.py
-talon_one/models/catalog_action_one_of3.py
-talon_one/models/catalog_action_one_of4.py
-talon_one/models/catalog_action_one_of5.py
+talon_one/models/catalog_action_patch.py
+talon_one/models/catalog_action_patch_many.py
+talon_one/models/catalog_action_remove.py
+talon_one/models/catalog_action_remove_many.py
 talon_one/models/catalog_item.py
 talon_one/models/catalog_rule.py
 talon_one/models/catalog_sync_request.py
@@ -1072,7 +1096,10 @@ talon_one/models/check_coupon_block.py
 talon_one/models/check_event_block.py
 talon_one/models/check_loyalty_balance_block.py
 talon_one/models/check_loyalty_balance_block1_program.py
+talon_one/models/check_loyalty_card_block.py
 talon_one/models/check_referral_block.py
+talon_one/models/check_tier_block.py
+talon_one/models/check_tier_block1_tier.py
 talon_one/models/code_generator_settings.py
 talon_one/models/collection.py
 talon_one/models/collection_item.py
@@ -1126,6 +1153,7 @@ talon_one/models/customer_profile_integration_response_v2.py
 talon_one/models/customer_profile_reward.py
 talon_one/models/customer_profile_search_query.py
 talon_one/models/customer_profile_update_v2_response.py
+talon_one/models/customer_reward.py
 talon_one/models/customer_session.py
 talon_one/models/customer_session_v2.py
 talon_one/models/deactivate_user_request.py
@@ -1137,9 +1165,7 @@ talon_one/models/delete_user_request.py
 talon_one/models/digital_pass.py
 talon_one/models/discard_risks_request.py
 talon_one/models/effect.py
-talon_one/models/effect_all_of_props.py
 talon_one/models/effect_entity.py
-talon_one/models/effect_props.py
 talon_one/models/email_entity.py
 talon_one/models/embedded_analytics_configuration.py
 talon_one/models/embedded_analytics_configuration_dashboards.py
@@ -1160,6 +1186,7 @@ talon_one/models/event_v2.py
 talon_one/models/event_v3.py
 talon_one/models/event_v3_connections.py
 talon_one/models/event_v3_entity.py
+talon_one/models/event_v3_referral_entity.py
 talon_one/models/event_v3_request_entity.py
 talon_one/models/exclude_price_observations_request.py
 talon_one/models/experiment.py
@@ -1305,6 +1332,7 @@ talon_one/models/integration_response.py
 talon_one/models/integration_state.py
 talon_one/models/integration_state_v2.py
 talon_one/models/integration_store_entity.py
+talon_one/models/integration_unlock_reward_request.py
 talon_one/models/inventory_coupon.py
 talon_one/models/inventory_referral.py
 talon_one/models/item_attribute.py
@@ -1320,6 +1348,7 @@ talon_one/models/limit_config.py
 talon_one/models/limit_counter.py
 talon_one/models/list_account_collections200_response.py
 talon_one/models/list_achievements200_response.py
+talon_one/models/list_achievements_v2200_response.py
 talon_one/models/list_all_roles_v2200_response.py
 talon_one/models/list_application_cart_item_filters200_response.py
 talon_one/models/list_campaign_store_budget_limits200_response.py
@@ -1366,6 +1395,7 @@ talon_one/models/mcpo_auth_client.py
 talon_one/models/mcpo_auth_complete_result.py
 talon_one/models/mcpo_auth_protected_resource.py
 talon_one/models/mcpo_auth_server_metadata.py
+talon_one/models/mcpo_auth_session_info.py
 talon_one/models/mcpo_auth_token.py
 talon_one/models/mcpo_auth_token_error.py
 talon_one/models/mcpo_auth_token_request.py
@@ -1503,6 +1533,9 @@ talon_one/models/promotion_block.py
 talon_one/models/promotion_check_attribute_block.py
 talon_one/models/promotion_group_block.py
 talon_one/models/promotion_rule_v2.py
+talon_one/models/redeem_loyalty_points_block.py
+talon_one/models/redeem_loyalty_points_block1_program.py
+talon_one/models/redeem_loyalty_points_block1_value.py
 talon_one/models/redeem_referral_effect_props.py
 talon_one/models/reduce_selector_step.py
 talon_one/models/referral.py
@@ -1527,6 +1560,9 @@ talon_one/models/revision_activation.py
 talon_one/models/revision_activation_request.py
 talon_one/models/revision_version.py
 talon_one/models/reward.py
+talon_one/models/reward_catalog_item.py
+talon_one/models/reward_eligibility.py
+talon_one/models/reward_eligibility_failure_details.py
 talon_one/models/reward_points_required.py
 talon_one/models/risk.py
 talon_one/models/risk_affected_entity_item.py
@@ -1550,6 +1586,7 @@ talon_one/models/rollback_deducted_loyalty_points_effect_props.py
 talon_one/models/rollback_discount_effect_props.py
 talon_one/models/rollback_increased_achievement_progress_effect_props.py
 talon_one/models/rollback_referral_effect_props.py
+talon_one/models/rollback_use_reward_effect_props.py
 talon_one/models/rule.py
 talon_one/models/rule_eligibility.py
 talon_one/models/rule_eligibility_failure_details.py
@@ -1616,7 +1653,6 @@ talon_one/models/strikethrough_check_attribute_block.py
 talon_one/models/strikethrough_custom_effect_per_item_props.py
 talon_one/models/strikethrough_debug_response.py
 talon_one/models/strikethrough_effect.py
-talon_one/models/strikethrough_effect_props.py
 talon_one/models/strikethrough_group_block.py
 talon_one/models/strikethrough_labeling_notification.py
 talon_one/models/strikethrough_rule_v2.py
@@ -1625,6 +1661,7 @@ talon_one/models/strikethrough_set_discount_per_item_member_effect_props.py
 talon_one/models/strikethrough_trigger.py
 talon_one/models/summarize_campaign_store_budget200_response.py
 talon_one/models/summary_campaign_store_budget.py
+talon_one/models/support_customer_profile.py
 talon_one/models/support_request.py
 talon_one/models/support_request_input.py
 talon_one/models/talang_attribute.py
@@ -1632,6 +1669,7 @@ talon_one/models/talang_attribute_visibility.py
 talon_one/models/template_arg_def.py
 talon_one/models/template_def.py
 talon_one/models/template_limit_config.py
+talon_one/models/template_parameter.py
 talon_one/models/tier.py
 talon_one/models/tier_downgrade_data.py
 talon_one/models/tier_downgrade_notification.py
@@ -1653,6 +1691,7 @@ talon_one/models/trigger_webhook_block1_webhook.py
 talon_one/models/trigger_webhook_effect_props.py
 talon_one/models/two_fa_config.py
 talon_one/models/unary_check_attribute_block.py
+talon_one/models/unlock_reward_effect_props.py
 talon_one/models/update_account.py
 talon_one/models/update_achievement.py
 talon_one/models/update_achievement_progress_block.py
@@ -1700,6 +1739,7 @@ talon_one/models/update_role.py
 talon_one/models/update_store.py
 talon_one/models/update_support_request.py
 talon_one/models/update_user.py
+talon_one/models/use_reward_effect_props.py
 talon_one/models/user.py
 talon_one/models/user_entity.py
 talon_one/models/value_map.py
@@ -1750,6 +1790,7 @@ test/test_add_free_item_effect_props.py
 test/test_add_item_catalog_action.py
 test/test_add_loyalty_points.py
 test/test_add_loyalty_points_effect_props.py
+test/test_add_loyalty_points_support.py
 test/test_add_price_adjustment_catalog_action.py
 test/test_add_to_audience_effect_props.py
 test/test_added_deducted_points_balances_action.py
@@ -1781,6 +1822,7 @@ test/test_application_customer.py
 test/test_application_customer_entity.py
 test/test_application_entity.py
 test/test_application_event.py
+test/test_application_membership.py
 test/test_application_referee.py
 test/test_application_session.py
 test/test_application_session_entity.py
@@ -1833,6 +1875,7 @@ test/test_binding.py
 test/test_blueprint.py
 test/test_bulk_application_notification.py
 test/test_bulk_operation_on_campaigns.py
+test/test_bundle.py
 test/test_campaign.py
 test/test_campaign_activation_request.py
 test/test_campaign_analytics.py
@@ -1866,6 +1909,7 @@ test/test_campaign_notification_base.py
 test/test_campaign_notification_generic.py
 test/test_campaign_notification_item_base.py
 test/test_campaign_notification_policy.py
+test/test_campaign_reference.py
 test/test_campaign_ruleset_changed_notification.py
 test/test_campaign_ruleset_changed_notification_item.py
 test/test_campaign_search.py
@@ -1895,13 +1939,13 @@ test/test_cart_item.py
 test/test_cart_item_filter_template.py
 test/test_catalog.py
 test/test_catalog_action.py
+test/test_catalog_action_add.py
+test/test_catalog_action_add_price_adjustment.py
 test/test_catalog_action_filter.py
-test/test_catalog_action_one_of.py
-test/test_catalog_action_one_of1.py
-test/test_catalog_action_one_of2.py
-test/test_catalog_action_one_of3.py
-test/test_catalog_action_one_of4.py
-test/test_catalog_action_one_of5.py
+test/test_catalog_action_patch.py
+test/test_catalog_action_patch_many.py
+test/test_catalog_action_remove.py
+test/test_catalog_action_remove_many.py
 test/test_catalog_item.py
 test/test_catalog_rule.py
 test/test_catalog_sync_request.py
@@ -1920,7 +1964,10 @@ test/test_check_coupon_block.py
 test/test_check_event_block.py
 test/test_check_loyalty_balance_block.py
 test/test_check_loyalty_balance_block1_program.py
+test/test_check_loyalty_card_block.py
 test/test_check_referral_block.py
+test/test_check_tier_block.py
+test/test_check_tier_block1_tier.py
 test/test_code_generator_settings.py
 test/test_collection.py
 test/test_collection_item.py
@@ -1974,6 +2021,7 @@ test/test_customer_profile_integration_response_v2.py
 test/test_customer_profile_reward.py
 test/test_customer_profile_search_query.py
 test/test_customer_profile_update_v2_response.py
+test/test_customer_reward.py
 test/test_customer_session.py
 test/test_customer_session_v2.py
 test/test_deactivate_user_request.py
@@ -1985,9 +2033,7 @@ test/test_delete_user_request.py
 test/test_digital_pass.py
 test/test_discard_risks_request.py
 test/test_effect.py
-test/test_effect_all_of_props.py
 test/test_effect_entity.py
-test/test_effect_props.py
 test/test_email_entity.py
 test/test_embedded_analytics_configuration.py
 test/test_embedded_analytics_configuration_dashboards.py
@@ -2008,6 +2054,7 @@ test/test_event_v2.py
 test/test_event_v3.py
 test/test_event_v3_connections.py
 test/test_event_v3_entity.py
+test/test_event_v3_referral_entity.py
 test/test_event_v3_request_entity.py
 test/test_exclude_price_observations_request.py
 test/test_experiment.py
@@ -2154,6 +2201,7 @@ test/test_integration_response.py
 test/test_integration_state.py
 test/test_integration_state_v2.py
 test/test_integration_store_entity.py
+test/test_integration_unlock_reward_request.py
 test/test_inventory_coupon.py
 test/test_inventory_referral.py
 test/test_item_attribute.py
@@ -2169,6 +2217,7 @@ test/test_limit_config.py
 test/test_limit_counter.py
 test/test_list_account_collections200_response.py
 test/test_list_achievements200_response.py
+test/test_list_achievements_v2200_response.py
 test/test_list_all_roles_v2200_response.py
 test/test_list_application_cart_item_filters200_response.py
 test/test_list_campaign_store_budget_limits200_response.py
@@ -2216,6 +2265,7 @@ test/test_mcpo_auth_client.py
 test/test_mcpo_auth_complete_result.py
 test/test_mcpo_auth_protected_resource.py
 test/test_mcpo_auth_server_metadata.py
+test/test_mcpo_auth_session_info.py
 test/test_mcpo_auth_token.py
 test/test_mcpo_auth_token_error.py
 test/test_mcpo_auth_token_request.py
@@ -2353,6 +2403,9 @@ test/test_promotion_block.py
 test/test_promotion_check_attribute_block.py
 test/test_promotion_group_block.py
 test/test_promotion_rule_v2.py
+test/test_redeem_loyalty_points_block.py
+test/test_redeem_loyalty_points_block1_program.py
+test/test_redeem_loyalty_points_block1_value.py
 test/test_redeem_referral_effect_props.py
 test/test_reduce_selector_step.py
 test/test_referral.py
@@ -2377,6 +2430,9 @@ test/test_revision_activation.py
 test/test_revision_activation_request.py
 test/test_revision_version.py
 test/test_reward.py
+test/test_reward_catalog_item.py
+test/test_reward_eligibility.py
+test/test_reward_eligibility_failure_details.py
 test/test_reward_points_required.py
 test/test_risk.py
 test/test_risk_affected_entity_item.py
@@ -2400,6 +2456,7 @@ test/test_rollback_deducted_loyalty_points_effect_props.py
 test/test_rollback_discount_effect_props.py
 test/test_rollback_increased_achievement_progress_effect_props.py
 test/test_rollback_referral_effect_props.py
+test/test_rollback_use_reward_effect_props.py
 test/test_rule.py
 test/test_rule_eligibility.py
 test/test_rule_eligibility_failure_details.py
@@ -2466,7 +2523,6 @@ test/test_strikethrough_check_attribute_block.py
 test/test_strikethrough_custom_effect_per_item_props.py
 test/test_strikethrough_debug_response.py
 test/test_strikethrough_effect.py
-test/test_strikethrough_effect_props.py
 test/test_strikethrough_group_block.py
 test/test_strikethrough_labeling_notification.py
 test/test_strikethrough_rule_v2.py
@@ -2475,6 +2531,7 @@ test/test_strikethrough_set_discount_per_item_member_effect_props.py
 test/test_strikethrough_trigger.py
 test/test_summarize_campaign_store_budget200_response.py
 test/test_summary_campaign_store_budget.py
+test/test_support_customer_profile.py
 test/test_support_request.py
 test/test_support_request_input.py
 test/test_talang_attribute.py
@@ -2482,6 +2539,7 @@ test/test_talang_attribute_visibility.py
 test/test_template_arg_def.py
 test/test_template_def.py
 test/test_template_limit_config.py
+test/test_template_parameter.py
 test/test_tier.py
 test/test_tier_downgrade_data.py
 test/test_tier_downgrade_notification.py
@@ -2503,6 +2561,7 @@ test/test_trigger_webhook_block1_webhook.py
 test/test_trigger_webhook_effect_props.py
 test/test_two_fa_config.py
 test/test_unary_check_attribute_block.py
+test/test_unlock_reward_effect_props.py
 test/test_update_account.py
 test/test_update_achievement.py
 test/test_update_achievement_progress_block.py
@@ -2550,6 +2609,7 @@ test/test_update_role.py
 test/test_update_store.py
 test/test_update_support_request.py
 test/test_update_user.py
+test/test_use_reward_effect_props.py
 test/test_user.py
 test/test_user_entity.py
 test/test_value_map.py

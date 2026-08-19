@@ -44,10 +44,11 @@ class AchievementStatusEntry(BaseModel):
     fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is set to `fixed_schedule`.  **Note:** It must be an RFC3339 timestamp string. ", alias="fixedStartDate", json_schema_extra={"examples": ["2024-01-15T15:04:05Z07:00"]})
     end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It must be an RFC3339 timestamp string. ", alias="endDate", json_schema_extra={"examples": ["2024-02-15T15:04:05Z07:00"]})
     allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion", json_schema_extra={"examples": [False]})
-    campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign the achievement belongs to.", alias="campaignId", json_schema_extra={"examples": [1]})
+    campaign_id: Optional[StrictInt] = Field(default=None, description="This property is **deprecated**. Use `campaignIds` instead. The first campaign ID in `campaignIds`. Only returned when `campaignIds` is not empty.", alias="campaignId", json_schema_extra={"examples": [1]})
+    campaign_ids: List[StrictInt] = Field(description="The IDs of the campaigns that reference this achievement, in ascending order.", alias="campaignIds", json_schema_extra={"examples": [[1, 14, 27]]})
     status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.", json_schema_extra={"examples": ["active"]})
     current_progress: Optional[AchievementProgress] = Field(default=None, alias="currentProgress")
-    __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "periodEndOverride", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "campaignId", "status", "currentProgress"]
+    __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "periodEndOverride", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "campaignId", "campaignIds", "status", "currentProgress"]
 
     @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
@@ -157,6 +158,7 @@ class AchievementStatusEntry(BaseModel):
             "endDate": obj.get("endDate"),
             "allowRollbackAfterCompletion": obj.get("allowRollbackAfterCompletion"),
             "campaignId": obj.get("campaignId"),
+            "campaignIds": obj.get("campaignIds"),
             "status": obj.get("status"),
             "currentProgress": AchievementProgress.from_dict(obj["currentProgress"]) if obj.get("currentProgress") is not None else None
         })

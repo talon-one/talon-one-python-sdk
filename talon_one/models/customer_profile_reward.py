@@ -30,16 +30,17 @@ class CustomerProfileReward(BaseModel):
     A reward instance held by a customer profile.
     """ # noqa: E501
     id: StrictInt = Field(description="The ID of the customer reward instance. A customer profile can have multiple instances of the same reward.", json_schema_extra={"examples": [6]})
+    integration_id: StrictStr = Field(description="The integration ID of the reward.", alias="integrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
     reward_id: StrictInt = Field(description="The ID of the reward this instance belongs to.", alias="rewardId", json_schema_extra={"examples": [12]})
     reward_name: StrictStr = Field(description="The name of the reward.", alias="rewardName", json_schema_extra={"examples": ["Free coffee"]})
     status: StrictStr = Field(description="The status of the customer reward: - `unlocked`: The reward is available for use. - `used`: The reward has been used. ", json_schema_extra={"examples": ["unlocked"]})
     unlocked_at: datetime = Field(description="The date and time when the reward was unlocked.", alias="unlockedAt", json_schema_extra={"examples": ["2026-07-01T09:00:00Z"]})
-    unlocked_by_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that unlocked the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card. ", alias="unlockedByIntegrationId", json_schema_extra={"examples": ["customer2839"]})
+    unlocked_by_profile_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that unlocked the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card. ", alias="unlockedByProfileIntegrationId", json_schema_extra={"examples": ["customer2839"]})
     used_at: Optional[datetime] = Field(default=None, description="The date and time when the reward was used.", alias="usedAt", json_schema_extra={"examples": ["2026-07-02T10:30:00Z"]})
-    used_by_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that used the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card.   Only returned when the reward has been used. ", alias="usedByIntegrationId", json_schema_extra={"examples": ["customer2840"]})
+    used_by_profile_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that used the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card.   Only returned when the reward has been used. ", alias="usedByProfileIntegrationId", json_schema_extra={"examples": ["customer2840"]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="The ID of the loyalty program that the loyalty card belongs to. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyProgramId", json_schema_extra={"examples": [9]})
     loyalty_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that the reward was unlocked with. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
-    __properties: ClassVar[List[str]] = ["id", "rewardId", "rewardName", "status", "unlockedAt", "unlockedByIntegrationId", "usedAt", "usedByIntegrationId", "loyaltyProgramId", "loyaltyCardIdentifier"]
+    __properties: ClassVar[List[str]] = ["id", "integrationId", "rewardId", "rewardName", "status", "unlockedAt", "unlockedByProfileIntegrationId", "usedAt", "usedByProfileIntegrationId", "loyaltyProgramId", "loyaltyCardIdentifier"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -110,13 +111,14 @@ class CustomerProfileReward(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "integrationId": obj.get("integrationId"),
             "rewardId": obj.get("rewardId"),
             "rewardName": obj.get("rewardName"),
             "status": obj.get("status"),
             "unlockedAt": obj.get("unlockedAt"),
-            "unlockedByIntegrationId": obj.get("unlockedByIntegrationId"),
+            "unlockedByProfileIntegrationId": obj.get("unlockedByProfileIntegrationId"),
             "usedAt": obj.get("usedAt"),
-            "usedByIntegrationId": obj.get("usedByIntegrationId"),
+            "usedByProfileIntegrationId": obj.get("usedByProfileIntegrationId"),
             "loyaltyProgramId": obj.get("loyaltyProgramId"),
             "loyaltyCardIdentifier": obj.get("loyaltyCardIdentifier")
         })

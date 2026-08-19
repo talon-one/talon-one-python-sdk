@@ -36,7 +36,7 @@ class TestCheckAttributeBlock(unittest.TestCase):
         if include_optional:
             return CheckAttributeBlock(
                 id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-                type = '',
+                type = 'checkAttribute',
                 tags = [
                     ''
                     ],
@@ -56,7 +56,7 @@ class TestCheckAttributeBlock(unittest.TestCase):
         else:
             return CheckAttributeBlock(
                 id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-                type = '',
+                type = 'checkAttribute',
                 operator = 'greaterThan',
                 attribute = None,
         )

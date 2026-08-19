@@ -45,6 +45,7 @@ from talon_one.models.add_free_item_effect_props import AddFreeItemEffectProps
 from talon_one.models.add_item_catalog_action import AddItemCatalogAction
 from talon_one.models.add_loyalty_points import AddLoyaltyPoints
 from talon_one.models.add_loyalty_points_effect_props import AddLoyaltyPointsEffectProps
+from talon_one.models.add_loyalty_points_support import AddLoyaltyPointsSupport
 from talon_one.models.add_price_adjustment_catalog_action import AddPriceAdjustmentCatalogAction
 from talon_one.models.add_to_audience_effect_props import AddToAudienceEffectProps
 from talon_one.models.added_deducted_points_balances_action import AddedDeductedPointsBalancesAction
@@ -75,6 +76,7 @@ from talon_one.models.application_customer import ApplicationCustomer
 from talon_one.models.application_customer_entity import ApplicationCustomerEntity
 from talon_one.models.application_entity import ApplicationEntity
 from talon_one.models.application_event import ApplicationEvent
+from talon_one.models.application_membership import ApplicationMembership
 from talon_one.models.application_referee import ApplicationReferee
 from talon_one.models.application_session import ApplicationSession
 from talon_one.models.application_session_entity import ApplicationSessionEntity
@@ -127,6 +129,7 @@ from talon_one.models.binding import Binding
 from talon_one.models.blueprint import Blueprint
 from talon_one.models.bulk_application_notification import BulkApplicationNotification
 from talon_one.models.bulk_operation_on_campaigns import BulkOperationOnCampaigns
+from talon_one.models.bundle import Bundle
 from talon_one.models.campaign import Campaign
 from talon_one.models.campaign_activation_request import CampaignActivationRequest
 from talon_one.models.campaign_analytics import CampaignAnalytics
@@ -160,6 +163,7 @@ from talon_one.models.campaign_notification_base import CampaignNotificationBase
 from talon_one.models.campaign_notification_generic import CampaignNotificationGeneric
 from talon_one.models.campaign_notification_item_base import CampaignNotificationItemBase
 from talon_one.models.campaign_notification_policy import CampaignNotificationPolicy
+from talon_one.models.campaign_reference import CampaignReference
 from talon_one.models.campaign_ruleset_changed_notification import CampaignRulesetChangedNotification
 from talon_one.models.campaign_ruleset_changed_notification_item import CampaignRulesetChangedNotificationItem
 from talon_one.models.campaign_search import CampaignSearch
@@ -189,13 +193,13 @@ from talon_one.models.cart_item import CartItem
 from talon_one.models.cart_item_filter_template import CartItemFilterTemplate
 from talon_one.models.catalog import Catalog
 from talon_one.models.catalog_action import CatalogAction
+from talon_one.models.catalog_action_add import CatalogActionAdd
+from talon_one.models.catalog_action_add_price_adjustment import CatalogActionAddPriceAdjustment
 from talon_one.models.catalog_action_filter import CatalogActionFilter
-from talon_one.models.catalog_action_one_of import CatalogActionOneOf
-from talon_one.models.catalog_action_one_of1 import CatalogActionOneOf1
-from talon_one.models.catalog_action_one_of2 import CatalogActionOneOf2
-from talon_one.models.catalog_action_one_of3 import CatalogActionOneOf3
-from talon_one.models.catalog_action_one_of4 import CatalogActionOneOf4
-from talon_one.models.catalog_action_one_of5 import CatalogActionOneOf5
+from talon_one.models.catalog_action_patch import CatalogActionPatch
+from talon_one.models.catalog_action_patch_many import CatalogActionPatchMany
+from talon_one.models.catalog_action_remove import CatalogActionRemove
+from talon_one.models.catalog_action_remove_many import CatalogActionRemoveMany
 from talon_one.models.catalog_item import CatalogItem
 from talon_one.models.catalog_rule import CatalogRule
 from talon_one.models.catalog_sync_request import CatalogSyncRequest
@@ -214,7 +218,10 @@ from talon_one.models.check_coupon_block import CheckCouponBlock
 from talon_one.models.check_event_block import CheckEventBlock
 from talon_one.models.check_loyalty_balance_block import CheckLoyaltyBalanceBlock
 from talon_one.models.check_loyalty_balance_block1_program import CheckLoyaltyBalanceBlock1Program
+from talon_one.models.check_loyalty_card_block import CheckLoyaltyCardBlock
 from talon_one.models.check_referral_block import CheckReferralBlock
+from talon_one.models.check_tier_block import CheckTierBlock
+from talon_one.models.check_tier_block1_tier import CheckTierBlock1Tier
 from talon_one.models.code_generator_settings import CodeGeneratorSettings
 from talon_one.models.collection import Collection
 from talon_one.models.collection_item import CollectionItem
@@ -268,6 +275,7 @@ from talon_one.models.customer_profile_integration_response_v2 import CustomerPr
 from talon_one.models.customer_profile_reward import CustomerProfileReward
 from talon_one.models.customer_profile_search_query import CustomerProfileSearchQuery
 from talon_one.models.customer_profile_update_v2_response import CustomerProfileUpdateV2Response
+from talon_one.models.customer_reward import CustomerReward
 from talon_one.models.customer_session import CustomerSession
 from talon_one.models.customer_session_v2 import CustomerSessionV2
 from talon_one.models.deactivate_user_request import DeactivateUserRequest
@@ -279,9 +287,7 @@ from talon_one.models.delete_user_request import DeleteUserRequest
 from talon_one.models.digital_pass import DigitalPass
 from talon_one.models.discard_risks_request import DiscardRisksRequest
 from talon_one.models.effect import Effect
-from talon_one.models.effect_all_of_props import EffectAllOfProps
 from talon_one.models.effect_entity import EffectEntity
-from talon_one.models.effect_props import EffectProps
 from talon_one.models.email_entity import EmailEntity
 from talon_one.models.embedded_analytics_configuration import EmbeddedAnalyticsConfiguration
 from talon_one.models.embedded_analytics_configuration_dashboards import EmbeddedAnalyticsConfigurationDashboards
@@ -302,6 +308,7 @@ from talon_one.models.event_v2 import EventV2
 from talon_one.models.event_v3 import EventV3
 from talon_one.models.event_v3_connections import EventV3Connections
 from talon_one.models.event_v3_entity import EventV3Entity
+from talon_one.models.event_v3_referral_entity import EventV3ReferralEntity
 from talon_one.models.event_v3_request_entity import EventV3RequestEntity
 from talon_one.models.exclude_price_observations_request import ExcludePriceObservationsRequest
 from talon_one.models.experiment import Experiment
@@ -447,6 +454,7 @@ from talon_one.models.integration_response import IntegrationResponse
 from talon_one.models.integration_state import IntegrationState
 from talon_one.models.integration_state_v2 import IntegrationStateV2
 from talon_one.models.integration_store_entity import IntegrationStoreEntity
+from talon_one.models.integration_unlock_reward_request import IntegrationUnlockRewardRequest
 from talon_one.models.inventory_coupon import InventoryCoupon
 from talon_one.models.inventory_referral import InventoryReferral
 from talon_one.models.item_attribute import ItemAttribute
@@ -462,6 +470,7 @@ from talon_one.models.limit_config import LimitConfig
 from talon_one.models.limit_counter import LimitCounter
 from talon_one.models.list_account_collections200_response import ListAccountCollections200Response
 from talon_one.models.list_achievements200_response import ListAchievements200Response
+from talon_one.models.list_achievements_v2200_response import ListAchievementsV2200Response
 from talon_one.models.list_all_roles_v2200_response import ListAllRolesV2200Response
 from talon_one.models.list_application_cart_item_filters200_response import ListApplicationCartItemFilters200Response
 from talon_one.models.list_campaign_store_budget_limits200_response import ListCampaignStoreBudgetLimits200Response
@@ -505,6 +514,7 @@ from talon_one.models.mcpo_auth_client import MCPOAuthClient
 from talon_one.models.mcpo_auth_complete_result import MCPOAuthCompleteResult
 from talon_one.models.mcpo_auth_protected_resource import MCPOAuthProtectedResource
 from talon_one.models.mcpo_auth_server_metadata import MCPOAuthServerMetadata
+from talon_one.models.mcpo_auth_session_info import MCPOAuthSessionInfo
 from talon_one.models.mcpo_auth_token import MCPOAuthToken
 from talon_one.models.mcpo_auth_token_error import MCPOAuthTokenError
 from talon_one.models.mcpo_auth_token_request import MCPOAuthTokenRequest
@@ -645,6 +655,9 @@ from talon_one.models.promotion_block import PromotionBlock
 from talon_one.models.promotion_check_attribute_block import PromotionCheckAttributeBlock
 from talon_one.models.promotion_group_block import PromotionGroupBlock
 from talon_one.models.promotion_rule_v2 import PromotionRuleV2
+from talon_one.models.redeem_loyalty_points_block import RedeemLoyaltyPointsBlock
+from talon_one.models.redeem_loyalty_points_block1_program import RedeemLoyaltyPointsBlock1Program
+from talon_one.models.redeem_loyalty_points_block1_value import RedeemLoyaltyPointsBlock1Value
 from talon_one.models.redeem_referral_effect_props import RedeemReferralEffectProps
 from talon_one.models.reduce_selector_step import ReduceSelectorStep
 from talon_one.models.referral import Referral
@@ -669,6 +682,9 @@ from talon_one.models.revision_activation import RevisionActivation
 from talon_one.models.revision_activation_request import RevisionActivationRequest
 from talon_one.models.revision_version import RevisionVersion
 from talon_one.models.reward import Reward
+from talon_one.models.reward_catalog_item import RewardCatalogItem
+from talon_one.models.reward_eligibility import RewardEligibility
+from talon_one.models.reward_eligibility_failure_details import RewardEligibilityFailureDetails
 from talon_one.models.reward_points_required import RewardPointsRequired
 from talon_one.models.risk import Risk
 from talon_one.models.risk_affected_entity_item import RiskAffectedEntityItem
@@ -692,6 +708,7 @@ from talon_one.models.rollback_deducted_loyalty_points_effect_props import Rollb
 from talon_one.models.rollback_discount_effect_props import RollbackDiscountEffectProps
 from talon_one.models.rollback_increased_achievement_progress_effect_props import RollbackIncreasedAchievementProgressEffectProps
 from talon_one.models.rollback_referral_effect_props import RollbackReferralEffectProps
+from talon_one.models.rollback_use_reward_effect_props import RollbackUseRewardEffectProps
 from talon_one.models.rule import Rule
 from talon_one.models.rule_eligibility import RuleEligibility
 from talon_one.models.rule_eligibility_failure_details import RuleEligibilityFailureDetails
@@ -758,7 +775,6 @@ from talon_one.models.strikethrough_check_attribute_block import StrikethroughCh
 from talon_one.models.strikethrough_custom_effect_per_item_props import StrikethroughCustomEffectPerItemProps
 from talon_one.models.strikethrough_debug_response import StrikethroughDebugResponse
 from talon_one.models.strikethrough_effect import StrikethroughEffect
-from talon_one.models.strikethrough_effect_props import StrikethroughEffectProps
 from talon_one.models.strikethrough_group_block import StrikethroughGroupBlock
 from talon_one.models.strikethrough_labeling_notification import StrikethroughLabelingNotification
 from talon_one.models.strikethrough_rule_v2 import StrikethroughRuleV2
@@ -767,6 +783,7 @@ from talon_one.models.strikethrough_set_discount_per_item_member_effect_props im
 from talon_one.models.strikethrough_trigger import StrikethroughTrigger
 from talon_one.models.summarize_campaign_store_budget200_response import SummarizeCampaignStoreBudget200Response
 from talon_one.models.summary_campaign_store_budget import SummaryCampaignStoreBudget
+from talon_one.models.support_customer_profile import SupportCustomerProfile
 from talon_one.models.support_request import SupportRequest
 from talon_one.models.support_request_input import SupportRequestInput
 from talon_one.models.talang_attribute import TalangAttribute
@@ -774,6 +791,7 @@ from talon_one.models.talang_attribute_visibility import TalangAttributeVisibili
 from talon_one.models.template_arg_def import TemplateArgDef
 from talon_one.models.template_def import TemplateDef
 from talon_one.models.template_limit_config import TemplateLimitConfig
+from talon_one.models.template_parameter import TemplateParameter
 from talon_one.models.tier import Tier
 from talon_one.models.tier_downgrade_data import TierDowngradeData
 from talon_one.models.tier_downgrade_notification import TierDowngradeNotification
@@ -795,6 +813,7 @@ from talon_one.models.trigger_webhook_block1_webhook import TriggerWebhookBlock1
 from talon_one.models.trigger_webhook_effect_props import TriggerWebhookEffectProps
 from talon_one.models.two_fa_config import TwoFAConfig
 from talon_one.models.unary_check_attribute_block import UnaryCheckAttributeBlock
+from talon_one.models.unlock_reward_effect_props import UnlockRewardEffectProps
 from talon_one.models.update_account import UpdateAccount
 from talon_one.models.update_achievement import UpdateAchievement
 from talon_one.models.update_achievement_progress_block import UpdateAchievementProgressBlock
@@ -842,6 +861,7 @@ from talon_one.models.update_role import UpdateRole
 from talon_one.models.update_store import UpdateStore
 from talon_one.models.update_support_request import UpdateSupportRequest
 from talon_one.models.update_user import UpdateUser
+from talon_one.models.use_reward_effect_props import UseRewardEffectProps
 from talon_one.models.user import User
 from talon_one.models.user_entity import UserEntity
 from talon_one.models.value_map import ValueMap

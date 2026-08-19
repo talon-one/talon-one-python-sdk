@@ -20,7 +20,6 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
-from talon_one.models.effect_all_of_props import EffectAllOfProps
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -45,7 +44,7 @@ class Effect(BaseModel):
     selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
     selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice", json_schema_extra={"examples": [100]})
     adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
-    props: EffectAllOfProps
+    props: Optional[Any]
     __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "props"]
 
     model_config = ConfigDict(
@@ -87,9 +86,11 @@ class Effect(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of props
-        if self.props:
-            _dict['props'] = self.props.to_dict()
+        # set to None if props (nullable) is None
+        # and model_fields_set contains the field
+        if self.props is None and "props" in self.model_fields_set:
+            _dict['props'] = None
+
         return _dict
 
     @classmethod
@@ -118,7 +119,7 @@ class Effect(BaseModel):
             "selectedPriceType": obj.get("selectedPriceType"),
             "selectedPrice": obj.get("selectedPrice"),
             "adjustmentReferenceId": obj.get("adjustmentReferenceId"),
-            "props": EffectAllOfProps.from_dict(obj["props"]) if obj.get("props") is not None else None
+            "props": obj.get("props")
         })
         return _obj
 

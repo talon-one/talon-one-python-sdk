@@ -17,42 +17,45 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from talon_one.models.catalog_action_one_of import CatalogActionOneOf
-from talon_one.models.catalog_action_one_of1 import CatalogActionOneOf1
-from talon_one.models.catalog_action_one_of2 import CatalogActionOneOf2
-from talon_one.models.catalog_action_one_of3 import CatalogActionOneOf3
-from talon_one.models.catalog_action_one_of4 import CatalogActionOneOf4
-from talon_one.models.catalog_action_one_of5 import CatalogActionOneOf5
+from talon_one.models.catalog_action_add import CatalogActionAdd
+from talon_one.models.catalog_action_add_price_adjustment import CatalogActionAddPriceAdjustment
+from talon_one.models.catalog_action_patch import CatalogActionPatch
+from talon_one.models.catalog_action_patch_many import CatalogActionPatchMany
+from talon_one.models.catalog_action_remove import CatalogActionRemove
+from talon_one.models.catalog_action_remove_many import CatalogActionRemoveMany
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-CATALOGACTION_ONE_OF_SCHEMAS = ["CatalogActionOneOf", "CatalogActionOneOf1", "CatalogActionOneOf2", "CatalogActionOneOf3", "CatalogActionOneOf4", "CatalogActionOneOf5"]
+CATALOGACTION_ONE_OF_SCHEMAS = ["CatalogActionAdd", "CatalogActionAddPriceAdjustment", "CatalogActionPatch", "CatalogActionPatchMany", "CatalogActionRemove", "CatalogActionRemoveMany"]
 
 class CatalogAction(BaseModel):
     """
-    Definition of all the properties that are needed for a single catalog sync action.
+    Definition of all the properties that are needed for a single catalog sync action. The `type` field selects the concrete action variant.
     """
-    # data type: CatalogActionOneOf
-    oneof_schema_1_validator: Optional[CatalogActionOneOf] = None
-    # data type: CatalogActionOneOf1
-    oneof_schema_2_validator: Optional[CatalogActionOneOf1] = None
-    # data type: CatalogActionOneOf2
-    oneof_schema_3_validator: Optional[CatalogActionOneOf2] = None
-    # data type: CatalogActionOneOf3
-    oneof_schema_4_validator: Optional[CatalogActionOneOf3] = None
-    # data type: CatalogActionOneOf4
-    oneof_schema_5_validator: Optional[CatalogActionOneOf4] = None
-    # data type: CatalogActionOneOf5
-    oneof_schema_6_validator: Optional[CatalogActionOneOf5] = None
-    actual_instance: Optional[Union[CatalogActionOneOf, CatalogActionOneOf1, CatalogActionOneOf2, CatalogActionOneOf3, CatalogActionOneOf4, CatalogActionOneOf5]] = None
-    one_of_schemas: Set[str] = { "CatalogActionOneOf", "CatalogActionOneOf1", "CatalogActionOneOf2", "CatalogActionOneOf3", "CatalogActionOneOf4", "CatalogActionOneOf5" }
+    # data type: CatalogActionAdd
+    oneof_schema_1_validator: Optional[CatalogActionAdd] = None
+    # data type: CatalogActionPatch
+    oneof_schema_2_validator: Optional[CatalogActionPatch] = None
+    # data type: CatalogActionPatchMany
+    oneof_schema_3_validator: Optional[CatalogActionPatchMany] = None
+    # data type: CatalogActionRemove
+    oneof_schema_4_validator: Optional[CatalogActionRemove] = None
+    # data type: CatalogActionRemoveMany
+    oneof_schema_5_validator: Optional[CatalogActionRemoveMany] = None
+    # data type: CatalogActionAddPriceAdjustment
+    oneof_schema_6_validator: Optional[CatalogActionAddPriceAdjustment] = None
+    actual_instance: Optional[Union[CatalogActionAdd, CatalogActionAddPriceAdjustment, CatalogActionPatch, CatalogActionPatchMany, CatalogActionRemove, CatalogActionRemoveMany]] = None
+    one_of_schemas: Set[str] = { "CatalogActionAdd", "CatalogActionAddPriceAdjustment", "CatalogActionPatch", "CatalogActionPatchMany", "CatalogActionRemove", "CatalogActionRemoveMany" }
 
     model_config = ConfigDict(
         validate_assignment=True,
         protected_namespaces=(),
     )
 
+
+    discriminator_value_class_map: Dict[str, str] = {
+    }
 
     def __init__(self, *args, **kwargs) -> None:
         if args:
@@ -69,42 +72,42 @@ class CatalogAction(BaseModel):
         instance = CatalogAction.model_construct()
         error_messages = []
         match = 0
-        # validate data type: CatalogActionOneOf
-        if not isinstance(v, CatalogActionOneOf):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionOneOf`")
+        # validate data type: CatalogActionAdd
+        if not isinstance(v, CatalogActionAdd):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionAdd`")
         else:
             match += 1
-        # validate data type: CatalogActionOneOf1
-        if not isinstance(v, CatalogActionOneOf1):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionOneOf1`")
+        # validate data type: CatalogActionPatch
+        if not isinstance(v, CatalogActionPatch):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionPatch`")
         else:
             match += 1
-        # validate data type: CatalogActionOneOf2
-        if not isinstance(v, CatalogActionOneOf2):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionOneOf2`")
+        # validate data type: CatalogActionPatchMany
+        if not isinstance(v, CatalogActionPatchMany):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionPatchMany`")
         else:
             match += 1
-        # validate data type: CatalogActionOneOf3
-        if not isinstance(v, CatalogActionOneOf3):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionOneOf3`")
+        # validate data type: CatalogActionRemove
+        if not isinstance(v, CatalogActionRemove):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionRemove`")
         else:
             match += 1
-        # validate data type: CatalogActionOneOf4
-        if not isinstance(v, CatalogActionOneOf4):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionOneOf4`")
+        # validate data type: CatalogActionRemoveMany
+        if not isinstance(v, CatalogActionRemoveMany):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionRemoveMany`")
         else:
             match += 1
-        # validate data type: CatalogActionOneOf5
-        if not isinstance(v, CatalogActionOneOf5):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionOneOf5`")
+        # validate data type: CatalogActionAddPriceAdjustment
+        if not isinstance(v, CatalogActionAddPriceAdjustment):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogActionAddPriceAdjustment`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in CatalogAction with oneOf schemas: CatalogActionOneOf, CatalogActionOneOf1, CatalogActionOneOf2, CatalogActionOneOf3, CatalogActionOneOf4, CatalogActionOneOf5. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in CatalogAction with oneOf schemas: CatalogActionAdd, CatalogActionAddPriceAdjustment, CatalogActionPatch, CatalogActionPatchMany, CatalogActionRemove, CatalogActionRemoveMany. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in CatalogAction with oneOf schemas: CatalogActionOneOf, CatalogActionOneOf1, CatalogActionOneOf2, CatalogActionOneOf3, CatalogActionOneOf4, CatalogActionOneOf5. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in CatalogAction with oneOf schemas: CatalogActionAdd, CatalogActionAddPriceAdjustment, CatalogActionPatch, CatalogActionPatchMany, CatalogActionRemove, CatalogActionRemoveMany. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -119,49 +122,49 @@ class CatalogAction(BaseModel):
         error_messages = []
         match = 0
 
-        # deserialize data into CatalogActionOneOf
+        # deserialize data into CatalogActionAdd
         try:
-            instance.actual_instance = CatalogActionOneOf.from_json(json_str)
+            instance.actual_instance = CatalogActionAdd.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CatalogActionOneOf1
+        # deserialize data into CatalogActionPatch
         try:
-            instance.actual_instance = CatalogActionOneOf1.from_json(json_str)
+            instance.actual_instance = CatalogActionPatch.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CatalogActionOneOf2
+        # deserialize data into CatalogActionPatchMany
         try:
-            instance.actual_instance = CatalogActionOneOf2.from_json(json_str)
+            instance.actual_instance = CatalogActionPatchMany.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CatalogActionOneOf3
+        # deserialize data into CatalogActionRemove
         try:
-            instance.actual_instance = CatalogActionOneOf3.from_json(json_str)
+            instance.actual_instance = CatalogActionRemove.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CatalogActionOneOf4
+        # deserialize data into CatalogActionRemoveMany
         try:
-            instance.actual_instance = CatalogActionOneOf4.from_json(json_str)
+            instance.actual_instance = CatalogActionRemoveMany.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CatalogActionOneOf5
+        # deserialize data into CatalogActionAddPriceAdjustment
         try:
-            instance.actual_instance = CatalogActionOneOf5.from_json(json_str)
+            instance.actual_instance = CatalogActionAddPriceAdjustment.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into CatalogAction with oneOf schemas: CatalogActionOneOf, CatalogActionOneOf1, CatalogActionOneOf2, CatalogActionOneOf3, CatalogActionOneOf4, CatalogActionOneOf5. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into CatalogAction with oneOf schemas: CatalogActionAdd, CatalogActionAddPriceAdjustment, CatalogActionPatch, CatalogActionPatchMany, CatalogActionRemove, CatalogActionRemoveMany. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into CatalogAction with oneOf schemas: CatalogActionOneOf, CatalogActionOneOf1, CatalogActionOneOf2, CatalogActionOneOf3, CatalogActionOneOf4, CatalogActionOneOf5. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into CatalogAction with oneOf schemas: CatalogActionAdd, CatalogActionAddPriceAdjustment, CatalogActionPatch, CatalogActionPatchMany, CatalogActionRemove, CatalogActionRemoveMany. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -175,7 +178,7 @@ class CatalogAction(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], CatalogActionOneOf, CatalogActionOneOf1, CatalogActionOneOf2, CatalogActionOneOf3, CatalogActionOneOf4, CatalogActionOneOf5]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], CatalogActionAdd, CatalogActionAddPriceAdjustment, CatalogActionPatch, CatalogActionPatchMany, CatalogActionRemove, CatalogActionRemoveMany]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

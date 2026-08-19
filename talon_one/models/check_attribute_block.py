@@ -27,7 +27,7 @@ from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-CHECKATTRIBUTEBLOCK_ONE_OF_SCHEMAS = ["CheckAttributeBlockBase"]
+CHECKATTRIBUTEBLOCK_ONE_OF_SCHEMAS = ["CheckAttributeBlockBase", "object"]
 
 class CheckAttributeBlock(BaseModel):
     """
@@ -45,8 +45,8 @@ class CheckAttributeBlock(BaseModel):
     oneof_schema_5_validator: Optional[UnaryCheckAttributeBlock] = None
     # data type: WithinCheckAttributeBlock
     oneof_schema_6_validator: Optional[WithinCheckAttributeBlock] = None
-    actual_instance: Optional[Union[CheckAttributeBlockBase]] = None
-    one_of_schemas: Set[str] = { "CheckAttributeBlockBase" }
+    actual_instance: Optional[Union[CheckAttributeBlockBase, object]] = None
+    one_of_schemas: Set[str] = { "CheckAttributeBlockBase", "object" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -104,10 +104,10 @@ class CheckAttributeBlock(BaseModel):
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -161,10 +161,10 @@ class CheckAttributeBlock(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -178,7 +178,7 @@ class CheckAttributeBlock(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], CheckAttributeBlockBase]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], CheckAttributeBlockBase, object]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None
