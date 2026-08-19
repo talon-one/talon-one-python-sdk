@@ -40,7 +40,7 @@ class TestPromotionBlock(unittest.TestCase):
                 tags = [
                     ''
                     ],
-                operator = 'available',
+                operator = 'member',
                 blocks = [
                     null
                     ],
@@ -52,8 +52,8 @@ class TestPromotionBlock(unittest.TestCase):
                         null
                         ]
                     },
-                name = 'Free Tote Bag',
-                value = 5,
+                name = 'Purchase Deduction',
+                value = None,
                 partial = False,
                 target = talon_one.models.trigger_custom_effect_block_1_target.TriggerCustomEffectBlock_1_target(
                     type = 'cart', 
@@ -90,11 +90,11 @@ class TestPromotionBlock(unittest.TestCase):
                     name = 'Travel audience', 
                     integration = 'mparticle', 
                     integration_id = '382370BKDB946', ),
-                program = talon_one.models.check_loyalty_balance_block_1_program.CheckLoyaltyBalanceBlock_1_program(
+                program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),
-                subledger = '',
+                subledger = 'main',
                 balance = 'current',
                 redeem = True,
                 achievement = talon_one.models.check_achievement_block_1_achievement.CheckAchievementBlock_1_achievement(
@@ -125,18 +125,23 @@ class TestPromotionBlock(unittest.TestCase):
                 attributes = None,
                 valid_characters = 'ABC',
                 pattern = 'SUMMER-####-####',
-                friend_id = '{{$Profile.IntegrationId}}'
+                friend_id = '{{$Profile.IntegrationId}}',
+                tier = talon_one.models.check_tier_block_1_tier.CheckTierBlock_1_tier(
+                    id = 42, 
+                    name = 'Bronze', 
+                    min_points = 150, 
+                    upper_limit = 1.337, )
             )
         else:
             return PromotionBlock(
                 id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
-                operator = 'available',
+                operator = 'member',
                 blocks = [
                     null
                     ],
-                name = 'Free Tote Bag',
-                value = 5,
+                name = 'Purchase Deduction',
+                value = None,
                 partial = False,
                 target = talon_one.models.trigger_custom_effect_block_1_target.TriggerCustomEffectBlock_1_target(
                     type = 'cart', 
@@ -163,11 +168,11 @@ class TestPromotionBlock(unittest.TestCase):
                     name = 'Travel audience', 
                     integration = 'mparticle', 
                     integration_id = '382370BKDB946', ),
-                program = talon_one.models.check_loyalty_balance_block_1_program.CheckLoyaltyBalanceBlock_1_program(
+                program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),
-                subledger = '',
+                subledger = 'main',
                 balance = 'current',
                 redeem = True,
                 achievement = talon_one.models.check_achievement_block_1_achievement.CheckAchievementBlock_1_achievement(
@@ -188,6 +193,11 @@ class TestPromotionBlock(unittest.TestCase):
                 recipient_id = '{{$Profile.IntegrationId}}',
                 store_in_session = True,
                 friend_id = '{{$Profile.IntegrationId}}',
+                tier = talon_one.models.check_tier_block_1_tier.CheckTierBlock_1_tier(
+                    id = 42, 
+                    name = 'Bronze', 
+                    min_points = 150, 
+                    upper_limit = 1.337, ),
         )
         """
 

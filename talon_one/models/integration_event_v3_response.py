@@ -27,6 +27,7 @@ from talon_one.models.customer_profile import CustomerProfile
 from talon_one.models.effect import Effect
 from talon_one.models.event_v3 import EventV3
 from talon_one.models.giveaway import Giveaway
+from talon_one.models.inventory_referral import InventoryReferral
 from talon_one.models.loyalty import Loyalty
 from talon_one.models.referral import Referral
 from talon_one.models.rule_failure_reason import RuleFailureReason
@@ -49,7 +50,8 @@ class IntegrationEventV3Response(BaseModel):
     awarded_giveaways: Optional[List[Giveaway]] = Field(default=None, description="The giveaways that were awarded during the event processing.", alias="awardedGiveaways")
     achievements: Optional[List[CustomerAchievement]] = Field(default=None, description="The achievements progress of the customer.")
     advanced_event: Optional[EventV3] = Field(default=None, description="The advanced event that was processed.", alias="advancedEvent")
-    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "advancedEvent"]
+    referral: Optional[InventoryReferral] = Field(default=None, description="The referral that was processed.")
+    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "advancedEvent", "referral"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -155,6 +157,9 @@ class IntegrationEventV3Response(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of advanced_event
         if self.advanced_event:
             _dict['advancedEvent'] = self.advanced_event.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of referral
+        if self.referral:
+            _dict['referral'] = self.referral.to_dict()
         return _dict
 
     @classmethod
@@ -177,7 +182,8 @@ class IntegrationEventV3Response(BaseModel):
             "createdReferrals": [Referral.from_dict(_item) for _item in obj["createdReferrals"]] if obj.get("createdReferrals") is not None else None,
             "awardedGiveaways": [Giveaway.from_dict(_item) for _item in obj["awardedGiveaways"]] if obj.get("awardedGiveaways") is not None else None,
             "achievements": [CustomerAchievement.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None,
-            "advancedEvent": EventV3.from_dict(obj["advancedEvent"]) if obj.get("advancedEvent") is not None else None
+            "advancedEvent": EventV3.from_dict(obj["advancedEvent"]) if obj.get("advancedEvent") is not None else None,
+            "referral": InventoryReferral.from_dict(obj["referral"]) if obj.get("referral") is not None else None
         })
         return _obj
 

@@ -37,8 +37,8 @@ class ResponseContentObject(BaseModel):
             return value
 
         for i in value:
-            if i not in set(['customerProfile', 'triggeredCampaigns', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons', 'campaignEligibility', 'achievements']):
-                raise ValueError("each list item must be one of ('customerProfile', 'triggeredCampaigns', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons', 'campaignEligibility', 'achievements')")
+            if i not in set(['customerProfile', 'triggeredCampaigns', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons', 'campaignEligibility', 'achievements', 'unlockedRewards']):
+                raise ValueError("each list item must be one of ('customerProfile', 'triggeredCampaigns', 'loyalty', 'event', 'awardedGiveaways', 'ruleFailureReasons', 'campaignEligibility', 'achievements', 'unlockedRewards')")
         return value
 
     model_config = ConfigDict(

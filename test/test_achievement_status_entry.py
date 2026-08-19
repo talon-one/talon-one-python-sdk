@@ -49,6 +49,7 @@ class TestAchievementStatusEntry(unittest.TestCase):
                 end_date = '2024-02-15T15:04:05Z07:00',
                 allow_rollback_after_completion = False,
                 campaign_id = 1,
+                campaign_ids = [1, 14, 27],
                 status = 'active',
                 current_progress = talon_one.models.achievement_progress.AchievementProgress(
                     status = 'completed', 
@@ -65,6 +66,7 @@ class TestAchievementStatusEntry(unittest.TestCase):
                 title = '50% off on 50th purchase.',
                 description = '50% off for every 50th purchase in a year.',
                 target = 50,
+                campaign_ids = [1, 14, 27],
         )
         """
 

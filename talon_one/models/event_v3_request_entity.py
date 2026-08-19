@@ -35,7 +35,8 @@ class EventV3RequestEntity(BaseModel):
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary additional JSON properties associated with the event. They must be created in the Campaign Manager before setting them with this property. See [creating custom attributes](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#creating-a-custom-attribute).", json_schema_extra={"examples": [{"myAttribute": "myValue"}]})
     integration_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The unique ID of the event. Only one event with this ID can be registered. ", alias="integrationId", json_schema_extra={"examples": ["175KJPS947296"]})
     connected_session_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The ID of the session to reference. The session must be in `closed` state. Otherwise, the API call will fail.", alias="connectedSessionId", json_schema_extra={"examples": ["175KJPS947296"]})
-    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "integrationId", "connectedSessionId"]
+    referral_code: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="The referral code submitted with the event. The endpoint does not validate the code, and submitting a code does not redeem it. Use the \"Referral code is valid\" condition in the Rule Builder to validate and redeem the code, or \"Referral code is valid (without redemption)\" to validate without redeeming. ", alias="referralCode", json_schema_extra={"examples": ["NT2K54D9"]})
+    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "integrationId", "connectedSessionId", "referralCode"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -94,7 +95,8 @@ class EventV3RequestEntity(BaseModel):
             "type": obj.get("type"),
             "attributes": obj.get("attributes"),
             "integrationId": obj.get("integrationId"),
-            "connectedSessionId": obj.get("connectedSessionId")
+            "connectedSessionId": obj.get("connectedSessionId"),
+            "referralCode": obj.get("referralCode")
         })
         return _obj
 

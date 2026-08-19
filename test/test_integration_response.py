@@ -98,6 +98,13 @@ class TestIntegrationResponse(unittest.TestCase):
                         fixed_start_date = '2024-01-15T15:04:05Z07:00', 
                         end_date = '2024-02-15T15:04:05Z07:00', 
                         allow_rollback_after_completion = False, 
+                        campaign_id = 3, 
+                        campaign_ids = [1, 14, 27], 
+                        referenced_by_campaigns = [
+                            talon_one.models.campaign_reference.CampaignReference(
+                                id = 1, 
+                                application_id = 2, )
+                            ], 
                         current_progress = talon_one.models.achievement_progress.AchievementProgress(
                             status = 'completed', 
                             progress = 10, 

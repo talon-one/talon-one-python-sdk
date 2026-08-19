@@ -37,14 +37,14 @@ class TestMCPOAuthClient(unittest.TestCase):
             return MCPOAuthClient(
                 client_id = 'a3f8c1e2b4d56789',
                 client_name = 'My MCP Integration',
-                redirect_uris = ["https://example.com/callback","http://localhost:3000/callback"],
+                redirect_uris = [https://example.com/callback, http://localhost:3000/callback],
                 created_at = '2026-06-12T10:00:00Z'
             )
         else:
             return MCPOAuthClient(
                 client_id = 'a3f8c1e2b4d56789',
                 client_name = 'My MCP Integration',
-                redirect_uris = ["https://example.com/callback","http://localhost:3000/callback"],
+                redirect_uris = [https://example.com/callback, http://localhost:3000/callback],
                 created_at = '2026-06-12T10:00:00Z',
         )
         """

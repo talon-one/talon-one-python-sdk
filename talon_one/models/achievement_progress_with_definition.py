@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from talon_one.models.campaign_reference import CampaignReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -38,14 +39,16 @@ class AchievementProgressWithDefinition(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The internal name of the achievement used in API requests. ", json_schema_extra={"examples": ["FreeCoffee10Orders"]})
     title: StrictStr = Field(description="The display name of the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off on 50th purchase."]})
     description: StrictStr = Field(description="The description of the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off for every 50th purchase in a year."]})
-    campaign_id: StrictInt = Field(description="The ID of the campaign the achievement belongs to.", alias="campaignId", json_schema_extra={"examples": [3]})
+    campaign_id: StrictInt = Field(description="This property is **deprecated**. Use `campaignIds` (Integration API) or `referencedByCampaigns` (Management API) instead. The first campaign ID in `campaignIds`. Only returned when `campaignIds` is not empty.", alias="campaignId", json_schema_extra={"examples": [3]})
+    campaign_ids: List[StrictInt] = Field(description="The IDs of the campaigns that reference this achievement, in ascending order.", alias="campaignIds", json_schema_extra={"examples": [[1, 14, 27]]})
+    referenced_by_campaigns: List[CampaignReference] = Field(description="The campaigns that reference this achievement, in ascending order of their `id`.", alias="referencedByCampaigns")
     target: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The required number of actions or the transactional milestone to complete the achievement.", json_schema_extra={"examples": [10]})
     achievement_recurrence_policy: StrictStr = Field(description="The policy that determines if and how the achievement recurs. - `no_recurrence`: The achievement can be completed only once. - `on_expiration`: The achievement resets after it expires and becomes available again. - `on_completion`: When the customer progress status reaches `completed`, the achievement resets and becomes available again. ", alias="achievementRecurrencePolicy", json_schema_extra={"examples": ["no_recurrence"]})
     achievement_activation_policy: StrictStr = Field(description="The policy that determines how the achievement starts, ends, or resets. - `user_action`: The achievement ends or resets relative to when the customer started the achievement. - `fixed_schedule`: The achievement starts, ends, or resets for all customers following a fixed schedule. ", alias="achievementActivationPolicy", json_schema_extra={"examples": ["fixed_schedule"]})
     achievement_fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `achievementActivationPolicy` is equal to `fixed_schedule`.  **Note:** It is an RFC3339 timestamp string. ", alias="achievementFixedStartDate", json_schema_extra={"examples": ["2024-01-15T15:04:05Z07:00"]})
     achievement_end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It is an RFC3339 timestamp string. ", alias="achievementEndDate", json_schema_extra={"examples": ["2024-02-15T15:04:05Z07:00"]})
     achievement_allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="achievementAllowRollbackAfterCompletion", json_schema_extra={"examples": [False]})
-    __properties: ClassVar[List[str]] = ["status", "progress", "startDate", "completionDate", "endDate", "achievementId", "name", "title", "description", "campaignId", "target", "achievementRecurrencePolicy", "achievementActivationPolicy", "achievementFixedStartDate", "achievementEndDate", "achievementAllowRollbackAfterCompletion"]
+    __properties: ClassVar[List[str]] = ["status", "progress", "startDate", "completionDate", "endDate", "achievementId", "name", "title", "description", "campaignId", "campaignIds", "referencedByCampaigns", "target", "achievementRecurrencePolicy", "achievementActivationPolicy", "achievementFixedStartDate", "achievementEndDate", "achievementAllowRollbackAfterCompletion"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -114,6 +117,13 @@ class AchievementProgressWithDefinition(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in referenced_by_campaigns (list)
+        _items = []
+        if self.referenced_by_campaigns:
+            for _item_referenced_by_campaigns in self.referenced_by_campaigns:
+                if _item_referenced_by_campaigns:
+                    _items.append(_item_referenced_by_campaigns.to_dict())
+            _dict['referencedByCampaigns'] = _items
         return _dict
 
     @classmethod
@@ -136,6 +146,8 @@ class AchievementProgressWithDefinition(BaseModel):
             "title": obj.get("title"),
             "description": obj.get("description"),
             "campaignId": obj.get("campaignId"),
+            "campaignIds": obj.get("campaignIds"),
+            "referencedByCampaigns": [CampaignReference.from_dict(_item) for _item in obj["referencedByCampaigns"]] if obj.get("referencedByCampaigns") is not None else None,
             "target": obj.get("target"),
             "achievementRecurrencePolicy": obj.get("achievementRecurrencePolicy"),
             "achievementActivationPolicy": obj.get("achievementActivationPolicy"),

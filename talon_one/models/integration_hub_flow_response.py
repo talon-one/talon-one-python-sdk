@@ -37,9 +37,8 @@ class IntegrationHubFlowResponse(BaseModel):
     application_id: Optional[StrictInt] = Field(default=None, description="ID of the application the flow is registered for.", alias="applicationId", json_schema_extra={"examples": [54]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program the flow is registered for.", alias="loyaltyProgramId", json_schema_extra={"examples": [12]})
     event_type: StrictStr = Field(description="The event type we want to register a flow for.", alias="eventType")
-    integration_hub_flow_url: StrictStr = Field(description="The URL of the integration hub flow that we want to trigger for the event.", alias="integrationHubFlowUrl")
     config: IntegrationHubFlowConfigResponse
-    __properties: ClassVar[List[str]] = ["id", "integrationName", "instanceName", "createdAt", "disabledUntil", "applicationId", "loyaltyProgramId", "eventType", "integrationHubFlowUrl", "config"]
+    __properties: ClassVar[List[str]] = ["id", "integrationName", "instanceName", "createdAt", "disabledUntil", "applicationId", "loyaltyProgramId", "eventType", "config"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -108,7 +107,6 @@ class IntegrationHubFlowResponse(BaseModel):
             "applicationId": obj.get("applicationId"),
             "loyaltyProgramId": obj.get("loyaltyProgramId"),
             "eventType": obj.get("eventType"),
-            "integrationHubFlowUrl": obj.get("integrationHubFlowUrl"),
             "config": IntegrationHubFlowConfigResponse.from_dict(obj["config"]) if obj.get("config") is not None else None
         })
         return _obj

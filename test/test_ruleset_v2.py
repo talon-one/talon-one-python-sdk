@@ -57,10 +57,23 @@ class TestRulesetV2(unittest.TestCase):
                             ], )
                     ],
                 bundles = [
-                    { }
+                    talon_one.models.bundle.Bundle(
+                        id = '1b671a64-40d5-491e-99b0-da01ff1f3341', 
+                        name = 'meal_deal', 
+                        type = 'bundle', 
+                        sources = [{{$mains}}, {{$drinks}}], 
+                        counts = [1, 2], 
+                        matchers = [color], )
                     ],
                 parameters = [
-                    { }
+                    talon_one.models.template_parameter.TemplateParameter(
+                        name = 'minCartTotal', 
+                        value = null, 
+                        value_type = 'number', 
+                        min_value = 0, 
+                        max_value = 10000, 
+                        description = 'Minimum cart total to trigger the campaign.', 
+                        attribute = 42, )
                     ]
             )
         else:

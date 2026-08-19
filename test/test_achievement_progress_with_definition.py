@@ -45,6 +45,12 @@ class TestAchievementProgressWithDefinition(unittest.TestCase):
                 title = '50% off on 50th purchase.',
                 description = '50% off for every 50th purchase in a year.',
                 campaign_id = 3,
+                campaign_ids = [1, 14, 27],
+                referenced_by_campaigns = [
+                    talon_one.models.campaign_reference.CampaignReference(
+                        id = 1, 
+                        application_id = 2, )
+                    ],
                 target = 10,
                 achievement_recurrence_policy = 'no_recurrence',
                 achievement_activation_policy = 'fixed_schedule',
@@ -61,6 +67,12 @@ class TestAchievementProgressWithDefinition(unittest.TestCase):
                 title = '50% off on 50th purchase.',
                 description = '50% off for every 50th purchase in a year.',
                 campaign_id = 3,
+                campaign_ids = [1, 14, 27],
+                referenced_by_campaigns = [
+                    talon_one.models.campaign_reference.CampaignReference(
+                        id = 1, 
+                        application_id = 2, )
+                    ],
                 achievement_recurrence_policy = 'no_recurrence',
                 achievement_activation_policy = 'fixed_schedule',
         )

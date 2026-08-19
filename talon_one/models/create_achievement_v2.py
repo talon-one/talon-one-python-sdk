@@ -29,10 +29,10 @@ class CreateAchievementV2(BaseModel):
     """
     CreateAchievementV2
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The internal name of the achievement used in API requests.  **Note**: The name should start with a letter. This cannot be changed after the achievement has been created. ", json_schema_extra={"examples": ["Order50Discount"]})
-    title: StrictStr = Field(description="The display name for the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off on 50th purchase."]})
-    description: StrictStr = Field(description="A description of the achievement.", json_schema_extra={"examples": ["50% off for every 50th purchase in a year."]})
-    target: Union[StrictFloat, StrictInt] = Field(description="The required number of actions or the transactional milestone to complete the achievement.", json_schema_extra={"examples": [50]})
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The internal name of the achievement used in API requests.  **Note**: The name should start with a letter. This cannot be changed after the achievement has been created. ", json_schema_extra={"examples": ["Order50Discount"]})
+    title: Optional[StrictStr] = Field(default=None, description="The display name for the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off on 50th purchase."]})
+    description: Optional[StrictStr] = Field(default=None, description="A description of the achievement.", json_schema_extra={"examples": ["50% off for every 50th purchase in a year."]})
+    target: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The required number of actions or the transactional milestone to complete the achievement.", json_schema_extra={"examples": [50]})
     period: Optional[StrictStr] = Field(default=None, description="The relative duration after which the achievement ends and resets for a particular customer profile.  **Note**: The `period` does not start when the achievement is created.  The period is a **positive real number** followed by one letter indicating the time unit.  Examples: `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `s`: seconds - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can also round certain units down to the beginning of period and up to the end of period.: - `_D` for rounding down days only. Signifies the start of the day. Example: `30D_D` - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year. Example: `23W_U`  **Note**: You can either use the round down and round up option or set an absolute period. ", json_schema_extra={"examples": ["1Y"]})
     recurrence_policy: Optional[StrictStr] = Field(default=None, description="The policy that determines if and how the achievement recurs. - `no_recurrence`: The achievement can be completed only once. - `on_expiration`: The achievement resets after it expires and becomes available again. - `on_completion`: When the customer progress status reaches `completed`, the achievement resets and becomes available again. ", alias="recurrencePolicy", json_schema_extra={"examples": ["no_recurrence"]})
     activation_policy: Optional[StrictStr] = Field(default=None, description="The policy that determines how the achievement starts, ends, or resets. - `user_action`: The achievement ends or resets relative to when the customer started the achievement. - `fixed_schedule`: The achievement starts, ends, or resets for all customers following a fixed schedule. ", alias="activationPolicy", json_schema_extra={"examples": ["fixed_schedule"]})
@@ -47,6 +47,9 @@ class CreateAchievementV2(BaseModel):
     @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
+        if value is None:
+            return value
+
         if isinstance(value, str) and not re.match(r"^[a-zA-Z]\w+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z]\w+$/")
         return value

@@ -28,11 +28,18 @@ class SelectorGroupBlock(BaseModel):
     SelectorGroupBlock
     """ # noqa: E501
     id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
-    type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
+    type: StrictStr = Field(description="A block discriminator of type `group`.", json_schema_extra={"examples": ["group"]})
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="Logical operator applied across child blocks. `all` requires every child to pass, `atLeastOne` requires at least one, `none` requires all to fail.", json_schema_extra={"examples": ["all"]})
     blocks: List[SelectorBlock] = Field(description="Child predicate blocks evaluated according to the operator.")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "blocks"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['group']):
+            raise ValueError("must be one of enum values ('group')")
+        return value
 
     @field_validator('operator')
     def operator_validate_enum(cls, value):

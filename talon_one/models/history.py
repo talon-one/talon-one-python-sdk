@@ -33,13 +33,12 @@ class History(BaseModel):
     id: StrictInt = Field(description="The ID of the historical price.", json_schema_extra={"examples": [1]})
     observed_at: datetime = Field(description="The date and time when the price was observed.", alias="observedAt", json_schema_extra={"examples": ["2025-11-10T23:00:00Z"]})
     context_ids: List[StrictStr] = Field(description="The identifiers of the relevant context at the time the price was observed. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price. ", alias="contextIds", json_schema_extra={"examples": [["SpringSale", "SummerSale2025"]]})
-    context_id: Optional[StrictStr] = Field(default='', description="This property is **deprecated**. Use `contextIds` instead. Defaults to an empty string. ", alias="contextId", json_schema_extra={"examples": [""]})
     price: Union[StrictFloat, StrictInt] = Field(description="Price of the item.", json_schema_extra={"examples": [99.99]})
     metadata: BestPriorPriceMetadata
     target: LabelTarget
     excluded_at: Optional[datetime] = Field(default=None, description="The date and time when the historical price ID was excluded.", alias="excludedAt", json_schema_extra={"examples": ["2025-11-10T23:00:00Z"]})
     exclusion_reason: Optional[StrictStr] = Field(default=None, description="The reason for excluding this historical price ID.", alias="exclusionReason", json_schema_extra={"examples": ["Incorrect contextID value"]})
-    __properties: ClassVar[List[str]] = ["id", "observedAt", "contextIds", "contextId", "price", "metadata", "target", "excludedAt", "exclusionReason"]
+    __properties: ClassVar[List[str]] = ["id", "observedAt", "contextIds", "price", "metadata", "target", "excludedAt", "exclusionReason"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -101,7 +100,6 @@ class History(BaseModel):
             "id": obj.get("id"),
             "observedAt": obj.get("observedAt"),
             "contextIds": obj.get("contextIds"),
-            "contextId": obj.get("contextId") if obj.get("contextId") is not None else '',
             "price": obj.get("price"),
             "metadata": BestPriorPriceMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None,
             "target": LabelTarget.from_dict(obj["target"]) if obj.get("target") is not None else None,

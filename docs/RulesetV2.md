@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **promotion_rules** | [**List[PromotionRuleV2]**](PromotionRuleV2.md) | Set of promotion rules. | 
 **strikethrough_rules** | [**List[StrikethroughRuleV2]**](StrikethroughRuleV2.md) | Set of strikethrough rules. | 
 **selectors** | [**List[Selector]**](Selector.md) | Variable bindings of type selector. | [optional] 
-**bundles** | **List[Dict[str, object]]** | Variable bindings of type bundle. | [optional] 
-**parameters** | **List[Dict[str, object]]** | Variable bindings of type template parameter. | [optional] 
+**bundles** | [**List[Bundle]**](Bundle.md) | Variable bindings of type bundle. | [optional] 
+**parameters** | [**List[TemplateParameter]**](TemplateParameter.md) | Variable bindings of type template parameter. | [optional] 
 
 ## Example
 

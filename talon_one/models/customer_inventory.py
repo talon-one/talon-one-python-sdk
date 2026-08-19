@@ -39,7 +39,8 @@ class CustomerInventory(BaseModel):
     coupons: Optional[List[InventoryCoupon]] = Field(default=None, description="The coupons reserved by this profile. This array includes hard and soft reservations. ")
     giveaways: Optional[List[Giveaway]] = None
     achievements: Optional[List[AchievementProgressWithDefinition]] = None
-    __properties: ClassVar[List[str]] = ["profile", "loyalty", "referrals", "coupons", "giveaways", "achievements"]
+    rewards: Optional[List[Any]] = Field(default=None, description="The customer rewards that are `unlocked` and not yet `used`.")
+    __properties: ClassVar[List[str]] = ["profile", "loyalty", "referrals", "coupons", "giveaways", "achievements", "rewards"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -131,7 +132,8 @@ class CustomerInventory(BaseModel):
             "referrals": [InventoryReferral.from_dict(_item) for _item in obj["referrals"]] if obj.get("referrals") is not None else None,
             "coupons": [InventoryCoupon.from_dict(_item) for _item in obj["coupons"]] if obj.get("coupons") is not None else None,
             "giveaways": [Giveaway.from_dict(_item) for _item in obj["giveaways"]] if obj.get("giveaways") is not None else None,
-            "achievements": [AchievementProgressWithDefinition.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None
+            "achievements": [AchievementProgressWithDefinition.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None,
+            "rewards": obj.get("rewards")
         })
         return _obj
 

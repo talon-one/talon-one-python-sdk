@@ -68,6 +68,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_create_achievement_v2(self) -> None:
+        """Test case for create_achievement_v2
+
+        Create achievement
+        """
+        pass
+
     def test_create_additional_cost(self) -> None:
         """Test case for create_additional_cost
 
@@ -201,6 +208,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_delete_achievement_v2(self) -> None:
+        """Test case for delete_achievement_v2
+
+        Delete achievement
+        """
+        pass
+
     def test_delete_campaign(self) -> None:
         """Test case for delete_campaign
 
@@ -296,6 +310,13 @@ class TestManagementApi(unittest.TestCase):
         """Test case for export_account_collection_items
 
         Export account-level collection's items
+        """
+        pass
+
+    def test_export_achievement_v2(self) -> None:
+        """Test case for export_achievement_v2
+
+        Export achievement customer data
         """
         pass
 
@@ -476,6 +497,13 @@ class TestManagementApi(unittest.TestCase):
 
     def test_get_achievement(self) -> None:
         """Test case for get_achievement
+
+        Get achievement
+        """
+        pass
+
+    def test_get_achievement_v2(self) -> None:
+        """Test case for get_achievement_v2
 
         Get achievement
         """
@@ -1034,6 +1062,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_list_achievements_v2(self) -> None:
+        """Test case for list_achievements_v2
+
+        List achievements
+        """
+        pass
+
     def test_list_all_roles_v2(self) -> None:
         """Test case for list_all_roles_v2
 
@@ -1260,6 +1295,13 @@ class TestManagementApi(unittest.TestCase):
 
     def test_update_achievement(self) -> None:
         """Test case for update_achievement
+
+        Update achievement
+        """
+        pass
+
+    def test_update_achievement_v2(self) -> None:
+        """Test case for update_achievement_v2
 
         Update achievement
         """

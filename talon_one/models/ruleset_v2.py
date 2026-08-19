@@ -20,9 +20,11 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.bundle import Bundle
 from talon_one.models.promotion_rule_v2 import PromotionRuleV2
 from talon_one.models.selector import Selector
 from talon_one.models.strikethrough_rule_v2 import StrikethroughRuleV2
+from talon_one.models.template_parameter import TemplateParameter
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -40,8 +42,8 @@ class RulesetV2(BaseModel):
     promotion_rules: List[PromotionRuleV2] = Field(description="Set of promotion rules.", alias="promotionRules")
     strikethrough_rules: List[StrikethroughRuleV2] = Field(description="Set of strikethrough rules.", alias="strikethroughRules")
     selectors: Optional[List[Selector]] = Field(default=None, description="Variable bindings of type selector.")
-    bundles: Optional[List[Dict[str, Any]]] = Field(default=None, description="Variable bindings of type bundle.")
-    parameters: Optional[List[Dict[str, Any]]] = Field(default=None, description="Variable bindings of type template parameter.")
+    bundles: Optional[List[Bundle]] = Field(default=None, description="Variable bindings of type bundle.")
+    parameters: Optional[List[TemplateParameter]] = Field(default=None, description="Variable bindings of type template parameter.")
     __properties: ClassVar[List[str]] = ["id", "created", "userId", "campaignId", "templateId", "activatedAt", "promotionRules", "strikethroughRules", "selectors", "bundles", "parameters"]
 
     model_config = ConfigDict(
@@ -104,6 +106,20 @@ class RulesetV2(BaseModel):
                 if _item_selectors:
                     _items.append(_item_selectors.to_dict())
             _dict['selectors'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in bundles (list)
+        _items = []
+        if self.bundles:
+            for _item_bundles in self.bundles:
+                if _item_bundles:
+                    _items.append(_item_bundles.to_dict())
+            _dict['bundles'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in parameters (list)
+        _items = []
+        if self.parameters:
+            for _item_parameters in self.parameters:
+                if _item_parameters:
+                    _items.append(_item_parameters.to_dict())
+            _dict['parameters'] = _items
         return _dict
 
     @classmethod
@@ -125,8 +141,8 @@ class RulesetV2(BaseModel):
             "promotionRules": [PromotionRuleV2.from_dict(_item) for _item in obj["promotionRules"]] if obj.get("promotionRules") is not None else None,
             "strikethroughRules": [StrikethroughRuleV2.from_dict(_item) for _item in obj["strikethroughRules"]] if obj.get("strikethroughRules") is not None else None,
             "selectors": [Selector.from_dict(_item) for _item in obj["selectors"]] if obj.get("selectors") is not None else None,
-            "bundles": obj.get("bundles"),
-            "parameters": obj.get("parameters")
+            "bundles": [Bundle.from_dict(_item) for _item in obj["bundles"]] if obj.get("bundles") is not None else None,
+            "parameters": [TemplateParameter.from_dict(_item) for _item in obj["parameters"]] if obj.get("parameters") is not None else None
         })
         return _obj
 
