@@ -34,11 +34,12 @@ class NewCouponsForMultipleRecipients(BaseModel):
     reservation_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of reservations that can be made with this coupon code. ", alias="reservationLimit", json_schema_extra={"examples": [45]})
     start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="startDate", json_schema_extra={"examples": ["2020-01-24T14:15:22Z"]})
     expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:15:22Z"]})
+    batch_id: Optional[StrictStr] = Field(default=None, description="The batch ID that all coupons created by the request will bear. If omitted, a batch ID is generated automatically.", alias="batchId", json_schema_extra={"examples": ["3rdparty_fjsieoaa"]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": ["{venueId=12}"]})
     recipients_integration_ids: Annotated[List[StrictStr], Field(min_length=1, max_length=1000)] = Field(description="The integration IDs for recipients.", alias="recipientsIntegrationIds", json_schema_extra={"examples": [["URNGV8294NV", "BZGGC2454PA"]]})
     valid_characters: Optional[List[StrictStr]] = Field(default=None, description="List of characters used to generate the random parts of a code. By default, the list of characters is equivalent to the `[A-Z, 0-9]` regular expression. ", alias="validCharacters", json_schema_extra={"examples": [["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]]})
     coupon_pattern: Optional[Annotated[str, Field(min_length=3, strict=True, max_length=100)]] = Field(default=None, description="The pattern used to generate coupon codes. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="couponPattern", json_schema_extra={"examples": ["SUMMER-#####"]})
-    __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "attributes", "recipientsIntegrationIds", "validCharacters", "couponPattern"]
+    __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "batchId", "attributes", "recipientsIntegrationIds", "validCharacters", "couponPattern"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -96,6 +97,7 @@ class NewCouponsForMultipleRecipients(BaseModel):
             "reservationLimit": obj.get("reservationLimit"),
             "startDate": obj.get("startDate"),
             "expiryDate": obj.get("expiryDate"),
+            "batchId": obj.get("batchId"),
             "attributes": obj.get("attributes"),
             "recipientsIntegrationIds": obj.get("recipientsIntegrationIds"),
             "validCharacters": obj.get("validCharacters"),

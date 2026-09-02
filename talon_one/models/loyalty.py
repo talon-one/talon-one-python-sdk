@@ -76,15 +76,13 @@ class Loyalty(BaseModel):
         _items = []
         if self.cards:
             for _item_cards in self.cards:
-                if _item_cards:
-                    _items.append(_item_cards.to_dict())
+                _items.append(_item_cards.to_dict() if _item_cards is not None else None)
             _dict['cards'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in programs (dict)
         _field_dict = {}
         if self.programs:
             for _key_programs in self.programs:
-                if self.programs[_key_programs]:
-                    _field_dict[_key_programs] = self.programs[_key_programs].to_dict()
+                _field_dict[_key_programs] = self.programs[_key_programs].to_dict() if self.programs[_key_programs] is not None else None
             _dict['programs'] = _field_dict
         return _dict
 

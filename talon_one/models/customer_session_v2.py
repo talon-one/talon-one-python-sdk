@@ -42,6 +42,7 @@ class CustomerSessionV2(BaseModel):
     coupon_codes: Optional[List[Annotated[str, Field(strict=True, max_length=100)]]] = Field(default=None, description="Any coupon codes entered.  **Important - for requests only**:  - If you [create a coupon budget](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-budgets/#budget-types) for your campaign, ensure the session contains a coupon code by the time you close it. - In requests where `dry=false`, providing an empty array discards any previous coupons. To avoid this, omit the parameter entirely. ", alias="couponCodes", json_schema_extra={"examples": [["XMAS-20-2021"]]})
     referral_code: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Any referral code entered.  **Important - for requests only**:  - If you [create a referral budget](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-budgets/#budget-types) for your campaign, ensure the session contains a referral code by the time you close it. - In requests where `dry=false`, providing an empty value discards the previous referral code. To avoid this, omit the parameter entirely. ", alias="referralCode", json_schema_extra={"examples": ["NT2K54D9"]})
     loyalty_cards: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Identifier of a loyalty card.", alias="loyaltyCards", json_schema_extra={"examples": [["loyalty-card-1"]]})
+    reward_integration_ids: Optional[List[StrictStr]] = Field(default=None, description="The integration IDs of the unlocked rewards that can be used in this session. ", alias="rewardIntegrationIds", json_schema_extra={"examples": [["5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90"]]})
     state: Optional[StrictStr] = Field(default='open', description="Indicates the current state of the session. Sessions can be created as `open` or `closed`. The state transitions are:  1. `open` -> `closed` 2. `open` -> `cancelled` 3. Either:    - `closed` -> `cancelled` (**only** via [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2)) or    - `closed` -> `partially_returned` (**only** via [Return cart items](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/returnCartItems))    - `closed` -> `open` (**only** via [Reopen customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/reopenCustomerSession)) 4. `partially_returned` -> `cancelled`  For more information, see [Customer session states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions). ", json_schema_extra={"examples": ["open"]})
     cart_items: Optional[List[CartItem]] = Field(default=None, description="The items to add to this session. **Do not exceed 1000 items** and ensure the sum of all cart item's `quantity` **does not exceed 10.000** per request. ", alias="cartItems")
     experiment_variant_allocations: Optional[List[ExperimentVariantAllocation]] = Field(default=None, description="The experiment variant allocations to add to this session. ", alias="experimentVariantAllocations")
@@ -55,7 +56,7 @@ class CustomerSessionV2(BaseModel):
     additional_cost_total: Union[StrictFloat, StrictInt] = Field(description="The total value of additional costs, before any discounts are applied.", alias="additionalCostTotal", json_schema_extra={"examples": [20]})
     cart_item_additional_cost_total: Union[StrictFloat, StrictInt] = Field(description="The total value of additional costs applied to individual items, before any discounts are applied.", alias="cartItemAdditionalCostTotal", json_schema_extra={"examples": [15]})
     updated: datetime = Field(description="Timestamp of the most recent event received on this session.", json_schema_extra={"examples": ["2020-02-08T14:15:22Z"]})
-    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "state", "cartItems", "experimentVariantAllocations", "additionalCosts", "identifiers", "attributes", "firstSession", "updateCount", "total", "cartItemTotal", "additionalCostTotal", "cartItemAdditionalCostTotal", "updated"]
+    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "rewardIntegrationIds", "state", "cartItems", "experimentVariantAllocations", "additionalCosts", "identifiers", "attributes", "firstSession", "updateCount", "total", "cartItemTotal", "additionalCostTotal", "cartItemAdditionalCostTotal", "updated"]
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -112,22 +113,19 @@ class CustomerSessionV2(BaseModel):
         _items = []
         if self.cart_items:
             for _item_cart_items in self.cart_items:
-                if _item_cart_items:
-                    _items.append(_item_cart_items.to_dict())
+                _items.append(_item_cart_items.to_dict() if _item_cart_items is not None else None)
             _dict['cartItems'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in experiment_variant_allocations (list)
         _items = []
         if self.experiment_variant_allocations:
             for _item_experiment_variant_allocations in self.experiment_variant_allocations:
-                if _item_experiment_variant_allocations:
-                    _items.append(_item_experiment_variant_allocations.to_dict())
+                _items.append(_item_experiment_variant_allocations.to_dict() if _item_experiment_variant_allocations is not None else None)
             _dict['experimentVariantAllocations'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in additional_costs (dict)
         _field_dict = {}
         if self.additional_costs:
             for _key_additional_costs in self.additional_costs:
-                if self.additional_costs[_key_additional_costs]:
-                    _field_dict[_key_additional_costs] = self.additional_costs[_key_additional_costs].to_dict()
+                _field_dict[_key_additional_costs] = self.additional_costs[_key_additional_costs].to_dict() if self.additional_costs[_key_additional_costs] is not None else None
             _dict['additionalCosts'] = _field_dict
         return _dict
 
@@ -151,6 +149,7 @@ class CustomerSessionV2(BaseModel):
             "couponCodes": obj.get("couponCodes"),
             "referralCode": obj.get("referralCode"),
             "loyaltyCards": obj.get("loyaltyCards"),
+            "rewardIntegrationIds": obj.get("rewardIntegrationIds"),
             "state": obj.get("state") if obj.get("state") is not None else 'open',
             "cartItems": [CartItem.from_dict(_item) for _item in obj["cartItems"]] if obj.get("cartItems") is not None else None,
             "experimentVariantAllocations": [ExperimentVariantAllocation.from_dict(_item) for _item in obj["experimentVariantAllocations"]] if obj.get("experimentVariantAllocations") is not None else None,

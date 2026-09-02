@@ -34,6 +34,8 @@ class RuleFailureReason(BaseModel):
     coupon_value: Optional[StrictStr] = Field(default=None, description="The code of the coupon that was being evaluated at the time of the rule failure.", alias="couponValue")
     referral_id: Optional[StrictInt] = Field(default=None, description="The ID of the referral that was being evaluated at the time of the rule failure.", alias="referralID")
     referral_value: Optional[StrictStr] = Field(default=None, description="The code of the referral that was being evaluated at the time of the rule failure.", alias="referralValue")
+    reward_id: Optional[StrictInt] = Field(default=None, description="The ID of the reward that was being evaluated at the time of the rule failure.", alias="rewardId", json_schema_extra={"examples": [7]})
+    reward_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the reward that was being evaluated at the time of the rule failure.", alias="rewardIntegrationId", json_schema_extra={"examples": ["5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90"]})
     rule_index: StrictInt = Field(description="The index of the rule that failed within the ruleset.", alias="ruleIndex")
     rule_name: StrictStr = Field(description="The name of the rule that failed within the ruleset.", alias="ruleName")
     condition_index: Optional[StrictInt] = Field(default=None, description="The index of the condition that failed.", alias="conditionIndex")
@@ -41,7 +43,7 @@ class RuleFailureReason(BaseModel):
     details: Optional[StrictStr] = Field(default=None, description="More details about the failure.")
     evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupID", json_schema_extra={"examples": [3]})
     evaluation_group_mode: Optional[StrictStr] = Field(default=None, description="The evaluation mode of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-", alias="evaluationGroupMode", json_schema_extra={"examples": ["stackable"]})
-    __properties: ClassVar[List[str]] = ["campaignID", "campaignName", "rulesetID", "couponID", "couponValue", "referralID", "referralValue", "ruleIndex", "ruleName", "conditionIndex", "effectIndex", "details", "evaluationGroupID", "evaluationGroupMode"]
+    __properties: ClassVar[List[str]] = ["campaignID", "campaignName", "rulesetID", "couponID", "couponValue", "referralID", "referralValue", "rewardId", "rewardIntegrationId", "ruleIndex", "ruleName", "conditionIndex", "effectIndex", "details", "evaluationGroupID", "evaluationGroupMode"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -101,6 +103,8 @@ class RuleFailureReason(BaseModel):
             "couponValue": obj.get("couponValue"),
             "referralID": obj.get("referralID"),
             "referralValue": obj.get("referralValue"),
+            "rewardId": obj.get("rewardId"),
+            "rewardIntegrationId": obj.get("rewardIntegrationId"),
             "ruleIndex": obj.get("ruleIndex"),
             "ruleName": obj.get("ruleName"),
             "conditionIndex": obj.get("conditionIndex"),

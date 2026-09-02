@@ -78,8 +78,7 @@ class SetLoyaltyPointsExpiryDateEffectProps(BaseModel):
         _items = []
         if self.affected_transactions:
             for _item_affected_transactions in self.affected_transactions:
-                if _item_affected_transactions:
-                    _items.append(_item_affected_transactions.to_dict())
+                _items.append(_item_affected_transactions.to_dict() if _item_affected_transactions is not None else None)
             _dict['affectedTransactions'] = _items
         return _dict
 

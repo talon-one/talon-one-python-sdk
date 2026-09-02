@@ -82,8 +82,7 @@ class Rule(BaseModel):
         _items = []
         if self.bindings:
             for _item_bindings in self.bindings:
-                if _item_bindings:
-                    _items.append(_item_bindings.to_dict())
+                _items.append(_item_bindings.to_dict() if _item_bindings is not None else None)
             _dict['bindings'] = _items
         return _dict
 

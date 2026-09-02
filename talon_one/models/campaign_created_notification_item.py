@@ -87,8 +87,7 @@ class CampaignCreatedNotificationItem(BaseModel):
         _items = []
         if self.placeholders:
             for _item_placeholders in self.placeholders:
-                if _item_placeholders:
-                    _items.append(_item_placeholders.to_dict())
+                _items.append(_item_placeholders.to_dict() if _item_placeholders is not None else None)
             _dict['placeholders'] = _items
         # override the default output from pydantic by calling `to_dict()` of evaluation_position
         if self.evaluation_position:

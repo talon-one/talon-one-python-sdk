@@ -86,36 +86,31 @@ class LoyaltySubLedger(BaseModel):
         _items = []
         if self.transactions:
             for _item_transactions in self.transactions:
-                if _item_transactions:
-                    _items.append(_item_transactions.to_dict())
+                _items.append(_item_transactions.to_dict() if _item_transactions is not None else None)
             _dict['transactions'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in expiring_points (list)
         _items = []
         if self.expiring_points:
             for _item_expiring_points in self.expiring_points:
-                if _item_expiring_points:
-                    _items.append(_item_expiring_points.to_dict())
+                _items.append(_item_expiring_points.to_dict() if _item_expiring_points is not None else None)
             _dict['expiringPoints'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in active_points (list)
         _items = []
         if self.active_points:
             for _item_active_points in self.active_points:
-                if _item_active_points:
-                    _items.append(_item_active_points.to_dict())
+                _items.append(_item_active_points.to_dict() if _item_active_points is not None else None)
             _dict['activePoints'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in pending_points (list)
         _items = []
         if self.pending_points:
             for _item_pending_points in self.pending_points:
-                if _item_pending_points:
-                    _items.append(_item_pending_points.to_dict())
+                _items.append(_item_pending_points.to_dict() if _item_pending_points is not None else None)
             _dict['pendingPoints'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in expired_points (list)
         _items = []
         if self.expired_points:
             for _item_expired_points in self.expired_points:
-                if _item_expired_points:
-                    _items.append(_item_expired_points.to_dict())
+                _items.append(_item_expired_points.to_dict() if _item_expired_points is not None else None)
             _dict['expiredPoints'] = _items
         # override the default output from pydantic by calling `to_dict()` of current_tier
         if self.current_tier:

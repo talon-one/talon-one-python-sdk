@@ -54,7 +54,6 @@ class TestCheckLoyaltyBalanceBlock(unittest.TestCase):
             )
         else:
             return CheckLoyaltyBalanceBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 operator = 'greaterThanOrEqual',
                 program = talon_one.models.check_loyalty_balance_block_1_program.CheckLoyaltyBalanceBlock_1_program(

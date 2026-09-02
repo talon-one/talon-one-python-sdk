@@ -84,15 +84,13 @@ class StrikethroughChangedItem(BaseModel):
         _field_dict = {}
         if self.prices:
             for _key_prices in self.prices:
-                if self.prices[_key_prices]:
-                    _field_dict[_key_prices] = self.prices[_key_prices].to_dict()
+                _field_dict[_key_prices] = self.prices[_key_prices].to_dict() if self.prices[_key_prices] is not None else None
             _dict['prices'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each item in effects (list)
         _items = []
         if self.effects:
             for _item_effects in self.effects:
-                if _item_effects:
-                    _items.append(_item_effects.to_dict())
+                _items.append(_item_effects.to_dict() if _item_effects is not None else None)
             _dict['effects'] = _items
         return _dict
 

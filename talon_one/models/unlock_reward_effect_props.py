@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +34,18 @@ class UnlockRewardEffectProps(BaseModel):
     application_id: StrictInt = Field(description="The internal ID of the application the reward belongs to.", alias="applicationId", json_schema_extra={"examples": [1]})
     profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile that unlocked the reward.", alias="profileIntegrationId", json_schema_extra={"examples": ["customer1"]})
     unlocked_at: datetime = Field(description="The time the reward was unlocked.", alias="unlockedAt", json_schema_extra={"examples": ["2024-05-29T15:04:05Z"]})
-    __properties: ClassVar[List[str]] = ["integrationId", "rewardId", "applicationId", "profileIntegrationId", "unlockedAt"]
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that unlocked the reward. Only returned when the reward was unlocked with a loyalty card, in which case the reward belongs to the card and is available to all customer profiles linked to it. ", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    __properties: ClassVar[List[str]] = ["integrationId", "rewardId", "applicationId", "profileIntegrationId", "unlockedAt", "cardIdentifier"]
+
+    @field_validator('card_identifier', mode="before")
+    def card_identifier_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -90,7 +102,8 @@ class UnlockRewardEffectProps(BaseModel):
             "rewardId": obj.get("rewardId"),
             "applicationId": obj.get("applicationId"),
             "profileIntegrationId": obj.get("profileIntegrationId"),
-            "unlockedAt": obj.get("unlockedAt")
+            "unlockedAt": obj.get("unlockedAt"),
+            "cardIdentifier": obj.get("cardIdentifier")
         })
         return _obj
 

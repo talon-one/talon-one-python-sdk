@@ -64,7 +64,20 @@ class TestCustomerInventory(unittest.TestCase):
                     null
                     ],
                 rewards = [
-                    null
+                    talon_one.models.reward_with_unlocks.RewardWithUnlocks(
+                        id = 42, 
+                        integration_id = 'free-coffee', 
+                        name = '10% Off Coupon', 
+                        description = 'Applies to next order', 
+                        rule = null, 
+                        unlocked = [
+                            talon_one.models.customer_reward.CustomerReward(
+                                application_id = 3, 
+                                profile_integration_id = 'customer1', 
+                                integration_id = 'reward-unlock-123', 
+                                unlocked_at = '2024-01-01T00:00:00Z', 
+                                used_at = '2024-01-02T00:00:00Z', )
+                            ], )
                     ]
             )
         else:

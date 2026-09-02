@@ -119,8 +119,7 @@ class LoyaltyCard(BaseModel):
         _items = []
         if self.profiles:
             for _item_profiles in self.profiles:
-                if _item_profiles:
-                    _items.append(_item_profiles.to_dict())
+                _items.append(_item_profiles.to_dict() if _item_profiles is not None else None)
             _dict['profiles'] = _items
         # override the default output from pydantic by calling `to_dict()` of ledger
         if self.ledger:
@@ -129,8 +128,7 @@ class LoyaltyCard(BaseModel):
         _field_dict = {}
         if self.subledgers:
             for _key_subledgers in self.subledgers:
-                if self.subledgers[_key_subledgers]:
-                    _field_dict[_key_subledgers] = self.subledgers[_key_subledgers].to_dict()
+                _field_dict[_key_subledgers] = self.subledgers[_key_subledgers].to_dict() if self.subledgers[_key_subledgers] is not None else None
             _dict['subledgers'] = _field_dict
         return _dict
 

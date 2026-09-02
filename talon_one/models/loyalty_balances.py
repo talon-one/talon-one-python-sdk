@@ -78,8 +78,7 @@ class LoyaltyBalances(BaseModel):
         _field_dict = {}
         if self.subledger_balances:
             for _key_subledger_balances in self.subledger_balances:
-                if self.subledger_balances[_key_subledger_balances]:
-                    _field_dict[_key_subledger_balances] = self.subledger_balances[_key_subledger_balances].to_dict()
+                _field_dict[_key_subledger_balances] = self.subledger_balances[_key_subledger_balances].to_dict() if self.subledger_balances[_key_subledger_balances] is not None else None
             _dict['subledgerBalances'] = _field_dict
         return _dict
 

@@ -28,7 +28,7 @@ class UpdateAttributeEffectProps(BaseModel):
     This effect indicates that a rule containing an [Update attribute value](https://docs.talon.one/docs/product/rules/effects/available-effects#update-effects) or [Update cart item attribute value](https://docs.talon.one/docs/product/rules/effects/available-effects#update-effects) was validated. You should update the value of the attribute in your system based on the content of the returned effect.
     """ # noqa: E501
     path: StrictStr = Field(description="The entity type and the attribute name.")
-    value: Optional[Any]
+    value: Optional[Any] = Field(description="The new value of the attribute.")
     __properties: ClassVar[List[str]] = ["path", "value"]
 
     model_config = ConfigDict(

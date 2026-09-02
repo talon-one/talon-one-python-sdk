@@ -27,7 +27,7 @@ class ReserveCouponBlock(BaseModel):
     """
     ReserveCouponBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     __properties: ClassVar[List[str]] = ["id", "type", "tags"]
@@ -62,8 +62,12 @@ class ReserveCouponBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(

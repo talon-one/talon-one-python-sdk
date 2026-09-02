@@ -79,8 +79,7 @@ class IntegrationCustomerSessionResponse(BaseModel):
         _items = []
         if self.effects:
             for _item_effects in self.effects:
-                if _item_effects:
-                    _items.append(_item_effects.to_dict())
+                _items.append(_item_effects.to_dict() if _item_effects is not None else None)
             _dict['effects'] = _items
         return _dict
 

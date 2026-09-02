@@ -100,8 +100,7 @@ class CardAddedDeductedPointsBalancesNotification(BaseModel):
         _items = []
         if self.actions:
             for _item_actions in self.actions:
-                if _item_actions:
-                    _items.append(_item_actions.to_dict())
+                _items.append(_item_actions.to_dict() if _item_actions is not None else None)
             _dict['Actions'] = _items
         return _dict
 

@@ -28,7 +28,7 @@ class TemplateParameter(BaseModel):
     A named parameter definition that exposes a configurable value in a campaign template. Replaces `templateParameter` [bindings](https://docs.talon.one/management-api#tag/Campaigns/operation/getRuleset.responses.200.bindings) in V1 rulesets.
     """ # noqa: E501
     name: StrictStr = Field(description="The name of the template parameter.", json_schema_extra={"examples": ["minCartTotal"]})
-    value: Optional[Any]
+    value: Optional[Any] = Field(description="The parameter's bound value. Its type depends on the `valueType`.", json_schema_extra={"examples": [50]})
     value_type: StrictStr = Field(description="The data type of the value, derived from the bound expression (for example `number`, `string`, `boolean`, `percent`, `time`, `(list string)`, or `(list number)`).", alias="valueType", json_schema_extra={"examples": ["number"]})
     min_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The minimum value allowed for this parameter.", alias="minValue", json_schema_extra={"examples": [0]})
     max_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The maximum value allowed for this parameter.", alias="maxValue", json_schema_extra={"examples": [10000]})

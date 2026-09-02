@@ -41,24 +41,26 @@ class TestCheckAttributeBlockBase(unittest.TestCase):
                     ''
                     ],
                 operator = 'greaterThan',
-                attribute = None,
-                value = None,
-                min = None,
-                max = None,
-                start = None,
-                end = None,
+                attribute = $Session.Total,
+                value = 100,
+                min = 10,
+                max = 100,
+                start = 2021-09-22T22:00:00Z,
+                end = 2021-09-22T22:00:00Z,
                 start_inclusive = True,
                 end_inclusive = True,
                 timezone_insensitive = False,
-                values = None,
-                count = None
+                values = [{name=Berlin district, geometry={type=Point, coordinates=[13.405, 52.52]}}],
+                count = 2,
+                on_failure = [
+                    null
+                    ]
             )
         else:
             return CheckAttributeBlockBase(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 operator = 'greaterThan',
-                attribute = None,
+                attribute = $Session.Total,
         )
         """
 

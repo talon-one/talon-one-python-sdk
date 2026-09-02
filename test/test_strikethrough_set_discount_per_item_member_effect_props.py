@@ -36,12 +36,12 @@ class TestStrikethroughSetDiscountPerItemMemberEffectProps(unittest.TestCase):
         if include_optional:
             return StrikethroughSetDiscountPerItemMemberEffectProps(
                 name = '10% off members only',
-                value = None
+                value = 9
             )
         else:
             return StrikethroughSetDiscountPerItemMemberEffectProps(
                 name = '10% off members only',
-                value = None,
+                value = 9,
         )
         """
 

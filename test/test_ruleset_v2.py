@@ -42,10 +42,24 @@ class TestRulesetV2(unittest.TestCase):
                 template_id = 3,
                 activated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 promotion_rules = [
-                    null
+                    talon_one.models.rule_v2.RuleV2(
+                        id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', 
+                        parent_id = '', 
+                        title = '10% off for loyalty members', 
+                        description = '', 
+                        blocks = [
+                            null
+                            ], )
                     ],
                 strikethrough_rules = [
-                    null
+                    talon_one.models.rule_v2.RuleV2(
+                        id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', 
+                        parent_id = '', 
+                        title = '10% off for loyalty members', 
+                        description = '', 
+                        blocks = [
+                            null
+                            ], )
                     ],
                 selectors = [
                     talon_one.models.selector.Selector(
@@ -68,7 +82,7 @@ class TestRulesetV2(unittest.TestCase):
                 parameters = [
                     talon_one.models.template_parameter.TemplateParameter(
                         name = 'minCartTotal', 
-                        value = null, 
+                        value = 50, 
                         value_type = 'number', 
                         min_value = 0, 
                         max_value = 10000, 
@@ -78,14 +92,15 @@ class TestRulesetV2(unittest.TestCase):
             )
         else:
             return RulesetV2(
-                id = 6,
-                created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                user_id = 385,
                 promotion_rules = [
-                    null
-                    ],
-                strikethrough_rules = [
-                    null
+                    talon_one.models.rule_v2.RuleV2(
+                        id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', 
+                        parent_id = '', 
+                        title = '10% off for loyalty members', 
+                        description = '', 
+                        blocks = [
+                            null
+                            ], )
                     ],
         )
         """

@@ -181,6 +181,7 @@ Class | Method | HTTP request | Description
 *IntegrationApi* | [**get_loyalty_program_profile_transactions**](docs/IntegrationApi.md#get_loyalty_program_profile_transactions) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/transactions | List customer&#39;s loyalty transactions
 *IntegrationApi* | [**get_reserved_customers**](docs/IntegrationApi.md#get_reserved_customers) | **GET** /v1/coupon_reservations/customerprofiles/{couponValue} | List customers that have this coupon reserved
 *IntegrationApi* | [**integration_get_all_campaigns**](docs/IntegrationApi.md#integration_get_all_campaigns) | **GET** /v1/integration/campaigns | List all running campaigns
+*IntegrationApi* | [**integration_rewards_catalog**](docs/IntegrationApi.md#integration_rewards_catalog) | **GET** /v1/rewards/catalog | List rewards in the catalog
 *IntegrationApi* | [**join_loyalty_program**](docs/IntegrationApi.md#join_loyalty_program) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/join | Join customer profile to loyalty program
 *IntegrationApi* | [**link_loyalty_card_to_profile**](docs/IntegrationApi.md#link_loyalty_card_to_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/link_profile | Link customer profile to card
 *IntegrationApi* | [**reopen_customer_session**](docs/IntegrationApi.md#reopen_customer_session) | **PUT** /v2/customer_sessions/{customerSessionId}/reopen | Reopen customer session
@@ -189,6 +190,7 @@ Class | Method | HTTP request | Description
 *IntegrationApi* | [**track_event_v2**](docs/IntegrationApi.md#track_event_v2) | **POST** /v2/events | Track event
 *IntegrationApi* | [**track_event_v3**](docs/IntegrationApi.md#track_event_v3) | **POST** /v3/events | Track advanced event
 *IntegrationApi* | [**unlink_loyalty_card_from_profile**](docs/IntegrationApi.md#unlink_loyalty_card_from_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/unlink_profile | Unlink customer profile from a loyalty card
+*IntegrationApi* | [**unlock_reward**](docs/IntegrationApi.md#unlock_reward) | **POST** /v1/rewards/{rewardId}/unlock | Unlock a reward
 *IntegrationApi* | [**update_audience_customers_attributes**](docs/IntegrationApi.md#update_audience_customers_attributes) | **PUT** /v2/audience_customers/{audienceId}/attributes | Update profile attributes for all customers in audience
 *IntegrationApi* | [**update_audience_v2**](docs/IntegrationApi.md#update_audience_v2) | **PUT** /v2/audiences/{audienceId} | Update audience name
 *IntegrationApi* | [**update_customer_profile_audiences**](docs/IntegrationApi.md#update_customer_profile_audiences) | **POST** /v2/customer_audiences | Update multiple customer profiles&#39; audiences
@@ -215,6 +217,7 @@ Class | Method | HTTP request | Description
 *ManagementApi* | [**create_invite_email**](docs/ManagementApi.md#create_invite_email) | **POST** /v1/invite_emails | Resend invitation email
 *ManagementApi* | [**create_invite_v2**](docs/ManagementApi.md#create_invite_v2) | **POST** /v2/invites | Invite user
 *ManagementApi* | [**create_password_recovery_email**](docs/ManagementApi.md#create_password_recovery_email) | **POST** /v1/password_recovery_emails | Request a password reset
+*ManagementApi* | [**create_ruleset_v2**](docs/ManagementApi.md#create_ruleset_v2) | **POST** /v2/applications/{applicationId}/campaigns/{campaignId}/rulesets | Create ruleset (V2)
 *ManagementApi* | [**create_session**](docs/ManagementApi.md#create_session) | **POST** /v1/sessions | Create session
 *ManagementApi* | [**create_store**](docs/ManagementApi.md#create_store) | **POST** /v1/applications/{applicationId}/stores | Create store
 *ManagementApi* | [**deactivate_user_by_email**](docs/ManagementApi.md#deactivate_user_by_email) | **POST** /v1/users/deactivate | Disable user by email address
@@ -486,7 +489,6 @@ Class | Method | HTTP request | Description
 - [AwardDiscountSelectorTarget](docs/AwardDiscountSelectorTarget.md)
 - [AwardDiscountTarget](docs/AwardDiscountTarget.md)
 - [AwardGiveawayBlock](docs/AwardGiveawayBlock.md)
-- [AwardGiveawayBlock1GiveawayPool](docs/AwardGiveawayBlock1GiveawayPool.md)
 - [AwardGiveawayEffectProps](docs/AwardGiveawayEffectProps.md)
 - [AwardItemBlock](docs/AwardItemBlock.md)
 - [BaseBlock](docs/BaseBlock.md)
@@ -505,6 +507,7 @@ Class | Method | HTTP request | Description
 - [BestPriorTarget](docs/BestPriorTarget.md)
 - [BetweenCheckAttributeBlock](docs/BetweenCheckAttributeBlock.md)
 - [Binding](docs/Binding.md)
+- [Block](docs/Block.md)
 - [Blueprint](docs/Blueprint.md)
 - [BulkApplicationNotification](docs/BulkApplicationNotification.md)
 - [BulkOperationOnCampaigns](docs/BulkOperationOnCampaigns.md)
@@ -538,6 +541,7 @@ Class | Method | HTTP request | Description
 - [CampaignGroup](docs/CampaignGroup.md)
 - [CampaignGroupEntity](docs/CampaignGroupEntity.md)
 - [CampaignLogSummary](docs/CampaignLogSummary.md)
+- [CampaignLoyaltyProgram](docs/CampaignLoyaltyProgram.md)
 - [CampaignNotificationBase](docs/CampaignNotificationBase.md)
 - [CampaignNotificationGeneric](docs/CampaignNotificationGeneric.md)
 - [CampaignNotificationItemBase](docs/CampaignNotificationItemBase.md)
@@ -612,6 +616,7 @@ Class | Method | HTTP request | Description
 - [CouponCreationJob](docs/CouponCreationJob.md)
 - [CouponDeletionFilters](docs/CouponDeletionFilters.md)
 - [CouponDeletionJob](docs/CouponDeletionJob.md)
+- [CouponEligibilityInfo](docs/CouponEligibilityInfo.md)
 - [CouponEntity](docs/CouponEntity.md)
 - [CouponFailureSummary](docs/CouponFailureSummary.md)
 - [CouponLimitConfigs](docs/CouponLimitConfigs.md)
@@ -742,6 +747,11 @@ Class | Method | HTTP request | Description
 - [GenerateRuleTitle](docs/GenerateRuleTitle.md)
 - [GenerateRuleTitleRule](docs/GenerateRuleTitleRule.md)
 - [GenerateUserSessionSummary](docs/GenerateUserSessionSummary.md)
+- [GeoJSONGeometry](docs/GeoJSONGeometry.md)
+- [GeoJSONGeometryCollection](docs/GeoJSONGeometryCollection.md)
+- [GeoJSONMultiPolygon](docs/GeoJSONMultiPolygon.md)
+- [GeoJSONPoint](docs/GeoJSONPoint.md)
+- [GeoJSONPolygon](docs/GeoJSONPolygon.md)
 - [GetAccessLogsWithoutTotalCount200Response](docs/GetAccessLogsWithoutTotalCount200Response.md)
 - [GetAdditionalCosts200Response](docs/GetAdditionalCosts200Response.md)
 - [GetApplicationCustomerFriends200Response](docs/GetApplicationCustomerFriends200Response.md)
@@ -789,7 +799,9 @@ Class | Method | HTTP request | Description
 - [Giveaway](docs/Giveaway.md)
 - [GiveawayPoolNotification](docs/GiveawayPoolNotification.md)
 - [GiveawayPoolNotificationData](docs/GiveawayPoolNotificationData.md)
+- [GiveawayPoolReference](docs/GiveawayPoolReference.md)
 - [GiveawaysPool](docs/GiveawaysPool.md)
+- [GroupBlock](docs/GroupBlock.md)
 - [HiddenConditionsEffects](docs/HiddenConditionsEffects.md)
 - [History](docs/History.md)
 - [IdentifiableEntity](docs/IdentifiableEntity.md)
@@ -824,12 +836,15 @@ Class | Method | HTTP request | Description
 - [IntegrationHubFlowConfigResponse](docs/IntegrationHubFlowConfigResponse.md)
 - [IntegrationHubFlowResponse](docs/IntegrationHubFlowResponse.md)
 - [IntegrationHubFlowWithConfig](docs/IntegrationHubFlowWithConfig.md)
+- [IntegrationHubInstance](docs/IntegrationHubInstance.md)
 - [IntegrationHubPaginatedEventPayload](docs/IntegrationHubPaginatedEventPayload.md)
 - [IntegrationHubPaginatedEventPayloadDataInner](docs/IntegrationHubPaginatedEventPayloadDataInner.md)
 - [IntegrationProfileEntity](docs/IntegrationProfileEntity.md)
 - [IntegrationProfileEntityV3](docs/IntegrationProfileEntityV3.md)
 - [IntegrationRequest](docs/IntegrationRequest.md)
 - [IntegrationResponse](docs/IntegrationResponse.md)
+- [IntegrationRewardsCatalog200Response](docs/IntegrationRewardsCatalog200Response.md)
+- [IntegrationRewardsCatalog200ResponseCatalog](docs/IntegrationRewardsCatalog200ResponseCatalog.md)
 - [IntegrationState](docs/IntegrationState.md)
 - [IntegrationStateV2](docs/IntegrationStateV2.md)
 - [IntegrationStoreEntity](docs/IntegrationStoreEntity.md)
@@ -837,6 +852,7 @@ Class | Method | HTTP request | Description
 - [InventoryCoupon](docs/InventoryCoupon.md)
 - [InventoryReferral](docs/InventoryReferral.md)
 - [ItemAttribute](docs/ItemAttribute.md)
+- [JoinLoyaltyProgramEffectProps](docs/JoinLoyaltyProgramEffectProps.md)
 - [LabelTarget](docs/LabelTarget.md)
 - [LabelTargetAudience](docs/LabelTargetAudience.md)
 - [LabelTargetNone](docs/LabelTargetNone.md)
@@ -860,6 +876,9 @@ Class | Method | HTTP request | Description
 - [ListExperiments200Response](docs/ListExperiments200Response.md)
 - [ListStores200Response](docs/ListStores200Response.md)
 - [ListWithCountCheckAttributeBlock](docs/ListWithCountCheckAttributeBlock.md)
+- [LocationCheckAttributeBlock](docs/LocationCheckAttributeBlock.md)
+- [LocationCheckAttributeBlockValues](docs/LocationCheckAttributeBlockValues.md)
+- [LocationCheckAttributeBlockValuesOneOfInner](docs/LocationCheckAttributeBlockValuesOneOfInner.md)
 - [LoginParams](docs/LoginParams.md)
 - [Loyalty](docs/Loyalty.md)
 - [LoyaltyBalance](docs/LoyaltyBalance.md)
@@ -957,6 +976,7 @@ Class | Method | HTTP request | Description
 - [NewExperimentVariantArray](docs/NewExperimentVariantArray.md)
 - [NewExternalInvitation](docs/NewExternalInvitation.md)
 - [NewGiveawaysPool](docs/NewGiveawaysPool.md)
+- [NewIntegrationHubCoupons](docs/NewIntegrationHubCoupons.md)
 - [NewInternalAudience](docs/NewInternalAudience.md)
 - [NewInvitation](docs/NewInvitation.md)
 - [NewInviteEmail](docs/NewInviteEmail.md)
@@ -1030,14 +1050,11 @@ Class | Method | HTTP request | Description
 - [ProfileAudiencesChanges](docs/ProfileAudiencesChanges.md)
 - [ProjectedTier](docs/ProjectedTier.md)
 - [PromoteExperiment](docs/PromoteExperiment.md)
-- [PromotionBlock](docs/PromotionBlock.md)
-- [PromotionCheckAttributeBlock](docs/PromotionCheckAttributeBlock.md)
-- [PromotionGroupBlock](docs/PromotionGroupBlock.md)
-- [PromotionRuleV2](docs/PromotionRuleV2.md)
 - [RedeemLoyaltyPointsBlock](docs/RedeemLoyaltyPointsBlock.md)
 - [RedeemLoyaltyPointsBlock1Program](docs/RedeemLoyaltyPointsBlock1Program.md)
 - [RedeemLoyaltyPointsBlock1Value](docs/RedeemLoyaltyPointsBlock1Value.md)
 - [RedeemReferralEffectProps](docs/RedeemReferralEffectProps.md)
+- [RedeemableCoupon](docs/RedeemableCoupon.md)
 - [ReduceSelectorStep](docs/ReduceSelectorStep.md)
 - [Referral](docs/Referral.md)
 - [ReferralConstraints](docs/ReferralConstraints.md)
@@ -1065,6 +1082,8 @@ Class | Method | HTTP request | Description
 - [RewardEligibility](docs/RewardEligibility.md)
 - [RewardEligibilityFailureDetails](docs/RewardEligibilityFailureDetails.md)
 - [RewardPointsRequired](docs/RewardPointsRequired.md)
+- [RewardUnlockRejection](docs/RewardUnlockRejection.md)
+- [RewardWithUnlocks](docs/RewardWithUnlocks.md)
 - [Risk](docs/Risk.md)
 - [RiskAffectedEntityItem](docs/RiskAffectedEntityItem.md)
 - [RiskCriticalityUpdate](docs/RiskCriticalityUpdate.md)
@@ -1128,8 +1147,6 @@ Class | Method | HTTP request | Description
 - [SelectSelectorStep](docs/SelectSelectorStep.md)
 - [SelectSelectorStepFrom](docs/SelectSelectorStepFrom.md)
 - [Selector](docs/Selector.md)
-- [SelectorBlock](docs/SelectorBlock.md)
-- [SelectorGroupBlock](docs/SelectorGroupBlock.md)
 - [SelectorStep](docs/SelectorStep.md)
 - [SelectorValueMapRef](docs/SelectorValueMapRef.md)
 - [Session](docs/Session.md)
@@ -1148,15 +1165,11 @@ Class | Method | HTTP request | Description
 - [SortSelectorStepField](docs/SortSelectorStepField.md)
 - [StartAchievementProgressEffectProps](docs/StartAchievementProgressEffectProps.md)
 - [Store](docs/Store.md)
-- [StrikethroughBlock](docs/StrikethroughBlock.md)
 - [StrikethroughChangedItem](docs/StrikethroughChangedItem.md)
-- [StrikethroughCheckAttributeBlock](docs/StrikethroughCheckAttributeBlock.md)
 - [StrikethroughCustomEffectPerItemProps](docs/StrikethroughCustomEffectPerItemProps.md)
 - [StrikethroughDebugResponse](docs/StrikethroughDebugResponse.md)
 - [StrikethroughEffect](docs/StrikethroughEffect.md)
-- [StrikethroughGroupBlock](docs/StrikethroughGroupBlock.md)
 - [StrikethroughLabelingNotification](docs/StrikethroughLabelingNotification.md)
-- [StrikethroughRuleV2](docs/StrikethroughRuleV2.md)
 - [StrikethroughSetDiscountPerItemEffectProps](docs/StrikethroughSetDiscountPerItemEffectProps.md)
 - [StrikethroughSetDiscountPerItemMemberEffectProps](docs/StrikethroughSetDiscountPerItemMemberEffectProps.md)
 - [StrikethroughTrigger](docs/StrikethroughTrigger.md)
@@ -1248,8 +1261,8 @@ Class | Method | HTTP request | Description
 - [WebhookAuthentication](docs/WebhookAuthentication.md)
 - [WebhookAuthenticationAllOfData](docs/WebhookAuthenticationAllOfData.md)
 - [WebhookAuthenticationBase](docs/WebhookAuthenticationBase.md)
-- [WebhookAuthenticationBaseOneOf](docs/WebhookAuthenticationBaseOneOf.md)
-- [WebhookAuthenticationBaseOneOf1](docs/WebhookAuthenticationBaseOneOf1.md)
+- [WebhookAuthenticationBaseBasic](docs/WebhookAuthenticationBaseBasic.md)
+- [WebhookAuthenticationBaseCustom](docs/WebhookAuthenticationBaseCustom.md)
 - [WebhookAuthenticationDataBasic](docs/WebhookAuthenticationDataBasic.md)
 - [WebhookAuthenticationDataCustom](docs/WebhookAuthenticationDataCustom.md)
 - [WebhookAuthenticationWebhookRef](docs/WebhookAuthenticationWebhookRef.md)

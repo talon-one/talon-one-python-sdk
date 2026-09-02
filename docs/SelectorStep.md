@@ -7,7 +7,7 @@ A single step in a selector item pipeline. The `type` field determines the step 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **str** | A step discriminator of type &#x60;filter&#x60;. | 
-**predicate** | [**SelectorBlock**](SelectorBlock.md) |  | 
+**predicate** | [**Block**](Block.md) |  | 
 **fields** | [**List[SortSelectorStepField]**](SortSelectorStepField.md) | One or more fields to sort by, applied in order. Each field has its own direction. | 
 **operator** | **str** | The aggregation operator applied to the items produced by the preceding step: - &#x60;max&#x60;, &#x60;min&#x60;, and &#x60;sum&#x60; operate on numeric values. - &#x60;count&#x60; returns the number of items. - &#x60;empty&#x60; reports whether the list is empty.  | 
 **var_from** | [**SelectSelectorStepFrom**](SelectSelectorStepFrom.md) |  | [optional] 

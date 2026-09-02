@@ -25,6 +25,7 @@ from talon_one.models.giveaway import Giveaway
 from talon_one.models.inventory_coupon import InventoryCoupon
 from talon_one.models.inventory_referral import InventoryReferral
 from talon_one.models.loyalty import Loyalty
+from talon_one.models.reward_with_unlocks import RewardWithUnlocks
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -39,7 +40,7 @@ class CustomerInventory(BaseModel):
     coupons: Optional[List[InventoryCoupon]] = Field(default=None, description="The coupons reserved by this profile. This array includes hard and soft reservations. ")
     giveaways: Optional[List[Giveaway]] = None
     achievements: Optional[List[AchievementProgressWithDefinition]] = None
-    rewards: Optional[List[Any]] = Field(default=None, description="The customer rewards that are `unlocked` and not yet `used`.")
+    rewards: Optional[List[RewardWithUnlocks]] = Field(default=None, description="The customer rewards that are `unlocked` and not yet `used`.")
     __properties: ClassVar[List[str]] = ["profile", "loyalty", "referrals", "coupons", "giveaways", "achievements", "rewards"]
 
     model_config = ConfigDict(
@@ -91,30 +92,32 @@ class CustomerInventory(BaseModel):
         _items = []
         if self.referrals:
             for _item_referrals in self.referrals:
-                if _item_referrals:
-                    _items.append(_item_referrals.to_dict())
+                _items.append(_item_referrals.to_dict() if _item_referrals is not None else None)
             _dict['referrals'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in coupons (list)
         _items = []
         if self.coupons:
             for _item_coupons in self.coupons:
-                if _item_coupons:
-                    _items.append(_item_coupons.to_dict())
+                _items.append(_item_coupons.to_dict() if _item_coupons is not None else None)
             _dict['coupons'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in giveaways (list)
         _items = []
         if self.giveaways:
             for _item_giveaways in self.giveaways:
-                if _item_giveaways:
-                    _items.append(_item_giveaways.to_dict())
+                _items.append(_item_giveaways.to_dict() if _item_giveaways is not None else None)
             _dict['giveaways'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in achievements (list)
         _items = []
         if self.achievements:
             for _item_achievements in self.achievements:
-                if _item_achievements:
-                    _items.append(_item_achievements.to_dict())
+                _items.append(_item_achievements.to_dict() if _item_achievements is not None else None)
             _dict['achievements'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in rewards (list)
+        _items = []
+        if self.rewards:
+            for _item_rewards in self.rewards:
+                _items.append(_item_rewards.to_dict() if _item_rewards is not None else None)
+            _dict['rewards'] = _items
         return _dict
 
     @classmethod
@@ -133,7 +136,7 @@ class CustomerInventory(BaseModel):
             "coupons": [InventoryCoupon.from_dict(_item) for _item in obj["coupons"]] if obj.get("coupons") is not None else None,
             "giveaways": [Giveaway.from_dict(_item) for _item in obj["giveaways"]] if obj.get("giveaways") is not None else None,
             "achievements": [AchievementProgressWithDefinition.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None,
-            "rewards": obj.get("rewards")
+            "rewards": [RewardWithUnlocks.from_dict(_item) for _item in obj["rewards"]] if obj.get("rewards") is not None else None
         })
         return _obj
 

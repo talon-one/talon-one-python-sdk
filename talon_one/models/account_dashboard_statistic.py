@@ -82,29 +82,25 @@ class AccountDashboardStatistic(BaseModel):
         _items = []
         if self.revenue:
             for _item_revenue in self.revenue:
-                if _item_revenue:
-                    _items.append(_item_revenue.to_dict())
+                _items.append(_item_revenue.to_dict() if _item_revenue is not None else None)
             _dict['revenue'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in discounts (list)
         _items = []
         if self.discounts:
             for _item_discounts in self.discounts:
-                if _item_discounts:
-                    _items.append(_item_discounts.to_dict())
+                _items.append(_item_discounts.to_dict() if _item_discounts is not None else None)
             _dict['discounts'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in loyalty_points (list)
         _items = []
         if self.loyalty_points:
             for _item_loyalty_points in self.loyalty_points:
-                if _item_loyalty_points:
-                    _items.append(_item_loyalty_points.to_dict())
+                _items.append(_item_loyalty_points.to_dict() if _item_loyalty_points is not None else None)
             _dict['loyaltyPoints'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in referrals (list)
         _items = []
         if self.referrals:
             for _item_referrals in self.referrals:
-                if _item_referrals:
-                    _items.append(_item_referrals.to_dict())
+                _items.append(_item_referrals.to_dict() if _item_referrals is not None else None)
             _dict['referrals'] = _items
         # override the default output from pydantic by calling `to_dict()` of campaigns
         if self.campaigns:

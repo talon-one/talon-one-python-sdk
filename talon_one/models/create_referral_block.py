@@ -29,16 +29,16 @@ class CreateReferralBlock(BaseModel):
     """
     CreateReferralBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     campaign_id: CreateReferralBlock1CampaignId = Field(alias="campaignId")
     friend_id: StrictStr = Field(description="An optional integration ID of the friend's profile.", alias="friendId", json_schema_extra={"examples": ["{{$Profile.IntegrationId}}"]})
     store_in_session: StrictBool = Field(description="When `true`, the referral code is stored in the session.", alias="storeInSession", json_schema_extra={"examples": [True]})
     usage_limit: Optional[CreateReferralBlock1UsageLimit] = Field(default=None, alias="usageLimit")
-    start_date: Optional[Any] = Field(default=None, alias="startDate")
-    expiry_date: Optional[Any] = Field(default=None, alias="expiryDate")
-    attributes: Optional[Any] = None
+    start_date: Optional[Any] = Field(default=None, description="Timestamp at which point the referral code becomes valid.", alias="startDate", json_schema_extra={"examples": ["2024-12-24T14:15:22Z"]})
+    expiry_date: Optional[Any] = Field(default=None, description="Expiration date of the referral code. Referral code never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2024-12-24T14:15:22Z"]})
+    attributes: Optional[Any] = Field(default=None, description="Custom attributes associated with this referral code.")
     valid_characters: Optional[StrictStr] = Field(default=None, description="Characters used to generate the random parts of a code.", alias="validCharacters", json_schema_extra={"examples": ["ABC"]})
     pattern: Optional[StrictStr] = Field(default=None, description="The pattern used to generate codes, such as coupon codes, referral codes, and loyalty cards. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", json_schema_extra={"examples": ["SUMMER-####-####"]})
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "campaignId", "friendId", "storeInSession", "usageLimit", "startDate", "expiryDate", "attributes", "validCharacters", "pattern"]
@@ -73,8 +73,12 @@ class CreateReferralBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(

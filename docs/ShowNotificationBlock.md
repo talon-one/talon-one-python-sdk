@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Unique identifier for this block. | 
+**id** | **str** | Unique identifier for this block. | [optional] [readonly] 
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
-**tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
+**tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
 **notification_type** | **str** | The type of notification to display. | 
 **title** | **str** | The notification heading shown to the customer. | 
 **body** | **str** | The notification body text. Supports template placeholders (e.g. \&quot;{{$Session.Total}}\&quot;) evaluated at rule execution time. | [optional] 
-**on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Blocks evaluated when this block fails or returns false. | [optional] 
-**on_error** | **Dict[str, List[PromotionBlock]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
+**on_failure** | [**List[Block]**](Block.md) | Blocks evaluated when this block fails or returns false. | [optional] 
+**on_error** | **Dict[str, List[Block]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
 
 ## Example
 

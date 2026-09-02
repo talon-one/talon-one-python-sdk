@@ -17,30 +17,33 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from talon_one.models.webhook_authentication_base_one_of import WebhookAuthenticationBaseOneOf
-from talon_one.models.webhook_authentication_base_one_of1 import WebhookAuthenticationBaseOneOf1
+from talon_one.models.webhook_authentication_base_basic import WebhookAuthenticationBaseBasic
+from talon_one.models.webhook_authentication_base_custom import WebhookAuthenticationBaseCustom
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-WEBHOOKAUTHENTICATIONBASE_ONE_OF_SCHEMAS = ["WebhookAuthenticationBaseOneOf", "WebhookAuthenticationBaseOneOf1"]
+WEBHOOKAUTHENTICATIONBASE_ONE_OF_SCHEMAS = ["WebhookAuthenticationBaseBasic", "WebhookAuthenticationBaseCustom"]
 
 class WebhookAuthenticationBase(BaseModel):
     """
-    WebhookAuthenticationBase
+    Definition of all the properties that are needed to create or update a webhook authentication. The `type` field selects the concrete authentication variant.
     """
-    # data type: WebhookAuthenticationBaseOneOf
-    oneof_schema_1_validator: Optional[WebhookAuthenticationBaseOneOf] = None
-    # data type: WebhookAuthenticationBaseOneOf1
-    oneof_schema_2_validator: Optional[WebhookAuthenticationBaseOneOf1] = None
-    actual_instance: Optional[Union[WebhookAuthenticationBaseOneOf, WebhookAuthenticationBaseOneOf1]] = None
-    one_of_schemas: Set[str] = { "WebhookAuthenticationBaseOneOf", "WebhookAuthenticationBaseOneOf1" }
+    # data type: WebhookAuthenticationBaseBasic
+    oneof_schema_1_validator: Optional[WebhookAuthenticationBaseBasic] = None
+    # data type: WebhookAuthenticationBaseCustom
+    oneof_schema_2_validator: Optional[WebhookAuthenticationBaseCustom] = None
+    actual_instance: Optional[Union[WebhookAuthenticationBaseBasic, WebhookAuthenticationBaseCustom]] = None
+    one_of_schemas: Set[str] = { "WebhookAuthenticationBaseBasic", "WebhookAuthenticationBaseCustom" }
 
     model_config = ConfigDict(
         validate_assignment=True,
         protected_namespaces=(),
     )
 
+
+    discriminator_value_class_map: Dict[str, str] = {
+    }
 
     def __init__(self, *args, **kwargs) -> None:
         if args:
@@ -57,22 +60,22 @@ class WebhookAuthenticationBase(BaseModel):
         instance = WebhookAuthenticationBase.model_construct()
         error_messages = []
         match = 0
-        # validate data type: WebhookAuthenticationBaseOneOf
-        if not isinstance(v, WebhookAuthenticationBaseOneOf):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `WebhookAuthenticationBaseOneOf`")
+        # validate data type: WebhookAuthenticationBaseBasic
+        if not isinstance(v, WebhookAuthenticationBaseBasic):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `WebhookAuthenticationBaseBasic`")
         else:
             match += 1
-        # validate data type: WebhookAuthenticationBaseOneOf1
-        if not isinstance(v, WebhookAuthenticationBaseOneOf1):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `WebhookAuthenticationBaseOneOf1`")
+        # validate data type: WebhookAuthenticationBaseCustom
+        if not isinstance(v, WebhookAuthenticationBaseCustom):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `WebhookAuthenticationBaseCustom`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in WebhookAuthenticationBase with oneOf schemas: WebhookAuthenticationBaseOneOf, WebhookAuthenticationBaseOneOf1. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in WebhookAuthenticationBase with oneOf schemas: WebhookAuthenticationBaseBasic, WebhookAuthenticationBaseCustom. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in WebhookAuthenticationBase with oneOf schemas: WebhookAuthenticationBaseOneOf, WebhookAuthenticationBaseOneOf1. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in WebhookAuthenticationBase with oneOf schemas: WebhookAuthenticationBaseBasic, WebhookAuthenticationBaseCustom. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -87,25 +90,25 @@ class WebhookAuthenticationBase(BaseModel):
         error_messages = []
         match = 0
 
-        # deserialize data into WebhookAuthenticationBaseOneOf
+        # deserialize data into WebhookAuthenticationBaseBasic
         try:
-            instance.actual_instance = WebhookAuthenticationBaseOneOf.from_json(json_str)
+            instance.actual_instance = WebhookAuthenticationBaseBasic.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into WebhookAuthenticationBaseOneOf1
+        # deserialize data into WebhookAuthenticationBaseCustom
         try:
-            instance.actual_instance = WebhookAuthenticationBaseOneOf1.from_json(json_str)
+            instance.actual_instance = WebhookAuthenticationBaseCustom.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into WebhookAuthenticationBase with oneOf schemas: WebhookAuthenticationBaseOneOf, WebhookAuthenticationBaseOneOf1. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into WebhookAuthenticationBase with oneOf schemas: WebhookAuthenticationBaseBasic, WebhookAuthenticationBaseCustom. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into WebhookAuthenticationBase with oneOf schemas: WebhookAuthenticationBaseOneOf, WebhookAuthenticationBaseOneOf1. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into WebhookAuthenticationBase with oneOf schemas: WebhookAuthenticationBaseBasic, WebhookAuthenticationBaseCustom. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -119,7 +122,7 @@ class WebhookAuthenticationBase(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], WebhookAuthenticationBaseOneOf, WebhookAuthenticationBaseOneOf1]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], WebhookAuthenticationBaseBasic, WebhookAuthenticationBaseCustom]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

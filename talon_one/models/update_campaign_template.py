@@ -134,22 +134,19 @@ class UpdateCampaignTemplate(BaseModel):
         _items = []
         if self.limits:
             for _item_limits in self.limits:
-                if _item_limits:
-                    _items.append(_item_limits.to_dict())
+                _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in template_params (list)
         _items = []
         if self.template_params:
             for _item_template_params in self.template_params:
-                if _item_template_params:
-                    _items.append(_item_template_params.to_dict())
+                _items.append(_item_template_params.to_dict() if _item_template_params is not None else None)
             _dict['templateParams'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in campaign_collections (list)
         _items = []
         if self.campaign_collections:
             for _item_campaign_collections in self.campaign_collections:
-                if _item_campaign_collections:
-                    _items.append(_item_campaign_collections.to_dict())
+                _items.append(_item_campaign_collections.to_dict() if _item_campaign_collections is not None else None)
             _dict['campaignCollections'] = _items
         return _dict
 

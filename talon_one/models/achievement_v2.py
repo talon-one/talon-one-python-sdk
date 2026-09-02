@@ -51,7 +51,7 @@ class AchievementV2(BaseModel):
     status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.                                                                                               - `active`: The achievement is available to customers. - `scheduled`: The achievement has a `fixedStartDate` set in the future. - `expired`: The achievement's `endDate` is in the past. ", json_schema_extra={"examples": ["active"]})
     sandbox: StrictBool = Field(description="Indicates if this achievement is a live or sandbox achievement. Achievements of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
     timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.", json_schema_extra={"examples": ["Europe/Berlin"]})
-    campaign_id: Optional[StrictInt] = Field(default=None, description="This property is **deprecated**. Use `referencedByCampaigns` instead. The ID of the first campaign in `referencedByCampaigns`. Only returned when `referencedByCampaigns` is not empty.", alias="campaignId", json_schema_extra={"examples": [3]})
+    campaign_id: Optional[StrictInt] = Field(default=None, description="This property is **deprecated**. Use `referencedByCampaigns` instead. This field contains the first campaign ID from the related `referencedByCampaigns`, and is omitted when `referencedByCampaigns` is empty.", alias="campaignId", json_schema_extra={"examples": [3]})
     referenced_by_campaigns: List[CampaignReference] = Field(description="The campaigns that reference this achievement. They are sorted in ascending order by their id.", alias="referencedByCampaigns")
     __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "subscribedApplications", "userId", "createdBy", "periodEndOverride", "hasProgress", "status", "sandbox", "timezone", "campaignId", "referencedByCampaigns"]
 
@@ -141,8 +141,7 @@ class AchievementV2(BaseModel):
         _items = []
         if self.referenced_by_campaigns:
             for _item_referenced_by_campaigns in self.referenced_by_campaigns:
-                if _item_referenced_by_campaigns:
-                    _items.append(_item_referenced_by_campaigns.to_dict())
+                _items.append(_item_referenced_by_campaigns.to_dict() if _item_referenced_by_campaigns is not None else None)
             _dict['referencedByCampaigns'] = _items
         return _dict
 

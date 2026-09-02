@@ -120,15 +120,13 @@ class CartItem(BaseModel):
         _field_dict = {}
         if self.additional_costs:
             for _key_additional_costs in self.additional_costs:
-                if self.additional_costs[_key_additional_costs]:
-                    _field_dict[_key_additional_costs] = self.additional_costs[_key_additional_costs].to_dict()
+                _field_dict[_key_additional_costs] = self.additional_costs[_key_additional_costs].to_dict() if self.additional_costs[_key_additional_costs] is not None else None
             _dict['additionalCosts'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each value in prices (dict)
         _field_dict = {}
         if self.prices:
             for _key_prices in self.prices:
-                if self.prices[_key_prices]:
-                    _field_dict[_key_prices] = self.prices[_key_prices].to_dict()
+                _field_dict[_key_prices] = self.prices[_key_prices].to_dict() if self.prices[_key_prices] is not None else None
             _dict['prices'] = _field_dict
         return _dict
 

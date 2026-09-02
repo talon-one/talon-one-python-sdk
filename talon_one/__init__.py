@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.17.0"
+__version__ = "26.18.0"
 
 # Define package exports
 __all__ = [
@@ -123,7 +123,6 @@ __all__ = [
     "AwardDiscountSelectorTarget",
     "AwardDiscountTarget",
     "AwardGiveawayBlock",
-    "AwardGiveawayBlock1GiveawayPool",
     "AwardGiveawayEffectProps",
     "AwardItemBlock",
     "BaseBlock",
@@ -142,6 +141,7 @@ __all__ = [
     "BestPriorTarget",
     "BetweenCheckAttributeBlock",
     "Binding",
+    "Block",
     "Blueprint",
     "BulkApplicationNotification",
     "BulkOperationOnCampaigns",
@@ -175,6 +175,7 @@ __all__ = [
     "CampaignGroup",
     "CampaignGroupEntity",
     "CampaignLogSummary",
+    "CampaignLoyaltyProgram",
     "CampaignNotificationBase",
     "CampaignNotificationGeneric",
     "CampaignNotificationItemBase",
@@ -249,6 +250,7 @@ __all__ = [
     "CouponCreationJob",
     "CouponDeletionFilters",
     "CouponDeletionJob",
+    "CouponEligibilityInfo",
     "CouponEntity",
     "CouponFailureSummary",
     "CouponLimitConfigs",
@@ -379,6 +381,11 @@ __all__ = [
     "GenerateRuleTitle",
     "GenerateRuleTitleRule",
     "GenerateUserSessionSummary",
+    "GeoJSONGeometry",
+    "GeoJSONGeometryCollection",
+    "GeoJSONMultiPolygon",
+    "GeoJSONPoint",
+    "GeoJSONPolygon",
     "GetAccessLogsWithoutTotalCount200Response",
     "GetAdditionalCosts200Response",
     "GetApplicationCustomerFriends200Response",
@@ -426,7 +433,9 @@ __all__ = [
     "Giveaway",
     "GiveawayPoolNotification",
     "GiveawayPoolNotificationData",
+    "GiveawayPoolReference",
     "GiveawaysPool",
+    "GroupBlock",
     "HiddenConditionsEffects",
     "History",
     "IdentifiableEntity",
@@ -461,12 +470,15 @@ __all__ = [
     "IntegrationHubFlowConfigResponse",
     "IntegrationHubFlowResponse",
     "IntegrationHubFlowWithConfig",
+    "IntegrationHubInstance",
     "IntegrationHubPaginatedEventPayload",
     "IntegrationHubPaginatedEventPayloadDataInner",
     "IntegrationProfileEntity",
     "IntegrationProfileEntityV3",
     "IntegrationRequest",
     "IntegrationResponse",
+    "IntegrationRewardsCatalog200Response",
+    "IntegrationRewardsCatalog200ResponseCatalog",
     "IntegrationState",
     "IntegrationStateV2",
     "IntegrationStoreEntity",
@@ -474,6 +486,7 @@ __all__ = [
     "InventoryCoupon",
     "InventoryReferral",
     "ItemAttribute",
+    "JoinLoyaltyProgramEffectProps",
     "LabelTarget",
     "LabelTargetAudience",
     "LabelTargetNone",
@@ -497,6 +510,9 @@ __all__ = [
     "ListExperiments200Response",
     "ListStores200Response",
     "ListWithCountCheckAttributeBlock",
+    "LocationCheckAttributeBlock",
+    "LocationCheckAttributeBlockValues",
+    "LocationCheckAttributeBlockValuesOneOfInner",
     "LoginParams",
     "Loyalty",
     "LoyaltyBalance",
@@ -594,6 +610,7 @@ __all__ = [
     "NewExperimentVariantArray",
     "NewExternalInvitation",
     "NewGiveawaysPool",
+    "NewIntegrationHubCoupons",
     "NewInternalAudience",
     "NewInvitation",
     "NewInviteEmail",
@@ -667,14 +684,11 @@ __all__ = [
     "ProfileAudiencesChanges",
     "ProjectedTier",
     "PromoteExperiment",
-    "PromotionBlock",
-    "PromotionCheckAttributeBlock",
-    "PromotionGroupBlock",
-    "PromotionRuleV2",
     "RedeemLoyaltyPointsBlock",
     "RedeemLoyaltyPointsBlock1Program",
     "RedeemLoyaltyPointsBlock1Value",
     "RedeemReferralEffectProps",
+    "RedeemableCoupon",
     "ReduceSelectorStep",
     "Referral",
     "ReferralConstraints",
@@ -702,6 +716,8 @@ __all__ = [
     "RewardEligibility",
     "RewardEligibilityFailureDetails",
     "RewardPointsRequired",
+    "RewardUnlockRejection",
+    "RewardWithUnlocks",
     "Risk",
     "RiskAffectedEntityItem",
     "RiskCriticalityUpdate",
@@ -765,8 +781,6 @@ __all__ = [
     "SelectSelectorStep",
     "SelectSelectorStepFrom",
     "Selector",
-    "SelectorBlock",
-    "SelectorGroupBlock",
     "SelectorStep",
     "SelectorValueMapRef",
     "Session",
@@ -785,15 +799,11 @@ __all__ = [
     "SortSelectorStepField",
     "StartAchievementProgressEffectProps",
     "Store",
-    "StrikethroughBlock",
     "StrikethroughChangedItem",
-    "StrikethroughCheckAttributeBlock",
     "StrikethroughCustomEffectPerItemProps",
     "StrikethroughDebugResponse",
     "StrikethroughEffect",
-    "StrikethroughGroupBlock",
     "StrikethroughLabelingNotification",
-    "StrikethroughRuleV2",
     "StrikethroughSetDiscountPerItemEffectProps",
     "StrikethroughSetDiscountPerItemMemberEffectProps",
     "StrikethroughTrigger",
@@ -885,8 +895,8 @@ __all__ = [
     "WebhookAuthentication",
     "WebhookAuthenticationAllOfData",
     "WebhookAuthenticationBase",
-    "WebhookAuthenticationBaseOneOf",
-    "WebhookAuthenticationBaseOneOf1",
+    "WebhookAuthenticationBaseBasic",
+    "WebhookAuthenticationBaseCustom",
     "WebhookAuthenticationDataBasic",
     "WebhookAuthenticationDataCustom",
     "WebhookAuthenticationWebhookRef",
@@ -1005,7 +1015,6 @@ from talon_one.models.award_discount_global_filter_target import AwardDiscountGl
 from talon_one.models.award_discount_selector_target import AwardDiscountSelectorTarget as AwardDiscountSelectorTarget
 from talon_one.models.award_discount_target import AwardDiscountTarget as AwardDiscountTarget
 from talon_one.models.award_giveaway_block import AwardGiveawayBlock as AwardGiveawayBlock
-from talon_one.models.award_giveaway_block1_giveaway_pool import AwardGiveawayBlock1GiveawayPool as AwardGiveawayBlock1GiveawayPool
 from talon_one.models.award_giveaway_effect_props import AwardGiveawayEffectProps as AwardGiveawayEffectProps
 from talon_one.models.award_item_block import AwardItemBlock as AwardItemBlock
 from talon_one.models.base_block import BaseBlock as BaseBlock
@@ -1024,6 +1033,7 @@ from talon_one.models.best_prior_price_settings import BestPriorPriceSettings as
 from talon_one.models.best_prior_target import BestPriorTarget as BestPriorTarget
 from talon_one.models.between_check_attribute_block import BetweenCheckAttributeBlock as BetweenCheckAttributeBlock
 from talon_one.models.binding import Binding as Binding
+from talon_one.models.block import Block as Block
 from talon_one.models.blueprint import Blueprint as Blueprint
 from talon_one.models.bulk_application_notification import BulkApplicationNotification as BulkApplicationNotification
 from talon_one.models.bulk_operation_on_campaigns import BulkOperationOnCampaigns as BulkOperationOnCampaigns
@@ -1057,6 +1067,7 @@ from talon_one.models.campaign_evaluation_tree_changed_notification import Campa
 from talon_one.models.campaign_group import CampaignGroup as CampaignGroup
 from talon_one.models.campaign_group_entity import CampaignGroupEntity as CampaignGroupEntity
 from talon_one.models.campaign_log_summary import CampaignLogSummary as CampaignLogSummary
+from talon_one.models.campaign_loyalty_program import CampaignLoyaltyProgram as CampaignLoyaltyProgram
 from talon_one.models.campaign_notification_base import CampaignNotificationBase as CampaignNotificationBase
 from talon_one.models.campaign_notification_generic import CampaignNotificationGeneric as CampaignNotificationGeneric
 from talon_one.models.campaign_notification_item_base import CampaignNotificationItemBase as CampaignNotificationItemBase
@@ -1131,6 +1142,7 @@ from talon_one.models.coupon_created_effect_props import CouponCreatedEffectProp
 from talon_one.models.coupon_creation_job import CouponCreationJob as CouponCreationJob
 from talon_one.models.coupon_deletion_filters import CouponDeletionFilters as CouponDeletionFilters
 from talon_one.models.coupon_deletion_job import CouponDeletionJob as CouponDeletionJob
+from talon_one.models.coupon_eligibility_info import CouponEligibilityInfo as CouponEligibilityInfo
 from talon_one.models.coupon_entity import CouponEntity as CouponEntity
 from talon_one.models.coupon_failure_summary import CouponFailureSummary as CouponFailureSummary
 from talon_one.models.coupon_limit_configs import CouponLimitConfigs as CouponLimitConfigs
@@ -1261,6 +1273,11 @@ from talon_one.models.generate_loyalty_card import GenerateLoyaltyCard as Genera
 from talon_one.models.generate_rule_title import GenerateRuleTitle as GenerateRuleTitle
 from talon_one.models.generate_rule_title_rule import GenerateRuleTitleRule as GenerateRuleTitleRule
 from talon_one.models.generate_user_session_summary import GenerateUserSessionSummary as GenerateUserSessionSummary
+from talon_one.models.geo_json_geometry import GeoJSONGeometry as GeoJSONGeometry
+from talon_one.models.geo_json_geometry_collection import GeoJSONGeometryCollection as GeoJSONGeometryCollection
+from talon_one.models.geo_json_multi_polygon import GeoJSONMultiPolygon as GeoJSONMultiPolygon
+from talon_one.models.geo_json_point import GeoJSONPoint as GeoJSONPoint
+from talon_one.models.geo_json_polygon import GeoJSONPolygon as GeoJSONPolygon
 from talon_one.models.get_access_logs_without_total_count200_response import GetAccessLogsWithoutTotalCount200Response as GetAccessLogsWithoutTotalCount200Response
 from talon_one.models.get_additional_costs200_response import GetAdditionalCosts200Response as GetAdditionalCosts200Response
 from talon_one.models.get_application_customer_friends200_response import GetApplicationCustomerFriends200Response as GetApplicationCustomerFriends200Response
@@ -1308,7 +1325,9 @@ from talon_one.models.get_webhooks200_response import GetWebhooks200Response as 
 from talon_one.models.giveaway import Giveaway as Giveaway
 from talon_one.models.giveaway_pool_notification import GiveawayPoolNotification as GiveawayPoolNotification
 from talon_one.models.giveaway_pool_notification_data import GiveawayPoolNotificationData as GiveawayPoolNotificationData
+from talon_one.models.giveaway_pool_reference import GiveawayPoolReference as GiveawayPoolReference
 from talon_one.models.giveaways_pool import GiveawaysPool as GiveawaysPool
+from talon_one.models.group_block import GroupBlock as GroupBlock
 from talon_one.models.hidden_conditions_effects import HiddenConditionsEffects as HiddenConditionsEffects
 from talon_one.models.history import History as History
 from talon_one.models.identifiable_entity import IdentifiableEntity as IdentifiableEntity
@@ -1343,12 +1362,15 @@ from talon_one.models.integration_hub_flow_config import IntegrationHubFlowConfi
 from talon_one.models.integration_hub_flow_config_response import IntegrationHubFlowConfigResponse as IntegrationHubFlowConfigResponse
 from talon_one.models.integration_hub_flow_response import IntegrationHubFlowResponse as IntegrationHubFlowResponse
 from talon_one.models.integration_hub_flow_with_config import IntegrationHubFlowWithConfig as IntegrationHubFlowWithConfig
+from talon_one.models.integration_hub_instance import IntegrationHubInstance as IntegrationHubInstance
 from talon_one.models.integration_hub_paginated_event_payload import IntegrationHubPaginatedEventPayload as IntegrationHubPaginatedEventPayload
 from talon_one.models.integration_hub_paginated_event_payload_data_inner import IntegrationHubPaginatedEventPayloadDataInner as IntegrationHubPaginatedEventPayloadDataInner
 from talon_one.models.integration_profile_entity import IntegrationProfileEntity as IntegrationProfileEntity
 from talon_one.models.integration_profile_entity_v3 import IntegrationProfileEntityV3 as IntegrationProfileEntityV3
 from talon_one.models.integration_request import IntegrationRequest as IntegrationRequest
 from talon_one.models.integration_response import IntegrationResponse as IntegrationResponse
+from talon_one.models.integration_rewards_catalog200_response import IntegrationRewardsCatalog200Response as IntegrationRewardsCatalog200Response
+from talon_one.models.integration_rewards_catalog200_response_catalog import IntegrationRewardsCatalog200ResponseCatalog as IntegrationRewardsCatalog200ResponseCatalog
 from talon_one.models.integration_state import IntegrationState as IntegrationState
 from talon_one.models.integration_state_v2 import IntegrationStateV2 as IntegrationStateV2
 from talon_one.models.integration_store_entity import IntegrationStoreEntity as IntegrationStoreEntity
@@ -1356,6 +1378,7 @@ from talon_one.models.integration_unlock_reward_request import IntegrationUnlock
 from talon_one.models.inventory_coupon import InventoryCoupon as InventoryCoupon
 from talon_one.models.inventory_referral import InventoryReferral as InventoryReferral
 from talon_one.models.item_attribute import ItemAttribute as ItemAttribute
+from talon_one.models.join_loyalty_program_effect_props import JoinLoyaltyProgramEffectProps as JoinLoyaltyProgramEffectProps
 from talon_one.models.label_target import LabelTarget as LabelTarget
 from talon_one.models.label_target_audience import LabelTargetAudience as LabelTargetAudience
 from talon_one.models.label_target_none import LabelTargetNone as LabelTargetNone
@@ -1379,6 +1402,9 @@ from talon_one.models.list_check_attribute_block import ListCheckAttributeBlock 
 from talon_one.models.list_experiments200_response import ListExperiments200Response as ListExperiments200Response
 from talon_one.models.list_stores200_response import ListStores200Response as ListStores200Response
 from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock as ListWithCountCheckAttributeBlock
+from talon_one.models.location_check_attribute_block import LocationCheckAttributeBlock as LocationCheckAttributeBlock
+from talon_one.models.location_check_attribute_block_values import LocationCheckAttributeBlockValues as LocationCheckAttributeBlockValues
+from talon_one.models.location_check_attribute_block_values_one_of_inner import LocationCheckAttributeBlockValuesOneOfInner as LocationCheckAttributeBlockValuesOneOfInner
 from talon_one.models.login_params import LoginParams as LoginParams
 from talon_one.models.loyalty import Loyalty as Loyalty
 from talon_one.models.loyalty_balance import LoyaltyBalance as LoyaltyBalance
@@ -1476,6 +1502,7 @@ from talon_one.models.new_experiment_variant import NewExperimentVariant as NewE
 from talon_one.models.new_experiment_variant_array import NewExperimentVariantArray as NewExperimentVariantArray
 from talon_one.models.new_external_invitation import NewExternalInvitation as NewExternalInvitation
 from talon_one.models.new_giveaways_pool import NewGiveawaysPool as NewGiveawaysPool
+from talon_one.models.new_integration_hub_coupons import NewIntegrationHubCoupons as NewIntegrationHubCoupons
 from talon_one.models.new_internal_audience import NewInternalAudience as NewInternalAudience
 from talon_one.models.new_invitation import NewInvitation as NewInvitation
 from talon_one.models.new_invite_email import NewInviteEmail as NewInviteEmail
@@ -1549,14 +1576,11 @@ from talon_one.models.product_unit_analytics_totals import ProductUnitAnalyticsT
 from talon_one.models.profile_audiences_changes import ProfileAudiencesChanges as ProfileAudiencesChanges
 from talon_one.models.projected_tier import ProjectedTier as ProjectedTier
 from talon_one.models.promote_experiment import PromoteExperiment as PromoteExperiment
-from talon_one.models.promotion_block import PromotionBlock as PromotionBlock
-from talon_one.models.promotion_check_attribute_block import PromotionCheckAttributeBlock as PromotionCheckAttributeBlock
-from talon_one.models.promotion_group_block import PromotionGroupBlock as PromotionGroupBlock
-from talon_one.models.promotion_rule_v2 import PromotionRuleV2 as PromotionRuleV2
 from talon_one.models.redeem_loyalty_points_block import RedeemLoyaltyPointsBlock as RedeemLoyaltyPointsBlock
 from talon_one.models.redeem_loyalty_points_block1_program import RedeemLoyaltyPointsBlock1Program as RedeemLoyaltyPointsBlock1Program
 from talon_one.models.redeem_loyalty_points_block1_value import RedeemLoyaltyPointsBlock1Value as RedeemLoyaltyPointsBlock1Value
 from talon_one.models.redeem_referral_effect_props import RedeemReferralEffectProps as RedeemReferralEffectProps
+from talon_one.models.redeemable_coupon import RedeemableCoupon as RedeemableCoupon
 from talon_one.models.reduce_selector_step import ReduceSelectorStep as ReduceSelectorStep
 from talon_one.models.referral import Referral as Referral
 from talon_one.models.referral_constraints import ReferralConstraints as ReferralConstraints
@@ -1584,6 +1608,8 @@ from talon_one.models.reward_catalog_item import RewardCatalogItem as RewardCata
 from talon_one.models.reward_eligibility import RewardEligibility as RewardEligibility
 from talon_one.models.reward_eligibility_failure_details import RewardEligibilityFailureDetails as RewardEligibilityFailureDetails
 from talon_one.models.reward_points_required import RewardPointsRequired as RewardPointsRequired
+from talon_one.models.reward_unlock_rejection import RewardUnlockRejection as RewardUnlockRejection
+from talon_one.models.reward_with_unlocks import RewardWithUnlocks as RewardWithUnlocks
 from talon_one.models.risk import Risk as Risk
 from talon_one.models.risk_affected_entity_item import RiskAffectedEntityItem as RiskAffectedEntityItem
 from talon_one.models.risk_criticality_update import RiskCriticalityUpdate as RiskCriticalityUpdate
@@ -1647,8 +1673,6 @@ from talon_one.models.secondary_deployment import SecondaryDeployment as Seconda
 from talon_one.models.select_selector_step import SelectSelectorStep as SelectSelectorStep
 from talon_one.models.select_selector_step_from import SelectSelectorStepFrom as SelectSelectorStepFrom
 from talon_one.models.selector import Selector as Selector
-from talon_one.models.selector_block import SelectorBlock as SelectorBlock
-from talon_one.models.selector_group_block import SelectorGroupBlock as SelectorGroupBlock
 from talon_one.models.selector_step import SelectorStep as SelectorStep
 from talon_one.models.selector_value_map_ref import SelectorValueMapRef as SelectorValueMapRef
 from talon_one.models.session import Session as Session
@@ -1667,15 +1691,11 @@ from talon_one.models.sort_selector_step import SortSelectorStep as SortSelector
 from talon_one.models.sort_selector_step_field import SortSelectorStepField as SortSelectorStepField
 from talon_one.models.start_achievement_progress_effect_props import StartAchievementProgressEffectProps as StartAchievementProgressEffectProps
 from talon_one.models.store import Store as Store
-from talon_one.models.strikethrough_block import StrikethroughBlock as StrikethroughBlock
 from talon_one.models.strikethrough_changed_item import StrikethroughChangedItem as StrikethroughChangedItem
-from talon_one.models.strikethrough_check_attribute_block import StrikethroughCheckAttributeBlock as StrikethroughCheckAttributeBlock
 from talon_one.models.strikethrough_custom_effect_per_item_props import StrikethroughCustomEffectPerItemProps as StrikethroughCustomEffectPerItemProps
 from talon_one.models.strikethrough_debug_response import StrikethroughDebugResponse as StrikethroughDebugResponse
 from talon_one.models.strikethrough_effect import StrikethroughEffect as StrikethroughEffect
-from talon_one.models.strikethrough_group_block import StrikethroughGroupBlock as StrikethroughGroupBlock
 from talon_one.models.strikethrough_labeling_notification import StrikethroughLabelingNotification as StrikethroughLabelingNotification
-from talon_one.models.strikethrough_rule_v2 import StrikethroughRuleV2 as StrikethroughRuleV2
 from talon_one.models.strikethrough_set_discount_per_item_effect_props import StrikethroughSetDiscountPerItemEffectProps as StrikethroughSetDiscountPerItemEffectProps
 from talon_one.models.strikethrough_set_discount_per_item_member_effect_props import StrikethroughSetDiscountPerItemMemberEffectProps as StrikethroughSetDiscountPerItemMemberEffectProps
 from talon_one.models.strikethrough_trigger import StrikethroughTrigger as StrikethroughTrigger
@@ -1767,8 +1787,8 @@ from talon_one.models.webhook import Webhook as Webhook
 from talon_one.models.webhook_authentication import WebhookAuthentication as WebhookAuthentication
 from talon_one.models.webhook_authentication_all_of_data import WebhookAuthenticationAllOfData as WebhookAuthenticationAllOfData
 from talon_one.models.webhook_authentication_base import WebhookAuthenticationBase as WebhookAuthenticationBase
-from talon_one.models.webhook_authentication_base_one_of import WebhookAuthenticationBaseOneOf as WebhookAuthenticationBaseOneOf
-from talon_one.models.webhook_authentication_base_one_of1 import WebhookAuthenticationBaseOneOf1 as WebhookAuthenticationBaseOneOf1
+from talon_one.models.webhook_authentication_base_basic import WebhookAuthenticationBaseBasic as WebhookAuthenticationBaseBasic
+from talon_one.models.webhook_authentication_base_custom import WebhookAuthenticationBaseCustom as WebhookAuthenticationBaseCustom
 from talon_one.models.webhook_authentication_data_basic import WebhookAuthenticationDataBasic as WebhookAuthenticationDataBasic
 from talon_one.models.webhook_authentication_data_custom import WebhookAuthenticationDataCustom as WebhookAuthenticationDataCustom
 from talon_one.models.webhook_authentication_webhook_ref import WebhookAuthenticationWebhookRef as WebhookAuthenticationWebhookRef

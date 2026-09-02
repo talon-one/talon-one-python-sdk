@@ -41,7 +41,7 @@ class CustomerAchievement(BaseModel):
     fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is equal to `fixed_schedule`.  **Note:** It is an RFC3339 timestamp string. ", alias="fixedStartDate", json_schema_extra={"examples": ["2024-01-15T15:04:05Z07:00"]})
     end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It is an RFC3339 timestamp string. ", alias="endDate", json_schema_extra={"examples": ["2024-02-15T15:04:05Z07:00"]})
     allow_rollback_after_completion: StrictBool = Field(description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion", json_schema_extra={"examples": [False]})
-    campaign_id: Optional[StrictInt] = Field(default=None, description="This property is **deprecated**. Use `campaignIds` (Integration API) or `referencedByCampaigns` (Management API) instead. The first campaign ID in `campaignIds`. Only returned when `campaignIds` is not empty.", alias="campaignId", json_schema_extra={"examples": [3]})
+    campaign_id: Optional[StrictInt] = Field(default=None, description="This property is **deprecated**. Use `referencedByCampaigns` instead. This field contains the first campaign ID from the related `referencedByCampaigns`, and is omitted when `referencedByCampaigns` is empty.", alias="campaignId", json_schema_extra={"examples": [3]})
     campaign_ids: List[StrictInt] = Field(description="The IDs of the campaigns that reference this achievement, in ascending order.", alias="campaignIds", json_schema_extra={"examples": [[1, 14, 27]]})
     referenced_by_campaigns: List[CampaignReference] = Field(description="The campaigns that reference this achievement. They are sorted in ascending order by their `id`.", alias="referencedByCampaigns")
     current_progress: Optional[AchievementProgress] = Field(default=None, alias="currentProgress")
@@ -111,8 +111,7 @@ class CustomerAchievement(BaseModel):
         _items = []
         if self.referenced_by_campaigns:
             for _item_referenced_by_campaigns in self.referenced_by_campaigns:
-                if _item_referenced_by_campaigns:
-                    _items.append(_item_referenced_by_campaigns.to_dict())
+                _items.append(_item_referenced_by_campaigns.to_dict() if _item_referenced_by_campaigns is not None else None)
             _dict['referencedByCampaigns'] = _items
         # override the default output from pydantic by calling `to_dict()` of current_progress
         if self.current_progress:

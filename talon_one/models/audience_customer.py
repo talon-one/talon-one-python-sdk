@@ -89,15 +89,13 @@ class AudienceCustomer(BaseModel):
         _items = []
         if self.loyalty_memberships:
             for _item_loyalty_memberships in self.loyalty_memberships:
-                if _item_loyalty_memberships:
-                    _items.append(_item_loyalty_memberships.to_dict())
+                _items.append(_item_loyalty_memberships.to_dict() if _item_loyalty_memberships is not None else None)
             _dict['loyaltyMemberships'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in audience_memberships (list)
         _items = []
         if self.audience_memberships:
             for _item_audience_memberships in self.audience_memberships:
-                if _item_audience_memberships:
-                    _items.append(_item_audience_memberships.to_dict())
+                _items.append(_item_audience_memberships.to_dict() if _item_audience_memberships is not None else None)
             _dict['audienceMemberships'] = _items
         return _dict
 

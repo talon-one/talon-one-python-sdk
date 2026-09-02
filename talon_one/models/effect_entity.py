@@ -44,7 +44,8 @@ class EffectEntity(BaseModel):
     selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
     selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice", json_schema_extra={"examples": [100]})
     adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
-    __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId"]
+    reward_id: Optional[StrictInt] = Field(default=None, description="The ID of the reward that was being evaluated when this effect was triggered.", alias="rewardId", json_schema_extra={"examples": [7]})
+    __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "rewardId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -112,7 +113,8 @@ class EffectEntity(BaseModel):
             "campaignRevisionVersionId": obj.get("campaignRevisionVersionId"),
             "selectedPriceType": obj.get("selectedPriceType"),
             "selectedPrice": obj.get("selectedPrice"),
-            "adjustmentReferenceId": obj.get("adjustmentReferenceId")
+            "adjustmentReferenceId": obj.get("adjustmentReferenceId"),
+            "rewardId": obj.get("rewardId")
         })
         return _obj
 

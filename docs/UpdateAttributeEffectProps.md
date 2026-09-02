@@ -7,7 +7,7 @@ This effect indicates that a rule containing an [Update attribute value](https:/
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **path** | **str** | The entity type and the attribute name. | 
-**value** | **object** |  | 
+**value** | **object** | The new value of the attribute. | 
 
 ## Example
 

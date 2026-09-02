@@ -75,8 +75,7 @@ class PriceTypeReferences(BaseModel):
         _items = []
         if self.references:
             for _item_references in self.references:
-                if _item_references:
-                    _items.append(_item_references.to_dict())
+                _items.append(_item_references.to_dict() if _item_references is not None else None)
             _dict['references'] = _items
         return _dict
 

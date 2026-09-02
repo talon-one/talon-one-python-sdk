@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **attr** | **str** | The name of the attribute to filter on. | 
 **op** | **str** | The filtering operator. | 
-**value** | **object** |  | 
+**value** | **object** | The value to filter for. | 
 
 ## Example
 

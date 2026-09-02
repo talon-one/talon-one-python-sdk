@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Unique identifier for this block. | 
+**id** | **str** | Unique identifier for this block. | [optional] [readonly] 
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
-**tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
+**tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
 **operator** | **str** | The comparison operator applied to the achievement. | 
 **achievement** | [**CheckAchievementBlock1Achievement**](CheckAchievementBlock1Achievement.md) |  | 
-**on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
+**on_failure** | [**List[Block]**](Block.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
 
 ## Example
 

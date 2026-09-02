@@ -17,7 +17,7 @@ from typing_extensions import Annotated
 
 from datetime import datetime
 from pydantic import Field, StrictBool, StrictInt, StrictStr, field_validator
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from talon_one.models.activate_loyalty_points import ActivateLoyaltyPoints
 from talon_one.models.activate_loyalty_points_response import ActivateLoyaltyPointsResponse
@@ -50,7 +50,9 @@ from talon_one.models.integration_event_v3_request import IntegrationEventV3Requ
 from talon_one.models.integration_event_v3_response import IntegrationEventV3Response
 from talon_one.models.integration_get_all_campaigns200_response import IntegrationGetAllCampaigns200Response
 from talon_one.models.integration_request import IntegrationRequest
+from talon_one.models.integration_rewards_catalog200_response import IntegrationRewardsCatalog200Response
 from talon_one.models.integration_state_v2 import IntegrationStateV2
+from talon_one.models.integration_unlock_reward_request import IntegrationUnlockRewardRequest
 from talon_one.models.loyalty_balances_with_tiers import LoyaltyBalancesWithTiers
 from talon_one.models.loyalty_card import LoyaltyCard
 from talon_one.models.loyalty_card_balances import LoyaltyCardBalances
@@ -2102,7 +2104,7 @@ class IntegrationApi:
     ) -> None:
         """Delete audience
 
-        Delete an audience.  > [!warning] This endpoint also removes any associations recorded between a customer profile and this audience.  > [!note] Audiences can also be deleted via the Campaign Manager. See the [docs](https://docs.talon.one/docs/product/audiences/managing-audiences#deleting-an-audience). 
+        Delete an audience.  > [!warning] This endpoint also removes any associations recorded between a customer profile and this audience.  > [!note] Audiences can also be deleted via the Campaign Manager. See the [docs](https://docs.talon.one/docs/product/audiences/managing-audiences#deleting-an-audience).  The audience isn't deleted if any experiment variant uses it. The response identifies each blocking experiment by its Campaign Manager path. 
 
         :param audience_id: The ID of the audience. (required)
         :type audience_id: int
@@ -2141,6 +2143,7 @@ class IntegrationApi:
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
+            '409': "ErrorResponseWithStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2172,7 +2175,7 @@ class IntegrationApi:
     ) -> ApiResponse[None]:
         """Delete audience
 
-        Delete an audience.  > [!warning] This endpoint also removes any associations recorded between a customer profile and this audience.  > [!note] Audiences can also be deleted via the Campaign Manager. See the [docs](https://docs.talon.one/docs/product/audiences/managing-audiences#deleting-an-audience). 
+        Delete an audience.  > [!warning] This endpoint also removes any associations recorded between a customer profile and this audience.  > [!note] Audiences can also be deleted via the Campaign Manager. See the [docs](https://docs.talon.one/docs/product/audiences/managing-audiences#deleting-an-audience).  The audience isn't deleted if any experiment variant uses it. The response identifies each blocking experiment by its Campaign Manager path. 
 
         :param audience_id: The ID of the audience. (required)
         :type audience_id: int
@@ -2211,6 +2214,7 @@ class IntegrationApi:
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
+            '409': "ErrorResponseWithStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2242,7 +2246,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Delete audience
 
-        Delete an audience.  > [!warning] This endpoint also removes any associations recorded between a customer profile and this audience.  > [!note] Audiences can also be deleted via the Campaign Manager. See the [docs](https://docs.talon.one/docs/product/audiences/managing-audiences#deleting-an-audience). 
+        Delete an audience.  > [!warning] This endpoint also removes any associations recorded between a customer profile and this audience.  > [!note] Audiences can also be deleted via the Campaign Manager. See the [docs](https://docs.talon.one/docs/product/audiences/managing-audiences#deleting-an-audience).  The audience isn't deleted if any experiment variant uses it. The response identifies each blocking experiment by its Campaign Manager path. 
 
         :param audience_id: The ID of the audience. (required)
         :type audience_id: int
@@ -2281,6 +2285,7 @@ class IntegrationApi:
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
+            '409': "ErrorResponseWithStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4301,6 +4306,7 @@ class IntegrationApi:
         loyalty: Annotated[Optional[StrictBool], Field(description="Set to `true` to include loyalty information in the response.")] = None,
         giveaways: Annotated[Optional[StrictBool], Field(description="Set to `true` to include giveaways information in the response.")] = None,
         achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include achievement information in the response.")] = None,
+        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="Set to `true` to include `unlocked` rewards that have not been `used` in the response.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4332,6 +4338,8 @@ class IntegrationApi:
         :type giveaways: bool
         :param achievements: Set to `true` to include achievement information in the response.
         :type achievements: bool
+        :param unlocked_rewards: Set to `true` to include `unlocked` rewards that have not been `used` in the response.
+        :type unlocked_rewards: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4362,6 +4370,7 @@ class IntegrationApi:
             loyalty=loyalty,
             giveaways=giveaways,
             achievements=achievements,
+            unlocked_rewards=unlocked_rewards,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4394,6 +4403,7 @@ class IntegrationApi:
         loyalty: Annotated[Optional[StrictBool], Field(description="Set to `true` to include loyalty information in the response.")] = None,
         giveaways: Annotated[Optional[StrictBool], Field(description="Set to `true` to include giveaways information in the response.")] = None,
         achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include achievement information in the response.")] = None,
+        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="Set to `true` to include `unlocked` rewards that have not been `used` in the response.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4425,6 +4435,8 @@ class IntegrationApi:
         :type giveaways: bool
         :param achievements: Set to `true` to include achievement information in the response.
         :type achievements: bool
+        :param unlocked_rewards: Set to `true` to include `unlocked` rewards that have not been `used` in the response.
+        :type unlocked_rewards: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4455,6 +4467,7 @@ class IntegrationApi:
             loyalty=loyalty,
             giveaways=giveaways,
             achievements=achievements,
+            unlocked_rewards=unlocked_rewards,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4487,6 +4500,7 @@ class IntegrationApi:
         loyalty: Annotated[Optional[StrictBool], Field(description="Set to `true` to include loyalty information in the response.")] = None,
         giveaways: Annotated[Optional[StrictBool], Field(description="Set to `true` to include giveaways information in the response.")] = None,
         achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include achievement information in the response.")] = None,
+        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="Set to `true` to include `unlocked` rewards that have not been `used` in the response.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4518,6 +4532,8 @@ class IntegrationApi:
         :type giveaways: bool
         :param achievements: Set to `true` to include achievement information in the response.
         :type achievements: bool
+        :param unlocked_rewards: Set to `true` to include `unlocked` rewards that have not been `used` in the response.
+        :type unlocked_rewards: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4548,6 +4564,7 @@ class IntegrationApi:
             loyalty=loyalty,
             giveaways=giveaways,
             achievements=achievements,
+            unlocked_rewards=unlocked_rewards,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4575,6 +4592,7 @@ class IntegrationApi:
         loyalty,
         giveaways,
         achievements,
+        unlocked_rewards,
         _request_auth,
         _content_type,
         _headers,
@@ -4622,6 +4640,10 @@ class IntegrationApi:
         if achievements is not None:
             
             _query_params.append(('achievements', achievements))
+            
+        if unlocked_rewards is not None:
+            
+            _query_params.append(('unlockedRewards', unlocked_rewards))
             
         # process the header parameters
         # process the form parameters
@@ -6755,11 +6777,11 @@ class IntegrationApi:
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         status: Annotated[Optional[StrictStr], Field(description="Filter points based on their status.")] = None,
         subledger_id: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. ")] = None,
-        customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
-        transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
+        customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
+        transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order.  To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. ")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6785,15 +6807,15 @@ class IntegrationApi:
         :type status: str
         :param subledger_id: Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. 
         :type subledger_id: List[str]
-        :param customer_session_ids: Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. 
+        :param customer_session_ids: Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. 
         :type customer_session_ids: List[str]
-        :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
+        :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
         :type transaction_uuids: List[str]
         :param page_size: The number of items in the response.
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param sort: The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order.  To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. 
+        :param sort: The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. 
         :type sort: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6857,11 +6879,11 @@ class IntegrationApi:
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         status: Annotated[Optional[StrictStr], Field(description="Filter points based on their status.")] = None,
         subledger_id: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. ")] = None,
-        customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
-        transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
+        customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
+        transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order.  To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. ")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6887,15 +6909,15 @@ class IntegrationApi:
         :type status: str
         :param subledger_id: Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. 
         :type subledger_id: List[str]
-        :param customer_session_ids: Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. 
+        :param customer_session_ids: Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. 
         :type customer_session_ids: List[str]
-        :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
+        :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
         :type transaction_uuids: List[str]
         :param page_size: The number of items in the response.
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param sort: The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order.  To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. 
+        :param sort: The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. 
         :type sort: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -6959,11 +6981,11 @@ class IntegrationApi:
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         status: Annotated[Optional[StrictStr], Field(description="Filter points based on their status.")] = None,
         subledger_id: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. ")] = None,
-        customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
-        transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
+        customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
+        transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
-        sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order.  To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. ")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6989,15 +7011,15 @@ class IntegrationApi:
         :type status: str
         :param subledger_id: Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. 
         :type subledger_id: List[str]
-        :param customer_session_ids: Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. 
+        :param customer_session_ids: Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. 
         :type customer_session_ids: List[str]
-        :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
+        :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
         :type transaction_uuids: List[str]
         :param page_size: The number of items in the response.
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
-        :param sort: The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order.  To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. 
+        :param sort: The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time. 
         :type sort: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7162,7 +7184,7 @@ class IntegrationApi:
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
         transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
-        subledger_id: Annotated[Optional[StrictStr], Field(description="The ID of the subledger by which we filter the data.")] = None,
+        subledger_id: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. ")] = None,
         loyalty_transaction_type: Annotated[Optional[StrictStr], Field(description="Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file. ")] = None,
         start_date: Annotated[Optional[datetime], Field(description="Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
@@ -7194,8 +7216,8 @@ class IntegrationApi:
         :type customer_session_ids: List[str]
         :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
         :type transaction_uuids: List[str]
-        :param subledger_id: The ID of the subledger by which we filter the data.
-        :type subledger_id: str
+        :param subledger_id: Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. 
+        :type subledger_id: List[str]
         :param loyalty_transaction_type: Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file. 
         :type loyalty_transaction_type: str
         :param start_date: Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
@@ -7272,7 +7294,7 @@ class IntegrationApi:
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
         transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
-        subledger_id: Annotated[Optional[StrictStr], Field(description="The ID of the subledger by which we filter the data.")] = None,
+        subledger_id: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. ")] = None,
         loyalty_transaction_type: Annotated[Optional[StrictStr], Field(description="Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file. ")] = None,
         start_date: Annotated[Optional[datetime], Field(description="Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
@@ -7304,8 +7326,8 @@ class IntegrationApi:
         :type customer_session_ids: List[str]
         :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
         :type transaction_uuids: List[str]
-        :param subledger_id: The ID of the subledger by which we filter the data.
-        :type subledger_id: str
+        :param subledger_id: Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. 
+        :type subledger_id: List[str]
         :param loyalty_transaction_type: Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file. 
         :type loyalty_transaction_type: str
         :param start_date: Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
@@ -7382,7 +7404,7 @@ class IntegrationApi:
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         customer_session_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions. ")] = None,
         transaction_uuids: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. ")] = None,
-        subledger_id: Annotated[Optional[StrictStr], Field(description="The ID of the subledger by which we filter the data.")] = None,
+        subledger_id: Annotated[Optional[List[StrictStr]], Field(description="Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. ")] = None,
         loyalty_transaction_type: Annotated[Optional[StrictStr], Field(description="Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file. ")] = None,
         start_date: Annotated[Optional[datetime], Field(description="Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
@@ -7414,8 +7436,8 @@ class IntegrationApi:
         :type customer_session_ids: List[str]
         :param transaction_uuids: Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions. 
         :type transaction_uuids: List[str]
-        :param subledger_id: The ID of the subledger by which we filter the data.
-        :type subledger_id: str
+        :param subledger_id: Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers. 
+        :type subledger_id: List[str]
         :param loyalty_transaction_type: Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file. 
         :type loyalty_transaction_type: str
         :param start_date: Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
@@ -7505,6 +7527,7 @@ class IntegrationApi:
         _collection_formats: Dict[str, str] = {
             'customerSessionIDs': 'multi',
             'transactionUUIDs': 'multi',
+            'subledgerId': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -7616,7 +7639,7 @@ class IntegrationApi:
     @validate_call
     def get_reserved_customers(
         self,
-        coupon_value: Annotated[StrictStr, Field(description="The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp)  if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`. ")],
+        coupon_value: Annotated[StrictStr, Field(description="The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`. ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7634,7 +7657,7 @@ class IntegrationApi:
 
         Return all customers that have this coupon marked as reserved. This includes hard and soft reservations. 
 
-        :param coupon_value: The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp)  if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`.  (required)
+        :param coupon_value: The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`.  (required)
         :type coupon_value: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7686,7 +7709,7 @@ class IntegrationApi:
     @validate_call
     def get_reserved_customers_with_http_info(
         self,
-        coupon_value: Annotated[StrictStr, Field(description="The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp)  if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`. ")],
+        coupon_value: Annotated[StrictStr, Field(description="The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`. ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7704,7 +7727,7 @@ class IntegrationApi:
 
         Return all customers that have this coupon marked as reserved. This includes hard and soft reservations. 
 
-        :param coupon_value: The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp)  if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`.  (required)
+        :param coupon_value: The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`.  (required)
         :type coupon_value: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -7756,7 +7779,7 @@ class IntegrationApi:
     @validate_call
     def get_reserved_customers_without_preload_content(
         self,
-        coupon_value: Annotated[StrictStr, Field(description="The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp)  if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`. ")],
+        coupon_value: Annotated[StrictStr, Field(description="The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`. ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7774,7 +7797,7 @@ class IntegrationApi:
 
         Return all customers that have this coupon marked as reserved. This includes hard and soft reservations. 
 
-        :param coupon_value: The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp)  if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`.  (required)
+        :param coupon_value: The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`.  (required)
         :type coupon_value: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8313,6 +8336,414 @@ class IntegrationApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/integration/campaigns',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def integration_rewards_catalog(
+        self,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        points_from: Annotated[Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]], Field(description="Return only rewards whose points required is greater than or equal to this value.")] = None,
+        points_to: Annotated[Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]], Field(description="Return only rewards whose points required is less than or equal to this value.")] = None,
+        include_free: Annotated[Optional[StrictBool], Field(description="Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. ")] = None,
+        loyalty_program_id: Annotated[Optional[StrictInt], Field(description="Return only rewards available in this loyalty program. ")] = None,
+        subledger_id: Annotated[Optional[StrictStr], Field(description="Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). ")] = None,
+        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> IntegrationRewardsCatalog200Response:
+        """List rewards in the catalog
+
+        Retrieve the rewards catalog for the Application. Returns a paginated list of rewards. 
+
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param points_from: Return only rewards whose points required is greater than or equal to this value.
+        :type points_from: float
+        :param points_to: Return only rewards whose points required is less than or equal to this value.
+        :type points_to: float
+        :param include_free: Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. 
+        :type include_free: bool
+        :param loyalty_program_id: Return only rewards available in this loyalty program. 
+        :type loyalty_program_id: int
+        :param subledger_id: Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). 
+        :type subledger_id: str
+        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :type profile_integration_id: str
+        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :type loyalty_card_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._integration_rewards_catalog_serialize(
+            page_size=page_size,
+            skip=skip,
+            points_from=points_from,
+            points_to=points_to,
+            include_free=include_free,
+            loyalty_program_id=loyalty_program_id,
+            subledger_id=subledger_id,
+            profile_integration_id=profile_integration_id,
+            loyalty_card_id=loyalty_card_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationRewardsCatalog200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def integration_rewards_catalog_with_http_info(
+        self,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        points_from: Annotated[Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]], Field(description="Return only rewards whose points required is greater than or equal to this value.")] = None,
+        points_to: Annotated[Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]], Field(description="Return only rewards whose points required is less than or equal to this value.")] = None,
+        include_free: Annotated[Optional[StrictBool], Field(description="Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. ")] = None,
+        loyalty_program_id: Annotated[Optional[StrictInt], Field(description="Return only rewards available in this loyalty program. ")] = None,
+        subledger_id: Annotated[Optional[StrictStr], Field(description="Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). ")] = None,
+        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[IntegrationRewardsCatalog200Response]:
+        """List rewards in the catalog
+
+        Retrieve the rewards catalog for the Application. Returns a paginated list of rewards. 
+
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param points_from: Return only rewards whose points required is greater than or equal to this value.
+        :type points_from: float
+        :param points_to: Return only rewards whose points required is less than or equal to this value.
+        :type points_to: float
+        :param include_free: Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. 
+        :type include_free: bool
+        :param loyalty_program_id: Return only rewards available in this loyalty program. 
+        :type loyalty_program_id: int
+        :param subledger_id: Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). 
+        :type subledger_id: str
+        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :type profile_integration_id: str
+        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :type loyalty_card_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._integration_rewards_catalog_serialize(
+            page_size=page_size,
+            skip=skip,
+            points_from=points_from,
+            points_to=points_to,
+            include_free=include_free,
+            loyalty_program_id=loyalty_program_id,
+            subledger_id=subledger_id,
+            profile_integration_id=profile_integration_id,
+            loyalty_card_id=loyalty_card_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationRewardsCatalog200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def integration_rewards_catalog_without_preload_content(
+        self,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        points_from: Annotated[Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]], Field(description="Return only rewards whose points required is greater than or equal to this value.")] = None,
+        points_to: Annotated[Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]], Field(description="Return only rewards whose points required is less than or equal to this value.")] = None,
+        include_free: Annotated[Optional[StrictBool], Field(description="Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. ")] = None,
+        loyalty_program_id: Annotated[Optional[StrictInt], Field(description="Return only rewards available in this loyalty program. ")] = None,
+        subledger_id: Annotated[Optional[StrictStr], Field(description="Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). ")] = None,
+        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List rewards in the catalog
+
+        Retrieve the rewards catalog for the Application. Returns a paginated list of rewards. 
+
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param points_from: Return only rewards whose points required is greater than or equal to this value.
+        :type points_from: float
+        :param points_to: Return only rewards whose points required is less than or equal to this value.
+        :type points_to: float
+        :param include_free: Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. 
+        :type include_free: bool
+        :param loyalty_program_id: Return only rewards available in this loyalty program. 
+        :type loyalty_program_id: int
+        :param subledger_id: Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). 
+        :type subledger_id: str
+        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :type profile_integration_id: str
+        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :type loyalty_card_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._integration_rewards_catalog_serialize(
+            page_size=page_size,
+            skip=skip,
+            points_from=points_from,
+            points_to=points_to,
+            include_free=include_free,
+            loyalty_program_id=loyalty_program_id,
+            subledger_id=subledger_id,
+            profile_integration_id=profile_integration_id,
+            loyalty_card_id=loyalty_card_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationRewardsCatalog200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _integration_rewards_catalog_serialize(
+        self,
+        page_size,
+        skip,
+        points_from,
+        points_to,
+        include_free,
+        loyalty_program_id,
+        subledger_id,
+        profile_integration_id,
+        loyalty_card_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if skip is not None:
+            
+            _query_params.append(('skip', skip))
+            
+        if points_from is not None:
+            
+            _query_params.append(('pointsFrom', points_from))
+            
+        if points_to is not None:
+            
+            _query_params.append(('pointsTo', points_to))
+            
+        if include_free is not None:
+            
+            _query_params.append(('includeFree', include_free))
+            
+        if loyalty_program_id is not None:
+            
+            _query_params.append(('loyaltyProgramId', loyalty_program_id))
+            
+        if subledger_id is not None:
+            
+            _query_params.append(('subledgerId', subledger_id))
+            
+        if profile_integration_id is not None:
+            
+            _query_params.append(('profileIntegrationId', profile_integration_id))
+            
+        if loyalty_card_id is not None:
+            
+            _query_params.append(('loyaltyCardId', loyalty_card_id))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/rewards/catalog',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -8930,6 +9361,7 @@ class IntegrationApi:
     def reopen_customer_session(
         self,
         customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8945,10 +9377,12 @@ class IntegrationApi:
     ) -> ReopenSessionResponse:
         """Reopen customer session
 
-        Reopen a closed [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  For example, if a session has been completed but still needs to be edited, you can reopen it with this endpoint.  A reopen session is treated like a standard open session.  When reopening a session:  - The `talon_session_reopened` event is triggered. You can see it in the **Events** view in the Campaign Manager. - The session state is updated to `open`. - Any modified budgets and triggered effects are rolled back when the session closes. - Depending on the [return policy](https://docs.talon.one/docs/product/loyalty-programs/managing-loyalty-programs#return-policy)  in your loyalty programs, points are rolled back in the following ways:   - Pending points are rolled back automatically.   - If **Active points deduction** setting is enabled, any points that were earned and activated when the session closed   are rolled back.   - If **Negative balance** is enabled, the rollback can create a negative points balance.  <details>   <summary><strong>Effects and budgets unimpacted by a session reopening</strong></summary>   <div>     <p>The following effects and budgets remain in the state they were in when the session closed:</p>     <ul>       <li>Add free item effect</li>       <li>Award giveaway</li>       <li>Coupon and referral creation</li>       <li>Coupon reservation</li>       <li>Custom effect</li>       <li>Update attribute value</li>       <li>Update cart item attribute value</li>     </ul>   </div> </details>  To see an example of a rollback, see the [Cancelling a session with campaign budgets](https://docs.talon.one/docs/dev/tutorials/rolling-back-effects) tutorial.  > [!note] If your order workflow requires you to create a new session > instead of reopening a session, use the > [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) > endpoint to cancel a closed session and create a new one.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Reopen a closed [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  For example, if a session has been completed but still needs to be edited, you can reopen it with this endpoint.  A reopen session is treated like a standard open session.  When reopening a session:  - The `talon_session_reopened` event is triggered. You can see it in the **Events** view in the Campaign Manager. - The session state is updated to `open`. - Any modified budgets and triggered effects are rolled back when the session closes. - Depending on the [return policy](https://docs.talon.one/docs/product/loyalty-programs/managing-loyalty-programs#return-policy)  in your loyalty programs, points are rolled back in the following ways:   - Pending points are rolled back automatically.   - If **Active points deduction** setting is enabled, any points that were earned and activated when the session closed   are rolled back.   - If **Negative balance** is enabled, the rollback can create a negative points balance.  <details>   <summary><strong>Effects and budgets unimpacted by a session reopening</strong></summary>   <div>     <p>The following effects and budgets remain in the state they were in when the session closed:</p>     <ul>       <li>Add free item effect</li>       <li>Award giveaway</li>       <li>Coupon and referral creation</li>       <li>Coupon reservation</li>       <li>Custom effect</li>       <li>Update attribute value</li>       <li>Update cart item attribute value</li>     </ul>   </div> </details>  To see an example of a rollback, see the [Cancelling a session with campaign budgets](https://docs.talon.one/docs/dev/tutorials/rolling-back-effects) tutorial.  > [!note] If your order workflow requires you to create a new session > instead of reopening a session, use the > [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) > endpoint to cancel a closed session and create a new one.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
         :type customer_session_id: str
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8973,6 +9407,7 @@ class IntegrationApi:
 
         _param = self._reopen_customer_session_serialize(
             customer_session_id=customer_session_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8999,6 +9434,7 @@ class IntegrationApi:
     def reopen_customer_session_with_http_info(
         self,
         customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9014,10 +9450,12 @@ class IntegrationApi:
     ) -> ApiResponse[ReopenSessionResponse]:
         """Reopen customer session
 
-        Reopen a closed [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  For example, if a session has been completed but still needs to be edited, you can reopen it with this endpoint.  A reopen session is treated like a standard open session.  When reopening a session:  - The `talon_session_reopened` event is triggered. You can see it in the **Events** view in the Campaign Manager. - The session state is updated to `open`. - Any modified budgets and triggered effects are rolled back when the session closes. - Depending on the [return policy](https://docs.talon.one/docs/product/loyalty-programs/managing-loyalty-programs#return-policy)  in your loyalty programs, points are rolled back in the following ways:   - Pending points are rolled back automatically.   - If **Active points deduction** setting is enabled, any points that were earned and activated when the session closed   are rolled back.   - If **Negative balance** is enabled, the rollback can create a negative points balance.  <details>   <summary><strong>Effects and budgets unimpacted by a session reopening</strong></summary>   <div>     <p>The following effects and budgets remain in the state they were in when the session closed:</p>     <ul>       <li>Add free item effect</li>       <li>Award giveaway</li>       <li>Coupon and referral creation</li>       <li>Coupon reservation</li>       <li>Custom effect</li>       <li>Update attribute value</li>       <li>Update cart item attribute value</li>     </ul>   </div> </details>  To see an example of a rollback, see the [Cancelling a session with campaign budgets](https://docs.talon.one/docs/dev/tutorials/rolling-back-effects) tutorial.  > [!note] If your order workflow requires you to create a new session > instead of reopening a session, use the > [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) > endpoint to cancel a closed session and create a new one.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Reopen a closed [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  For example, if a session has been completed but still needs to be edited, you can reopen it with this endpoint.  A reopen session is treated like a standard open session.  When reopening a session:  - The `talon_session_reopened` event is triggered. You can see it in the **Events** view in the Campaign Manager. - The session state is updated to `open`. - Any modified budgets and triggered effects are rolled back when the session closes. - Depending on the [return policy](https://docs.talon.one/docs/product/loyalty-programs/managing-loyalty-programs#return-policy)  in your loyalty programs, points are rolled back in the following ways:   - Pending points are rolled back automatically.   - If **Active points deduction** setting is enabled, any points that were earned and activated when the session closed   are rolled back.   - If **Negative balance** is enabled, the rollback can create a negative points balance.  <details>   <summary><strong>Effects and budgets unimpacted by a session reopening</strong></summary>   <div>     <p>The following effects and budgets remain in the state they were in when the session closed:</p>     <ul>       <li>Add free item effect</li>       <li>Award giveaway</li>       <li>Coupon and referral creation</li>       <li>Coupon reservation</li>       <li>Custom effect</li>       <li>Update attribute value</li>       <li>Update cart item attribute value</li>     </ul>   </div> </details>  To see an example of a rollback, see the [Cancelling a session with campaign budgets](https://docs.talon.one/docs/dev/tutorials/rolling-back-effects) tutorial.  > [!note] If your order workflow requires you to create a new session > instead of reopening a session, use the > [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) > endpoint to cancel a closed session and create a new one.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
         :type customer_session_id: str
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9042,6 +9480,7 @@ class IntegrationApi:
 
         _param = self._reopen_customer_session_serialize(
             customer_session_id=customer_session_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -9068,6 +9507,7 @@ class IntegrationApi:
     def reopen_customer_session_without_preload_content(
         self,
         customer_session_id: Annotated[StrictStr, Field(description="The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. ")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9083,10 +9523,12 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Reopen customer session
 
-        Reopen a closed [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  For example, if a session has been completed but still needs to be edited, you can reopen it with this endpoint.  A reopen session is treated like a standard open session.  When reopening a session:  - The `talon_session_reopened` event is triggered. You can see it in the **Events** view in the Campaign Manager. - The session state is updated to `open`. - Any modified budgets and triggered effects are rolled back when the session closes. - Depending on the [return policy](https://docs.talon.one/docs/product/loyalty-programs/managing-loyalty-programs#return-policy)  in your loyalty programs, points are rolled back in the following ways:   - Pending points are rolled back automatically.   - If **Active points deduction** setting is enabled, any points that were earned and activated when the session closed   are rolled back.   - If **Negative balance** is enabled, the rollback can create a negative points balance.  <details>   <summary><strong>Effects and budgets unimpacted by a session reopening</strong></summary>   <div>     <p>The following effects and budgets remain in the state they were in when the session closed:</p>     <ul>       <li>Add free item effect</li>       <li>Award giveaway</li>       <li>Coupon and referral creation</li>       <li>Coupon reservation</li>       <li>Custom effect</li>       <li>Update attribute value</li>       <li>Update cart item attribute value</li>     </ul>   </div> </details>  To see an example of a rollback, see the [Cancelling a session with campaign budgets](https://docs.talon.one/docs/dev/tutorials/rolling-back-effects) tutorial.  > [!note] If your order workflow requires you to create a new session > instead of reopening a session, use the > [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) > endpoint to cancel a closed session and create a new one.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Reopen a closed [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  For example, if a session has been completed but still needs to be edited, you can reopen it with this endpoint.  A reopen session is treated like a standard open session.  When reopening a session:  - The `talon_session_reopened` event is triggered. You can see it in the **Events** view in the Campaign Manager. - The session state is updated to `open`. - Any modified budgets and triggered effects are rolled back when the session closes. - Depending on the [return policy](https://docs.talon.one/docs/product/loyalty-programs/managing-loyalty-programs#return-policy)  in your loyalty programs, points are rolled back in the following ways:   - Pending points are rolled back automatically.   - If **Active points deduction** setting is enabled, any points that were earned and activated when the session closed   are rolled back.   - If **Negative balance** is enabled, the rollback can create a negative points balance.  <details>   <summary><strong>Effects and budgets unimpacted by a session reopening</strong></summary>   <div>     <p>The following effects and budgets remain in the state they were in when the session closed:</p>     <ul>       <li>Add free item effect</li>       <li>Award giveaway</li>       <li>Coupon and referral creation</li>       <li>Coupon reservation</li>       <li>Custom effect</li>       <li>Update attribute value</li>       <li>Update cart item attribute value</li>     </ul>   </div> </details>  To see an example of a rollback, see the [Cancelling a session with campaign budgets](https://docs.talon.one/docs/dev/tutorials/rolling-back-effects) tutorial.  > [!note] If your order workflow requires you to create a new session > instead of reopening a session, use the > [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) > endpoint to cancel a closed session and create a new one.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
         :type customer_session_id: str
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9111,6 +9553,7 @@ class IntegrationApi:
 
         _param = self._reopen_customer_session_serialize(
             customer_session_id=customer_session_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -9132,6 +9575,7 @@ class IntegrationApi:
     def _reopen_customer_session_serialize(
         self,
         customer_session_id,
+        idempotency_key,
         _request_auth,
         _content_type,
         _headers,
@@ -9157,6 +9601,8 @@ class IntegrationApi:
             _path_params['customerSessionId'] = customer_session_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
 
@@ -9200,6 +9646,7 @@ class IntegrationApi:
         return_integration_request: Annotated[ReturnIntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9215,7 +9662,7 @@ class IntegrationApi:
     ) -> IntegrationStateV2:
         """Return cart items
 
-        Create a new return request for the specified cart items.  This endpoint automatically changes the session state from `closed` to `partially_returned`.  > [!note] This will roll back any effects associated with these cart items. > For more information, see [our documentation on session > states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states) > and [this tutorial](https://docs.talon.one/docs/dev/tutorials/partially-returning-a-session).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Create a new return request for the specified cart items.  This endpoint automatically changes the session state from `closed` to `partially_returned`.  > [!note] This will roll back any effects associated with these cart items. > For more information, see [our documentation on session > states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states) > and [this tutorial](https://docs.talon.one/docs/dev/tutorials/partially-returning-a-session).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
         :type customer_session_id: str
@@ -9225,6 +9672,8 @@ class IntegrationApi:
         :type dry: bool
         :param run_rule_engine: When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. 
         :type run_rule_engine: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9252,6 +9701,7 @@ class IntegrationApi:
             return_integration_request=return_integration_request,
             dry=dry,
             run_rule_engine=run_rule_engine,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -9281,6 +9731,7 @@ class IntegrationApi:
         return_integration_request: Annotated[ReturnIntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9296,7 +9747,7 @@ class IntegrationApi:
     ) -> ApiResponse[IntegrationStateV2]:
         """Return cart items
 
-        Create a new return request for the specified cart items.  This endpoint automatically changes the session state from `closed` to `partially_returned`.  > [!note] This will roll back any effects associated with these cart items. > For more information, see [our documentation on session > states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states) > and [this tutorial](https://docs.talon.one/docs/dev/tutorials/partially-returning-a-session).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Create a new return request for the specified cart items.  This endpoint automatically changes the session state from `closed` to `partially_returned`.  > [!note] This will roll back any effects associated with these cart items. > For more information, see [our documentation on session > states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states) > and [this tutorial](https://docs.talon.one/docs/dev/tutorials/partially-returning-a-session).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
         :type customer_session_id: str
@@ -9306,6 +9757,8 @@ class IntegrationApi:
         :type dry: bool
         :param run_rule_engine: When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. 
         :type run_rule_engine: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9333,6 +9786,7 @@ class IntegrationApi:
             return_integration_request=return_integration_request,
             dry=dry,
             run_rule_engine=run_rule_engine,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -9362,6 +9816,7 @@ class IntegrationApi:
         return_integration_request: Annotated[ReturnIntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9377,7 +9832,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Return cart items
 
-        Create a new return request for the specified cart items.  This endpoint automatically changes the session state from `closed` to `partially_returned`.  > [!note] This will roll back any effects associated with these cart items. > For more information, see [our documentation on session > states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states) > and [this tutorial](https://docs.talon.one/docs/dev/tutorials/partially-returning-a-session).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Create a new return request for the specified cart items.  This endpoint automatically changes the session state from `closed` to `partially_returned`.  > [!note] This will roll back any effects associated with these cart items. > For more information, see [our documentation on session > states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states) > and [this tutorial](https://docs.talon.one/docs/dev/tutorials/partially-returning-a-session).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  (required)
         :type customer_session_id: str
@@ -9387,6 +9842,8 @@ class IntegrationApi:
         :type dry: bool
         :param run_rule_engine: When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed. 
         :type run_rule_engine: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9414,6 +9871,7 @@ class IntegrationApi:
             return_integration_request=return_integration_request,
             dry=dry,
             run_rule_engine=run_rule_engine,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -9438,6 +9896,7 @@ class IntegrationApi:
         return_integration_request,
         dry,
         run_rule_engine,
+        idempotency_key,
         _request_auth,
         _content_type,
         _headers,
@@ -9471,6 +9930,8 @@ class IntegrationApi:
             _query_params.append(('runRuleEngine', run_rule_engine))
             
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if return_integration_request is not None:
@@ -9827,6 +10288,7 @@ class IntegrationApi:
         silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
         force_complete_evaluation: Annotated[Optional[StrictBool], Field(description="Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires `dry=true`. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9842,7 +10304,7 @@ class IntegrationApi:
     ) -> IntegrationEventV2Response:
         """Track event
 
-        Trigger a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events).  To use this endpoint:  1. [Create](https://docs.talon.one/docs/dev/concepts/entities/events#create-an-event) an event in the Campaign Manager. 1. In a rule, add the **Check for event types** [condition](https://docs.talon.one/docs/dev/concepts/entities/events#use-an-event-in-a-rule) and select the event you created. 1. Trigger the event with this endpoint.  You can [list](https://docs.talon.one/docs/product/applications/display-events#list-events) the received events in the **Events** view of the Campaign Manager.  For example, you can use this endpoint to trigger an event when a customer shares a link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).  > [!note] **Note** > - `profileId` is required even though the schema does not specify it. > - If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered. > - We recommend sending requests sequentially. See [Manage parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#manage-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archive-a-campaign) are not considered in rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Trigger a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events).  To use this endpoint:  1. [Create](https://docs.talon.one/docs/dev/concepts/entities/events#create-an-event) an event in the Campaign Manager. 1. In a rule, add the **Check for event types** [condition](https://docs.talon.one/docs/dev/concepts/entities/events#use-an-event-in-a-rule) and select the event you created. 1. Trigger the event with this endpoint.  You can [list](https://docs.talon.one/docs/product/applications/display-events#list-events) the received events in the **Events** view of the Campaign Manager.  For example, you can use this endpoint to trigger an event when a customer shares a link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).  > [!note] **Note** > - `profileId` is required even though the schema does not specify it. > - If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered. > - We recommend sending requests sequentially. See [Manage parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#manage-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archive-a-campaign) are not considered in rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param integration_event_v2_request: body (required)
         :type integration_event_v2_request: IntegrationEventV2Request
@@ -9852,6 +10314,8 @@ class IntegrationApi:
         :type dry: bool
         :param force_complete_evaluation: Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires `dry=true`. 
         :type force_complete_evaluation: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9879,6 +10343,7 @@ class IntegrationApi:
             silent=silent,
             dry=dry,
             force_complete_evaluation=force_complete_evaluation,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -9910,6 +10375,7 @@ class IntegrationApi:
         silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
         force_complete_evaluation: Annotated[Optional[StrictBool], Field(description="Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires `dry=true`. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9925,7 +10391,7 @@ class IntegrationApi:
     ) -> ApiResponse[IntegrationEventV2Response]:
         """Track event
 
-        Trigger a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events).  To use this endpoint:  1. [Create](https://docs.talon.one/docs/dev/concepts/entities/events#create-an-event) an event in the Campaign Manager. 1. In a rule, add the **Check for event types** [condition](https://docs.talon.one/docs/dev/concepts/entities/events#use-an-event-in-a-rule) and select the event you created. 1. Trigger the event with this endpoint.  You can [list](https://docs.talon.one/docs/product/applications/display-events#list-events) the received events in the **Events** view of the Campaign Manager.  For example, you can use this endpoint to trigger an event when a customer shares a link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).  > [!note] **Note** > - `profileId` is required even though the schema does not specify it. > - If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered. > - We recommend sending requests sequentially. See [Manage parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#manage-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archive-a-campaign) are not considered in rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Trigger a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events).  To use this endpoint:  1. [Create](https://docs.talon.one/docs/dev/concepts/entities/events#create-an-event) an event in the Campaign Manager. 1. In a rule, add the **Check for event types** [condition](https://docs.talon.one/docs/dev/concepts/entities/events#use-an-event-in-a-rule) and select the event you created. 1. Trigger the event with this endpoint.  You can [list](https://docs.talon.one/docs/product/applications/display-events#list-events) the received events in the **Events** view of the Campaign Manager.  For example, you can use this endpoint to trigger an event when a customer shares a link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).  > [!note] **Note** > - `profileId` is required even though the schema does not specify it. > - If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered. > - We recommend sending requests sequentially. See [Manage parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#manage-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archive-a-campaign) are not considered in rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param integration_event_v2_request: body (required)
         :type integration_event_v2_request: IntegrationEventV2Request
@@ -9935,6 +10401,8 @@ class IntegrationApi:
         :type dry: bool
         :param force_complete_evaluation: Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires `dry=true`. 
         :type force_complete_evaluation: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9962,6 +10430,7 @@ class IntegrationApi:
             silent=silent,
             dry=dry,
             force_complete_evaluation=force_complete_evaluation,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -9993,6 +10462,7 @@ class IntegrationApi:
         silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`. ")] = None,
         force_complete_evaluation: Annotated[Optional[StrictBool], Field(description="Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires `dry=true`. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10008,7 +10478,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Track event
 
-        Trigger a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events).  To use this endpoint:  1. [Create](https://docs.talon.one/docs/dev/concepts/entities/events#create-an-event) an event in the Campaign Manager. 1. In a rule, add the **Check for event types** [condition](https://docs.talon.one/docs/dev/concepts/entities/events#use-an-event-in-a-rule) and select the event you created. 1. Trigger the event with this endpoint.  You can [list](https://docs.talon.one/docs/product/applications/display-events#list-events) the received events in the **Events** view of the Campaign Manager.  For example, you can use this endpoint to trigger an event when a customer shares a link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).  > [!note] **Note** > - `profileId` is required even though the schema does not specify it. > - If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered. > - We recommend sending requests sequentially. See [Manage parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#manage-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archive-a-campaign) are not considered in rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Trigger a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events).  To use this endpoint:  1. [Create](https://docs.talon.one/docs/dev/concepts/entities/events#create-an-event) an event in the Campaign Manager. 1. In a rule, add the **Check for event types** [condition](https://docs.talon.one/docs/dev/concepts/entities/events#use-an-event-in-a-rule) and select the event you created. 1. Trigger the event with this endpoint.  You can [list](https://docs.talon.one/docs/product/applications/display-events#list-events) the received events in the **Events** view of the Campaign Manager.  For example, you can use this endpoint to trigger an event when a customer shares a link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutorials/referrals/incentivizing-product-link-sharing).  > [!note] **Note** > - `profileId` is required even though the schema does not specify it. > - If the customer profile ID is new, a new profile is automatically created but the `customer_profile_created` [built-in event ](https://docs.talon.one/docs/dev/concepts/entities/events) is **not** triggered. > - We recommend sending requests sequentially. See [Manage parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#manage-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archive-a-campaign) are not considered in rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param integration_event_v2_request: body (required)
         :type integration_event_v2_request: IntegrationEventV2Request
@@ -10018,6 +10488,8 @@ class IntegrationApi:
         :type dry: bool
         :param force_complete_evaluation: Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires `dry=true`. 
         :type force_complete_evaluation: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10045,6 +10517,7 @@ class IntegrationApi:
             silent=silent,
             dry=dry,
             force_complete_evaluation=force_complete_evaluation,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -10071,6 +10544,7 @@ class IntegrationApi:
         silent,
         dry,
         force_complete_evaluation,
+        idempotency_key,
         _request_auth,
         _content_type,
         _headers,
@@ -10106,6 +10580,8 @@ class IntegrationApi:
             _query_params.append(('forceCompleteEvaluation', force_complete_evaluation))
             
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if integration_event_v2_request is not None:
@@ -10789,6 +11265,330 @@ class IntegrationApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/unlink_profile',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def unlock_reward(
+        self,
+        reward_id: Annotated[StrictInt, Field(description="The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint.")],
+        integration_unlock_reward_request: IntegrationUnlockRewardRequest,
+        dry: Annotated[Optional[StrictBool], Field(description="When set to `true`, the rule evaluation is performed but no changes are persisted. Use this to preview the outcome of an unlocking.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> IntegrationStateV2:
+        """Unlock a reward
+
+        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
+
+        :param reward_id: The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint. (required)
+        :type reward_id: int
+        :param integration_unlock_reward_request: (required)
+        :type integration_unlock_reward_request: IntegrationUnlockRewardRequest
+        :param dry: When set to `true`, the rule evaluation is performed but no changes are persisted. Use this to preview the outcome of an unlocking.
+        :type dry: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._unlock_reward_serialize(
+            reward_id=reward_id,
+            integration_unlock_reward_request=integration_unlock_reward_request,
+            dry=dry,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationStateV2",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '403': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+            '409': "ErrorResponseWithStatus",
+            '422': "RewardUnlockRejection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def unlock_reward_with_http_info(
+        self,
+        reward_id: Annotated[StrictInt, Field(description="The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint.")],
+        integration_unlock_reward_request: IntegrationUnlockRewardRequest,
+        dry: Annotated[Optional[StrictBool], Field(description="When set to `true`, the rule evaluation is performed but no changes are persisted. Use this to preview the outcome of an unlocking.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[IntegrationStateV2]:
+        """Unlock a reward
+
+        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
+
+        :param reward_id: The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint. (required)
+        :type reward_id: int
+        :param integration_unlock_reward_request: (required)
+        :type integration_unlock_reward_request: IntegrationUnlockRewardRequest
+        :param dry: When set to `true`, the rule evaluation is performed but no changes are persisted. Use this to preview the outcome of an unlocking.
+        :type dry: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._unlock_reward_serialize(
+            reward_id=reward_id,
+            integration_unlock_reward_request=integration_unlock_reward_request,
+            dry=dry,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationStateV2",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '403': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+            '409': "ErrorResponseWithStatus",
+            '422': "RewardUnlockRejection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def unlock_reward_without_preload_content(
+        self,
+        reward_id: Annotated[StrictInt, Field(description="The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint.")],
+        integration_unlock_reward_request: IntegrationUnlockRewardRequest,
+        dry: Annotated[Optional[StrictBool], Field(description="When set to `true`, the rule evaluation is performed but no changes are persisted. Use this to preview the outcome of an unlocking.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Unlock a reward
+
+        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
+
+        :param reward_id: The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint. (required)
+        :type reward_id: int
+        :param integration_unlock_reward_request: (required)
+        :type integration_unlock_reward_request: IntegrationUnlockRewardRequest
+        :param dry: When set to `true`, the rule evaluation is performed but no changes are persisted. Use this to preview the outcome of an unlocking.
+        :type dry: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._unlock_reward_serialize(
+            reward_id=reward_id,
+            integration_unlock_reward_request=integration_unlock_reward_request,
+            dry=dry,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IntegrationStateV2",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '403': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+            '409': "ErrorResponseWithStatus",
+            '422': "RewardUnlockRejection",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _unlock_reward_serialize(
+        self,
+        reward_id,
+        integration_unlock_reward_request,
+        dry,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if reward_id is not None:
+            _path_params['rewardId'] = reward_id
+        # process the query parameters
+        if dry is not None:
+            
+            _query_params.append(('dry', dry))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if integration_unlock_reward_request is not None:
+            _body_params = integration_unlock_reward_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/rewards/{rewardId}/unlock',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -11684,6 +12484,7 @@ class IntegrationApi:
         customer_profile_integration_request_v2: Annotated[CustomerProfileIntegrationRequestV2, Field(description="body")],
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="Indicates whether to run the Rule Engine.  If `true`, the response includes: - The effects generated by the triggered campaigns are returned in the `effects` property. - The created coupons and referral objects.  If `false`: - The rules are not executed and the `effects` property is always empty. - The response time improves. - You cannot use `responseContent` in the body. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="(Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -11699,7 +12500,7 @@ class IntegrationApi:
     ) -> CustomerProfileIntegrationResponseV2:
         """Update customer profile
 
-        Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - The [Has joined an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) and >   [Has left an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) conditions >   only trigger through this endpoint. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - The [Has joined an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) and >   [Has left an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) conditions >   only trigger through this endpoint. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type integration_id: str
@@ -11709,6 +12510,8 @@ class IntegrationApi:
         :type run_rule_engine: bool
         :param dry: (Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. 
         :type dry: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -11736,6 +12539,7 @@ class IntegrationApi:
             customer_profile_integration_request_v2=customer_profile_integration_request_v2,
             run_rule_engine=run_rule_engine,
             dry=dry,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -11766,6 +12570,7 @@ class IntegrationApi:
         customer_profile_integration_request_v2: Annotated[CustomerProfileIntegrationRequestV2, Field(description="body")],
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="Indicates whether to run the Rule Engine.  If `true`, the response includes: - The effects generated by the triggered campaigns are returned in the `effects` property. - The created coupons and referral objects.  If `false`: - The rules are not executed and the `effects` property is always empty. - The response time improves. - You cannot use `responseContent` in the body. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="(Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -11781,7 +12586,7 @@ class IntegrationApi:
     ) -> ApiResponse[CustomerProfileIntegrationResponseV2]:
         """Update customer profile
 
-        Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - The [Has joined an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) and >   [Has left an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) conditions >   only trigger through this endpoint. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - The [Has joined an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) and >   [Has left an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) conditions >   only trigger through this endpoint. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type integration_id: str
@@ -11791,6 +12596,8 @@ class IntegrationApi:
         :type run_rule_engine: bool
         :param dry: (Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. 
         :type dry: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -11818,6 +12625,7 @@ class IntegrationApi:
             customer_profile_integration_request_v2=customer_profile_integration_request_v2,
             run_rule_engine=run_rule_engine,
             dry=dry,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -11848,6 +12656,7 @@ class IntegrationApi:
         customer_profile_integration_request_v2: Annotated[CustomerProfileIntegrationRequestV2, Field(description="body")],
         run_rule_engine: Annotated[Optional[StrictBool], Field(description="Indicates whether to run the Rule Engine.  If `true`, the response includes: - The effects generated by the triggered campaigns are returned in the `effects` property. - The created coupons and referral objects.  If `false`: - The rules are not executed and the `effects` property is always empty. - The response time improves. - You cannot use `responseContent` in the body. ")] = None,
         dry: Annotated[Optional[StrictBool], Field(description="(Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -11863,7 +12672,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Update customer profile
 
-        Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - The [Has joined an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) and >   [Has left an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) conditions >   only trigger through this endpoint. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Update or create a [Customer Profile](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles). This endpoint triggers the Rule Builder.  You can use this endpoint to: - Set attributes on the given customer profile. Ensure you create the attributes in the Campaign Manager, first. - Modify the audience the customer profile is a member of.  > [!note] **Note** > - Updating a customer profile returns a response with the requested integration state. > - The [Has joined an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) and >   [Has left an audience](https://docs.talon.one/docs/product/rules/conditions/available-conditions#audience-conditions) conditions >   only trigger through this endpoint. > - You can use the `responseContent` property to save yourself extra API calls. For example, you can get >   the customer profile details directly without extra requests. > - We recommend sending requests sequentially. >   See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests). > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. **Note**: It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type integration_id: str
@@ -11873,6 +12682,8 @@ class IntegrationApi:
         :type run_rule_engine: bool
         :param dry: (Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run. 
         :type dry: bool
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -11900,6 +12711,7 @@ class IntegrationApi:
             customer_profile_integration_request_v2=customer_profile_integration_request_v2,
             run_rule_engine=run_rule_engine,
             dry=dry,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -11925,6 +12737,7 @@ class IntegrationApi:
         customer_profile_integration_request_v2,
         run_rule_engine,
         dry,
+        idempotency_key,
         _request_auth,
         _content_type,
         _headers,
@@ -11958,6 +12771,8 @@ class IntegrationApi:
             _query_params.append(('dry', dry))
             
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if customer_profile_integration_request_v2 is not None:
@@ -12014,6 +12829,7 @@ class IntegrationApi:
         self,
         multiple_customer_profile_integration_request: Annotated[MultipleCustomerProfileIntegrationRequest, Field(description="body")],
         silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12029,12 +12845,14 @@ class IntegrationApi:
     ) -> MultipleCustomerProfileIntegrationResponseV2:
         """Update multiple customer profiles
 
-        Update (or create) up to 1000 [customer profiles](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles) in 1 request.  The `integrationId` must be any identifier that remains stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  A customer profile [can be linked to one or more sessions](https://docs.talon.one/integration-api#tag/Customer-sessions).  > [!note] This endpoint does not trigger the Rule Engine. > To trigger the Rule Engine for customer profile updates, > use the [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Update (or create) up to 1000 [customer profiles](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles) in 1 request.  The `integrationId` must be any identifier that remains stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  A customer profile [can be linked to one or more sessions](https://docs.talon.one/integration-api#tag/Customer-sessions).  > [!note] This endpoint does not trigger the Rule Engine. > To trigger the Rule Engine for customer profile updates, > use the [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param multiple_customer_profile_integration_request: body (required)
         :type multiple_customer_profile_integration_request: MultipleCustomerProfileIntegrationRequest
         :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. 
         :type silent: str
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12060,6 +12878,7 @@ class IntegrationApi:
         _param = self._update_customer_profiles_v2_serialize(
             multiple_customer_profile_integration_request=multiple_customer_profile_integration_request,
             silent=silent,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12088,6 +12907,7 @@ class IntegrationApi:
         self,
         multiple_customer_profile_integration_request: Annotated[MultipleCustomerProfileIntegrationRequest, Field(description="body")],
         silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12103,12 +12923,14 @@ class IntegrationApi:
     ) -> ApiResponse[MultipleCustomerProfileIntegrationResponseV2]:
         """Update multiple customer profiles
 
-        Update (or create) up to 1000 [customer profiles](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles) in 1 request.  The `integrationId` must be any identifier that remains stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  A customer profile [can be linked to one or more sessions](https://docs.talon.one/integration-api#tag/Customer-sessions).  > [!note] This endpoint does not trigger the Rule Engine. > To trigger the Rule Engine for customer profile updates, > use the [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Update (or create) up to 1000 [customer profiles](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles) in 1 request.  The `integrationId` must be any identifier that remains stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  A customer profile [can be linked to one or more sessions](https://docs.talon.one/integration-api#tag/Customer-sessions).  > [!note] This endpoint does not trigger the Rule Engine. > To trigger the Rule Engine for customer profile updates, > use the [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param multiple_customer_profile_integration_request: body (required)
         :type multiple_customer_profile_integration_request: MultipleCustomerProfileIntegrationRequest
         :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. 
         :type silent: str
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12134,6 +12956,7 @@ class IntegrationApi:
         _param = self._update_customer_profiles_v2_serialize(
             multiple_customer_profile_integration_request=multiple_customer_profile_integration_request,
             silent=silent,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12162,6 +12985,7 @@ class IntegrationApi:
         self,
         multiple_customer_profile_integration_request: Annotated[MultipleCustomerProfileIntegrationRequest, Field(description="body")],
         silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12177,12 +13001,14 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Update multiple customer profiles
 
-        Update (or create) up to 1000 [customer profiles](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles) in 1 request.  The `integrationId` must be any identifier that remains stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  A customer profile [can be linked to one or more sessions](https://docs.talon.one/integration-api#tag/Customer-sessions).  > [!note] This endpoint does not trigger the Rule Engine. > To trigger the Rule Engine for customer profile updates, > use the [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency). 
+        Update (or create) up to 1000 [customer profiles](https://docs.talon.one/docs/dev/concepts/entities/customer-profiles) in 1 request.  The `integrationId` must be any identifier that remains stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  A customer profile [can be linked to one or more sessions](https://docs.talon.one/integration-api#tag/Customer-sessions).  > [!note] This endpoint does not trigger the Rule Engine. > To trigger the Rule Engine for customer profile updates, > use the [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param multiple_customer_profile_integration_request: body (required)
         :type multiple_customer_profile_integration_request: MultipleCustomerProfileIntegrationRequest
         :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. 
         :type silent: str
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12208,6 +13034,7 @@ class IntegrationApi:
         _param = self._update_customer_profiles_v2_serialize(
             multiple_customer_profile_integration_request=multiple_customer_profile_integration_request,
             silent=silent,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12231,6 +13058,7 @@ class IntegrationApi:
         self,
         multiple_customer_profile_integration_request,
         silent,
+        idempotency_key,
         _request_auth,
         _content_type,
         _headers,
@@ -12258,6 +13086,8 @@ class IntegrationApi:
             _query_params.append(('silent', silent))
             
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if multiple_customer_profile_integration_request is not None:
@@ -12316,6 +13146,7 @@ class IntegrationApi:
         integration_request: Annotated[IntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`: - The endpoint considers **only** the payload that you pass when **closing** the session.   When you do not use the `dry` parameter, the endpoint behaves as a typical PUT endpoint. Each update builds upon the previous ones. - You can use the `evaluableCampaignIds` body property to select specific campaigns to run.  [See the docs](https://docs.talon.one/docs/dev/integration-api/dry-requests). ")] = None,
         now: Annotated[Optional[datetime], Field(description="A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12331,7 +13162,7 @@ class IntegrationApi:
     ) -> IntegrationStateV2:
         """Update customer session
 
-        Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one). 
+        Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
@@ -12341,6 +13172,8 @@ class IntegrationApi:
         :type dry: bool
         :param now: A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. 
         :type now: datetime
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12368,6 +13201,7 @@ class IntegrationApi:
             integration_request=integration_request,
             dry=dry,
             now=now,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12398,6 +13232,7 @@ class IntegrationApi:
         integration_request: Annotated[IntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`: - The endpoint considers **only** the payload that you pass when **closing** the session.   When you do not use the `dry` parameter, the endpoint behaves as a typical PUT endpoint. Each update builds upon the previous ones. - You can use the `evaluableCampaignIds` body property to select specific campaigns to run.  [See the docs](https://docs.talon.one/docs/dev/integration-api/dry-requests). ")] = None,
         now: Annotated[Optional[datetime], Field(description="A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12413,7 +13248,7 @@ class IntegrationApi:
     ) -> ApiResponse[IntegrationStateV2]:
         """Update customer session
 
-        Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one). 
+        Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
@@ -12423,6 +13258,8 @@ class IntegrationApi:
         :type dry: bool
         :param now: A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. 
         :type now: datetime
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12450,6 +13287,7 @@ class IntegrationApi:
             integration_request=integration_request,
             dry=dry,
             now=now,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12480,6 +13318,7 @@ class IntegrationApi:
         integration_request: Annotated[IntegrationRequest, Field(description="body")],
         dry: Annotated[Optional[StrictBool], Field(description="Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`: - The endpoint considers **only** the payload that you pass when **closing** the session.   When you do not use the `dry` parameter, the endpoint behaves as a typical PUT endpoint. Each update builds upon the previous ones. - You can use the `evaluableCampaignIds` body property to select specific campaigns to run.  [See the docs](https://docs.talon.one/docs/dev/integration-api/dry-requests). ")] = None,
         now: Annotated[Optional[datetime], Field(description="A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. ")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12495,7 +13334,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Update customer session
 
-        Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one). 
+        Update or create a [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions).  The endpoint responds with the potential promotion rule [effects](https://docs.talon.one/docs/dev/integration-api/api-effects) that match the current cart.  For example, use this endpoint to share the contents of a customer's cart with Talon.One.  > [!note] **Note** > - The currency for the session and the cart items in it is the currency set for the Application linked to this session. > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.  ### Session management  To use this endpoint, start by learning about [customer sessions](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions) and their states and refer to the `state` parameter documentation the request body schema docs below.  ### Sessions and customer profiles  - To link a session to a customer profile, set the `profileId` parameter in the request body to a customer profile's `integrationId`.  - While you can create an anonymous session with `profileId=\"\"`, we recommend you use a guest ID instead.  - A profile can be linked to simultaneous sessions in different Applications. Either:   - Use unique session integration IDs or,   - Use the same session integration ID across all of the Applications.  > [!note] **Note** > - If the specified profile does not exist, an empty profile is **created automatically**. >   You can update it with [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2). > - Updating a customer session returns a response with the new integration state. Use the `responseContent` property to save yourself extra API calls. >   For example, you can get the customer profile details directly without extra requests. > - We recommend sending requests sequentially. See [Managing parallel requests](https://docs.talon.one/docs/dev/getting-started/integration-tutorial#managing-parallel-requests).  For more information, see:  - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview). - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one).  > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
         :param customer_session_id: The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. **Notes**: - There is no length limit for this ID. - It must be URL-encoded. For example, replace spaces with `%20`. [Learn more](https://www.w3schools.com/tags/ref_urlencode.asp).  (required)
         :type customer_session_id: str
@@ -12505,6 +13344,8 @@ class IntegrationApi:
         :type dry: bool
         :param now: A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`. 
         :type now: datetime
+        :param idempotency_key: A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12532,6 +13373,7 @@ class IntegrationApi:
             integration_request=integration_request,
             dry=dry,
             now=now,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12557,6 +13399,7 @@ class IntegrationApi:
         integration_request,
         dry,
         now,
+        idempotency_key,
         _request_auth,
         _content_type,
         _headers,
@@ -12599,6 +13442,8 @@ class IntegrationApi:
                 _query_params.append(('now', now))
             
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if integration_request is not None:

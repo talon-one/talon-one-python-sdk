@@ -75,8 +75,7 @@ class MultipleAudiences(BaseModel):
         _items = []
         if self.audiences:
             for _item_audiences in self.audiences:
-                if _item_audiences:
-                    _items.append(_item_audiences.to_dict())
+                _items.append(_item_audiences.to_dict() if _item_audiences is not None else None)
             _dict['audiences'] = _items
         return _dict
 

@@ -36,7 +36,7 @@ class TestTemplateParameter(unittest.TestCase):
         if include_optional:
             return TemplateParameter(
                 name = 'minCartTotal',
-                value = None,
+                value = 50,
                 value_type = 'number',
                 min_value = 0,
                 max_value = 10000,
@@ -46,7 +46,7 @@ class TestTemplateParameter(unittest.TestCase):
         else:
             return TemplateParameter(
                 name = 'minCartTotal',
-                value = None,
+                value = 50,
                 value_type = 'number',
                 description = 'Minimum cart total to trigger the campaign.',
         )

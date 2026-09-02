@@ -77,8 +77,7 @@ class RoleV2RolesGroup(BaseModel):
         _field_dict = {}
         if self.applications:
             for _key_applications in self.applications:
-                if self.applications[_key_applications]:
-                    _field_dict[_key_applications] = self.applications[_key_applications].to_dict()
+                _field_dict[_key_applications] = self.applications[_key_applications].to_dict() if self.applications[_key_applications] is not None else None
             _dict['applications'] = _field_dict
         return _dict
 

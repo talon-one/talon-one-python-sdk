@@ -88,8 +88,7 @@ class Event(BaseModel):
         _items = []
         if self.ledger_entries:
             for _item_ledger_entries in self.ledger_entries:
-                if _item_ledger_entries:
-                    _items.append(_item_ledger_entries.to_dict())
+                _items.append(_item_ledger_entries.to_dict() if _item_ledger_entries is not None else None)
             _dict['ledgerEntries'] = _items
         # override the default output from pydantic by calling `to_dict()` of meta
         if self.meta:

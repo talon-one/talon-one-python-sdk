@@ -38,11 +38,17 @@ class TestRuleV2(unittest.TestCase):
                 id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 parent_id = '',
                 title = '10% off for loyalty members',
-                description = ''
+                description = '',
+                blocks = [
+                    null
+                    ]
             )
         else:
             return RuleV2(
                 title = '10% off for loyalty members',
+                blocks = [
+                    null
+                    ],
         )
         """
 

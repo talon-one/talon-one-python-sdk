@@ -101,85 +101,73 @@ class Environment(BaseModel):
         _items = []
         if self.slots:
             for _item_slots in self.slots:
-                if _item_slots:
-                    _items.append(_item_slots.to_dict())
+                _items.append(_item_slots.to_dict() if _item_slots is not None else None)
             _dict['slots'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in functions (list)
         _items = []
         if self.functions:
             for _item_functions in self.functions:
-                if _item_functions:
-                    _items.append(_item_functions.to_dict())
+                _items.append(_item_functions.to_dict() if _item_functions is not None else None)
             _dict['functions'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in templates (list)
         _items = []
         if self.templates:
             for _item_templates in self.templates:
-                if _item_templates:
-                    _items.append(_item_templates.to_dict())
+                _items.append(_item_templates.to_dict() if _item_templates is not None else None)
             _dict['templates'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in giveaways_pools (list)
         _items = []
         if self.giveaways_pools:
             for _item_giveaways_pools in self.giveaways_pools:
-                if _item_giveaways_pools:
-                    _items.append(_item_giveaways_pools.to_dict())
+                _items.append(_item_giveaways_pools.to_dict() if _item_giveaways_pools is not None else None)
             _dict['giveawaysPools'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in loyalty_programs (list)
         _items = []
         if self.loyalty_programs:
             for _item_loyalty_programs in self.loyalty_programs:
-                if _item_loyalty_programs:
-                    _items.append(_item_loyalty_programs.to_dict())
+                _items.append(_item_loyalty_programs.to_dict() if _item_loyalty_programs is not None else None)
             _dict['loyaltyPrograms'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in achievements (list)
         _items = []
         if self.achievements:
             for _item_achievements in self.achievements:
-                if _item_achievements:
-                    _items.append(_item_achievements.to_dict())
+                _items.append(_item_achievements.to_dict() if _item_achievements is not None else None)
             _dict['achievements'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in attributes (list)
         _items = []
         if self.attributes:
             for _item_attributes in self.attributes:
-                if _item_attributes:
-                    _items.append(_item_attributes.to_dict())
+                _items.append(_item_attributes.to_dict() if _item_attributes is not None else None)
             _dict['attributes'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in additional_costs (list)
         _items = []
         if self.additional_costs:
             for _item_additional_costs in self.additional_costs:
-                if _item_additional_costs:
-                    _items.append(_item_additional_costs.to_dict())
+                _items.append(_item_additional_costs.to_dict() if _item_additional_costs is not None else None)
             _dict['additionalCosts'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in audiences (list)
         _items = []
         if self.audiences:
             for _item_audiences in self.audiences:
-                if _item_audiences:
-                    _items.append(_item_audiences.to_dict())
+                _items.append(_item_audiences.to_dict() if _item_audiences is not None else None)
             _dict['audiences'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in collections (list)
         _items = []
         if self.collections:
             for _item_collections in self.collections:
-                if _item_collections:
-                    _items.append(_item_collections.to_dict())
+                _items.append(_item_collections.to_dict() if _item_collections is not None else None)
             _dict['collections'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in application_cart_item_filters (list)
         _items = []
         if self.application_cart_item_filters:
             for _item_application_cart_item_filters in self.application_cart_item_filters:
-                if _item_application_cart_item_filters:
-                    _items.append(_item_application_cart_item_filters.to_dict())
+                _items.append(_item_application_cart_item_filters.to_dict() if _item_application_cart_item_filters is not None else None)
             _dict['applicationCartItemFilters'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in price_types (list)
         _items = []
         if self.price_types:
             for _item_price_types in self.price_types:
-                if _item_price_types:
-                    _items.append(_item_price_types.to_dict())
+                _items.append(_item_price_types.to_dict() if _item_price_types is not None else None)
             _dict['priceTypes'] = _items
         return _dict
 

@@ -52,7 +52,6 @@ class TestCheckAchievementBlock(unittest.TestCase):
             )
         else:
             return CheckAchievementBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 operator = 'justCompleted',
                 achievement = talon_one.models.check_achievement_block_1_achievement.CheckAchievementBlock_1_achievement(

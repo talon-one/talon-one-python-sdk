@@ -7,7 +7,7 @@ Variant of `CheckAttributeBlock` for operators that compare an attribute against
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **operator** | **str** | The comparison operator applied to the attribute. | [optional] 
-**value** | **object** |  | 
+**value** | **object** | The comparison value for this operator. | 
 
 ## Example
 

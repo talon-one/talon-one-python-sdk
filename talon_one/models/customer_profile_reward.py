@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from talon_one.models.rule_metadata import RuleMetadata
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,9 +31,12 @@ class CustomerProfileReward(BaseModel):
     A reward instance held by a customer profile.
     """ # noqa: E501
     id: StrictInt = Field(description="The ID of the customer reward instance. A customer profile can have multiple instances of the same reward.", json_schema_extra={"examples": [6]})
-    integration_id: StrictStr = Field(description="The integration ID of the reward.", alias="integrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
+    integration_id: StrictStr = Field(description="The integration ID of the customer reward instance.", alias="integrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
     reward_id: StrictInt = Field(description="The ID of the reward this instance belongs to.", alias="rewardId", json_schema_extra={"examples": [12]})
+    reward_integration_id: StrictStr = Field(description="The integration ID of the reward this instance belongs to.", alias="rewardIntegrationId", json_schema_extra={"examples": ["free-coffee"]})
     reward_name: StrictStr = Field(description="The name of the reward.", alias="rewardName", json_schema_extra={"examples": ["Free coffee"]})
+    description: Optional[StrictStr] = Field(default=None, description="The customer-facing description of the reward.", json_schema_extra={"examples": ["One free coffee of any size"]})
+    rule: Optional[RuleMetadata] = Field(default=None, description="Customer-facing rule metadata for the reward. Only returned when the reward defines a rule.")
     status: StrictStr = Field(description="The status of the customer reward: - `unlocked`: The reward is available for use. - `used`: The reward has been used. ", json_schema_extra={"examples": ["unlocked"]})
     unlocked_at: datetime = Field(description="The date and time when the reward was unlocked.", alias="unlockedAt", json_schema_extra={"examples": ["2026-07-01T09:00:00Z"]})
     unlocked_by_profile_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that unlocked the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card. ", alias="unlockedByProfileIntegrationId", json_schema_extra={"examples": ["customer2839"]})
@@ -40,7 +44,7 @@ class CustomerProfileReward(BaseModel):
     used_by_profile_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that used the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card.   Only returned when the reward has been used. ", alias="usedByProfileIntegrationId", json_schema_extra={"examples": ["customer2840"]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="The ID of the loyalty program that the loyalty card belongs to. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyProgramId", json_schema_extra={"examples": [9]})
     loyalty_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that the reward was unlocked with. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
-    __properties: ClassVar[List[str]] = ["id", "integrationId", "rewardId", "rewardName", "status", "unlockedAt", "unlockedByProfileIntegrationId", "usedAt", "usedByProfileIntegrationId", "loyaltyProgramId", "loyaltyCardIdentifier"]
+    __properties: ClassVar[List[str]] = ["id", "integrationId", "rewardId", "rewardIntegrationId", "rewardName", "description", "rule", "status", "unlockedAt", "unlockedByProfileIntegrationId", "usedAt", "usedByProfileIntegrationId", "loyaltyProgramId", "loyaltyCardIdentifier"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -98,6 +102,9 @@ class CustomerProfileReward(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of rule
+        if self.rule:
+            _dict['rule'] = self.rule.to_dict()
         return _dict
 
     @classmethod
@@ -113,7 +120,10 @@ class CustomerProfileReward(BaseModel):
             "id": obj.get("id"),
             "integrationId": obj.get("integrationId"),
             "rewardId": obj.get("rewardId"),
+            "rewardIntegrationId": obj.get("rewardIntegrationId"),
             "rewardName": obj.get("rewardName"),
+            "description": obj.get("description"),
+            "rule": RuleMetadata.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
             "status": obj.get("status"),
             "unlockedAt": obj.get("unlockedAt"),
             "unlockedByProfileIntegrationId": obj.get("unlockedByProfileIntegrationId"),

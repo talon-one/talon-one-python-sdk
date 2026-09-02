@@ -100,8 +100,7 @@ class CustomerSession(BaseModel):
         _items = []
         if self.cart_items:
             for _item_cart_items in self.cart_items:
-                if _item_cart_items:
-                    _items.append(_item_cart_items.to_dict())
+                _items.append(_item_cart_items.to_dict() if _item_cart_items is not None else None)
             _dict['cartItems'] = _items
         return _dict
 

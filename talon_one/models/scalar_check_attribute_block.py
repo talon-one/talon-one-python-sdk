@@ -28,7 +28,7 @@ class ScalarCheckAttributeBlock(BaseModel):
     Variant of `CheckAttributeBlock` for operators that compare an attribute against a single value.
     """ # noqa: E501
     operator: Optional[StrictStr] = Field(default=None, description="The comparison operator applied to the attribute.")
-    value: Optional[Any]
+    value: Optional[Any] = Field(description="The comparison value for this operator.", json_schema_extra={"examples": [100]})
     __properties: ClassVar[List[str]] = ["operator", "value"]
 
     @field_validator('operator')

@@ -21,9 +21,8 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from talon_one.models.bundle import Bundle
-from talon_one.models.promotion_rule_v2 import PromotionRuleV2
+from talon_one.models.rule_v2 import RuleV2
 from talon_one.models.selector import Selector
-from talon_one.models.strikethrough_rule_v2 import StrikethroughRuleV2
 from talon_one.models.template_parameter import TemplateParameter
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,14 +32,14 @@ class RulesetV2(BaseModel):
     """
     Ruleset in the V2 JSON block format.
     """ # noqa: E501
-    id: StrictInt = Field(description="Internal ID of this entity.", json_schema_extra={"examples": [6]})
-    created: datetime = Field(description="The time this entity was created.")
-    user_id: StrictInt = Field(description="The ID of the user that created this ruleset.", alias="userId", json_schema_extra={"examples": [385]})
+    id: Optional[StrictInt] = Field(default=None, description="Internal ID of this entity.", json_schema_extra={"examples": [6]})
+    created: Optional[datetime] = Field(default=None, description="The time this entity was created.")
+    user_id: Optional[StrictInt] = Field(default=None, description="The ID of the user that created this ruleset.", alias="userId", json_schema_extra={"examples": [385]})
     campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [320]})
     template_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign template that owns this entity.", alias="templateId", json_schema_extra={"examples": [3]})
     activated_at: Optional[datetime] = Field(default=None, description="Timestamp indicating when this ruleset was activated.", alias="activatedAt")
-    promotion_rules: List[PromotionRuleV2] = Field(description="Set of promotion rules.", alias="promotionRules")
-    strikethrough_rules: List[StrikethroughRuleV2] = Field(description="Set of strikethrough rules.", alias="strikethroughRules")
+    promotion_rules: List[RuleV2] = Field(description="Set of promotion rules.", alias="promotionRules")
+    strikethrough_rules: Optional[List[RuleV2]] = Field(default=None, description="Set of strikethrough rules.", alias="strikethroughRules")
     selectors: Optional[List[Selector]] = Field(default=None, description="Variable bindings of type selector.")
     bundles: Optional[List[Bundle]] = Field(default=None, description="Variable bindings of type bundle.")
     parameters: Optional[List[TemplateParameter]] = Field(default=None, description="Variable bindings of type template parameter.")
@@ -76,8 +75,26 @@ class RulesetV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "created",
+            "user_id",
+            "campaign_id",
+            "template_id",
+            "activated_at",
+            "selectors",
+            "bundles",
+            "parameters",
         ])
 
         _dict = self.model_dump(
@@ -89,36 +106,31 @@ class RulesetV2(BaseModel):
         _items = []
         if self.promotion_rules:
             for _item_promotion_rules in self.promotion_rules:
-                if _item_promotion_rules:
-                    _items.append(_item_promotion_rules.to_dict())
+                _items.append(_item_promotion_rules.to_dict() if _item_promotion_rules is not None else None)
             _dict['promotionRules'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in strikethrough_rules (list)
         _items = []
         if self.strikethrough_rules:
             for _item_strikethrough_rules in self.strikethrough_rules:
-                if _item_strikethrough_rules:
-                    _items.append(_item_strikethrough_rules.to_dict())
+                _items.append(_item_strikethrough_rules.to_dict() if _item_strikethrough_rules is not None else None)
             _dict['strikethroughRules'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in selectors (list)
         _items = []
         if self.selectors:
             for _item_selectors in self.selectors:
-                if _item_selectors:
-                    _items.append(_item_selectors.to_dict())
+                _items.append(_item_selectors.to_dict() if _item_selectors is not None else None)
             _dict['selectors'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in bundles (list)
         _items = []
         if self.bundles:
             for _item_bundles in self.bundles:
-                if _item_bundles:
-                    _items.append(_item_bundles.to_dict())
+                _items.append(_item_bundles.to_dict() if _item_bundles is not None else None)
             _dict['bundles'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in parameters (list)
         _items = []
         if self.parameters:
             for _item_parameters in self.parameters:
-                if _item_parameters:
-                    _items.append(_item_parameters.to_dict())
+                _items.append(_item_parameters.to_dict() if _item_parameters is not None else None)
             _dict['parameters'] = _items
         return _dict
 
@@ -138,8 +150,8 @@ class RulesetV2(BaseModel):
             "campaignId": obj.get("campaignId"),
             "templateId": obj.get("templateId"),
             "activatedAt": obj.get("activatedAt"),
-            "promotionRules": [PromotionRuleV2.from_dict(_item) for _item in obj["promotionRules"]] if obj.get("promotionRules") is not None else None,
-            "strikethroughRules": [StrikethroughRuleV2.from_dict(_item) for _item in obj["strikethroughRules"]] if obj.get("strikethroughRules") is not None else None,
+            "promotionRules": [RuleV2.from_dict(_item) for _item in obj["promotionRules"]] if obj.get("promotionRules") is not None else None,
+            "strikethroughRules": [RuleV2.from_dict(_item) for _item in obj["strikethroughRules"]] if obj.get("strikethroughRules") is not None else None,
             "selectors": [Selector.from_dict(_item) for _item in obj["selectors"]] if obj.get("selectors") is not None else None,
             "bundles": [Bundle.from_dict(_item) for _item in obj["bundles"]] if obj.get("bundles") is not None else None,
             "parameters": [TemplateParameter.from_dict(_item) for _item in obj["parameters"]] if obj.get("parameters") is not None else None

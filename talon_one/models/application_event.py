@@ -88,15 +88,13 @@ class ApplicationEvent(BaseModel):
         _items = []
         if self.effects:
             for _item_effects in self.effects:
-                if _item_effects:
-                    _items.append(_item_effects.to_dict())
+                _items.append(_item_effects.to_dict() if _item_effects is not None else None)
             _dict['effects'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in rule_failure_reasons (list)
         _items = []
         if self.rule_failure_reasons:
             for _item_rule_failure_reasons in self.rule_failure_reasons:
-                if _item_rule_failure_reasons:
-                    _items.append(_item_rule_failure_reasons.to_dict())
+                _items.append(_item_rule_failure_reasons.to_dict() if _item_rule_failure_reasons is not None else None)
             _dict['ruleFailureReasons'] = _items
         return _dict
 

@@ -29,14 +29,14 @@ class RedeemLoyaltyPointsBlock(BaseModel):
     """
     RedeemLoyaltyPointsBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     program: RedeemLoyaltyPointsBlock1Program
     subledger: StrictStr = Field(description="The name of the subledger to deduct points from. Can be empty if this block deducts from the loyalty program's main ledger instead of a subledger.", json_schema_extra={"examples": ["main"]})
     value: RedeemLoyaltyPointsBlock1Value
     name: Optional[StrictStr] = Field(default=None, description="A custom description recorded as the reason for the point deduction.", json_schema_extra={"examples": ["Purchase Deduction"]})
-    on_failure: Optional[List[PromotionBlock]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "program", "subledger", "value", "name", "onFailure"]
 
     model_config = ConfigDict(
@@ -69,8 +69,12 @@ class RedeemLoyaltyPointsBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(
@@ -88,8 +92,7 @@ class RedeemLoyaltyPointsBlock(BaseModel):
         _items = []
         if self.on_failure:
             for _item_on_failure in self.on_failure:
-                if _item_on_failure:
-                    _items.append(_item_on_failure.to_dict())
+                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
             _dict['onFailure'] = _items
         return _dict
 
@@ -110,11 +113,11 @@ class RedeemLoyaltyPointsBlock(BaseModel):
             "subledger": obj.get("subledger"),
             "value": RedeemLoyaltyPointsBlock1Value.from_dict(obj["value"]) if obj.get("value") is not None else None,
             "name": obj.get("name"),
-            "onFailure": [PromotionBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
+            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj
 
-from talon_one.models.promotion_block import PromotionBlock
+from talon_one.models.block import Block
 # TODO: Rewrite to not use raise_errors
 RedeemLoyaltyPointsBlock.model_rebuild(raise_errors=False)
 

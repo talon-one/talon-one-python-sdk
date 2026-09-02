@@ -35,8 +35,8 @@ class TestWebhookAuthenticationBase(unittest.TestCase):
         model = WebhookAuthenticationBase()
         if include_optional:
             return WebhookAuthenticationBase(
-                name = 'My basic auth',
-                type = None,
+                name = 'My custom auth',
+                type = 'basic',
                 data = talon_one.models.webhook_authentication_data_custom.WebhookAuthenticationDataCustom(
                     headers = {
                         'key' : ''
@@ -44,8 +44,8 @@ class TestWebhookAuthenticationBase(unittest.TestCase):
             )
         else:
             return WebhookAuthenticationBase(
-                name = 'My basic auth',
-                type = None,
+                name = 'My custom auth',
+                type = 'basic',
                 data = talon_one.models.webhook_authentication_data_custom.WebhookAuthenticationDataCustom(
                     headers = {
                         'key' : ''

@@ -77,8 +77,7 @@ class ExperimentSegmentInsights(BaseModel):
         _items = []
         if self.metrics:
             for _item_metrics in self.metrics:
-                if _item_metrics:
-                    _items.append(_item_metrics.to_dict())
+                _items.append(_item_metrics.to_dict() if _item_metrics is not None else None)
             _dict['metrics'] = _items
         return _dict
 

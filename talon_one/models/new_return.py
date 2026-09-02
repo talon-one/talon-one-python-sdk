@@ -74,8 +74,7 @@ class NewReturn(BaseModel):
         _items = []
         if self.returned_cart_items:
             for _item_returned_cart_items in self.returned_cart_items:
-                if _item_returned_cart_items:
-                    _items.append(_item_returned_cart_items.to_dict())
+                _items.append(_item_returned_cart_items.to_dict() if _item_returned_cart_items is not None else None)
             _dict['returnedCartItems'] = _items
         return _dict
 

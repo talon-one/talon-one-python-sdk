@@ -139,8 +139,7 @@ class RiskDetail(BaseModel):
         _items = []
         if self.affected_entities:
             for _item_affected_entities in self.affected_entities:
-                if _item_affected_entities:
-                    _items.append(_item_affected_entities.to_dict())
+                _items.append(_item_affected_entities.to_dict() if _item_affected_entities is not None else None)
             _dict['affectedEntities'] = _items
         return _dict
 

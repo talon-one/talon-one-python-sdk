@@ -80,15 +80,13 @@ class LoyaltyCardBalances(BaseModel):
         _field_dict = {}
         if self.subledger_balances:
             for _key_subledger_balances in self.subledger_balances:
-                if self.subledger_balances[_key_subledger_balances]:
-                    _field_dict[_key_subledger_balances] = self.subledger_balances[_key_subledger_balances].to_dict()
+                _field_dict[_key_subledger_balances] = self.subledger_balances[_key_subledger_balances].to_dict() if self.subledger_balances[_key_subledger_balances] is not None else None
             _dict['subledgerBalances'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each item in profiles (list)
         _items = []
         if self.profiles:
             for _item_profiles in self.profiles:
-                if _item_profiles:
-                    _items.append(_item_profiles.to_dict())
+                _items.append(_item_profiles.to_dict() if _item_profiles is not None else None)
             _dict['profiles'] = _items
         return _dict
 

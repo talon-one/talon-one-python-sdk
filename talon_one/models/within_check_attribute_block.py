@@ -28,8 +28,8 @@ class WithinCheckAttributeBlock(BaseModel):
     Variant of `CheckAttributeBlock` for the `within` and `not(within)` operators, which require both a start and end value.
     """ # noqa: E501
     operator: Optional[StrictStr] = Field(default=None, description="The range comparison operator. Must be `within` or `not(within)`.")
-    start: Optional[Any]
-    end: Optional[Any]
+    start: Optional[Any] = Field(description="The start value for the `within` operator.", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
+    end: Optional[Any] = Field(description="The end value for the `within` operator.", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
     start_inclusive: Optional[StrictBool] = Field(default=None, description="When `true`, the `start` value is included in the range for the `within` operator.", alias="startInclusive", json_schema_extra={"examples": [True]})
     end_inclusive: Optional[StrictBool] = Field(default=None, description="When `true`, the `end` value is included in the range for the `within` operator.", alias="endInclusive", json_schema_extra={"examples": [True]})
     timezone_insensitive: Optional[StrictBool] = Field(default=None, description="Indicates whether the `within` operator ignores time zones and compares the wall-clock time only. When `false`, time zones are taken into account.", alias="timezoneInsensitive", json_schema_extra={"examples": [False]})

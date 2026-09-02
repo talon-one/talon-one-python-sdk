@@ -135,8 +135,7 @@ class UpdateLoyaltyProgram(BaseModel):
         _items = []
         if self.tiers:
             for _item_tiers in self.tiers:
-                if _item_tiers:
-                    _items.append(_item_tiers.to_dict())
+                _items.append(_item_tiers.to_dict() if _item_tiers is not None else None)
             _dict['tiers'] = _items
         return _dict
 

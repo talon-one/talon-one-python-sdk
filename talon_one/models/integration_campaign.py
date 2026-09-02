@@ -56,8 +56,8 @@ class IntegrationCampaign(BaseModel):
     def features_validate_enum(cls, value):
         """Validates the enum"""
         for i in value:
-            if i not in set(['coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements']):
-                raise ValueError("each list item must be one of ('coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements')")
+            if i not in set(['coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements', 'advancedEvents']):
+                raise ValueError("each list item must be one of ('coupons', 'referrals', 'loyalty', 'giveaways', 'strikethrough', 'achievements', 'advancedEvents')")
         return value
 
     model_config = ConfigDict(
@@ -103,8 +103,7 @@ class IntegrationCampaign(BaseModel):
         _items = []
         if self.rules:
             for _item_rules in self.rules:
-                if _item_rules:
-                    _items.append(_item_rules.to_dict())
+                _items.append(_item_rules.to_dict() if _item_rules is not None else None)
             _dict['rules'] = _items
         return _dict
 

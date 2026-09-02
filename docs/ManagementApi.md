@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**create_invite_email**](ManagementApi.md#create_invite_email) | **POST** /v1/invite_emails | Resend invitation email
 [**create_invite_v2**](ManagementApi.md#create_invite_v2) | **POST** /v2/invites | Invite user
 [**create_password_recovery_email**](ManagementApi.md#create_password_recovery_email) | **POST** /v1/password_recovery_emails | Request a password reset
+[**create_ruleset_v2**](ManagementApi.md#create_ruleset_v2) | **POST** /v2/applications/{applicationId}/campaigns/{campaignId}/rulesets | Create ruleset (V2)
 [**create_session**](ManagementApi.md#create_session) | **POST** /v1/sessions | Create session
 [**create_store**](ManagementApi.md#create_store) | **POST** /v1/applications/{applicationId}/stores | Create store
 [**deactivate_user_by_email**](ManagementApi.md#deactivate_user_by_email) | **POST** /v1/users/deactivate | Disable user by email address
@@ -1907,6 +1908,92 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Created |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_ruleset_v2**
+> RulesetV2 create_ruleset_v2(application_id, campaign_id, ruleset_v2)
+
+Create ruleset (V2)
+
+Create a ruleset from promotion and strikethrough rules in the V2 JSON block format. A ruleset is a revision of all the rules of a campaign.
+
+Only `group` and `passthrough` blocks are currently writable, with optional `onFailure` blocks. A payload containing any other block type is rejected. Each rule's `blocks` array may contain at most one block.
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.ruleset_v2 import RulesetV2
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
+    campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
+    ruleset_v2 = talon_one.RulesetV2() # RulesetV2 | body
+
+    try:
+        # Create ruleset (V2)
+        api_response = api_instance.create_ruleset_v2(application_id, campaign_id, ruleset_v2)
+        print("The response of ManagementApi->create_ruleset_v2:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->create_ruleset_v2: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
+ **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
+ **ruleset_v2** | [**RulesetV2**](RulesetV2.md)| body | 
+
+### Return type
+
+[**RulesetV2**](RulesetV2.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Created |  -  |
+**400** | Bad request |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11038,7 +11125,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_message_logs**
-> MessageLogEntries get_message_logs(entity_type, message_id=message_id, change_type=change_type, notification_ids=notification_ids, created_before=created_before, created_after=created_after, cursor=cursor, period=period, is_successful=is_successful, application_id=application_id, campaign_id=campaign_id, loyalty_program_id=loyalty_program_id, response_code=response_code, webhook_ids=webhook_ids)
+> MessageLogEntries get_message_logs(entity_type, message_id=message_id, change_type=change_type, notification_ids=notification_ids, created_before=created_before, created_after=created_after, cursor=cursor, page_size=page_size, period=period, is_successful=is_successful, application_id=application_id, campaign_id=campaign_id, loyalty_program_id=loyalty_program_id, response_code=response_code, webhook_ids=webhook_ids)
 
 List message log entries
 
@@ -11082,6 +11169,7 @@ with talon_one.ApiClient(configuration) as api_client:
     created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results where request and response times to return entries before parameter value, expected to be an RFC3339 timestamp string. Use UTC time. (optional)
     created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results where request and response times to return entries after parameter value, expected to be an RFC3339 timestamp string. Use UTC time. (optional)
     cursor = None # bytes | A specific unique value in the database. If this value is not given, the server fetches results starting with the first record.  (optional)
+    page_size = 50 # int | The maximum number of message log entries to return. (optional) (default to 50)
     period = 'period_example' # str | Filter results by time period. Choose between the available relative time frames.  (optional)
     is_successful = True # bool | Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to`true`, only log entries with `2xx` response codes are returned. When set to `false`, only log entries with `4xx` and `5xx` response codes are returned.  (optional)
     application_id = 3.4 # float | Filter results by Application ID. (optional)
@@ -11092,7 +11180,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
     try:
         # List message log entries
-        api_response = api_instance.get_message_logs(entity_type, message_id=message_id, change_type=change_type, notification_ids=notification_ids, created_before=created_before, created_after=created_after, cursor=cursor, period=period, is_successful=is_successful, application_id=application_id, campaign_id=campaign_id, loyalty_program_id=loyalty_program_id, response_code=response_code, webhook_ids=webhook_ids)
+        api_response = api_instance.get_message_logs(entity_type, message_id=message_id, change_type=change_type, notification_ids=notification_ids, created_before=created_before, created_after=created_after, cursor=cursor, page_size=page_size, period=period, is_successful=is_successful, application_id=application_id, campaign_id=campaign_id, loyalty_program_id=loyalty_program_id, response_code=response_code, webhook_ids=webhook_ids)
         print("The response of ManagementApi->get_message_logs:\n")
         pprint(api_response)
     except Exception as e:
@@ -11113,6 +11201,7 @@ Name | Type | Description  | Notes
  **created_before** | **datetime**| Filter results where request and response times to return entries before parameter value, expected to be an RFC3339 timestamp string. Use UTC time. | [optional] 
  **created_after** | **datetime**| Filter results where request and response times to return entries after parameter value, expected to be an RFC3339 timestamp string. Use UTC time. | [optional] 
  **cursor** | **bytes**| A specific unique value in the database. If this value is not given, the server fetches results starting with the first record.  | [optional] 
+ **page_size** | **int**| The maximum number of message log entries to return. | [optional] [default to 50]
  **period** | **str**| Filter results by time period. Choose between the available relative time frames.  | [optional] 
  **is_successful** | **bool**| Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to&#x60;true&#x60;, only log entries with &#x60;2xx&#x60; response codes are returned. When set to &#x60;false&#x60;, only log entries with &#x60;4xx&#x60; and &#x60;5xx&#x60; response codes are returned.  | [optional] 
  **application_id** | **float**| Filter results by Application ID. | [optional] 

@@ -37,12 +37,12 @@ class TestListWithCountCheckAttributeBlock(unittest.TestCase):
             return ListWithCountCheckAttributeBlock(
                 operator = 'containsAtLeast',
                 values = None,
-                count = None
+                count = 2
             )
         else:
             return ListWithCountCheckAttributeBlock(
                 values = None,
-                count = None,
+                count = 2,
         )
         """
 

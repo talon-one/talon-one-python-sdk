@@ -85,15 +85,13 @@ class CreateTemplateCampaign(BaseModel):
         _items = []
         if self.template_param_values:
             for _item_template_param_values in self.template_param_values:
-                if _item_template_param_values:
-                    _items.append(_item_template_param_values.to_dict())
+                _items.append(_item_template_param_values.to_dict() if _item_template_param_values is not None else None)
             _dict['templateParamValues'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in limit_overrides (list)
         _items = []
         if self.limit_overrides:
             for _item_limit_overrides in self.limit_overrides:
-                if _item_limit_overrides:
-                    _items.append(_item_limit_overrides.to_dict())
+                _items.append(_item_limit_overrides.to_dict() if _item_limit_overrides is not None else None)
             _dict['limitOverrides'] = _items
         return _dict
 

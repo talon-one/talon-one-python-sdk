@@ -27,11 +27,11 @@ class CheckLoyaltyCardBlock(BaseModel):
     """
     CheckLoyaltyCardBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="An indicator of how the block compares its elements.")
-    on_failure: Optional[List[PromotionBlock]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "onFailure"]
 
     @field_validator('operator')
@@ -71,8 +71,12 @@ class CheckLoyaltyCardBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(
@@ -84,8 +88,7 @@ class CheckLoyaltyCardBlock(BaseModel):
         _items = []
         if self.on_failure:
             for _item_on_failure in self.on_failure:
-                if _item_on_failure:
-                    _items.append(_item_on_failure.to_dict())
+                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
             _dict['onFailure'] = _items
         return _dict
 
@@ -103,11 +106,11 @@ class CheckLoyaltyCardBlock(BaseModel):
             "type": obj.get("type"),
             "tags": obj.get("tags"),
             "operator": obj.get("operator"),
-            "onFailure": [PromotionBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
+            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj
 
-from talon_one.models.promotion_block import PromotionBlock
+from talon_one.models.block import Block
 # TODO: Rewrite to not use raise_errors
 CheckLoyaltyCardBlock.model_rebuild(raise_errors=False)
 

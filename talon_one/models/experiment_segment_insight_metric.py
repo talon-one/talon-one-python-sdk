@@ -82,8 +82,7 @@ class ExperimentSegmentInsightMetric(BaseModel):
         _items = []
         if self.segments:
             for _item_segments in self.segments:
-                if _item_segments:
-                    _items.append(_item_segments.to_dict())
+                _items.append(_item_segments.to_dict() if _item_segments is not None else None)
             _dict['segments'] = _items
         return _dict
 

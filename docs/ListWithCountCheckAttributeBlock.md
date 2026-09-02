@@ -7,8 +7,8 @@ Variant of `CheckAttributeBlock` for operators that test list membership with a 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **operator** | **str** | The list membership operator with a count threshold applied to the attribute. | [optional] 
-**values** | **object** |  | 
-**count** | **object** |  | 
+**values** | **object** | The set of values to match against. | 
+**count** | **object** | The count threshold for this operator. | 
 
 ## Example
 

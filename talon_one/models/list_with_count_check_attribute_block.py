@@ -28,8 +28,8 @@ class ListWithCountCheckAttributeBlock(BaseModel):
     Variant of `CheckAttributeBlock` for operators that test list membership with a minimum or exact count threshold.
     """ # noqa: E501
     operator: Optional[StrictStr] = Field(default=None, description="The list membership operator with a count threshold applied to the attribute.")
-    values: Optional[Any]
-    count: Optional[Any]
+    values: Optional[Any] = Field(description="The set of values to match against.")
+    count: Optional[Any] = Field(description="The count threshold for this operator.", json_schema_extra={"examples": [2]})
     __properties: ClassVar[List[str]] = ["operator", "values", "count"]
 
     @field_validator('operator')

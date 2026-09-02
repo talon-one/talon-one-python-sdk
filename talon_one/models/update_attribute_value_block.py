@@ -29,12 +29,12 @@ class UpdateAttributeValueBlock(BaseModel):
     """
     UpdateAttributeValueBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="The update operation applied to the attribute.", json_schema_extra={"examples": ["setTo"]})
     attribute: UpdateAttributeValueBlock1Attribute
-    value: Optional[Any] = None
+    value: Optional[Any] = Field(default=None, description="The value of the attribute. Omitted when operator is set to `toggle`.", json_schema_extra={"examples": [10]})
     target: UpdateAttributeValueBlock1Target
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "target"]
 
@@ -75,8 +75,10 @@ class UpdateAttributeValueBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
         ])
 
         _dict = self.model_dump(

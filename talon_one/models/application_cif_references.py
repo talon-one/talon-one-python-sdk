@@ -75,8 +75,7 @@ class ApplicationCIFReferences(BaseModel):
         _items = []
         if self.campaigns:
             for _item_campaigns in self.campaigns:
-                if _item_campaigns:
-                    _items.append(_item_campaigns.to_dict())
+                _items.append(_item_campaigns.to_dict() if _item_campaigns is not None else None)
             _dict['campaigns'] = _items
         return _dict
 

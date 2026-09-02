@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **attributeid** | **int** | The ID of the attribute of the item. | 
 **name** | **str** | The name of the attribute. | 
-**value** | **object** |  | 
+**value** | **object** | The value of the attribute. | 
 
 ## Example
 
