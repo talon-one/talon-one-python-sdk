@@ -6085,6 +6085,313 @@ class ManagementApi:
 
 
     @validate_call
+    def create_ruleset_v2(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        ruleset_v2: Annotated[RulesetV2, Field(description="body")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RulesetV2:
+        """Create ruleset (V2)
+
+        Create a ruleset from promotion and strikethrough rules in the V2 JSON block format. A ruleset is a revision of all the rules of a campaign.  Only `group` and `passthrough` blocks are currently writable, with optional `onFailure` blocks. A payload containing any other block type is rejected. Each rule's `blocks` array may contain at most one block.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param ruleset_v2: body (required)
+        :type ruleset_v2: RulesetV2
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_ruleset_v2_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            ruleset_v2=ruleset_v2,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "RulesetV2",
+            '400': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def create_ruleset_v2_with_http_info(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        ruleset_v2: Annotated[RulesetV2, Field(description="body")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[RulesetV2]:
+        """Create ruleset (V2)
+
+        Create a ruleset from promotion and strikethrough rules in the V2 JSON block format. A ruleset is a revision of all the rules of a campaign.  Only `group` and `passthrough` blocks are currently writable, with optional `onFailure` blocks. A payload containing any other block type is rejected. Each rule's `blocks` array may contain at most one block.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param ruleset_v2: body (required)
+        :type ruleset_v2: RulesetV2
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_ruleset_v2_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            ruleset_v2=ruleset_v2,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "RulesetV2",
+            '400': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def create_ruleset_v2_without_preload_content(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
+        ruleset_v2: Annotated[RulesetV2, Field(description="body")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Create ruleset (V2)
+
+        Create a ruleset from promotion and strikethrough rules in the V2 JSON block format. A ruleset is a revision of all the rules of a campaign.  Only `group` and `passthrough` blocks are currently writable, with optional `onFailure` blocks. A payload containing any other block type is rejected. Each rule's `blocks` array may contain at most one block.
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param campaign_id: The ID of the campaign. It is displayed in your Talon.One deployment URL. (required)
+        :type campaign_id: int
+        :param ruleset_v2: body (required)
+        :type ruleset_v2: RulesetV2
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_ruleset_v2_serialize(
+            application_id=application_id,
+            campaign_id=campaign_id,
+            ruleset_v2=ruleset_v2,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "RulesetV2",
+            '400': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _create_ruleset_v2_serialize(
+        self,
+        application_id,
+        campaign_id,
+        ruleset_v2,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if application_id is not None:
+            _path_params['applicationId'] = application_id
+        if campaign_id is not None:
+            _path_params['campaignId'] = campaign_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if ruleset_v2 is not None:
+            _body_params = ruleset_v2
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v2/applications/{applicationId}/campaigns/{campaignId}/rulesets',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def create_session(
         self,
         login_params: Annotated[LoginParams, Field(description="body")],
@@ -38919,6 +39226,7 @@ class ManagementApi:
         created_before: Annotated[Optional[datetime], Field(description="Filter results where request and response times to return entries before parameter value, expected to be an RFC3339 timestamp string. Use UTC time.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results where request and response times to return entries after parameter value, expected to be an RFC3339 timestamp string. Use UTC time.")] = None,
         cursor: Annotated[Optional[Union[StrictBytes, StrictStr]], Field(description="A specific unique value in the database. If this value is not given, the server fetches results starting with the first record. ")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The maximum number of message log entries to return.")] = None,
         period: Annotated[Optional[StrictStr], Field(description="Filter results by time period. Choose between the available relative time frames. ")] = None,
         is_successful: Annotated[Optional[StrictBool], Field(description="Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to`true`, only log entries with `2xx` response codes are returned. When set to `false`, only log entries with `4xx` and `5xx` response codes are returned. ")] = None,
         application_id: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Filter results by Application ID.")] = None,
@@ -38957,6 +39265,8 @@ class ManagementApi:
         :type created_after: datetime
         :param cursor: A specific unique value in the database. If this value is not given, the server fetches results starting with the first record. 
         :type cursor: bytes
+        :param page_size: The maximum number of message log entries to return.
+        :type page_size: int
         :param period: Filter results by time period. Choose between the available relative time frames. 
         :type period: str
         :param is_successful: Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to`true`, only log entries with `2xx` response codes are returned. When set to `false`, only log entries with `4xx` and `5xx` response codes are returned. 
@@ -39001,6 +39311,7 @@ class ManagementApi:
             created_before=created_before,
             created_after=created_after,
             cursor=cursor,
+            page_size=page_size,
             period=period,
             is_successful=is_successful,
             application_id=application_id,
@@ -39038,6 +39349,7 @@ class ManagementApi:
         created_before: Annotated[Optional[datetime], Field(description="Filter results where request and response times to return entries before parameter value, expected to be an RFC3339 timestamp string. Use UTC time.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results where request and response times to return entries after parameter value, expected to be an RFC3339 timestamp string. Use UTC time.")] = None,
         cursor: Annotated[Optional[Union[StrictBytes, StrictStr]], Field(description="A specific unique value in the database. If this value is not given, the server fetches results starting with the first record. ")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The maximum number of message log entries to return.")] = None,
         period: Annotated[Optional[StrictStr], Field(description="Filter results by time period. Choose between the available relative time frames. ")] = None,
         is_successful: Annotated[Optional[StrictBool], Field(description="Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to`true`, only log entries with `2xx` response codes are returned. When set to `false`, only log entries with `4xx` and `5xx` response codes are returned. ")] = None,
         application_id: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Filter results by Application ID.")] = None,
@@ -39076,6 +39388,8 @@ class ManagementApi:
         :type created_after: datetime
         :param cursor: A specific unique value in the database. If this value is not given, the server fetches results starting with the first record. 
         :type cursor: bytes
+        :param page_size: The maximum number of message log entries to return.
+        :type page_size: int
         :param period: Filter results by time period. Choose between the available relative time frames. 
         :type period: str
         :param is_successful: Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to`true`, only log entries with `2xx` response codes are returned. When set to `false`, only log entries with `4xx` and `5xx` response codes are returned. 
@@ -39120,6 +39434,7 @@ class ManagementApi:
             created_before=created_before,
             created_after=created_after,
             cursor=cursor,
+            page_size=page_size,
             period=period,
             is_successful=is_successful,
             application_id=application_id,
@@ -39157,6 +39472,7 @@ class ManagementApi:
         created_before: Annotated[Optional[datetime], Field(description="Filter results where request and response times to return entries before parameter value, expected to be an RFC3339 timestamp string. Use UTC time.")] = None,
         created_after: Annotated[Optional[datetime], Field(description="Filter results where request and response times to return entries after parameter value, expected to be an RFC3339 timestamp string. Use UTC time.")] = None,
         cursor: Annotated[Optional[Union[StrictBytes, StrictStr]], Field(description="A specific unique value in the database. If this value is not given, the server fetches results starting with the first record. ")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The maximum number of message log entries to return.")] = None,
         period: Annotated[Optional[StrictStr], Field(description="Filter results by time period. Choose between the available relative time frames. ")] = None,
         is_successful: Annotated[Optional[StrictBool], Field(description="Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to`true`, only log entries with `2xx` response codes are returned. When set to `false`, only log entries with `4xx` and `5xx` response codes are returned. ")] = None,
         application_id: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Filter results by Application ID.")] = None,
@@ -39195,6 +39511,8 @@ class ManagementApi:
         :type created_after: datetime
         :param cursor: A specific unique value in the database. If this value is not given, the server fetches results starting with the first record. 
         :type cursor: bytes
+        :param page_size: The maximum number of message log entries to return.
+        :type page_size: int
         :param period: Filter results by time period. Choose between the available relative time frames. 
         :type period: str
         :param is_successful: Indicates whether to return log entries with either successful or unsuccessful HTTP response codes. When set to`true`, only log entries with `2xx` response codes are returned. When set to `false`, only log entries with `4xx` and `5xx` response codes are returned. 
@@ -39239,6 +39557,7 @@ class ManagementApi:
             created_before=created_before,
             created_after=created_after,
             cursor=cursor,
+            page_size=page_size,
             period=period,
             is_successful=is_successful,
             application_id=application_id,
@@ -39271,6 +39590,7 @@ class ManagementApi:
         created_before,
         created_after,
         cursor,
+        page_size,
         period,
         is_successful,
         application_id,
@@ -39341,6 +39661,10 @@ class ManagementApi:
         if cursor is not None:
             
             _query_params.append(('cursor', cursor))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
             
         if period is not None:
             

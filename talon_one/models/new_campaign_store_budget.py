@@ -93,8 +93,7 @@ class NewCampaignStoreBudget(BaseModel):
         _items = []
         if self.store_limits:
             for _item_store_limits in self.store_limits:
-                if _item_store_limits:
-                    _items.append(_item_store_limits.to_dict())
+                _items.append(_item_store_limits.to_dict() if _item_store_limits is not None else None)
             _dict['storeLimits'] = _items
         return _dict
 

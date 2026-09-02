@@ -36,16 +36,16 @@ class TestWithinCheckAttributeBlock(unittest.TestCase):
         if include_optional:
             return WithinCheckAttributeBlock(
                 operator = 'within',
-                start = None,
-                end = None,
+                start = 2021-09-22T22:00:00Z,
+                end = 2021-09-22T22:00:00Z,
                 start_inclusive = True,
                 end_inclusive = True,
                 timezone_insensitive = False
             )
         else:
             return WithinCheckAttributeBlock(
-                start = None,
-                end = None,
+                start = 2021-09-22T22:00:00Z,
+                end = 2021-09-22T22:00:00Z,
         )
         """
 

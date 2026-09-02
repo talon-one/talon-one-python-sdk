@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
-from talon_one.models.selector_block import SelectorBlock
+from talon_one.models.block import Block
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +29,7 @@ class FilterSelectorStep(BaseModel):
     Filters only items that match a predicate block.
     """ # noqa: E501
     type: StrictStr = Field(description="A step discriminator of type `filter`.", json_schema_extra={"examples": ["filter"]})
-    predicate: SelectorBlock
+    predicate: Block
     __properties: ClassVar[List[str]] = ["type", "predicate"]
 
     @field_validator('type')
@@ -94,7 +94,7 @@ class FilterSelectorStep(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
-            "predicate": SelectorBlock.from_dict(obj["predicate"]) if obj.get("predicate") is not None else None
+            "predicate": Block.from_dict(obj["predicate"]) if obj.get("predicate") is not None else None
         })
         return _obj
 

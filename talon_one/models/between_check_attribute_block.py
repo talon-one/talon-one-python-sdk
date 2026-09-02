@@ -28,8 +28,8 @@ class BetweenCheckAttributeBlock(BaseModel):
     Variant of `CheckAttributeBlock` for the `between` operator, which requires both a minimum and maximum value.
     """ # noqa: E501
     operator: Optional[StrictStr] = Field(default=None, description="The range comparison operator. Must be `between`.")
-    min: Optional[Any]
-    max: Optional[Any]
+    min: Optional[Any] = Field(description="The minimum value allowed for the `between` operator.", json_schema_extra={"examples": [10]})
+    max: Optional[Any] = Field(description="The maximum value allowed for the `between` operator.", json_schema_extra={"examples": [100]})
     __properties: ClassVar[List[str]] = ["operator", "min", "max"]
 
     @field_validator('operator')

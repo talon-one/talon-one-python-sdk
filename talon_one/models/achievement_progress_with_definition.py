@@ -39,7 +39,7 @@ class AchievementProgressWithDefinition(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The internal name of the achievement used in API requests. ", json_schema_extra={"examples": ["FreeCoffee10Orders"]})
     title: StrictStr = Field(description="The display name of the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off on 50th purchase."]})
     description: StrictStr = Field(description="The description of the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off for every 50th purchase in a year."]})
-    campaign_id: StrictInt = Field(description="This property is **deprecated**. Use `campaignIds` (Integration API) or `referencedByCampaigns` (Management API) instead. The first campaign ID in `campaignIds`. Only returned when `campaignIds` is not empty.", alias="campaignId", json_schema_extra={"examples": [3]})
+    campaign_id: Optional[StrictInt] = Field(default=None, description="This property is **deprecated**. Use `campaignIds` (Integration API) or `referencedByCampaigns` (Management API) instead. This field contains the first campaign ID from the related `campaignIds`, and is omitted when `campaignIds` is empty.", alias="campaignId", json_schema_extra={"examples": [3]})
     campaign_ids: List[StrictInt] = Field(description="The IDs of the campaigns that reference this achievement, in ascending order.", alias="campaignIds", json_schema_extra={"examples": [[1, 14, 27]]})
     referenced_by_campaigns: List[CampaignReference] = Field(description="The campaigns that reference this achievement, in ascending order of their `id`.", alias="referencedByCampaigns")
     target: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The required number of actions or the transactional milestone to complete the achievement.", json_schema_extra={"examples": [10]})
@@ -121,8 +121,7 @@ class AchievementProgressWithDefinition(BaseModel):
         _items = []
         if self.referenced_by_campaigns:
             for _item_referenced_by_campaigns in self.referenced_by_campaigns:
-                if _item_referenced_by_campaigns:
-                    _items.append(_item_referenced_by_campaigns.to_dict())
+                _items.append(_item_referenced_by_campaigns.to_dict() if _item_referenced_by_campaigns is not None else None)
             _dict['referencedByCampaigns'] = _items
         return _dict
 

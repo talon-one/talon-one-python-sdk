@@ -64,6 +64,8 @@ class TestCustomerProfileIntegrationResponseV2(unittest.TestCase):
                         coupon_value = '', 
                         referral_id = 56, 
                         referral_value = '', 
+                        reward_id = 7, 
+                        reward_integration_id = '5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90', 
                         rule_index = 56, 
                         rule_name = '', 
                         condition_index = 56, 
@@ -77,6 +79,22 @@ class TestCustomerProfileIntegrationResponseV2(unittest.TestCase):
                     ],
                 awarded_giveaways = [
                     null
+                    ],
+                rewards = [
+                    talon_one.models.reward_with_unlocks.RewardWithUnlocks(
+                        id = 42, 
+                        integration_id = 'free-coffee', 
+                        name = '10% Off Coupon', 
+                        description = 'Applies to next order', 
+                        rule = null, 
+                        unlocked = [
+                            talon_one.models.customer_reward.CustomerReward(
+                                application_id = 3, 
+                                profile_integration_id = 'customer1', 
+                                integration_id = 'reward-unlock-123', 
+                                unlocked_at = '2024-01-01T00:00:00Z', 
+                                used_at = '2024-01-02T00:00:00Z', )
+                            ], )
                     ],
                 effects = [
                     null

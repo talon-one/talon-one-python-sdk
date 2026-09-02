@@ -84,8 +84,7 @@ class CreateTemplateCampaignResponse(BaseModel):
         _items = []
         if self.collections:
             for _item_collections in self.collections:
-                if _item_collections:
-                    _items.append(_item_collections.to_dict())
+                _items.append(_item_collections.to_dict() if _item_collections is not None else None)
             _dict['collections'] = _items
         return _dict
 

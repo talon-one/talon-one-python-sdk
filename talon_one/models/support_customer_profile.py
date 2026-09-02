@@ -79,8 +79,7 @@ class SupportCustomerProfile(BaseModel):
         _items = []
         if self.application_memberships:
             for _item_application_memberships in self.application_memberships:
-                if _item_application_memberships:
-                    _items.append(_item_application_memberships.to_dict())
+                _items.append(_item_application_memberships.to_dict() if _item_application_memberships is not None else None)
             _dict['applicationMemberships'] = _items
         return _dict
 

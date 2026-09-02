@@ -52,7 +52,6 @@ class TestTriggerWebhookBlock(unittest.TestCase):
             )
         else:
             return TriggerWebhookBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 webhook = talon_one.models.trigger_webhook_block_1_webhook.TriggerWebhookBlock_1_webhook(
                     id = 1, 

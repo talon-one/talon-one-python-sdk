@@ -45,15 +45,14 @@ class TestCreateCouponBlock(unittest.TestCase):
                 store_in_session = True,
                 usage_limit = None,
                 discount_limit = None,
-                start_date = None,
-                expiry_date = None,
+                start_date = 2024-12-24T14:15:22Z,
+                expiry_date = 2024-12-24T14:15:22Z,
                 attributes = None,
                 valid_characters = 'ABC',
                 pattern = 'SUMMER-####-####'
             )
         else:
             return CreateCouponBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 campaign_id = None,
                 recipient_id = '{{$Profile.IntegrationId}}',

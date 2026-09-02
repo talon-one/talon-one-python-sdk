@@ -27,12 +27,12 @@ class CheckEventBlock(BaseModel):
     """
     CheckEventBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     event_type: StrictStr = Field(description="The event type to check against.", alias="eventType", json_schema_extra={"examples": ["profileCreated"]})
-    matchers: Optional[List[PromotionBlock]] = None
-    on_failure: Optional[List[PromotionBlock]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    matchers: Optional[List[Block]] = None
+    on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "eventType", "matchers", "onFailure"]
 
     model_config = ConfigDict(
@@ -65,8 +65,12 @@ class CheckEventBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(
@@ -78,15 +82,13 @@ class CheckEventBlock(BaseModel):
         _items = []
         if self.matchers:
             for _item_matchers in self.matchers:
-                if _item_matchers:
-                    _items.append(_item_matchers.to_dict())
+                _items.append(_item_matchers.to_dict() if _item_matchers is not None else None)
             _dict['matchers'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
         _items = []
         if self.on_failure:
             for _item_on_failure in self.on_failure:
-                if _item_on_failure:
-                    _items.append(_item_on_failure.to_dict())
+                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
             _dict['onFailure'] = _items
         return _dict
 
@@ -104,12 +106,12 @@ class CheckEventBlock(BaseModel):
             "type": obj.get("type"),
             "tags": obj.get("tags"),
             "eventType": obj.get("eventType"),
-            "matchers": [PromotionBlock.from_dict(_item) for _item in obj["matchers"]] if obj.get("matchers") is not None else None,
-            "onFailure": [PromotionBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
+            "matchers": [Block.from_dict(_item) for _item in obj["matchers"]] if obj.get("matchers") is not None else None,
+            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj
 
-from talon_one.models.promotion_block import PromotionBlock
+from talon_one.models.block import Block
 # TODO: Rewrite to not use raise_errors
 CheckEventBlock.model_rebuild(raise_errors=False)
 

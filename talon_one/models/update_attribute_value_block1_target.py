@@ -34,8 +34,8 @@ class UpdateAttributeValueBlock1Target(BaseModel):
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['session', 'profile', 'advocateProfile', 'coupon', 'referral', 'allItems', 'selector', 'globalFilter']):
-            raise ValueError("must be one of enum values ('session', 'profile', 'advocateProfile', 'coupon', 'referral', 'allItems', 'selector', 'globalFilter')")
+        if value not in set(['session', 'profile', 'advocateProfile', 'coupon', 'referral', 'event', 'loyaltyCard', 'allItems', 'selector', 'globalFilter']):
+            raise ValueError("must be one of enum values ('session', 'profile', 'advocateProfile', 'coupon', 'referral', 'event', 'loyaltyCard', 'allItems', 'selector', 'globalFilter')")
         return value
 
     model_config = ConfigDict(

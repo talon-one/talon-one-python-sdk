@@ -28,7 +28,7 @@ class CheckLoyaltyBalanceBlock(BaseModel):
     """
     CheckLoyaltyBalanceBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="An indicator of how the block compares the balance to the value.", json_schema_extra={"examples": ["greaterThanOrEqual"]})
@@ -36,7 +36,7 @@ class CheckLoyaltyBalanceBlock(BaseModel):
     subledger: StrictStr = Field(description="The name of the subledger to check the balance of. Can be empty if this block checks the loyalty program's main ledger balance instead of a subledger.", json_schema_extra={"examples": [""]})
     balance: StrictStr = Field(description="The type of balance to check:  - `current` is the sum of currently active points  - `pending` is the sum of pending points.  - `negative` is the sum of negative points.  - `tentativeCurrent` is the tentative points balance within the current open customer session.", json_schema_extra={"examples": ["current"]})
     value: Union[StrictFloat, StrictInt] = Field(description="The numeric value to compare the balance against.", json_schema_extra={"examples": [500]})
-    on_failure: Optional[List[PromotionBlock]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "program", "subledger", "balance", "value", "onFailure"]
 
     @field_validator('operator')
@@ -83,8 +83,12 @@ class CheckLoyaltyBalanceBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(
@@ -99,8 +103,7 @@ class CheckLoyaltyBalanceBlock(BaseModel):
         _items = []
         if self.on_failure:
             for _item_on_failure in self.on_failure:
-                if _item_on_failure:
-                    _items.append(_item_on_failure.to_dict())
+                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
             _dict['onFailure'] = _items
         return _dict
 
@@ -122,11 +125,11 @@ class CheckLoyaltyBalanceBlock(BaseModel):
             "subledger": obj.get("subledger"),
             "balance": obj.get("balance"),
             "value": obj.get("value"),
-            "onFailure": [PromotionBlock.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
+            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj
 
-from talon_one.models.promotion_block import PromotionBlock
+from talon_one.models.block import Block
 # TODO: Rewrite to not use raise_errors
 CheckLoyaltyBalanceBlock.model_rebuild(raise_errors=False)
 

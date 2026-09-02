@@ -20,6 +20,7 @@ from typing import Any, List, Optional
 from talon_one.models.between_check_attribute_block import BetweenCheckAttributeBlock
 from talon_one.models.list_check_attribute_block import ListCheckAttributeBlock
 from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock
+from talon_one.models.location_check_attribute_block import LocationCheckAttributeBlock
 from talon_one.models.scalar_check_attribute_block import ScalarCheckAttributeBlock
 from talon_one.models.unary_check_attribute_block import UnaryCheckAttributeBlock
 from talon_one.models.within_check_attribute_block import WithinCheckAttributeBlock
@@ -45,6 +46,8 @@ class CheckAttributeBlock(BaseModel):
     oneof_schema_5_validator: Optional[UnaryCheckAttributeBlock] = None
     # data type: WithinCheckAttributeBlock
     oneof_schema_6_validator: Optional[WithinCheckAttributeBlock] = None
+    # data type: LocationCheckAttributeBlock
+    oneof_schema_7_validator: Optional[LocationCheckAttributeBlock] = None
     actual_instance: Optional[Union[CheckAttributeBlockBase, object]] = None
     one_of_schemas: Set[str] = { "CheckAttributeBlockBase", "object" }
 
@@ -102,6 +105,11 @@ class CheckAttributeBlock(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `WithinCheckAttributeBlock`")
         else:
             match += 1
+        # validate data type: LocationCheckAttributeBlock
+        if not isinstance(v, LocationCheckAttributeBlock):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LocationCheckAttributeBlock`")
+        else:
+            match += 1
         if match > 1:
             # more than 1 match
             raise ValueError("Multiple matches found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
@@ -155,6 +163,12 @@ class CheckAttributeBlock(BaseModel):
         # deserialize data into WithinCheckAttributeBlock
         try:
             instance.actual_instance = WithinCheckAttributeBlock.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into LocationCheckAttributeBlock
+        try:
+            instance.actual_instance = LocationCheckAttributeBlock.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))

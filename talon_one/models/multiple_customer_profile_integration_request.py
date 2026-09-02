@@ -74,8 +74,7 @@ class MultipleCustomerProfileIntegrationRequest(BaseModel):
         _items = []
         if self.customer_profiles:
             for _item_customer_profiles in self.customer_profiles:
-                if _item_customer_profiles:
-                    _items.append(_item_customer_profiles.to_dict())
+                _items.append(_item_customer_profiles.to_dict() if _item_customer_profiles is not None else None)
             _dict['customerProfiles'] = _items
         return _dict
 

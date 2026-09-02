@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **created_referrals** | [**List[Referral]**](Referral.md) | The referrals that were created during the event processing. | 
 **awarded_giveaways** | [**List[Giveaway]**](Giveaway.md) | The giveaways that were awarded during the event processing. | [optional] 
 **achievements** | [**List[CustomerAchievement]**](CustomerAchievement.md) | The achievements progress of the customer. | [optional] 
+**rewards** | [**List[RewardWithUnlocks]**](RewardWithUnlocks.md) | The unlocked rewards for the customer profile. | [optional] 
 **referral** | [**InventoryReferral**](InventoryReferral.md) | The referral that was processed. | [optional] 
 **coupons** | [**List[IntegrationCoupon]**](IntegrationCoupon.md) | The coupons that were processed. | [optional] 
 **event** | [**Event**](Event.md) | The event that was processed. | [optional] 

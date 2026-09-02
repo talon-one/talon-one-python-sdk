@@ -53,7 +53,6 @@ class TestRedeemLoyaltyPointsBlock(unittest.TestCase):
             )
         else:
             return RedeemLoyaltyPointsBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
                     id = 10, 

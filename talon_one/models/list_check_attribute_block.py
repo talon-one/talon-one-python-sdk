@@ -28,7 +28,7 @@ class ListCheckAttributeBlock(BaseModel):
     Variant of `CheckAttributeBlock` for operators that test list membership against a set of values.
     """ # noqa: E501
     operator: Optional[StrictStr] = Field(default=None, description="The list membership operator applied to the attribute.")
-    values: Optional[Any]
+    values: Optional[Any] = Field(description="The set of values to match against.")
     __properties: ClassVar[List[str]] = ["operator", "values"]
 
     @field_validator('operator')

@@ -7,7 +7,7 @@ setDiscountPerItem member effect in strikethrough pricing payload.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | The effect name. | 
-**value** | **object** |  | 
+**value** | **object** | The discount value. | 
 
 ## Example
 

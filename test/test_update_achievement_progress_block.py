@@ -50,7 +50,6 @@ class TestUpdateAchievementProgressBlock(unittest.TestCase):
             )
         else:
             return UpdateAchievementProgressBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 operator = 'increaseBy',
                 value = '10',

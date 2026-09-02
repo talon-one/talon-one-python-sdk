@@ -28,7 +28,7 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
     setDiscountPerItem effect in strikethrough pricing payload.
     """ # noqa: E501
     name: StrictStr = Field(description="The effect name.", json_schema_extra={"examples": ["1EuroOff"]})
-    value: Optional[Any]
+    value: Optional[Any] = Field(description="The discount value.", json_schema_extra={"examples": [1]})
     excluded_from_price_history: Optional[StrictBool] = Field(default=None, description="When set to `true`, the applied discount is excluded from the item's price history.", alias="excludedFromPriceHistory")
     __properties: ClassVar[List[str]] = ["name", "value", "excludedFromPriceHistory"]
 

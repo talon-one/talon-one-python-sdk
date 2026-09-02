@@ -40,9 +40,7 @@ class TestAwardGiveawayBlock(unittest.TestCase):
                 tags = [
                     ''
                     ],
-                giveaway_pool = talon_one.models.award_giveaway_block_1_giveaway_pool.AwardGiveawayBlock_1_giveawayPool(
-                    id = 42, 
-                    name = 'Summer Campaign Pool', ),
+                giveaway_pool = None,
                 profile = 'Current',
                 on_failure = [
                     null
@@ -55,11 +53,8 @@ class TestAwardGiveawayBlock(unittest.TestCase):
             )
         else:
             return AwardGiveawayBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
-                giveaway_pool = talon_one.models.award_giveaway_block_1_giveaway_pool.AwardGiveawayBlock_1_giveawayPool(
-                    id = 42, 
-                    name = 'Summer Campaign Pool', ),
+                giveaway_pool = None,
                 profile = 'Current',
         )
         """

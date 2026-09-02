@@ -76,8 +76,7 @@ class BestPriorPriceMetadata(BaseModel):
         _items = []
         if self.influencing_campaign_details:
             for _item_influencing_campaign_details in self.influencing_campaign_details:
-                if _item_influencing_campaign_details:
-                    _items.append(_item_influencing_campaign_details.to_dict())
+                _items.append(_item_influencing_campaign_details.to_dict() if _item_influencing_campaign_details is not None else None)
             _dict['influencingCampaignDetails'] = _items
         # override the default output from pydantic by calling `to_dict()` of adjustment_details
         if self.adjustment_details:

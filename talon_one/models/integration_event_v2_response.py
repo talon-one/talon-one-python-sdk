@@ -29,6 +29,7 @@ from talon_one.models.event import Event
 from talon_one.models.giveaway import Giveaway
 from talon_one.models.loyalty import Loyalty
 from talon_one.models.referral import Referral
+from talon_one.models.reward_with_unlocks import RewardWithUnlocks
 from talon_one.models.rule_failure_reason import RuleFailureReason
 from typing import Optional, Set
 from typing_extensions import Self
@@ -48,8 +49,9 @@ class IntegrationEventV2Response(BaseModel):
     created_referrals: List[Referral] = Field(description="The referrals that were created during the event processing.", alias="createdReferrals")
     awarded_giveaways: Optional[List[Giveaway]] = Field(default=None, description="The giveaways that were awarded during the event processing.", alias="awardedGiveaways")
     achievements: Optional[List[CustomerAchievement]] = Field(default=None, description="The achievements progress of the customer.")
+    rewards: Optional[List[RewardWithUnlocks]] = Field(default=None, description="The unlocked rewards for the customer profile.")
     event: Optional[Event] = Field(default=None, description="The event that was processed.")
-    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "event"]
+    __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "rewards", "event"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -100,58 +102,56 @@ class IntegrationEventV2Response(BaseModel):
         _items = []
         if self.triggered_campaigns:
             for _item_triggered_campaigns in self.triggered_campaigns:
-                if _item_triggered_campaigns:
-                    _items.append(_item_triggered_campaigns.to_dict())
+                _items.append(_item_triggered_campaigns.to_dict() if _item_triggered_campaigns is not None else None)
             _dict['triggeredCampaigns'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in campaign_eligibility (list)
         _items = []
         if self.campaign_eligibility:
             for _item_campaign_eligibility in self.campaign_eligibility:
-                if _item_campaign_eligibility:
-                    _items.append(_item_campaign_eligibility.to_dict())
+                _items.append(_item_campaign_eligibility.to_dict() if _item_campaign_eligibility is not None else None)
             _dict['campaignEligibility'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in effects (list)
         _items = []
         if self.effects:
             for _item_effects in self.effects:
-                if _item_effects:
-                    _items.append(_item_effects.to_dict())
+                _items.append(_item_effects.to_dict() if _item_effects is not None else None)
             _dict['effects'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in rule_failure_reasons (list)
         _items = []
         if self.rule_failure_reasons:
             for _item_rule_failure_reasons in self.rule_failure_reasons:
-                if _item_rule_failure_reasons:
-                    _items.append(_item_rule_failure_reasons.to_dict())
+                _items.append(_item_rule_failure_reasons.to_dict() if _item_rule_failure_reasons is not None else None)
             _dict['ruleFailureReasons'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in created_coupons (list)
         _items = []
         if self.created_coupons:
             for _item_created_coupons in self.created_coupons:
-                if _item_created_coupons:
-                    _items.append(_item_created_coupons.to_dict())
+                _items.append(_item_created_coupons.to_dict() if _item_created_coupons is not None else None)
             _dict['createdCoupons'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in created_referrals (list)
         _items = []
         if self.created_referrals:
             for _item_created_referrals in self.created_referrals:
-                if _item_created_referrals:
-                    _items.append(_item_created_referrals.to_dict())
+                _items.append(_item_created_referrals.to_dict() if _item_created_referrals is not None else None)
             _dict['createdReferrals'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in awarded_giveaways (list)
         _items = []
         if self.awarded_giveaways:
             for _item_awarded_giveaways in self.awarded_giveaways:
-                if _item_awarded_giveaways:
-                    _items.append(_item_awarded_giveaways.to_dict())
+                _items.append(_item_awarded_giveaways.to_dict() if _item_awarded_giveaways is not None else None)
             _dict['awardedGiveaways'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in achievements (list)
         _items = []
         if self.achievements:
             for _item_achievements in self.achievements:
-                if _item_achievements:
-                    _items.append(_item_achievements.to_dict())
+                _items.append(_item_achievements.to_dict() if _item_achievements is not None else None)
             _dict['achievements'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in rewards (list)
+        _items = []
+        if self.rewards:
+            for _item_rewards in self.rewards:
+                _items.append(_item_rewards.to_dict() if _item_rewards is not None else None)
+            _dict['rewards'] = _items
         # override the default output from pydantic by calling `to_dict()` of event
         if self.event:
             _dict['event'] = self.event.to_dict()
@@ -177,6 +177,7 @@ class IntegrationEventV2Response(BaseModel):
             "createdReferrals": [Referral.from_dict(_item) for _item in obj["createdReferrals"]] if obj.get("createdReferrals") is not None else None,
             "awardedGiveaways": [Giveaway.from_dict(_item) for _item in obj["awardedGiveaways"]] if obj.get("awardedGiveaways") is not None else None,
             "achievements": [CustomerAchievement.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None,
+            "rewards": [RewardWithUnlocks.from_dict(_item) for _item in obj["rewards"]] if obj.get("rewards") is not None else None,
             "event": Event.from_dict(obj["event"]) if obj.get("event") is not None else None
         })
         return _obj

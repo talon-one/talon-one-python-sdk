@@ -106,8 +106,7 @@ class NewRevisionVersion(BaseModel):
         _items = []
         if self.limits:
             for _item_limits in self.limits:
-                if _item_limits:
-                    _items.append(_item_limits.to_dict())
+                _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
         # set to None if start_time (nullable) is None
         # and model_fields_set contains the field

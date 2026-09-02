@@ -79,22 +79,19 @@ class NewRuleset(BaseModel):
         _items = []
         if self.rules:
             for _item_rules in self.rules:
-                if _item_rules:
-                    _items.append(_item_rules.to_dict())
+                _items.append(_item_rules.to_dict() if _item_rules is not None else None)
             _dict['rules'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in strikethrough_rules (list)
         _items = []
         if self.strikethrough_rules:
             for _item_strikethrough_rules in self.strikethrough_rules:
-                if _item_strikethrough_rules:
-                    _items.append(_item_strikethrough_rules.to_dict())
+                _items.append(_item_strikethrough_rules.to_dict() if _item_strikethrough_rules is not None else None)
             _dict['strikethroughRules'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in bindings (list)
         _items = []
         if self.bindings:
             for _item_bindings in self.bindings:
-                if _item_bindings:
-                    _items.append(_item_bindings.to_dict())
+                _items.append(_item_bindings.to_dict() if _item_bindings is not None else None)
             _dict['bindings'] = _items
         return _dict
 

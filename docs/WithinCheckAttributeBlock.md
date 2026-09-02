@@ -7,8 +7,8 @@ Variant of `CheckAttributeBlock` for the `within` and `not(within)` operators, w
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **operator** | **str** | The range comparison operator. Must be &#x60;within&#x60; or &#x60;not(within)&#x60;. | [optional] 
-**start** | **object** |  | 
-**end** | **object** |  | 
+**start** | **object** | The start value for the &#x60;within&#x60; operator. | 
+**end** | **object** | The end value for the &#x60;within&#x60; operator. | 
 **start_inclusive** | **bool** | When &#x60;true&#x60;, the &#x60;start&#x60; value is included in the range for the &#x60;within&#x60; operator. | [optional] 
 **end_inclusive** | **bool** | When &#x60;true&#x60;, the &#x60;end&#x60; value is included in the range for the &#x60;within&#x60; operator. | [optional] 
 **timezone_insensitive** | **bool** | Indicates whether the &#x60;within&#x60; operator ignores time zones and compares the wall-clock time only. When &#x60;false&#x60;, time zones are taken into account. | [optional] 

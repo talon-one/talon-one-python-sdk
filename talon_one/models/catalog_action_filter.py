@@ -29,7 +29,7 @@ class CatalogActionFilter(BaseModel):
     """ # noqa: E501
     attr: StrictStr = Field(description="The name of the attribute to filter on.")
     op: StrictStr = Field(description="The filtering operator.")
-    value: Optional[Any]
+    value: Optional[Any] = Field(description="The value to filter for.")
     __properties: ClassVar[List[str]] = ["attr", "op", "value"]
 
     @field_validator('op')

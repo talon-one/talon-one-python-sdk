@@ -78,8 +78,7 @@ class LoyaltyLedger(BaseModel):
         _field_dict = {}
         if self.sub_ledgers:
             for _key_sub_ledgers in self.sub_ledgers:
-                if self.sub_ledgers[_key_sub_ledgers]:
-                    _field_dict[_key_sub_ledgers] = self.sub_ledgers[_key_sub_ledgers].to_dict()
+                _field_dict[_key_sub_ledgers] = self.sub_ledgers[_key_sub_ledgers].to_dict() if self.sub_ledgers[_key_sub_ledgers] is not None else None
             _dict['subLedgers'] = _field_dict
         return _dict
 

@@ -53,7 +53,6 @@ class TestCheckAudienceBlock(unittest.TestCase):
             )
         else:
             return CheckAudienceBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 operator = 'member',
                 profile = 'Current',

@@ -74,8 +74,7 @@ class MultipleNewAttribute(BaseModel):
         _items = []
         if self.attributes:
             for _item_attributes in self.attributes:
-                if _item_attributes:
-                    _items.append(_item_attributes.to_dict())
+                _items.append(_item_attributes.to_dict() if _item_attributes is not None else None)
             _dict['attributes'] = _items
         return _dict
 

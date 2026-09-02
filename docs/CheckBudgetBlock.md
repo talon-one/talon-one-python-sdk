@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Unique identifier for this block. | 
+**id** | **str** | Unique identifier for this block. | [optional] [readonly] 
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
-**tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
+**tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
 **operator** | **str** | The comparison operator applied to the limit. &#x60;available&#x60; checks if there is budget available for a given limitable action; &#x60;enoughFor&#x60; checks if the available budget meets or exceeds a specific value limit. | 
 **action** | **str** | The limitable action to check. | 
 **value** | **float** | The value to check against when using the &#x60;enoughFor&#x60; operator. | [optional] 
-**on_failure** | [**List[PromotionBlock]**](PromotionBlock.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
+**on_failure** | [**List[Block]**](Block.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
 
 ## Example
 

@@ -74,8 +74,7 @@ class RemoveManyItemsCatalogAction(BaseModel):
         _items = []
         if self.filters:
             for _item_filters in self.filters:
-                if _item_filters:
-                    _items.append(_item_filters.to_dict())
+                _items.append(_item_filters.to_dict() if _item_filters is not None else None)
             _dict['filters'] = _items
         return _dict
 

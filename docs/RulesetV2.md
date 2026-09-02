@@ -6,17 +6,17 @@ Ruleset in the V2 JSON block format.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Internal ID of this entity. | 
-**created** | **datetime** | The time this entity was created. | 
-**user_id** | **int** | The ID of the user that created this ruleset. | 
-**campaign_id** | **int** | The ID of the campaign that owns this entity. | [optional] 
-**template_id** | **int** | The ID of the campaign template that owns this entity. | [optional] 
-**activated_at** | **datetime** | Timestamp indicating when this ruleset was activated. | [optional] 
-**promotion_rules** | [**List[PromotionRuleV2]**](PromotionRuleV2.md) | Set of promotion rules. | 
-**strikethrough_rules** | [**List[StrikethroughRuleV2]**](StrikethroughRuleV2.md) | Set of strikethrough rules. | 
-**selectors** | [**List[Selector]**](Selector.md) | Variable bindings of type selector. | [optional] 
-**bundles** | [**List[Bundle]**](Bundle.md) | Variable bindings of type bundle. | [optional] 
-**parameters** | [**List[TemplateParameter]**](TemplateParameter.md) | Variable bindings of type template parameter. | [optional] 
+**id** | **int** | Internal ID of this entity. | [optional] [readonly] 
+**created** | **datetime** | The time this entity was created. | [optional] [readonly] 
+**user_id** | **int** | The ID of the user that created this ruleset. | [optional] [readonly] 
+**campaign_id** | **int** | The ID of the campaign that owns this entity. | [optional] [readonly] 
+**template_id** | **int** | The ID of the campaign template that owns this entity. | [optional] [readonly] 
+**activated_at** | **datetime** | Timestamp indicating when this ruleset was activated. | [optional] [readonly] 
+**promotion_rules** | [**List[RuleV2]**](RuleV2.md) | Set of promotion rules. | 
+**strikethrough_rules** | [**List[RuleV2]**](RuleV2.md) | Set of strikethrough rules. | [optional] 
+**selectors** | [**List[Selector]**](Selector.md) | Variable bindings of type selector. | [optional] [readonly] 
+**bundles** | [**List[Bundle]**](Bundle.md) | Variable bindings of type bundle. | [optional] [readonly] 
+**parameters** | [**List[TemplateParameter]**](TemplateParameter.md) | Variable bindings of type template parameter. | [optional] [readonly] 
 
 ## Example
 

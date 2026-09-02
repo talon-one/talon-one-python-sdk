@@ -104,8 +104,7 @@ class StrikethroughLabelingNotification(BaseModel):
         _items = []
         if self.changed_items:
             for _item_changed_items in self.changed_items:
-                if _item_changed_items:
-                    _items.append(_item_changed_items.to_dict())
+                _items.append(_item_changed_items.to_dict() if _item_changed_items is not None else None)
             _dict['changedItems'] = _items
         return _dict
 

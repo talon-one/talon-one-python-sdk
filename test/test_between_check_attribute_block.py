@@ -36,13 +36,13 @@ class TestBetweenCheckAttributeBlock(unittest.TestCase):
         if include_optional:
             return BetweenCheckAttributeBlock(
                 operator = 'between',
-                min = None,
-                max = None
+                min = 10,
+                max = 100
             )
         else:
             return BetweenCheckAttributeBlock(
-                min = None,
-                max = None,
+                min = 10,
+                max = 100,
         )
         """
 

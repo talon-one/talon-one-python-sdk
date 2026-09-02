@@ -7,8 +7,8 @@ Variant of `CheckAttributeBlock` for the `between` operator, which requires both
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **operator** | **str** | The range comparison operator. Must be &#x60;between&#x60;. | [optional] 
-**min** | **object** |  | 
-**max** | **object** |  | 
+**min** | **object** | The minimum value allowed for the &#x60;between&#x60; operator. | 
+**max** | **object** | The maximum value allowed for the &#x60;between&#x60; operator. | 
 
 ## Example
 

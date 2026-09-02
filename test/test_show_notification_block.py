@@ -54,7 +54,6 @@ class TestShowNotificationBlock(unittest.TestCase):
             )
         else:
             return ShowNotificationBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 notification_type = 'Info',
                 title = 'You earned a reward!',

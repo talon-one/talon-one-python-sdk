@@ -37,9 +37,10 @@ class TestIntegrationUnlockRewardRequest(unittest.TestCase):
             return IntegrationUnlockRewardRequest(
                 integration_id = 'reward-unlock-123',
                 profile_integration_id = 'customer1',
+                card_identifier = 'summer-loyalty-card-0543',
                 loyalty_program_id = 2,
                 subledger_id = 'sub1',
-                response_content = ["customerProfile","effects"]
+                response_content = [customerProfile, loyalty]
             )
         else:
             return IntegrationUnlockRewardRequest(

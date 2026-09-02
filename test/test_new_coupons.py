@@ -48,6 +48,7 @@ class TestNewCoupons(unittest.TestCase):
                         entities = [Coupon], )
                     ],
                 number_of_coupons = 1,
+                batch_id = '3rdparty_fjsieoaa',
                 unique_prefix = '',
                 attributes = {venueId=12},
                 recipient_integration_id = 'URNGV8294NV',

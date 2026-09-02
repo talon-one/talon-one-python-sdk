@@ -78,8 +78,7 @@ class ExpiringCouponsNotificationPolicy(BaseModel):
         _items = []
         if self.triggers:
             for _item_triggers in self.triggers:
-                if _item_triggers:
-                    _items.append(_item_triggers.to_dict())
+                _items.append(_item_triggers.to_dict() if _item_triggers is not None else None)
             _dict['triggers'] = _items
         return _dict
 

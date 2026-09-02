@@ -79,8 +79,7 @@ class RoleV2Permissions(BaseModel):
         _items = []
         if self.permission_sets:
             for _item_permission_sets in self.permission_sets:
-                if _item_permission_sets:
-                    _items.append(_item_permission_sets.to_dict())
+                _items.append(_item_permission_sets.to_dict() if _item_permission_sets is not None else None)
             _dict['permissionSets'] = _items
         # override the default output from pydantic by calling `to_dict()` of roles
         if self.roles:
@@ -89,8 +88,7 @@ class RoleV2Permissions(BaseModel):
         _items = []
         if self.thresholds:
             for _item_thresholds in self.thresholds:
-                if _item_thresholds:
-                    _items.append(_item_thresholds.to_dict())
+                _items.append(_item_thresholds.to_dict() if _item_thresholds is not None else None)
             _dict['thresholds'] = _items
         return _dict
 

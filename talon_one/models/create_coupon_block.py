@@ -30,7 +30,7 @@ class CreateCouponBlock(BaseModel):
     """
     CreateCouponBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     campaign_id: CreateCouponBlock1CampaignId = Field(alias="campaignId")
@@ -38,9 +38,9 @@ class CreateCouponBlock(BaseModel):
     store_in_session: StrictBool = Field(description="When `true`, the coupon is stored in the session.", alias="storeInSession", json_schema_extra={"examples": [True]})
     usage_limit: Optional[CreateCouponBlock1UsageLimit] = Field(default=None, alias="usageLimit")
     discount_limit: Optional[CreateCouponBlock1DiscountLimit] = Field(default=None, alias="discountLimit")
-    start_date: Optional[Any] = Field(default=None, alias="startDate")
-    expiry_date: Optional[Any] = Field(default=None, alias="expiryDate")
-    attributes: Optional[Any] = None
+    start_date: Optional[Any] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="startDate", json_schema_extra={"examples": ["2024-12-24T14:15:22Z"]})
+    expiry_date: Optional[Any] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2024-12-24T14:15:22Z"]})
+    attributes: Optional[Any] = Field(default=None, description="Custom attributes associated with this coupon code.")
     valid_characters: Optional[StrictStr] = Field(default=None, description="Characters used to generate the random parts of a code.", alias="validCharacters", json_schema_extra={"examples": ["ABC"]})
     pattern: Optional[StrictStr] = Field(default=None, description="The pattern used to generate codes, such as coupon codes, referral codes, and loyalty cards. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", json_schema_extra={"examples": ["SUMMER-####-####"]})
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "campaignId", "recipientId", "storeInSession", "usageLimit", "discountLimit", "startDate", "expiryDate", "attributes", "validCharacters", "pattern"]
@@ -75,8 +75,12 @@ class CreateCouponBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(

@@ -46,7 +46,6 @@ class TestStartAchievementProgressEffectProps(unittest.TestCase):
             return StartAchievementProgressEffectProps(
                 achievement_id = 10,
                 achievement_name = 'FreeCoffee10Orders',
-                progress_tracker_id = 42,
                 target = 10,
                 start_date = '2026-04-16T15:25:37Z',
         )

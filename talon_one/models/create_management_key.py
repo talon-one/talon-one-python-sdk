@@ -78,8 +78,7 @@ class CreateManagementKey(BaseModel):
         _items = []
         if self.endpoints:
             for _item_endpoints in self.endpoints:
-                if _item_endpoints:
-                    _items.append(_item_endpoints.to_dict())
+                _items.append(_item_endpoints.to_dict() if _item_endpoints is not None else None)
             _dict['endpoints'] = _items
         return _dict
 

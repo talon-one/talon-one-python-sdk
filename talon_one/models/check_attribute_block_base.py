@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from talon_one.models.block import Block
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,28 +28,29 @@ class CheckAttributeBlockBase(BaseModel):
     """
     CheckAttributeBlockBase
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="The comparison operator applied to the attribute.", json_schema_extra={"examples": ["greaterThan"]})
-    attribute: Optional[Any]
-    value: Optional[Any] = None
-    min: Optional[Any] = None
-    max: Optional[Any] = None
-    start: Optional[Any] = None
-    end: Optional[Any] = None
+    attribute: Optional[Any] = Field(description="The attribute path identifier (e.g. \"$Session.Total\").", json_schema_extra={"examples": ["$Session.Total"]})
+    value: Optional[Any] = Field(default=None, description="The comparison value for scalar operators.", json_schema_extra={"examples": [100]})
+    min: Optional[Any] = Field(default=None, description="The minimum value allowed for the `between` operator.", json_schema_extra={"examples": [10]})
+    max: Optional[Any] = Field(default=None, description="The maximum value allowed for the `between` operator.", json_schema_extra={"examples": [100]})
+    start: Optional[Any] = Field(default=None, description="The start value for the `within` operator.", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
+    end: Optional[Any] = Field(default=None, description="The end value for the `within` operator.", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
     start_inclusive: Optional[StrictBool] = Field(default=None, description="When `true`, the `start` value is included in the range for the `within` operator.", alias="startInclusive", json_schema_extra={"examples": [True]})
     end_inclusive: Optional[StrictBool] = Field(default=None, description="When `true`, the `end` value is included in the range for the `within` operator.", alias="endInclusive", json_schema_extra={"examples": [True]})
     timezone_insensitive: Optional[StrictBool] = Field(default=None, description="Indicates whether the `within` operator ignores time zones and compares the wall-clock time only. When `false`, time zones are taken into account.", alias="timezoneInsensitive", json_schema_extra={"examples": [False]})
-    values: Optional[Any] = None
-    count: Optional[Any] = None
-    __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "min", "max", "start", "end", "startInclusive", "endInclusive", "timezoneInsensitive", "values", "count"]
+    values: Optional[Any] = Field(default=None, description="The set of values to match against for list operators. For location operators (`in`, `not(in)`), an array of objects with a `geometry` (see `GeoJSONGeometry`) and an optional `name`, or a string reference to a list attribute.", json_schema_extra={"examples": [[{"name": "Berlin district", "geometry": {"type": "Point", "coordinates": [13.405, 52.52]}}]]})
+    count: Optional[Any] = Field(default=None, description="The count threshold for `containsAtLeast` and `containsExactly` operators.", json_schema_extra={"examples": [2]})
+    on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "min", "max", "start", "end", "startInclusive", "endInclusive", "timezoneInsensitive", "values", "count", "onFailure"]
 
     @field_validator('operator')
     def operator_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf', 'after', 'before', 'within', 'not(within)']):
-            raise ValueError("must be one of enum values ('equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf', 'after', 'before', 'within', 'not(within)')")
+        if value not in set(['equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf', 'after', 'before', 'within', 'not(within)', 'in', 'not(in)']):
+            raise ValueError("must be one of enum values ('equals', 'not(equals)', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual', 'between', 'contains', 'not(contains)', 'matchesRegexp', 'startsWith', 'endsWith', 'oneOf', 'not(oneOf)', 'inCollection', 'not(inCollection)', 'empty', 'not(empty)', 'exists', 'not(exists)', 'isTrue', 'isFalse', 'containsAtLeast', 'containsExactly', 'containsOneOf', 'containsNoneOf', 'containsAllOf', 'after', 'before', 'within', 'not(within)', 'in', 'not(in)')")
         return value
 
     model_config = ConfigDict(
@@ -81,8 +83,12 @@ class CheckAttributeBlockBase(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(
@@ -90,6 +96,12 @@ class CheckAttributeBlockBase(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
+        _items = []
+        if self.on_failure:
+            for _item_on_failure in self.on_failure:
+                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
+            _dict['onFailure'] = _items
         # set to None if attribute (nullable) is None
         # and model_fields_set contains the field
         if self.attribute is None and "attribute" in self.model_fields_set:
@@ -156,7 +168,8 @@ class CheckAttributeBlockBase(BaseModel):
             "endInclusive": obj.get("endInclusive"),
             "timezoneInsensitive": obj.get("timezoneInsensitive"),
             "values": obj.get("values"),
-            "count": obj.get("count")
+            "count": obj.get("count"),
+            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj
 

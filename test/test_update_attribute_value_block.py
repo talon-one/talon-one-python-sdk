@@ -47,14 +47,13 @@ class TestUpdateAttributeValueBlock(unittest.TestCase):
                     name = 'City', 
                     title = 'City', 
                     type = 'string', ),
-                value = None,
+                value = 10,
                 target = talon_one.models.update_attribute_value_block_1_target.UpdateAttributeValueBlock_1_target(
                     type = 'profile', 
                     name = 'Filter items by product', )
             )
         else:
             return UpdateAttributeValueBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 operator = 'setTo',
                 attribute = talon_one.models.update_attribute_value_block_1_attribute.UpdateAttributeValueBlock_1_attribute(

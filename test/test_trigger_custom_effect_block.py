@@ -56,7 +56,6 @@ class TestTriggerCustomEffectBlock(unittest.TestCase):
             )
         else:
             return TriggerCustomEffectBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 custom_effect = talon_one.models.trigger_custom_effect_block_1_custom_effect.TriggerCustomEffectBlock_1_customEffect(
                     id = 1, 

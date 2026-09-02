@@ -6,9 +6,9 @@ Common properties shared by all block types.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Unique identifier for this block. | 
+**id** | **str** | Unique identifier for this block. | [optional] [readonly] 
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
-**tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
+**tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
 
 ## Example
 

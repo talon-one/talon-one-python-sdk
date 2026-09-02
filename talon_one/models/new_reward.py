@@ -91,15 +91,13 @@ class NewReward(BaseModel):
         _items = []
         if self.bindings:
             for _item_bindings in self.bindings:
-                if _item_bindings:
-                    _items.append(_item_bindings.to_dict())
+                _items.append(_item_bindings.to_dict() if _item_bindings is not None else None)
             _dict['bindings'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in points_required (list)
         _items = []
         if self.points_required:
             for _item_points_required in self.points_required:
-                if _item_points_required:
-                    _items.append(_item_points_required.to_dict())
+                _items.append(_item_points_required.to_dict() if _item_points_required is not None else None)
             _dict['pointsRequired'] = _items
         return _dict
 

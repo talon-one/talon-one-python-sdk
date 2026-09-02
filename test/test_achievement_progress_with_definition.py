@@ -66,7 +66,6 @@ class TestAchievementProgressWithDefinition(unittest.TestCase):
                 name = 'FreeCoffee10Orders',
                 title = '50% off on 50th purchase.',
                 description = '50% off for every 50th purchase in a year.',
-                campaign_id = 3,
                 campaign_ids = [1, 14, 27],
                 referenced_by_campaigns = [
                     talon_one.models.campaign_reference.CampaignReference(

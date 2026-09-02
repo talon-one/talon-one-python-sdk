@@ -37,6 +37,7 @@ class NewCoupons(BaseModel):
     expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the coupon. Coupon never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:15:22Z"]})
     limits: Optional[List[LimitConfig]] = Field(default=None, description="Limits configuration for a coupon. These limits will override the limits set from the campaign.  **Note:** Only usable when creating a single coupon which is not tied to a specific recipient. Only per-profile limits are allowed to be configured. ")
     number_of_coupons: StrictInt = Field(description="The number of new coupon codes to generate for the campaign. Must be at least 1.", alias="numberOfCoupons", json_schema_extra={"examples": [1]})
+    batch_id: Optional[StrictStr] = Field(default=None, description="The batch ID that all coupons created by the request will bear. If omitted, a batch ID is generated automatically.", alias="batchId", json_schema_extra={"examples": ["3rdparty_fjsieoaa"]})
     unique_prefix: Optional[StrictStr] = Field(default=None, description="**DEPRECATED** To create more than 20,000 coupons in one request, use [Create coupons asynchronously](https://docs.talon.one/management-api#tag/Coupons/operation/createCouponsAsync) endpoint. ", alias="uniquePrefix", json_schema_extra={"examples": [""]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": ["{venueId=12}"]})
     recipient_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The integration ID for this coupon's beneficiary's profile.", alias="recipientIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
@@ -46,7 +47,7 @@ class NewCoupons(BaseModel):
     implicitly_reserved: Optional[StrictBool] = Field(default=None, description="An indication of whether the coupon is implicitly reserved for all customers.", alias="implicitlyReserved", json_schema_extra={"examples": [False]})
     support_request_id: Optional[StrictInt] = Field(default=None, description="The identifier of the support request to link to the coupon creation. The request must exist and not yet be processed.", alias="supportRequestId", json_schema_extra={"examples": [42]})
     support_request_note: Optional[StrictStr] = Field(default=None, description="A note recorded when the linked support request is approved or rejected. Applied when `supportRequestId` is provided.", alias="supportRequestNote", json_schema_extra={"examples": ["Approved as compensation for the delayed order."]})
-    __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "limits", "numberOfCoupons", "uniquePrefix", "attributes", "recipientIntegrationId", "validCharacters", "couponPattern", "isReservationMandatory", "implicitlyReserved", "supportRequestId", "supportRequestNote"]
+    __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "limits", "numberOfCoupons", "batchId", "uniquePrefix", "attributes", "recipientIntegrationId", "validCharacters", "couponPattern", "isReservationMandatory", "implicitlyReserved", "supportRequestId", "supportRequestNote"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -91,8 +92,7 @@ class NewCoupons(BaseModel):
         _items = []
         if self.limits:
             for _item_limits in self.limits:
-                if _item_limits:
-                    _items.append(_item_limits.to_dict())
+                _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
         return _dict
 
@@ -113,6 +113,7 @@ class NewCoupons(BaseModel):
             "expiryDate": obj.get("expiryDate"),
             "limits": [LimitConfig.from_dict(_item) for _item in obj["limits"]] if obj.get("limits") is not None else None,
             "numberOfCoupons": obj.get("numberOfCoupons"),
+            "batchId": obj.get("batchId"),
             "uniquePrefix": obj.get("uniquePrefix"),
             "attributes": obj.get("attributes"),
             "recipientIntegrationId": obj.get("recipientIntegrationId"),

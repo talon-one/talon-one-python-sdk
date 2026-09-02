@@ -47,7 +47,6 @@ class TestAwardDiscountBlock(unittest.TestCase):
             )
         else:
             return AwardDiscountBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = '',
                 name = '10% Off',
                 value = None,

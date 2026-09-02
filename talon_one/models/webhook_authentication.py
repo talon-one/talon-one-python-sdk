@@ -91,8 +91,7 @@ class WebhookAuthentication(BaseModel):
         _items = []
         if self.webhooks:
             for _item_webhooks in self.webhooks:
-                if _item_webhooks:
-                    _items.append(_item_webhooks.to_dict())
+                _items.append(_item_webhooks.to_dict() if _item_webhooks is not None else None)
             _dict['webhooks'] = _items
         # override the default output from pydantic by calling `to_dict()` of data
         if self.data:

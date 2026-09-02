@@ -36,11 +36,11 @@ class TestScalarCheckAttributeBlock(unittest.TestCase):
         if include_optional:
             return ScalarCheckAttributeBlock(
                 operator = 'equals',
-                value = None
+                value = 100
             )
         else:
             return ScalarCheckAttributeBlock(
-                value = None,
+                value = 100,
         )
         """
 

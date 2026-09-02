@@ -178,15 +178,13 @@ class Campaign(BaseModel):
         _items = []
         if self.limits:
             for _item_limits in self.limits:
-                if _item_limits:
-                    _items.append(_item_limits.to_dict())
+                _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in budgets (list)
         _items = []
         if self.budgets:
             for _item_budgets in self.budgets:
-                if _item_budgets:
-                    _items.append(_item_budgets.to_dict())
+                _items.append(_item_budgets.to_dict() if _item_budgets is not None else None)
             _dict['budgets'] = _items
         return _dict
 

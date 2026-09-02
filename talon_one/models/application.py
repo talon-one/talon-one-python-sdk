@@ -131,8 +131,7 @@ class Application(BaseModel):
         _items = []
         if self.limits:
             for _item_limits in self.limits:
-                if _item_limits:
-                    _items.append(_item_limits.to_dict())
+                _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
         # override the default output from pydantic by calling `to_dict()` of attributes_settings
         if self.attributes_settings:
@@ -144,8 +143,7 @@ class Application(BaseModel):
         _items = []
         if self.loyalty_programs:
             for _item_loyalty_programs in self.loyalty_programs:
-                if _item_loyalty_programs:
-                    _items.append(_item_loyalty_programs.to_dict())
+                _items.append(_item_loyalty_programs.to_dict() if _item_loyalty_programs is not None else None)
             _dict['loyaltyPrograms'] = _items
         return _dict
 

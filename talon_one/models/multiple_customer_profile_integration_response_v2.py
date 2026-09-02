@@ -74,8 +74,7 @@ class MultipleCustomerProfileIntegrationResponseV2(BaseModel):
         _items = []
         if self.integration_states:
             for _item_integration_states in self.integration_states:
-                if _item_integration_states:
-                    _items.append(_item_integration_states.to_dict())
+                _items.append(_item_integration_states.to_dict() if _item_integration_states is not None else None)
             _dict['integrationStates'] = _items
         return _dict
 

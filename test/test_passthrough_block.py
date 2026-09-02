@@ -43,7 +43,6 @@ class TestPassthroughBlock(unittest.TestCase):
             )
         else:
             return PassthroughBlock(
-                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
                 type = 'passthrough',
                 expression = [
                     null

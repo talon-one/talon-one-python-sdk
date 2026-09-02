@@ -29,6 +29,7 @@ Method | HTTP request | Description
 [**get_loyalty_program_profile_transactions**](IntegrationApi.md#get_loyalty_program_profile_transactions) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/transactions | List customer&#39;s loyalty transactions
 [**get_reserved_customers**](IntegrationApi.md#get_reserved_customers) | **GET** /v1/coupon_reservations/customerprofiles/{couponValue} | List customers that have this coupon reserved
 [**integration_get_all_campaigns**](IntegrationApi.md#integration_get_all_campaigns) | **GET** /v1/integration/campaigns | List all running campaigns
+[**integration_rewards_catalog**](IntegrationApi.md#integration_rewards_catalog) | **GET** /v1/rewards/catalog | List rewards in the catalog
 [**join_loyalty_program**](IntegrationApi.md#join_loyalty_program) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/join | Join customer profile to loyalty program
 [**link_loyalty_card_to_profile**](IntegrationApi.md#link_loyalty_card_to_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/link_profile | Link customer profile to card
 [**reopen_customer_session**](IntegrationApi.md#reopen_customer_session) | **PUT** /v2/customer_sessions/{customerSessionId}/reopen | Reopen customer session
@@ -37,6 +38,7 @@ Method | HTTP request | Description
 [**track_event_v2**](IntegrationApi.md#track_event_v2) | **POST** /v2/events | Track event
 [**track_event_v3**](IntegrationApi.md#track_event_v3) | **POST** /v3/events | Track advanced event
 [**unlink_loyalty_card_from_profile**](IntegrationApi.md#unlink_loyalty_card_from_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/unlink_profile | Unlink customer profile from a loyalty card
+[**unlock_reward**](IntegrationApi.md#unlock_reward) | **POST** /v1/rewards/{rewardId}/unlock | Unlock a reward
 [**update_audience_customers_attributes**](IntegrationApi.md#update_audience_customers_attributes) | **PUT** /v2/audience_customers/{audienceId}/attributes | Update profile attributes for all customers in audience
 [**update_audience_v2**](IntegrationApi.md#update_audience_v2) | **PUT** /v2/audiences/{audienceId} | Update audience name
 [**update_customer_profile_audiences**](IntegrationApi.md#update_customer_profile_audiences) | **POST** /v2/customer_audiences | Update multiple customer profiles&#39; audiences
@@ -716,6 +718,10 @@ customer profile and this audience.
 > [!note] Audiences can also be deleted via the Campaign Manager. See the
 [docs](https://docs.talon.one/docs/product/audiences/managing-audiences#deleting-an-audience).
 
+The audience isn't deleted if any experiment variant uses it.
+The response identifies each blocking experiment by its Campaign
+Manager path.
+
 
 ### Example
 
@@ -786,6 +792,7 @@ void (empty response body)
 **400** | Bad request |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not found |  -  |
+**409** | Conflict. The audience is used by one or more experiments. Each &#x60;errors[].source.resource&#x60; value contains the Campaign Manager path of a blocking experiment.  |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1339,7 +1346,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_customer_inventory**
-> CustomerInventory get_customer_inventory(integration_id, profile=profile, referrals=referrals, coupons=coupons, loyalty=loyalty, giveaways=giveaways, achievements=achievements)
+> CustomerInventory get_customer_inventory(integration_id, profile=profile, referrals=referrals, coupons=coupons, loyalty=loyalty, giveaways=giveaways, achievements=achievements, unlocked_rewards=unlocked_rewards)
 
 List customer data
 
@@ -1387,10 +1394,11 @@ with talon_one.ApiClient(configuration) as api_client:
     loyalty = True # bool | Set to `true` to include loyalty information in the response. (optional)
     giveaways = True # bool | Set to `true` to include giveaways information in the response. (optional)
     achievements = True # bool | Set to `true` to include achievement information in the response. (optional)
+    unlocked_rewards = True # bool | Set to `true` to include `unlocked` rewards that have not been `used` in the response. (optional)
 
     try:
         # List customer data
-        api_response = api_instance.get_customer_inventory(integration_id, profile=profile, referrals=referrals, coupons=coupons, loyalty=loyalty, giveaways=giveaways, achievements=achievements)
+        api_response = api_instance.get_customer_inventory(integration_id, profile=profile, referrals=referrals, coupons=coupons, loyalty=loyalty, giveaways=giveaways, achievements=achievements, unlocked_rewards=unlocked_rewards)
         print("The response of IntegrationApi->get_customer_inventory:\n")
         pprint(api_response)
     except Exception as e:
@@ -1411,6 +1419,7 @@ Name | Type | Description  | Notes
  **loyalty** | **bool**| Set to &#x60;true&#x60; to include loyalty information in the response. | [optional] 
  **giveaways** | **bool**| Set to &#x60;true&#x60; to include giveaways information in the response. | [optional] 
  **achievements** | **bool**| Set to &#x60;true&#x60; to include achievement information in the response. | [optional] 
+ **unlocked_rewards** | **bool**| Set to &#x60;true&#x60; to include &#x60;unlocked&#x60; rewards that have not been &#x60;used&#x60; in the response. | [optional] 
 
 ### Return type
 
@@ -2057,11 +2066,11 @@ with talon_one.ApiClient(configuration) as api_client:
     integration_id = 'integration_id_example' # str | The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. 
     status = 'active' # str | Filter points based on their status. (optional) (default to 'active')
     subledger_id = ['subledger_id_example'] # List[str] | Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers.  (optional)
-    customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
-    transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
+    customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
+    transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
-    sort = 'sort_example' # str | The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order.  To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time.  (optional)
+    sort = 'sort_example' # str | The field by which results should be sorted. You can enter one of the following values:  - `startDate`: Sorts the results by the start date of the points. - `expiryDate`: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You can only sort by one field at a time.  (optional)
 
     try:
         # List customer's unused loyalty points
@@ -2083,11 +2092,11 @@ Name | Type | Description  | Notes
  **integration_id** | **str**| The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  | 
  **status** | **str**| Filter points based on their status. | [optional] [default to &#39;active&#39;]
  **subledger_id** | [**List[str]**](str.md)| Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?subledgerId&#x3D;id1&amp;subledgerId&#x3D;id2&#x60;.  The response contains only data associated with the specified subledgers.  | [optional] 
- **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.   To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
- **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example,  &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
+ **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
+ **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
- **sort** | **str**| The field by which results should be sorted. You can enter one of the following values:  - &#x60;startDate&#x60;: Sorts the results by the start date of the points. - &#x60;expiryDate&#x60;: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order.  To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You can only sort by one field at a time.  | [optional] 
+ **sort** | **str**| The field by which results should be sorted. You can enter one of the following values:  - &#x60;startDate&#x60;: Sorts the results by the start date of the points. - &#x60;expiryDate&#x60;: Sorts the results by the expiry date of the points.  By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You can only sort by one field at a time.  | [optional] 
 
 ### Return type
 
@@ -2164,7 +2173,7 @@ with talon_one.ApiClient(configuration) as api_client:
     integration_id = 'integration_id_example' # str | The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. 
     customer_session_ids = ['customer_session_ids_example'] # List[str] | Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?customerSessionIDs=id1&customerSessionIDs=id2`.  The response contains only data associated with the specified sessions.  (optional)
     transaction_uuids = ['transaction_uuids_example'] # List[str] | Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, `?transactionUUIDs=uuid1&transactionUUIDs=uuid2`.  The response contains only data associated with the specified transactions.  (optional)
-    subledger_id = 'subledger_id_example' # str | The ID of the subledger by which we filter the data. (optional)
+    subledger_id = ['subledger_id_example'] # List[str] | Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, `?subledgerId=id1&subledgerId=id2`.  The response contains only data associated with the specified subledgers.  (optional)
     loyalty_transaction_type = 'loyalty_transaction_type_example' # str | Filter results by loyalty transaction type: - `manual`: Loyalty transaction that was done manually. - `session`: Loyalty transaction that resulted from a customer session. - `import`: Loyalty transaction that was imported from a CSV file.  (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time from which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
@@ -2192,7 +2201,7 @@ Name | Type | Description  | Notes
  **integration_id** | **str**| The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  | 
  **customer_session_ids** | [**List[str]**](str.md)| Filter the results by a list of customer session IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?customerSessionIDs&#x3D;id1&amp;customerSessionIDs&#x3D;id2&#x60;.  The response contains only data associated with the specified sessions.  | [optional] 
  **transaction_uuids** | [**List[str]**](str.md)| Filter the results by a list of transaction UUIDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?transactionUUIDs&#x3D;uuid1&amp;transactionUUIDs&#x3D;uuid2&#x60;.  The response contains only data associated with the specified transactions.  | [optional] 
- **subledger_id** | **str**| The ID of the subledger by which we filter the data. | [optional] 
+ **subledger_id** | [**List[str]**](str.md)| Filter the results by a list of subledger IDs.  To include multiple IDs, repeat the parameter for each one, for example, &#x60;?subledgerId&#x3D;id1&amp;subledgerId&#x3D;id2&#x60;.  The response contains only data associated with the specified subledgers.  | [optional] 
  **loyalty_transaction_type** | **str**| Filter results by loyalty transaction type: - &#x60;manual&#x60;: Loyalty transaction that was done manually. - &#x60;session&#x60;: Loyalty transaction that resulted from a customer session. - &#x60;import&#x60;: Loyalty transaction that was imported from a CSV file.  | [optional] 
  **start_date** | **datetime**| Date and time from which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
  **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
@@ -2263,7 +2272,7 @@ configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
 with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.IntegrationApi(api_client)
-    coupon_value = 'coupon_value_example' # str | The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp)  if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`. 
+    coupon_value = 'coupon_value_example' # str | The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode `SUMMER25%OFF` as `SUMMER25%25OFF`. 
 
     try:
         # List customers that have this coupon reserved
@@ -2281,7 +2290,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **coupon_value** | **str**| The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp)  if it contains special characters. For example, you must encode &#x60;SUMMER25%OFF&#x60; as &#x60;SUMMER25%25OFF&#x60;.  | 
+ **coupon_value** | **str**| The code of the coupon.  **Important:** The coupon code requires [URL encoding](https://www.w3schools.com/tags//ref_urlencode.asp) if it contains special characters. For example, you must encode &#x60;SUMMER25%OFF&#x60; as &#x60;SUMMER25%25OFF&#x60;.  | 
 
 ### Return type
 
@@ -2387,6 +2396,106 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**IntegrationGetAllCampaigns200Response**](IntegrationGetAllCampaigns200Response.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **integration_rewards_catalog**
+> IntegrationRewardsCatalog200Response integration_rewards_catalog(page_size=page_size, skip=skip, points_from=points_from, points_to=points_to, include_free=include_free, loyalty_program_id=loyalty_program_id, subledger_id=subledger_id, profile_integration_id=profile_integration_id, loyalty_card_id=loyalty_card_id)
+
+List rewards in the catalog
+
+Retrieve the rewards catalog for the Application.
+Returns a paginated list of rewards.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.integration_rewards_catalog200_response import IntegrationRewardsCatalog200Response
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.IntegrationApi(api_client)
+    page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
+    skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
+    points_from = 3.4 # float | Return only rewards whose points required is greater than or equal to this value. (optional)
+    points_to = 3.4 # float | Return only rewards whose points required is less than or equal to this value. (optional)
+    include_free = True # bool | Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers.  (optional) (default to True)
+    loyalty_program_id = 56 # int | Return only rewards available in this loyalty program.  (optional)
+    subledger_id = 'subledger_id_example' # str | Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\").  (optional)
+    profile_integration_id = 'profile_integration_id_example' # str | The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request.  (optional)
+    loyalty_card_id = 'loyalty_card_id_example' # str | The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request.  (optional)
+
+    try:
+        # List rewards in the catalog
+        api_response = api_instance.integration_rewards_catalog(page_size=page_size, skip=skip, points_from=points_from, points_to=points_to, include_free=include_free, loyalty_program_id=loyalty_program_id, subledger_id=subledger_id, profile_integration_id=profile_integration_id, loyalty_card_id=loyalty_card_id)
+        print("The response of IntegrationApi->integration_rewards_catalog:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling IntegrationApi->integration_rewards_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
+ **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
+ **points_from** | **float**| Return only rewards whose points required is greater than or equal to this value. | [optional] 
+ **points_to** | **float**| Return only rewards whose points required is less than or equal to this value. | [optional] 
+ **include_free** | **bool**| Whether to include rewards that have no &#x60;pointsRequired&#x60;. These rewards are treated as free and available to all customers.  | [optional] [default to True]
+ **loyalty_program_id** | **int**| Return only rewards available in this loyalty program.  | [optional] 
+ **subledger_id** | **str**| Return only rewards available in this subledger. Must be combined with &#x60;loyaltyProgramId&#x60;. To specify the main ledger, provide an empty string (\&quot;\&quot;).  | [optional] 
+ **profile_integration_id** | **str**| The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when &#x60;loyaltyProgramId&#x60; is also provided.  **Note:** &#x60;profileIntegrationId&#x60; and &#x60;loyaltyCardId&#x60; are mutually exclusive. Do not send both in the same request.  | [optional] 
+ **loyalty_card_id** | **str**| The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when &#x60;loyaltyProgramId&#x60; is also provided.  **Note:** &#x60;profileIntegrationId&#x60; and &#x60;loyaltyCardId&#x60; are mutually exclusive. Do not send both in the same request.  | [optional] 
+
+### Return type
+
+[**IntegrationRewardsCatalog200Response**](IntegrationRewardsCatalog200Response.md)
 
 ### Authorization
 
@@ -2604,7 +2713,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reopen_customer_session**
-> ReopenSessionResponse reopen_customer_session(customer_session_id)
+> ReopenSessionResponse reopen_customer_session(customer_session_id, idempotency_key=idempotency_key)
 
 Reopen customer session
 
@@ -2654,7 +2763,6 @@ To see an example of a rollback, see the
 
 > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
-
 ### Example
 
 * Api Key Authentication (api_key_v1):
@@ -2687,10 +2795,11 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.IntegrationApi(api_client)
     customer_session_id = 'customer_session_id_example' # str | The `integration ID` of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager's **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint. 
+    idempotency_key = 'idempotency_key_example' # str | A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. (optional)
 
     try:
         # Reopen customer session
-        api_response = api_instance.reopen_customer_session(customer_session_id)
+        api_response = api_instance.reopen_customer_session(customer_session_id, idempotency_key=idempotency_key)
         print("The response of IntegrationApi->reopen_customer_session:\n")
         pprint(api_response)
     except Exception as e:
@@ -2705,6 +2814,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **customer_session_id** | **str**| The &#x60;integration ID&#x60; of the customer session. You set this ID when you create a customer session.  You can see existing customer session integration IDs in the Campaign Manager&#39;s **Sessions** menu, or via the [List Application session](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationSessions) endpoint.  | 
+ **idempotency_key** | **str**| A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. | [optional] 
 
 ### Return type
 
@@ -2723,14 +2833,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**200** | OK |  * Idempotency-Key - The idempotency key used for the request. <br>  * Idempotent-Replayed - Indicates whether the response was replayed from a previously cached request. <br>  * X-Idempotency-Created-At - The date and time when the idempotency record was created. <br>  * X-Idempotency-Expires-At - The date and time when the idempotency record expires. <br>  * X-Idempotency-Fingerprint - The SHA-256 fingerprint of the request payload and metadata. <br>  |
 **400** | Bad request |  -  |
 **401** | Unauthorized - Invalid API key |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **return_cart_items**
-> IntegrationStateV2 return_cart_items(customer_session_id, return_integration_request, dry=dry, run_rule_engine=run_rule_engine)
+> IntegrationStateV2 return_cart_items(customer_session_id, return_integration_request, dry=dry, run_rule_engine=run_rule_engine, idempotency_key=idempotency_key)
 
 Return cart items
 
@@ -2745,7 +2855,6 @@ This endpoint automatically changes the session state from `closed` to
 > and [this tutorial](https://docs.talon.one/docs/dev/tutorials/partially-returning-a-session).
 
 > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
-
 
 ### Example
 
@@ -2783,10 +2892,11 @@ with talon_one.ApiClient(configuration) as api_client:
     return_integration_request = talon_one.ReturnIntegrationRequest() # ReturnIntegrationRequest | body
     dry = True # bool | Indicates whether to persist the changes. Changes are ignored when `dry=true`.  (optional)
     run_rule_engine = True # bool | When set to `true`, reevaluates the updated session after items are returned. Only reevaluates campaigns where `reevaluateOnReturn` is set to `true` and which produced an effect when the session was closed.  (optional)
+    idempotency_key = 'idempotency_key_example' # str | A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. (optional)
 
     try:
         # Return cart items
-        api_response = api_instance.return_cart_items(customer_session_id, return_integration_request, dry=dry, run_rule_engine=run_rule_engine)
+        api_response = api_instance.return_cart_items(customer_session_id, return_integration_request, dry=dry, run_rule_engine=run_rule_engine, idempotency_key=idempotency_key)
         print("The response of IntegrationApi->return_cart_items:\n")
         pprint(api_response)
     except Exception as e:
@@ -2804,6 +2914,7 @@ Name | Type | Description  | Notes
  **return_integration_request** | [**ReturnIntegrationRequest**](ReturnIntegrationRequest.md)| body | 
  **dry** | **bool**| Indicates whether to persist the changes. Changes are ignored when &#x60;dry&#x3D;true&#x60;.  | [optional] 
  **run_rule_engine** | **bool**| When set to &#x60;true&#x60;, reevaluates the updated session after items are returned. Only reevaluates campaigns where &#x60;reevaluateOnReturn&#x60; is set to &#x60;true&#x60; and which produced an effect when the session was closed.  | [optional] 
+ **idempotency_key** | **str**| A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. | [optional] 
 
 ### Return type
 
@@ -2822,7 +2933,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**200** | OK |  * Idempotency-Key - The idempotency key used for the request. <br>  * Idempotent-Replayed - Indicates whether the response was replayed from a previously cached request. <br>  * X-Idempotency-Created-At - The date and time when the idempotency record was created. <br>  * X-Idempotency-Expires-At - The date and time when the idempotency record expires. <br>  * X-Idempotency-Fingerprint - The SHA-256 fingerprint of the request payload and metadata. <br>  |
 **400** | Bad request |  -  |
 **401** | Unauthorized - Invalid API key |  -  |
 
@@ -2960,7 +3071,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **track_event_v2**
-> IntegrationEventV2Response track_event_v2(integration_event_v2_request, silent=silent, dry=dry, force_complete_evaluation=force_complete_evaluation)
+> IntegrationEventV2Response track_event_v2(integration_event_v2_request, silent=silent, dry=dry, force_complete_evaluation=force_complete_evaluation, idempotency_key=idempotency_key)
 
 Track event
 
@@ -2984,7 +3095,6 @@ link to a product. See our [tutorial](https://docs.talon.one/docs/product/tutori
 > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archive-a-campaign) are not considered in rule evaluation.
 
 > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
-
 
 ### Example
 
@@ -3022,10 +3132,11 @@ with talon_one.ApiClient(configuration) as api_client:
     silent = 'yes' # str | Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles.  (optional) (default to 'yes')
     dry = True # bool | Indicates whether to persist the changes. Changes are ignored when `dry=true`.  (optional)
     force_complete_evaluation = False # bool | Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires `dry=true`.  (optional) (default to False)
+    idempotency_key = 'idempotency_key_example' # str | A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. (optional)
 
     try:
         # Track event
-        api_response = api_instance.track_event_v2(integration_event_v2_request, silent=silent, dry=dry, force_complete_evaluation=force_complete_evaluation)
+        api_response = api_instance.track_event_v2(integration_event_v2_request, silent=silent, dry=dry, force_complete_evaluation=force_complete_evaluation, idempotency_key=idempotency_key)
         print("The response of IntegrationApi->track_event_v2:\n")
         pprint(api_response)
     except Exception as e:
@@ -3043,6 +3154,7 @@ Name | Type | Description  | Notes
  **silent** | **str**| Possible values: &#x60;yes&#x60; or &#x60;no&#x60;. - &#x60;yes&#x60;: Increases the performance of the API call by returning a 204 response. - &#x60;no&#x60;: Returns a 200 response that contains the updated customer profiles.  | [optional] [default to &#39;yes&#39;]
  **dry** | **bool**| Indicates whether to persist the changes. Changes are ignored when &#x60;dry&#x3D;true&#x60;.  | [optional] 
  **force_complete_evaluation** | **bool**| Forces evaluation for all matching campaigns regardless of the [campaign evaluation mode](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation#setting-campaign-evaluation-mode). Requires &#x60;dry&#x3D;true&#x60;.  | [optional] [default to False]
+ **idempotency_key** | **str**| A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. | [optional] 
 
 ### Return type
 
@@ -3061,8 +3173,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**204** | No content |  -  |
+**200** | OK |  * Idempotency-Key - The idempotency key used for the request. <br>  * Idempotent-Replayed - Indicates whether the response was replayed from a previously cached request. <br>  * X-Idempotency-Created-At - The date and time when the idempotency record was created. <br>  * X-Idempotency-Expires-At - The date and time when the idempotency record expires. <br>  * X-Idempotency-Fingerprint - The SHA-256 fingerprint of the request payload and metadata. <br>  |
+**204** | No content |  * Idempotency-Key - The idempotency key used for the request. <br>  * Idempotent-Replayed - Indicates whether the response was replayed from a previously cached request. <br>  * X-Idempotency-Created-At - The date and time when the idempotency record was created. <br>  * X-Idempotency-Expires-At - The date and time when the idempotency record expires. <br>  * X-Idempotency-Fingerprint - The SHA-256 fingerprint of the request payload and metadata. <br>  |
 **400** | Bad request |  -  |
 **401** | Unauthorized - Invalid API key |  -  |
 **409** | Too many requests or limit reached - Avoid parallel requests. See the [docs](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one#manage-parallel-requests). |  -  |
@@ -3267,6 +3379,99 @@ Name | Type | Description  | Notes
 **400** | Bad request |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **unlock_reward**
+> IntegrationStateV2 unlock_reward(reward_id, integration_unlock_reward_request, dry=dry)
+
+Unlock a reward
+
+Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.
+
+To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.integration_state_v2 import IntegrationStateV2
+from talon_one.models.integration_unlock_reward_request import IntegrationUnlockRewardRequest
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.IntegrationApi(api_client)
+    reward_id = 56 # int | The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint.
+    integration_unlock_reward_request = talon_one.IntegrationUnlockRewardRequest() # IntegrationUnlockRewardRequest | 
+    dry = True # bool | When set to `true`, the rule evaluation is performed but no changes are persisted. Use this to preview the outcome of an unlocking. (optional)
+
+    try:
+        # Unlock a reward
+        api_response = api_instance.unlock_reward(reward_id, integration_unlock_reward_request, dry=dry)
+        print("The response of IntegrationApi->unlock_reward:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling IntegrationApi->unlock_reward: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reward_id** | **int**| The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint. | 
+ **integration_unlock_reward_request** | [**IntegrationUnlockRewardRequest**](IntegrationUnlockRewardRequest.md)|  | 
+ **dry** | **bool**| When set to &#x60;true&#x60;, the rule evaluation is performed but no changes are persisted. Use this to preview the outcome of an unlocking. | [optional] 
+
+### Return type
+
+[**IntegrationStateV2**](IntegrationStateV2.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request |  -  |
+**401** | Unauthorized |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**409** | Conflict. A reward unlock with this integration ID already exists. |  -  |
+**422** | Unprocessable entity. The reward unlock was rejected by the Rule Engine, for example because the customer already unlocked this reward, the customer has insufficient points, or the reward&#39;s eligibility conditions are not met.  |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3526,7 +3731,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_customer_profile_v2**
-> CustomerProfileIntegrationResponseV2 update_customer_profile_v2(integration_id, customer_profile_integration_request_v2, run_rule_engine=run_rule_engine, dry=dry)
+> CustomerProfileIntegrationResponseV2 update_customer_profile_v2(integration_id, customer_profile_integration_request_v2, run_rule_engine=run_rule_engine, dry=dry, idempotency_key=idempotency_key)
 
 Update customer profile
 
@@ -3550,7 +3755,6 @@ You can use this endpoint to:
 > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered in rule evaluation when `runRuleEngine` is `true`.
 
 > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
-
 
 ### Example
 
@@ -3588,10 +3792,11 @@ with talon_one.ApiClient(configuration) as api_client:
     customer_profile_integration_request_v2 = {"attributes":{"Name":"Chris Taylor","Email":"chris.taylor@example.com","SignupDate":"2026-01-21T15:04:05+07:00","PaymentMethod":"Bank transfer"}} # CustomerProfileIntegrationRequestV2 | body
     run_rule_engine = False # bool | Indicates whether to run the Rule Engine.  If `true`, the response includes: - The effects generated by the triggered campaigns are returned in the `effects` property. - The created coupons and referral objects.  If `false`: - The rules are not executed and the `effects` property is always empty. - The response time improves. - You cannot use `responseContent` in the body.  (optional) (default to False)
     dry = True # bool | (Only works when `runRuleEngine=true`) Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`, you can use the `evaluableCampaignIds` body property to select specific campaigns to run.  (optional)
+    idempotency_key = 'idempotency_key_example' # str | A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. (optional)
 
     try:
         # Update customer profile
-        api_response = api_instance.update_customer_profile_v2(integration_id, customer_profile_integration_request_v2, run_rule_engine=run_rule_engine, dry=dry)
+        api_response = api_instance.update_customer_profile_v2(integration_id, customer_profile_integration_request_v2, run_rule_engine=run_rule_engine, dry=dry, idempotency_key=idempotency_key)
         print("The response of IntegrationApi->update_customer_profile_v2:\n")
         pprint(api_response)
     except Exception as e:
@@ -3609,6 +3814,7 @@ Name | Type | Description  | Notes
  **customer_profile_integration_request_v2** | [**CustomerProfileIntegrationRequestV2**](CustomerProfileIntegrationRequestV2.md)| body | 
  **run_rule_engine** | **bool**| Indicates whether to run the Rule Engine.  If &#x60;true&#x60;, the response includes: - The effects generated by the triggered campaigns are returned in the &#x60;effects&#x60; property. - The created coupons and referral objects.  If &#x60;false&#x60;: - The rules are not executed and the &#x60;effects&#x60; property is always empty. - The response time improves. - You cannot use &#x60;responseContent&#x60; in the body.  | [optional] [default to False]
  **dry** | **bool**| (Only works when &#x60;runRuleEngine&#x3D;true&#x60;) Indicates whether to persist the changes. Changes are ignored when &#x60;dry&#x3D;true&#x60;.  When set to &#x60;true&#x60;, you can use the &#x60;evaluableCampaignIds&#x60; body property to select specific campaigns to run.  | [optional] 
+ **idempotency_key** | **str**| A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. | [optional] 
 
 ### Return type
 
@@ -3627,7 +3833,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**200** | OK |  * Idempotency-Key - The idempotency key used for the request. <br>  * Idempotent-Replayed - Indicates whether the response was replayed from a previously cached request. <br>  * X-Idempotency-Created-At - The date and time when the idempotency record was created. <br>  * X-Idempotency-Expires-At - The date and time when the idempotency record expires. <br>  * X-Idempotency-Fingerprint - The SHA-256 fingerprint of the request payload and metadata. <br>  |
 **400** | Bad request |  -  |
 **401** | Unauthorized - Invalid API key |  -  |
 **409** | Too many requests or limit reached - Avoid parallel requests. See the [docs](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one#managing-parallel-requests). |  -  |
@@ -3635,7 +3841,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_customer_profiles_v2**
-> MultipleCustomerProfileIntegrationResponseV2 update_customer_profiles_v2(multiple_customer_profile_integration_request, silent=silent)
+> MultipleCustomerProfileIntegrationResponseV2 update_customer_profiles_v2(multiple_customer_profile_integration_request, silent=silent, idempotency_key=idempotency_key)
 
 Update multiple customer profiles
 
@@ -3655,7 +3861,6 @@ sessions](https://docs.talon.one/integration-api#tag/Customer-sessions).
 > use the [Update customer profile](#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint.
 
 > [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
-
 
 ### Example
 
@@ -3691,10 +3896,11 @@ with talon_one.ApiClient(configuration) as api_client:
     api_instance = talon_one.IntegrationApi(api_client)
     multiple_customer_profile_integration_request = talon_one.MultipleCustomerProfileIntegrationRequest() # MultipleCustomerProfileIntegrationRequest | body
     silent = 'yes' # str | Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles.  (optional) (default to 'yes')
+    idempotency_key = 'idempotency_key_example' # str | A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. (optional)
 
     try:
         # Update multiple customer profiles
-        api_response = api_instance.update_customer_profiles_v2(multiple_customer_profile_integration_request, silent=silent)
+        api_response = api_instance.update_customer_profiles_v2(multiple_customer_profile_integration_request, silent=silent, idempotency_key=idempotency_key)
         print("The response of IntegrationApi->update_customer_profiles_v2:\n")
         pprint(api_response)
     except Exception as e:
@@ -3710,6 +3916,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **multiple_customer_profile_integration_request** | [**MultipleCustomerProfileIntegrationRequest**](MultipleCustomerProfileIntegrationRequest.md)| body | 
  **silent** | **str**| Possible values: &#x60;yes&#x60; or &#x60;no&#x60;. - &#x60;yes&#x60;: Increases the performance of the API call by returning a 204 response. - &#x60;no&#x60;: Returns a 200 response that contains the updated customer profiles.  | [optional] [default to &#39;yes&#39;]
+ **idempotency_key** | **str**| A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. | [optional] 
 
 ### Return type
 
@@ -3728,15 +3935,15 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**204** | No content |  -  |
+**200** | OK |  * Idempotency-Key - The idempotency key used for the request. <br>  * Idempotent-Replayed - Indicates whether the response was replayed from a previously cached request. <br>  * X-Idempotency-Created-At - The date and time when the idempotency record was created. <br>  * X-Idempotency-Expires-At - The date and time when the idempotency record expires. <br>  * X-Idempotency-Fingerprint - The SHA-256 fingerprint of the request payload and metadata. <br>  |
+**204** | No content |  * Idempotency-Key - The idempotency key used for the request. <br>  * Idempotent-Replayed - Indicates whether the response was replayed from a previously cached request. <br>  * X-Idempotency-Created-At - The date and time when the idempotency record was created. <br>  * X-Idempotency-Expires-At - The date and time when the idempotency record expires. <br>  * X-Idempotency-Fingerprint - The SHA-256 fingerprint of the request payload and metadata. <br>  |
 **400** | Bad request |  -  |
 **401** | Unauthorized - Invalid API key |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_customer_session_v2**
-> IntegrationStateV2 update_customer_session_v2(customer_session_id, integration_request, dry=dry, now=now)
+> IntegrationStateV2 update_customer_session_v2(customer_session_id, integration_request, dry=dry, now=now, idempotency_key=idempotency_key)
 
 Update customer session
 
@@ -3753,8 +3960,6 @@ with Talon.One.
 > [!note] **Note**
 > - The currency for the session and the cart items in it is the currency set for the Application linked to this session.
 > - [Archived campaigns](https://docs.talon.one/docs/product/campaigns/managing-campaigns#archiving-a-campaign) are not considered for rule evaluation.
-
-> [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
 ### Session management
 
@@ -3788,6 +3993,7 @@ For more information, see:
 - The introductory video in [Getting started](https://docs.talon.one/docs/dev/getting-started/overview).
 - The [integration tutorial](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one).
 
+> [!note] To make request processing idempotent for this endpoint, include the `Idempotency-Key` header with an idempotency key in requests. Learn more about [idempotency](https://docs.talon.one/integration-api#description/idempotency).
 
 ### Example
 
@@ -3825,10 +4031,11 @@ with talon_one.ApiClient(configuration) as api_client:
     integration_request = {"customerSession":{"profileId":"382370BKDB946","cartItems":[{"name":"Wireless Bluetooth Headphones","sku":"AUDIO-WH350","quantity":1,"price":79.99,"weight":310},{"name":"USB-C Charging Cable","sku":"CABLE-USBC-2M","quantity":2,"price":15.99,"weight":40}]},"responseContent":["customerSession","customerProfile"]} # IntegrationRequest | body
     dry = True # bool | Indicates whether to persist the changes. Changes are ignored when `dry=true`.  When set to `true`: - The endpoint considers **only** the payload that you pass when **closing** the session.   When you do not use the `dry` parameter, the endpoint behaves as a typical PUT endpoint. Each update builds upon the previous ones. - You can use the `evaluableCampaignIds` body property to select specific campaigns to run.  [See the docs](https://docs.talon.one/docs/dev/integration-api/dry-requests).  (optional)
     now = '2013-10-20T19:20:30+01:00' # datetime | A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  > [!note] **Note** > - It must be an RFC3339 timestamp string. > - It can **only** be a date in the future. > - It can **only** be used if the `dry` parameter in the query is set to `true`.  (optional)
+    idempotency_key = 'idempotency_key_example' # str | A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. (optional)
 
     try:
         # Update customer session
-        api_response = api_instance.update_customer_session_v2(customer_session_id, integration_request, dry=dry, now=now)
+        api_response = api_instance.update_customer_session_v2(customer_session_id, integration_request, dry=dry, now=now, idempotency_key=idempotency_key)
         print("The response of IntegrationApi->update_customer_session_v2:\n")
         pprint(api_response)
     except Exception as e:
@@ -3846,6 +4053,7 @@ Name | Type | Description  | Notes
  **integration_request** | [**IntegrationRequest**](IntegrationRequest.md)| body | 
  **dry** | **bool**| Indicates whether to persist the changes. Changes are ignored when &#x60;dry&#x3D;true&#x60;.  When set to &#x60;true&#x60;: - The endpoint considers **only** the payload that you pass when **closing** the session.   When you do not use the &#x60;dry&#x60; parameter, the endpoint behaves as a typical PUT endpoint. Each update builds upon the previous ones. - You can use the &#x60;evaluableCampaignIds&#x60; body property to select specific campaigns to run.  [See the docs](https://docs.talon.one/docs/dev/integration-api/dry-requests).  | [optional] 
  **now** | **datetime**| A timestamp value of a future date that acts as a current date when included in the query.  Use this parameter, for example, to test campaigns that would be evaluated for this customer session in the future (say, [scheduled campaigns](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-schedule)).  &gt; [!note] **Note** &gt; - It must be an RFC3339 timestamp string. &gt; - It can **only** be a date in the future. &gt; - It can **only** be used if the &#x60;dry&#x60; parameter in the query is set to &#x60;true&#x60;.  | [optional] 
+ **idempotency_key** | **str**| A unique identifier that enables idempotent processing. Include it to ensure that the request is processed only once, even if you send it several times. | [optional] 
 
 ### Return type
 
@@ -3864,7 +4072,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**200** | OK |  * Idempotency-Key - The idempotency key used for the request. <br>  * Idempotent-Replayed - Indicates whether the response was replayed from a previously cached request. <br>  * X-Idempotency-Created-At - The date and time when the idempotency record was created. <br>  * X-Idempotency-Expires-At - The date and time when the idempotency record expires. <br>  * X-Idempotency-Fingerprint - The SHA-256 fingerprint of the request payload and metadata. <br>  |
 **400** | Bad request |  -  |
 **401** | Unauthorized - Invalid API key |  -  |
 **409** | Too many requests or limit reached - Avoid parallel requests. See the [docs](https://docs.talon.one/docs/dev/tutorials/integrating-talon-one#managing-parallel-requests). |  -  |

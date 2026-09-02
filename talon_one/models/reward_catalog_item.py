@@ -81,8 +81,7 @@ class RewardCatalogItem(BaseModel):
         _items = []
         if self.points_required:
             for _item_points_required in self.points_required:
-                if _item_points_required:
-                    _items.append(_item_points_required.to_dict())
+                _items.append(_item_points_required.to_dict() if _item_points_required is not None else None)
             _dict['pointsRequired'] = _items
         # override the default output from pydantic by calling `to_dict()` of rule
         if self.rule:

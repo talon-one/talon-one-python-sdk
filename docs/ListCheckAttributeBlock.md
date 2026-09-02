@@ -7,7 +7,7 @@ Variant of `CheckAttributeBlock` for operators that test list membership against
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **operator** | **str** | The list membership operator applied to the attribute. | [optional] 
-**values** | **object** |  | 
+**values** | **object** | The set of values to match against. | 
 
 ## Example
 

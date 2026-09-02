@@ -28,12 +28,12 @@ class TriggerWebhookBlock(BaseModel):
     """
     TriggerWebhookBlock
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     webhook: TriggerWebhookBlock1Webhook
     params: Optional[Dict[str, Any]] = Field(default=None, description="The webhook's parameters, in configured order. Each property name is the parameter's title, lowercased with spaces replaced by underscores (for example, `Order ID` becomes `order_id`); falls back to `param_0`, `param_1`, and so on if a title is blank or collides with another.", json_schema_extra={"examples": [{"order_id": "ORD-10293"}]})
-    on_error: Optional[Dict[str, List[PromotionBlock]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
+    on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "webhook", "params", "onError"]
 
     model_config = ConfigDict(
@@ -66,8 +66,12 @@ class TriggerWebhookBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
         ])
 
         _dict = self.model_dump(
@@ -82,10 +86,9 @@ class TriggerWebhookBlock(BaseModel):
         _field_dict_of_array = {}
         if self.on_error:
             for _key_on_error in self.on_error:
-                if self.on_error[_key_on_error] is not None:
-                    _field_dict_of_array[_key_on_error] = [
-                        _item.to_dict() for _item in self.on_error[_key_on_error]
-                    ]
+                _field_dict_of_array[_key_on_error] = [
+                    _item.to_dict() if _item is not None else None for _item in self.on_error[_key_on_error]
+                ] if self.on_error[_key_on_error] is not None else None
             _dict['onError'] = _field_dict_of_array
         return _dict
 
@@ -105,7 +108,7 @@ class TriggerWebhookBlock(BaseModel):
             "webhook": TriggerWebhookBlock1Webhook.from_dict(obj["webhook"]) if obj.get("webhook") is not None else None,
             "params": obj.get("params"),
             "onError": {
-                _k: [PromotionBlock.from_dict(_item) for _item in _v] if _v is not None else None
+                _k: [Block.from_dict(_item) for _item in _v] if _v is not None else None
                 for _k, _v in obj["onError"].items()
             }
             if obj.get("onError") is not None
@@ -113,7 +116,7 @@ class TriggerWebhookBlock(BaseModel):
         })
         return _obj
 
-from talon_one.models.promotion_block import PromotionBlock
+from talon_one.models.block import Block
 # TODO: Rewrite to not use raise_errors
 TriggerWebhookBlock.model_rebuild(raise_errors=False)
 

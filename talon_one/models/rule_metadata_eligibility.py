@@ -78,8 +78,7 @@ class RuleMetadataEligibility(BaseModel):
         _items = []
         if self.eligibility:
             for _item_eligibility in self.eligibility:
-                if _item_eligibility:
-                    _items.append(_item_eligibility.to_dict())
+                _items.append(_item_eligibility.to_dict() if _item_eligibility is not None else None)
             _dict['eligibility'] = _items
         return _dict
 

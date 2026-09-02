@@ -17,22 +17,45 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
 class IntegrationUnlockRewardRequest(BaseModel):
     """
-    The request body for unlocking a reward for a customer profile.
+    The request body for unlocking a reward for a customer profile, optionally using the balance of one of the customer's loyalty cards. 
     """ # noqa: E501
     integration_id: StrictStr = Field(description="The integration ID to assign to the created customer reward unlock.", alias="integrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
     profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile unlocking the reward.", alias="profileIntegrationId", json_schema_extra={"examples": ["customer1"]})
+    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card unlocking the reward. When provided, the required points are deducted from the card's balance and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. The customer profile given in `profileIntegrationId` must be linked to the card, and the card must be active.", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="The ID of the loyalty program from which points will be deducted. Required when the reward has `pointsRequired` configured.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
     subledger_id: Optional[StrictStr] = Field(default=None, description="The ID of the subledger from which points will be deducted. Required when the reward has `pointsRequired` configured.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerId", json_schema_extra={"examples": ["sub1"]})
-    response_content: Optional[List[StrictStr]] = Field(default=None, description="Determines which data is included in the response. Add any of the following optional values to the array to get that data in the response: `customerProfile`, `effects`, `ruleFailureReasons`, `loyalty`.", alias="responseContent", json_schema_extra={"examples": [["customerProfile", "effects"]]})
-    __properties: ClassVar[List[str]] = ["integrationId", "profileIntegrationId", "loyaltyProgramId", "subledgerId", "responseContent"]
+    response_content: Optional[List[StrictStr]] = Field(default=None, description="Determines which data is included in the response. Add any of the following optional values to the array to get that data in the response: `customerProfile`, `ruleFailureReasons`, `loyalty`. `effects` is always returned regardless of whether it is included here.", alias="responseContent", json_schema_extra={"examples": [["customerProfile", "loyalty"]]})
+    __properties: ClassVar[List[str]] = ["integrationId", "profileIntegrationId", "cardIdentifier", "loyaltyProgramId", "subledgerId", "responseContent"]
+
+    @field_validator('card_identifier', mode="before")
+    def card_identifier_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9._%+@-]+$", value):
+            raise ValueError(r"must validate the regular expression /^[A-Za-z0-9._%+@-]+$/")
+        return value
+
+    @field_validator('response_content')
+    def response_content_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        for i in value:
+            if i not in set(['customerProfile', 'effects', 'ruleFailureReasons', 'loyalty']):
+                raise ValueError("each list item must be one of ('customerProfile', 'effects', 'ruleFailureReasons', 'loyalty')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,6 +110,7 @@ class IntegrationUnlockRewardRequest(BaseModel):
         _obj = cls.model_validate({
             "integrationId": obj.get("integrationId"),
             "profileIntegrationId": obj.get("profileIntegrationId"),
+            "cardIdentifier": obj.get("cardIdentifier"),
             "loyaltyProgramId": obj.get("loyaltyProgramId"),
             "subledgerId": obj.get("subledgerId"),
             "responseContent": obj.get("responseContent")

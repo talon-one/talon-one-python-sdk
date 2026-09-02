@@ -75,8 +75,7 @@ class AddPriceAdjustmentCatalogAction(BaseModel):
         _items = []
         if self.adjustments:
             for _item_adjustments in self.adjustments:
-                if _item_adjustments:
-                    _items.append(_item_adjustments.to_dict())
+                _items.append(_item_adjustments.to_dict() if _item_adjustments is not None else None)
             _dict['adjustments'] = _items
         return _dict
 

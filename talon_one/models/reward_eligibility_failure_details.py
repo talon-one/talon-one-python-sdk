@@ -28,14 +28,14 @@ class RewardEligibilityFailureDetails(BaseModel):
     The details about why the customer is not eligible for the reward.
     """ # noqa: E501
     failure_code: StrictStr = Field(description="A code identifying why the customer is not eligible for the reward.", alias="failureCode", json_schema_extra={"examples": ["CONDITION_NOT_MET"]})
-    condition_index: Optional[StrictInt] = Field(default=None, description="The index of the eligibility condition that the customer did not meet.", alias="conditionIndex", json_schema_extra={"examples": [0]})
+    condition_index: Optional[StrictInt] = Field(default=None, description="The index of the eligibility condition that the customer did not meet. Only applicable when `failureCode` is `CONDITION_NOT_MET`.", alias="conditionIndex", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["failureCode", "conditionIndex"]
 
     @field_validator('failure_code')
     def failure_code_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['CONDITION_NOT_MET']):
-            raise ValueError("must be one of enum values ('CONDITION_NOT_MET')")
+        if value not in set(['CONDITION_NOT_MET', 'INSUFFICIENT_BALANCE', 'CARD_REQUIRED', 'PROFILE_REQUIRED']):
+            raise ValueError("must be one of enum values ('CONDITION_NOT_MET', 'INSUFFICIENT_BALANCE', 'CARD_REQUIRED', 'PROFILE_REQUIRED')")
         return value
 
     model_config = ConfigDict(

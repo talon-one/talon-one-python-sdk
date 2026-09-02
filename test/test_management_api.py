@@ -166,6 +166,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_create_ruleset_v2(self) -> None:
+        """Test case for create_ruleset_v2
+
+        Create ruleset (V2)
+        """
+        pass
+
     def test_create_session(self) -> None:
         """Test case for create_session
 
