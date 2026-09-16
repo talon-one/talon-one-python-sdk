@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from talon_one.models.campaign_evaluation_tree_changed_notification import CampaignEvaluationTreeChangedNotification
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,16 +28,16 @@ class CampaignEvaluationTreeChangedMessage(BaseModel):
     """
     CampaignEvaluationTreeChangedMessage
     """ # noqa: E501
-    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType", json_schema_extra={"examples": ["CampaignNotification"]})
+    notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType", json_schema_extra={"examples": ["CampaignEvaluationTreeChanged"]})
     total_result_size: StrictInt = Field(description="The total size of the result set.", alias="TotalResultSize")
-    data: Optional[List[CampaignEvaluationTreeChangedNotification]] = Field(default=None, description="The array of changes.", alias="Data")
+    data: List[CampaignEvaluationTreeChangedNotification] = Field(description="The array of changes.", alias="Data")
     __properties: ClassVar[List[str]] = ["NotificationType", "TotalResultSize", "Data"]
 
     @field_validator('notification_type')
     def notification_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['CampaignNotification']):
-            raise ValueError("must be one of enum values ('CampaignNotification')")
+        if value not in set(['CampaignEvaluationTreeChanged']):
+            raise ValueError("must be one of enum values ('CampaignEvaluationTreeChanged')")
         return value
 
     model_config = ConfigDict(

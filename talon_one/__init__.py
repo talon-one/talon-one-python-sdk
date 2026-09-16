@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.18.0"
+__version__ = "26.19.0"
 
 # Define package exports
 __all__ = [
@@ -49,6 +49,7 @@ __all__ = [
     "AchievementAdditionalPropertiesV2",
     "AchievementBase",
     "AchievementBaseV2",
+    "AchievementBlockReference",
     "AchievementProgress",
     "AchievementProgressWithDefinition",
     "AchievementReference",
@@ -101,10 +102,12 @@ __all__ = [
     "AsyncCouponDeletionJobResponse",
     "AsyncCouponsData",
     "Attribute",
+    "AttributeBlockReference",
     "AttributesMandatory",
     "AttributesSettings",
     "Audience",
     "AudienceAnalytics",
+    "AudienceBlockReference",
     "AudienceCustomer",
     "AudienceIntegrationID",
     "AudienceMembership",
@@ -125,6 +128,15 @@ __all__ = [
     "AwardGiveawayBlock",
     "AwardGiveawayEffectProps",
     "AwardItemBlock",
+    "AwardLoyaltyPointsAllItemsTarget",
+    "AwardLoyaltyPointsBlock",
+    "AwardLoyaltyPointsBlock1Program",
+    "AwardLoyaltyPointsBlock1Value",
+    "AwardLoyaltyPointsBundleTarget",
+    "AwardLoyaltyPointsCartTarget",
+    "AwardLoyaltyPointsGlobalFilterTarget",
+    "AwardLoyaltyPointsSelectorTarget",
+    "AwardLoyaltyPointsTarget",
     "BaseBlock",
     "BaseCampaign",
     "BaseLoyaltyProgram",
@@ -225,11 +237,9 @@ __all__ = [
     "ChangeLoyaltyTierLevelEffectProps",
     "ChangeProfilePassword",
     "CheckAchievementBlock",
-    "CheckAchievementBlock1Achievement",
     "CheckAttributeBlock",
     "CheckAttributeBlockBase",
     "CheckAudienceBlock",
-    "CheckAudienceBlock1Audience",
     "CheckBudgetBlock",
     "CheckCouponBlock",
     "CheckEventBlock",
@@ -238,7 +248,6 @@ __all__ = [
     "CheckLoyaltyCardBlock",
     "CheckReferralBlock",
     "CheckTierBlock",
-    "CheckTierBlock1Tier",
     "CodeGeneratorSettings",
     "Collection",
     "CollectionItem",
@@ -255,10 +264,12 @@ __all__ = [
     "CouponFailureSummary",
     "CouponLimitConfigs",
     "CouponRejectionReason",
+    "CouponReservation",
     "CouponReservations",
     "CouponSearch",
     "CouponValue",
     "CouponWithApplication",
+    "CouponWithReservations",
     "CouponsNotificationData",
     "CouponsNotificationPolicy",
     "CreateAchievement",
@@ -279,6 +290,7 @@ __all__ = [
     "CreateTemplateCampaign",
     "CreateTemplateCampaignResponse",
     "CustomEffect",
+    "CustomEffectBlockReference",
     "CustomEffectProps",
     "CustomerAchievement",
     "CustomerActivityReport",
@@ -293,6 +305,7 @@ __all__ = [
     "CustomerProfileReward",
     "CustomerProfileSearchQuery",
     "CustomerProfileUpdateV2Response",
+    "CustomerReservation",
     "CustomerReward",
     "CustomerSession",
     "CustomerSessionV2",
@@ -305,7 +318,49 @@ __all__ = [
     "DigitalPass",
     "DiscardRisksRequest",
     "Effect",
+    "EffectAcceptCoupon",
+    "EffectAcceptReferral",
+    "EffectAddFreeItem",
+    "EffectAddLoyaltyPoints",
+    "EffectAddNegativeLoyaltyPoints",
+    "EffectAddToAudience",
+    "EffectAwardGiveaway",
+    "EffectCallApi",
+    "EffectChangeLoyaltyTierLevel",
+    "EffectCouponCreated",
+    "EffectCustomEffect",
+    "EffectDeductLoyaltyPoints",
     "EffectEntity",
+    "EffectError",
+    "EffectExtendLoyaltyPointsExpiryDate",
+    "EffectIncreaseAchievementProgress",
+    "EffectJoinLoyaltyProgram",
+    "EffectOffsetNegativeLoyaltyPoints",
+    "EffectRedeemReferral",
+    "EffectReferralCreated",
+    "EffectRejectCoupon",
+    "EffectRejectReferral",
+    "EffectRemoveFromAudience",
+    "EffectReserveCoupon",
+    "EffectRollbackAddedLoyaltyPoints",
+    "EffectRollbackCoupon",
+    "EffectRollbackDeductedLoyaltyPoints",
+    "EffectRollbackDiscount",
+    "EffectRollbackIncreasedAchievementProgress",
+    "EffectRollbackReferral",
+    "EffectRollbackUseReward",
+    "EffectSet",
+    "EffectSetDiscount",
+    "EffectSetDiscountPerAdditionalCost",
+    "EffectSetDiscountPerAdditionalCostPerItem",
+    "EffectSetDiscountPerItem",
+    "EffectSetLoyaltyPointsExpiryDate",
+    "EffectShowBundleMetadata",
+    "EffectShowNotification",
+    "EffectStartAchievementProgress",
+    "EffectUnlockReward",
+    "EffectUseReward",
+    "EffectWillAwardGiveaway",
     "EmailEntity",
     "EmbeddedAnalyticsConfiguration",
     "EmbeddedAnalyticsConfigurationDashboards",
@@ -412,6 +467,7 @@ __all__ = [
     "GetCustomerActivityReportsWithoutTotalCount200Response",
     "GetCustomerProfileAchievementProgress200Response",
     "GetCustomerProfiles200Response",
+    "GetCustomerRewards200Response",
     "GetCustomersByAttributes200Response",
     "GetDashboardStatistics200Response",
     "GetEventTypes200Response",
@@ -431,9 +487,9 @@ __all__ = [
     "GetUsers200Response",
     "GetWebhooks200Response",
     "Giveaway",
+    "GiveawayPoolBlockReference",
     "GiveawayPoolNotification",
     "GiveawayPoolNotificationData",
-    "GiveawayPoolReference",
     "GiveawaysPool",
     "GroupBlock",
     "HiddenConditionsEffects",
@@ -483,6 +539,7 @@ __all__ = [
     "IntegrationStateV2",
     "IntegrationStoreEntity",
     "IntegrationUnlockRewardRequest",
+    "IntegrationUnlockRewardResponse",
     "InventoryCoupon",
     "InventoryReferral",
     "ItemAttribute",
@@ -809,6 +866,7 @@ __all__ = [
     "StrikethroughTrigger",
     "SummarizeCampaignStoreBudget200Response",
     "SummaryCampaignStoreBudget",
+    "SupportBalances",
     "SupportCustomerProfile",
     "SupportRequest",
     "SupportRequestInput",
@@ -819,6 +877,7 @@ __all__ = [
     "TemplateLimitConfig",
     "TemplateParameter",
     "Tier",
+    "TierBlockReference",
     "TierDowngradeData",
     "TierDowngradeNotification",
     "TierDowngradeNotificationPolicy",
@@ -832,10 +891,8 @@ __all__ = [
     "TimePoint",
     "TransferLoyaltyCard",
     "TriggerCustomEffectBlock",
-    "TriggerCustomEffectBlock1CustomEffect",
     "TriggerCustomEffectBlock1Target",
     "TriggerWebhookBlock",
-    "TriggerWebhookBlock1Webhook",
     "TriggerWebhookEffectProps",
     "TwoFAConfig",
     "UnaryCheckAttributeBlock",
@@ -843,18 +900,15 @@ __all__ = [
     "UpdateAccount",
     "UpdateAchievement",
     "UpdateAchievementProgressBlock",
-    "UpdateAchievementProgressBlock1Achievement",
     "UpdateAchievementV2",
     "UpdateApplication",
     "UpdateApplicationAPIKey",
     "UpdateApplicationCIF",
     "UpdateAttributeEffectProps",
     "UpdateAttributeValueBlock",
-    "UpdateAttributeValueBlock1Attribute",
     "UpdateAttributeValueBlock1Target",
     "UpdateAudience",
     "UpdateAudienceMembershipBlock",
-    "UpdateAudienceMembershipBlock1Audience",
     "UpdateBlueprint",
     "UpdateCampaign",
     "UpdateCampaignCollection",
@@ -875,6 +929,8 @@ __all__ = [
     "UpdateExperimentVariantName",
     "UpdateLoyaltyCard",
     "UpdateLoyaltyCardRequest",
+    "UpdateLoyaltyPointsExpiryBlock",
+    "UpdateLoyaltyPointsExpiryBlock1Program",
     "UpdateLoyaltyProgram",
     "UpdateLoyaltyProgramTier",
     "UpdatePicklist",
@@ -900,6 +956,7 @@ __all__ = [
     "WebhookAuthenticationDataBasic",
     "WebhookAuthenticationDataCustom",
     "WebhookAuthenticationWebhookRef",
+    "WebhookBlockReference",
     "WebhookWithOutgoingIntegrationDetails",
     "WillAwardGiveawayEffectProps",
     "WithinCheckAttributeBlock",
@@ -941,6 +998,7 @@ from talon_one.models.achievement_additional_properties import AchievementAdditi
 from talon_one.models.achievement_additional_properties_v2 import AchievementAdditionalPropertiesV2 as AchievementAdditionalPropertiesV2
 from talon_one.models.achievement_base import AchievementBase as AchievementBase
 from talon_one.models.achievement_base_v2 import AchievementBaseV2 as AchievementBaseV2
+from talon_one.models.achievement_block_reference import AchievementBlockReference as AchievementBlockReference
 from talon_one.models.achievement_progress import AchievementProgress as AchievementProgress
 from talon_one.models.achievement_progress_with_definition import AchievementProgressWithDefinition as AchievementProgressWithDefinition
 from talon_one.models.achievement_reference import AchievementReference as AchievementReference
@@ -993,10 +1051,12 @@ from talon_one.models.async_coupon_creation_response import AsyncCouponCreationR
 from talon_one.models.async_coupon_deletion_job_response import AsyncCouponDeletionJobResponse as AsyncCouponDeletionJobResponse
 from talon_one.models.async_coupons_data import AsyncCouponsData as AsyncCouponsData
 from talon_one.models.attribute import Attribute as Attribute
+from talon_one.models.attribute_block_reference import AttributeBlockReference as AttributeBlockReference
 from talon_one.models.attributes_mandatory import AttributesMandatory as AttributesMandatory
 from talon_one.models.attributes_settings import AttributesSettings as AttributesSettings
 from talon_one.models.audience import Audience as Audience
 from talon_one.models.audience_analytics import AudienceAnalytics as AudienceAnalytics
+from talon_one.models.audience_block_reference import AudienceBlockReference as AudienceBlockReference
 from talon_one.models.audience_customer import AudienceCustomer as AudienceCustomer
 from talon_one.models.audience_integration_id import AudienceIntegrationID as AudienceIntegrationID
 from talon_one.models.audience_membership import AudienceMembership as AudienceMembership
@@ -1017,6 +1077,15 @@ from talon_one.models.award_discount_target import AwardDiscountTarget as AwardD
 from talon_one.models.award_giveaway_block import AwardGiveawayBlock as AwardGiveawayBlock
 from talon_one.models.award_giveaway_effect_props import AwardGiveawayEffectProps as AwardGiveawayEffectProps
 from talon_one.models.award_item_block import AwardItemBlock as AwardItemBlock
+from talon_one.models.award_loyalty_points_all_items_target import AwardLoyaltyPointsAllItemsTarget as AwardLoyaltyPointsAllItemsTarget
+from talon_one.models.award_loyalty_points_block import AwardLoyaltyPointsBlock as AwardLoyaltyPointsBlock
+from talon_one.models.award_loyalty_points_block1_program import AwardLoyaltyPointsBlock1Program as AwardLoyaltyPointsBlock1Program
+from talon_one.models.award_loyalty_points_block1_value import AwardLoyaltyPointsBlock1Value as AwardLoyaltyPointsBlock1Value
+from talon_one.models.award_loyalty_points_bundle_target import AwardLoyaltyPointsBundleTarget as AwardLoyaltyPointsBundleTarget
+from talon_one.models.award_loyalty_points_cart_target import AwardLoyaltyPointsCartTarget as AwardLoyaltyPointsCartTarget
+from talon_one.models.award_loyalty_points_global_filter_target import AwardLoyaltyPointsGlobalFilterTarget as AwardLoyaltyPointsGlobalFilterTarget
+from talon_one.models.award_loyalty_points_selector_target import AwardLoyaltyPointsSelectorTarget as AwardLoyaltyPointsSelectorTarget
+from talon_one.models.award_loyalty_points_target import AwardLoyaltyPointsTarget as AwardLoyaltyPointsTarget
 from talon_one.models.base_block import BaseBlock as BaseBlock
 from talon_one.models.base_campaign import BaseCampaign as BaseCampaign
 from talon_one.models.base_loyalty_program import BaseLoyaltyProgram as BaseLoyaltyProgram
@@ -1117,11 +1186,9 @@ from talon_one.models.change import Change as Change
 from talon_one.models.change_loyalty_tier_level_effect_props import ChangeLoyaltyTierLevelEffectProps as ChangeLoyaltyTierLevelEffectProps
 from talon_one.models.change_profile_password import ChangeProfilePassword as ChangeProfilePassword
 from talon_one.models.check_achievement_block import CheckAchievementBlock as CheckAchievementBlock
-from talon_one.models.check_achievement_block1_achievement import CheckAchievementBlock1Achievement as CheckAchievementBlock1Achievement
 from talon_one.models.check_attribute_block import CheckAttributeBlock as CheckAttributeBlock
 from talon_one.models.check_attribute_block_base import CheckAttributeBlockBase as CheckAttributeBlockBase
 from talon_one.models.check_audience_block import CheckAudienceBlock as CheckAudienceBlock
-from talon_one.models.check_audience_block1_audience import CheckAudienceBlock1Audience as CheckAudienceBlock1Audience
 from talon_one.models.check_budget_block import CheckBudgetBlock as CheckBudgetBlock
 from talon_one.models.check_coupon_block import CheckCouponBlock as CheckCouponBlock
 from talon_one.models.check_event_block import CheckEventBlock as CheckEventBlock
@@ -1130,7 +1197,6 @@ from talon_one.models.check_loyalty_balance_block1_program import CheckLoyaltyBa
 from talon_one.models.check_loyalty_card_block import CheckLoyaltyCardBlock as CheckLoyaltyCardBlock
 from talon_one.models.check_referral_block import CheckReferralBlock as CheckReferralBlock
 from talon_one.models.check_tier_block import CheckTierBlock as CheckTierBlock
-from talon_one.models.check_tier_block1_tier import CheckTierBlock1Tier as CheckTierBlock1Tier
 from talon_one.models.code_generator_settings import CodeGeneratorSettings as CodeGeneratorSettings
 from talon_one.models.collection import Collection as Collection
 from talon_one.models.collection_item import CollectionItem as CollectionItem
@@ -1147,10 +1213,12 @@ from talon_one.models.coupon_entity import CouponEntity as CouponEntity
 from talon_one.models.coupon_failure_summary import CouponFailureSummary as CouponFailureSummary
 from talon_one.models.coupon_limit_configs import CouponLimitConfigs as CouponLimitConfigs
 from talon_one.models.coupon_rejection_reason import CouponRejectionReason as CouponRejectionReason
+from talon_one.models.coupon_reservation import CouponReservation as CouponReservation
 from talon_one.models.coupon_reservations import CouponReservations as CouponReservations
 from talon_one.models.coupon_search import CouponSearch as CouponSearch
 from talon_one.models.coupon_value import CouponValue as CouponValue
 from talon_one.models.coupon_with_application import CouponWithApplication as CouponWithApplication
+from talon_one.models.coupon_with_reservations import CouponWithReservations as CouponWithReservations
 from talon_one.models.coupons_notification_data import CouponsNotificationData as CouponsNotificationData
 from talon_one.models.coupons_notification_policy import CouponsNotificationPolicy as CouponsNotificationPolicy
 from talon_one.models.create_achievement import CreateAchievement as CreateAchievement
@@ -1171,6 +1239,7 @@ from talon_one.models.create_referrals_for_multiple_advocates201_response import
 from talon_one.models.create_template_campaign import CreateTemplateCampaign as CreateTemplateCampaign
 from talon_one.models.create_template_campaign_response import CreateTemplateCampaignResponse as CreateTemplateCampaignResponse
 from talon_one.models.custom_effect import CustomEffect as CustomEffect
+from talon_one.models.custom_effect_block_reference import CustomEffectBlockReference as CustomEffectBlockReference
 from talon_one.models.custom_effect_props import CustomEffectProps as CustomEffectProps
 from talon_one.models.customer_achievement import CustomerAchievement as CustomerAchievement
 from talon_one.models.customer_activity_report import CustomerActivityReport as CustomerActivityReport
@@ -1185,6 +1254,7 @@ from talon_one.models.customer_profile_integration_response_v2 import CustomerPr
 from talon_one.models.customer_profile_reward import CustomerProfileReward as CustomerProfileReward
 from talon_one.models.customer_profile_search_query import CustomerProfileSearchQuery as CustomerProfileSearchQuery
 from talon_one.models.customer_profile_update_v2_response import CustomerProfileUpdateV2Response as CustomerProfileUpdateV2Response
+from talon_one.models.customer_reservation import CustomerReservation as CustomerReservation
 from talon_one.models.customer_reward import CustomerReward as CustomerReward
 from talon_one.models.customer_session import CustomerSession as CustomerSession
 from talon_one.models.customer_session_v2 import CustomerSessionV2 as CustomerSessionV2
@@ -1197,7 +1267,49 @@ from talon_one.models.delete_user_request import DeleteUserRequest as DeleteUser
 from talon_one.models.digital_pass import DigitalPass as DigitalPass
 from talon_one.models.discard_risks_request import DiscardRisksRequest as DiscardRisksRequest
 from talon_one.models.effect import Effect as Effect
+from talon_one.models.effect_accept_coupon import EffectAcceptCoupon as EffectAcceptCoupon
+from talon_one.models.effect_accept_referral import EffectAcceptReferral as EffectAcceptReferral
+from talon_one.models.effect_add_free_item import EffectAddFreeItem as EffectAddFreeItem
+from talon_one.models.effect_add_loyalty_points import EffectAddLoyaltyPoints as EffectAddLoyaltyPoints
+from talon_one.models.effect_add_negative_loyalty_points import EffectAddNegativeLoyaltyPoints as EffectAddNegativeLoyaltyPoints
+from talon_one.models.effect_add_to_audience import EffectAddToAudience as EffectAddToAudience
+from talon_one.models.effect_award_giveaway import EffectAwardGiveaway as EffectAwardGiveaway
+from talon_one.models.effect_call_api import EffectCallApi as EffectCallApi
+from talon_one.models.effect_change_loyalty_tier_level import EffectChangeLoyaltyTierLevel as EffectChangeLoyaltyTierLevel
+from talon_one.models.effect_coupon_created import EffectCouponCreated as EffectCouponCreated
+from talon_one.models.effect_custom_effect import EffectCustomEffect as EffectCustomEffect
+from talon_one.models.effect_deduct_loyalty_points import EffectDeductLoyaltyPoints as EffectDeductLoyaltyPoints
 from talon_one.models.effect_entity import EffectEntity as EffectEntity
+from talon_one.models.effect_error import EffectError as EffectError
+from talon_one.models.effect_extend_loyalty_points_expiry_date import EffectExtendLoyaltyPointsExpiryDate as EffectExtendLoyaltyPointsExpiryDate
+from talon_one.models.effect_increase_achievement_progress import EffectIncreaseAchievementProgress as EffectIncreaseAchievementProgress
+from talon_one.models.effect_join_loyalty_program import EffectJoinLoyaltyProgram as EffectJoinLoyaltyProgram
+from talon_one.models.effect_offset_negative_loyalty_points import EffectOffsetNegativeLoyaltyPoints as EffectOffsetNegativeLoyaltyPoints
+from talon_one.models.effect_redeem_referral import EffectRedeemReferral as EffectRedeemReferral
+from talon_one.models.effect_referral_created import EffectReferralCreated as EffectReferralCreated
+from talon_one.models.effect_reject_coupon import EffectRejectCoupon as EffectRejectCoupon
+from talon_one.models.effect_reject_referral import EffectRejectReferral as EffectRejectReferral
+from talon_one.models.effect_remove_from_audience import EffectRemoveFromAudience as EffectRemoveFromAudience
+from talon_one.models.effect_reserve_coupon import EffectReserveCoupon as EffectReserveCoupon
+from talon_one.models.effect_rollback_added_loyalty_points import EffectRollbackAddedLoyaltyPoints as EffectRollbackAddedLoyaltyPoints
+from talon_one.models.effect_rollback_coupon import EffectRollbackCoupon as EffectRollbackCoupon
+from talon_one.models.effect_rollback_deducted_loyalty_points import EffectRollbackDeductedLoyaltyPoints as EffectRollbackDeductedLoyaltyPoints
+from talon_one.models.effect_rollback_discount import EffectRollbackDiscount as EffectRollbackDiscount
+from talon_one.models.effect_rollback_increased_achievement_progress import EffectRollbackIncreasedAchievementProgress as EffectRollbackIncreasedAchievementProgress
+from talon_one.models.effect_rollback_referral import EffectRollbackReferral as EffectRollbackReferral
+from talon_one.models.effect_rollback_use_reward import EffectRollbackUseReward as EffectRollbackUseReward
+from talon_one.models.effect_set import EffectSet as EffectSet
+from talon_one.models.effect_set_discount import EffectSetDiscount as EffectSetDiscount
+from talon_one.models.effect_set_discount_per_additional_cost import EffectSetDiscountPerAdditionalCost as EffectSetDiscountPerAdditionalCost
+from talon_one.models.effect_set_discount_per_additional_cost_per_item import EffectSetDiscountPerAdditionalCostPerItem as EffectSetDiscountPerAdditionalCostPerItem
+from talon_one.models.effect_set_discount_per_item import EffectSetDiscountPerItem as EffectSetDiscountPerItem
+from talon_one.models.effect_set_loyalty_points_expiry_date import EffectSetLoyaltyPointsExpiryDate as EffectSetLoyaltyPointsExpiryDate
+from talon_one.models.effect_show_bundle_metadata import EffectShowBundleMetadata as EffectShowBundleMetadata
+from talon_one.models.effect_show_notification import EffectShowNotification as EffectShowNotification
+from talon_one.models.effect_start_achievement_progress import EffectStartAchievementProgress as EffectStartAchievementProgress
+from talon_one.models.effect_unlock_reward import EffectUnlockReward as EffectUnlockReward
+from talon_one.models.effect_use_reward import EffectUseReward as EffectUseReward
+from talon_one.models.effect_will_award_giveaway import EffectWillAwardGiveaway as EffectWillAwardGiveaway
 from talon_one.models.email_entity import EmailEntity as EmailEntity
 from talon_one.models.embedded_analytics_configuration import EmbeddedAnalyticsConfiguration as EmbeddedAnalyticsConfiguration
 from talon_one.models.embedded_analytics_configuration_dashboards import EmbeddedAnalyticsConfigurationDashboards as EmbeddedAnalyticsConfigurationDashboards
@@ -1304,6 +1416,7 @@ from talon_one.models.get_customer_achievements200_response import GetCustomerAc
 from talon_one.models.get_customer_activity_reports_without_total_count200_response import GetCustomerActivityReportsWithoutTotalCount200Response as GetCustomerActivityReportsWithoutTotalCount200Response
 from talon_one.models.get_customer_profile_achievement_progress200_response import GetCustomerProfileAchievementProgress200Response as GetCustomerProfileAchievementProgress200Response
 from talon_one.models.get_customer_profiles200_response import GetCustomerProfiles200Response as GetCustomerProfiles200Response
+from talon_one.models.get_customer_rewards200_response import GetCustomerRewards200Response as GetCustomerRewards200Response
 from talon_one.models.get_customers_by_attributes200_response import GetCustomersByAttributes200Response as GetCustomersByAttributes200Response
 from talon_one.models.get_dashboard_statistics200_response import GetDashboardStatistics200Response as GetDashboardStatistics200Response
 from talon_one.models.get_event_types200_response import GetEventTypes200Response as GetEventTypes200Response
@@ -1323,9 +1436,9 @@ from talon_one.models.get_rulesets200_response import GetRulesets200Response as 
 from talon_one.models.get_users200_response import GetUsers200Response as GetUsers200Response
 from talon_one.models.get_webhooks200_response import GetWebhooks200Response as GetWebhooks200Response
 from talon_one.models.giveaway import Giveaway as Giveaway
+from talon_one.models.giveaway_pool_block_reference import GiveawayPoolBlockReference as GiveawayPoolBlockReference
 from talon_one.models.giveaway_pool_notification import GiveawayPoolNotification as GiveawayPoolNotification
 from talon_one.models.giveaway_pool_notification_data import GiveawayPoolNotificationData as GiveawayPoolNotificationData
-from talon_one.models.giveaway_pool_reference import GiveawayPoolReference as GiveawayPoolReference
 from talon_one.models.giveaways_pool import GiveawaysPool as GiveawaysPool
 from talon_one.models.group_block import GroupBlock as GroupBlock
 from talon_one.models.hidden_conditions_effects import HiddenConditionsEffects as HiddenConditionsEffects
@@ -1375,6 +1488,7 @@ from talon_one.models.integration_state import IntegrationState as IntegrationSt
 from talon_one.models.integration_state_v2 import IntegrationStateV2 as IntegrationStateV2
 from talon_one.models.integration_store_entity import IntegrationStoreEntity as IntegrationStoreEntity
 from talon_one.models.integration_unlock_reward_request import IntegrationUnlockRewardRequest as IntegrationUnlockRewardRequest
+from talon_one.models.integration_unlock_reward_response import IntegrationUnlockRewardResponse as IntegrationUnlockRewardResponse
 from talon_one.models.inventory_coupon import InventoryCoupon as InventoryCoupon
 from talon_one.models.inventory_referral import InventoryReferral as InventoryReferral
 from talon_one.models.item_attribute import ItemAttribute as ItemAttribute
@@ -1701,6 +1815,7 @@ from talon_one.models.strikethrough_set_discount_per_item_member_effect_props im
 from talon_one.models.strikethrough_trigger import StrikethroughTrigger as StrikethroughTrigger
 from talon_one.models.summarize_campaign_store_budget200_response import SummarizeCampaignStoreBudget200Response as SummarizeCampaignStoreBudget200Response
 from talon_one.models.summary_campaign_store_budget import SummaryCampaignStoreBudget as SummaryCampaignStoreBudget
+from talon_one.models.support_balances import SupportBalances as SupportBalances
 from talon_one.models.support_customer_profile import SupportCustomerProfile as SupportCustomerProfile
 from talon_one.models.support_request import SupportRequest as SupportRequest
 from talon_one.models.support_request_input import SupportRequestInput as SupportRequestInput
@@ -1711,6 +1826,7 @@ from talon_one.models.template_def import TemplateDef as TemplateDef
 from talon_one.models.template_limit_config import TemplateLimitConfig as TemplateLimitConfig
 from talon_one.models.template_parameter import TemplateParameter as TemplateParameter
 from talon_one.models.tier import Tier as Tier
+from talon_one.models.tier_block_reference import TierBlockReference as TierBlockReference
 from talon_one.models.tier_downgrade_data import TierDowngradeData as TierDowngradeData
 from talon_one.models.tier_downgrade_notification import TierDowngradeNotification as TierDowngradeNotification
 from talon_one.models.tier_downgrade_notification_policy import TierDowngradeNotificationPolicy as TierDowngradeNotificationPolicy
@@ -1724,10 +1840,8 @@ from talon_one.models.tier_will_downgrade_notification_trigger import TierWillDo
 from talon_one.models.time_point import TimePoint as TimePoint
 from talon_one.models.transfer_loyalty_card import TransferLoyaltyCard as TransferLoyaltyCard
 from talon_one.models.trigger_custom_effect_block import TriggerCustomEffectBlock as TriggerCustomEffectBlock
-from talon_one.models.trigger_custom_effect_block1_custom_effect import TriggerCustomEffectBlock1CustomEffect as TriggerCustomEffectBlock1CustomEffect
 from talon_one.models.trigger_custom_effect_block1_target import TriggerCustomEffectBlock1Target as TriggerCustomEffectBlock1Target
 from talon_one.models.trigger_webhook_block import TriggerWebhookBlock as TriggerWebhookBlock
-from talon_one.models.trigger_webhook_block1_webhook import TriggerWebhookBlock1Webhook as TriggerWebhookBlock1Webhook
 from talon_one.models.trigger_webhook_effect_props import TriggerWebhookEffectProps as TriggerWebhookEffectProps
 from talon_one.models.two_fa_config import TwoFAConfig as TwoFAConfig
 from talon_one.models.unary_check_attribute_block import UnaryCheckAttributeBlock as UnaryCheckAttributeBlock
@@ -1735,18 +1849,15 @@ from talon_one.models.unlock_reward_effect_props import UnlockRewardEffectProps 
 from talon_one.models.update_account import UpdateAccount as UpdateAccount
 from talon_one.models.update_achievement import UpdateAchievement as UpdateAchievement
 from talon_one.models.update_achievement_progress_block import UpdateAchievementProgressBlock as UpdateAchievementProgressBlock
-from talon_one.models.update_achievement_progress_block1_achievement import UpdateAchievementProgressBlock1Achievement as UpdateAchievementProgressBlock1Achievement
 from talon_one.models.update_achievement_v2 import UpdateAchievementV2 as UpdateAchievementV2
 from talon_one.models.update_application import UpdateApplication as UpdateApplication
 from talon_one.models.update_application_api_key import UpdateApplicationAPIKey as UpdateApplicationAPIKey
 from talon_one.models.update_application_cif import UpdateApplicationCIF as UpdateApplicationCIF
 from talon_one.models.update_attribute_effect_props import UpdateAttributeEffectProps as UpdateAttributeEffectProps
 from talon_one.models.update_attribute_value_block import UpdateAttributeValueBlock as UpdateAttributeValueBlock
-from talon_one.models.update_attribute_value_block1_attribute import UpdateAttributeValueBlock1Attribute as UpdateAttributeValueBlock1Attribute
 from talon_one.models.update_attribute_value_block1_target import UpdateAttributeValueBlock1Target as UpdateAttributeValueBlock1Target
 from talon_one.models.update_audience import UpdateAudience as UpdateAudience
 from talon_one.models.update_audience_membership_block import UpdateAudienceMembershipBlock as UpdateAudienceMembershipBlock
-from talon_one.models.update_audience_membership_block1_audience import UpdateAudienceMembershipBlock1Audience as UpdateAudienceMembershipBlock1Audience
 from talon_one.models.update_blueprint import UpdateBlueprint as UpdateBlueprint
 from talon_one.models.update_campaign import UpdateCampaign as UpdateCampaign
 from talon_one.models.update_campaign_collection import UpdateCampaignCollection as UpdateCampaignCollection
@@ -1767,6 +1878,8 @@ from talon_one.models.update_experiment_variant_array import UpdateExperimentVar
 from talon_one.models.update_experiment_variant_name import UpdateExperimentVariantName as UpdateExperimentVariantName
 from talon_one.models.update_loyalty_card import UpdateLoyaltyCard as UpdateLoyaltyCard
 from talon_one.models.update_loyalty_card_request import UpdateLoyaltyCardRequest as UpdateLoyaltyCardRequest
+from talon_one.models.update_loyalty_points_expiry_block import UpdateLoyaltyPointsExpiryBlock as UpdateLoyaltyPointsExpiryBlock
+from talon_one.models.update_loyalty_points_expiry_block1_program import UpdateLoyaltyPointsExpiryBlock1Program as UpdateLoyaltyPointsExpiryBlock1Program
 from talon_one.models.update_loyalty_program import UpdateLoyaltyProgram as UpdateLoyaltyProgram
 from talon_one.models.update_loyalty_program_tier import UpdateLoyaltyProgramTier as UpdateLoyaltyProgramTier
 from talon_one.models.update_picklist import UpdatePicklist as UpdatePicklist
@@ -1792,6 +1905,7 @@ from talon_one.models.webhook_authentication_base_custom import WebhookAuthentic
 from talon_one.models.webhook_authentication_data_basic import WebhookAuthenticationDataBasic as WebhookAuthenticationDataBasic
 from talon_one.models.webhook_authentication_data_custom import WebhookAuthenticationDataCustom as WebhookAuthenticationDataCustom
 from talon_one.models.webhook_authentication_webhook_ref import WebhookAuthenticationWebhookRef as WebhookAuthenticationWebhookRef
+from talon_one.models.webhook_block_reference import WebhookBlockReference as WebhookBlockReference
 from talon_one.models.webhook_with_outgoing_integration_details import WebhookWithOutgoingIntegrationDetails as WebhookWithOutgoingIntegrationDetails
 from talon_one.models.will_award_giveaway_effect_props import WillAwardGiveawayEffectProps as WillAwardGiveawayEffectProps
 from talon_one.models.within_check_attribute_block import WithinCheckAttributeBlock as WithinCheckAttributeBlock

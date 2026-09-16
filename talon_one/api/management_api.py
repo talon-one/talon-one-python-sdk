@@ -113,6 +113,7 @@ from talon_one.models.message_log_entries import MessageLogEntries
 from talon_one.models.model_import import ModelImport
 from talon_one.models.new_additional_cost import NewAdditionalCost
 from talon_one.models.new_attribute import NewAttribute
+from talon_one.models.new_campaign import NewCampaign
 from talon_one.models.new_campaign_collection import NewCampaignCollection
 from talon_one.models.new_campaign_store_budget import NewCampaignStoreBudget
 from talon_one.models.new_collection import NewCollection
@@ -3088,6 +3089,295 @@ class ManagementApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/v1/loyalty_programs/{loyaltyProgramId}/cards/batch',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def create_campaign(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        new_campaign: Annotated[NewCampaign, Field(description="body")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> Campaign:
+        """Create campaign
+
+        Create a campaign. A campaign is part of an Application and contains a set of rules. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param new_campaign: body (required)
+        :type new_campaign: NewCampaign
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_campaign_serialize(
+            application_id=application_id,
+            new_campaign=new_campaign,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "Campaign",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def create_campaign_with_http_info(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        new_campaign: Annotated[NewCampaign, Field(description="body")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[Campaign]:
+        """Create campaign
+
+        Create a campaign. A campaign is part of an Application and contains a set of rules. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param new_campaign: body (required)
+        :type new_campaign: NewCampaign
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_campaign_serialize(
+            application_id=application_id,
+            new_campaign=new_campaign,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "Campaign",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def create_campaign_without_preload_content(
+        self,
+        application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
+        new_campaign: Annotated[NewCampaign, Field(description="body")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Create campaign
+
+        Create a campaign. A campaign is part of an Application and contains a set of rules. 
+
+        :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
+        :type application_id: int
+        :param new_campaign: body (required)
+        :type new_campaign: NewCampaign
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_campaign_serialize(
+            application_id=application_id,
+            new_campaign=new_campaign,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "Campaign",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _create_campaign_serialize(
+        self,
+        application_id,
+        new_campaign,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if application_id is not None:
+            _path_params['applicationId'] = application_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if new_campaign is not None:
+            _body_params = new_campaign
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/applications/{applicationId}/campaigns',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -16838,6 +17128,7 @@ class ManagementApi:
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. ")] = None,
         balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
+        subledger_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter results by an array of subledger IDs. If no value is provided, the export includes all subledgers and main ledger data for the specified loyalty program.  To specify the main ledger, provide an empty string (\"\"). ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -16861,6 +17152,8 @@ class ManagementApi:
         :type end_date: datetime
         :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
         :type balances: str
+        :param subledger_ids: Filter results by an array of subledger IDs. If no value is provided, the export includes all subledgers and main ledger data for the specified loyalty program.  To specify the main ledger, provide an empty string (\"\"). 
+        :type subledger_ids: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -16887,6 +17180,7 @@ class ManagementApi:
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
             balances=balances,
+            subledger_ids=subledger_ids,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -16915,6 +17209,7 @@ class ManagementApi:
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. ")] = None,
         balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
+        subledger_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter results by an array of subledger IDs. If no value is provided, the export includes all subledgers and main ledger data for the specified loyalty program.  To specify the main ledger, provide an empty string (\"\"). ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -16938,6 +17233,8 @@ class ManagementApi:
         :type end_date: datetime
         :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
         :type balances: str
+        :param subledger_ids: Filter results by an array of subledger IDs. If no value is provided, the export includes all subledgers and main ledger data for the specified loyalty program.  To specify the main ledger, provide an empty string (\"\"). 
+        :type subledger_ids: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -16964,6 +17261,7 @@ class ManagementApi:
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
             balances=balances,
+            subledger_ids=subledger_ids,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -16992,6 +17290,7 @@ class ManagementApi:
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         end_date: Annotated[Optional[datetime], Field(description="Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export. ")] = None,
         balances: Annotated[Optional[StrictStr], Field(description="Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. ")] = None,
+        subledger_ids: Annotated[Optional[List[StrictStr]], Field(description="Filter results by an array of subledger IDs. If no value is provided, the export includes all subledgers and main ledger data for the specified loyalty program.  To specify the main ledger, provide an empty string (\"\"). ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -17015,6 +17314,8 @@ class ManagementApi:
         :type end_date: datetime
         :param balances: Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list. 
         :type balances: str
+        :param subledger_ids: Filter results by an array of subledger IDs. If no value is provided, the export includes all subledgers and main ledger data for the specified loyalty program.  To specify the main ledger, provide an empty string (\"\"). 
+        :type subledger_ids: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -17041,6 +17342,7 @@ class ManagementApi:
             loyalty_program_id=loyalty_program_id,
             end_date=end_date,
             balances=balances,
+            subledger_ids=subledger_ids,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -17064,6 +17366,7 @@ class ManagementApi:
         loyalty_program_id,
         end_date,
         balances,
+        subledger_ids,
         _request_auth,
         _content_type,
         _headers,
@@ -17073,6 +17376,7 @@ class ManagementApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'subledgerIds': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -17104,6 +17408,10 @@ class ManagementApi:
         if balances is not None:
             
             _query_params.append(('balances', balances))
+            
+        if subledger_ids is not None:
+            
+            _query_params.append(('subledgerIds', subledger_ids))
             
         # process the header parameters
         # process the form parameters
@@ -45633,7 +45941,7 @@ class ManagementApi:
     ) -> ModelImport:
         """Import join dates for a loyalty program
 
-        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `newjoindate`: The new join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,newjoindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
+        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `joindate`: The join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,joindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -45707,7 +46015,7 @@ class ManagementApi:
     ) -> ApiResponse[ModelImport]:
         """Import join dates for a loyalty program
 
-        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `newjoindate`: The new join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,newjoindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
+        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `joindate`: The join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,joindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -45781,7 +46089,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Import join dates for a loyalty program
 
-        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `newjoindate`: The new join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,newjoindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
+        Upload a CSV file containing customer profile IDs and their join dates for the specified loyalty program. Send the file as multipart data.  > [!important] This endpoint only works with profile-based loyalty programs.  The CSV file **must** contain the following columns:  - `customerprofileid`: The integration ID of the customer profile whose join   date you want to update. - `joindate`: The join date for the customer in RFC3339 format. You   can use the time zone of your choice. It is converted to UTC internally   by Talon.One.  **Note**: - Customer profiles must already exist. If a referenced profile does not exist, the import fails with a `400` error. - If a join date already exists for a profile, the uploaded date replaces it.  > [!note] We recommend limiting your file size to 500 MB.  ## Example  ```csv customerprofileid,joindate customer1,2024-03-21T07:32:14Z customer2,2025-04-16T21:12:37Z customer3,2026-05-03T11:47:01Z ``` 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -47751,6 +48059,7 @@ class ManagementApi:
     def list_achievements_v2(
         self,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        campaign_id: Annotated[Optional[List[StrictInt]], Field(description="Filter results by one or more campaign IDs.  To include multiple IDs, repeat the parameter for each one, for example,`?campaignId=123&campaignId=456`. The response contains only achievements associated with the specified campaigns. ")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the achievement.")] = None,
@@ -47774,6 +48083,8 @@ class ManagementApi:
 
         :param page_size: The number of items in the response.
         :type page_size: int
+        :param campaign_id: Filter results by one or more campaign IDs.  To include multiple IDs, repeat the parameter for each one, for example,`?campaignId=123&campaignId=456`. The response contains only achievements associated with the specified campaigns. 
+        :type campaign_id: List[int]
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
@@ -47806,6 +48117,7 @@ class ManagementApi:
 
         _param = self._list_achievements_v2_serialize(
             page_size=page_size,
+            campaign_id=campaign_id,
             skip=skip,
             sort=sort,
             title=title,
@@ -47836,6 +48148,7 @@ class ManagementApi:
     def list_achievements_v2_with_http_info(
         self,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        campaign_id: Annotated[Optional[List[StrictInt]], Field(description="Filter results by one or more campaign IDs.  To include multiple IDs, repeat the parameter for each one, for example,`?campaignId=123&campaignId=456`. The response contains only achievements associated with the specified campaigns. ")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the achievement.")] = None,
@@ -47859,6 +48172,8 @@ class ManagementApi:
 
         :param page_size: The number of items in the response.
         :type page_size: int
+        :param campaign_id: Filter results by one or more campaign IDs.  To include multiple IDs, repeat the parameter for each one, for example,`?campaignId=123&campaignId=456`. The response contains only achievements associated with the specified campaigns. 
+        :type campaign_id: List[int]
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
@@ -47891,6 +48206,7 @@ class ManagementApi:
 
         _param = self._list_achievements_v2_serialize(
             page_size=page_size,
+            campaign_id=campaign_id,
             skip=skip,
             sort=sort,
             title=title,
@@ -47921,6 +48237,7 @@ class ManagementApi:
     def list_achievements_v2_without_preload_content(
         self,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        campaign_id: Annotated[Optional[List[StrictInt]], Field(description="Filter results by one or more campaign IDs.  To include multiple IDs, repeat the parameter for each one, for example,`?campaignId=123&campaignId=456`. The response contains only achievements associated with the specified campaigns. ")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. ")] = None,
         title: Annotated[Optional[StrictStr], Field(description="Filter by the display name of the achievement.")] = None,
@@ -47944,6 +48261,8 @@ class ManagementApi:
 
         :param page_size: The number of items in the response.
         :type page_size: int
+        :param campaign_id: Filter results by one or more campaign IDs.  To include multiple IDs, repeat the parameter for each one, for example,`?campaignId=123&campaignId=456`. The response contains only achievements associated with the specified campaigns. 
+        :type campaign_id: List[int]
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
         :param sort: The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations. 
@@ -47976,6 +48295,7 @@ class ManagementApi:
 
         _param = self._list_achievements_v2_serialize(
             page_size=page_size,
+            campaign_id=campaign_id,
             skip=skip,
             sort=sort,
             title=title,
@@ -48001,6 +48321,7 @@ class ManagementApi:
     def _list_achievements_v2_serialize(
         self,
         page_size,
+        campaign_id,
         skip,
         sort,
         title,
@@ -48014,6 +48335,7 @@ class ManagementApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'campaignId': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -48030,6 +48352,10 @@ class ManagementApi:
         if page_size is not None:
             
             _query_params.append(('pageSize', page_size))
+            
+        if campaign_id is not None:
+            
+            _query_params.append(('campaignId', campaign_id))
             
         if skip is not None:
             
@@ -48102,7 +48428,7 @@ class ManagementApi:
     ) -> ListAllRolesV2200Response:
         """List roles
 
-        List all roles.
+        List the roles defined in the deployment.  The roles returned depend on the role of the user calling this endpoint: - If the user has an admin role, all roles defined in the deployment are returned. - If the user does not have an admin role, only the roles currently assigned to this user are returned.  If your identity provider provisions roles through SCIM, any admin roles it defines are not included in this list.  To view the details of a specific role, use the [Get role](https://docs.talon.one/management-api#tag/Roles/operation/getRoleV2) endpoint. 
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -48165,7 +48491,7 @@ class ManagementApi:
     ) -> ApiResponse[ListAllRolesV2200Response]:
         """List roles
 
-        List all roles.
+        List the roles defined in the deployment.  The roles returned depend on the role of the user calling this endpoint: - If the user has an admin role, all roles defined in the deployment are returned. - If the user does not have an admin role, only the roles currently assigned to this user are returned.  If your identity provider provisions roles through SCIM, any admin roles it defines are not included in this list.  To view the details of a specific role, use the [Get role](https://docs.talon.one/management-api#tag/Roles/operation/getRoleV2) endpoint. 
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -48228,7 +48554,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """List roles
 
-        List all roles.
+        List the roles defined in the deployment.  The roles returned depend on the role of the user calling this endpoint: - If the user has an admin role, all roles defined in the deployment are returned. - If the user does not have an admin role, only the roles currently assigned to this user are returned.  If your identity provider provisions roles through SCIM, any admin roles it defines are not included in this list.  To view the details of a specific role, use the [Get role](https://docs.talon.one/management-api#tag/Roles/operation/getRoleV2) endpoint. 
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

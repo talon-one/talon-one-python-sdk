@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.update_achievement_progress_block1_achievement import UpdateAchievementProgressBlock1Achievement
+from talon_one.models.achievement_block_reference import AchievementBlockReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +33,7 @@ class UpdateAchievementProgressBlock(BaseModel):
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(json_schema_extra={"examples": ["increaseBy"]})
     value: StrictStr = Field(description="The value to update the progress by. Supports template placeholders (e.g. \"{{$Session.Total / 2}}\") for dynamic quantities.", json_schema_extra={"examples": ["10"]})
-    achievement: UpdateAchievementProgressBlock1Achievement
+    achievement: AchievementBlockReference = Field(description="The achievement to update.")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "value", "achievement"]
 
     @field_validator('operator')
@@ -106,7 +106,7 @@ class UpdateAchievementProgressBlock(BaseModel):
             "tags": obj.get("tags"),
             "operator": obj.get("operator"),
             "value": obj.get("value"),
-            "achievement": UpdateAchievementProgressBlock1Achievement.from_dict(obj["achievement"]) if obj.get("achievement") is not None else None
+            "achievement": AchievementBlockReference.from_dict(obj["achievement"]) if obj.get("achievement") is not None else None
         })
         return _obj
 

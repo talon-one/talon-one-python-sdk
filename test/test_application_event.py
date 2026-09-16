@@ -46,7 +46,7 @@ class TestApplicationEvent(unittest.TestCase):
                 type = '',
                 attributes = None,
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ],
                 rule_failure_reasons = [
                     talon_one.models.rule_failure_reason.RuleFailureReason(
@@ -76,7 +76,7 @@ class TestApplicationEvent(unittest.TestCase):
                 type = '',
                 attributes = None,
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ],
         )
         """

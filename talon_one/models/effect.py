@@ -13,116 +13,688 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from talon_one.models.effect_accept_coupon import EffectAcceptCoupon
+from talon_one.models.effect_accept_referral import EffectAcceptReferral
+from talon_one.models.effect_add_free_item import EffectAddFreeItem
+from talon_one.models.effect_add_loyalty_points import EffectAddLoyaltyPoints
+from talon_one.models.effect_add_negative_loyalty_points import EffectAddNegativeLoyaltyPoints
+from talon_one.models.effect_add_to_audience import EffectAddToAudience
+from talon_one.models.effect_award_giveaway import EffectAwardGiveaway
+from talon_one.models.effect_call_api import EffectCallApi
+from talon_one.models.effect_change_loyalty_tier_level import EffectChangeLoyaltyTierLevel
+from talon_one.models.effect_coupon_created import EffectCouponCreated
+from talon_one.models.effect_custom_effect import EffectCustomEffect
+from talon_one.models.effect_deduct_loyalty_points import EffectDeductLoyaltyPoints
+from talon_one.models.effect_error import EffectError
+from talon_one.models.effect_extend_loyalty_points_expiry_date import EffectExtendLoyaltyPointsExpiryDate
+from talon_one.models.effect_increase_achievement_progress import EffectIncreaseAchievementProgress
+from talon_one.models.effect_join_loyalty_program import EffectJoinLoyaltyProgram
+from talon_one.models.effect_offset_negative_loyalty_points import EffectOffsetNegativeLoyaltyPoints
+from talon_one.models.effect_redeem_referral import EffectRedeemReferral
+from talon_one.models.effect_referral_created import EffectReferralCreated
+from talon_one.models.effect_reject_coupon import EffectRejectCoupon
+from talon_one.models.effect_reject_referral import EffectRejectReferral
+from talon_one.models.effect_remove_from_audience import EffectRemoveFromAudience
+from talon_one.models.effect_reserve_coupon import EffectReserveCoupon
+from talon_one.models.effect_rollback_added_loyalty_points import EffectRollbackAddedLoyaltyPoints
+from talon_one.models.effect_rollback_coupon import EffectRollbackCoupon
+from talon_one.models.effect_rollback_deducted_loyalty_points import EffectRollbackDeductedLoyaltyPoints
+from talon_one.models.effect_rollback_discount import EffectRollbackDiscount
+from talon_one.models.effect_rollback_increased_achievement_progress import EffectRollbackIncreasedAchievementProgress
+from talon_one.models.effect_rollback_referral import EffectRollbackReferral
+from talon_one.models.effect_rollback_use_reward import EffectRollbackUseReward
+from talon_one.models.effect_set import EffectSet
+from talon_one.models.effect_set_discount import EffectSetDiscount
+from talon_one.models.effect_set_discount_per_additional_cost import EffectSetDiscountPerAdditionalCost
+from talon_one.models.effect_set_discount_per_additional_cost_per_item import EffectSetDiscountPerAdditionalCostPerItem
+from talon_one.models.effect_set_discount_per_item import EffectSetDiscountPerItem
+from talon_one.models.effect_set_loyalty_points_expiry_date import EffectSetLoyaltyPointsExpiryDate
+from talon_one.models.effect_show_bundle_metadata import EffectShowBundleMetadata
+from talon_one.models.effect_show_notification import EffectShowNotification
+from talon_one.models.effect_start_achievement_progress import EffectStartAchievementProgress
+from talon_one.models.effect_unlock_reward import EffectUnlockReward
+from talon_one.models.effect_use_reward import EffectUseReward
+from talon_one.models.effect_will_award_giveaway import EffectWillAwardGiveaway
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from uuid import UUID
-from typing import Optional, Set
-from typing_extensions import Self
-from pydantic_core import to_jsonable_python
+EFFECT_ONE_OF_SCHEMAS = ["EffectAcceptCoupon", "EffectAcceptReferral", "EffectAddFreeItem", "EffectAddLoyaltyPoints", "EffectAddNegativeLoyaltyPoints", "EffectAddToAudience", "EffectAwardGiveaway", "EffectCallApi", "EffectChangeLoyaltyTierLevel", "EffectCouponCreated", "EffectCustomEffect", "EffectDeductLoyaltyPoints", "EffectError", "EffectExtendLoyaltyPointsExpiryDate", "EffectIncreaseAchievementProgress", "EffectJoinLoyaltyProgram", "EffectOffsetNegativeLoyaltyPoints", "EffectRedeemReferral", "EffectReferralCreated", "EffectRejectCoupon", "EffectRejectReferral", "EffectRemoveFromAudience", "EffectReserveCoupon", "EffectRollbackAddedLoyaltyPoints", "EffectRollbackCoupon", "EffectRollbackDeductedLoyaltyPoints", "EffectRollbackDiscount", "EffectRollbackIncreasedAchievementProgress", "EffectRollbackReferral", "EffectRollbackUseReward", "EffectSet", "EffectSetDiscount", "EffectSetDiscountPerAdditionalCost", "EffectSetDiscountPerAdditionalCostPerItem", "EffectSetDiscountPerItem", "EffectSetLoyaltyPointsExpiryDate", "EffectShowBundleMetadata", "EffectShowNotification", "EffectStartAchievementProgress", "EffectUnlockReward", "EffectUseReward", "EffectWillAwardGiveaway"]
 
 class Effect(BaseModel):
     """
-    Effect
-    """ # noqa: E501
-    experiment_id: Optional[StrictInt] = Field(default=None, description="The ID of the experiment that campaign belongs to.", alias="experimentId", json_schema_extra={"examples": [12]})
-    campaign_id: StrictInt = Field(description="The ID of the campaign that triggered this effect.", alias="campaignId", json_schema_extra={"examples": [244]})
-    ruleset_id: StrictInt = Field(description="The ID of the ruleset that was active in the campaign when this effect was triggered.", alias="rulesetId", json_schema_extra={"examples": [73]})
-    rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex", json_schema_extra={"examples": [2]})
-    rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Give 20% discount"]})
-    effect_type: StrictStr = Field(description="The type of effect that was triggered. See [API effects](https://docs.talon.one/docs/dev/integration-api/api-effects).", alias="effectType", json_schema_extra={"examples": ["rejectCoupon"]})
-    triggered_by_coupon: Optional[StrictInt] = Field(default=None, description="The ID of the coupon that was being evaluated when this effect was triggered.", alias="triggeredByCoupon", json_schema_extra={"examples": [4928]})
-    triggered_for_catalog_item: Optional[StrictInt] = Field(default=None, description="The ID of the catalog item that was being evaluated when this effect was triggered.", alias="triggeredForCatalogItem", json_schema_extra={"examples": [786]})
-    condition_index: Optional[StrictInt] = Field(default=None, description="The index of the condition that was triggered.", alias="conditionIndex", json_schema_extra={"examples": [786]})
-    evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupID", json_schema_extra={"examples": [3]})
-    evaluation_group_mode: Optional[StrictStr] = Field(default=None, description="The evaluation mode of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupMode", json_schema_extra={"examples": ["stackable"]})
-    campaign_revision_id: Optional[StrictInt] = Field(default=None, description="The revision ID of the campaign that was used when triggering the effect.", alias="campaignRevisionId", json_schema_extra={"examples": [1]})
-    campaign_revision_version_id: Optional[StrictInt] = Field(default=None, description="The revision version ID of the campaign that was used when triggering the effect.", alias="campaignRevisionVersionId", json_schema_extra={"examples": [5]})
-    selected_price_type: Optional[StrictStr] = Field(default=None, description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
-    selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice", json_schema_extra={"examples": [100]})
-    adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
-    reward_id: Optional[StrictInt] = Field(default=None, description="The ID of the reward that was being evaluated when this effect was triggered.", alias="rewardId", json_schema_extra={"examples": [7]})
-    props: Optional[Any]
-    __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "rewardId", "props"]
+    A generic effect that is fired by a triggered campaign. The `effectType` field selects the concrete effect variant and the shape of `props`.
+    """
+    # data type: EffectAcceptCoupon
+    oneof_schema_1_validator: Optional[EffectAcceptCoupon] = None
+    # data type: EffectAcceptReferral
+    oneof_schema_2_validator: Optional[EffectAcceptReferral] = None
+    # data type: EffectAddFreeItem
+    oneof_schema_3_validator: Optional[EffectAddFreeItem] = None
+    # data type: EffectAddLoyaltyPoints
+    oneof_schema_4_validator: Optional[EffectAddLoyaltyPoints] = None
+    # data type: EffectAddNegativeLoyaltyPoints
+    oneof_schema_5_validator: Optional[EffectAddNegativeLoyaltyPoints] = None
+    # data type: EffectAddToAudience
+    oneof_schema_6_validator: Optional[EffectAddToAudience] = None
+    # data type: EffectAwardGiveaway
+    oneof_schema_7_validator: Optional[EffectAwardGiveaway] = None
+    # data type: EffectCallApi
+    oneof_schema_8_validator: Optional[EffectCallApi] = None
+    # data type: EffectChangeLoyaltyTierLevel
+    oneof_schema_9_validator: Optional[EffectChangeLoyaltyTierLevel] = None
+    # data type: EffectCouponCreated
+    oneof_schema_10_validator: Optional[EffectCouponCreated] = None
+    # data type: EffectCustomEffect
+    oneof_schema_11_validator: Optional[EffectCustomEffect] = None
+    # data type: EffectDeductLoyaltyPoints
+    oneof_schema_12_validator: Optional[EffectDeductLoyaltyPoints] = None
+    # data type: EffectError
+    oneof_schema_13_validator: Optional[EffectError] = None
+    # data type: EffectExtendLoyaltyPointsExpiryDate
+    oneof_schema_14_validator: Optional[EffectExtendLoyaltyPointsExpiryDate] = None
+    # data type: EffectIncreaseAchievementProgress
+    oneof_schema_15_validator: Optional[EffectIncreaseAchievementProgress] = None
+    # data type: EffectJoinLoyaltyProgram
+    oneof_schema_16_validator: Optional[EffectJoinLoyaltyProgram] = None
+    # data type: EffectOffsetNegativeLoyaltyPoints
+    oneof_schema_17_validator: Optional[EffectOffsetNegativeLoyaltyPoints] = None
+    # data type: EffectRedeemReferral
+    oneof_schema_18_validator: Optional[EffectRedeemReferral] = None
+    # data type: EffectReferralCreated
+    oneof_schema_19_validator: Optional[EffectReferralCreated] = None
+    # data type: EffectRejectCoupon
+    oneof_schema_20_validator: Optional[EffectRejectCoupon] = None
+    # data type: EffectRejectReferral
+    oneof_schema_21_validator: Optional[EffectRejectReferral] = None
+    # data type: EffectRemoveFromAudience
+    oneof_schema_22_validator: Optional[EffectRemoveFromAudience] = None
+    # data type: EffectReserveCoupon
+    oneof_schema_23_validator: Optional[EffectReserveCoupon] = None
+    # data type: EffectRollbackAddedLoyaltyPoints
+    oneof_schema_24_validator: Optional[EffectRollbackAddedLoyaltyPoints] = None
+    # data type: EffectRollbackCoupon
+    oneof_schema_25_validator: Optional[EffectRollbackCoupon] = None
+    # data type: EffectRollbackDeductedLoyaltyPoints
+    oneof_schema_26_validator: Optional[EffectRollbackDeductedLoyaltyPoints] = None
+    # data type: EffectRollbackDiscount
+    oneof_schema_27_validator: Optional[EffectRollbackDiscount] = None
+    # data type: EffectRollbackIncreasedAchievementProgress
+    oneof_schema_28_validator: Optional[EffectRollbackIncreasedAchievementProgress] = None
+    # data type: EffectRollbackReferral
+    oneof_schema_29_validator: Optional[EffectRollbackReferral] = None
+    # data type: EffectRollbackUseReward
+    oneof_schema_30_validator: Optional[EffectRollbackUseReward] = None
+    # data type: EffectSet
+    oneof_schema_31_validator: Optional[EffectSet] = None
+    # data type: EffectSetDiscount
+    oneof_schema_32_validator: Optional[EffectSetDiscount] = None
+    # data type: EffectSetDiscountPerAdditionalCost
+    oneof_schema_33_validator: Optional[EffectSetDiscountPerAdditionalCost] = None
+    # data type: EffectSetDiscountPerAdditionalCostPerItem
+    oneof_schema_34_validator: Optional[EffectSetDiscountPerAdditionalCostPerItem] = None
+    # data type: EffectSetDiscountPerItem
+    oneof_schema_35_validator: Optional[EffectSetDiscountPerItem] = None
+    # data type: EffectSetLoyaltyPointsExpiryDate
+    oneof_schema_36_validator: Optional[EffectSetLoyaltyPointsExpiryDate] = None
+    # data type: EffectShowBundleMetadata
+    oneof_schema_37_validator: Optional[EffectShowBundleMetadata] = None
+    # data type: EffectShowNotification
+    oneof_schema_38_validator: Optional[EffectShowNotification] = None
+    # data type: EffectStartAchievementProgress
+    oneof_schema_39_validator: Optional[EffectStartAchievementProgress] = None
+    # data type: EffectUnlockReward
+    oneof_schema_40_validator: Optional[EffectUnlockReward] = None
+    # data type: EffectUseReward
+    oneof_schema_41_validator: Optional[EffectUseReward] = None
+    # data type: EffectWillAwardGiveaway
+    oneof_schema_42_validator: Optional[EffectWillAwardGiveaway] = None
+    actual_instance: Optional[Union[EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway]] = None
+    one_of_schemas: Set[str] = { "EffectAcceptCoupon", "EffectAcceptReferral", "EffectAddFreeItem", "EffectAddLoyaltyPoints", "EffectAddNegativeLoyaltyPoints", "EffectAddToAudience", "EffectAwardGiveaway", "EffectCallApi", "EffectChangeLoyaltyTierLevel", "EffectCouponCreated", "EffectCustomEffect", "EffectDeductLoyaltyPoints", "EffectError", "EffectExtendLoyaltyPointsExpiryDate", "EffectIncreaseAchievementProgress", "EffectJoinLoyaltyProgram", "EffectOffsetNegativeLoyaltyPoints", "EffectRedeemReferral", "EffectReferralCreated", "EffectRejectCoupon", "EffectRejectReferral", "EffectRemoveFromAudience", "EffectReserveCoupon", "EffectRollbackAddedLoyaltyPoints", "EffectRollbackCoupon", "EffectRollbackDeductedLoyaltyPoints", "EffectRollbackDiscount", "EffectRollbackIncreasedAchievementProgress", "EffectRollbackReferral", "EffectRollbackUseReward", "EffectSet", "EffectSetDiscount", "EffectSetDiscountPerAdditionalCost", "EffectSetDiscountPerAdditionalCostPerItem", "EffectSetDiscountPerItem", "EffectSetLoyaltyPointsExpiryDate", "EffectShowBundleMetadata", "EffectShowNotification", "EffectStartAchievementProgress", "EffectUnlockReward", "EffectUseReward", "EffectWillAwardGiveaway" }
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
 
-    def to_str(self) -> str:
-        """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+    discriminator_value_class_map: Dict[str, str] = {
+    }
+
+    def __init__(self, *args, **kwargs) -> None:
+        if args:
+            if len(args) > 1:
+                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
+            if kwargs:
+                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
+            super().__init__(actual_instance=args[0])
+        else:
+            super().__init__(**kwargs)
+
+    @field_validator('actual_instance')
+    def actual_instance_must_validate_oneof(cls, v):
+        instance = Effect.model_construct()
+        error_messages = []
+        match = 0
+        # validate data type: EffectAcceptCoupon
+        if not isinstance(v, EffectAcceptCoupon):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectAcceptCoupon`")
+        else:
+            match += 1
+        # validate data type: EffectAcceptReferral
+        if not isinstance(v, EffectAcceptReferral):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectAcceptReferral`")
+        else:
+            match += 1
+        # validate data type: EffectAddFreeItem
+        if not isinstance(v, EffectAddFreeItem):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectAddFreeItem`")
+        else:
+            match += 1
+        # validate data type: EffectAddLoyaltyPoints
+        if not isinstance(v, EffectAddLoyaltyPoints):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectAddLoyaltyPoints`")
+        else:
+            match += 1
+        # validate data type: EffectAddNegativeLoyaltyPoints
+        if not isinstance(v, EffectAddNegativeLoyaltyPoints):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectAddNegativeLoyaltyPoints`")
+        else:
+            match += 1
+        # validate data type: EffectAddToAudience
+        if not isinstance(v, EffectAddToAudience):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectAddToAudience`")
+        else:
+            match += 1
+        # validate data type: EffectAwardGiveaway
+        if not isinstance(v, EffectAwardGiveaway):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectAwardGiveaway`")
+        else:
+            match += 1
+        # validate data type: EffectCallApi
+        if not isinstance(v, EffectCallApi):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectCallApi`")
+        else:
+            match += 1
+        # validate data type: EffectChangeLoyaltyTierLevel
+        if not isinstance(v, EffectChangeLoyaltyTierLevel):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectChangeLoyaltyTierLevel`")
+        else:
+            match += 1
+        # validate data type: EffectCouponCreated
+        if not isinstance(v, EffectCouponCreated):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectCouponCreated`")
+        else:
+            match += 1
+        # validate data type: EffectCustomEffect
+        if not isinstance(v, EffectCustomEffect):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectCustomEffect`")
+        else:
+            match += 1
+        # validate data type: EffectDeductLoyaltyPoints
+        if not isinstance(v, EffectDeductLoyaltyPoints):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectDeductLoyaltyPoints`")
+        else:
+            match += 1
+        # validate data type: EffectError
+        if not isinstance(v, EffectError):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectError`")
+        else:
+            match += 1
+        # validate data type: EffectExtendLoyaltyPointsExpiryDate
+        if not isinstance(v, EffectExtendLoyaltyPointsExpiryDate):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectExtendLoyaltyPointsExpiryDate`")
+        else:
+            match += 1
+        # validate data type: EffectIncreaseAchievementProgress
+        if not isinstance(v, EffectIncreaseAchievementProgress):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectIncreaseAchievementProgress`")
+        else:
+            match += 1
+        # validate data type: EffectJoinLoyaltyProgram
+        if not isinstance(v, EffectJoinLoyaltyProgram):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectJoinLoyaltyProgram`")
+        else:
+            match += 1
+        # validate data type: EffectOffsetNegativeLoyaltyPoints
+        if not isinstance(v, EffectOffsetNegativeLoyaltyPoints):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectOffsetNegativeLoyaltyPoints`")
+        else:
+            match += 1
+        # validate data type: EffectRedeemReferral
+        if not isinstance(v, EffectRedeemReferral):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRedeemReferral`")
+        else:
+            match += 1
+        # validate data type: EffectReferralCreated
+        if not isinstance(v, EffectReferralCreated):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectReferralCreated`")
+        else:
+            match += 1
+        # validate data type: EffectRejectCoupon
+        if not isinstance(v, EffectRejectCoupon):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRejectCoupon`")
+        else:
+            match += 1
+        # validate data type: EffectRejectReferral
+        if not isinstance(v, EffectRejectReferral):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRejectReferral`")
+        else:
+            match += 1
+        # validate data type: EffectRemoveFromAudience
+        if not isinstance(v, EffectRemoveFromAudience):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRemoveFromAudience`")
+        else:
+            match += 1
+        # validate data type: EffectReserveCoupon
+        if not isinstance(v, EffectReserveCoupon):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectReserveCoupon`")
+        else:
+            match += 1
+        # validate data type: EffectRollbackAddedLoyaltyPoints
+        if not isinstance(v, EffectRollbackAddedLoyaltyPoints):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackAddedLoyaltyPoints`")
+        else:
+            match += 1
+        # validate data type: EffectRollbackCoupon
+        if not isinstance(v, EffectRollbackCoupon):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackCoupon`")
+        else:
+            match += 1
+        # validate data type: EffectRollbackDeductedLoyaltyPoints
+        if not isinstance(v, EffectRollbackDeductedLoyaltyPoints):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackDeductedLoyaltyPoints`")
+        else:
+            match += 1
+        # validate data type: EffectRollbackDiscount
+        if not isinstance(v, EffectRollbackDiscount):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackDiscount`")
+        else:
+            match += 1
+        # validate data type: EffectRollbackIncreasedAchievementProgress
+        if not isinstance(v, EffectRollbackIncreasedAchievementProgress):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackIncreasedAchievementProgress`")
+        else:
+            match += 1
+        # validate data type: EffectRollbackReferral
+        if not isinstance(v, EffectRollbackReferral):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackReferral`")
+        else:
+            match += 1
+        # validate data type: EffectRollbackUseReward
+        if not isinstance(v, EffectRollbackUseReward):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackUseReward`")
+        else:
+            match += 1
+        # validate data type: EffectSet
+        if not isinstance(v, EffectSet):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectSet`")
+        else:
+            match += 1
+        # validate data type: EffectSetDiscount
+        if not isinstance(v, EffectSetDiscount):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectSetDiscount`")
+        else:
+            match += 1
+        # validate data type: EffectSetDiscountPerAdditionalCost
+        if not isinstance(v, EffectSetDiscountPerAdditionalCost):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectSetDiscountPerAdditionalCost`")
+        else:
+            match += 1
+        # validate data type: EffectSetDiscountPerAdditionalCostPerItem
+        if not isinstance(v, EffectSetDiscountPerAdditionalCostPerItem):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectSetDiscountPerAdditionalCostPerItem`")
+        else:
+            match += 1
+        # validate data type: EffectSetDiscountPerItem
+        if not isinstance(v, EffectSetDiscountPerItem):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectSetDiscountPerItem`")
+        else:
+            match += 1
+        # validate data type: EffectSetLoyaltyPointsExpiryDate
+        if not isinstance(v, EffectSetLoyaltyPointsExpiryDate):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectSetLoyaltyPointsExpiryDate`")
+        else:
+            match += 1
+        # validate data type: EffectShowBundleMetadata
+        if not isinstance(v, EffectShowBundleMetadata):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectShowBundleMetadata`")
+        else:
+            match += 1
+        # validate data type: EffectShowNotification
+        if not isinstance(v, EffectShowNotification):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectShowNotification`")
+        else:
+            match += 1
+        # validate data type: EffectStartAchievementProgress
+        if not isinstance(v, EffectStartAchievementProgress):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectStartAchievementProgress`")
+        else:
+            match += 1
+        # validate data type: EffectUnlockReward
+        if not isinstance(v, EffectUnlockReward):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectUnlockReward`")
+        else:
+            match += 1
+        # validate data type: EffectUseReward
+        if not isinstance(v, EffectUseReward):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectUseReward`")
+        else:
+            match += 1
+        # validate data type: EffectWillAwardGiveaway
+        if not isinstance(v, EffectWillAwardGiveaway):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectWillAwardGiveaway`")
+        else:
+            match += 1
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when setting `actual_instance` in Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when setting `actual_instance` in Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
+        else:
+            return v
+
+    @classmethod
+    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
+        return cls.from_json(json.dumps(obj))
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Returns the object represented by the json string"""
+        instance = cls.model_construct()
+        error_messages = []
+        match = 0
+
+        # deserialize data into EffectAcceptCoupon
+        try:
+            instance.actual_instance = EffectAcceptCoupon.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectAcceptReferral
+        try:
+            instance.actual_instance = EffectAcceptReferral.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectAddFreeItem
+        try:
+            instance.actual_instance = EffectAddFreeItem.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectAddLoyaltyPoints
+        try:
+            instance.actual_instance = EffectAddLoyaltyPoints.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectAddNegativeLoyaltyPoints
+        try:
+            instance.actual_instance = EffectAddNegativeLoyaltyPoints.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectAddToAudience
+        try:
+            instance.actual_instance = EffectAddToAudience.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectAwardGiveaway
+        try:
+            instance.actual_instance = EffectAwardGiveaway.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectCallApi
+        try:
+            instance.actual_instance = EffectCallApi.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectChangeLoyaltyTierLevel
+        try:
+            instance.actual_instance = EffectChangeLoyaltyTierLevel.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectCouponCreated
+        try:
+            instance.actual_instance = EffectCouponCreated.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectCustomEffect
+        try:
+            instance.actual_instance = EffectCustomEffect.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectDeductLoyaltyPoints
+        try:
+            instance.actual_instance = EffectDeductLoyaltyPoints.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectError
+        try:
+            instance.actual_instance = EffectError.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectExtendLoyaltyPointsExpiryDate
+        try:
+            instance.actual_instance = EffectExtendLoyaltyPointsExpiryDate.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectIncreaseAchievementProgress
+        try:
+            instance.actual_instance = EffectIncreaseAchievementProgress.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectJoinLoyaltyProgram
+        try:
+            instance.actual_instance = EffectJoinLoyaltyProgram.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectOffsetNegativeLoyaltyPoints
+        try:
+            instance.actual_instance = EffectOffsetNegativeLoyaltyPoints.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRedeemReferral
+        try:
+            instance.actual_instance = EffectRedeemReferral.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectReferralCreated
+        try:
+            instance.actual_instance = EffectReferralCreated.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRejectCoupon
+        try:
+            instance.actual_instance = EffectRejectCoupon.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRejectReferral
+        try:
+            instance.actual_instance = EffectRejectReferral.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRemoveFromAudience
+        try:
+            instance.actual_instance = EffectRemoveFromAudience.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectReserveCoupon
+        try:
+            instance.actual_instance = EffectReserveCoupon.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRollbackAddedLoyaltyPoints
+        try:
+            instance.actual_instance = EffectRollbackAddedLoyaltyPoints.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRollbackCoupon
+        try:
+            instance.actual_instance = EffectRollbackCoupon.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRollbackDeductedLoyaltyPoints
+        try:
+            instance.actual_instance = EffectRollbackDeductedLoyaltyPoints.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRollbackDiscount
+        try:
+            instance.actual_instance = EffectRollbackDiscount.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRollbackIncreasedAchievementProgress
+        try:
+            instance.actual_instance = EffectRollbackIncreasedAchievementProgress.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRollbackReferral
+        try:
+            instance.actual_instance = EffectRollbackReferral.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRollbackUseReward
+        try:
+            instance.actual_instance = EffectRollbackUseReward.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectSet
+        try:
+            instance.actual_instance = EffectSet.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectSetDiscount
+        try:
+            instance.actual_instance = EffectSetDiscount.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectSetDiscountPerAdditionalCost
+        try:
+            instance.actual_instance = EffectSetDiscountPerAdditionalCost.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectSetDiscountPerAdditionalCostPerItem
+        try:
+            instance.actual_instance = EffectSetDiscountPerAdditionalCostPerItem.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectSetDiscountPerItem
+        try:
+            instance.actual_instance = EffectSetDiscountPerItem.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectSetLoyaltyPointsExpiryDate
+        try:
+            instance.actual_instance = EffectSetLoyaltyPointsExpiryDate.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectShowBundleMetadata
+        try:
+            instance.actual_instance = EffectShowBundleMetadata.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectShowNotification
+        try:
+            instance.actual_instance = EffectShowNotification.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectStartAchievementProgress
+        try:
+            instance.actual_instance = EffectStartAchievementProgress.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectUnlockReward
+        try:
+            instance.actual_instance = EffectUnlockReward.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectUseReward
+        try:
+            instance.actual_instance = EffectUseReward.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectWillAwardGiveaway
+        try:
+            instance.actual_instance = EffectWillAwardGiveaway.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when deserializing the JSON string into Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when deserializing the JSON string into Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
+        else:
+            return instance
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        """Returns the JSON representation of the actual instance"""
+        if self.actual_instance is None:
+            return "null"
 
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Effect from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
+        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
+            return self.actual_instance.to_json()
+        else:
+            return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
-        # set to None if props (nullable) is None
-        # and model_fields_set contains the field
-        if self.props is None and "props" in self.model_fields_set:
-            _dict['props'] = None
-
-        return _dict
-
-    @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Effect from a dict"""
-        if obj is None:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway]]:
+        """Returns the dict representation of the actual instance"""
+        if self.actual_instance is None:
             return None
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
+            return self.actual_instance.to_dict()
+        else:
+            # primitive type
+            return self.actual_instance
 
-        _obj = cls.model_validate({
-            "experimentId": obj.get("experimentId"),
-            "campaignId": obj.get("campaignId"),
-            "rulesetId": obj.get("rulesetId"),
-            "ruleIndex": obj.get("ruleIndex"),
-            "ruleName": obj.get("ruleName"),
-            "effectType": obj.get("effectType"),
-            "triggeredByCoupon": obj.get("triggeredByCoupon"),
-            "triggeredForCatalogItem": obj.get("triggeredForCatalogItem"),
-            "conditionIndex": obj.get("conditionIndex"),
-            "evaluationGroupID": obj.get("evaluationGroupID"),
-            "evaluationGroupMode": obj.get("evaluationGroupMode"),
-            "campaignRevisionId": obj.get("campaignRevisionId"),
-            "campaignRevisionVersionId": obj.get("campaignRevisionVersionId"),
-            "selectedPriceType": obj.get("selectedPriceType"),
-            "selectedPrice": obj.get("selectedPrice"),
-            "adjustmentReferenceId": obj.get("adjustmentReferenceId"),
-            "rewardId": obj.get("rewardId"),
-            "props": obj.get("props")
-        })
-        return _obj
+    def to_str(self) -> str:
+        """Returns the string representation of the actual instance"""
+        return pprint.pformat(self.model_dump())
 
 

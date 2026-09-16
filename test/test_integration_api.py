@@ -131,6 +131,13 @@ class TestIntegrationApi(unittest.TestCase):
         """
         pass
 
+    def test_get_customer_rewards(self) -> None:
+        """Test case for get_customer_rewards
+
+        List customer's rewards
+        """
+        pass
+
     def test_get_customer_session(self) -> None:
         """Test case for get_customer_session
 

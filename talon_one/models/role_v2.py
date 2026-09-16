@@ -27,7 +27,7 @@ from pydantic_core import to_jsonable_python
 
 class RoleV2(BaseModel):
     """
-    RoleV2
+    Represents a role with its associated permissions and members.
     """ # noqa: E501
     id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
@@ -37,7 +37,7 @@ class RoleV2(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="Description of the role.", json_schema_extra={"examples": ["Allows you to create and edit campaigns for specific Applications, delete specific campaign access groups, and view loyalty programs."]})
     permissions: Optional[RoleV2Permissions] = Field(default=None, description="The permissions that this role gives.")
     members: Optional[List[StrictInt]] = Field(default=None, description="A list of user IDs the role is assigned to.", json_schema_extra={"examples": [[10, 12]]})
-    is_readonly: Optional[StrictBool] = Field(default=False, description="Identifies if the role is read-only. For read-only roles, you can only assign or unassign users. You cannot edit any other properties, such as the name, description, or permissions. The 'isReadonly' property cannot be set for new or existing roles. It is reserved for predefined roles, such as the Talon.One support role.", alias="isReadonly", json_schema_extra={"examples": [False]})
+    is_readonly: Optional[StrictBool] = Field(default=False, description="Identifies if the role is read-only. For read-only roles, you can only assign or unassign users. You cannot edit any other properties, such as the name, description, or permissions. This property cannot be set for new or existing roles. It is reserved for predefined roles, such as the Talon.One support role.", alias="isReadonly", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "name", "description", "permissions", "members", "isReadonly"]
 
     model_config = ConfigDict(

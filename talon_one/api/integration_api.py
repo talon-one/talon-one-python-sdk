@@ -26,8 +26,8 @@ from talon_one.models.best_prior_price import BestPriorPrice
 from talon_one.models.best_prior_price_request import BestPriorPriceRequest
 from talon_one.models.catalog import Catalog
 from talon_one.models.catalog_sync_request import CatalogSyncRequest
-from talon_one.models.coupon import Coupon
 from talon_one.models.coupon_reservations import CouponReservations
+from talon_one.models.coupon_with_reservations import CouponWithReservations
 from talon_one.models.create_referrals_for_multiple_advocates201_response import CreateReferralsForMultipleAdvocates201Response
 from talon_one.models.customer_inventory import CustomerInventory
 from talon_one.models.customer_profile_audience_request import CustomerProfileAudienceRequest
@@ -38,6 +38,7 @@ from talon_one.models.event_v3 import EventV3
 from talon_one.models.generate_loyalty_card import GenerateLoyaltyCard
 from talon_one.models.get_customer_achievement_history200_response import GetCustomerAchievementHistory200Response
 from talon_one.models.get_customer_achievements200_response import GetCustomerAchievements200Response
+from talon_one.models.get_customer_rewards200_response import GetCustomerRewards200Response
 from talon_one.models.get_loyalty_card_points200_response import GetLoyaltyCardPoints200Response
 from talon_one.models.get_loyalty_card_transactions200_response import GetLoyaltyCardTransactions200Response
 from talon_one.models.get_loyalty_program_profile_points200_response import GetLoyaltyProgramProfilePoints200Response
@@ -53,6 +54,7 @@ from talon_one.models.integration_request import IntegrationRequest
 from talon_one.models.integration_rewards_catalog200_response import IntegrationRewardsCatalog200Response
 from talon_one.models.integration_state_v2 import IntegrationStateV2
 from talon_one.models.integration_unlock_reward_request import IntegrationUnlockRewardRequest
+from talon_one.models.integration_unlock_reward_response import IntegrationUnlockRewardResponse
 from talon_one.models.loyalty_balances_with_tiers import LoyaltyBalancesWithTiers
 from talon_one.models.loyalty_card import LoyaltyCard
 from talon_one.models.loyalty_card_balances import LoyaltyCardBalances
@@ -957,7 +959,7 @@ class IntegrationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Coupon:
+    ) -> CouponWithReservations:
         """Create coupon reservation
 
         Create a coupon reservation for the specified customer profiles on the specified coupon.  You can also create a reservation via the Campaign Manager using the [Create coupon code reservation](https://docs.talon.one/docs/product/rules/effects/using-effects#reserving-a-coupon-code) effect.  > [!note] **Note** > - If the **Reservation mandatory** option was selected when creating the >   specified coupon, the endpoint creates a **hard** reservation, meaning only users who have >   this coupon code reserved can redeem it. > >   Otherwise, the endpoint creates a **soft** reservation, meaning the coupon >   is associated with the specified customer profiles (they show up when using >   the [List customer data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory) >   endpoint), but any user can redeem it. > >   This can be useful, for example, to display a _coupon wallet_ for customers >   when they visit your store. > - If the **Coupon visibility** option was selected when creating the >   specified coupon, the coupon code is implicitly soft-reserved for all customers, and the code >   will be returned for all customer profiles in the [List customer >   data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory) endpoint. > - This endpoint overrides the coupon reservation limit set when >   [the coupon is created](https://docs.talon.one/docs/product/campaigns/coupons/creating-coupons).  To ensure that coupons cannot be reserved after the reservation limit is reached, use the [Create coupon code reservation](https://docs.talon.one/docs/product/rules/effects/using-effects#reserving-a-coupon-code) effect in the Rule Builder and the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint.  To delete a reservation, use the [Delete reservation](https://docs.talon.one/integration-api#tag/Coupons/operation/deleteCouponReservation) endpoint. 
@@ -998,7 +1000,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "Coupon",
+            '201': "CouponWithReservations",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
@@ -1031,7 +1033,7 @@ class IntegrationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Coupon]:
+    ) -> ApiResponse[CouponWithReservations]:
         """Create coupon reservation
 
         Create a coupon reservation for the specified customer profiles on the specified coupon.  You can also create a reservation via the Campaign Manager using the [Create coupon code reservation](https://docs.talon.one/docs/product/rules/effects/using-effects#reserving-a-coupon-code) effect.  > [!note] **Note** > - If the **Reservation mandatory** option was selected when creating the >   specified coupon, the endpoint creates a **hard** reservation, meaning only users who have >   this coupon code reserved can redeem it. > >   Otherwise, the endpoint creates a **soft** reservation, meaning the coupon >   is associated with the specified customer profiles (they show up when using >   the [List customer data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory) >   endpoint), but any user can redeem it. > >   This can be useful, for example, to display a _coupon wallet_ for customers >   when they visit your store. > - If the **Coupon visibility** option was selected when creating the >   specified coupon, the coupon code is implicitly soft-reserved for all customers, and the code >   will be returned for all customer profiles in the [List customer >   data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory) endpoint. > - This endpoint overrides the coupon reservation limit set when >   [the coupon is created](https://docs.talon.one/docs/product/campaigns/coupons/creating-coupons).  To ensure that coupons cannot be reserved after the reservation limit is reached, use the [Create coupon code reservation](https://docs.talon.one/docs/product/rules/effects/using-effects#reserving-a-coupon-code) effect in the Rule Builder and the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint.  To delete a reservation, use the [Delete reservation](https://docs.talon.one/integration-api#tag/Coupons/operation/deleteCouponReservation) endpoint. 
@@ -1072,7 +1074,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "Coupon",
+            '201': "CouponWithReservations",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
@@ -1146,7 +1148,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "Coupon",
+            '201': "CouponWithReservations",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
@@ -4667,6 +4669,345 @@ class IntegrationApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/customer_profiles/{integrationId}/inventory',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_customer_rewards(
+        self,
+        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be:  - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID. ")],
+        status: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more customer reward statuses.  **Note:** If no status is specified, rewards of all statuses are returned. ")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.   - When `true`: `totalResultSize` contains the total number of results for this query.  - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetCustomerRewards200Response:
+        """List customer's rewards
+
+        List the rewards held by a given customer profile. This includes shared rewards unlocked with a loyalty card linked to the customer. 
+
+        :param integration_id: The integration identifier for this customer profile. Must be:  - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  (required)
+        :type integration_id: str
+        :param status: Filter results by one or more customer reward statuses.  **Note:** If no status is specified, rewards of all statuses are returned. 
+        :type status: List[str]
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.   - When `true`: `totalResultSize` contains the total number of results for this query.  - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
+        :type with_total_result_size: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_customer_rewards_serialize(
+            integration_id=integration_id,
+            status=status,
+            page_size=page_size,
+            skip=skip,
+            with_total_result_size=with_total_result_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetCustomerRewards200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_customer_rewards_with_http_info(
+        self,
+        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be:  - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID. ")],
+        status: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more customer reward statuses.  **Note:** If no status is specified, rewards of all statuses are returned. ")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.   - When `true`: `totalResultSize` contains the total number of results for this query.  - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetCustomerRewards200Response]:
+        """List customer's rewards
+
+        List the rewards held by a given customer profile. This includes shared rewards unlocked with a loyalty card linked to the customer. 
+
+        :param integration_id: The integration identifier for this customer profile. Must be:  - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  (required)
+        :type integration_id: str
+        :param status: Filter results by one or more customer reward statuses.  **Note:** If no status is specified, rewards of all statuses are returned. 
+        :type status: List[str]
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.   - When `true`: `totalResultSize` contains the total number of results for this query.  - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
+        :type with_total_result_size: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_customer_rewards_serialize(
+            integration_id=integration_id,
+            status=status,
+            page_size=page_size,
+            skip=skip,
+            with_total_result_size=with_total_result_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetCustomerRewards200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_customer_rewards_without_preload_content(
+        self,
+        integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be:  - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID. ")],
+        status: Annotated[Optional[List[StrictStr]], Field(description="Filter results by one or more customer reward statuses.  **Note:** If no status is specified, rewards of all statuses are returned. ")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
+        skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        with_total_result_size: Annotated[Optional[StrictBool], Field(description="When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.   - When `true`: `totalResultSize` contains the total number of results for this query.  - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List customer's rewards
+
+        List the rewards held by a given customer profile. This includes shared rewards unlocked with a loyalty card linked to the customer. 
+
+        :param integration_id: The integration identifier for this customer profile. Must be:  - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  (required)
+        :type integration_id: str
+        :param status: Filter results by one or more customer reward statuses.  **Note:** If no status is specified, rewards of all statuses are returned. 
+        :type status: List[str]
+        :param page_size: The number of items in the response.
+        :type page_size: int
+        :param skip: The number of items to skip when paging through large result sets.
+        :type skip: int
+        :param with_total_result_size: When this flag is set, the result includes the total number of results for this query. This might decrease performance on large data sets.   - When `true`: `totalResultSize` contains the total number of results for this query.  - When `false`: Only `hasMore` is returned, and it is set to `true` when there are more results than shown on the page. 
+        :type with_total_result_size: bool
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_customer_rewards_serialize(
+            integration_id=integration_id,
+            status=status,
+            page_size=page_size,
+            skip=skip,
+            with_total_result_size=with_total_result_size,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetCustomerRewards200Response",
+            '400': "ErrorResponseWithStatus",
+            '401': "ErrorResponseWithStatus",
+            '404': "ErrorResponseWithStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_customer_rewards_serialize(
+        self,
+        integration_id,
+        status,
+        page_size,
+        skip,
+        with_total_result_size,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'status': 'multi',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if integration_id is not None:
+            _path_params['integrationId'] = integration_id
+        # process the query parameters
+        if status is not None:
+            
+            _query_params.append(('status', status))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if skip is not None:
+            
+            _query_params.append(('skip', skip))
+            
+        if with_total_result_size is not None:
+            
+            _query_params.append(('withTotalResultSize', with_total_result_size))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/customer_profiles/{integrationId}/rewards',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -8361,8 +8702,8 @@ class IntegrationApi:
         include_free: Annotated[Optional[StrictBool], Field(description="Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. ")] = None,
         loyalty_program_id: Annotated[Optional[StrictInt], Field(description="Return only rewards available in this loyalty program. ")] = None,
         subledger_id: Annotated[Optional[StrictStr], Field(description="Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). ")] = None,
-        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
-        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The required points are then checked against the card's balance. ")] = None,
+        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The card must also be linked to that customer profile. - If `loyaltyCardId` is not provided, the reward returns the `CARD_REQUIRED` failure code, because there is no card balance to compare `pointsRequired` against. - If `profileIntegrationId` is not provided, the reward returns the `PROFILE_REQUIRED` failure code, because its eligibility cannot be evaluated without a customer profile. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8394,9 +8735,9 @@ class IntegrationApi:
         :type loyalty_program_id: int
         :param subledger_id: Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). 
         :type subledger_id: str
-        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The required points are then checked against the card's balance. 
         :type profile_integration_id: str
-        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The card must also be linked to that customer profile. - If `loyaltyCardId` is not provided, the reward returns the `CARD_REQUIRED` failure code, because there is no card balance to compare `pointsRequired` against. - If `profileIntegrationId` is not provided, the reward returns the `PROFILE_REQUIRED` failure code, because its eligibility cannot be evaluated without a customer profile. 
         :type loyalty_card_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8463,8 +8804,8 @@ class IntegrationApi:
         include_free: Annotated[Optional[StrictBool], Field(description="Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. ")] = None,
         loyalty_program_id: Annotated[Optional[StrictInt], Field(description="Return only rewards available in this loyalty program. ")] = None,
         subledger_id: Annotated[Optional[StrictStr], Field(description="Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). ")] = None,
-        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
-        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The required points are then checked against the card's balance. ")] = None,
+        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The card must also be linked to that customer profile. - If `loyaltyCardId` is not provided, the reward returns the `CARD_REQUIRED` failure code, because there is no card balance to compare `pointsRequired` against. - If `profileIntegrationId` is not provided, the reward returns the `PROFILE_REQUIRED` failure code, because its eligibility cannot be evaluated without a customer profile. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8496,9 +8837,9 @@ class IntegrationApi:
         :type loyalty_program_id: int
         :param subledger_id: Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). 
         :type subledger_id: str
-        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The required points are then checked against the card's balance. 
         :type profile_integration_id: str
-        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The card must also be linked to that customer profile. - If `loyaltyCardId` is not provided, the reward returns the `CARD_REQUIRED` failure code, because there is no card balance to compare `pointsRequired` against. - If `profileIntegrationId` is not provided, the reward returns the `PROFILE_REQUIRED` failure code, because its eligibility cannot be evaluated without a customer profile. 
         :type loyalty_card_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -8565,8 +8906,8 @@ class IntegrationApi:
         include_free: Annotated[Optional[StrictBool], Field(description="Whether to include rewards that have no `pointsRequired`. These rewards are treated as free and available to all customers. ")] = None,
         loyalty_program_id: Annotated[Optional[StrictInt], Field(description="Return only rewards available in this loyalty program. ")] = None,
         subledger_id: Annotated[Optional[StrictStr], Field(description="Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). ")] = None,
-        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
-        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. ")] = None,
+        profile_integration_id: Annotated[Optional[StrictStr], Field(description="The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The required points are then checked against the card's balance. ")] = None,
+        loyalty_card_id: Annotated[Optional[StrictStr], Field(description="The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The card must also be linked to that customer profile. - If `loyaltyCardId` is not provided, the reward returns the `CARD_REQUIRED` failure code, because there is no card balance to compare `pointsRequired` against. - If `profileIntegrationId` is not provided, the reward returns the `PROFILE_REQUIRED` failure code, because its eligibility cannot be evaluated without a customer profile. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8598,9 +8939,9 @@ class IntegrationApi:
         :type loyalty_program_id: int
         :param subledger_id: Return only rewards available in this subledger. Must be combined with `loyaltyProgramId`. To specify the main ledger, provide an empty string (\"\"). 
         :type subledger_id: str
-        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :param profile_integration_id: The integration ID of the customer profile whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The required points are then checked against the card's balance. 
         :type profile_integration_id: str
-        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  **Note:** `profileIntegrationId` and `loyaltyCardId` are mutually exclusive. Do not send both in the same request. 
+        :param loyalty_card_id: The identifier of the loyalty card whose loyalty balances to include in the response. Balances are returned only when `loyaltyProgramId` is also provided.  For a reward with `pointsRequired` configured for a card-based loyalty program, eligibility can be evaluated based on both `profileIntegrationId` and `loyaltyCardId`, if both are provided. The card must also be linked to that customer profile. - If `loyaltyCardId` is not provided, the reward returns the `CARD_REQUIRED` failure code, because there is no card balance to compare `pointsRequired` against. - If `profileIntegrationId` is not provided, the reward returns the `PROFILE_REQUIRED` failure code, because its eligibility cannot be evaluated without a customer profile. 
         :type loyalty_card_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -11298,7 +11639,7 @@ class IntegrationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> IntegrationStateV2:
+    ) -> IntegrationUnlockRewardResponse:
         """Unlock a reward
 
         Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
@@ -11342,7 +11683,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IntegrationStateV2",
+            '200': "IntegrationUnlockRewardResponse",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '403': "ErrorResponseWithStatus",
@@ -11379,7 +11720,7 @@ class IntegrationApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[IntegrationStateV2]:
+    ) -> ApiResponse[IntegrationUnlockRewardResponse]:
         """Unlock a reward
 
         Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
@@ -11423,7 +11764,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IntegrationStateV2",
+            '200': "IntegrationUnlockRewardResponse",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '403': "ErrorResponseWithStatus",
@@ -11504,7 +11845,7 @@ class IntegrationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IntegrationStateV2",
+            '200': "IntegrationUnlockRewardResponse",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '403': "ErrorResponseWithStatus",

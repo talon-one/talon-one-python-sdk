@@ -58,7 +58,7 @@ class TestIntegrationEventV3Response(unittest.TestCase):
                     null
                     ],
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ],
                 rule_failure_reasons = [
                     talon_one.models.rule_failure_reason.RuleFailureReason(
@@ -136,7 +136,7 @@ class TestIntegrationEventV3Response(unittest.TestCase):
         else:
             return IntegrationEventV3Response(
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ],
                 created_coupons = [
                     null

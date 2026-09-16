@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
 **operator** | **str** | The comparison operator applied to the achievement. | 
-**achievement** | [**CheckAchievementBlock1Achievement**](CheckAchievementBlock1Achievement.md) |  | 
+**achievement** | [**AchievementBlockReference**](AchievementBlockReference.md) | The achievement to check for. | 
 **on_failure** | [**List[Block]**](Block.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
 
 ## Example

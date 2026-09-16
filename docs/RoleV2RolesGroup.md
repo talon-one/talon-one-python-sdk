@@ -1,14 +1,15 @@
 # RoleV2RolesGroup
 
+A map of target entities to their permission sets.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **applications** | [**Dict[str, RoleV2ApplicationDetails]**](RoleV2ApplicationDetails.md) | A map of the link between the Application, campaign, or draft campaign-related permission set and the Application ID the permissions apply to. | [optional] 
-**loyalty_programs** | **Dict[str, str]** | A map of the link between the loyalty program-related permission set and the Application ID the permissions apply to. | [optional] 
-**campaign_access_groups** | **Dict[str, str]** | A map of the link between the campaign access group-related permission set and the Application ID the permissions apply to. | [optional] 
-**account** | **str** | Name of the account-level permission set | [optional] 
+**loyalty_programs** | **Dict[str, str]** | A map of the link between the loyalty program-related permission set and the loyalty program ID the permissions apply to. | [optional] 
+**campaign_access_groups** | **Dict[str, str]** | A map of the link between the campaign access group-related permission set and the campaign access group ID the permissions apply to. | [optional] 
+**account** | **str** | Name of the account-level permission set. | [optional] 
 
 ## Example
 

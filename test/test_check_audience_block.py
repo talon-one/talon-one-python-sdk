@@ -42,11 +42,7 @@ class TestCheckAudienceBlock(unittest.TestCase):
                     ],
                 operator = 'member',
                 profile = 'Current',
-                audience = talon_one.models.check_audience_block_1_audience.CheckAudienceBlock_1_audience(
-                    id = 42, 
-                    name = 'Travel audience', 
-                    integration = 'mparticle', 
-                    integration_id = '382370BKDB946', ),
+                audience = None,
                 on_failure = [
                     null
                     ]
@@ -56,11 +52,7 @@ class TestCheckAudienceBlock(unittest.TestCase):
                 type = '',
                 operator = 'member',
                 profile = 'Current',
-                audience = talon_one.models.check_audience_block_1_audience.CheckAudienceBlock_1_audience(
-                    id = 42, 
-                    name = 'Travel audience', 
-                    integration = 'mparticle', 
-                    integration_id = '382370BKDB946', ),
+                audience = None,
         )
         """
 

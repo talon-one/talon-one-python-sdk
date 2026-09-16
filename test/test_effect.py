@@ -40,7 +40,7 @@ class TestEffect(unittest.TestCase):
                 ruleset_id = 73,
                 rule_index = 2,
                 rule_name = 'Give 20% discount',
-                effect_type = 'rejectCoupon',
+                effect_type = 'willAwardGiveaway',
                 triggered_by_coupon = 4928,
                 triggered_for_catalog_item = 786,
                 condition_index = 786,
@@ -52,7 +52,7 @@ class TestEffect(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
-                props = None
+                props = {poolId=2, poolName=My pool, recipientIntegrationId=URNGV8294NV}
             )
         else:
             return Effect(
@@ -60,8 +60,8 @@ class TestEffect(unittest.TestCase):
                 ruleset_id = 73,
                 rule_index = 2,
                 rule_name = 'Give 20% discount',
-                effect_type = 'rejectCoupon',
-                props = None,
+                effect_type = 'willAwardGiveaway',
+                props = {poolId=2, poolName=My pool, recipientIntegrationId=URNGV8294NV},
         )
         """
 

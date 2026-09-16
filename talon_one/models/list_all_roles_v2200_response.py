@@ -28,8 +28,8 @@ class ListAllRolesV2200Response(BaseModel):
     """
     ListAllRolesV2200Response
     """ # noqa: E501
-    total_result_size: StrictInt = Field(alias="totalResultSize", json_schema_extra={"examples": [1]})
-    data: List[RoleV2]
+    total_result_size: StrictInt = Field(description="The total number of roles returned.", alias="totalResultSize", json_schema_extra={"examples": [1]})
+    data: List[RoleV2] = Field(description="The list of roles.")
     __properties: ClassVar[List[str]] = ["totalResultSize", "data"]
 
     model_config = ConfigDict(

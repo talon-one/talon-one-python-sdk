@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
 **operator** | **str** | An indicator of how the block compares its elements. | 
 **subledger** | **str** | The name of the subledger to check the balance of. Can be empty if this block checks the loyalty program&#39;s main ledger balance instead of a subledger. | 
-**tier** | [**CheckTierBlock1Tier**](CheckTierBlock1Tier.md) |  | 
+**tier** | [**TierBlockReference**](TierBlockReference.md) | The tier to check for. | 
 **on_failure** | [**List[Block]**](Block.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
 
 ## Example

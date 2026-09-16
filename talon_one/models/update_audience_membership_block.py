@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.update_audience_membership_block1_audience import UpdateAudienceMembershipBlock1Audience
+from talon_one.models.audience_block_reference import AudienceBlockReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +33,7 @@ class UpdateAudienceMembershipBlock(BaseModel):
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="The action to perform.", json_schema_extra={"examples": ["add"]})
     profile: StrictStr = Field(description="The customer profile to add or remove from the audience. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program.", json_schema_extra={"examples": ["Current"]})
-    audience: UpdateAudienceMembershipBlock1Audience
+    audience: AudienceBlockReference = Field(description="The audience to add the customer to or remove them from.")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "profile", "audience"]
 
     @field_validator('operator')
@@ -113,7 +113,7 @@ class UpdateAudienceMembershipBlock(BaseModel):
             "tags": obj.get("tags"),
             "operator": obj.get("operator"),
             "profile": obj.get("profile"),
-            "audience": UpdateAudienceMembershipBlock1Audience.from_dict(obj["audience"]) if obj.get("audience") is not None else None
+            "audience": AudienceBlockReference.from_dict(obj["audience"]) if obj.get("audience") is not None else None
         })
         return _obj
 

@@ -96,6 +96,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_create_campaign(self) -> None:
+        """Test case for create_campaign
+
+        Create campaign
+        """
+        pass
+
     def test_create_campaign_from_template(self) -> None:
         """Test case for create_campaign_from_template
 

@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**create_additional_cost**](ManagementApi.md#create_additional_cost) | **POST** /v1/additional_costs | Create additional cost
 [**create_attribute**](ManagementApi.md#create_attribute) | **POST** /v1/attributes | Create custom attribute
 [**create_batch_loyalty_cards**](ManagementApi.md#create_batch_loyalty_cards) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/cards/batch | Create loyalty cards
+[**create_campaign**](ManagementApi.md#create_campaign) | **POST** /v1/applications/{applicationId}/campaigns | Create campaign
 [**create_campaign_from_template**](ManagementApi.md#create_campaign_from_template) | **POST** /v1/applications/{applicationId}/create_campaign_from_template | Create campaign from campaign template
 [**create_campaign_store_budget**](ManagementApi.md#create_campaign_store_budget) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/stores/budgets | Create campaign store budget
 [**create_collection**](ManagementApi.md#create_collection) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/collections | Create campaign-level collection
@@ -1056,6 +1057,89 @@ Name | Type | Description  | Notes
 **400** | Bad request |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_campaign**
+> Campaign create_campaign(application_id, new_campaign)
+
+Create campaign
+
+Create a campaign. A campaign is part of an Application and contains a set of rules.
+
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.campaign import Campaign
+from talon_one.models.new_campaign import NewCampaign
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
+    new_campaign = talon_one.NewCampaign() # NewCampaign | body
+
+    try:
+        # Create campaign
+        api_response = api_instance.create_campaign(application_id, new_campaign)
+        print("The response of ManagementApi->create_campaign:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->create_campaign: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
+ **new_campaign** | [**NewCampaign**](NewCampaign.md)| body | 
+
+### Return type
+
+[**Campaign**](Campaign.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Created |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5026,7 +5110,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_loyalty_balances**
-> str export_loyalty_balances(loyalty_program_id, end_date=end_date, balances=balances)
+> str export_loyalty_balances(loyalty_program_id, end_date=end_date, balances=balances, subledger_ids=subledger_ids)
 
 Export customer loyalty balances
 
@@ -5081,10 +5165,11 @@ with talon_one.ApiClient(configuration) as api_client:
     loyalty_program_id = 'loyalty_program_id_example' # str | The identifier for the loyalty program.
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. > - This parameter does not affect the `currentTier` field in the CSV file, which shows the customer's tier at the time of export.  (optional)
     balances = 'balances_example' # str | Filters which balance fields are included in the CSV export. `currentBalance` is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - `currentBalance` - `pendingBalance` - `expiredBalance` - `spentBalance` - `negativeBalance`  Multiple values must be provided as a comma-separated list.  (optional)
+    subledger_ids = ['subledger_ids_example'] # List[str] | Filter results by an array of subledger IDs. If no value is provided, the export includes all subledgers and main ledger data for the specified loyalty program.  To specify the main ledger, provide an empty string (\"\").  (optional)
 
     try:
         # Export customer loyalty balances
-        api_response = api_instance.export_loyalty_balances(loyalty_program_id, end_date=end_date, balances=balances)
+        api_response = api_instance.export_loyalty_balances(loyalty_program_id, end_date=end_date, balances=balances, subledger_ids=subledger_ids)
         print("The response of ManagementApi->export_loyalty_balances:\n")
         pprint(api_response)
     except Exception as e:
@@ -5101,6 +5186,7 @@ Name | Type | Description  | Notes
  **loyalty_program_id** | **str**| The identifier for the loyalty program. | 
  **end_date** | **datetime**| Used to return expired, active, and pending loyalty balances before this timestamp. You can enter any past, present, or future timestamp value.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered. &gt; - This parameter does not affect the &#x60;currentTier&#x60; field in the CSV file, which shows the customer&#39;s tier at the time of export.  | [optional] 
  **balances** | **str**| Filters which balance fields are included in the CSV export. &#x60;currentBalance&#x60; is always returned.  By default, all balance fields are included. When this parameter is provided, only the listed fields contain values and the rest are returned empty.  Accepted values: - &#x60;currentBalance&#x60; - &#x60;pendingBalance&#x60; - &#x60;expiredBalance&#x60; - &#x60;spentBalance&#x60; - &#x60;negativeBalance&#x60;  Multiple values must be provided as a comma-separated list.  | [optional] 
+ **subledger_ids** | [**List[str]**](str.md)| Filter results by an array of subledger IDs. If no value is provided, the export includes all subledgers and main ledger data for the specified loyalty program.  To specify the main ledger, provide an empty string (\&quot;\&quot;).  | [optional] 
 
 ### Return type
 
@@ -13073,7 +13159,7 @@ The CSV file **must** contain the following columns:
 
 - `customerprofileid`: The integration ID of the customer profile whose join
   date you want to update.
-- `newjoindate`: The new join date for the customer in RFC3339 format. You
+- `joindate`: The join date for the customer in RFC3339 format. You
   can use the time zone of your choice. It is converted to UTC internally
   by Talon.One.
 
@@ -13086,7 +13172,7 @@ The CSV file **must** contain the following columns:
 ## Example
 
 ```csv
-customerprofileid,newjoindate
+customerprofileid,joindate
 customer1,2024-03-21T07:32:14Z
 customer2,2025-04-16T21:12:37Z
 customer3,2026-05-03T11:47:01Z
@@ -13815,7 +13901,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_achievements_v2**
-> ListAchievementsV2200Response list_achievements_v2(page_size=page_size, skip=skip, sort=sort, title=title, application_id=application_id)
+> ListAchievementsV2200Response list_achievements_v2(page_size=page_size, campaign_id=campaign_id, skip=skip, sort=sort, title=title, application_id=application_id)
 
 List achievements
 
@@ -13854,6 +13940,7 @@ with talon_one.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = talon_one.ManagementApi(api_client)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
+    campaign_id = [56] # List[int] | Filter results by one or more campaign IDs.  To include multiple IDs, repeat the parameter for each one, for example,`?campaignId=123&campaignId=456`. The response contains only achievements associated with the specified campaigns.  (optional)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
     title = 'title_example' # str | Filter by the display name of the achievement. (optional)
@@ -13861,7 +13948,7 @@ with talon_one.ApiClient(configuration) as api_client:
 
     try:
         # List achievements
-        api_response = api_instance.list_achievements_v2(page_size=page_size, skip=skip, sort=sort, title=title, application_id=application_id)
+        api_response = api_instance.list_achievements_v2(page_size=page_size, campaign_id=campaign_id, skip=skip, sort=sort, title=title, application_id=application_id)
         print("The response of ManagementApi->list_achievements_v2:\n")
         pprint(api_response)
     except Exception as e:
@@ -13876,6 +13963,7 @@ with talon_one.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
+ **campaign_id** | [**List[int]**](int.md)| Filter results by one or more campaign IDs.  To include multiple IDs, repeat the parameter for each one, for example,&#x60;?campaignId&#x3D;123&amp;campaignId&#x3D;456&#x60;. The response contains only achievements associated with the specified campaigns.  | [optional] 
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
  **title** | **str**| Filter by the display name of the achievement. | [optional] 
@@ -13909,7 +13997,16 @@ Name | Type | Description  | Notes
 
 List roles
 
-List all roles.
+List the roles defined in the deployment.
+
+The roles returned depend on the role of the user calling this endpoint:
+- If the user has an admin role, all roles defined in the deployment are returned.
+- If the user does not have an admin role, only the roles currently assigned to this user are returned.
+
+If your identity provider provisions roles through SCIM, any admin roles it defines are not included in this list.
+
+To view the details of a specific role, use the [Get role](https://docs.talon.one/management-api#tag/Roles/operation/getRoleV2) endpoint.
+
 
 ### Example
 

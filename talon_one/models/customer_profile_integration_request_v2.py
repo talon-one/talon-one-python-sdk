@@ -32,7 +32,8 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
     evaluable_campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="When using the `dry` query parameter, use this property to list the campaign to be evaluated by the Rule Engine.  These campaigns will be evaluated, even if they are disabled, allowing you to test specific campaigns before activating them. ", alias="evaluableCampaignIds", json_schema_extra={"examples": [[10, 12]]})
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent", json_schema_extra={"examples": [["triggeredCampaigns", "customerProfile"]]})
     audiences_changes: Optional[ProfileAudiencesChanges] = Field(default=None, description="Audiences memberships changes for this profile.", alias="audiencesChanges")
-    __properties: ClassVar[List[str]] = ["attributes", "evaluableCampaignIds", "responseContent", "audiencesChanges"]
+    reward_integration_ids: Optional[List[StrictStr]] = Field(default=None, description="The integration IDs of the unlocked rewards that can be used in this request. ", alias="rewardIntegrationIds", json_schema_extra={"examples": [["5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90"]]})
+    __properties: ClassVar[List[str]] = ["attributes", "evaluableCampaignIds", "responseContent", "audiencesChanges", "rewardIntegrationIds"]
 
     @field_validator('response_content')
     def response_content_validate_enum(cls, value):
@@ -102,7 +103,8 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
             "attributes": obj.get("attributes"),
             "evaluableCampaignIds": obj.get("evaluableCampaignIds"),
             "responseContent": obj.get("responseContent"),
-            "audiencesChanges": ProfileAudiencesChanges.from_dict(obj["audiencesChanges"]) if obj.get("audiencesChanges") is not None else None
+            "audiencesChanges": ProfileAudiencesChanges.from_dict(obj["audiencesChanges"]) if obj.get("audiencesChanges") is not None else None,
+            "rewardIntegrationIds": obj.get("rewardIntegrationIds")
         })
         return _obj
 

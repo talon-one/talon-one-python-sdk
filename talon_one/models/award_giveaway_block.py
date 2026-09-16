@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.giveaway_pool_reference import GiveawayPoolReference
+from talon_one.models.giveaway_pool_block_reference import GiveawayPoolBlockReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,7 +31,7 @@ class AwardGiveawayBlock(BaseModel):
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
-    giveaway_pool: GiveawayPoolReference = Field(description="The giveaway pool from which an item is awarded.", alias="giveawayPool")
+    giveaway_pool: GiveawayPoolBlockReference = Field(description="The giveaway pool from which an item is awarded.", alias="giveawayPool")
     profile: StrictStr = Field(description="The customer profile to award the giveaway to. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program.", json_schema_extra={"examples": ["Current"]})
     on_failure: Optional[List[Block]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
     on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
@@ -119,7 +119,7 @@ class AwardGiveawayBlock(BaseModel):
             "id": obj.get("id"),
             "type": obj.get("type"),
             "tags": obj.get("tags"),
-            "giveawayPool": GiveawayPoolReference.from_dict(obj["giveawayPool"]) if obj.get("giveawayPool") is not None else None,
+            "giveawayPool": GiveawayPoolBlockReference.from_dict(obj["giveawayPool"]) if obj.get("giveawayPool") is not None else None,
             "profile": obj.get("profile"),
             "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None,
             "onError": {

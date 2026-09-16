@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
-from talon_one.models.customer_profile import CustomerProfile
+from talon_one.models.customer_reservation import CustomerReservation
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +29,7 @@ class GetReservedCustomers200Response(BaseModel):
     GetReservedCustomers200Response
     """ # noqa: E501
     total_result_size: StrictInt = Field(alias="totalResultSize", json_schema_extra={"examples": [1]})
-    data: List[CustomerProfile]
+    data: List[CustomerReservation]
     __properties: ClassVar[List[str]] = ["totalResultSize", "data"]
 
     model_config = ConfigDict(
@@ -90,7 +90,7 @@ class GetReservedCustomers200Response(BaseModel):
 
         _obj = cls.model_validate({
             "totalResultSize": obj.get("totalResultSize"),
-            "data": [CustomerProfile.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "data": [CustomerReservation.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
         })
         return _obj
 

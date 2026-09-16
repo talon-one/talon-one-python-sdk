@@ -35,7 +35,7 @@ class TestCampaignEvaluationTreeChangedMessage(unittest.TestCase):
         model = CampaignEvaluationTreeChangedMessage()
         if include_optional:
             return CampaignEvaluationTreeChangedMessage(
-                notification_type = 'CampaignNotification',
+                notification_type = 'CampaignEvaluationTreeChanged',
                 total_result_size = 56,
                 data = [
                     talon_one.models.campaign_evaluation_tree_changed_notification.CampaignEvaluationTreeChangedNotification(
@@ -46,8 +46,14 @@ class TestCampaignEvaluationTreeChangedMessage(unittest.TestCase):
             )
         else:
             return CampaignEvaluationTreeChangedMessage(
-                notification_type = 'CampaignNotification',
+                notification_type = 'CampaignEvaluationTreeChanged',
                 total_result_size = 56,
+                data = [
+                    talon_one.models.campaign_evaluation_tree_changed_notification.CampaignEvaluationTreeChangedNotification(
+                        application_id = 78, 
+                        old_evaluation_tree = null, 
+                        evaluation_tree = null, )
+                    ],
         )
         """
 

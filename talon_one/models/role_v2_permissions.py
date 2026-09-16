@@ -29,7 +29,7 @@ from pydantic_core import to_jsonable_python
 
 class RoleV2Permissions(BaseModel):
     """
-    RoleV2Permissions
+    The permissions that this role gives.
     """ # noqa: E501
     permission_sets: Optional[Annotated[List[RoleV2PermissionSet], Field(max_length=500)]] = Field(default=None, description="List of grouped logical operations referenced by roles.", alias="permissionSets", json_schema_extra={"examples": [[{"name": "Application permission set", "logicalOperations": ["getApplicationOperations", "editApplicationOperations"]}, {"name": "Campaign manager permission set", "logicalOperations": ["getCampaignOperations", "createCampaignOperations", "updateCampaignOperations"]}, {"name": "Campaign read-only permission set", "logicalOperations": ["getCampaignOperations"]}, {"name": "Loyalty program read-only permission set", "logicalOperations": ["getLoyaltyProgramOperations"]}, {"name": "Campaign access group manager permission set", "logicalOperations": ["getCampaignAccessGroupOperations", "updateCampaignAccessGroupOperations", "deleteCampaignAccessGroupOperations"]}]]})
     roles: Optional[RoleV2RolesGroup] = None

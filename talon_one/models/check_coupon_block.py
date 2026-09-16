@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,11 +28,18 @@ class CheckCouponBlock(BaseModel):
     CheckCouponBlock
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
-    type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
+    type: StrictStr = Field(description="A block discriminator of type `checkCoupon`.", json_schema_extra={"examples": ["checkCoupon"]})
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     redeem: StrictBool = Field(description="When `true`, the coupon code is redeemed.", json_schema_extra={"examples": [True]})
     on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "redeem", "onFailure"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['checkCoupon']):
+            raise ValueError("must be one of enum values ('checkCoupon')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

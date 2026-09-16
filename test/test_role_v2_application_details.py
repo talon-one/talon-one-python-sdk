@@ -35,9 +35,9 @@ class TestRoleV2ApplicationDetails(unittest.TestCase):
         model = RoleV2ApplicationDetails()
         if include_optional:
             return RoleV2ApplicationDetails(
-                application = '',
-                campaign = '',
-                draft_campaign = '',
+                application = 'Application permission set',
+                campaign = 'Campaign manager permission set',
+                draft_campaign = 'Campaign read-only permission set',
                 tools = 'Tools permission set'
             )
         else:

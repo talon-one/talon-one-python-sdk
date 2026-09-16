@@ -33,7 +33,7 @@ class EffectEntity(BaseModel):
     ruleset_id: StrictInt = Field(description="The ID of the ruleset that was active in the campaign when this effect was triggered.", alias="rulesetId", json_schema_extra={"examples": [73]})
     rule_index: StrictInt = Field(description="The position of the rule that triggered this effect within the ruleset.", alias="ruleIndex", json_schema_extra={"examples": [2]})
     rule_name: StrictStr = Field(description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Give 20% discount"]})
-    effect_type: StrictStr = Field(description="The type of effect that was triggered. See [API effects](https://docs.talon.one/docs/dev/integration-api/api-effects).", alias="effectType", json_schema_extra={"examples": ["rejectCoupon"]})
+    effect_type: StrictStr = Field(description="See [API effects](https://docs.talon.one/docs/dev/integration-api/api-effects).", alias="effectType", json_schema_extra={"examples": ["rejectCoupon"]})
     triggered_by_coupon: Optional[StrictInt] = Field(default=None, description="The ID of the coupon that was being evaluated when this effect was triggered.", alias="triggeredByCoupon", json_schema_extra={"examples": [4928]})
     triggered_for_catalog_item: Optional[StrictInt] = Field(default=None, description="The ID of the catalog item that was being evaluated when this effect was triggered.", alias="triggeredForCatalogItem", json_schema_extra={"examples": [786]})
     condition_index: Optional[StrictInt] = Field(default=None, description="The index of the condition that was triggered.", alias="conditionIndex", json_schema_extra={"examples": [786]})

@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **total_result_size** | **int** |  | 
-**data** | [**List[CustomerProfile]**](CustomerProfile.md) |  | 
+**data** | [**List[CustomerReservation]**](CustomerReservation.md) |  | 
 
 ## Example
 

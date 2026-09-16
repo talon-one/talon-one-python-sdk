@@ -36,13 +36,13 @@ class TestReopenSessionResponse(unittest.TestCase):
         if include_optional:
             return ReopenSessionResponse(
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ]
             )
         else:
             return ReopenSessionResponse(
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ],
         )
         """

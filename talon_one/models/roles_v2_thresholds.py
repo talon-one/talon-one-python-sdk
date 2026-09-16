@@ -25,7 +25,7 @@ from pydantic_core import to_jsonable_python
 
 class RolesV2Thresholds(BaseModel):
     """
-    RolesV2Thresholds
+    Support user limits for actions that require admin approval within the given loyalty program.
     """ # noqa: E501
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="Identifier of the loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.", alias="loyaltyProgramId", json_schema_extra={"examples": [8]})
     loyalty_points_limit: Optional[StrictInt] = Field(default=None, description="Maximum number of loyalty points a support user can award without approval.", alias="loyaltyPointsLimit", json_schema_extra={"examples": [100]})
