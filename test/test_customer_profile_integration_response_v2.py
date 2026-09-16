@@ -97,7 +97,7 @@ class TestCustomerProfileIntegrationResponseV2(unittest.TestCase):
                             ], )
                     ],
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ],
                 created_coupons = [
                     null
@@ -109,7 +109,7 @@ class TestCustomerProfileIntegrationResponseV2(unittest.TestCase):
         else:
             return CustomerProfileIntegrationResponseV2(
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ],
                 created_coupons = [
                     null

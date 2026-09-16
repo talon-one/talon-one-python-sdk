@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.check_achievement_block1_achievement import CheckAchievementBlock1Achievement
+from talon_one.models.achievement_block_reference import AchievementBlockReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -32,7 +32,7 @@ class CheckAchievementBlock(BaseModel):
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="The comparison operator applied to the achievement.", json_schema_extra={"examples": ["justCompleted"]})
-    achievement: CheckAchievementBlock1Achievement
+    achievement: AchievementBlockReference = Field(description="The achievement to check for.")
     on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "achievement", "onFailure"]
 
@@ -111,7 +111,7 @@ class CheckAchievementBlock(BaseModel):
             "type": obj.get("type"),
             "tags": obj.get("tags"),
             "operator": obj.get("operator"),
-            "achievement": CheckAchievementBlock1Achievement.from_dict(obj["achievement"]) if obj.get("achievement") is not None else None,
+            "achievement": AchievementBlockReference.from_dict(obj["achievement"]) if obj.get("achievement") is not None else None,
             "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj

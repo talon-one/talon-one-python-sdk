@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.check_audience_block1_audience import CheckAudienceBlock1Audience
+from talon_one.models.audience_block_reference import AudienceBlockReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +33,7 @@ class CheckAudienceBlock(BaseModel):
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="An indicator of how the block compares its elements.", json_schema_extra={"examples": ["member"]})
     profile: StrictStr = Field(description="The customer profile to check against the audience. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program.", json_schema_extra={"examples": ["Current"]})
-    audience: CheckAudienceBlock1Audience
+    audience: AudienceBlockReference = Field(description="The audience to check the profile against.")
     on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "profile", "audience", "onFailure"]
 
@@ -120,7 +120,7 @@ class CheckAudienceBlock(BaseModel):
             "tags": obj.get("tags"),
             "operator": obj.get("operator"),
             "profile": obj.get("profile"),
-            "audience": CheckAudienceBlock1Audience.from_dict(obj["audience"]) if obj.get("audience") is not None else None,
+            "audience": AudienceBlockReference.from_dict(obj["audience"]) if obj.get("audience") is not None else None,
             "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj

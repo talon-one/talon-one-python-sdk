@@ -55,9 +55,7 @@ class TestBlock(unittest.TestCase):
                 name = 'Purchase Deduction',
                 value = None,
                 partial = False,
-                target = talon_one.models.trigger_custom_effect_block_1_target.TriggerCustomEffectBlock_1_target(
-                    type = 'cart', 
-                    name = 'giftBundle', ),
+                target = None,
                 expression = [
                     null
                     ],
@@ -68,11 +66,7 @@ class TestBlock(unittest.TestCase):
                 quantity = '1',
                 giveaway_pool = None,
                 profile = 'Current',
-                audience = talon_one.models.update_audience_membership_block_1_audience.UpdateAudienceMembershipBlock_1_audience(
-                    id = 42, 
-                    name = 'Travel audience', 
-                    integration = 'mparticle', 
-                    integration_id = '382370BKDB946', ),
+                audience = None,
                 program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
                     id = 10, 
                     name = 'MainProgram', 
@@ -80,25 +74,11 @@ class TestBlock(unittest.TestCase):
                 subledger = 'main',
                 balance = 'current',
                 redeem = True,
-                achievement = talon_one.models.check_achievement_block_1_achievement.CheckAchievementBlock_1_achievement(
-                    id = 42, 
-                    title = '50% off on 50th purchase.', 
-                    name = 'Order50Discount', 
-                    target = 50, ),
-                attribute = talon_one.models.update_attribute_value_block_1_attribute.UpdateAttributeValueBlock_1_attribute(
-                    id = 100, 
-                    entity = 'profile', 
-                    name = 'City', 
-                    title = 'City', 
-                    type = 'string', ),
-                webhook = talon_one.models.trigger_webhook_block_1_webhook.TriggerWebhookBlock_1_webhook(
-                    id = 1, 
-                    title = 'Thank you for your order.', ),
+                achievement = None,
+                attribute = None,
+                webhook = None,
                 params = {template_id=TPL-10293},
-                custom_effect = talon_one.models.trigger_custom_effect_block_1_custom_effect.TriggerCustomEffectBlock_1_customEffect(
-                    id = 1, 
-                    name = 'sendEmail', 
-                    title = 'Send email', ),
+                custom_effect = None,
                 event_type = 'profileCreated',
                 matchers = [
                     null
@@ -109,17 +89,17 @@ class TestBlock(unittest.TestCase):
                 store_in_session = True,
                 usage_limit = None,
                 discount_limit = None,
-                start_date = 2024-12-24T14:15:22Z,
-                expiry_date = 2024-12-24T14:15:22Z,
+                start_date = 2026-12-24T14:15:22Z,
+                expiry_date = 2026-12-31T00:00:00Z,
                 attributes = None,
                 valid_characters = 'ABC',
                 pattern = 'SUMMER-####-####',
                 friend_id = '{{$Profile.IntegrationId}}',
-                tier = talon_one.models.check_tier_block_1_tier.CheckTierBlock_1_tier(
-                    id = 42, 
-                    name = 'Bronze', 
-                    min_points = 150, 
-                    upper_limit = 1.337, )
+                recipient = 'Current',
+                tier = None,
+                awaits_activation = False,
+                validity_duration = '30D',
+                pending_duration = '3D'
             )
         else:
             return Block(
@@ -131,9 +111,7 @@ class TestBlock(unittest.TestCase):
                 name = 'Purchase Deduction',
                 value = None,
                 partial = False,
-                target = talon_one.models.trigger_custom_effect_block_1_target.TriggerCustomEffectBlock_1_target(
-                    type = 'cart', 
-                    name = 'giftBundle', ),
+                target = None,
                 expression = [
                     null
                     ],
@@ -143,11 +121,7 @@ class TestBlock(unittest.TestCase):
                 quantity = '1',
                 giveaway_pool = None,
                 profile = 'Current',
-                audience = talon_one.models.update_audience_membership_block_1_audience.UpdateAudienceMembershipBlock_1_audience(
-                    id = 42, 
-                    name = 'Travel audience', 
-                    integration = 'mparticle', 
-                    integration_id = '382370BKDB946', ),
+                audience = None,
                 program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
                     id = 10, 
                     name = 'MainProgram', 
@@ -155,35 +129,18 @@ class TestBlock(unittest.TestCase):
                 subledger = 'main',
                 balance = 'current',
                 redeem = True,
-                achievement = talon_one.models.check_achievement_block_1_achievement.CheckAchievementBlock_1_achievement(
-                    id = 42, 
-                    title = '50% off on 50th purchase.', 
-                    name = 'Order50Discount', 
-                    target = 50, ),
-                attribute = talon_one.models.update_attribute_value_block_1_attribute.UpdateAttributeValueBlock_1_attribute(
-                    id = 100, 
-                    entity = 'profile', 
-                    name = 'City', 
-                    title = 'City', 
-                    type = 'string', ),
-                webhook = talon_one.models.trigger_webhook_block_1_webhook.TriggerWebhookBlock_1_webhook(
-                    id = 1, 
-                    title = 'Thank you for your order.', ),
-                custom_effect = talon_one.models.trigger_custom_effect_block_1_custom_effect.TriggerCustomEffectBlock_1_customEffect(
-                    id = 1, 
-                    name = 'sendEmail', 
-                    title = 'Send email', ),
+                achievement = None,
+                attribute = None,
+                webhook = None,
+                custom_effect = None,
                 event_type = 'profileCreated',
                 action = 'setDiscount',
                 campaign_id = None,
                 recipient_id = '{{$Profile.IntegrationId}}',
                 store_in_session = True,
                 friend_id = '{{$Profile.IntegrationId}}',
-                tier = talon_one.models.check_tier_block_1_tier.CheckTierBlock_1_tier(
-                    id = 42, 
-                    name = 'Bronze', 
-                    min_points = 150, 
-                    upper_limit = 1.337, ),
+                recipient = 'Current',
+                tier = None,
         )
         """
 

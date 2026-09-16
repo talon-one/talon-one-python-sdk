@@ -35,7 +35,8 @@ class IntegrationEventV2Request(BaseModel):
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary additional JSON properties associated with the event. They must be created in the Campaign Manager before setting them with this property. See [creating custom attributes](https://docs.talon.one/docs/product/account/dev-tools/managing-attributes#creating-a-custom-attribute).", json_schema_extra={"examples": [{"myAttribute": "myValue"}]})
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent", json_schema_extra={"examples": [["triggeredCampaigns", "customerProfile"]]})
     loyalty_cards: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Identifiers of the loyalty cards used during this event.", alias="loyaltyCards", json_schema_extra={"examples": [["loyalty-card-1"]]})
-    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "responseContent", "loyaltyCards"]
+    reward_integration_ids: Optional[List[StrictStr]] = Field(default=None, description="The integration IDs of the unlocked rewards that can be used in this event. ", alias="rewardIntegrationIds", json_schema_extra={"examples": [["5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90"]]})
+    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "responseContent", "loyaltyCards", "rewardIntegrationIds"]
 
     @field_validator('response_content')
     def response_content_validate_enum(cls, value):
@@ -105,7 +106,8 @@ class IntegrationEventV2Request(BaseModel):
             "type": obj.get("type"),
             "attributes": obj.get("attributes"),
             "responseContent": obj.get("responseContent"),
-            "loyaltyCards": obj.get("loyaltyCards")
+            "loyaltyCards": obj.get("loyaltyCards"),
+            "rewardIntegrationIds": obj.get("rewardIntegrationIds")
         })
         return _obj
 

@@ -37,8 +37,9 @@ class IntegrationEventV3Request(BaseModel):
     connected_session_id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The ID of the session to reference. The session must be in `closed` state. Otherwise, the API call will fail.", alias="connectedSessionId", json_schema_extra={"examples": ["175KJPS947296"]})
     referral_code: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="The referral code submitted with the event. The endpoint does not validate the code, and submitting a code does not redeem it. Use the \"Referral code is valid\" condition in the Rule Builder to validate and redeem the code, or \"Referral code is valid (without redemption)\" to validate without redeeming. ", alias="referralCode", json_schema_extra={"examples": ["NT2K54D9"]})
     loyalty_cards: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Identifiers of the loyalty cards used during this event.", alias="loyaltyCards", json_schema_extra={"examples": [["loyalty-card-1"]]})
+    reward_integration_ids: Optional[List[StrictStr]] = Field(default=None, description="The integration IDs of the unlocked rewards that can be used in this event. ", alias="rewardIntegrationIds", json_schema_extra={"examples": [["5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90"]]})
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Optional list of requested information to be present on the response related to the tracking custom event. ", alias="responseContent", json_schema_extra={"examples": [["triggeredCampaigns", "customerProfile"]]})
-    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "integrationId", "connectedSessionId", "referralCode", "loyaltyCards", "responseContent"]
+    __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "integrationId", "connectedSessionId", "referralCode", "loyaltyCards", "rewardIntegrationIds", "responseContent"]
 
     @field_validator('response_content')
     def response_content_validate_enum(cls, value):
@@ -47,8 +48,8 @@ class IntegrationEventV3Request(BaseModel):
             return value
 
         for i in value:
-            if i not in set(['advancedEvent', 'awardedGiveaways', 'customerProfile', 'loyalty', 'referral', 'ruleFailureReasons', 'triggeredCampaigns']):
-                raise ValueError("each list item must be one of ('advancedEvent', 'awardedGiveaways', 'customerProfile', 'loyalty', 'referral', 'ruleFailureReasons', 'triggeredCampaigns')")
+            if i not in set(['advancedEvent', 'awardedGiveaways', 'customerProfile', 'loyalty', 'referral', 'ruleFailureReasons', 'triggeredCampaigns', 'unlockedRewards']):
+                raise ValueError("each list item must be one of ('advancedEvent', 'awardedGiveaways', 'customerProfile', 'loyalty', 'referral', 'ruleFailureReasons', 'triggeredCampaigns', 'unlockedRewards')")
         return value
 
     model_config = ConfigDict(
@@ -111,6 +112,7 @@ class IntegrationEventV3Request(BaseModel):
             "connectedSessionId": obj.get("connectedSessionId"),
             "referralCode": obj.get("referralCode"),
             "loyaltyCards": obj.get("loyaltyCards"),
+            "rewardIntegrationIds": obj.get("rewardIntegrationIds"),
             "responseContent": obj.get("responseContent")
         })
         return _obj

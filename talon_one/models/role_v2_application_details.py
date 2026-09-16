@@ -25,11 +25,11 @@ from pydantic_core import to_jsonable_python
 
 class RoleV2ApplicationDetails(BaseModel):
     """
-    RoleV2ApplicationDetails
+    Details of the permission sets configured for an Application.
     """ # noqa: E501
-    application: Optional[StrictStr] = Field(default=None, description="Name of the Application-related permission set for the given Application.")
-    campaign: Optional[StrictStr] = Field(default=None, description="Name of the campaign-related permission set for the given Application.")
-    draft_campaign: Optional[StrictStr] = Field(default=None, description="Name of the draft campaign-related permission set for the given Application.", alias="draftCampaign")
+    application: Optional[StrictStr] = Field(default=None, description="Name of the Application-related permission set for the given Application.", json_schema_extra={"examples": ["Application permission set"]})
+    campaign: Optional[StrictStr] = Field(default=None, description="Name of the campaign-related permission set for the given Application.", json_schema_extra={"examples": ["Campaign manager permission set"]})
+    draft_campaign: Optional[StrictStr] = Field(default=None, description="Name of the draft campaign-related permission set for the given Application.", alias="draftCampaign", json_schema_extra={"examples": ["Campaign read-only permission set"]})
     tools: Optional[StrictStr] = Field(default=None, description="Name of the tools-related permission set.", json_schema_extra={"examples": ["Tools permission set"]})
     __properties: ClassVar[List[str]] = ["application", "campaign", "draftCampaign", "tools"]
 

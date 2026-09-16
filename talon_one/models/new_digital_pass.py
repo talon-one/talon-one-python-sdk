@@ -32,7 +32,7 @@ class NewDigitalPass(BaseModel):
     pass_template_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The ID of the digital pass template used to generate the pass. ", alias="passTemplateId", json_schema_extra={"examples": ["tmpl_summer_loyalty"]})
     profile_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The integration ID of the customer profile the pass is issued for.", alias="profileId", json_schema_extra={"examples": ["12412412421"]})
     loyalty_card_id: Optional[StrictStr] = Field(default=None, description="The identifier of the loyalty card the pass is issued for.  **Note**: Only applicable for card-based loyalty programs. ", alias="loyaltyCardId", json_schema_extra={"examples": ["summer-loyalty-0e2f"]})
-    platform: StrictStr = Field(description="The wallet platform the pass is generated for.", json_schema_extra={"examples": ["google"]})
+    platform: StrictStr = Field(description="The wallet platform the pass is generated for. Possible values:  - `apple`: The digital pass is generated for Apple Wallet. - `google`: The digital pass is generated for Google Wallet. ", json_schema_extra={"examples": ["google"]})
     attributes: Optional[Dict[str, StrictStr]] = Field(default=None, description="A map of placeholder values that you provide to fill in the pass template. These values are not validated against the template. ", json_schema_extra={"examples": [{"hm_member_name": "Jane Doe"}]})
     __properties: ClassVar[List[str]] = ["loyaltyProgramId", "passTemplateId", "profileId", "loyaltyCardId", "platform", "attributes"]
 

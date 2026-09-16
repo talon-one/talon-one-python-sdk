@@ -40,10 +40,7 @@ class TestTriggerCustomEffectBlock(unittest.TestCase):
                 tags = [
                     ''
                     ],
-                custom_effect = talon_one.models.trigger_custom_effect_block_1_custom_effect.TriggerCustomEffectBlock_1_customEffect(
-                    id = 1, 
-                    name = 'sendEmail', 
-                    title = 'Send email', ),
+                custom_effect = None,
                 params = {template_id=TPL-10293},
                 target = talon_one.models.trigger_custom_effect_block_1_target.TriggerCustomEffectBlock_1_target(
                     type = 'cart', 
@@ -57,10 +54,7 @@ class TestTriggerCustomEffectBlock(unittest.TestCase):
         else:
             return TriggerCustomEffectBlock(
                 type = '',
-                custom_effect = talon_one.models.trigger_custom_effect_block_1_custom_effect.TriggerCustomEffectBlock_1_customEffect(
-                    id = 1, 
-                    name = 'sendEmail', 
-                    title = 'Send email', ),
+                custom_effect = None,
                 target = talon_one.models.trigger_custom_effect_block_1_target.TriggerCustomEffectBlock_1_target(
                     type = 'cart', 
                     name = 'giftBundle', ),

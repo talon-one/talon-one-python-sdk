@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
 **operator** | **str** |  | 
 **value** | **str** | The value to update the progress by. Supports template placeholders (e.g. \&quot;{{$Session.Total / 2}}\&quot;) for dynamic quantities. | 
-**achievement** | [**UpdateAchievementProgressBlock1Achievement**](UpdateAchievementProgressBlock1Achievement.md) |  | 
+**achievement** | [**AchievementBlockReference**](AchievementBlockReference.md) | The achievement to update. | 
 
 ## Example
 

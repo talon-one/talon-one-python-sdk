@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the permission set. | 
-**logical_operations** | **List[str]** | List of logical operations in the permission set. Each logical operation must be shown under the &#x60;x-permission&#x60; tag on an endpoint level.  | 
+**logical_operations** | **List[str]** | List of logical operations in the permission set.  | 
 
 ## Example
 

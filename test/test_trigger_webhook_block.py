@@ -40,9 +40,7 @@ class TestTriggerWebhookBlock(unittest.TestCase):
                 tags = [
                     ''
                     ],
-                webhook = talon_one.models.trigger_webhook_block_1_webhook.TriggerWebhookBlock_1_webhook(
-                    id = 1, 
-                    title = 'Thank you for your order.', ),
+                webhook = None,
                 params = {order_id=ORD-10293},
                 on_error = {
                     'key' : [
@@ -53,9 +51,7 @@ class TestTriggerWebhookBlock(unittest.TestCase):
         else:
             return TriggerWebhookBlock(
                 type = '',
-                webhook = talon_one.models.trigger_webhook_block_1_webhook.TriggerWebhookBlock_1_webhook(
-                    id = 1, 
-                    title = 'Thank you for your order.', ),
+                webhook = None,
         )
         """
 

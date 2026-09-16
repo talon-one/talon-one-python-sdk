@@ -29,7 +29,7 @@ class DigitalPass(BaseModel):
     """ # noqa: E501
     pass_id: StrictStr = Field(description="The ID of the generated digital pass.", alias="passId", json_schema_extra={"examples": ["pass_9c3f1a2b"]})
     pass_template_id: StrictStr = Field(description="The ID of the digital pass template used to generate the pass.", alias="passTemplateId", json_schema_extra={"examples": ["tmpl_summer_loyalty"]})
-    status: StrictStr = Field(description="The status of the digital pass.", json_schema_extra={"examples": ["created"]})
+    status: StrictStr = Field(description="The status of the digital pass.  `created` indicates that the pass was generated and is ready to be added to a wallet. ", json_schema_extra={"examples": ["created"]})
     pass_url: StrictStr = Field(description="The URL you can use to let the customer add the digital pass to their wallet.", alias="passUrl", json_schema_extra={"examples": ["https://wallet.example.com/passes/pass_9c3f1a2b"]})
     __properties: ClassVar[List[str]] = ["passId", "passTemplateId", "status", "passUrl"]
 

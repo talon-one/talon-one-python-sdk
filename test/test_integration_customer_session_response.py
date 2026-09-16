@@ -37,7 +37,7 @@ class TestIntegrationCustomerSessionResponse(unittest.TestCase):
             return IntegrationCustomerSessionResponse(
                 customer_session = None,
                 effects = [
-                    null
+                    talon_one.models.effect.Effect()
                     ]
             )
         else:

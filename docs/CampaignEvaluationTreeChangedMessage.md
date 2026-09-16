@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **notification_type** | **str** | The type of the notification | 
 **total_result_size** | **int** | The total size of the result set. | 
-**data** | [**List[CampaignEvaluationTreeChangedNotification]**](CampaignEvaluationTreeChangedNotification.md) | The array of changes. | [optional] 
+**data** | [**List[CampaignEvaluationTreeChangedNotification]**](CampaignEvaluationTreeChangedNotification.md) | The array of changes. | 
 
 ## Example
 

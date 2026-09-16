@@ -41,12 +41,7 @@ class TestUpdateAttributeValueBlock(unittest.TestCase):
                     ''
                     ],
                 operator = 'setTo',
-                attribute = talon_one.models.update_attribute_value_block_1_attribute.UpdateAttributeValueBlock_1_attribute(
-                    id = 100, 
-                    entity = 'profile', 
-                    name = 'City', 
-                    title = 'City', 
-                    type = 'string', ),
+                attribute = None,
                 value = 10,
                 target = talon_one.models.update_attribute_value_block_1_target.UpdateAttributeValueBlock_1_target(
                     type = 'profile', 
@@ -56,12 +51,7 @@ class TestUpdateAttributeValueBlock(unittest.TestCase):
             return UpdateAttributeValueBlock(
                 type = '',
                 operator = 'setTo',
-                attribute = talon_one.models.update_attribute_value_block_1_attribute.UpdateAttributeValueBlock_1_attribute(
-                    id = 100, 
-                    entity = 'profile', 
-                    name = 'City', 
-                    title = 'City', 
-                    type = 'string', ),
+                attribute = None,
                 target = talon_one.models.update_attribute_value_block_1_target.UpdateAttributeValueBlock_1_target(
                     type = 'profile', 
                     name = 'Filter items by product', ),

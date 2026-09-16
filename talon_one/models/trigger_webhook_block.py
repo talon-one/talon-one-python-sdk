@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.trigger_webhook_block1_webhook import TriggerWebhookBlock1Webhook
+from talon_one.models.webhook_block_reference import WebhookBlockReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,7 +31,7 @@ class TriggerWebhookBlock(BaseModel):
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
-    webhook: TriggerWebhookBlock1Webhook
+    webhook: WebhookBlockReference = Field(description="The webhook to trigger.")
     params: Optional[Dict[str, Any]] = Field(default=None, description="The webhook's parameters, in configured order. Each property name is the parameter's title, lowercased with spaces replaced by underscores (for example, `Order ID` becomes `order_id`); falls back to `param_0`, `param_1`, and so on if a title is blank or collides with another.", json_schema_extra={"examples": [{"order_id": "ORD-10293"}]})
     on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "webhook", "params", "onError"]
@@ -105,7 +105,7 @@ class TriggerWebhookBlock(BaseModel):
             "id": obj.get("id"),
             "type": obj.get("type"),
             "tags": obj.get("tags"),
-            "webhook": TriggerWebhookBlock1Webhook.from_dict(obj["webhook"]) if obj.get("webhook") is not None else None,
+            "webhook": WebhookBlockReference.from_dict(obj["webhook"]) if obj.get("webhook") is not None else None,
             "params": obj.get("params"),
             "onError": {
                 _k: [Block.from_dict(_item) for _item in _v] if _v is not None else None

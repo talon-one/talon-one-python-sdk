@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.trigger_custom_effect_block1_custom_effect import TriggerCustomEffectBlock1CustomEffect
+from talon_one.models.custom_effect_block_reference import CustomEffectBlockReference
 from talon_one.models.trigger_custom_effect_block1_target import TriggerCustomEffectBlock1Target
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,7 +32,7 @@ class TriggerCustomEffectBlock(BaseModel):
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
-    custom_effect: TriggerCustomEffectBlock1CustomEffect = Field(alias="customEffect")
+    custom_effect: CustomEffectBlockReference = Field(description="The custom effect to trigger.", alias="customEffect")
     params: Optional[Dict[str, Any]] = Field(default=None, description="The custom effect's parameters, in configured order. Each property name is the parameter's title, lowercased with spaces replaced by underscores (for example, `Order ID` becomes `order_id`); falls back to `param_0`, `param_1`, and so on if a title is blank or collides with another.", json_schema_extra={"examples": [{"template_id": "TPL-10293"}]})
     target: TriggerCustomEffectBlock1Target
     on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
@@ -110,7 +110,7 @@ class TriggerCustomEffectBlock(BaseModel):
             "id": obj.get("id"),
             "type": obj.get("type"),
             "tags": obj.get("tags"),
-            "customEffect": TriggerCustomEffectBlock1CustomEffect.from_dict(obj["customEffect"]) if obj.get("customEffect") is not None else None,
+            "customEffect": CustomEffectBlockReference.from_dict(obj["customEffect"]) if obj.get("customEffect") is not None else None,
             "params": obj.get("params"),
             "target": TriggerCustomEffectBlock1Target.from_dict(obj["target"]) if obj.get("target") is not None else None,
             "onError": {

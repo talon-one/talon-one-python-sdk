@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total_result_size** | **int** |  | 
-**data** | [**List[RoleV2]**](RoleV2.md) |  | 
+**total_result_size** | **int** | The total number of roles returned. | 
+**data** | [**List[RoleV2]**](RoleV2.md) | The list of roles. | 
 
 ## Example
 

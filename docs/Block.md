@@ -15,26 +15,26 @@ Name | Type | Description | Notes
 **on_error** | **Dict[str, List[Block]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
 **name** | **str** | A custom description recorded as the reason for the point deduction. | 
 **value** | [**RedeemLoyaltyPointsBlock1Value**](RedeemLoyaltyPointsBlock1Value.md) |  | 
-**partial** | **bool** | When set to &#x60;true&#x60;, applies a partial item reward if the remaining budget is insufficient to award the full reward. | 
-**target** | [**TriggerCustomEffectBlock1Target**](TriggerCustomEffectBlock1Target.md) |  | 
+**partial** | **bool** | When &#x60;true&#x60;, applies a partial points reward when the requested value exceeds the configured budget. | 
+**target** | [**AwardLoyaltyPointsTarget**](AwardLoyaltyPointsTarget.md) |  | 
 **expression** | **List[object]** | The raw Talang expression as an array. For a function call, the first element is the function name and subsequent elements are its arguments. For any other expression (for example a bare attribute path or a literal value), this is a single-element array containing that value. | 
 **notification_type** | **str** | The type of notification to display. | 
 **title** | **str** | The notification heading shown to the customer. | 
 **body** | **str** | The notification body text. Supports template placeholders (e.g. \&quot;{{$Session.Total}}\&quot;) evaluated at rule execution time. | [optional] 
 **sku** | **str** | The stock keeping unit of the item to award. | 
 **quantity** | **str** | The number of items to award. Supports template placeholders (e.g. \&quot;{{$Session.Total / 2}}\&quot;) for dynamic quantities. | 
-**giveaway_pool** | [**GiveawayPoolReference**](GiveawayPoolReference.md) | The giveaway pool from which an item is awarded. | 
+**giveaway_pool** | [**GiveawayPoolBlockReference**](GiveawayPoolBlockReference.md) | The giveaway pool from which an item is awarded. | 
 **profile** | **str** | The customer profile to add or remove from the audience. &#x60;Current&#x60; targets the customer in the current session; &#x60;Advocate&#x60; targets the person who invited their friend via referral program. | 
-**audience** | [**UpdateAudienceMembershipBlock1Audience**](UpdateAudienceMembershipBlock1Audience.md) |  | 
+**audience** | [**AudienceBlockReference**](AudienceBlockReference.md) | The audience to add the customer to or remove them from. | 
 **program** | [**RedeemLoyaltyPointsBlock1Program**](RedeemLoyaltyPointsBlock1Program.md) |  | 
 **subledger** | **str** | The name of the subledger to deduct points from. Can be empty if this block deducts from the loyalty program&#39;s main ledger instead of a subledger. | 
 **balance** | **str** | The type of balance to check:  - &#x60;current&#x60; is the sum of currently active points  - &#x60;pending&#x60; is the sum of pending points.  - &#x60;negative&#x60; is the sum of negative points.  - &#x60;tentativeCurrent&#x60; is the tentative points balance within the current open customer session. | 
 **redeem** | **bool** | When &#x60;true&#x60;, the referral code is redeemed. | 
-**achievement** | [**CheckAchievementBlock1Achievement**](CheckAchievementBlock1Achievement.md) |  | 
-**attribute** | [**UpdateAttributeValueBlock1Attribute**](UpdateAttributeValueBlock1Attribute.md) |  | 
-**webhook** | [**TriggerWebhookBlock1Webhook**](TriggerWebhookBlock1Webhook.md) |  | 
+**achievement** | [**AchievementBlockReference**](AchievementBlockReference.md) | The achievement to check for. | 
+**attribute** | [**AttributeBlockReference**](AttributeBlockReference.md) | The attribute being updated. | 
+**webhook** | [**WebhookBlockReference**](WebhookBlockReference.md) | The webhook to trigger. | 
 **params** | **Dict[str, object]** | The custom effect&#39;s parameters, in configured order. Each property name is the parameter&#39;s title, lowercased with spaces replaced by underscores (for example, &#x60;Order ID&#x60; becomes &#x60;order_id&#x60;); falls back to &#x60;param_0&#x60;, &#x60;param_1&#x60;, and so on if a title is blank or collides with another. | [optional] 
-**custom_effect** | [**TriggerCustomEffectBlock1CustomEffect**](TriggerCustomEffectBlock1CustomEffect.md) |  | 
+**custom_effect** | [**CustomEffectBlockReference**](CustomEffectBlockReference.md) | The custom effect to trigger. | 
 **event_type** | **str** | The event type to check against. | 
 **matchers** | [**List[Block]**](Block.md) |  | [optional] 
 **action** | **str** | The limitable action to check. | 
@@ -43,13 +43,17 @@ Name | Type | Description | Notes
 **store_in_session** | **bool** | When &#x60;true&#x60;, the referral code is stored in the session. | 
 **usage_limit** | [**CreateReferralBlock1UsageLimit**](CreateReferralBlock1UsageLimit.md) |  | [optional] 
 **discount_limit** | [**CreateCouponBlock1DiscountLimit**](CreateCouponBlock1DiscountLimit.md) |  | [optional] 
-**start_date** | **object** | Timestamp at which point the referral code becomes valid. | [optional] 
-**expiry_date** | **object** | Expiration date of the referral code. Referral code never expires if this is omitted. | [optional] 
+**start_date** | **object** | Timestamp at which the awarded points become active. Mutually exclusive with &#x60;awaitsActivation&#x60;. | [optional] 
+**expiry_date** | **object** | Timestamp at which the awarded points expire. Mutually exclusive with &#x60;validityDuration&#x60;. | [optional] 
 **attributes** | **object** | Custom attributes associated with this referral code. | [optional] 
 **valid_characters** | **str** | Characters used to generate the random parts of a code. | [optional] 
 **pattern** | **str** | The pattern used to generate codes, such as coupon codes, referral codes, and loyalty cards. The character &#x60;#&#x60; is a placeholder and is replaced by a random character from the &#x60;validCharacters&#x60; set.  | [optional] 
 **friend_id** | **str** | An optional integration ID of the friend&#39;s profile. | 
-**tier** | [**CheckTierBlock1Tier**](CheckTierBlock1Tier.md) |  | 
+**recipient** | **str** | The customer profile that receives the points. &#x60;Current&#x60; targets the customer in the current session; &#x60;Advocate&#x60; targets the person who invited their friend via referral program. | 
+**tier** | [**TierBlockReference**](TierBlockReference.md) | The tier to check for. | 
+**awaits_activation** | **bool** | When &#x60;true&#x60;, the awarded points require manual or delayed activation before becoming active. Mutually exclusive with &#x60;startDate&#x60;. | [optional] 
+**validity_duration** | **str** | Relative duration (e.g. &#x60;30D&#x60;) after which the awarded points expire. Mutually exclusive with &#x60;expiryDate&#x60;. | [optional] 
+**pending_duration** | **str** | Relative duration (e.g. &#x60;3D&#x60;) the awarded points remain pending before activation. | [optional] 
 
 ## Example
 

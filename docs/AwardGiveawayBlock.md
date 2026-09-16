@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** | Unique identifier for this block. | [optional] [readonly] 
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
-**giveaway_pool** | [**GiveawayPoolReference**](GiveawayPoolReference.md) | The giveaway pool from which an item is awarded. | 
+**giveaway_pool** | [**GiveawayPoolBlockReference**](GiveawayPoolBlockReference.md) | The giveaway pool from which an item is awarded. | 
 **profile** | **str** | The customer profile to award the giveaway to. &#x60;Current&#x60; targets the customer in the current session; &#x60;Advocate&#x60; targets the person who invited their friend via referral program. | 
 **on_failure** | [**List[Block]**](Block.md) | Blocks evaluated when this block fails or returns false. | [optional] 
 **on_error** | **Dict[str, List[Block]]** | Named error handlers evaluated when a specific error occurs. | [optional] 

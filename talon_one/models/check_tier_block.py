@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from talon_one.models.check_tier_block1_tier import CheckTierBlock1Tier
+from talon_one.models.tier_block_reference import TierBlockReference
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +33,7 @@ class CheckTierBlock(BaseModel):
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="An indicator of how the block compares its elements.", json_schema_extra={"examples": ["member"]})
     subledger: StrictStr = Field(description="The name of the subledger to check the balance of. Can be empty if this block checks the loyalty program's main ledger balance instead of a subledger.", json_schema_extra={"examples": [""]})
-    tier: CheckTierBlock1Tier
+    tier: TierBlockReference = Field(description="The tier to check for.")
     on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "subledger", "tier", "onFailure"]
 
@@ -113,7 +113,7 @@ class CheckTierBlock(BaseModel):
             "tags": obj.get("tags"),
             "operator": obj.get("operator"),
             "subledger": obj.get("subledger"),
-            "tier": CheckTierBlock1Tier.from_dict(obj["tier"]) if obj.get("tier") is not None else None,
+            "tier": TierBlockReference.from_dict(obj["tier"]) if obj.get("tier") is not None else None,
             "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
         return _obj

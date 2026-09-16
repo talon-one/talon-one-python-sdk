@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **type** | **str** | Identifies the block variant and determines which additional properties are present in it. | 
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] 
 **operator** | **str** | The update operation applied to the attribute. | 
-**attribute** | [**UpdateAttributeValueBlock1Attribute**](UpdateAttributeValueBlock1Attribute.md) |  | 
+**attribute** | [**AttributeBlockReference**](AttributeBlockReference.md) | The attribute being updated. | 
 **value** | **object** | The value of the attribute. Omitted when operator is set to &#x60;toggle&#x60;. | [optional] 
 **target** | [**UpdateAttributeValueBlock1Target**](UpdateAttributeValueBlock1Target.md) |  | 
 
