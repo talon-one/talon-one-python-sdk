@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -39,7 +39,19 @@ class TierUpgradeData(BaseModel):
     next_tier: Optional[StrictStr] = Field(default=None, description="The name of the customer's next tier.", alias="NextTier", json_schema_extra={"examples": ["Gold"]})
     tier_expiration_date: datetime = Field(description="The exact date and time the tier expires.", alias="TierExpirationDate", json_schema_extra={"examples": ["2023-12-01T12:23:00+02:00"]})
     timestamp_of_tier_change: datetime = Field(description="The exact date and time the tier was changed.", alias="TimestampOfTierChange", json_schema_extra={"examples": ["2023-10-26T12:23:00+02:00"]})
-    __properties: ClassVar[List[str]] = ["CustomerProfileID", "LoyaltyProgramID", "SubledgerID", "CurrentTier", "CurrentPoints", "OldTier", "PointsRequiredToTheNextTier", "NextTier", "TierExpirationDate", "TimestampOfTierChange"]
+    source: Optional[StrictStr] = Field(default='points', description="The source of the tier change, whether from a points change or boost. ", alias="Source")
+    reason: Optional[StrictStr] = Field(default=None, description="The reason for the tier change. ", alias="Reason")
+    __properties: ClassVar[List[str]] = ["CustomerProfileID", "LoyaltyProgramID", "SubledgerID", "CurrentTier", "CurrentPoints", "OldTier", "PointsRequiredToTheNextTier", "NextTier", "TierExpirationDate", "TimestampOfTierChange", "Source", "Reason"]
+
+    @field_validator('source')
+    def source_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['boost', 'points']):
+            raise ValueError("must be one of enum values ('boost', 'points')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -101,7 +113,9 @@ class TierUpgradeData(BaseModel):
             "PointsRequiredToTheNextTier": obj.get("PointsRequiredToTheNextTier"),
             "NextTier": obj.get("NextTier"),
             "TierExpirationDate": obj.get("TierExpirationDate"),
-            "TimestampOfTierChange": obj.get("TimestampOfTierChange")
+            "TimestampOfTierChange": obj.get("TimestampOfTierChange"),
+            "Source": obj.get("Source") if obj.get("Source") is not None else 'points',
+            "Reason": obj.get("Reason")
         })
         return _obj
 

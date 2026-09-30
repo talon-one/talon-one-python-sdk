@@ -52,6 +52,7 @@ class TestEffectCustomEffect(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {effectId=1, name=my_custom_effect, cartItemPosition=1, cartItemSubPosition=2, bundleIndex=1, bundleName=my_bundle, payload={key=value}}
             )
         else:

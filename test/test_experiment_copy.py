@@ -37,6 +37,7 @@ class TestExperimentCopy(unittest.TestCase):
             return ExperimentCopy(
                 target_application_id = 56,
                 experiment = talon_one.models.experiment_copy_experiment.ExperimentCopy_experiment(
+                    assignment_type = 'random', 
                     is_variant_assignment_external = True, 
                     campaign = talon_one.models.experiment_campaign_copy.ExperimentCampaignCopy(
                         name = 'Copy of Summer promotions', 
@@ -52,6 +53,7 @@ class TestExperimentCopy(unittest.TestCase):
             return ExperimentCopy(
                 target_application_id = 56,
                 experiment = talon_one.models.experiment_copy_experiment.ExperimentCopy_experiment(
+                    assignment_type = 'random', 
                     is_variant_assignment_external = True, 
                     campaign = talon_one.models.experiment_campaign_copy.ExperimentCampaignCopy(
                         name = 'Copy of Summer promotions', 

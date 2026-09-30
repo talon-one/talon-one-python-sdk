@@ -52,6 +52,7 @@ class TestEffectExtendLoyaltyPointsExpiryDate(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {programId=5, subLedgerId=main, extensionDuration=12h, affectedTransactions=[]}
             )
         else:

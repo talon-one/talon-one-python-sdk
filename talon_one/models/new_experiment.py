@@ -28,11 +28,22 @@ class NewExperiment(BaseModel):
     """
     NewExperiment
     """ # noqa: E501
-    is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
+    assignment_type: Optional[StrictStr] = Field(default=None, description="Controls how customers are assigned to experiment variants. Either `assignmentType` or `isVariantAssignmentExternal` must be provided; `assignmentType` takes priority when both are present. - `random`: Talon.One assigns customers randomly based on variant weights. - `external`: Variant assignment is handled externally. - `audience`: Each variant targets a specific audience; customers are   assigned based on audience membership. ", alias="assignmentType", json_schema_extra={"examples": ["random"]})
+    is_variant_assignment_external: Optional[StrictBool] = Field(default=None, description="Deprecated. Use `assignmentType` instead. Either `assignmentType` or `isVariantAssignmentExternal` must be provided. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
     campaign: NewCampaign
     goal_type: StrictStr = Field(description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. ", alias="goalType")
     goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. ", alias="goalDescription", json_schema_extra={"examples": ["Offering free shipping will increase average order revenue more than a 10% discount"]})
-    __properties: ClassVar[List[str]] = ["isVariantAssignmentExternal", "campaign", "goalType", "goalDescription"]
+    __properties: ClassVar[List[str]] = ["assignmentType", "isVariantAssignmentExternal", "campaign", "goalType", "goalDescription"]
+
+    @field_validator('assignment_type')
+    def assignment_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['random', 'external', 'audience']):
+            raise ValueError("must be one of enum values ('random', 'external', 'audience')")
+        return value
 
     @field_validator('goal_type')
     def goal_type_validate_enum(cls, value):
@@ -95,6 +106,7 @@ class NewExperiment(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "assignmentType": obj.get("assignmentType"),
             "isVariantAssignmentExternal": obj.get("isVariantAssignmentExternal"),
             "campaign": NewCampaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
             "goalType": obj.get("goalType") if obj.get("goalType") is not None else 'other',

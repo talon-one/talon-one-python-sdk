@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.new_ruleset import NewRuleset
 from typing import Optional, Set
@@ -30,10 +30,11 @@ class NewExperimentVariant(BaseModel):
     NewExperimentVariant
     """ # noqa: E501
     name: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The name of this variant.", json_schema_extra={"examples": ["Variant A"]})
-    weight: Annotated[int, Field(le=99, strict=True, ge=1)] = Field(description="The percentage split of this variant. The sum of all variant percentages must be 100.", json_schema_extra={"examples": [13]})
+    weight: Annotated[int, Field(le=99, strict=True, ge=0)] = Field(description="The percentage split of this variant. For `random` assignment, the split must be between 1 and 99 and the sum across all variants must equal 100. Ignored for `audience` and `external` assignment. ", json_schema_extra={"examples": [13]})
     ruleset: NewRuleset
     is_primary: StrictBool = Field(alias="isPrimary", json_schema_extra={"examples": [True]})
-    __properties: ClassVar[List[str]] = ["name", "weight", "ruleset", "isPrimary"]
+    audience_id: Optional[StrictInt] = Field(default=None, description="The ID of the audience this variant targets. Only used when the experiment `assignmentType` is `audience`. ", alias="audienceId", json_schema_extra={"examples": [55]})
+    __properties: ClassVar[List[str]] = ["name", "weight", "ruleset", "isPrimary", "audienceId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -92,7 +93,8 @@ class NewExperimentVariant(BaseModel):
             "name": obj.get("name"),
             "weight": obj.get("weight"),
             "ruleset": NewRuleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
-            "isPrimary": obj.get("isPrimary")
+            "isPrimary": obj.get("isPrimary"),
+            "audienceId": obj.get("audienceId")
         })
         return _obj
 

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.code_generator_settings import CodeGeneratorSettings
@@ -29,7 +29,7 @@ class LoyaltyCardBatch(BaseModel):
     """
     LoyaltyCardBatch
     """ # noqa: E501
-    number_of_cards: StrictInt = Field(description="Number of loyalty cards in the batch.", alias="numberOfCards", json_schema_extra={"examples": [5000]})
+    number_of_cards: Annotated[int, Field(le=20000, strict=True, ge=1)] = Field(description="Number of loyalty cards in the batch.", alias="numberOfCards", json_schema_extra={"examples": [5000]})
     batch_id: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=20)]] = Field(default=None, description="ID of the loyalty card batch.", alias="batchId", json_schema_extra={"examples": ["hwernpjz"]})
     status: Optional[StrictStr] = Field(default='active', description="Status of the loyalty cards in the batch.", json_schema_extra={"examples": ["active"]})
     card_code_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="cardCodeSettings")

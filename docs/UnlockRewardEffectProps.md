@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **application_id** | **int** | The internal ID of the application the reward belongs to. | 
 **profile_integration_id** | **str** | The integration ID of the customer profile that unlocked the reward. | 
 **unlocked_at** | **datetime** | The time the reward was unlocked. | 
-**card_identifier** | **str** | The identifier of the loyalty card that unlocked the reward. Only returned when the reward was unlocked with a loyalty card, in which case the reward belongs to the card and is available to all customer profiles linked to it.  | [optional] 
+**loyalty_card_id** | **str** | The identifier of the loyalty card that unlocked the reward. Only returned when the reward was unlocked with a loyalty card, in which case the reward belongs to the card and is available to all customer profiles linked to it.  | [optional] 
 
 ## Example
 

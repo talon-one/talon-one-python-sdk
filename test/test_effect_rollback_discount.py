@@ -52,6 +52,7 @@ class TestEffectRollbackDiscount(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {name=10% Off, value=2.5, cartItemPosition=1, cartItemSubPosition=1, additionalCostId=1, additionalCost=shipping, scope=sessionTotal}
             )
         else:

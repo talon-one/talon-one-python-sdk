@@ -32,7 +32,7 @@ class History(BaseModel):
     """ # noqa: E501
     id: StrictInt = Field(description="The ID of the historical price.", json_schema_extra={"examples": [1]})
     observed_at: datetime = Field(description="The date and time when the price was observed.", alias="observedAt", json_schema_extra={"examples": ["2025-11-10T23:00:00Z"]})
-    context_ids: List[StrictStr] = Field(description="The identifiers of the relevant context at the time the price was observed. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price. ", alias="contextIds", json_schema_extra={"examples": [["SpringSale", "SummerSale2025"]]})
+    context_ids: List[StrictStr] = Field(description="The identifiers of the relevant context (the sales events, e.g. \"Spring Sale\", \"Summer Sale\") at the time the price was observed. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price. ", alias="contextIds", json_schema_extra={"examples": [["SpringSale", "SummerSale2025"]]})
     price: Union[StrictFloat, StrictInt] = Field(description="Price of the item.", json_schema_extra={"examples": [99.99]})
     metadata: BestPriorPriceMetadata
     target: LabelTarget

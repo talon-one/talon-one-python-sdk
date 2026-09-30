@@ -32,7 +32,7 @@ class CheckAudienceBlock(BaseModel):
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="An indicator of how the block compares its elements.", json_schema_extra={"examples": ["member"]})
-    profile: StrictStr = Field(description="The customer profile to check against the audience. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program.", json_schema_extra={"examples": ["Current"]})
+    profile: Optional[StrictStr] = Field(default=None, description="The customer profile to check against the audience. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program. Only applies to the `member` and `not(member)` operators; ignored for `justJoined` and `justLeft`.", json_schema_extra={"examples": ["Current"]})
     audience: AudienceBlockReference = Field(description="The audience to check the profile against.")
     on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "profile", "audience", "onFailure"]
@@ -47,6 +47,9 @@ class CheckAudienceBlock(BaseModel):
     @field_validator('profile')
     def profile_validate_enum(cls, value):
         """Validates the enum"""
+        if value is None:
+            return value
+
         if value not in set(['Current', 'Advocate']):
             raise ValueError("must be one of enum values ('Current', 'Advocate')")
         return value

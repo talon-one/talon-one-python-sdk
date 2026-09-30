@@ -52,6 +52,7 @@ class TestEffectDeductLoyaltyPoints(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {ruleTitle=Deduct points on return, programId=5, subLedgerId=main, value=50, transactionUUID=9f3e4781-7fb6-5f0f-c6d7-f8f8c5b21222, name=Points deducted for return, cardIdentifier=loyalty-card-001}
             )
         else:

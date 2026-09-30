@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -37,7 +37,19 @@ class TierWillDowngradeData(BaseModel):
     points_required_to_remain: Union[StrictFloat, StrictInt] = Field(description="The number of points needed for a customer to remain on the same tier.", alias="PointsRequiredToRemain", json_schema_extra={"examples": [23.51]})
     next_tier: Optional[StrictStr] = Field(default=None, description="The name of the customer's next tier.", alias="NextTier", json_schema_extra={"examples": ["Bronze"]})
     tier_expiration_date: Optional[datetime] = Field(default=None, description="The date and time the tier expires.", alias="TierExpirationDate", json_schema_extra={"examples": ["2023-12-01T12:23:00+02:00"]})
-    __properties: ClassVar[List[str]] = ["CustomerProfileID", "LoyaltyProgramID", "SubledgerID", "CurrentTier", "CurrentPoints", "PointsRequiredToRemain", "NextTier", "TierExpirationDate"]
+    source: Optional[StrictStr] = Field(default='points', description="The source of the tier change, whether from a points change or boost.", alias="Source")
+    reason: Optional[StrictStr] = Field(default=None, description="The reason for the tier change.", alias="Reason")
+    __properties: ClassVar[List[str]] = ["CustomerProfileID", "LoyaltyProgramID", "SubledgerID", "CurrentTier", "CurrentPoints", "PointsRequiredToRemain", "NextTier", "TierExpirationDate", "Source", "Reason"]
+
+    @field_validator('source')
+    def source_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['boost', 'points']):
+            raise ValueError("must be one of enum values ('boost', 'points')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -97,7 +109,9 @@ class TierWillDowngradeData(BaseModel):
             "CurrentPoints": obj.get("CurrentPoints"),
             "PointsRequiredToRemain": obj.get("PointsRequiredToRemain"),
             "NextTier": obj.get("NextTier"),
-            "TierExpirationDate": obj.get("TierExpirationDate")
+            "TierExpirationDate": obj.get("TierExpirationDate"),
+            "Source": obj.get("Source") if obj.get("Source") is not None else 'points',
+            "Reason": obj.get("Reason")
         })
         return _obj
 

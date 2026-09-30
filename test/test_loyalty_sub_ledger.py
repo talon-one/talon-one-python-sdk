@@ -139,9 +139,11 @@ class TestLoyaltySubLedger(unittest.TestCase):
                 current_tier = talon_one.models.tier.Tier(
                     id = 11, 
                     name = 'bronze', 
-                    start_date = '2021-05-03T12:32:00Z07:00', 
-                    expiry_date = '2022-08-02T15:04:05Z07:00', 
-                    downgrade_policy = 'one_down', )
+                    start_date = '2025-05-03T12:32:00Z07:00', 
+                    expiry_date = '2026-08-02T15:04:05+07:00', 
+                    downgrade_policy = 'one_down', 
+                    source = 'points', 
+                    reason = 'Subscription to newsletter', )
             )
         else:
             return LoyaltySubLedger(

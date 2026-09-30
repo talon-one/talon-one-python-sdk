@@ -40,7 +40,14 @@ class TestLoyaltyBalanceWithTier(unittest.TestCase):
                 spent_points = 150,
                 expired_points = 286,
                 negative_points = 286,
-                current_tier = bronze,
+                current_tier = talon_one.models.tier.Tier(
+                    id = 11, 
+                    name = 'bronze', 
+                    start_date = '2025-05-03T12:32:00Z07:00', 
+                    expiry_date = '2026-08-02T15:04:05+07:00', 
+                    downgrade_policy = 'one_down', 
+                    source = 'points', 
+                    reason = 'Subscription to newsletter', ),
                 projected_tier = talon_one.models.projected_tier.ProjectedTier(
                     projected_active_points = 198, 
                     stay_in_tier_points = 2, 

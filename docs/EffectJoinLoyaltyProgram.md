@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **selected_price** | **float** | The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied. | [optional] 
 **adjustment_reference_id** | **UUID** | The reference identifier of the selected price adjustment for this SKU. This is only returned if the &#x60;selectedPrice&#x60; resulted from a price adjustment. | [optional] 
 **reward_id** | **int** | The ID of the reward that was being evaluated when this effect was triggered. | [optional] 
+**reward_integration_id** | **str** | The integration ID of the specific customer reward whose usage produced this effect. | [optional] 
 **props** | [**JoinLoyaltyProgramEffectProps**](JoinLoyaltyProgramEffectProps.md) | The properties of the &#x60;joinLoyaltyProgram&#x60; effect. | 
 
 ## Example

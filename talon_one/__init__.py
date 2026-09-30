@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.19.0"
+__version__ = "26.20.0"
 
 # Define package exports
 __all__ = [
@@ -155,6 +155,7 @@ __all__ = [
     "Binding",
     "Block",
     "Blueprint",
+    "BoostLoyaltyTierEffectProps",
     "BulkApplicationNotification",
     "BulkOperationOnCampaigns",
     "Bundle",
@@ -325,6 +326,7 @@ __all__ = [
     "EffectAddNegativeLoyaltyPoints",
     "EffectAddToAudience",
     "EffectAwardGiveaway",
+    "EffectBoostLoyaltyTier",
     "EffectCallApi",
     "EffectChangeLoyaltyTierLevel",
     "EffectCouponCreated",
@@ -477,6 +479,7 @@ __all__ = [
     "GetLoyaltyCardTransactionLogs200Response",
     "GetLoyaltyCardTransactions200Response",
     "GetLoyaltyCards200Response",
+    "GetLoyaltyProgramProfileLedgerTransactions200Response",
     "GetLoyaltyProgramProfilePoints200Response",
     "GetLoyaltyProgramProfileTransactions200Response",
     "GetLoyaltyProgramTransactions200Response",
@@ -551,6 +554,7 @@ __all__ = [
     "LedgerInfo",
     "LedgerPointsEntryIntegrationAPI",
     "LedgerTransactionLogEntryIntegrationAPI",
+    "LedgerTransactionLogEntryManagementAPI",
     "LibraryAttribute",
     "LimitConfig",
     "LimitCounter",
@@ -708,6 +712,14 @@ __all__ = [
     "OktaEventPayloadData",
     "OktaEventTarget",
     "OneTimeCode",
+    "OutboundLog",
+    "OutboundLogBase",
+    "OutboundLogRequest",
+    "OutboundLogResponse",
+    "OutboundLogs",
+    "OutboundMessage",
+    "OutboundMessageResponse",
+    "OutboundMessages",
     "OutgoingIntegrationBrazePolicy",
     "OutgoingIntegrationCleverTapPolicy",
     "OutgoingIntegrationConfiguration",
@@ -797,6 +809,7 @@ __all__ = [
     "RollbackDiscountEffectProps",
     "RollbackIncreasedAchievementProgressEffectProps",
     "RollbackReferralEffectProps",
+    "RollbackTierBoostEffectProps",
     "RollbackUseRewardEffectProps",
     "Rule",
     "RuleEligibility",
@@ -1104,6 +1117,7 @@ from talon_one.models.between_check_attribute_block import BetweenCheckAttribute
 from talon_one.models.binding import Binding as Binding
 from talon_one.models.block import Block as Block
 from talon_one.models.blueprint import Blueprint as Blueprint
+from talon_one.models.boost_loyalty_tier_effect_props import BoostLoyaltyTierEffectProps as BoostLoyaltyTierEffectProps
 from talon_one.models.bulk_application_notification import BulkApplicationNotification as BulkApplicationNotification
 from talon_one.models.bulk_operation_on_campaigns import BulkOperationOnCampaigns as BulkOperationOnCampaigns
 from talon_one.models.bundle import Bundle as Bundle
@@ -1274,6 +1288,7 @@ from talon_one.models.effect_add_loyalty_points import EffectAddLoyaltyPoints as
 from talon_one.models.effect_add_negative_loyalty_points import EffectAddNegativeLoyaltyPoints as EffectAddNegativeLoyaltyPoints
 from talon_one.models.effect_add_to_audience import EffectAddToAudience as EffectAddToAudience
 from talon_one.models.effect_award_giveaway import EffectAwardGiveaway as EffectAwardGiveaway
+from talon_one.models.effect_boost_loyalty_tier import EffectBoostLoyaltyTier as EffectBoostLoyaltyTier
 from talon_one.models.effect_call_api import EffectCallApi as EffectCallApi
 from talon_one.models.effect_change_loyalty_tier_level import EffectChangeLoyaltyTierLevel as EffectChangeLoyaltyTierLevel
 from talon_one.models.effect_coupon_created import EffectCouponCreated as EffectCouponCreated
@@ -1426,6 +1441,7 @@ from talon_one.models.get_loyalty_card_points200_response import GetLoyaltyCardP
 from talon_one.models.get_loyalty_card_transaction_logs200_response import GetLoyaltyCardTransactionLogs200Response as GetLoyaltyCardTransactionLogs200Response
 from talon_one.models.get_loyalty_card_transactions200_response import GetLoyaltyCardTransactions200Response as GetLoyaltyCardTransactions200Response
 from talon_one.models.get_loyalty_cards200_response import GetLoyaltyCards200Response as GetLoyaltyCards200Response
+from talon_one.models.get_loyalty_program_profile_ledger_transactions200_response import GetLoyaltyProgramProfileLedgerTransactions200Response as GetLoyaltyProgramProfileLedgerTransactions200Response
 from talon_one.models.get_loyalty_program_profile_points200_response import GetLoyaltyProgramProfilePoints200Response as GetLoyaltyProgramProfilePoints200Response
 from talon_one.models.get_loyalty_program_profile_transactions200_response import GetLoyaltyProgramProfileTransactions200Response as GetLoyaltyProgramProfileTransactions200Response
 from talon_one.models.get_loyalty_program_transactions200_response import GetLoyaltyProgramTransactions200Response as GetLoyaltyProgramTransactions200Response
@@ -1500,6 +1516,7 @@ from talon_one.models.ledger_entry import LedgerEntry as LedgerEntry
 from talon_one.models.ledger_info import LedgerInfo as LedgerInfo
 from talon_one.models.ledger_points_entry_integration_api import LedgerPointsEntryIntegrationAPI as LedgerPointsEntryIntegrationAPI
 from talon_one.models.ledger_transaction_log_entry_integration_api import LedgerTransactionLogEntryIntegrationAPI as LedgerTransactionLogEntryIntegrationAPI
+from talon_one.models.ledger_transaction_log_entry_management_api import LedgerTransactionLogEntryManagementAPI as LedgerTransactionLogEntryManagementAPI
 from talon_one.models.library_attribute import LibraryAttribute as LibraryAttribute
 from talon_one.models.limit_config import LimitConfig as LimitConfig
 from talon_one.models.limit_counter import LimitCounter as LimitCounter
@@ -1657,6 +1674,14 @@ from talon_one.models.okta_event_payload import OktaEventPayload as OktaEventPay
 from talon_one.models.okta_event_payload_data import OktaEventPayloadData as OktaEventPayloadData
 from talon_one.models.okta_event_target import OktaEventTarget as OktaEventTarget
 from talon_one.models.one_time_code import OneTimeCode as OneTimeCode
+from talon_one.models.outbound_log import OutboundLog as OutboundLog
+from talon_one.models.outbound_log_base import OutboundLogBase as OutboundLogBase
+from talon_one.models.outbound_log_request import OutboundLogRequest as OutboundLogRequest
+from talon_one.models.outbound_log_response import OutboundLogResponse as OutboundLogResponse
+from talon_one.models.outbound_logs import OutboundLogs as OutboundLogs
+from talon_one.models.outbound_message import OutboundMessage as OutboundMessage
+from talon_one.models.outbound_message_response import OutboundMessageResponse as OutboundMessageResponse
+from talon_one.models.outbound_messages import OutboundMessages as OutboundMessages
 from talon_one.models.outgoing_integration_braze_policy import OutgoingIntegrationBrazePolicy as OutgoingIntegrationBrazePolicy
 from talon_one.models.outgoing_integration_clever_tap_policy import OutgoingIntegrationCleverTapPolicy as OutgoingIntegrationCleverTapPolicy
 from talon_one.models.outgoing_integration_configuration import OutgoingIntegrationConfiguration as OutgoingIntegrationConfiguration
@@ -1746,6 +1771,7 @@ from talon_one.models.rollback_deducted_loyalty_points_effect_props import Rollb
 from talon_one.models.rollback_discount_effect_props import RollbackDiscountEffectProps as RollbackDiscountEffectProps
 from talon_one.models.rollback_increased_achievement_progress_effect_props import RollbackIncreasedAchievementProgressEffectProps as RollbackIncreasedAchievementProgressEffectProps
 from talon_one.models.rollback_referral_effect_props import RollbackReferralEffectProps as RollbackReferralEffectProps
+from talon_one.models.rollback_tier_boost_effect_props import RollbackTierBoostEffectProps as RollbackTierBoostEffectProps
 from talon_one.models.rollback_use_reward_effect_props import RollbackUseRewardEffectProps as RollbackUseRewardEffectProps
 from talon_one.models.rule import Rule as Rule
 from talon_one.models.rule_eligibility import RuleEligibility as RuleEligibility

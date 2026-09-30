@@ -30,14 +30,14 @@ class IntegrationUnlockRewardRequest(BaseModel):
     """ # noqa: E501
     integration_id: StrictStr = Field(description="The integration ID to assign to the created customer reward unlock.", alias="integrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
     profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile unlocking the reward.", alias="profileIntegrationId", json_schema_extra={"examples": ["customer1"]})
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card unlocking the reward. When provided, the required points are deducted from the card's balance and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. The customer profile given in `profileIntegrationId` must be linked to the card, and the card must be active.", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    loyalty_card_id: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card unlocking the reward. When provided, the required points are deducted from the card's balance and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. The customer profile given in `profileIntegrationId` must be linked to the card, and the card must be active.", alias="loyaltyCardId", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="The ID of the loyalty program from which points will be deducted. Required when the reward has `pointsRequired` configured.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
     subledger_id: Optional[StrictStr] = Field(default=None, description="The ID of the subledger from which points will be deducted. Required when the reward has `pointsRequired` configured.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerId", json_schema_extra={"examples": ["sub1"]})
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Determines which data is included in the response. Add any of the following optional values to the array to get that data in the response: `customerProfile`, `ruleFailureReasons`, `loyalty`. `effects` is always returned regardless of whether it is included here.", alias="responseContent", json_schema_extra={"examples": [["customerProfile", "loyalty"]]})
-    __properties: ClassVar[List[str]] = ["integrationId", "profileIntegrationId", "cardIdentifier", "loyaltyProgramId", "subledgerId", "responseContent"]
+    __properties: ClassVar[List[str]] = ["integrationId", "profileIntegrationId", "loyaltyCardId", "loyaltyProgramId", "subledgerId", "responseContent"]
 
-    @field_validator('card_identifier', mode="before")
-    def card_identifier_validate_regular_expression(cls, value):
+    @field_validator('loyalty_card_id', mode="before")
+    def loyalty_card_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
@@ -110,7 +110,7 @@ class IntegrationUnlockRewardRequest(BaseModel):
         _obj = cls.model_validate({
             "integrationId": obj.get("integrationId"),
             "profileIntegrationId": obj.get("profileIntegrationId"),
-            "cardIdentifier": obj.get("cardIdentifier"),
+            "loyaltyCardId": obj.get("loyaltyCardId"),
             "loyaltyProgramId": obj.get("loyaltyProgramId"),
             "subledgerId": obj.get("subledgerId"),
             "responseContent": obj.get("responseContent")

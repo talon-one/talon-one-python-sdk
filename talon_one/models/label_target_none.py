@@ -25,7 +25,7 @@ from pydantic_core import to_jsonable_python
 
 class LabelTargetNone(BaseModel):
     """
-    Represents the target type when no entity is selected.
+    Target type when no specific audience is selected. Targets all customers who are not members of an audience.
     """ # noqa: E501
     type: StrictStr
     __properties: ClassVar[List[str]] = ["type"]

@@ -85,13 +85,14 @@ from talon_one.models.get_event_types200_response import GetEventTypes200Respons
 from talon_one.models.get_exports200_response import GetExports200Response
 from talon_one.models.get_loyalty_card_transaction_logs200_response import GetLoyaltyCardTransactionLogs200Response
 from talon_one.models.get_loyalty_cards200_response import GetLoyaltyCards200Response
-from talon_one.models.get_loyalty_program_profile_transactions200_response import GetLoyaltyProgramProfileTransactions200Response
+from talon_one.models.get_loyalty_program_profile_ledger_transactions200_response import GetLoyaltyProgramProfileLedgerTransactions200Response
 from talon_one.models.get_loyalty_program_transactions200_response import GetLoyaltyProgramTransactions200Response
 from talon_one.models.get_loyalty_programs200_response import GetLoyaltyPrograms200Response
 from talon_one.models.get_referrals_without_total_count200_response import GetReferralsWithoutTotalCount200Response
 from talon_one.models.get_rulesets200_response import GetRulesets200Response
 from talon_one.models.get_users200_response import GetUsers200Response
 from talon_one.models.get_webhooks200_response import GetWebhooks200Response
+from talon_one.models.giveaways_pool import GiveawaysPool
 from talon_one.models.list_account_collections200_response import ListAccountCollections200Response
 from talon_one.models.list_achievements200_response import ListAchievements200Response
 from talon_one.models.list_achievements_v2200_response import ListAchievementsV2200Response
@@ -1725,7 +1726,6 @@ class ManagementApi:
             '201': "Achievement",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
-            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1804,7 +1804,6 @@ class ManagementApi:
             '201': "Achievement",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
-            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1883,7 +1882,6 @@ class ManagementApi:
             '201': "Achievement",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
-            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2032,7 +2030,6 @@ class ManagementApi:
             '201': "AchievementV2",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
-            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2102,7 +2099,6 @@ class ManagementApi:
             '201': "AchievementV2",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
-            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2172,7 +2168,6 @@ class ManagementApi:
             '201': "AchievementV2",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
-            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -16485,7 +16480,7 @@ class ManagementApi:
     ) -> str:
         """Export triggered effects
 
-        Download a CSV file containing the triggered effects that match the given attributes.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `applicationid`: The ID of the Application. - `campaignid`: The ID of the campaign. - `couponid`: The ID of the coupon, when applicable to the effect. - `created`: The timestamp of the effect. - `event_type`: The name of the event. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/events). - `eventid`: The internal ID of the effect. - `name`: The effect name. See the [docs](https://docs.talon.one/docs/dev/integration-api/api-effects). - `profileintegrationid`: The ID of the customer profile, when applicable. - `props`: The [properties](https://docs.talon.one/docs/dev/integration-api/api-effects) of the effect. - `ruleindex`: The index of the rule. - `rulesetid`: The ID of the rule set. - `sessionid`: The internal ID of the session that triggered the effect. - `profileid`: The internal ID of the customer profile. - `sessionintegrationid`: The integration ID of the session. - `total_revenue`: The total revenue. - `store_integration_id`: The integration ID of the store. You choose this ID when you create a store. 
+        Download a CSV file containing the triggered effects that match the given attributes.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `applicationid`: The ID of the Application. - `campaignid`: The ID of the campaign. - `couponid`: The ID of the coupon, when applicable to the effect. - `created`: The timestamp of the effect. - `event_type`: The name of the event. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/events). - `eventid`: The internal ID of the effect. - `name`: The effect name. See the [docs](https://docs.talon.one/docs/dev/integration-api/api-effects). - `profileintegrationid`: The ID of the customer profile, when applicable. - `props`: The [properties](https://docs.talon.one/docs/dev/integration-api/api-effects) of the effect. - `ruleindex`: The index of the rule. - `rulesetid`: The ID of the rule set. - `sessionid`: The internal ID of the session that triggered the effect. - `profileid`: The internal ID of the customer profile. - `sessionintegrationid`: The integration ID of the session. - `total_revenue`: The total revenue. - `store_integration_id`: The integration ID of the store. You choose this ID when you create a store. - `reward_id`: The ID of the reward whose rule generated this effect, when applicable. - `reward_integration_id`: The integration ID of the specific customer reward whose usage produced this effect, when applicable. 
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -16568,7 +16563,7 @@ class ManagementApi:
     ) -> ApiResponse[str]:
         """Export triggered effects
 
-        Download a CSV file containing the triggered effects that match the given attributes.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `applicationid`: The ID of the Application. - `campaignid`: The ID of the campaign. - `couponid`: The ID of the coupon, when applicable to the effect. - `created`: The timestamp of the effect. - `event_type`: The name of the event. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/events). - `eventid`: The internal ID of the effect. - `name`: The effect name. See the [docs](https://docs.talon.one/docs/dev/integration-api/api-effects). - `profileintegrationid`: The ID of the customer profile, when applicable. - `props`: The [properties](https://docs.talon.one/docs/dev/integration-api/api-effects) of the effect. - `ruleindex`: The index of the rule. - `rulesetid`: The ID of the rule set. - `sessionid`: The internal ID of the session that triggered the effect. - `profileid`: The internal ID of the customer profile. - `sessionintegrationid`: The integration ID of the session. - `total_revenue`: The total revenue. - `store_integration_id`: The integration ID of the store. You choose this ID when you create a store. 
+        Download a CSV file containing the triggered effects that match the given attributes.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `applicationid`: The ID of the Application. - `campaignid`: The ID of the campaign. - `couponid`: The ID of the coupon, when applicable to the effect. - `created`: The timestamp of the effect. - `event_type`: The name of the event. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/events). - `eventid`: The internal ID of the effect. - `name`: The effect name. See the [docs](https://docs.talon.one/docs/dev/integration-api/api-effects). - `profileintegrationid`: The ID of the customer profile, when applicable. - `props`: The [properties](https://docs.talon.one/docs/dev/integration-api/api-effects) of the effect. - `ruleindex`: The index of the rule. - `rulesetid`: The ID of the rule set. - `sessionid`: The internal ID of the session that triggered the effect. - `profileid`: The internal ID of the customer profile. - `sessionintegrationid`: The integration ID of the session. - `total_revenue`: The total revenue. - `store_integration_id`: The integration ID of the store. You choose this ID when you create a store. - `reward_id`: The ID of the reward whose rule generated this effect, when applicable. - `reward_integration_id`: The integration ID of the specific customer reward whose usage produced this effect, when applicable. 
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -16651,7 +16646,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Export triggered effects
 
-        Download a CSV file containing the triggered effects that match the given attributes.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `applicationid`: The ID of the Application. - `campaignid`: The ID of the campaign. - `couponid`: The ID of the coupon, when applicable to the effect. - `created`: The timestamp of the effect. - `event_type`: The name of the event. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/events). - `eventid`: The internal ID of the effect. - `name`: The effect name. See the [docs](https://docs.talon.one/docs/dev/integration-api/api-effects). - `profileintegrationid`: The ID of the customer profile, when applicable. - `props`: The [properties](https://docs.talon.one/docs/dev/integration-api/api-effects) of the effect. - `ruleindex`: The index of the rule. - `rulesetid`: The ID of the rule set. - `sessionid`: The internal ID of the session that triggered the effect. - `profileid`: The internal ID of the customer profile. - `sessionintegrationid`: The integration ID of the session. - `total_revenue`: The total revenue. - `store_integration_id`: The integration ID of the store. You choose this ID when you create a store. 
+        Download a CSV file containing the triggered effects that match the given attributes.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `applicationid`: The ID of the Application. - `campaignid`: The ID of the campaign. - `couponid`: The ID of the coupon, when applicable to the effect. - `created`: The timestamp of the effect. - `event_type`: The name of the event. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/events). - `eventid`: The internal ID of the effect. - `name`: The effect name. See the [docs](https://docs.talon.one/docs/dev/integration-api/api-effects). - `profileintegrationid`: The ID of the customer profile, when applicable. - `props`: The [properties](https://docs.talon.one/docs/dev/integration-api/api-effects) of the effect. - `ruleindex`: The index of the rule. - `rulesetid`: The ID of the rule set. - `sessionid`: The internal ID of the session that triggered the effect. - `profileid`: The internal ID of the customer profile. - `sessionintegrationid`: The integration ID of the session. - `total_revenue`: The total revenue. - `store_integration_id`: The integration ID of the store. You choose this ID when you create a store. - `reward_id`: The ID of the reward whose rule generated this effect, when applicable. - `reward_integration_id`: The integration ID of the specific customer reward whose usage produced this effect, when applicable. 
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -17783,7 +17778,7 @@ class ManagementApi:
     ) -> str:
         """Export card's ledger log
 
-        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files). 
+        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -17868,7 +17863,7 @@ class ManagementApi:
     ) -> ApiResponse[str]:
         """Export card's ledger log
 
-        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files). 
+        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -17953,7 +17948,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Export card's ledger log
 
-        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files). 
+        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -18754,7 +18749,7 @@ class ManagementApi:
     ) -> str:
         """Export customer's transaction logs
 
-        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. 
+        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
 
         :param range_start: Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (required)
         :type range_start: datetime
@@ -18837,7 +18832,7 @@ class ManagementApi:
     ) -> ApiResponse[str]:
         """Export customer's transaction logs
 
-        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. 
+        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
 
         :param range_start: Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (required)
         :type range_start: datetime
@@ -18920,7 +18915,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Export customer's transaction logs
 
-        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. 
+        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
 
         :param range_start: Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (required)
         :type range_start: datetime
@@ -36137,6 +36132,267 @@ class ManagementApi:
 
 
     @validate_call
+    def get_giveaways_pool(
+        self,
+        pool_id: Annotated[StrictInt, Field(description="The ID of the pool. You can find it in the Campaign Manager, in the **Incentives** section.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GiveawaysPool:
+        """Get giveaway pool
+
+        Retrieve the details of a specified giveaway pool.
+
+        :param pool_id: The ID of the pool. You can find it in the Campaign Manager, in the **Incentives** section. (required)
+        :type pool_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_giveaways_pool_serialize(
+            pool_id=pool_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GiveawaysPool",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_giveaways_pool_with_http_info(
+        self,
+        pool_id: Annotated[StrictInt, Field(description="The ID of the pool. You can find it in the Campaign Manager, in the **Incentives** section.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GiveawaysPool]:
+        """Get giveaway pool
+
+        Retrieve the details of a specified giveaway pool.
+
+        :param pool_id: The ID of the pool. You can find it in the Campaign Manager, in the **Incentives** section. (required)
+        :type pool_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_giveaways_pool_serialize(
+            pool_id=pool_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GiveawaysPool",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_giveaways_pool_without_preload_content(
+        self,
+        pool_id: Annotated[StrictInt, Field(description="The ID of the pool. You can find it in the Campaign Manager, in the **Incentives** section.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get giveaway pool
+
+        Retrieve the details of a specified giveaway pool.
+
+        :param pool_id: The ID of the pool. You can find it in the Campaign Manager, in the **Incentives** section. (required)
+        :type pool_id: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_giveaways_pool_serialize(
+            pool_id=pool_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GiveawaysPool",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_giveaways_pool_serialize(
+        self,
+        pool_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if pool_id is not None:
+            _path_params['poolId'] = pool_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'api_key_v1'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/giveaways/pools/{poolId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_loyalty_card(
         self,
         loyalty_program_id: Annotated[StrictInt, Field(description="Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint. ")],
@@ -38126,6 +38382,7 @@ class ManagementApi:
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. ")] = None,
         awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response. ")] = None,
         _request_timeout: Union[
             None,
@@ -38139,10 +38396,10 @@ class ManagementApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> GetLoyaltyProgramProfileTransactions200Response:
+    ) -> GetLoyaltyProgramProfileLedgerTransactions200Response:
         """List customer's loyalty transactions (Management API)
 
-        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
+        Retrieve paginated results of loyalty transaction logs for the given integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger), and include the UUIDs of transactions referenced by deductions. If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -38164,6 +38421,8 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. 
+        :type include_references: bool
         :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response. 
         :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -38199,6 +38458,7 @@ class ManagementApi:
             end_date=end_date,
             page_size=page_size,
             skip=skip,
+            include_references=include_references,
             awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -38207,7 +38467,7 @@ class ManagementApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetLoyaltyProgramProfileTransactions200Response",
+            '200': "GetLoyaltyProgramProfileLedgerTransactions200Response",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
@@ -38236,6 +38496,7 @@ class ManagementApi:
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. ")] = None,
         awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response. ")] = None,
         _request_timeout: Union[
             None,
@@ -38249,10 +38510,10 @@ class ManagementApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[GetLoyaltyProgramProfileTransactions200Response]:
+    ) -> ApiResponse[GetLoyaltyProgramProfileLedgerTransactions200Response]:
         """List customer's loyalty transactions (Management API)
 
-        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
+        Retrieve paginated results of loyalty transaction logs for the given integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger), and include the UUIDs of transactions referenced by deductions. If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -38274,6 +38535,8 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. 
+        :type include_references: bool
         :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response. 
         :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -38309,6 +38572,7 @@ class ManagementApi:
             end_date=end_date,
             page_size=page_size,
             skip=skip,
+            include_references=include_references,
             awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -38317,7 +38581,7 @@ class ManagementApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetLoyaltyProgramProfileTransactions200Response",
+            '200': "GetLoyaltyProgramProfileLedgerTransactions200Response",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
@@ -38346,6 +38610,7 @@ class ManagementApi:
         end_date: Annotated[Optional[datetime], Field(description="Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="The number of items in the response.")] = None,
         skip: Annotated[Optional[StrictInt], Field(description="The number of items to skip when paging through large result sets.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. ")] = None,
         awaits_activation: Annotated[Optional[StrictBool], Field(description="If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response. ")] = None,
         _request_timeout: Union[
             None,
@@ -38362,7 +38627,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """List customer's loyalty transactions (Management API)
 
-        Retrieve paginated results of loyalty transaction logs for the given Integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
+        Retrieve paginated results of loyalty transaction logs for the given integration ID in the specified loyalty program.  You can filter transactions by date or by ledger (subledger or main ledger), and include the UUIDs of transactions referenced by deductions. If no filters are applied, the last 50 loyalty transactions for the given integration ID are returned.  > [!note] **Note** > - For most use cases, especially real-time integrations, use the Integration API endpoint: >   [List customer's loyalty transactions](https://docs.talon.one/integration-api#tag/Loyalty/operation/getLoyaltyProgramProfileTransactions). > - To retrieve all loyalty program transaction logs in a given loyalty program, use the >   [List loyalty program transactions](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyProgramTransactions) endpoint. 
 
         :param loyalty_program_id: Identifier of the profile-based loyalty program. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -38384,6 +38649,8 @@ class ManagementApi:
         :type page_size: int
         :param skip: The number of items to skip when paging through large result sets.
         :type skip: int
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. 
+        :type include_references: bool
         :param awaits_activation: If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response. 
         :type awaits_activation: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -38419,6 +38686,7 @@ class ManagementApi:
             end_date=end_date,
             page_size=page_size,
             skip=skip,
+            include_references=include_references,
             awaits_activation=awaits_activation,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -38427,7 +38695,7 @@ class ManagementApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetLoyaltyProgramProfileTransactions200Response",
+            '200': "GetLoyaltyProgramProfileLedgerTransactions200Response",
             '400': "ErrorResponseWithStatus",
             '401': "ErrorResponseWithStatus",
             '404': "ErrorResponseWithStatus",
@@ -38451,6 +38719,7 @@ class ManagementApi:
         end_date,
         page_size,
         skip,
+        include_references,
         awaits_activation,
         _request_auth,
         _content_type,
@@ -38529,6 +38798,10 @@ class ManagementApi:
         if skip is not None:
             
             _query_params.append(('skip', skip))
+            
+        if include_references is not None:
+            
+            _query_params.append(('includeReferences', include_references))
             
         if awaits_activation is not None:
             

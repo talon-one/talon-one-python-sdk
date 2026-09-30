@@ -38,7 +38,7 @@ class StrikethroughLabelingNotification(BaseModel):
     trigger: StrikethroughTrigger
     changed_items: List[StrikethroughChangedItem] = Field(alias="changedItems")
     notification_type: StrictStr = Field(description="The type of notification.", alias="NotificationType")
-    sent_at: datetime = Field(description="Timestamp at which the notification was sent.", alias="sentAt")
+    sent_at: datetime = Field(description="Timestamp when the notification was sent by Talon.One. There may be a delay before the notification is delivered to the user.", alias="sentAt")
     __properties: ClassVar[List[str]] = ["version", "validFrom", "applicationId", "currentBatch", "totalBatches", "trigger", "changedItems", "NotificationType", "sentAt"]
 
     @field_validator('version')

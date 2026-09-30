@@ -35,6 +35,7 @@ class TestExperimentCopyExperiment(unittest.TestCase):
         model = ExperimentCopyExperiment()
         if include_optional:
             return ExperimentCopyExperiment(
+                assignment_type = 'random',
                 is_variant_assignment_external = True,
                 campaign = talon_one.models.experiment_campaign_copy.ExperimentCampaignCopy(
                     name = 'Copy of Summer promotions', 
@@ -48,7 +49,6 @@ class TestExperimentCopyExperiment(unittest.TestCase):
             )
         else:
             return ExperimentCopyExperiment(
-                is_variant_assignment_external = True,
                 campaign = talon_one.models.experiment_campaign_copy.ExperimentCampaignCopy(
                     name = 'Copy of Summer promotions', 
                     description = 'Campaign for all summer 2021 promotions', 

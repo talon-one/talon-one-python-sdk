@@ -36,7 +36,8 @@ class ExperimentVariant(BaseModel):
     ruleset: Optional[Ruleset] = None
     weight: Optional[StrictInt] = Field(default=None, json_schema_extra={"examples": [12]})
     is_primary: StrictBool = Field(alias="isPrimary", json_schema_extra={"examples": [True]})
-    __properties: ClassVar[List[str]] = ["id", "created", "name", "experimentId", "ruleset", "weight", "isPrimary"]
+    audience_id: Optional[StrictInt] = Field(default=None, description="The ID of the audience this variant targets. Only used when the experiment `assignmentType` is `audience`. ", alias="audienceId", json_schema_extra={"examples": [55]})
+    __properties: ClassVar[List[str]] = ["id", "created", "name", "experimentId", "ruleset", "weight", "isPrimary", "audienceId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -98,7 +99,8 @@ class ExperimentVariant(BaseModel):
             "experimentId": obj.get("experimentId"),
             "ruleset": Ruleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
             "weight": obj.get("weight"),
-            "isPrimary": obj.get("isPrimary")
+            "isPrimary": obj.get("isPrimary"),
+            "audienceId": obj.get("audienceId")
         })
         return _obj
 

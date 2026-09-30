@@ -11642,7 +11642,7 @@ class IntegrationApi:
     ) -> IntegrationUnlockRewardResponse:
         """Unlock a reward
 
-        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
+        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `loyaltyCardId`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
 
         :param reward_id: The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint. (required)
         :type reward_id: int
@@ -11723,7 +11723,7 @@ class IntegrationApi:
     ) -> ApiResponse[IntegrationUnlockRewardResponse]:
         """Unlock a reward
 
-        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
+        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `loyaltyCardId`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
 
         :param reward_id: The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint. (required)
         :type reward_id: int
@@ -11804,7 +11804,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """Unlock a reward
 
-        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `cardIdentifier`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
+        Unlock a reward for a customer. If the reward has `pointsRequired` configured, the corresponding loyalty points are deducted from the customer's balance.  To unlock a reward with the points of a loyalty card, provide the card in `loyaltyCardId`. The points are then deducted from the card, and the unlocked reward belongs to the card, which makes it available to all customer profiles linked to that card. 
 
         :param reward_id: The ID of the reward. You can get the ID with the [List rewards](#tag/Rewards/operation/listRewards) endpoint. (required)
         :type reward_id: int

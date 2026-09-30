@@ -817,6 +817,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_get_giveaways_pool(self) -> None:
+        """Test case for get_giveaways_pool
+
+        Get giveaway pool
+        """
+        pass
+
     def test_get_loyalty_card(self) -> None:
         """Test case for get_loyalty_card
 

@@ -52,7 +52,7 @@ class TestCustomerProfileReward(unittest.TestCase):
                 used_at = '2026-07-02T10:30:00Z',
                 used_by_profile_integration_id = 'customer2840',
                 loyalty_program_id = 9,
-                loyalty_card_identifier = 'summer-loyalty-card-0543'
+                loyalty_card_id = 'summer-loyalty-card-0543'
             )
         else:
             return CustomerProfileReward(
