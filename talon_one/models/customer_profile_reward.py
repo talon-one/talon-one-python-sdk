@@ -43,8 +43,8 @@ class CustomerProfileReward(BaseModel):
     used_at: Optional[datetime] = Field(default=None, description="The date and time when the reward was used.", alias="usedAt", json_schema_extra={"examples": ["2026-07-02T10:30:00Z"]})
     used_by_profile_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that used the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card.   Only returned when the reward has been used. ", alias="usedByProfileIntegrationId", json_schema_extra={"examples": ["customer2840"]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="The ID of the loyalty program that the loyalty card belongs to. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyProgramId", json_schema_extra={"examples": [9]})
-    loyalty_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that the reward was unlocked with. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
-    __properties: ClassVar[List[str]] = ["id", "integrationId", "rewardId", "rewardIntegrationId", "rewardName", "description", "rule", "status", "unlockedAt", "unlockedByProfileIntegrationId", "usedAt", "usedByProfileIntegrationId", "loyaltyProgramId", "loyaltyCardIdentifier"]
+    loyalty_card_id: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that the reward was unlocked with. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyCardId", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    __properties: ClassVar[List[str]] = ["id", "integrationId", "rewardId", "rewardIntegrationId", "rewardName", "description", "rule", "status", "unlockedAt", "unlockedByProfileIntegrationId", "usedAt", "usedByProfileIntegrationId", "loyaltyProgramId", "loyaltyCardId"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -53,8 +53,8 @@ class CustomerProfileReward(BaseModel):
             raise ValueError("must be one of enum values ('unlocked', 'used')")
         return value
 
-    @field_validator('loyalty_card_identifier', mode="before")
-    def loyalty_card_identifier_validate_regular_expression(cls, value):
+    @field_validator('loyalty_card_id', mode="before")
+    def loyalty_card_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
@@ -130,7 +130,7 @@ class CustomerProfileReward(BaseModel):
             "usedAt": obj.get("usedAt"),
             "usedByProfileIntegrationId": obj.get("usedByProfileIntegrationId"),
             "loyaltyProgramId": obj.get("loyaltyProgramId"),
-            "loyaltyCardIdentifier": obj.get("loyaltyCardIdentifier")
+            "loyaltyCardId": obj.get("loyaltyCardId")
         })
         return _obj
 

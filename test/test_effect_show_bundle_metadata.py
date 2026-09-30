@@ -52,6 +52,7 @@ class TestEffectShowBundleMetadata(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {description=Buy 2 get 1 free bundle, bundleAttributes=[category, brand], itemsIndices=[0, 1, 2]}
             )
         else:

@@ -35,7 +35,7 @@ class NewPriceAdjustment(BaseModel):
     calculated_at: Optional[datetime] = Field(default=None, description="The time at which this price was calculated. If provided, this is used to determine the most recent price adjustment to choose if price adjustments overlap. Defaults to internal creation time if not provided.", alias="calculatedAt", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective.", alias="effectiveFrom", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective.", alias="effectiveUntil", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
-    context_id: Optional[StrictStr] = Field(default=None, description="Identifier of the context of this price adjustment (e.g. summer sale).", alias="contextId", json_schema_extra={"examples": ["Summer2025"]})
+    context_id: Optional[StrictStr] = Field(default=None, description="Identifier of the context of this price adjustment (the sales event, e.g. \"Summer Sale\").", alias="contextId", json_schema_extra={"examples": ["Summer2025"]})
     __properties: ClassVar[List[str]] = ["priceType", "price", "referenceId", "calculatedAt", "effectiveFrom", "effectiveUntil", "contextId"]
 
     model_config = ConfigDict(

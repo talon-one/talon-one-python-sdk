@@ -45,7 +45,9 @@ class TestTierWillDowngradeNotification(unittest.TestCase):
                         current_points = 120.55, 
                         points_required_to_remain = 23.51, 
                         next_tier = 'Bronze', 
-                        tier_expiration_date = '2023-12-01T12:23:00+02:00', )
+                        tier_expiration_date = '2023-12-01T12:23:00+02:00', 
+                        source = 'points', 
+                        reason = '', )
                     ],
                 notification_type = 'TierWillDowngrade'
             )
@@ -61,7 +63,9 @@ class TestTierWillDowngradeNotification(unittest.TestCase):
                         current_points = 120.55, 
                         points_required_to_remain = 23.51, 
                         next_tier = 'Bronze', 
-                        tier_expiration_date = '2023-12-01T12:23:00+02:00', )
+                        tier_expiration_date = '2023-12-01T12:23:00+02:00', 
+                        source = 'points', 
+                        reason = '', )
                     ],
                 notification_type = 'TierWillDowngrade',
         )

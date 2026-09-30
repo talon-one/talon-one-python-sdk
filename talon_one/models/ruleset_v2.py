@@ -82,8 +82,6 @@ class RulesetV2(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
             "id",
@@ -93,8 +91,6 @@ class RulesetV2(BaseModel):
             "template_id",
             "activated_at",
             "selectors",
-            "bundles",
-            "parameters",
         ])
 
         _dict = self.model_dump(

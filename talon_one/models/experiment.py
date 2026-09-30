@@ -33,7 +33,8 @@ class Experiment(BaseModel):
     id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
-    is_variant_assignment_external: Optional[StrictBool] = Field(default=None, description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
+    assignment_type: Optional[StrictStr] = Field(default=None, description="Controls how customers are assigned to experiment variants. - `random`: Talon.One assigns customers randomly based on variant weights. - `external`: Variant assignment is handled externally. - `audience`: Each variant targets a specific audience; customers are assigned based on audience membership. ", alias="assignmentType", json_schema_extra={"examples": ["random"]})
+    is_variant_assignment_external: Optional[StrictBool] = Field(default=None, description="Deprecated. Use `assignmentType` instead. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
     campaign: Optional[Campaign] = None
     activated: Optional[datetime] = Field(default=None, description="The date and time the experiment was activated. ")
     state: StrictStr = Field(description="A disabled experiment is not evaluated for rules or coupons. ", json_schema_extra={"examples": ["enabled"]})
@@ -41,7 +42,17 @@ class Experiment(BaseModel):
     goal_type: StrictStr = Field(description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. ", alias="goalType")
     goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. ", alias="goalDescription", json_schema_extra={"examples": ["Offering free shipping will increase average order revenue more than a 10% discount"]})
     deletedat: Optional[datetime] = Field(default=None, description="The date and time the experiment was deleted. ")
-    __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "isVariantAssignmentExternal", "campaign", "activated", "state", "variants", "goalType", "goalDescription", "deletedat"]
+    __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "assignmentType", "isVariantAssignmentExternal", "campaign", "activated", "state", "variants", "goalType", "goalDescription", "deletedat"]
+
+    @field_validator('assignment_type')
+    def assignment_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['random', 'external', 'audience']):
+            raise ValueError("must be one of enum values ('random', 'external', 'audience')")
+        return value
 
     @field_validator('state')
     def state_validate_enum(cls, value):
@@ -120,6 +131,7 @@ class Experiment(BaseModel):
             "id": obj.get("id"),
             "created": obj.get("created"),
             "applicationId": obj.get("applicationId"),
+            "assignmentType": obj.get("assignmentType"),
             "isVariantAssignmentExternal": obj.get("isVariantAssignmentExternal"),
             "campaign": Campaign.from_dict(obj["campaign"]) if obj.get("campaign") is not None else None,
             "activated": obj.get("activated"),

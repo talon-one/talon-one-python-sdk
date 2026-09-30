@@ -117,6 +117,7 @@ Method | HTTP request | Description
 [**get_event_types**](ManagementApi.md#get_event_types) | **GET** /v1/event_types | List event types
 [**get_experiment**](ManagementApi.md#get_experiment) | **GET** /v1/applications/{applicationId}/experiments/{experimentId} | Get experiment in Application
 [**get_exports**](ManagementApi.md#get_exports) | **GET** /v1/exports | Get exports
+[**get_giveaways_pool**](ManagementApi.md#get_giveaways_pool) | **GET** /v1/giveaways/pools/{poolId} | Get giveaway pool
 [**get_loyalty_card**](ManagementApi.md#get_loyalty_card) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId} | Get loyalty card
 [**get_loyalty_card_transaction_logs**](ManagementApi.md#get_loyalty_card_transaction_logs) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/logs | List card&#39;s transactions (Management API)
 [**get_loyalty_cards**](ManagementApi.md#get_loyalty_cards) | **GET** /v1/loyalty_programs/{loyaltyProgramId}/cards | List loyalty cards
@@ -703,7 +704,6 @@ Name | Type | Description  | Notes
 **201** | Created |  -  |
 **400** | Bad request |  -  |
 **401** | Unauthorized |  -  |
-**409** | Conflict. An achievement with this name or title already exists. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -786,7 +786,6 @@ Name | Type | Description  | Notes
 **201** | Created |  -  |
 **400** | Bad request |  -  |
 **401** | Unauthorized |  -  |
-**409** | Conflict. An achievement with this name already exists. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4936,6 +4935,8 @@ The generated file can contain the following columns:
 - `sessionintegrationid`: The integration ID of the session.
 - `total_revenue`: The total revenue.
 - `store_integration_id`: The integration ID of the store. You choose this ID when you create a store.
+- `reward_id`: The ID of the reward whose rule generated this effect, when applicable.
+- `reward_integration_id`: The integration ID of the specific customer reward whose usage produced this effect, when applicable.
 
 
 ### Example
@@ -5323,6 +5324,29 @@ program.
 > [!tip] If the exported CSV file is too large to view, you can
 > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
+The generated file can contain the following columns:
+
+- `cardidentifier`: The identifier of the loyalty card.
+- `applicationid`: The ID of the Application.
+- `sessionid`: The ID of the session.
+- `customersessionid`: The integration ID of the customer session.
+- `rulesetid`: The ID of the rule set.
+- `rulename`: The name of the rule.
+- `programid`: The ID of the loyalty program.
+- `type`: The transaction type, such as `addition` or `subtraction`.
+- `name`: The reason for the transaction.
+- `subledgerid`: The ID of the subledger, when applicable.
+- `startdate`: The start date of the points.
+- `expirydate`: The expiration date of the points.
+- `id`: The ID of the transaction.
+- `created`: The timestamp of the transaction creation.
+- `amount`: The number of points in that transaction.
+- `archived`: Whether the session related to the transaction is archived.
+- `campaignid`: The ID of the campaign.
+- `transactionUUID`: Unique identifier of the transaction in the UUID format.
+- `validityDuration`: The duration for which the points remain active, relative to the activation date.
+- `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions.
+
 
 ### Example
 
@@ -5630,6 +5654,8 @@ The generated file can contain the following columns:
 - `campaignid`: The ID of the campaign.
 - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance.
 - `transactionUUID`: Unique identifier of the transaction in the UUID format.
+- `validityDuration`: The duration for which the points remain active, relative to the activation date.
+- `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions.
 
 
 ### Example
@@ -10253,6 +10279,85 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_giveaways_pool**
+> GiveawaysPool get_giveaways_pool(pool_id)
+
+Get giveaway pool
+
+Retrieve the details of a specified giveaway pool.
+
+### Example
+
+* Api Key Authentication (api_key_v1):
+
+```python
+import talon_one
+from talon_one.models.giveaways_pool import GiveawaysPool
+from talon_one.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://yourbaseurl.talon.one
+# See configuration.py for a list of all supported configuration parameters.
+configuration = talon_one.Configuration(
+    host = "https://yourbaseurl.talon.one"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: api_key_v1
+configuration.api_key['api_key_v1'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['api_key_v1'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with talon_one.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = talon_one.ManagementApi(api_client)
+    pool_id = 56 # int | The ID of the pool. You can find it in the Campaign Manager, in the **Incentives** section.
+
+    try:
+        # Get giveaway pool
+        api_response = api_instance.get_giveaways_pool(pool_id)
+        print("The response of ManagementApi->get_giveaways_pool:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ManagementApi->get_giveaways_pool: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pool_id** | **int**| The ID of the pool. You can find it in the Campaign Manager, in the **Incentives** section. | 
+
+### Return type
+
+[**GiveawaysPool**](GiveawaysPool.md)
+
+### Authorization
+
+[api_key_v1](../README.md#api_key_v1)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_loyalty_card**
 > LoyaltyCard get_loyalty_card(loyalty_program_id, loyalty_card_id)
 
@@ -10827,15 +10932,17 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_loyalty_program_profile_ledger_transactions**
-> GetLoyaltyProgramProfileTransactions200Response get_loyalty_program_profile_ledger_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
+> GetLoyaltyProgramProfileLedgerTransactions200Response get_loyalty_program_profile_ledger_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, include_references=include_references, awaits_activation=awaits_activation)
 
 List customer's loyalty transactions (Management API)
 
 Retrieve paginated results of loyalty transaction logs for the given
-Integration ID in the specified loyalty program.
+integration ID in the specified loyalty program.
 
-You can filter transactions by date or by ledger (subledger or main ledger). If no filters are applied, the last 50
-loyalty transactions for the given integration ID are returned.
+You can filter transactions by date or by ledger (subledger or main ledger),
+and include the UUIDs of transactions referenced by deductions. If no filters
+are applied, the last 50 loyalty transactions for the given integration ID
+are returned.
 
 > [!note] **Note**
 > - For most use cases, especially real-time integrations, use the Integration API endpoint:
@@ -10850,7 +10957,7 @@ loyalty transactions for the given integration ID are returned.
 
 ```python
 import talon_one
-from talon_one.models.get_loyalty_program_profile_transactions200_response import GetLoyaltyProgramProfileTransactions200Response
+from talon_one.models.get_loyalty_program_profile_ledger_transactions200_response import GetLoyaltyProgramProfileLedgerTransactions200Response
 from talon_one.rest import ApiException
 from pprint import pprint
 
@@ -10885,11 +10992,12 @@ with talon_one.ApiClient(configuration) as api_client:
     end_date = '2013-10-20T19:20:30+01:00' # datetime | Date and time by which results are returned. Results are filtered by transaction creation date.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (optional)
     page_size = 50 # int | The number of items in the response. (optional) (default to 50)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
+    include_references = False # bool | Whether to include the UUIDs of transactions referenced by deductions.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history.  (optional) (default to False)
     awaits_activation = True # bool | If `true`: Filters results to include only point transactions that have action-based activation and have not expired.  If `false`: Returns a `400` response.  (optional)
 
     try:
         # List customer's loyalty transactions (Management API)
-        api_response = api_instance.get_loyalty_program_profile_ledger_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, awaits_activation=awaits_activation)
+        api_response = api_instance.get_loyalty_program_profile_ledger_transactions(loyalty_program_id, integration_id, customer_session_ids=customer_session_ids, transaction_uuids=transaction_uuids, subledger_id=subledger_id, loyalty_transaction_type=loyalty_transaction_type, start_date=start_date, end_date=end_date, page_size=page_size, skip=skip, include_references=include_references, awaits_activation=awaits_activation)
         print("The response of ManagementApi->get_loyalty_program_profile_ledger_transactions:\n")
         pprint(api_response)
     except Exception as e:
@@ -10913,11 +11021,12 @@ Name | Type | Description  | Notes
  **end_date** | **datetime**| Date and time by which results are returned. Results are filtered by transaction creation date.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | [optional] 
  **page_size** | **int**| The number of items in the response. | [optional] [default to 50]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
+ **include_references** | **bool**| Whether to include the UUIDs of transactions referenced by deductions.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history.  | [optional] [default to False]
  **awaits_activation** | **bool**| If &#x60;true&#x60;: Filters results to include only point transactions that have action-based activation and have not expired.  If &#x60;false&#x60;: Returns a &#x60;400&#x60; response.  | [optional] 
 
 ### Return type
 
-[**GetLoyaltyProgramProfileTransactions200Response**](GetLoyaltyProgramProfileTransactions200Response.md)
+[**GetLoyaltyProgramProfileLedgerTransactions200Response**](GetLoyaltyProgramProfileLedgerTransactions200Response.md)
 
 ### Authorization
 

@@ -34,11 +34,11 @@ class UnlockRewardEffectProps(BaseModel):
     application_id: StrictInt = Field(description="The internal ID of the application the reward belongs to.", alias="applicationId", json_schema_extra={"examples": [1]})
     profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile that unlocked the reward.", alias="profileIntegrationId", json_schema_extra={"examples": ["customer1"]})
     unlocked_at: datetime = Field(description="The time the reward was unlocked.", alias="unlockedAt", json_schema_extra={"examples": ["2024-05-29T15:04:05Z"]})
-    card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that unlocked the reward. Only returned when the reward was unlocked with a loyalty card, in which case the reward belongs to the card and is available to all customer profiles linked to it. ", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
-    __properties: ClassVar[List[str]] = ["integrationId", "rewardId", "applicationId", "profileIntegrationId", "unlockedAt", "cardIdentifier"]
+    loyalty_card_id: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that unlocked the reward. Only returned when the reward was unlocked with a loyalty card, in which case the reward belongs to the card and is available to all customer profiles linked to it. ", alias="loyaltyCardId", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    __properties: ClassVar[List[str]] = ["integrationId", "rewardId", "applicationId", "profileIntegrationId", "unlockedAt", "loyaltyCardId"]
 
-    @field_validator('card_identifier', mode="before")
-    def card_identifier_validate_regular_expression(cls, value):
+    @field_validator('loyalty_card_id', mode="before")
+    def loyalty_card_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
@@ -103,7 +103,7 @@ class UnlockRewardEffectProps(BaseModel):
             "applicationId": obj.get("applicationId"),
             "profileIntegrationId": obj.get("profileIntegrationId"),
             "unlockedAt": obj.get("unlockedAt"),
-            "cardIdentifier": obj.get("cardIdentifier")
+            "loyaltyCardId": obj.get("loyaltyCardId")
         })
         return _obj
 

@@ -34,8 +34,10 @@ class RuleEligibilityFailureDetails(BaseModel):
     referral_value: Optional[StrictStr] = Field(default=None, description="The referral code that was being evaluated when the rule failed. ", alias="referralValue")
     condition_index: Optional[StrictInt] = Field(default=None, description="The index of the condition that caused the rule to fail.", alias="conditionIndex")
     effect_index: Optional[StrictInt] = Field(default=None, description="The index of the effect that caused the rule to fail.", alias="effectIndex")
+    rule_index: Optional[StrictInt] = Field(default=None, description="The index of the rule that failed within the ruleset.", alias="ruleIndex", json_schema_extra={"examples": [0]})
+    ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset containing the rule that failed.", alias="rulesetId", json_schema_extra={"examples": [123]})
     details: StrictStr = Field(description="Additional details about the failure.")
-    __properties: ClassVar[List[str]] = ["failureCode", "couponID", "couponValue", "referralID", "referralValue", "conditionIndex", "effectIndex", "details"]
+    __properties: ClassVar[List[str]] = ["failureCode", "couponID", "couponValue", "referralID", "referralValue", "conditionIndex", "effectIndex", "ruleIndex", "rulesetId", "details"]
 
     @field_validator('failure_code')
     def failure_code_validate_enum(cls, value):
@@ -102,6 +104,8 @@ class RuleEligibilityFailureDetails(BaseModel):
             "referralValue": obj.get("referralValue"),
             "conditionIndex": obj.get("conditionIndex"),
             "effectIndex": obj.get("effectIndex"),
+            "ruleIndex": obj.get("ruleIndex"),
+            "rulesetId": obj.get("rulesetId"),
             "details": obj.get("details")
         })
         return _obj

@@ -52,6 +52,7 @@ class TestEffectAwardGiveaway(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {poolId=2, poolName=My pool, recipientIntegrationId=URNGV8294NV, giveawayId=5, code=57638t-67439hty}
             )
         else:

@@ -27,7 +27,7 @@ class Bundle(BaseModel):
     """
     A named bundle definition consisting of selector sources with matching constraints. Replaces `bundle` [bindings](https://docs.talon.one/management-api#tag/Campaigns/operation/getRuleset.responses.200.bindings) in V1 rulesets.
     """ # noqa: E501
-    id: StrictStr = Field(description="An identifier derived from the bundle content.", json_schema_extra={"examples": ["1b671a64-40d5-491e-99b0-da01ff1f3341"]})
+    id: Optional[StrictStr] = Field(default=None, description="An identifier derived from the bundle content.", json_schema_extra={"examples": ["1b671a64-40d5-491e-99b0-da01ff1f3341"]})
     name: StrictStr = Field(description="The name of the bundle.", json_schema_extra={"examples": ["meal_deal"]})
     type: StrictStr = Field(description="A binding of type `bundle`.", json_schema_extra={"examples": ["bundle"]})
     sources: List[StrictStr] = Field(description="The selector sources of bundle items. Each source is expressed as a `{{$selectorName}}` reference.", json_schema_extra={"examples": [["{{$mains}}", "{{$drinks}}"]]})
@@ -72,8 +72,10 @@ class Bundle(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
         ])
 
         _dict = self.model_dump(

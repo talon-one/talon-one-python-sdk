@@ -28,7 +28,7 @@ class UpdateExperiment(BaseModel):
     """
     UpdateExperiment
     """ # noqa: E501
-    is_variant_assignment_external: StrictBool = Field(description="The source of the assignment. - false - The variant assignment is handled internally by Talon.One. - true - The variant assignment is handled externally. ", alias="isVariantAssignmentExternal")
+    is_variant_assignment_external: Optional[StrictBool] = Field(default=None, description="Deprecated and ignored. The assignment type is set at experiment creation and cannot be changed. Use `assignmentType` when creating an experiment instead. ", alias="isVariantAssignmentExternal")
     campaign: UpdateCampaign
     goal_type: Optional[StrictStr] = Field(default=None, description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. If omitted, the current value is preserved. ", alias="goalType")
     goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. If omitted, the current value is preserved. ", alias="goalDescription", json_schema_extra={"examples": ["Offering free shipping will increase average order revenue more than a 10% discount"]})

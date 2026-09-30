@@ -35,6 +35,7 @@ class TestNewExperiment(unittest.TestCase):
         model = NewExperiment()
         if include_optional:
             return NewExperiment(
+                assignment_type = 'random',
                 is_variant_assignment_external = True,
                 campaign = None,
                 goal_type = 'other',
@@ -42,7 +43,6 @@ class TestNewExperiment(unittest.TestCase):
             )
         else:
             return NewExperiment(
-                is_variant_assignment_external = True,
                 campaign = None,
                 goal_type = 'other',
         )

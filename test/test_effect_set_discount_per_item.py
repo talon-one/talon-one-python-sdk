@@ -52,6 +52,7 @@ class TestEffectSetDiscountPerItem(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {name=Discount on item #1, value=1.5, position=1, subPosition=1, desiredValue=1.5, scope=price, totalDiscount=1.5, desiredTotalDiscount=1.5, bundleIndex=1, bundleName=my_bundle, targetedItemPosition=1, targetedItemSubPosition=1, excludedFromPriceHistory=false}
             )
         else:

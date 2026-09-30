@@ -45,6 +45,8 @@ class TestRuleEligibility(unittest.TestCase):
                     referral_value = '', 
                     condition_index = 56, 
                     effect_index = 56, 
+                    rule_index = 0, 
+                    ruleset_id = 123, 
                     details = '', )
             )
         else:

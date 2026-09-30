@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from talon_one.models.new_ruleset import NewRuleset
 from typing import Optional, Set
@@ -32,8 +32,9 @@ class UpdateExperimentVariant(BaseModel):
     id: StrictInt = Field(json_schema_extra={"examples": [10]})
     name: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The name of this variant.", json_schema_extra={"examples": ["Variant A"]})
     ruleset: NewRuleset
-    weight: Annotated[int, Field(le=99, strict=True, ge=1)] = Field(description="The percentage split of this variant. The sum of all variant percentages must be 100.", json_schema_extra={"examples": [13]})
-    __properties: ClassVar[List[str]] = ["id", "name", "ruleset", "weight"]
+    weight: Annotated[int, Field(le=99, strict=True, ge=0)] = Field(description="The percentage split of this variant. For `random` assignment, the split must be between 1 and 99 and the sum across all variants must equal 100. Ignored for `audience` and `external` assignment. ", json_schema_extra={"examples": [13]})
+    audience_id: Optional[StrictInt] = Field(default=None, description="The ID of the audience this variant targets. Only used when the experiment `assignmentType` is `audience`. ", alias="audienceId", json_schema_extra={"examples": [55]})
+    __properties: ClassVar[List[str]] = ["id", "name", "ruleset", "weight", "audienceId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -92,7 +93,8 @@ class UpdateExperimentVariant(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name"),
             "ruleset": NewRuleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
-            "weight": obj.get("weight")
+            "weight": obj.get("weight"),
+            "audienceId": obj.get("audienceId")
         })
         return _obj
 

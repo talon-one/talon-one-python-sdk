@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **promotion_rules** | [**List[RuleV2]**](RuleV2.md) | Set of promotion rules. | 
 **strikethrough_rules** | [**List[RuleV2]**](RuleV2.md) | Set of strikethrough rules. | [optional] 
 **selectors** | [**List[Selector]**](Selector.md) | Variable bindings of type selector. | [optional] [readonly] 
-**bundles** | [**List[Bundle]**](Bundle.md) | Variable bindings of type bundle. | [optional] [readonly] 
-**parameters** | [**List[TemplateParameter]**](TemplateParameter.md) | Variable bindings of type template parameter. | [optional] [readonly] 
+**bundles** | [**List[Bundle]**](Bundle.md) | Variable bindings of type bundle. | [optional] 
+**parameters** | [**List[TemplateParameter]**](TemplateParameter.md) | Variable bindings of type template parameter. | [optional] 
 
 ## Example
 

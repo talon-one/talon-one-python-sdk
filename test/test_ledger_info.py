@@ -43,7 +43,14 @@ class TestLedgerInfo(unittest.TestCase):
                 tentative_current_balance = 100,
                 tentative_pending_balance = 20,
                 tentative_negative_balance = 100,
-                current_tier = bronze,
+                current_tier = talon_one.models.tier.Tier(
+                    id = 11, 
+                    name = 'bronze', 
+                    start_date = '2025-05-03T12:32:00Z07:00', 
+                    expiry_date = '2026-08-02T15:04:05+07:00', 
+                    downgrade_policy = 'one_down', 
+                    source = 'points', 
+                    reason = 'Subscription to newsletter', ),
                 points_to_next_tier = 20,
                 next_tier_name = 'Silver'
             )

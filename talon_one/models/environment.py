@@ -47,7 +47,7 @@ class Environment(BaseModel):
     functions: List[FunctionDef] = Field(description="The functions defined for this application.")
     templates: List[TemplateDef] = Field(description="The templates defined for this application.")
     variables: StrictStr = Field(description="A stringified version of the environment's Talang variables scope.")
-    giveaways_pools: Optional[List[GiveawaysPool]] = Field(default=None, description="The giveaways pools that the application is subscribed to.", alias="giveawaysPools")
+    giveaways_pools: Optional[List[GiveawaysPool]] = Field(default=None, description="The giveaway pools that the Application is subscribed to.", alias="giveawaysPools")
     loyalty_programs: Optional[List[LoyaltyProgram]] = Field(default=None, description="The loyalty programs that the application is subscribed to.", alias="loyaltyPrograms")
     achievements: Optional[List[Achievement]] = Field(default=None, description="The achievements, linked to the campaigns, belonging to the application.")
     attributes: Optional[List[Attribute]] = Field(default=None, description="The attributes that the application is subscribed to.")

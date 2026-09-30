@@ -51,7 +51,6 @@ class TestCheckAudienceBlock(unittest.TestCase):
             return CheckAudienceBlock(
                 type = '',
                 operator = 'member',
-                profile = 'Current',
                 audience = None,
         )
         """

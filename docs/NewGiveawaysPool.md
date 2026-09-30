@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | The name of this giveaways pool. | 
-**description** | **str** | The description of this giveaways pool. | [optional] 
-**subscribed_applications_ids** | **List[int]** | A list of the IDs of the applications that this giveaways pool is enabled for. | [optional] 
+**name** | **str** | The name of this giveaway pool. | 
+**description** | **str** | The description of this giveaway pool. | [optional] 
+**subscribed_applications_ids** | **List[int]** | A list of the IDs of the Applications that this giveaway pool is enabled for. | [optional] 
 **sandbox** | **bool** | Indicates if this program is a live or sandbox program. Programs of a given type can only be connected to Applications of the same type. | 
 
 ## Example

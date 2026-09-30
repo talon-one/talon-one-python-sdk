@@ -26,18 +26,18 @@ from pydantic_core import to_jsonable_python
 
 class GiveawaysPool(BaseModel):
     """
-    Giveaways pools is an entity for managing multiple similar giveaways.
+    A giveaway pool is an entity for managing multiple similar giveaways.
     """ # noqa: E501
     id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
-    name: StrictStr = Field(description="The name of this giveaways pool.", json_schema_extra={"examples": ["My giveaway pool"]})
-    description: Optional[StrictStr] = Field(default=None, description="The description of this giveaways pool.", json_schema_extra={"examples": ["Generic pool"]})
-    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that this giveaways pool is enabled for.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[2, 4]]})
+    name: StrictStr = Field(description="The name of this giveaway pool.", json_schema_extra={"examples": ["My giveaway pool"]})
+    description: Optional[StrictStr] = Field(default=None, description="The description of this giveaway pool.", json_schema_extra={"examples": ["Generic pool"]})
+    subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that this giveaway pool is enabled for.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[2, 4]]})
     sandbox: StrictBool = Field(description="Indicates if this program is a live or sandbox program. Programs of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
-    modified: Optional[datetime] = Field(default=None, description="Timestamp of the most recent update to the giveaways pool.")
-    created_by: StrictInt = Field(description="ID of the user who created this giveaways pool.", alias="createdBy")
-    modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this giveaways pool if available.", alias="modifiedBy")
+    modified: Optional[datetime] = Field(default=None, description="Timestamp of the most recent update to the giveaway pool.")
+    created_by: StrictInt = Field(description="ID of the user who created this giveaway pool.", alias="createdBy")
+    modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this giveaway pool if available.", alias="modifiedBy")
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "description", "subscribedApplicationsIds", "sandbox", "modified", "createdBy", "modifiedBy"]
 
     model_config = ConfigDict(

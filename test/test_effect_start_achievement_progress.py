@@ -52,6 +52,7 @@ class TestEffectStartAchievementProgress(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {achievementId=10, achievementName=FreeCoffee10Orders, progressTrackerId=42, target=10, startDate=2026-04-16T15:25:37Z, endDate=2026-04-30T11:24:59Z}
             )
         else:

@@ -30,10 +30,12 @@ class Tier(BaseModel):
     """ # noqa: E501
     id: StrictInt = Field(description="The internal ID of the tier.", json_schema_extra={"examples": [11]})
     name: StrictStr = Field(description="The name of the tier.", json_schema_extra={"examples": ["bronze"]})
-    start_date: Optional[datetime] = Field(default=None, description="Date and time when the customer moved to this tier. This value uses the loyalty program's time zone setting.", alias="startDate", json_schema_extra={"examples": ["2021-05-03T12:32:00Z07:00"]})
-    expiry_date: Optional[datetime] = Field(default=None, description="Date when tier level expires in the RFC3339 format (in the Loyalty Program's timezone).", alias="expiryDate", json_schema_extra={"examples": ["2022-08-02T15:04:05Z07:00"]})
-    downgrade_policy: Optional[StrictStr] = Field(default=None, description="The policy that defines how customer tiers are downgraded in the loyalty program after tier reevaluation.  - `one_down`: If the customer doesn't have enough points to stay in the current tier, they are downgraded by one tier.  - `balance_based`: The customer's tier is reevaluated based on the amount of active points they have at the moment. ", alias="downgradePolicy")
-    __properties: ClassVar[List[str]] = ["id", "name", "startDate", "expiryDate", "downgradePolicy"]
+    start_date: Optional[datetime] = Field(default=None, description="Date and time when the customer moved to this tier. This value uses the loyalty program's time zone setting.", alias="startDate", json_schema_extra={"examples": ["2025-05-03T12:32:00Z07:00"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Date when tier level expires in the RFC3339 format (in the Loyalty Program's timezone).", alias="expiryDate", json_schema_extra={"examples": ["2026-08-02T15:04:05+07:00"]})
+    downgrade_policy: Optional[StrictStr] = Field(default=None, description="The policy that defines how customer tiers are downgraded in the loyalty program after tier reevaluation.  - `one_down`: If the customer doesn't have enough points to stay in the current tier, they are downgraded by one tier.  - `balance_based`: The customer's tier is reevaluated based on the amount of active points they have at the moment. ", alias="downgradePolicy", json_schema_extra={"examples": ["one_down"]})
+    source: Optional[StrictStr] = Field(default='points', description="Indicates whether the customer's current tier was determined based on their points balance or a temporary boost.  - `points`: The tier reflects the customer's current point balance. - `boost`: A temporary tier boost is in effect where the customer is in a higher tier than their points-based tier. The boost expires after a set duration and the customer returns to their points-based tier. ", json_schema_extra={"examples": ["points"]})
+    reason: Optional[StrictStr] = Field(default=None, description="The reason for the tier assignment. ", json_schema_extra={"examples": ["Subscription to newsletter"]})
+    __properties: ClassVar[List[str]] = ["id", "name", "startDate", "expiryDate", "downgradePolicy", "source", "reason"]
 
     @field_validator('downgrade_policy')
     def downgrade_policy_validate_enum(cls, value):
@@ -43,6 +45,16 @@ class Tier(BaseModel):
 
         if value not in set(['one_down', 'balance_based']):
             raise ValueError("must be one of enum values ('one_down', 'balance_based')")
+        return value
+
+    @field_validator('source')
+    def source_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['boost', 'points']):
+            raise ValueError("must be one of enum values ('boost', 'points')")
         return value
 
     model_config = ConfigDict(
@@ -100,7 +112,9 @@ class Tier(BaseModel):
             "name": obj.get("name"),
             "startDate": obj.get("startDate"),
             "expiryDate": obj.get("expiryDate"),
-            "downgradePolicy": obj.get("downgradePolicy")
+            "downgradePolicy": obj.get("downgradePolicy"),
+            "source": obj.get("source") if obj.get("source") is not None else 'points',
+            "reason": obj.get("reason")
         })
         return _obj
 

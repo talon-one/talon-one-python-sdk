@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **points_required_to_remain** | **float** | The number of points needed for a customer to remain on the same tier. | 
 **next_tier** | **str** | The name of the customer&#39;s next tier. | [optional] 
 **tier_expiration_date** | **datetime** | The date and time the tier expires. | [optional] 
+**source** | **str** | The source of the tier change, whether from a points change or boost. | [optional] [default to 'points']
+**reason** | **str** | The reason for the tier change. | [optional] 
 
 ## Example
 

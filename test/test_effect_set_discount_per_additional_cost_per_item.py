@@ -52,6 +52,7 @@ class TestEffectSetDiscountPerAdditionalCostPerItem(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {name=Shipping discount on item #1, additionalCostId=1, value=4.99, position=1, subPosition=1, additionalCost=shipping, desiredValue=4.99}
             )
         else:

@@ -41,7 +41,8 @@ class TestExperimentVariant(unittest.TestCase):
                 experiment_id = 10,
                 ruleset = None,
                 weight = 12,
-                is_primary = True
+                is_primary = True,
+                audience_id = 55
             )
         else:
             return ExperimentVariant(

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **trigger** | [**StrikethroughTrigger**](StrikethroughTrigger.md) |  | 
 **changed_items** | [**List[StrikethroughChangedItem]**](StrikethroughChangedItem.md) |  | 
 **notification_type** | **str** | The type of notification. | 
-**sent_at** | **datetime** | Timestamp at which the notification was sent. | 
+**sent_at** | **datetime** | Timestamp when the notification was sent by Talon.One. There may be a delay before the notification is delivered to the user. | 
 
 ## Example
 

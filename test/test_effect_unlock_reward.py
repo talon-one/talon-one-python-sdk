@@ -52,13 +52,14 @@ class TestEffectUnlockReward(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = talon_one.models.unlock_reward.unlockReward(
                     integration_id = 'reward-unlock-123', 
                     reward_id = 5, 
                     application_id = 1, 
                     profile_integration_id = 'customer1', 
                     unlocked_at = '2024-05-29T15:04:05Z', 
-                    card_identifier = null, )
+                    loyalty_card_id = null, )
             )
         else:
             return EffectUnlockReward(
@@ -73,7 +74,7 @@ class TestEffectUnlockReward(unittest.TestCase):
                     application_id = 1, 
                     profile_integration_id = 'customer1', 
                     unlocked_at = '2024-05-29T15:04:05Z', 
-                    card_identifier = null, ),
+                    loyalty_card_id = null, ),
         )
         """
 

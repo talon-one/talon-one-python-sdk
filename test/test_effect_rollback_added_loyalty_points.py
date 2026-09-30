@@ -52,6 +52,7 @@ class TestEffectRollbackAddedLoyaltyPoints(unittest.TestCase):
                 selected_price = 100,
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
+                reward_integration_id = 'reward-unlock-123',
                 props = {programId=5, subLedgerId=main, value=100, recipientIntegrationId=URNGV8294NV, transactionUUID=8c2d3670-6ea5-4e9e-b5c6-e7e7b4a10111, cartItemPosition=1, cartItemSubPosition=1, cardIdentifier=loyalty-card-001}
             )
         else:

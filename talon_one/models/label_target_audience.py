@@ -26,7 +26,7 @@ from pydantic_core import to_jsonable_python
 
 class LabelTargetAudience(BaseModel):
     """
-    Represents the targeted audience. 
+    Target type when a specific audience is selected. 
     """ # noqa: E501
     type: StrictStr
     audience: AudienceReference

@@ -46,8 +46,9 @@ class EffectSetDiscount(BaseModel):
     selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice", json_schema_extra={"examples": [100]})
     adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
     reward_id: Optional[StrictInt] = Field(default=None, description="The ID of the reward that was being evaluated when this effect was triggered.", alias="rewardId", json_schema_extra={"examples": [7]})
+    reward_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the specific customer reward whose usage produced this effect.", alias="rewardIntegrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
     props: SetDiscountEffectProps = Field(description="The properties of the `setDiscount` effect.")
-    __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "rewardId", "props"]
+    __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "rewardId", "rewardIntegrationId", "props"]
 
     @field_validator('effect_type')
     def effect_type_validate_enum(cls, value):
@@ -127,6 +128,7 @@ class EffectSetDiscount(BaseModel):
             "selectedPrice": obj.get("selectedPrice"),
             "adjustmentReferenceId": obj.get("adjustmentReferenceId"),
             "rewardId": obj.get("rewardId"),
+            "rewardIntegrationId": obj.get("rewardIntegrationId"),
             "props": SetDiscountEffectProps.from_dict(obj["props"]) if obj.get("props") is not None else None
         })
         return _obj
