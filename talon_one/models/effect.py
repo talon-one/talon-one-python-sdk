@@ -33,6 +33,7 @@ from talon_one.models.effect_deduct_loyalty_points import EffectDeductLoyaltyPoi
 from talon_one.models.effect_error import EffectError
 from talon_one.models.effect_extend_loyalty_points_expiry_date import EffectExtendLoyaltyPointsExpiryDate
 from talon_one.models.effect_increase_achievement_progress import EffectIncreaseAchievementProgress
+from talon_one.models.effect_increase_achievement_progress_per_item import EffectIncreaseAchievementProgressPerItem
 from talon_one.models.effect_join_loyalty_program import EffectJoinLoyaltyProgram
 from talon_one.models.effect_offset_negative_loyalty_points import EffectOffsetNegativeLoyaltyPoints
 from talon_one.models.effect_redeem_referral import EffectRedeemReferral
@@ -46,7 +47,9 @@ from talon_one.models.effect_rollback_coupon import EffectRollbackCoupon
 from talon_one.models.effect_rollback_deducted_loyalty_points import EffectRollbackDeductedLoyaltyPoints
 from talon_one.models.effect_rollback_discount import EffectRollbackDiscount
 from talon_one.models.effect_rollback_increased_achievement_progress import EffectRollbackIncreasedAchievementProgress
+from talon_one.models.effect_rollback_increased_achievement_progress_per_item import EffectRollbackIncreasedAchievementProgressPerItem
 from talon_one.models.effect_rollback_referral import EffectRollbackReferral
+from talon_one.models.effect_rollback_tier_boost import EffectRollbackTierBoost
 from talon_one.models.effect_rollback_use_reward import EffectRollbackUseReward
 from talon_one.models.effect_set import EffectSet
 from talon_one.models.effect_set_discount import EffectSetDiscount
@@ -64,11 +67,11 @@ from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-EFFECT_ONE_OF_SCHEMAS = ["EffectAcceptCoupon", "EffectAcceptReferral", "EffectAddFreeItem", "EffectAddLoyaltyPoints", "EffectAddNegativeLoyaltyPoints", "EffectAddToAudience", "EffectAwardGiveaway", "EffectBoostLoyaltyTier", "EffectCallApi", "EffectChangeLoyaltyTierLevel", "EffectCouponCreated", "EffectCustomEffect", "EffectDeductLoyaltyPoints", "EffectError", "EffectExtendLoyaltyPointsExpiryDate", "EffectIncreaseAchievementProgress", "EffectJoinLoyaltyProgram", "EffectOffsetNegativeLoyaltyPoints", "EffectRedeemReferral", "EffectReferralCreated", "EffectRejectCoupon", "EffectRejectReferral", "EffectRemoveFromAudience", "EffectReserveCoupon", "EffectRollbackAddedLoyaltyPoints", "EffectRollbackCoupon", "EffectRollbackDeductedLoyaltyPoints", "EffectRollbackDiscount", "EffectRollbackIncreasedAchievementProgress", "EffectRollbackReferral", "EffectRollbackUseReward", "EffectSet", "EffectSetDiscount", "EffectSetDiscountPerAdditionalCost", "EffectSetDiscountPerAdditionalCostPerItem", "EffectSetDiscountPerItem", "EffectSetLoyaltyPointsExpiryDate", "EffectShowBundleMetadata", "EffectShowNotification", "EffectStartAchievementProgress", "EffectUnlockReward", "EffectUseReward", "EffectWillAwardGiveaway"]
+EFFECT_ONE_OF_SCHEMAS = ["EffectAcceptCoupon", "EffectAcceptReferral", "EffectAddFreeItem", "EffectAddLoyaltyPoints", "EffectAddNegativeLoyaltyPoints", "EffectAddToAudience", "EffectAwardGiveaway", "EffectBoostLoyaltyTier", "EffectCallApi", "EffectChangeLoyaltyTierLevel", "EffectCouponCreated", "EffectCustomEffect", "EffectDeductLoyaltyPoints", "EffectError", "EffectExtendLoyaltyPointsExpiryDate", "EffectIncreaseAchievementProgress", "EffectIncreaseAchievementProgressPerItem", "EffectJoinLoyaltyProgram", "EffectOffsetNegativeLoyaltyPoints", "EffectRedeemReferral", "EffectReferralCreated", "EffectRejectCoupon", "EffectRejectReferral", "EffectRemoveFromAudience", "EffectReserveCoupon", "EffectRollbackAddedLoyaltyPoints", "EffectRollbackCoupon", "EffectRollbackDeductedLoyaltyPoints", "EffectRollbackDiscount", "EffectRollbackIncreasedAchievementProgress", "EffectRollbackIncreasedAchievementProgressPerItem", "EffectRollbackReferral", "EffectRollbackTierBoost", "EffectRollbackUseReward", "EffectSet", "EffectSetDiscount", "EffectSetDiscountPerAdditionalCost", "EffectSetDiscountPerAdditionalCostPerItem", "EffectSetDiscountPerItem", "EffectSetLoyaltyPointsExpiryDate", "EffectShowBundleMetadata", "EffectShowNotification", "EffectStartAchievementProgress", "EffectUnlockReward", "EffectUseReward", "EffectWillAwardGiveaway"]
 
 class Effect(BaseModel):
     """
-    A generic effect that is fired by a triggered campaign. The `effectType` field selects the concrete effect variant and the shape of `props`.
+    Effect
     """
     # data type: EffectAcceptCoupon
     oneof_schema_1_validator: Optional[EffectAcceptCoupon] = None
@@ -102,62 +105,68 @@ class Effect(BaseModel):
     oneof_schema_15_validator: Optional[EffectExtendLoyaltyPointsExpiryDate] = None
     # data type: EffectIncreaseAchievementProgress
     oneof_schema_16_validator: Optional[EffectIncreaseAchievementProgress] = None
+    # data type: EffectIncreaseAchievementProgressPerItem
+    oneof_schema_17_validator: Optional[EffectIncreaseAchievementProgressPerItem] = None
     # data type: EffectJoinLoyaltyProgram
-    oneof_schema_17_validator: Optional[EffectJoinLoyaltyProgram] = None
+    oneof_schema_18_validator: Optional[EffectJoinLoyaltyProgram] = None
     # data type: EffectOffsetNegativeLoyaltyPoints
-    oneof_schema_18_validator: Optional[EffectOffsetNegativeLoyaltyPoints] = None
+    oneof_schema_19_validator: Optional[EffectOffsetNegativeLoyaltyPoints] = None
     # data type: EffectRedeemReferral
-    oneof_schema_19_validator: Optional[EffectRedeemReferral] = None
+    oneof_schema_20_validator: Optional[EffectRedeemReferral] = None
     # data type: EffectReferralCreated
-    oneof_schema_20_validator: Optional[EffectReferralCreated] = None
+    oneof_schema_21_validator: Optional[EffectReferralCreated] = None
     # data type: EffectRejectCoupon
-    oneof_schema_21_validator: Optional[EffectRejectCoupon] = None
+    oneof_schema_22_validator: Optional[EffectRejectCoupon] = None
     # data type: EffectRejectReferral
-    oneof_schema_22_validator: Optional[EffectRejectReferral] = None
+    oneof_schema_23_validator: Optional[EffectRejectReferral] = None
     # data type: EffectRemoveFromAudience
-    oneof_schema_23_validator: Optional[EffectRemoveFromAudience] = None
+    oneof_schema_24_validator: Optional[EffectRemoveFromAudience] = None
     # data type: EffectReserveCoupon
-    oneof_schema_24_validator: Optional[EffectReserveCoupon] = None
+    oneof_schema_25_validator: Optional[EffectReserveCoupon] = None
     # data type: EffectRollbackAddedLoyaltyPoints
-    oneof_schema_25_validator: Optional[EffectRollbackAddedLoyaltyPoints] = None
+    oneof_schema_26_validator: Optional[EffectRollbackAddedLoyaltyPoints] = None
     # data type: EffectRollbackCoupon
-    oneof_schema_26_validator: Optional[EffectRollbackCoupon] = None
+    oneof_schema_27_validator: Optional[EffectRollbackCoupon] = None
     # data type: EffectRollbackDeductedLoyaltyPoints
-    oneof_schema_27_validator: Optional[EffectRollbackDeductedLoyaltyPoints] = None
+    oneof_schema_28_validator: Optional[EffectRollbackDeductedLoyaltyPoints] = None
     # data type: EffectRollbackDiscount
-    oneof_schema_28_validator: Optional[EffectRollbackDiscount] = None
+    oneof_schema_29_validator: Optional[EffectRollbackDiscount] = None
     # data type: EffectRollbackIncreasedAchievementProgress
-    oneof_schema_29_validator: Optional[EffectRollbackIncreasedAchievementProgress] = None
+    oneof_schema_30_validator: Optional[EffectRollbackIncreasedAchievementProgress] = None
+    # data type: EffectRollbackIncreasedAchievementProgressPerItem
+    oneof_schema_31_validator: Optional[EffectRollbackIncreasedAchievementProgressPerItem] = None
     # data type: EffectRollbackReferral
-    oneof_schema_30_validator: Optional[EffectRollbackReferral] = None
+    oneof_schema_32_validator: Optional[EffectRollbackReferral] = None
+    # data type: EffectRollbackTierBoost
+    oneof_schema_33_validator: Optional[EffectRollbackTierBoost] = None
     # data type: EffectRollbackUseReward
-    oneof_schema_31_validator: Optional[EffectRollbackUseReward] = None
+    oneof_schema_34_validator: Optional[EffectRollbackUseReward] = None
     # data type: EffectSet
-    oneof_schema_32_validator: Optional[EffectSet] = None
+    oneof_schema_35_validator: Optional[EffectSet] = None
     # data type: EffectSetDiscount
-    oneof_schema_33_validator: Optional[EffectSetDiscount] = None
+    oneof_schema_36_validator: Optional[EffectSetDiscount] = None
     # data type: EffectSetDiscountPerAdditionalCost
-    oneof_schema_34_validator: Optional[EffectSetDiscountPerAdditionalCost] = None
+    oneof_schema_37_validator: Optional[EffectSetDiscountPerAdditionalCost] = None
     # data type: EffectSetDiscountPerAdditionalCostPerItem
-    oneof_schema_35_validator: Optional[EffectSetDiscountPerAdditionalCostPerItem] = None
+    oneof_schema_38_validator: Optional[EffectSetDiscountPerAdditionalCostPerItem] = None
     # data type: EffectSetDiscountPerItem
-    oneof_schema_36_validator: Optional[EffectSetDiscountPerItem] = None
+    oneof_schema_39_validator: Optional[EffectSetDiscountPerItem] = None
     # data type: EffectSetLoyaltyPointsExpiryDate
-    oneof_schema_37_validator: Optional[EffectSetLoyaltyPointsExpiryDate] = None
+    oneof_schema_40_validator: Optional[EffectSetLoyaltyPointsExpiryDate] = None
     # data type: EffectShowBundleMetadata
-    oneof_schema_38_validator: Optional[EffectShowBundleMetadata] = None
+    oneof_schema_41_validator: Optional[EffectShowBundleMetadata] = None
     # data type: EffectShowNotification
-    oneof_schema_39_validator: Optional[EffectShowNotification] = None
+    oneof_schema_42_validator: Optional[EffectShowNotification] = None
     # data type: EffectStartAchievementProgress
-    oneof_schema_40_validator: Optional[EffectStartAchievementProgress] = None
+    oneof_schema_43_validator: Optional[EffectStartAchievementProgress] = None
     # data type: EffectUnlockReward
-    oneof_schema_41_validator: Optional[EffectUnlockReward] = None
+    oneof_schema_44_validator: Optional[EffectUnlockReward] = None
     # data type: EffectUseReward
-    oneof_schema_42_validator: Optional[EffectUseReward] = None
+    oneof_schema_45_validator: Optional[EffectUseReward] = None
     # data type: EffectWillAwardGiveaway
-    oneof_schema_43_validator: Optional[EffectWillAwardGiveaway] = None
-    actual_instance: Optional[Union[EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway]] = None
-    one_of_schemas: Set[str] = { "EffectAcceptCoupon", "EffectAcceptReferral", "EffectAddFreeItem", "EffectAddLoyaltyPoints", "EffectAddNegativeLoyaltyPoints", "EffectAddToAudience", "EffectAwardGiveaway", "EffectBoostLoyaltyTier", "EffectCallApi", "EffectChangeLoyaltyTierLevel", "EffectCouponCreated", "EffectCustomEffect", "EffectDeductLoyaltyPoints", "EffectError", "EffectExtendLoyaltyPointsExpiryDate", "EffectIncreaseAchievementProgress", "EffectJoinLoyaltyProgram", "EffectOffsetNegativeLoyaltyPoints", "EffectRedeemReferral", "EffectReferralCreated", "EffectRejectCoupon", "EffectRejectReferral", "EffectRemoveFromAudience", "EffectReserveCoupon", "EffectRollbackAddedLoyaltyPoints", "EffectRollbackCoupon", "EffectRollbackDeductedLoyaltyPoints", "EffectRollbackDiscount", "EffectRollbackIncreasedAchievementProgress", "EffectRollbackReferral", "EffectRollbackUseReward", "EffectSet", "EffectSetDiscount", "EffectSetDiscountPerAdditionalCost", "EffectSetDiscountPerAdditionalCostPerItem", "EffectSetDiscountPerItem", "EffectSetLoyaltyPointsExpiryDate", "EffectShowBundleMetadata", "EffectShowNotification", "EffectStartAchievementProgress", "EffectUnlockReward", "EffectUseReward", "EffectWillAwardGiveaway" }
+    oneof_schema_46_validator: Optional[EffectWillAwardGiveaway] = None
+    actual_instance: Optional[Union[EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectIncreaseAchievementProgressPerItem, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackIncreasedAchievementProgressPerItem, EffectRollbackReferral, EffectRollbackTierBoost, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway]] = None
+    one_of_schemas: Set[str] = { "EffectAcceptCoupon", "EffectAcceptReferral", "EffectAddFreeItem", "EffectAddLoyaltyPoints", "EffectAddNegativeLoyaltyPoints", "EffectAddToAudience", "EffectAwardGiveaway", "EffectBoostLoyaltyTier", "EffectCallApi", "EffectChangeLoyaltyTierLevel", "EffectCouponCreated", "EffectCustomEffect", "EffectDeductLoyaltyPoints", "EffectError", "EffectExtendLoyaltyPointsExpiryDate", "EffectIncreaseAchievementProgress", "EffectIncreaseAchievementProgressPerItem", "EffectJoinLoyaltyProgram", "EffectOffsetNegativeLoyaltyPoints", "EffectRedeemReferral", "EffectReferralCreated", "EffectRejectCoupon", "EffectRejectReferral", "EffectRemoveFromAudience", "EffectReserveCoupon", "EffectRollbackAddedLoyaltyPoints", "EffectRollbackCoupon", "EffectRollbackDeductedLoyaltyPoints", "EffectRollbackDiscount", "EffectRollbackIncreasedAchievementProgress", "EffectRollbackIncreasedAchievementProgressPerItem", "EffectRollbackReferral", "EffectRollbackTierBoost", "EffectRollbackUseReward", "EffectSet", "EffectSetDiscount", "EffectSetDiscountPerAdditionalCost", "EffectSetDiscountPerAdditionalCostPerItem", "EffectSetDiscountPerItem", "EffectSetLoyaltyPointsExpiryDate", "EffectShowBundleMetadata", "EffectShowNotification", "EffectStartAchievementProgress", "EffectUnlockReward", "EffectUseReward", "EffectWillAwardGiveaway" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -263,6 +272,11 @@ class Effect(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `EffectIncreaseAchievementProgress`")
         else:
             match += 1
+        # validate data type: EffectIncreaseAchievementProgressPerItem
+        if not isinstance(v, EffectIncreaseAchievementProgressPerItem):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectIncreaseAchievementProgressPerItem`")
+        else:
+            match += 1
         # validate data type: EffectJoinLoyaltyProgram
         if not isinstance(v, EffectJoinLoyaltyProgram):
             error_messages.append(f"Error! Input type `{type(v)}` is not `EffectJoinLoyaltyProgram`")
@@ -328,9 +342,19 @@ class Effect(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackIncreasedAchievementProgress`")
         else:
             match += 1
+        # validate data type: EffectRollbackIncreasedAchievementProgressPerItem
+        if not isinstance(v, EffectRollbackIncreasedAchievementProgressPerItem):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackIncreasedAchievementProgressPerItem`")
+        else:
+            match += 1
         # validate data type: EffectRollbackReferral
         if not isinstance(v, EffectRollbackReferral):
             error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackReferral`")
+        else:
+            match += 1
+        # validate data type: EffectRollbackTierBoost
+        if not isinstance(v, EffectRollbackTierBoost):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `EffectRollbackTierBoost`")
         else:
             match += 1
         # validate data type: EffectRollbackUseReward
@@ -400,10 +424,10 @@ class Effect(BaseModel):
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectIncreaseAchievementProgressPerItem, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackIncreasedAchievementProgressPerItem, EffectRollbackReferral, EffectRollbackTierBoost, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectIncreaseAchievementProgressPerItem, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackIncreasedAchievementProgressPerItem, EffectRollbackReferral, EffectRollbackTierBoost, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -514,6 +538,12 @@ class Effect(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
+        # deserialize data into EffectIncreaseAchievementProgressPerItem
+        try:
+            instance.actual_instance = EffectIncreaseAchievementProgressPerItem.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
         # deserialize data into EffectJoinLoyaltyProgram
         try:
             instance.actual_instance = EffectJoinLoyaltyProgram.from_json(json_str)
@@ -592,9 +622,21 @@ class Effect(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
+        # deserialize data into EffectRollbackIncreasedAchievementProgressPerItem
+        try:
+            instance.actual_instance = EffectRollbackIncreasedAchievementProgressPerItem.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
         # deserialize data into EffectRollbackReferral
         try:
             instance.actual_instance = EffectRollbackReferral.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into EffectRollbackTierBoost
+        try:
+            instance.actual_instance = EffectRollbackTierBoost.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
@@ -679,10 +721,10 @@ class Effect(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectIncreaseAchievementProgressPerItem, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackIncreasedAchievementProgressPerItem, EffectRollbackReferral, EffectRollbackTierBoost, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into Effect with oneOf schemas: EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectIncreaseAchievementProgressPerItem, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackIncreasedAchievementProgressPerItem, EffectRollbackReferral, EffectRollbackTierBoost, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -696,7 +738,7 @@ class Effect(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackReferral, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectIncreaseAchievementProgressPerItem, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackIncreasedAchievementProgressPerItem, EffectRollbackReferral, EffectRollbackTierBoost, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

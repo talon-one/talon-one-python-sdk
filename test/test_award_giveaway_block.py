@@ -42,9 +42,6 @@ class TestAwardGiveawayBlock(unittest.TestCase):
                     ],
                 giveaway_pool = None,
                 profile = 'Current',
-                on_failure = [
-                    null
-                    ],
                 on_error = {
                     'key' : [
                         null

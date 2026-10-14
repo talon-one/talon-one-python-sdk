@@ -59,7 +59,8 @@ class TestLoyaltyLedger(unittest.TestCase):
                             user_id = 499, 
                             archived = False, 
                             flags = null, 
-                            validity_duration = '30D', )
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     expiring_points = [
                         talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
@@ -78,16 +79,68 @@ class TestLoyaltyLedger(unittest.TestCase):
                             user_id = 499, 
                             archived = False, 
                             flags = null, 
-                            validity_duration = '30D', )
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     active_points = [
-                        
+                        talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
+                            created = '2021-07-20T22:00:00Z', 
+                            program_id = 5, 
+                            customer_profile_id = 'URNGV8294NV', 
+                            card_id = 241, 
+                            customer_session_id = 't2gy5s-47274', 
+                            event_id = 5, 
+                            type = 'addition', 
+                            amount = 100, 
+                            start_date = '2021-07-20T22:00:00Z', 
+                            expiry_date = '2022-07-20T22:00:00Z', 
+                            name = 'Add points on purchase', 
+                            sub_ledger_id = 'mysubledger', 
+                            user_id = 499, 
+                            archived = False, 
+                            flags = null, 
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     pending_points = [
-                        
+                        talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
+                            created = '2021-07-20T22:00:00Z', 
+                            program_id = 5, 
+                            customer_profile_id = 'URNGV8294NV', 
+                            card_id = 241, 
+                            customer_session_id = 't2gy5s-47274', 
+                            event_id = 5, 
+                            type = 'addition', 
+                            amount = 100, 
+                            start_date = '2021-07-20T22:00:00Z', 
+                            expiry_date = '2022-07-20T22:00:00Z', 
+                            name = 'Add points on purchase', 
+                            sub_ledger_id = 'mysubledger', 
+                            user_id = 499, 
+                            archived = False, 
+                            flags = null, 
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     expired_points = [
-                        
+                        talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
+                            created = '2021-07-20T22:00:00Z', 
+                            program_id = 5, 
+                            customer_profile_id = 'URNGV8294NV', 
+                            card_id = 241, 
+                            customer_session_id = 't2gy5s-47274', 
+                            event_id = 5, 
+                            type = 'addition', 
+                            amount = 100, 
+                            start_date = '2021-07-20T22:00:00Z', 
+                            expiry_date = '2022-07-20T22:00:00Z', 
+                            name = 'Add points on purchase', 
+                            sub_ledger_id = 'mysubledger', 
+                            user_id = 499, 
+                            archived = False, 
+                            flags = null, 
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     current_tier = null, ),
                 sub_ledgers = {mysubledger={total=0, totalActivePoints=286, totalPendingPoints=50, totalSpentPoints=150, totalExpiredPoints=25, totalNegativePoints=0}}
@@ -118,7 +171,8 @@ class TestLoyaltyLedger(unittest.TestCase):
                             user_id = 499, 
                             archived = False, 
                             flags = null, 
-                            validity_duration = '30D', )
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     expiring_points = [
                         talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
@@ -137,16 +191,68 @@ class TestLoyaltyLedger(unittest.TestCase):
                             user_id = 499, 
                             archived = False, 
                             flags = null, 
-                            validity_duration = '30D', )
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     active_points = [
-                        
+                        talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
+                            created = '2021-07-20T22:00:00Z', 
+                            program_id = 5, 
+                            customer_profile_id = 'URNGV8294NV', 
+                            card_id = 241, 
+                            customer_session_id = 't2gy5s-47274', 
+                            event_id = 5, 
+                            type = 'addition', 
+                            amount = 100, 
+                            start_date = '2021-07-20T22:00:00Z', 
+                            expiry_date = '2022-07-20T22:00:00Z', 
+                            name = 'Add points on purchase', 
+                            sub_ledger_id = 'mysubledger', 
+                            user_id = 499, 
+                            archived = False, 
+                            flags = null, 
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     pending_points = [
-                        
+                        talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
+                            created = '2021-07-20T22:00:00Z', 
+                            program_id = 5, 
+                            customer_profile_id = 'URNGV8294NV', 
+                            card_id = 241, 
+                            customer_session_id = 't2gy5s-47274', 
+                            event_id = 5, 
+                            type = 'addition', 
+                            amount = 100, 
+                            start_date = '2021-07-20T22:00:00Z', 
+                            expiry_date = '2022-07-20T22:00:00Z', 
+                            name = 'Add points on purchase', 
+                            sub_ledger_id = 'mysubledger', 
+                            user_id = 499, 
+                            archived = False, 
+                            flags = null, 
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     expired_points = [
-                        
+                        talon_one.models.loyalty_ledger_entry.LoyaltyLedgerEntry(
+                            created = '2021-07-20T22:00:00Z', 
+                            program_id = 5, 
+                            customer_profile_id = 'URNGV8294NV', 
+                            card_id = 241, 
+                            customer_session_id = 't2gy5s-47274', 
+                            event_id = 5, 
+                            type = 'addition', 
+                            amount = 100, 
+                            start_date = '2021-07-20T22:00:00Z', 
+                            expiry_date = '2022-07-20T22:00:00Z', 
+                            name = 'Add points on purchase', 
+                            sub_ledger_id = 'mysubledger', 
+                            user_id = 499, 
+                            archived = False, 
+                            flags = null, 
+                            validity_duration = '30D', 
+                            awaits_activation = False, )
                         ], 
                     current_tier = null, ),
         )

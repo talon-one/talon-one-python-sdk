@@ -45,8 +45,7 @@ class AwardLoyaltyPointsBlock(BaseModel):
     validity_duration: Optional[StrictStr] = Field(default=None, description="Relative duration (e.g. `30D`) after which the awarded points expire. Mutually exclusive with `expiryDate`.", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
     expiry_date: Optional[Any] = Field(default=None, description="Timestamp at which the awarded points expire. Mutually exclusive with `validityDuration`.", alias="expiryDate", json_schema_extra={"examples": ["2026-12-31T00:00:00Z"]})
     pending_duration: Optional[StrictStr] = Field(default=None, description="Relative duration (e.g. `3D`) the awarded points remain pending before activation.", alias="pendingDuration", json_schema_extra={"examples": ["3D"]})
-    on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
-    __properties: ClassVar[List[str]] = ["id", "type", "tags", "name", "program", "recipient", "subledger", "target", "value", "partial", "awaitsActivation", "startDate", "validityDuration", "expiryDate", "pendingDuration", "onFailure"]
+    __properties: ClassVar[List[str]] = ["id", "type", "tags", "name", "program", "recipient", "subledger", "target", "value", "partial", "awaitsActivation", "startDate", "validityDuration", "expiryDate", "pendingDuration"]
 
     @field_validator('recipient')
     def recipient_validate_enum(cls, value):
@@ -107,12 +106,6 @@ class AwardLoyaltyPointsBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of value
         if self.value:
             _dict['value'] = self.value.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
-        _items = []
-        if self.on_failure:
-            for _item_on_failure in self.on_failure:
-                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
-            _dict['onFailure'] = _items
         # set to None if start_date (nullable) is None
         # and model_fields_set contains the field
         if self.start_date is None and "start_date" in self.model_fields_set:
@@ -149,12 +142,8 @@ class AwardLoyaltyPointsBlock(BaseModel):
             "startDate": obj.get("startDate"),
             "validityDuration": obj.get("validityDuration"),
             "expiryDate": obj.get("expiryDate"),
-            "pendingDuration": obj.get("pendingDuration"),
-            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
+            "pendingDuration": obj.get("pendingDuration")
         })
         return _obj
 
-from talon_one.models.block import Block
-# TODO: Rewrite to not use raise_errors
-AwardLoyaltyPointsBlock.model_rebuild(raise_errors=False)
 

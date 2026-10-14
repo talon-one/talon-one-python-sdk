@@ -35,7 +35,7 @@ class TestRewardEligibility(unittest.TestCase):
         model = RewardEligibility()
         if include_optional:
             return RewardEligibility(
-                passed = True,
+                passed = False,
                 details = [
                     talon_one.models.reward_eligibility_failure_details.RewardEligibilityFailureDetails(
                         failure_code = 'CONDITION_NOT_MET', 
@@ -44,7 +44,7 @@ class TestRewardEligibility(unittest.TestCase):
             )
         else:
             return RewardEligibility(
-                passed = True,
+                passed = False,
         )
         """
 

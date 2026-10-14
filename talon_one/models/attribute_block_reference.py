@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,8 +30,8 @@ class AttributeBlockReference(BaseModel):
     id: StrictInt = Field(description="The internal ID of the attribute. Reverts to `0` when the attribute is deleted or does not exist.", json_schema_extra={"examples": [100]})
     entity: StrictStr = Field(description="The entity type that owns the attribute. Reverts to an empty string when the attribute is deleted or does not exist.", json_schema_extra={"examples": ["profile"]})
     name: StrictStr = Field(description="The attribute name as used in API requests.", json_schema_extra={"examples": ["City"]})
-    title: StrictStr = Field(description="The human-readable name of the attribute.", json_schema_extra={"examples": ["City"]})
-    type: StrictStr = Field(description="The data type of the attribute.", json_schema_extra={"examples": ["string"]})
+    title: Optional[StrictStr] = Field(default=None, description="The human-readable name of the attribute.", json_schema_extra={"examples": ["City"]})
+    type: Optional[StrictStr] = Field(default=None, description="The data type of the attribute.", json_schema_extra={"examples": ["string"]})
     __properties: ClassVar[List[str]] = ["id", "entity", "name", "title", "type"]
 
     model_config = ConfigDict(
@@ -64,8 +64,12 @@ class AttributeBlockReference(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "title",
+            "type",
         ])
 
         _dict = self.model_dump(

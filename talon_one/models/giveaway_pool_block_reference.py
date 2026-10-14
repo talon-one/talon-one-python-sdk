@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,7 +28,7 @@ class GiveawayPoolBlockReference(BaseModel):
     GiveawayPoolBlockReference
     """ # noqa: E501
     id: StrictInt = Field(description="The unique identifier of the giveaway pool.", json_schema_extra={"examples": [42]})
-    name: StrictStr = Field(description="The display name of the giveaway pool.", json_schema_extra={"examples": ["Summer Campaign Pool"]})
+    name: Optional[StrictStr] = Field(default=None, description="The display name of the giveaway pool.", json_schema_extra={"examples": ["Summer Campaign Pool"]})
     __properties: ClassVar[List[str]] = ["id", "name"]
 
     model_config = ConfigDict(

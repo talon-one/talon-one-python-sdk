@@ -28,8 +28,8 @@ class CampaignEligibilityDetails(BaseModel):
     """
     CampaignEligibilityDetails
     """ # noqa: E501
-    passed: StrictBool = Field(description="Indicates whether the customer was eligible for the campaign in the current session.")
-    coupon_code: Optional[StrictStr] = Field(default=None, description="The coupon code used to check a customer's eligibility for the campaign in the current session, if applicable.", alias="couponCode")
+    passed: StrictBool = Field(description="Indicates whether the customer was eligible for the campaign in the current session.", json_schema_extra={"examples": [False]})
+    coupon_code: Optional[StrictStr] = Field(default=None, description="The coupon code used to check a customer's eligibility for the campaign in the current session, if applicable.", alias="couponCode", json_schema_extra={"examples": ["XMAS-20-2021"]})
     details: Optional[CampaignEligibilityFailureDetails] = Field(default=None, description="The details about why the customer was not eligible for the campaign in the current session. Only returned when `passed` is `false`.")
     __properties: ClassVar[List[str]] = ["passed", "couponCode", "details"]
 

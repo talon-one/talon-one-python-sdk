@@ -42,8 +42,6 @@ class TestCustomEffectBlockReference(unittest.TestCase):
         else:
             return CustomEffectBlockReference(
                 id = 1,
-                name = 'sendEmail',
-                title = 'Send email',
         )
         """
 

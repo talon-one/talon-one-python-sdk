@@ -42,7 +42,7 @@ class RuleFailureReason(BaseModel):
     effect_index: Optional[StrictInt] = Field(default=None, description="The index of the effect that failed.", alias="effectIndex")
     details: Optional[StrictStr] = Field(default=None, description="More details about the failure.")
     evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupID", json_schema_extra={"examples": [3]})
-    evaluation_group_mode: Optional[StrictStr] = Field(default=None, description="The evaluation mode of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-", alias="evaluationGroupMode", json_schema_extra={"examples": ["stackable"]})
+    evaluation_group_mode: Optional[StrictStr] = Field(default=None, description="The evaluation mode of the evaluation group. For more information, see [Managing campaign evaluation](https://docs.talon.one/docs/product/applications/managing-campaign-evaluation).", alias="evaluationGroupMode", json_schema_extra={"examples": ["stackable"]})
     __properties: ClassVar[List[str]] = ["campaignID", "campaignName", "rulesetID", "couponID", "couponValue", "referralID", "referralValue", "rewardId", "rewardIntegrationId", "ruleIndex", "ruleName", "conditionIndex", "effectIndex", "details", "evaluationGroupID", "evaluationGroupMode"]
 
     model_config = ConfigDict(

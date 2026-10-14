@@ -17,9 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import date
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Union
+from datetime import date, datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -36,7 +36,10 @@ class ExpiringCardPointsData(BaseModel):
     card_identifier: StrictStr = Field(description="The identifier of the loyalty card, `which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="CardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     users_per_card_limit: Annotated[int, Field(strict=True, ge=0)] = Field(description="The maximum number of customer profiles with which a card can be shared. This can be set to `0` for no limit. ", alias="UsersPerCardLimit", json_schema_extra={"examples": [5]})
     profiles: List[StrictStr] = Field(description="The integration IDs of the customer profiles linked to the card.", alias="Profiles")
-    __properties: ClassVar[List[str]] = ["ExpiryDate", "LoyaltyProgramID", "AmountOfExpiringPoints", "SubledgerID", "CardIdentifier", "UsersPerCardLimit", "Profiles"]
+    created: Optional[datetime] = Field(default=None, description="The timestamp when the loyalty transaction occurred.", alias="Created", json_schema_extra={"examples": ["2023-01-24T14:15:22Z"]})
+    awaits_activation: Optional[StrictBool] = Field(default=None, description="Indicates whether the points have an action-based start date. This property is returned only for point transactions with an action-based start date.", alias="AwaitsActivation", json_schema_extra={"examples": [False]})
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the activation date.  **Note**: This only applies to points for which `AwaitsActivation` is `true` and `ExpiryDate` is not set. ", alias="ValidityDuration", json_schema_extra={"examples": ["30D"]})
+    __properties: ClassVar[List[str]] = ["ExpiryDate", "LoyaltyProgramID", "AmountOfExpiringPoints", "SubledgerID", "CardIdentifier", "UsersPerCardLimit", "Profiles", "Created", "AwaitsActivation", "ValidityDuration"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -95,7 +98,10 @@ class ExpiringCardPointsData(BaseModel):
             "SubledgerID": obj.get("SubledgerID"),
             "CardIdentifier": obj.get("CardIdentifier"),
             "UsersPerCardLimit": obj.get("UsersPerCardLimit"),
-            "Profiles": obj.get("Profiles")
+            "Profiles": obj.get("Profiles"),
+            "Created": obj.get("Created"),
+            "AwaitsActivation": obj.get("AwaitsActivation"),
+            "ValidityDuration": obj.get("ValidityDuration")
         })
         return _obj
 

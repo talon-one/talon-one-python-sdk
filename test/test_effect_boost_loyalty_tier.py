@@ -53,7 +53,7 @@ class TestEffectBoostLoyaltyTier(unittest.TestCase):
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
                 reward_integration_id = 'reward-unlock-123',
-                props = talon_one.models.boost_loyalty_tier_effect_props.BoostLoyaltyTierEffectProps(
+                props = talon_one.models.boost_loyalty_tier.boostLoyaltyTier(
                     program_id = 56, 
                     sub_ledger_id = '', 
                     tier_name = '', 
@@ -68,7 +68,7 @@ class TestEffectBoostLoyaltyTier(unittest.TestCase):
                 rule_index = 2,
                 rule_name = 'Give 20% discount',
                 effect_type = 'boostLoyaltyTier',
-                props = talon_one.models.boost_loyalty_tier_effect_props.BoostLoyaltyTierEffectProps(
+                props = talon_one.models.boost_loyalty_tier.boostLoyaltyTier(
                     program_id = 56, 
                     sub_ledger_id = '', 
                     tier_name = '', 

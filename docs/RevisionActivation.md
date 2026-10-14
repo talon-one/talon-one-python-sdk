@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**activate_at** | **datetime** |  | [optional] 
+**activate_at** | **datetime** | Timestamp when the revision will be activated. | [optional] 
 
 ## Example
 

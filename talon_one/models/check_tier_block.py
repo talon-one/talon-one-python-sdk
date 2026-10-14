@@ -32,7 +32,7 @@ class CheckTierBlock(BaseModel):
     type: StrictStr = Field(description="Identifies the block variant and determines which additional properties are present in it.")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     operator: StrictStr = Field(description="An indicator of how the block compares its elements.", json_schema_extra={"examples": ["member"]})
-    subledger: StrictStr = Field(description="The name of the subledger to check the balance of. Can be empty if this block checks the loyalty program's main ledger balance instead of a subledger.", json_schema_extra={"examples": [""]})
+    subledger: StrictStr = Field(description="The name of the subledger to check a customer's tier in. Can be empty if this block checks the loyalty program's main ledger instead of a subledger. A subledger can only be used when the loyalty program that the tier is in has subledgers enabled. To specify the main ledger, provide an empty string (\"\").", json_schema_extra={"examples": [""]})
     tier: TierBlockReference = Field(description="The tier to check for.")
     on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "subledger", "tier", "onFailure"]

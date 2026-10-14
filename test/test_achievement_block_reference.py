@@ -43,9 +43,6 @@ class TestAchievementBlockReference(unittest.TestCase):
         else:
             return AchievementBlockReference(
                 id = 42,
-                title = '50% off on 50th purchase.',
-                name = 'Order50Discount',
-                target = 50,
         )
         """
 

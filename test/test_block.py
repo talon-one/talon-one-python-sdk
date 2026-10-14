@@ -117,6 +117,7 @@ class TestBlock(unittest.TestCase):
                     ],
                 notification_type = 'Info',
                 title = 'You earned a reward!',
+                body = 'You saved $10 on your order.',
                 sku = 'SKU1241028',
                 quantity = '1',
                 giveaway_pool = None,

@@ -740,6 +740,13 @@ class TestManagementApi(unittest.TestCase):
         """
         pass
 
+    def test_get_current_revision(self) -> None:
+        """Test case for get_current_revision
+
+        Get current revision version
+        """
+        pass
+
     def test_get_customer_activity_report(self) -> None:
         """Test case for get_customer_activity_report
 
@@ -1136,6 +1143,13 @@ class TestManagementApi(unittest.TestCase):
         """Test case for list_experiments
 
         List experiments
+        """
+        pass
+
+    def test_list_giveaways_pool(self) -> None:
+        """Test case for list_giveaways_pool
+
+        List giveaway pools
         """
         pass
 

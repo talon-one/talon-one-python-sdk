@@ -41,14 +41,14 @@ class TestUpdateAchievementProgressBlock(unittest.TestCase):
                     ''
                     ],
                 operator = 'increaseBy',
-                value = '10',
+                value = None,
                 achievement = None
             )
         else:
             return UpdateAchievementProgressBlock(
                 type = '',
                 operator = 'increaseBy',
-                value = '10',
+                value = None,
                 achievement = None,
         )
         """

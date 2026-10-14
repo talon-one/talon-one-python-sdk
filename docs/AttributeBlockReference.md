@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **id** | **int** | The internal ID of the attribute. Reverts to &#x60;0&#x60; when the attribute is deleted or does not exist. | 
 **entity** | **str** | The entity type that owns the attribute. Reverts to an empty string when the attribute is deleted or does not exist. | 
 **name** | **str** | The attribute name as used in API requests. | 
-**title** | **str** | The human-readable name of the attribute. | 
-**type** | **str** | The data type of the attribute. | 
+**title** | **str** | The human-readable name of the attribute. | [optional] [readonly] 
+**type** | **str** | The data type of the attribute. | [optional] [readonly] 
 
 ## Example
 

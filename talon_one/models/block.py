@@ -18,10 +18,12 @@ import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
 from talon_one.models.award_discount_block import AwardDiscountBlock
+from talon_one.models.award_loyalty_points_block import AwardLoyaltyPointsBlock
 from talon_one.models.check_attribute_block import CheckAttributeBlock
 from talon_one.models.create_coupon_block import CreateCouponBlock
 from talon_one.models.create_referral_block import CreateReferralBlock
 from talon_one.models.passthrough_block import PassthroughBlock
+from talon_one.models.redeem_loyalty_points_block import RedeemLoyaltyPointsBlock
 from talon_one.models.reserve_coupon_block import ReserveCouponBlock
 from talon_one.models.update_achievement_progress_block import UpdateAchievementProgressBlock
 from talon_one.models.update_attribute_value_block import UpdateAttributeValueBlock
@@ -471,7 +473,6 @@ class Block(BaseModel):
 
 from talon_one.models.award_giveaway_block import AwardGiveawayBlock
 from talon_one.models.award_item_block import AwardItemBlock
-from talon_one.models.award_loyalty_points_block import AwardLoyaltyPointsBlock
 from talon_one.models.check_achievement_block import CheckAchievementBlock
 from talon_one.models.check_audience_block import CheckAudienceBlock
 from talon_one.models.check_budget_block import CheckBudgetBlock
@@ -482,7 +483,6 @@ from talon_one.models.check_loyalty_card_block import CheckLoyaltyCardBlock
 from talon_one.models.check_referral_block import CheckReferralBlock
 from talon_one.models.check_tier_block import CheckTierBlock
 from talon_one.models.group_block import GroupBlock
-from talon_one.models.redeem_loyalty_points_block import RedeemLoyaltyPointsBlock
 from talon_one.models.show_notification_block import ShowNotificationBlock
 from talon_one.models.trigger_custom_effect_block import TriggerCustomEffectBlock
 from talon_one.models.trigger_webhook_block import TriggerWebhookBlock

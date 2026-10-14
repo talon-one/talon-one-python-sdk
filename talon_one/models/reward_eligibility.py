@@ -28,7 +28,7 @@ class RewardEligibility(BaseModel):
     """
     The customer's eligibility for the reward based on the specified customer profile or loyalty card.
     """ # noqa: E501
-    passed: StrictBool = Field(description="Indicates whether the customer is eligible for the reward.", json_schema_extra={"examples": [True]})
+    passed: StrictBool = Field(description="Indicates whether the customer is eligible for the reward.", json_schema_extra={"examples": [False]})
     details: Optional[List[RewardEligibilityFailureDetails]] = Field(default=None, description="The reasons the customer is not eligible for the reward. Empty when `passed` is `true`.")
     __properties: ClassVar[List[str]] = ["passed", "details"]
 

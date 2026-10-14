@@ -83,7 +83,9 @@ class TestNewReward(unittest.TestCase):
                         amount = 500, 
                         loyalty_program_id = 10, 
                         subledger_id = 'mysubledger', )
-                    ]
+                    ],
+                validity_duration = '3M_U',
+                expiry_date = '2026-12-31T00:00:00Z'
             )
         else:
             return NewReward(

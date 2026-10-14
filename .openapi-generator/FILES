@@ -213,6 +213,7 @@ docs/CatalogActionRemove.md
 docs/CatalogActionRemoveMany.md
 docs/CatalogItem.md
 docs/CatalogRule.md
+docs/CatalogRuleset.md
 docs/CatalogSyncRequest.md
 docs/CatalogsStrikethroughNotificationPolicy.md
 docs/Change.md
@@ -275,6 +276,7 @@ docs/CustomEffect.md
 docs/CustomEffectBlockReference.md
 docs/CustomEffectProps.md
 docs/CustomerAchievement.md
+docs/CustomerAchievementHistoryEntry.md
 docs/CustomerActivityReport.md
 docs/CustomerAnalytics.md
 docs/CustomerInventory.md
@@ -317,6 +319,7 @@ docs/EffectEntity.md
 docs/EffectError.md
 docs/EffectExtendLoyaltyPointsExpiryDate.md
 docs/EffectIncreaseAchievementProgress.md
+docs/EffectIncreaseAchievementProgressPerItem.md
 docs/EffectJoinLoyaltyProgram.md
 docs/EffectOffsetNegativeLoyaltyPoints.md
 docs/EffectRedeemReferral.md
@@ -330,7 +333,9 @@ docs/EffectRollbackCoupon.md
 docs/EffectRollbackDeductedLoyaltyPoints.md
 docs/EffectRollbackDiscount.md
 docs/EffectRollbackIncreasedAchievementProgress.md
+docs/EffectRollbackIncreasedAchievementProgressPerItem.md
 docs/EffectRollbackReferral.md
+docs/EffectRollbackTierBoost.md
 docs/EffectRollbackUseReward.md
 docs/EffectSet.md
 docs/EffectSetDiscount.md
@@ -368,6 +373,8 @@ docs/EventV3ReferralEntity.md
 docs/EventV3RequestEntity.md
 docs/ExcludePriceObservationsRequest.md
 docs/Experiment.md
+docs/ExperimentBlueprint.md
+docs/ExperimentBlueprintVariant.md
 docs/ExperimentCampaignCopy.md
 docs/ExperimentConfidenceTimeline.md
 docs/ExperimentConfidenceTimelineDataPoint.md
@@ -481,6 +488,7 @@ docs/History.md
 docs/IdentifiableEntity.md
 docs/ImportEntity.md
 docs/IncreaseAchievementProgressEffectProps.md
+docs/IncreaseAchievementProgressPerItemEffectProps.md
 docs/InfluencingCampaignDetails.md
 docs/IntegrationApi.md
 docs/IntegrationCampaign.md
@@ -551,6 +559,7 @@ docs/ListCampaignStoreBudgetsStore.md
 docs/ListCatalogItems200Response.md
 docs/ListCheckAttributeBlock.md
 docs/ListExperiments200Response.md
+docs/ListGiveawaysPool200Response.md
 docs/ListStores200Response.md
 docs/ListWithCountCheckAttributeBlock.md
 docs/LocationCheckAttributeBlock.md
@@ -650,6 +659,7 @@ docs/NewEvent.md
 docs/NewEventType.md
 docs/NewEventV3Entity.md
 docs/NewExperiment.md
+docs/NewExperimentBlueprint.md
 docs/NewExperimentVariant.md
 docs/NewExperimentVariantArray.md
 docs/NewExternalInvitation.md
@@ -791,6 +801,7 @@ docs/RollbackCouponEffectProps.md
 docs/RollbackDeductedLoyaltyPointsEffectProps.md
 docs/RollbackDiscountEffectProps.md
 docs/RollbackIncreasedAchievementProgressEffectProps.md
+docs/RollbackIncreasedAchievementProgressPerItemEffectProps.md
 docs/RollbackReferralEffectProps.md
 docs/RollbackTierBoostEffectProps.md
 docs/RollbackUseRewardEffectProps.md
@@ -896,6 +907,7 @@ docs/UnlockRewardEffectProps.md
 docs/UpdateAccount.md
 docs/UpdateAchievement.md
 docs/UpdateAchievementProgressBlock.md
+docs/UpdateAchievementProgressBlock1Value.md
 docs/UpdateAchievementV2.md
 docs/UpdateApplication.md
 docs/UpdateApplicationAPIKey.md
@@ -920,6 +932,7 @@ docs/UpdateCustomEffect.md
 docs/UpdateCustomerProfileV2409Response.md
 docs/UpdateCustomerSessionV2409Response.md
 docs/UpdateExperiment.md
+docs/UpdateExperimentBlueprint.md
 docs/UpdateExperimentVariant.md
 docs/UpdateExperimentVariantArray.md
 docs/UpdateExperimentVariantName.md
@@ -1174,6 +1187,7 @@ talon_one/models/catalog_action_remove.py
 talon_one/models/catalog_action_remove_many.py
 talon_one/models/catalog_item.py
 talon_one/models/catalog_rule.py
+talon_one/models/catalog_ruleset.py
 talon_one/models/catalog_sync_request.py
 talon_one/models/catalogs_strikethrough_notification_policy.py
 talon_one/models/change.py
@@ -1236,6 +1250,7 @@ talon_one/models/custom_effect.py
 talon_one/models/custom_effect_block_reference.py
 talon_one/models/custom_effect_props.py
 talon_one/models/customer_achievement.py
+talon_one/models/customer_achievement_history_entry.py
 talon_one/models/customer_activity_report.py
 talon_one/models/customer_analytics.py
 talon_one/models/customer_inventory.py
@@ -1278,6 +1293,7 @@ talon_one/models/effect_entity.py
 talon_one/models/effect_error.py
 talon_one/models/effect_extend_loyalty_points_expiry_date.py
 talon_one/models/effect_increase_achievement_progress.py
+talon_one/models/effect_increase_achievement_progress_per_item.py
 talon_one/models/effect_join_loyalty_program.py
 talon_one/models/effect_offset_negative_loyalty_points.py
 talon_one/models/effect_redeem_referral.py
@@ -1291,7 +1307,9 @@ talon_one/models/effect_rollback_coupon.py
 talon_one/models/effect_rollback_deducted_loyalty_points.py
 talon_one/models/effect_rollback_discount.py
 talon_one/models/effect_rollback_increased_achievement_progress.py
+talon_one/models/effect_rollback_increased_achievement_progress_per_item.py
 talon_one/models/effect_rollback_referral.py
+talon_one/models/effect_rollback_tier_boost.py
 talon_one/models/effect_rollback_use_reward.py
 talon_one/models/effect_set.py
 talon_one/models/effect_set_discount.py
@@ -1329,6 +1347,8 @@ talon_one/models/event_v3_referral_entity.py
 talon_one/models/event_v3_request_entity.py
 talon_one/models/exclude_price_observations_request.py
 talon_one/models/experiment.py
+talon_one/models/experiment_blueprint.py
+talon_one/models/experiment_blueprint_variant.py
 talon_one/models/experiment_campaign_copy.py
 talon_one/models/experiment_confidence_timeline.py
 talon_one/models/experiment_confidence_timeline_data_point.py
@@ -1442,6 +1462,7 @@ talon_one/models/history.py
 talon_one/models/identifiable_entity.py
 talon_one/models/import_entity.py
 talon_one/models/increase_achievement_progress_effect_props.py
+talon_one/models/increase_achievement_progress_per_item_effect_props.py
 talon_one/models/influencing_campaign_details.py
 talon_one/models/integration_campaign.py
 talon_one/models/integration_campaign_base.py
@@ -1511,6 +1532,7 @@ talon_one/models/list_campaign_store_budgets_store.py
 talon_one/models/list_catalog_items200_response.py
 talon_one/models/list_check_attribute_block.py
 talon_one/models/list_experiments200_response.py
+talon_one/models/list_giveaways_pool200_response.py
 talon_one/models/list_stores200_response.py
 talon_one/models/list_with_count_check_attribute_block.py
 talon_one/models/location_check_attribute_block.py
@@ -1609,6 +1631,7 @@ talon_one/models/new_event.py
 talon_one/models/new_event_type.py
 talon_one/models/new_event_v3_entity.py
 talon_one/models/new_experiment.py
+talon_one/models/new_experiment_blueprint.py
 talon_one/models/new_experiment_variant.py
 talon_one/models/new_experiment_variant_array.py
 talon_one/models/new_external_invitation.py
@@ -1750,6 +1773,7 @@ talon_one/models/rollback_coupon_effect_props.py
 talon_one/models/rollback_deducted_loyalty_points_effect_props.py
 talon_one/models/rollback_discount_effect_props.py
 talon_one/models/rollback_increased_achievement_progress_effect_props.py
+talon_one/models/rollback_increased_achievement_progress_per_item_effect_props.py
 talon_one/models/rollback_referral_effect_props.py
 talon_one/models/rollback_tier_boost_effect_props.py
 talon_one/models/rollback_use_reward_effect_props.py
@@ -1855,6 +1879,7 @@ talon_one/models/unlock_reward_effect_props.py
 talon_one/models/update_account.py
 talon_one/models/update_achievement.py
 talon_one/models/update_achievement_progress_block.py
+talon_one/models/update_achievement_progress_block1_value.py
 talon_one/models/update_achievement_v2.py
 talon_one/models/update_application.py
 talon_one/models/update_application_api_key.py
@@ -1879,6 +1904,7 @@ talon_one/models/update_custom_effect.py
 talon_one/models/update_customer_profile_v2409_response.py
 talon_one/models/update_customer_session_v2409_response.py
 talon_one/models/update_experiment.py
+talon_one/models/update_experiment_blueprint.py
 talon_one/models/update_experiment_variant.py
 talon_one/models/update_experiment_variant_array.py
 talon_one/models/update_experiment_variant_name.py
@@ -2122,6 +2148,7 @@ test/test_catalog_action_remove.py
 test/test_catalog_action_remove_many.py
 test/test_catalog_item.py
 test/test_catalog_rule.py
+test/test_catalog_ruleset.py
 test/test_catalog_sync_request.py
 test/test_catalogs_strikethrough_notification_policy.py
 test/test_change.py
@@ -2184,6 +2211,7 @@ test/test_custom_effect.py
 test/test_custom_effect_block_reference.py
 test/test_custom_effect_props.py
 test/test_customer_achievement.py
+test/test_customer_achievement_history_entry.py
 test/test_customer_activity_report.py
 test/test_customer_analytics.py
 test/test_customer_inventory.py
@@ -2226,6 +2254,7 @@ test/test_effect_entity.py
 test/test_effect_error.py
 test/test_effect_extend_loyalty_points_expiry_date.py
 test/test_effect_increase_achievement_progress.py
+test/test_effect_increase_achievement_progress_per_item.py
 test/test_effect_join_loyalty_program.py
 test/test_effect_offset_negative_loyalty_points.py
 test/test_effect_redeem_referral.py
@@ -2239,7 +2268,9 @@ test/test_effect_rollback_coupon.py
 test/test_effect_rollback_deducted_loyalty_points.py
 test/test_effect_rollback_discount.py
 test/test_effect_rollback_increased_achievement_progress.py
+test/test_effect_rollback_increased_achievement_progress_per_item.py
 test/test_effect_rollback_referral.py
+test/test_effect_rollback_tier_boost.py
 test/test_effect_rollback_use_reward.py
 test/test_effect_set.py
 test/test_effect_set_discount.py
@@ -2277,6 +2308,8 @@ test/test_event_v3_referral_entity.py
 test/test_event_v3_request_entity.py
 test/test_exclude_price_observations_request.py
 test/test_experiment.py
+test/test_experiment_blueprint.py
+test/test_experiment_blueprint_variant.py
 test/test_experiment_campaign_copy.py
 test/test_experiment_confidence_timeline.py
 test/test_experiment_confidence_timeline_data_point.py
@@ -2390,6 +2423,7 @@ test/test_history.py
 test/test_identifiable_entity.py
 test/test_import_entity.py
 test/test_increase_achievement_progress_effect_props.py
+test/test_increase_achievement_progress_per_item_effect_props.py
 test/test_influencing_campaign_details.py
 test/test_integration_api.py
 test/test_integration_campaign.py
@@ -2460,6 +2494,7 @@ test/test_list_campaign_store_budgets_store.py
 test/test_list_catalog_items200_response.py
 test/test_list_check_attribute_block.py
 test/test_list_experiments200_response.py
+test/test_list_giveaways_pool200_response.py
 test/test_list_stores200_response.py
 test/test_list_with_count_check_attribute_block.py
 test/test_location_check_attribute_block.py
@@ -2559,6 +2594,7 @@ test/test_new_event.py
 test/test_new_event_type.py
 test/test_new_event_v3_entity.py
 test/test_new_experiment.py
+test/test_new_experiment_blueprint.py
 test/test_new_experiment_variant.py
 test/test_new_experiment_variant_array.py
 test/test_new_external_invitation.py
@@ -2700,6 +2736,7 @@ test/test_rollback_coupon_effect_props.py
 test/test_rollback_deducted_loyalty_points_effect_props.py
 test/test_rollback_discount_effect_props.py
 test/test_rollback_increased_achievement_progress_effect_props.py
+test/test_rollback_increased_achievement_progress_per_item_effect_props.py
 test/test_rollback_referral_effect_props.py
 test/test_rollback_tier_boost_effect_props.py
 test/test_rollback_use_reward_effect_props.py
@@ -2805,6 +2842,7 @@ test/test_unlock_reward_effect_props.py
 test/test_update_account.py
 test/test_update_achievement.py
 test/test_update_achievement_progress_block.py
+test/test_update_achievement_progress_block1_value.py
 test/test_update_achievement_v2.py
 test/test_update_application.py
 test/test_update_application_api_key.py
@@ -2829,6 +2867,7 @@ test/test_update_custom_effect.py
 test/test_update_customer_profile_v2409_response.py
 test/test_update_customer_session_v2409_response.py
 test/test_update_experiment.py
+test/test_update_experiment_blueprint.py
 test/test_update_experiment_variant.py
 test/test_update_experiment_variant_array.py
 test/test_update_experiment_variant_name.py

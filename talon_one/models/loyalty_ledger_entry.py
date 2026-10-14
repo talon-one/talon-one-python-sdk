@@ -45,7 +45,8 @@ class LoyaltyLedgerEntry(BaseModel):
     archived: Optional[StrictBool] = Field(default=None, description="Indicates if the entry belongs to the archived session.", json_schema_extra={"examples": [False]})
     flags: Optional[LoyaltyLedgerEntryFlags] = Field(default=None, description="A map of flags providing additional details about the entry.")
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
-    __properties: ClassVar[List[str]] = ["created", "programID", "customerProfileID", "cardID", "customerSessionID", "eventID", "type", "amount", "startDate", "expiryDate", "name", "subLedgerID", "userID", "archived", "flags", "validityDuration"]
+    awaits_activation: Optional[StrictBool] = Field(default=None, description="Indicates whether the points have an action-based start date. This property is returned only for point transactions with an action-based start date.", alias="awaitsActivation", json_schema_extra={"examples": [False]})
+    __properties: ClassVar[List[str]] = ["created", "programID", "customerProfileID", "cardID", "customerSessionID", "eventID", "type", "amount", "startDate", "expiryDate", "name", "subLedgerID", "userID", "archived", "flags", "validityDuration", "awaitsActivation"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -116,7 +117,8 @@ class LoyaltyLedgerEntry(BaseModel):
             "userID": obj.get("userID"),
             "archived": obj.get("archived"),
             "flags": LoyaltyLedgerEntryFlags.from_dict(obj["flags"]) if obj.get("flags") is not None else None,
-            "validityDuration": obj.get("validityDuration")
+            "validityDuration": obj.get("validityDuration"),
+            "awaitsActivation": obj.get("awaitsActivation")
         })
         return _obj
 

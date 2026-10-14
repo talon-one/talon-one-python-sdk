@@ -43,9 +43,6 @@ class TestShowNotificationBlock(unittest.TestCase):
                 notification_type = 'Info',
                 title = 'You earned a reward!',
                 body = 'You saved $10 on your order.',
-                on_failure = [
-                    null
-                    ],
                 on_error = {
                     'key' : [
                         null
@@ -57,6 +54,7 @@ class TestShowNotificationBlock(unittest.TestCase):
                 type = '',
                 notification_type = 'Info',
                 title = 'You earned a reward!',
+                body = 'You saved $10 on your order.',
         )
         """
 

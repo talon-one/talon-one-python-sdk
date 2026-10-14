@@ -53,7 +53,8 @@ class TestLoyaltyLedgerTransactions(unittest.TestCase):
                         user_id = 499, 
                         archived = False, 
                         flags = null, 
-                        validity_duration = '30D', )
+                        validity_duration = '30D', 
+                        awaits_activation = False, )
                     ]
             )
         else:
