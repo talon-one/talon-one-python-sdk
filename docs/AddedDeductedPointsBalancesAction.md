@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **start_date** | **datetime** | The start date for loyalty points. | [optional] 
 **expiry_date** | **datetime** | The expiration date for loyalty points. | [optional] 
 **transaction_uuid** | **UUID** | The identifier of the transaction in the loyalty ledger. | 
+**created** | **datetime** | The timestamp when the loyalty transaction occurred. | [optional] 
+**awaits_activation** | **bool** | Indicates whether the points have an action-based start date. This property is returned only for point transactions with an action-based start date. | [optional] 
+**validity_duration** | **str** | The duration for which the points remain active, calculated relative to their start date.   **Note**: This only applies to points for which &#x60;AwaitsActivation&#x60; is &#x60;true&#x60; and &#x60;ExpiryDate&#x60; is not set.  | [optional] 
 
 ## Example
 

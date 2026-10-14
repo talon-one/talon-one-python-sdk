@@ -43,7 +43,8 @@ class ApplicationCustomer(BaseModel):
     last_activity: datetime = Field(description="Timestamp of the most recent event received from this customer. This field is updated on calls that trigger the Rule Engine and that are not [dry requests](https://docs.talon.one/docs/dev/integration-api/dry-requests/#overlay).  For example, [reserving a coupon](https://docs.talon.one/integration-api#tag/Coupons/operation/createCouponReservation) for a customer doesn't impact this field. ", alias="lastActivity", json_schema_extra={"examples": ["2020-02-08T14:15:20Z"]})
     sandbox: Optional[StrictBool] = Field(default=None, description="An indicator of whether the customer is part of a sandbox or live Application. See the [docs](https://docs.talon.one/docs/product/applications/overview#application-environments). ", json_schema_extra={"examples": [False]})
     advocate_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The Integration ID of the Customer Profile that referred this Customer in the Application.", alias="advocateIntegrationId")
-    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "attributes", "accountId", "closedSessions", "totalSales", "loyaltyMemberships", "audienceMemberships", "lastActivity", "sandbox", "advocateIntegrationId"]
+    loyalty_program_join_dates: Optional[List[LoyaltyMembership]] = Field(default=None, description="The dates on which the customer joined the profile-based loyalty programs they are part of. Returned only when the `withLoyaltyMemberships` query parameter is `true`.", alias="loyaltyProgramJoinDates")
+    __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "attributes", "accountId", "closedSessions", "totalSales", "loyaltyMemberships", "audienceMemberships", "lastActivity", "sandbox", "advocateIntegrationId", "loyaltyProgramJoinDates"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -96,6 +97,12 @@ class ApplicationCustomer(BaseModel):
             for _item_audience_memberships in self.audience_memberships:
                 _items.append(_item_audience_memberships.to_dict() if _item_audience_memberships is not None else None)
             _dict['audienceMemberships'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in loyalty_program_join_dates (list)
+        _items = []
+        if self.loyalty_program_join_dates:
+            for _item_loyalty_program_join_dates in self.loyalty_program_join_dates:
+                _items.append(_item_loyalty_program_join_dates.to_dict() if _item_loyalty_program_join_dates is not None else None)
+            _dict['loyaltyProgramJoinDates'] = _items
         return _dict
 
     @classmethod
@@ -119,7 +126,8 @@ class ApplicationCustomer(BaseModel):
             "audienceMemberships": [AudienceMembership.from_dict(_item) for _item in obj["audienceMemberships"]] if obj.get("audienceMemberships") is not None else None,
             "lastActivity": obj.get("lastActivity"),
             "sandbox": obj.get("sandbox"),
-            "advocateIntegrationId": obj.get("advocateIntegrationId")
+            "advocateIntegrationId": obj.get("advocateIntegrationId"),
+            "loyaltyProgramJoinDates": [LoyaltyMembership.from_dict(_item) for _item in obj["loyaltyProgramJoinDates"]] if obj.get("loyaltyProgramJoinDates") is not None else None
         })
         return _obj
 

@@ -42,8 +42,6 @@ class TestUpdateLoyaltyPointsExpiryBlock1Program(unittest.TestCase):
         else:
             return UpdateLoyaltyPointsExpiryBlock1Program(
                 id = 10,
-                name = 'MainProgram',
-                title = 'Main Loyalty Program',
         )
         """
 

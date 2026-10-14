@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **expression** | **List[object]** | The raw Talang expression as an array. For a function call, the first element is the function name and subsequent elements are its arguments. For any other expression (for example a bare attribute path or a literal value), this is a single-element array containing that value. | 
 **notification_type** | **str** | The type of notification to display. | 
 **title** | **str** | The notification heading shown to the customer. | 
-**body** | **str** | The notification body text. Supports template placeholders (e.g. \&quot;{{$Session.Total}}\&quot;) evaluated at rule execution time. | [optional] 
+**body** | **str** | The notification body text. Supports template placeholders (e.g. \&quot;{{$Session.Total}}\&quot;) evaluated at rule execution time. | 
 **sku** | **str** | The stock keeping unit of the item to award. | 
 **quantity** | **str** | The number of items to award. Supports template placeholders (e.g. \&quot;{{$Session.Total / 2}}\&quot;) for dynamic quantities. | 
 **giveaway_pool** | [**GiveawayPoolBlockReference**](GiveawayPoolBlockReference.md) | The giveaway pool from which an item is awarded. | 
@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **audience** | [**AudienceBlockReference**](AudienceBlockReference.md) | The audience to add the customer to or remove them from. | 
 **program** | [**RedeemLoyaltyPointsBlock1Program**](RedeemLoyaltyPointsBlock1Program.md) |  | 
 **subledger** | **str** | The name of the subledger to deduct points from. Can be empty if this block deducts from the loyalty program&#39;s main ledger instead of a subledger. | 
-**balance** | **str** | The type of balance to check:  - &#x60;current&#x60; is the sum of currently active points  - &#x60;pending&#x60; is the sum of pending points.  - &#x60;negative&#x60; is the sum of negative points.  - &#x60;tentativeCurrent&#x60; is the tentative points balance within the current open customer session. | 
+**balance** | **str** | The type of balance to check:  - &#x60;current&#x60; is the sum of currently active points  - &#x60;pending&#x60; is the sum of pending points.  - &#x60;negative&#x60; is the sum of negative points. It cannot be used with a subledger.  - &#x60;tentativeCurrent&#x60; is the tentative points balance within the current open customer session. | 
 **redeem** | **bool** | When &#x60;true&#x60;, the referral code is redeemed. | 
 **achievement** | [**AchievementBlockReference**](AchievementBlockReference.md) | The achievement to check for. | 
 **attribute** | [**AttributeBlockReference**](AttributeBlockReference.md) | The attribute being updated. | 

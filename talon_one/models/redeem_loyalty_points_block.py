@@ -36,8 +36,7 @@ class RedeemLoyaltyPointsBlock(BaseModel):
     subledger: StrictStr = Field(description="The name of the subledger to deduct points from. Can be empty if this block deducts from the loyalty program's main ledger instead of a subledger.", json_schema_extra={"examples": ["main"]})
     value: RedeemLoyaltyPointsBlock1Value
     name: Optional[StrictStr] = Field(default=None, description="A custom description recorded as the reason for the point deduction.", json_schema_extra={"examples": ["Purchase Deduction"]})
-    on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
-    __properties: ClassVar[List[str]] = ["id", "type", "tags", "program", "subledger", "value", "name", "onFailure"]
+    __properties: ClassVar[List[str]] = ["id", "type", "tags", "program", "subledger", "value", "name"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -88,12 +87,6 @@ class RedeemLoyaltyPointsBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of value
         if self.value:
             _dict['value'] = self.value.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
-        _items = []
-        if self.on_failure:
-            for _item_on_failure in self.on_failure:
-                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
-            _dict['onFailure'] = _items
         return _dict
 
     @classmethod
@@ -112,12 +105,8 @@ class RedeemLoyaltyPointsBlock(BaseModel):
             "program": RedeemLoyaltyPointsBlock1Program.from_dict(obj["program"]) if obj.get("program") is not None else None,
             "subledger": obj.get("subledger"),
             "value": RedeemLoyaltyPointsBlock1Value.from_dict(obj["value"]) if obj.get("value") is not None else None,
-            "name": obj.get("name"),
-            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
+            "name": obj.get("name")
         })
         return _obj
 
-from talon_one.models.block import Block
-# TODO: Rewrite to not use raise_errors
-RedeemLoyaltyPointsBlock.model_rebuild(raise_errors=False)
 

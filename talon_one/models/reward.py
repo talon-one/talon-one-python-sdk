@@ -44,9 +44,11 @@ class Reward(BaseModel):
     rule: Optional[Rule] = Field(default=None, description="Rule to apply.  **Note**: The `bindings` field inside the rule must not be used in this endpoint. All bindings should be defined at the reward level via the top-level `bindings` field. ")
     bindings: Optional[List[Binding]] = Field(default=None, description="A list of named variables created before the reward's rules are evaluated. Each binding pairs a name with a talang expression. The expression is evaluated once and its result is available by name in any rule condition or effect. Bindings must be defined outside of individual rules.", json_schema_extra={"examples": [[]]})
     points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate the reward. Each object defines the specific loyalty program and subledger from which points are deducted when activating the reward.  **Note:** When creating a reward, the `id` of each entry is ignored and a new entry is always created. ", alias="pointsRequired")
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the customer rewards unlocked from this reward remain active, relative to when the customer reward was unlocked.  The time format is an **integer** followed by one letter indicating the time unit.  Examples: `5D`, `7W`, `10M`, `15Y`.  Available units:  - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can round certain units up or down: - `_D` for rounding down days only. Signifies the start of the day. - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year.  This field cannot be used in combination with `expiryDate`. If both `validityDuration` and `expiryDate` are not set, customer rewards have unlimited validity. ", alias="validityDuration", json_schema_extra={"examples": ["3M_U"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Expiry date of the customer rewards unlocked from this reward. Customer rewards never expire if this is omitted and `validityDuration` is not set.  **Note:** - The date must be in the future. - This field cannot be used in combination with `validityDuration`. ", alias="expiryDate", json_schema_extra={"examples": ["2026-12-31T00:00:00Z"]})
     modified: Optional[datetime] = Field(default=None, description="The timestamp when the reward was last updated in RFC3339 format.")
     status: StrictStr = Field(description="The status of the reward.", json_schema_extra={"examples": ["active"]})
-    __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "apiName", "description", "applicationIds", "sandbox", "eligibilityConditions", "rule", "bindings", "pointsRequired", "modified", "status"]
+    __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "apiName", "description", "applicationIds", "sandbox", "eligibilityConditions", "rule", "bindings", "pointsRequired", "validityDuration", "expiryDate", "modified", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -136,6 +138,8 @@ class Reward(BaseModel):
             "rule": Rule.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
             "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None,
             "pointsRequired": [RewardPointsRequired.from_dict(_item) for _item in obj["pointsRequired"]] if obj.get("pointsRequired") is not None else None,
+            "validityDuration": obj.get("validityDuration"),
+            "expiryDate": obj.get("expiryDate"),
             "modified": obj.get("modified"),
             "status": obj.get("status")
         })

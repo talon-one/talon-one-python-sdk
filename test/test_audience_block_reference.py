@@ -43,7 +43,6 @@ class TestAudienceBlockReference(unittest.TestCase):
         else:
             return AudienceBlockReference(
                 id = 42,
-                name = 'Travel audience',
         )
         """
 

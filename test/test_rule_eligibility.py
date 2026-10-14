@@ -35,8 +35,8 @@ class TestRuleEligibility(unittest.TestCase):
         model = RuleEligibility()
         if include_optional:
             return RuleEligibility(
-                passed = True,
-                coupon_code = '',
+                passed = False,
+                coupon_code = 'XMAS-20-2021',
                 details = talon_one.models.rule_eligibility_failure_details.RuleEligibilityFailureDetails(
                     failure_code = 'CONDITION_NOT_MET', 
                     coupon_id = 4928, 
@@ -51,7 +51,7 @@ class TestRuleEligibility(unittest.TestCase):
             )
         else:
             return RuleEligibility(
-                passed = True,
+                passed = False,
         )
         """
 

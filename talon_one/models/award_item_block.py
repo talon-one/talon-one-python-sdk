@@ -33,7 +33,7 @@ class AwardItemBlock(BaseModel):
     sku: StrictStr = Field(description="The stock keeping unit of the item to award.", json_schema_extra={"examples": ["SKU1241028"]})
     name: StrictStr = Field(description="The display name of the item to award.", json_schema_extra={"examples": ["Free Tote Bag"]})
     quantity: StrictStr = Field(description="The number of items to award. Supports template placeholders (e.g. \"{{$Session.Total / 2}}\") for dynamic quantities.", json_schema_extra={"examples": ["1"]})
-    partial: Optional[StrictBool] = Field(default=None, description="When set to `true`, applies a partial item reward if the remaining budget is insufficient to award the full reward.", json_schema_extra={"examples": [False]})
+    partial: Optional[StrictBool] = Field(default=None, description="When set to `true`, applies a partial item reward if the remaining budget is insufficient to award the full reward. When omitted, the Application's partial discounts setting applies.", json_schema_extra={"examples": [False]})
     on_failure: Optional[List[Block]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
     on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "sku", "name", "quantity", "partial", "onFailure", "onError"]

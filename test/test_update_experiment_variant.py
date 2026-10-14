@@ -64,6 +64,17 @@ class TestUpdateExperimentVariant(unittest.TestCase):
                             parent_id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
                             title = 'Give discount via coupon', 
                             description = 'Creates a discount when a coupon is valid', 
+                            bindings = [
+                                talon_one.models.binding.Binding(
+                                    name = 'Discount percentage', 
+                                    type = 'templateParameter', 
+                                    expression = [identity, 10], 
+                                    value_type = 'number', 
+                                    min_value = 0, 
+                                    max_value = 19.9, 
+                                    attribute_id = 100, 
+                                    description = 'The percentage discount applied to the cart total.', )
+                                ], 
                             condition = [and, [couponValid]], 
                             effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], )
                         ], 
@@ -104,6 +115,17 @@ class TestUpdateExperimentVariant(unittest.TestCase):
                             parent_id = '7fa800a8-ac8d-4792-85dc-c4650dcc8f23', 
                             title = 'Give discount via coupon', 
                             description = 'Creates a discount when a coupon is valid', 
+                            bindings = [
+                                talon_one.models.binding.Binding(
+                                    name = 'Discount percentage', 
+                                    type = 'templateParameter', 
+                                    expression = [identity, 10], 
+                                    value_type = 'number', 
+                                    min_value = 0, 
+                                    max_value = 19.9, 
+                                    attribute_id = 100, 
+                                    description = 'The percentage discount applied to the cart total.', )
+                                ], 
                             condition = [and, [couponValid]], 
                             effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], )
                         ], 

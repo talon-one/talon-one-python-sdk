@@ -54,10 +54,7 @@ class TestAwardLoyaltyPointsBlock(unittest.TestCase):
                 start_date = 2026-12-24T14:15:22Z,
                 validity_duration = '30D',
                 expiry_date = 2026-12-31T00:00:00Z,
-                pending_duration = '3D',
-                on_failure = [
-                    null
-                    ]
+                pending_duration = '3D'
             )
         else:
             return AwardLoyaltyPointsBlock(

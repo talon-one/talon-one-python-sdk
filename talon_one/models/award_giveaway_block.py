@@ -33,9 +33,8 @@ class AwardGiveawayBlock(BaseModel):
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     giveaway_pool: GiveawayPoolBlockReference = Field(description="The giveaway pool from which an item is awarded.", alias="giveawayPool")
     profile: StrictStr = Field(description="The customer profile to award the giveaway to. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program.", json_schema_extra={"examples": ["Current"]})
-    on_failure: Optional[List[Block]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
     on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
-    __properties: ClassVar[List[str]] = ["id", "type", "tags", "giveawayPool", "profile", "onFailure", "onError"]
+    __properties: ClassVar[List[str]] = ["id", "type", "tags", "giveawayPool", "profile", "onError"]
 
     @field_validator('profile')
     def profile_validate_enum(cls, value):
@@ -90,12 +89,6 @@ class AwardGiveawayBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of giveaway_pool
         if self.giveaway_pool:
             _dict['giveawayPool'] = self.giveaway_pool.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
-        _items = []
-        if self.on_failure:
-            for _item_on_failure in self.on_failure:
-                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
-            _dict['onFailure'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in on_error (dict of array)
         _field_dict_of_array = {}
         if self.on_error:
@@ -121,7 +114,6 @@ class AwardGiveawayBlock(BaseModel):
             "tags": obj.get("tags"),
             "giveawayPool": GiveawayPoolBlockReference.from_dict(obj["giveawayPool"]) if obj.get("giveawayPool") is not None else None,
             "profile": obj.get("profile"),
-            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None,
             "onError": {
                 _k: [Block.from_dict(_item) for _item in _v] if _v is not None else None
                 for _k, _v in obj["onError"].items()

@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | The unique identifier of the webhook. | 
-**title** | **str** | The display name of the webhook. | 
+**title** | **str** | The display name of the webhook. | [optional] [readonly] 
 
 ## Example
 

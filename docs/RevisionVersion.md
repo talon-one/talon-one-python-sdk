@@ -19,13 +19,13 @@ Name | Type | Description | Notes
 **reevaluate_on_return** | **bool** | Indicates whether this campaign should be reevaluated when a customer returns an item. | [optional] 
 **features** | **List[str]** | A list of features for the campaign. | [optional] 
 **coupon_attributes** | **object** | Arbitrary properties associated with coupons in this campaign. | [optional] 
-**account_id** | **int** |  | 
-**application_id** | **int** |  | 
-**campaign_id** | **int** |  | 
-**created** | **datetime** |  | 
-**created_by** | **int** |  | 
-**revision_id** | **int** |  | 
-**version** | **int** |  | 
+**account_id** | **int** | The ID of the account that owns this entity. | 
+**application_id** | **int** | The ID of the Application that owns this entity. | 
+**campaign_id** | **int** | The ID of the campaign that the revision was created from. | 
+**created** | **datetime** | Timestamp when the revision was created. | 
+**created_by** | **int** | The ID of the user who created this revision. | 
+**revision_id** | **int** | The ID of the revision. | 
+**version** | **int** | Incrementing number representing how many revisions have been activated on this campaign. Starts from &#x60;0&#x60; for a new campaign.  | 
 
 ## Example
 

@@ -7,8 +7,8 @@ The loyalty program points are added to.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | The ID of the loyalty program. | 
-**name** | **str** | The internal name of the loyalty program. | 
-**title** | **str** | The display name of the loyalty program. | 
+**name** | **str** | The internal name of the loyalty program. | [optional] [readonly] 
+**title** | **str** | The display name of the loyalty program. | [optional] [readonly] 
 
 ## Example
 

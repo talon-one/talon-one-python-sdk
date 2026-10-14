@@ -17,9 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import date
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Union
+from datetime import date, datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,7 +34,10 @@ class ExpiringPointsData(BaseModel):
     customer_profile_id: StrictStr = Field(description="The integration ID of the customer profile that has expiring points.", alias="CustomerProfileID", json_schema_extra={"examples": ["URNGV8294NV"]})
     amount_of_expiring_points: Union[StrictFloat, StrictInt] = Field(description="The amount of loyalty points that will be expired soon.", alias="AmountOfExpiringPoints", json_schema_extra={"examples": [10.99]})
     subledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program where these points were added.", alias="SubledgerID", json_schema_extra={"examples": ["sub-123"]})
-    __properties: ClassVar[List[str]] = ["ExpiryDate", "LoyaltyProgramID", "CustomerProfileID", "AmountOfExpiringPoints", "SubledgerID"]
+    created: Optional[datetime] = Field(default=None, description="The timestamp when the loyalty transaction occurred.", alias="Created", json_schema_extra={"examples": ["2023-01-24T14:15:22Z"]})
+    awaits_activation: Optional[StrictBool] = Field(default=None, description="Indicates whether the points have an action-based start date. This property is returned only for point transactions with an action-based start date.", alias="AwaitsActivation", json_schema_extra={"examples": [False]})
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the activation date.  **Note**: This only applies to points for which `AwaitsActivation` is `true` and `ExpiryDate` is not set. ", alias="ValidityDuration", json_schema_extra={"examples": ["30D"]})
+    __properties: ClassVar[List[str]] = ["ExpiryDate", "LoyaltyProgramID", "CustomerProfileID", "AmountOfExpiringPoints", "SubledgerID", "Created", "AwaitsActivation", "ValidityDuration"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -91,7 +94,10 @@ class ExpiringPointsData(BaseModel):
             "LoyaltyProgramID": obj.get("LoyaltyProgramID"),
             "CustomerProfileID": obj.get("CustomerProfileID"),
             "AmountOfExpiringPoints": obj.get("AmountOfExpiringPoints"),
-            "SubledgerID": obj.get("SubledgerID")
+            "SubledgerID": obj.get("SubledgerID"),
+            "Created": obj.get("Created"),
+            "AwaitsActivation": obj.get("AwaitsActivation"),
+            "ValidityDuration": obj.get("ValidityDuration")
         })
         return _obj
 

@@ -41,7 +41,6 @@ class TestGiveawayPoolBlockReference(unittest.TestCase):
         else:
             return GiveawayPoolBlockReference(
                 id = 42,
-                name = 'Summer Campaign Pool',
         )
         """
 

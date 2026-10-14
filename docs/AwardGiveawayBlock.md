@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
 **giveaway_pool** | [**GiveawayPoolBlockReference**](GiveawayPoolBlockReference.md) | The giveaway pool from which an item is awarded. | 
 **profile** | **str** | The customer profile to award the giveaway to. &#x60;Current&#x60; targets the customer in the current session; &#x60;Advocate&#x60; targets the person who invited their friend via referral program. | 
-**on_failure** | [**List[Block]**](Block.md) | Blocks evaluated when this block fails or returns false. | [optional] 
 **on_error** | **Dict[str, List[Block]]** | Named error handlers evaluated when a specific error occurs. | [optional] 
 
 ## Example

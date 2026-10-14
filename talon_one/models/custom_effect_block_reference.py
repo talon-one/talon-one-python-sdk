@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,8 +28,8 @@ class CustomEffectBlockReference(BaseModel):
     CustomEffectBlockReference
     """ # noqa: E501
     id: StrictInt = Field(description="The unique identifier of the custom effect.", json_schema_extra={"examples": [1]})
-    name: StrictStr = Field(description="The name of the custom effect, as used in API requests.", json_schema_extra={"examples": ["sendEmail"]})
-    title: StrictStr = Field(description="The display name of the custom effect.", json_schema_extra={"examples": ["Send email"]})
+    name: Optional[StrictStr] = Field(default=None, description="The name of the custom effect, as used in API requests.", json_schema_extra={"examples": ["sendEmail"]})
+    title: Optional[StrictStr] = Field(default=None, description="The display name of the custom effect.", json_schema_extra={"examples": ["Send email"]})
     __properties: ClassVar[List[str]] = ["id", "name", "title"]
 
     model_config = ConfigDict(
@@ -62,8 +62,12 @@ class CustomEffectBlockReference(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "name",
+            "title",
         ])
 
         _dict = self.model_dump(

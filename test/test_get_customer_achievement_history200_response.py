@@ -37,24 +37,14 @@ class TestGetCustomerAchievementHistory200Response(unittest.TestCase):
             return GetCustomerAchievementHistory200Response(
                 total_result_size = 1,
                 data = [
-                    talon_one.models.achievement_progress.AchievementProgress(
-                        status = 'completed', 
-                        progress = 10, 
-                        start_date = '2024-01-01T15:04:05Z07:00', 
-                        completion_date = '2024-01-15T15:04:05Z07:00', 
-                        end_date = '2024-02-01T15:04:05Z07:00', )
+                    null
                     ]
             )
         else:
             return GetCustomerAchievementHistory200Response(
                 total_result_size = 1,
                 data = [
-                    talon_one.models.achievement_progress.AchievementProgress(
-                        status = 'completed', 
-                        progress = 10, 
-                        start_date = '2024-01-01T15:04:05Z07:00', 
-                        completion_date = '2024-01-15T15:04:05Z07:00', 
-                        end_date = '2024-02-01T15:04:05Z07:00', )
+                    null
                     ],
         )
         """

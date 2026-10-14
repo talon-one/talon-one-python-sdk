@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,7 +28,7 @@ class WebhookBlockReference(BaseModel):
     WebhookBlockReference
     """ # noqa: E501
     id: StrictInt = Field(description="The unique identifier of the webhook.", json_schema_extra={"examples": [1]})
-    title: StrictStr = Field(description="The display name of the webhook.", json_schema_extra={"examples": ["Thank you for your order."]})
+    title: Optional[StrictStr] = Field(default=None, description="The display name of the webhook.", json_schema_extra={"examples": ["Thank you for your order."]})
     __properties: ClassVar[List[str]] = ["id", "title"]
 
     model_config = ConfigDict(
@@ -61,8 +61,10 @@ class WebhookBlockReference(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "title",
         ])
 
         _dict = self.model_dump(

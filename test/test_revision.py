@@ -36,24 +36,24 @@ class TestRevision(unittest.TestCase):
         if include_optional:
             return Revision(
                 id = 6,
-                activate_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                account_id = 56,
-                application_id = 56,
-                campaign_id = 56,
-                created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                created_by = 56,
-                activated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                activated_by = 56,
-                current_version = None
+                activate_at = '2026-10-08T09:30:00Z',
+                account_id = 3886,
+                application_id = 42,
+                campaign_id = 18,
+                created = '2026-10-01T08:00:00Z',
+                created_by = 134,
+                activated_at = '2026-10-08T09:30:00Z',
+                activated_by = 334,
+                current_version = {id=6, accountId=3886, applicationId=42, campaignId=18, created=2026-10-01T08:00:00Z, createdBy=134, revisionId=6, version=1, name=Summer promotions}
             )
         else:
             return Revision(
                 id = 6,
-                account_id = 56,
-                application_id = 56,
-                campaign_id = 56,
-                created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                created_by = 56,
+                account_id = 3886,
+                application_id = 42,
+                campaign_id = 18,
+                created = '2026-10-01T08:00:00Z',
+                created_by = 134,
         )
         """
 

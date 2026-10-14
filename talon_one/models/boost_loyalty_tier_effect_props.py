@@ -27,7 +27,7 @@ from pydantic_core import to_jsonable_python
 
 class BoostLoyaltyTierEffectProps(BaseModel):
     """
-    Properties returned when a rule triggers a `boostLoyaltyTier` effect. The customer is temporarily placed in a higher loyalty tier for a specified period without any change to their points balance. 
+    This effect indicates that the customer was temporarily placed in a higher loyalty tier for a specified period, without any change to their points balance.
     """ # noqa: E501
     program_id: StrictInt = Field(description="The ID of the loyalty program.", alias="programId")
     sub_ledger_id: StrictStr = Field(description="The ID of the subledger within the loyalty program.", alias="subLedgerId")

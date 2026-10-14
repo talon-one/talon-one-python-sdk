@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **total_result_size** | **int** |  | 
-**data** | [**List[AchievementProgress]**](AchievementProgress.md) |  | 
+**data** | [**List[CustomerAchievementHistoryEntry]**](CustomerAchievementHistoryEntry.md) |  | 
 
 ## Example
 

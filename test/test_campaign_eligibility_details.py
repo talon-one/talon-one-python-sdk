@@ -35,14 +35,14 @@ class TestCampaignEligibilityDetails(unittest.TestCase):
         model = CampaignEligibilityDetails()
         if include_optional:
             return CampaignEligibilityDetails(
-                passed = True,
-                coupon_code = '',
+                passed = False,
+                coupon_code = 'XMAS-20-2021',
                 details = talon_one.models.campaign_eligibility_failure_details.CampaignEligibilityFailureDetails(
                     failure_code = 'ALL_RULES_FAILED', )
             )
         else:
             return CampaignEligibilityDetails(
-                passed = True,
+                passed = False,
         )
         """
 

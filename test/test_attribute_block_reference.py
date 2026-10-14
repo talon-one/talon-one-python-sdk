@@ -46,8 +46,6 @@ class TestAttributeBlockReference(unittest.TestCase):
                 id = 100,
                 entity = 'profile',
                 name = 'City',
-                title = 'City',
-                type = 'string',
         )
         """
 

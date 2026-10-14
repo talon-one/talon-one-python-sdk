@@ -63,23 +63,23 @@ class TestRevisionVersion(unittest.TestCase):
                     'coupons'
                     ],
                 coupon_attributes = talon_one.models.coupon_attributes.couponAttributes(),
-                account_id = 56,
-                application_id = 56,
-                campaign_id = 56,
-                created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                created_by = 56,
-                revision_id = 56,
+                account_id = 3886,
+                application_id = 42,
+                campaign_id = 18,
+                created = '2026-10-01T08:00:00Z',
+                created_by = 134,
+                revision_id = 6,
                 version = 56
             )
         else:
             return RevisionVersion(
                 id = 6,
-                account_id = 56,
-                application_id = 56,
-                campaign_id = 56,
-                created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                created_by = 56,
-                revision_id = 56,
+                account_id = 3886,
+                application_id = 42,
+                campaign_id = 18,
+                created = '2026-10-01T08:00:00Z',
+                created_by = 134,
+                revision_id = 6,
                 version = 56,
         )
         """

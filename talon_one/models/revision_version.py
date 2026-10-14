@@ -45,13 +45,13 @@ class RevisionVersion(BaseModel):
     reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether this campaign should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn", json_schema_extra={"examples": [True]})
     features: Optional[List[StrictStr]] = Field(default=None, description="A list of features for the campaign.")
     coupon_attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with coupons in this campaign.", alias="couponAttributes")
-    account_id: StrictInt = Field(alias="accountId")
-    application_id: StrictInt = Field(alias="applicationId")
-    campaign_id: StrictInt = Field(alias="campaignId")
-    created: datetime
-    created_by: StrictInt = Field(alias="createdBy")
-    revision_id: StrictInt = Field(alias="revisionId")
-    version: StrictInt
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [42]})
+    campaign_id: StrictInt = Field(description="The ID of the campaign that the revision was created from.", alias="campaignId", json_schema_extra={"examples": [18]})
+    created: datetime = Field(description="Timestamp when the revision was created.", json_schema_extra={"examples": ["2026-10-01T08:00:00Z"]})
+    created_by: StrictInt = Field(description="The ID of the user who created this revision.", alias="createdBy", json_schema_extra={"examples": [134]})
+    revision_id: StrictInt = Field(description="The ID of the revision.", alias="revisionId", json_schema_extra={"examples": [6]})
+    version: StrictInt = Field(description="Incrementing number representing how many revisions have been activated on this campaign. Starts from `0` for a new campaign. ")
     __properties: ClassVar[List[str]] = ["id", "name", "startTime", "endTime", "attributes", "description", "activeRulesetId", "tags", "couponSettings", "referralSettings", "limits", "reevaluateOnReturn", "features", "couponAttributes", "accountId", "applicationId", "campaignId", "created", "createdBy", "revisionId", "version"]
 
     @field_validator('features')
@@ -116,6 +116,26 @@ class RevisionVersion(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # set to None if start_time (nullable) is None
+        # and model_fields_set contains the field
+        if self.start_time is None and "start_time" in self.model_fields_set:
+            _dict['startTime'] = None
+
+        # set to None if end_time (nullable) is None
+        # and model_fields_set contains the field
+        if self.end_time is None and "end_time" in self.model_fields_set:
+            _dict['endTime'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if active_ruleset_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.active_ruleset_id is None and "active_ruleset_id" in self.model_fields_set:
+            _dict['activeRulesetId'] = None
+
         return _dict
 
     @classmethod

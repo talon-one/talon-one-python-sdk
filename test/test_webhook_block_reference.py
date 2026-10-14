@@ -41,7 +41,6 @@ class TestWebhookBlockReference(unittest.TestCase):
         else:
             return WebhookBlockReference(
                 id = 1,
-                title = 'Thank you for your order.',
         )
         """
 

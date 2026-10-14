@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Union
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,9 +28,9 @@ class AchievementBlockReference(BaseModel):
     AchievementBlockReference
     """ # noqa: E501
     id: StrictInt = Field(description="The ID of the achievement.", json_schema_extra={"examples": [42]})
-    title: StrictStr = Field(description="The display name for the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off on 50th purchase."]})
-    name: StrictStr = Field(description="The internal name of the achievement used in API requests.", json_schema_extra={"examples": ["Order50Discount"]})
-    target: Union[StrictFloat, StrictInt] = Field(description="The required number of actions or the transactional milestone to complete the achievement.", json_schema_extra={"examples": [50]})
+    title: Optional[StrictStr] = Field(default=None, description="The display name for the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off on 50th purchase."]})
+    name: Optional[StrictStr] = Field(default=None, description="The internal name of the achievement used in API requests.", json_schema_extra={"examples": ["Order50Discount"]})
+    target: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The required number of actions or the transactional milestone to complete the achievement.", json_schema_extra={"examples": [50]})
     __properties: ClassVar[List[str]] = ["id", "title", "name", "target"]
 
     model_config = ConfigDict(
@@ -63,8 +63,14 @@ class AchievementBlockReference(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "title",
+            "name",
+            "target",
         ])
 
         _dict = self.model_dump(

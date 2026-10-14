@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.20.0"
+__version__ = "26.21.0"
 
 # Define package exports
 __all__ = [
@@ -232,6 +232,7 @@ __all__ = [
     "CatalogActionRemoveMany",
     "CatalogItem",
     "CatalogRule",
+    "CatalogRuleset",
     "CatalogSyncRequest",
     "CatalogsStrikethroughNotificationPolicy",
     "Change",
@@ -294,6 +295,7 @@ __all__ = [
     "CustomEffectBlockReference",
     "CustomEffectProps",
     "CustomerAchievement",
+    "CustomerAchievementHistoryEntry",
     "CustomerActivityReport",
     "CustomerAnalytics",
     "CustomerInventory",
@@ -336,6 +338,7 @@ __all__ = [
     "EffectError",
     "EffectExtendLoyaltyPointsExpiryDate",
     "EffectIncreaseAchievementProgress",
+    "EffectIncreaseAchievementProgressPerItem",
     "EffectJoinLoyaltyProgram",
     "EffectOffsetNegativeLoyaltyPoints",
     "EffectRedeemReferral",
@@ -349,7 +352,9 @@ __all__ = [
     "EffectRollbackDeductedLoyaltyPoints",
     "EffectRollbackDiscount",
     "EffectRollbackIncreasedAchievementProgress",
+    "EffectRollbackIncreasedAchievementProgressPerItem",
     "EffectRollbackReferral",
+    "EffectRollbackTierBoost",
     "EffectRollbackUseReward",
     "EffectSet",
     "EffectSetDiscount",
@@ -387,6 +392,8 @@ __all__ = [
     "EventV3RequestEntity",
     "ExcludePriceObservationsRequest",
     "Experiment",
+    "ExperimentBlueprint",
+    "ExperimentBlueprintVariant",
     "ExperimentCampaignCopy",
     "ExperimentConfidenceTimeline",
     "ExperimentConfidenceTimelineDataPoint",
@@ -500,6 +507,7 @@ __all__ = [
     "IdentifiableEntity",
     "ImportEntity",
     "IncreaseAchievementProgressEffectProps",
+    "IncreaseAchievementProgressPerItemEffectProps",
     "InfluencingCampaignDetails",
     "IntegrationCampaign",
     "IntegrationCampaignBase",
@@ -569,6 +577,7 @@ __all__ = [
     "ListCatalogItems200Response",
     "ListCheckAttributeBlock",
     "ListExperiments200Response",
+    "ListGiveawaysPool200Response",
     "ListStores200Response",
     "ListWithCountCheckAttributeBlock",
     "LocationCheckAttributeBlock",
@@ -667,6 +676,7 @@ __all__ = [
     "NewEventType",
     "NewEventV3Entity",
     "NewExperiment",
+    "NewExperimentBlueprint",
     "NewExperimentVariant",
     "NewExperimentVariantArray",
     "NewExternalInvitation",
@@ -808,6 +818,7 @@ __all__ = [
     "RollbackDeductedLoyaltyPointsEffectProps",
     "RollbackDiscountEffectProps",
     "RollbackIncreasedAchievementProgressEffectProps",
+    "RollbackIncreasedAchievementProgressPerItemEffectProps",
     "RollbackReferralEffectProps",
     "RollbackTierBoostEffectProps",
     "RollbackUseRewardEffectProps",
@@ -913,6 +924,7 @@ __all__ = [
     "UpdateAccount",
     "UpdateAchievement",
     "UpdateAchievementProgressBlock",
+    "UpdateAchievementProgressBlock1Value",
     "UpdateAchievementV2",
     "UpdateApplication",
     "UpdateApplicationAPIKey",
@@ -937,6 +949,7 @@ __all__ = [
     "UpdateCustomerProfileV2409Response",
     "UpdateCustomerSessionV2409Response",
     "UpdateExperiment",
+    "UpdateExperimentBlueprint",
     "UpdateExperimentVariant",
     "UpdateExperimentVariantArray",
     "UpdateExperimentVariantName",
@@ -1194,6 +1207,7 @@ from talon_one.models.catalog_action_remove import CatalogActionRemove as Catalo
 from talon_one.models.catalog_action_remove_many import CatalogActionRemoveMany as CatalogActionRemoveMany
 from talon_one.models.catalog_item import CatalogItem as CatalogItem
 from talon_one.models.catalog_rule import CatalogRule as CatalogRule
+from talon_one.models.catalog_ruleset import CatalogRuleset as CatalogRuleset
 from talon_one.models.catalog_sync_request import CatalogSyncRequest as CatalogSyncRequest
 from talon_one.models.catalogs_strikethrough_notification_policy import CatalogsStrikethroughNotificationPolicy as CatalogsStrikethroughNotificationPolicy
 from talon_one.models.change import Change as Change
@@ -1256,6 +1270,7 @@ from talon_one.models.custom_effect import CustomEffect as CustomEffect
 from talon_one.models.custom_effect_block_reference import CustomEffectBlockReference as CustomEffectBlockReference
 from talon_one.models.custom_effect_props import CustomEffectProps as CustomEffectProps
 from talon_one.models.customer_achievement import CustomerAchievement as CustomerAchievement
+from talon_one.models.customer_achievement_history_entry import CustomerAchievementHistoryEntry as CustomerAchievementHistoryEntry
 from talon_one.models.customer_activity_report import CustomerActivityReport as CustomerActivityReport
 from talon_one.models.customer_analytics import CustomerAnalytics as CustomerAnalytics
 from talon_one.models.customer_inventory import CustomerInventory as CustomerInventory
@@ -1298,6 +1313,7 @@ from talon_one.models.effect_entity import EffectEntity as EffectEntity
 from talon_one.models.effect_error import EffectError as EffectError
 from talon_one.models.effect_extend_loyalty_points_expiry_date import EffectExtendLoyaltyPointsExpiryDate as EffectExtendLoyaltyPointsExpiryDate
 from talon_one.models.effect_increase_achievement_progress import EffectIncreaseAchievementProgress as EffectIncreaseAchievementProgress
+from talon_one.models.effect_increase_achievement_progress_per_item import EffectIncreaseAchievementProgressPerItem as EffectIncreaseAchievementProgressPerItem
 from talon_one.models.effect_join_loyalty_program import EffectJoinLoyaltyProgram as EffectJoinLoyaltyProgram
 from talon_one.models.effect_offset_negative_loyalty_points import EffectOffsetNegativeLoyaltyPoints as EffectOffsetNegativeLoyaltyPoints
 from talon_one.models.effect_redeem_referral import EffectRedeemReferral as EffectRedeemReferral
@@ -1311,7 +1327,9 @@ from talon_one.models.effect_rollback_coupon import EffectRollbackCoupon as Effe
 from talon_one.models.effect_rollback_deducted_loyalty_points import EffectRollbackDeductedLoyaltyPoints as EffectRollbackDeductedLoyaltyPoints
 from talon_one.models.effect_rollback_discount import EffectRollbackDiscount as EffectRollbackDiscount
 from talon_one.models.effect_rollback_increased_achievement_progress import EffectRollbackIncreasedAchievementProgress as EffectRollbackIncreasedAchievementProgress
+from talon_one.models.effect_rollback_increased_achievement_progress_per_item import EffectRollbackIncreasedAchievementProgressPerItem as EffectRollbackIncreasedAchievementProgressPerItem
 from talon_one.models.effect_rollback_referral import EffectRollbackReferral as EffectRollbackReferral
+from talon_one.models.effect_rollback_tier_boost import EffectRollbackTierBoost as EffectRollbackTierBoost
 from talon_one.models.effect_rollback_use_reward import EffectRollbackUseReward as EffectRollbackUseReward
 from talon_one.models.effect_set import EffectSet as EffectSet
 from talon_one.models.effect_set_discount import EffectSetDiscount as EffectSetDiscount
@@ -1349,6 +1367,8 @@ from talon_one.models.event_v3_referral_entity import EventV3ReferralEntity as E
 from talon_one.models.event_v3_request_entity import EventV3RequestEntity as EventV3RequestEntity
 from talon_one.models.exclude_price_observations_request import ExcludePriceObservationsRequest as ExcludePriceObservationsRequest
 from talon_one.models.experiment import Experiment as Experiment
+from talon_one.models.experiment_blueprint import ExperimentBlueprint as ExperimentBlueprint
+from talon_one.models.experiment_blueprint_variant import ExperimentBlueprintVariant as ExperimentBlueprintVariant
 from talon_one.models.experiment_campaign_copy import ExperimentCampaignCopy as ExperimentCampaignCopy
 from talon_one.models.experiment_confidence_timeline import ExperimentConfidenceTimeline as ExperimentConfidenceTimeline
 from talon_one.models.experiment_confidence_timeline_data_point import ExperimentConfidenceTimelineDataPoint as ExperimentConfidenceTimelineDataPoint
@@ -1462,6 +1482,7 @@ from talon_one.models.history import History as History
 from talon_one.models.identifiable_entity import IdentifiableEntity as IdentifiableEntity
 from talon_one.models.import_entity import ImportEntity as ImportEntity
 from talon_one.models.increase_achievement_progress_effect_props import IncreaseAchievementProgressEffectProps as IncreaseAchievementProgressEffectProps
+from talon_one.models.increase_achievement_progress_per_item_effect_props import IncreaseAchievementProgressPerItemEffectProps as IncreaseAchievementProgressPerItemEffectProps
 from talon_one.models.influencing_campaign_details import InfluencingCampaignDetails as InfluencingCampaignDetails
 from talon_one.models.integration_campaign import IntegrationCampaign as IntegrationCampaign
 from talon_one.models.integration_campaign_base import IntegrationCampaignBase as IntegrationCampaignBase
@@ -1531,6 +1552,7 @@ from talon_one.models.list_campaign_store_budgets_store import ListCampaignStore
 from talon_one.models.list_catalog_items200_response import ListCatalogItems200Response as ListCatalogItems200Response
 from talon_one.models.list_check_attribute_block import ListCheckAttributeBlock as ListCheckAttributeBlock
 from talon_one.models.list_experiments200_response import ListExperiments200Response as ListExperiments200Response
+from talon_one.models.list_giveaways_pool200_response import ListGiveawaysPool200Response as ListGiveawaysPool200Response
 from talon_one.models.list_stores200_response import ListStores200Response as ListStores200Response
 from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock as ListWithCountCheckAttributeBlock
 from talon_one.models.location_check_attribute_block import LocationCheckAttributeBlock as LocationCheckAttributeBlock
@@ -1629,6 +1651,7 @@ from talon_one.models.new_event import NewEvent as NewEvent
 from talon_one.models.new_event_type import NewEventType as NewEventType
 from talon_one.models.new_event_v3_entity import NewEventV3Entity as NewEventV3Entity
 from talon_one.models.new_experiment import NewExperiment as NewExperiment
+from talon_one.models.new_experiment_blueprint import NewExperimentBlueprint as NewExperimentBlueprint
 from talon_one.models.new_experiment_variant import NewExperimentVariant as NewExperimentVariant
 from talon_one.models.new_experiment_variant_array import NewExperimentVariantArray as NewExperimentVariantArray
 from talon_one.models.new_external_invitation import NewExternalInvitation as NewExternalInvitation
@@ -1770,6 +1793,7 @@ from talon_one.models.rollback_coupon_effect_props import RollbackCouponEffectPr
 from talon_one.models.rollback_deducted_loyalty_points_effect_props import RollbackDeductedLoyaltyPointsEffectProps as RollbackDeductedLoyaltyPointsEffectProps
 from talon_one.models.rollback_discount_effect_props import RollbackDiscountEffectProps as RollbackDiscountEffectProps
 from talon_one.models.rollback_increased_achievement_progress_effect_props import RollbackIncreasedAchievementProgressEffectProps as RollbackIncreasedAchievementProgressEffectProps
+from talon_one.models.rollback_increased_achievement_progress_per_item_effect_props import RollbackIncreasedAchievementProgressPerItemEffectProps as RollbackIncreasedAchievementProgressPerItemEffectProps
 from talon_one.models.rollback_referral_effect_props import RollbackReferralEffectProps as RollbackReferralEffectProps
 from talon_one.models.rollback_tier_boost_effect_props import RollbackTierBoostEffectProps as RollbackTierBoostEffectProps
 from talon_one.models.rollback_use_reward_effect_props import RollbackUseRewardEffectProps as RollbackUseRewardEffectProps
@@ -1875,6 +1899,7 @@ from talon_one.models.unlock_reward_effect_props import UnlockRewardEffectProps 
 from talon_one.models.update_account import UpdateAccount as UpdateAccount
 from talon_one.models.update_achievement import UpdateAchievement as UpdateAchievement
 from talon_one.models.update_achievement_progress_block import UpdateAchievementProgressBlock as UpdateAchievementProgressBlock
+from talon_one.models.update_achievement_progress_block1_value import UpdateAchievementProgressBlock1Value as UpdateAchievementProgressBlock1Value
 from talon_one.models.update_achievement_v2 import UpdateAchievementV2 as UpdateAchievementV2
 from talon_one.models.update_application import UpdateApplication as UpdateApplication
 from talon_one.models.update_application_api_key import UpdateApplicationAPIKey as UpdateApplicationAPIKey
@@ -1899,6 +1924,7 @@ from talon_one.models.update_custom_effect import UpdateCustomEffect as UpdateCu
 from talon_one.models.update_customer_profile_v2409_response import UpdateCustomerProfileV2409Response as UpdateCustomerProfileV2409Response
 from talon_one.models.update_customer_session_v2409_response import UpdateCustomerSessionV2409Response as UpdateCustomerSessionV2409Response
 from talon_one.models.update_experiment import UpdateExperiment as UpdateExperiment
+from talon_one.models.update_experiment_blueprint import UpdateExperimentBlueprint as UpdateExperimentBlueprint
 from talon_one.models.update_experiment_variant import UpdateExperimentVariant as UpdateExperimentVariant
 from talon_one.models.update_experiment_variant_array import UpdateExperimentVariantArray as UpdateExperimentVariantArray
 from talon_one.models.update_experiment_variant_name import UpdateExperimentVariantName as UpdateExperimentVariantName

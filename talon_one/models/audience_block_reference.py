@@ -28,7 +28,7 @@ class AudienceBlockReference(BaseModel):
     AudienceBlockReference
     """ # noqa: E501
     id: StrictInt = Field(description="The ID of the audience.", json_schema_extra={"examples": [42]})
-    name: StrictStr = Field(description="The display name of the audience.", json_schema_extra={"examples": ["Travel audience"]})
+    name: Optional[StrictStr] = Field(default=None, description="The display name of the audience.", json_schema_extra={"examples": ["Travel audience"]})
     integration: Optional[StrictStr] = Field(default=None, description="The Talon.One-supported [3rd-party platform](https://docs.talon.one/docs/dev/technology-partners/overview) that this audience was created in.  For example, `mParticle`, `Segment`, `Shopify`, `Braze`, or `Iterable`.  **Note:** If you do not integrate with any of these platforms, do not use this property. ", json_schema_extra={"examples": ["mparticle"]})
     integration_id: Optional[StrictStr] = Field(default=None, description="The ID of this audience in the third-party integration.  **Note:** To create an audience that doesn't come from a 3rd party platform, do not use this property. ", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
     __properties: ClassVar[List[str]] = ["id", "name", "integration", "integrationId"]
@@ -63,8 +63,10 @@ class AudienceBlockReference(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "name",
         ])
 
         _dict = self.model_dump(

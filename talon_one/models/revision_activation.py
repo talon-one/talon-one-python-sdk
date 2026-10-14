@@ -28,7 +28,7 @@ class RevisionActivation(BaseModel):
     """
     RevisionActivation
     """ # noqa: E501
-    activate_at: Optional[datetime] = Field(default=None, alias="activateAt")
+    activate_at: Optional[datetime] = Field(default=None, description="Timestamp when the revision will be activated.", alias="activateAt", json_schema_extra={"examples": ["2026-10-08T09:30:00Z"]})
     __properties: ClassVar[List[str]] = ["activateAt"]
 
     model_config = ConfigDict(

@@ -32,10 +32,9 @@ class ShowNotificationBlock(BaseModel):
     tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
     notification_type: StrictStr = Field(description="The type of notification to display.", alias="notificationType", json_schema_extra={"examples": ["Info"]})
     title: StrictStr = Field(description="The notification heading shown to the customer.", json_schema_extra={"examples": ["You earned a reward!"]})
-    body: Optional[StrictStr] = Field(default=None, description="The notification body text. Supports template placeholders (e.g. \"{{$Session.Total}}\") evaluated at rule execution time.", json_schema_extra={"examples": ["You saved $10 on your order."]})
-    on_failure: Optional[List[Block]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
+    body: StrictStr = Field(description="The notification body text. Supports template placeholders (e.g. \"{{$Session.Total}}\") evaluated at rule execution time.", json_schema_extra={"examples": ["You saved $10 on your order."]})
     on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
-    __properties: ClassVar[List[str]] = ["id", "type", "tags", "notificationType", "title", "body", "onFailure", "onError"]
+    __properties: ClassVar[List[str]] = ["id", "type", "tags", "notificationType", "title", "body", "onError"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -80,12 +79,6 @@ class ShowNotificationBlock(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
-        _items = []
-        if self.on_failure:
-            for _item_on_failure in self.on_failure:
-                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
-            _dict['onFailure'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in on_error (dict of array)
         _field_dict_of_array = {}
         if self.on_error:
@@ -112,7 +105,6 @@ class ShowNotificationBlock(BaseModel):
             "notificationType": obj.get("notificationType"),
             "title": obj.get("title"),
             "body": obj.get("body"),
-            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None,
             "onError": {
                 _k: [Block.from_dict(_item) for _item in _v] if _v is not None else None
                 for _k, _v in obj["onError"].items()

@@ -47,8 +47,8 @@ class TestCampaignEligibility(unittest.TestCase):
                 features = [coupons, referrals],
                 eligibility = [
                     talon_one.models.campaign_eligibility_details.CampaignEligibilityDetails(
-                        passed = True, 
-                        coupon_code = '', 
+                        passed = False, 
+                        coupon_code = 'XMAS-20-2021', 
                         details = null, )
                     ],
                 rules = [
@@ -68,8 +68,8 @@ class TestCampaignEligibility(unittest.TestCase):
                 features = [coupons, referrals],
                 eligibility = [
                     talon_one.models.campaign_eligibility_details.CampaignEligibilityDetails(
-                        passed = True, 
-                        coupon_code = '', 
+                        passed = False, 
+                        coupon_code = 'XMAS-20-2021', 
                         details = null, )
                     ],
                 rules = [

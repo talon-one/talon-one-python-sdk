@@ -30,15 +30,15 @@ class Revision(BaseModel):
     Revision
     """ # noqa: E501
     id: StrictInt = Field(description="Unique ID for this entity. Not to be confused with the Integration ID, which is set by your integration layer and used in most endpoints.", json_schema_extra={"examples": [6]})
-    activate_at: Optional[datetime] = Field(default=None, alias="activateAt")
-    account_id: StrictInt = Field(alias="accountId")
-    application_id: StrictInt = Field(alias="applicationId")
-    campaign_id: StrictInt = Field(alias="campaignId")
-    created: datetime
-    created_by: StrictInt = Field(alias="createdBy")
-    activated_at: Optional[datetime] = Field(default=None, alias="activatedAt")
-    activated_by: Optional[StrictInt] = Field(default=None, alias="activatedBy")
-    current_version: Optional[RevisionVersion] = Field(default=None, alias="currentVersion")
+    activate_at: Optional[datetime] = Field(default=None, description="Timestamp when the revision will be activated.", alias="activateAt", json_schema_extra={"examples": ["2026-10-08T09:30:00Z"]})
+    account_id: StrictInt = Field(description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
+    application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [42]})
+    campaign_id: StrictInt = Field(description="The ID of the campaign that the revision was created from.", alias="campaignId", json_schema_extra={"examples": [18]})
+    created: datetime = Field(description="Timestamp when the revision was created.", json_schema_extra={"examples": ["2026-10-01T08:00:00Z"]})
+    created_by: StrictInt = Field(description="The ID of the user who created this revision.", alias="createdBy", json_schema_extra={"examples": [134]})
+    activated_at: Optional[datetime] = Field(default=None, description="Timestamp when this revision was activated.", alias="activatedAt", json_schema_extra={"examples": ["2026-10-08T09:30:00Z"]})
+    activated_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who activated this revision.", alias="activatedBy", json_schema_extra={"examples": [334]})
+    current_version: Optional[RevisionVersion] = Field(default=None, description="The current version of this revision.", alias="currentVersion")
     __properties: ClassVar[List[str]] = ["id", "activateAt", "accountId", "applicationId", "campaignId", "created", "createdBy", "activatedAt", "activatedBy", "currentVersion"]
 
     model_config = ConfigDict(

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
 from typing import Optional, Set
@@ -35,7 +35,10 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationActi
     start_date: Optional[datetime] = Field(default=None, alias="StartDate")
     expiry_date: Optional[datetime] = Field(default=None, alias="ExpiryDate")
     transaction_uuid: UUID = Field(description="The identifier of the transaction in the loyalty ledger.", alias="TransactionUUID")
-    __properties: ClassVar[List[str]] = ["Amount", "Reason", "Operation", "StartDate", "ExpiryDate", "TransactionUUID"]
+    created: Optional[datetime] = Field(default=None, description="The timestamp when the loyalty transaction occurred.", alias="Created", json_schema_extra={"examples": ["2023-01-24T14:15:22Z"]})
+    awaits_activation: Optional[StrictBool] = Field(default=None, description="Indicates whether the points have an action-based start date. This property is returned only for point transactions with an action-based start date.", alias="AwaitsActivation", json_schema_extra={"examples": [False]})
+    validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the activation date.  **Note**: This only applies to points for which `AwaitsActivation` is `true` and `ExpiryDate` is not set. ", alias="ValidityDuration", json_schema_extra={"examples": ["30D"]})
+    __properties: ClassVar[List[str]] = ["Amount", "Reason", "Operation", "StartDate", "ExpiryDate", "TransactionUUID", "Created", "AwaitsActivation", "ValidityDuration"]
 
     @field_validator('operation')
     def operation_validate_enum(cls, value):
@@ -100,7 +103,10 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationActi
             "Operation": obj.get("Operation"),
             "StartDate": obj.get("StartDate"),
             "ExpiryDate": obj.get("ExpiryDate"),
-            "TransactionUUID": obj.get("TransactionUUID")
+            "TransactionUUID": obj.get("TransactionUUID"),
+            "Created": obj.get("Created"),
+            "AwaitsActivation": obj.get("AwaitsActivation"),
+            "ValidityDuration": obj.get("ValidityDuration")
         })
         return _obj
 

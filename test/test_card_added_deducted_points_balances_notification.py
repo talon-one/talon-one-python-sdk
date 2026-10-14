@@ -52,7 +52,10 @@ class TestCardAddedDeductedPointsBalancesNotification(unittest.TestCase):
                         operation = 'addition', 
                         start_date = '2023-01-24T14:15:22Z', 
                         expiry_date = '2024-01-24T14:15:22Z', 
-                        transaction_uuid = '', )
+                        transaction_uuid = '', 
+                        created = '2023-01-24T14:15:22Z', 
+                        awaits_activation = False, 
+                        validity_duration = '30D', )
                     ],
                 current_points = 10.99
             )
@@ -75,7 +78,10 @@ class TestCardAddedDeductedPointsBalancesNotification(unittest.TestCase):
                         operation = 'addition', 
                         start_date = '2023-01-24T14:15:22Z', 
                         expiry_date = '2024-01-24T14:15:22Z', 
-                        transaction_uuid = '', )
+                        transaction_uuid = '', 
+                        created = '2023-01-24T14:15:22Z', 
+                        awaits_activation = False, 
+                        validity_duration = '30D', )
                     ],
                 current_points = 10.99,
         )

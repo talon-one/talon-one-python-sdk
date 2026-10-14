@@ -54,7 +54,12 @@ class TestApplicationCustomer(unittest.TestCase):
                     ],
                 last_activity = '2020-02-08T14:15:20Z',
                 sandbox = False,
-                advocate_integration_id = ''
+                advocate_integration_id = '',
+                loyalty_program_join_dates = [
+                    talon_one.models.loyalty_membership.LoyaltyMembership(
+                        joined = '2012-03-20T14:15:22Z', 
+                        loyalty_program_id = 323414846, )
+                    ]
             )
         else:
             return ApplicationCustomer(
