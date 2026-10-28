@@ -352,6 +352,7 @@ docs/EffectWillAwardGiveaway.md
 docs/EmailEntity.md
 docs/EmbeddedAnalyticsConfiguration.md
 docs/EmbeddedAnalyticsConfigurationDashboards.md
+docs/EmbeddedAnalyticsToken.md
 docs/EmbeddedDashboardConfiguration.md
 docs/Endpoint.md
 docs/Entity.md
@@ -1326,6 +1327,7 @@ talon_one/models/effect_will_award_giveaway.py
 talon_one/models/email_entity.py
 talon_one/models/embedded_analytics_configuration.py
 talon_one/models/embedded_analytics_configuration_dashboards.py
+talon_one/models/embedded_analytics_token.py
 talon_one/models/embedded_dashboard_configuration.py
 talon_one/models/endpoint.py
 talon_one/models/entity.py
@@ -2287,6 +2289,7 @@ test/test_effect_will_award_giveaway.py
 test/test_email_entity.py
 test/test_embedded_analytics_configuration.py
 test/test_embedded_analytics_configuration_dashboards.py
+test/test_embedded_analytics_token.py
 test/test_embedded_dashboard_configuration.py
 test/test_endpoint.py
 test/test_entity.py

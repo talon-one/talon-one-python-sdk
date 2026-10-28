@@ -38,6 +38,7 @@ class LoyaltyCard(BaseModel):
     program_title: Optional[StrictStr] = Field(default=None, description="The Campaign Manager-displayed name of the loyalty program that owns this entity.", alias="programTitle", json_schema_extra={"examples": ["Loyalty program"]})
     status: StrictStr = Field(description="Status of the loyalty card. Can be `active` or `inactive`. ", json_schema_extra={"examples": ["active"]})
     block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason", json_schema_extra={"examples": ["Current card lost. Customer needs a new card."]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint. ", json_schema_extra={"examples": [{"PIN": 1234, "Language": "DE"}]})
     identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     users_per_card_limit: Annotated[int, Field(strict=True, ge=0)] = Field(description="The max amount of customer profiles that can be linked to the card. 0 means unlimited. ", alias="usersPerCardLimit", json_schema_extra={"examples": [111]})
     profiles: Optional[List[LoyaltyCardProfileRegistration]] = Field(default=None, description="Integration IDs of the customers profiles linked to the card.")
@@ -47,7 +48,7 @@ class LoyaltyCard(BaseModel):
     old_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card from which the points were transferred.", alias="oldCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     new_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card to which the points were transferred.", alias="newCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch in which the loyalty card was created.", alias="batchId", json_schema_extra={"examples": ["wdefpov"]})
-    __properties: ClassVar[List[str]] = ["id", "created", "programID", "programName", "programTitle", "status", "blockReason", "identifier", "usersPerCardLimit", "profiles", "ledger", "subledgers", "modified", "oldCardIdentifier", "newCardIdentifier", "batchId"]
+    __properties: ClassVar[List[str]] = ["id", "created", "programID", "programName", "programTitle", "status", "blockReason", "attributes", "identifier", "usersPerCardLimit", "profiles", "ledger", "subledgers", "modified", "oldCardIdentifier", "newCardIdentifier", "batchId"]
 
     @field_validator('identifier', mode="before")
     def identifier_validate_regular_expression(cls, value):
@@ -149,6 +150,7 @@ class LoyaltyCard(BaseModel):
             "programTitle": obj.get("programTitle"),
             "status": obj.get("status"),
             "blockReason": obj.get("blockReason"),
+            "attributes": obj.get("attributes"),
             "identifier": obj.get("identifier"),
             "usersPerCardLimit": obj.get("usersPerCardLimit"),
             "profiles": [LoyaltyCardProfileRegistration.from_dict(_item) for _item in obj["profiles"]] if obj.get("profiles") is not None else None,

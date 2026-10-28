@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **message** | **str** |  | [optional] 
 **errors** | [**List[APIError]**](APIError.md) | An array of individual problems encountered during the request. | [optional] 
-**status_code** | **int** | The error code | [optional] 
+**status_code** | **int** | The error code. | [optional] 
 
 ## Example
 

@@ -355,6 +355,7 @@ from talon_one.models.effect_will_award_giveaway import EffectWillAwardGiveaway
 from talon_one.models.email_entity import EmailEntity
 from talon_one.models.embedded_analytics_configuration import EmbeddedAnalyticsConfiguration
 from talon_one.models.embedded_analytics_configuration_dashboards import EmbeddedAnalyticsConfigurationDashboards
+from talon_one.models.embedded_analytics_token import EmbeddedAnalyticsToken
 from talon_one.models.embedded_dashboard_configuration import EmbeddedDashboardConfiguration
 from talon_one.models.endpoint import Endpoint
 from talon_one.models.entity import Entity

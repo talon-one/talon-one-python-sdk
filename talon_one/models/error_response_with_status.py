@@ -30,7 +30,7 @@ class ErrorResponseWithStatus(BaseModel):
     """ # noqa: E501
     message: Optional[StrictStr] = None
     errors: Optional[List[APIError]] = Field(default=None, description="An array of individual problems encountered during the request.")
-    status_code: Optional[StrictInt] = Field(default=None, description="The error code", alias="StatusCode")
+    status_code: Optional[StrictInt] = Field(default=None, description="The error code.", alias="StatusCode")
     __properties: ClassVar[List[str]] = ["message", "errors", "StatusCode"]
 
     model_config = ConfigDict(

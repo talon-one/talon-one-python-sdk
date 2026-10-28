@@ -26,7 +26,7 @@ from pydantic_core import to_jsonable_python
 
 class OutboundLogs(BaseModel):
     """
-    Paginated list of outbound logs.
+    OutboundLogs
     """ # noqa: E501
     next_cursor: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="Cursor for the next page of results. Omitted when there are no more results.", alias="nextCursor", json_schema_extra={"examples": ["SmJlNERRMHdyNWFsTmRDZDVYU0c="]})
     data: List[OutboundLog] = Field(description="List of outbound logs.")

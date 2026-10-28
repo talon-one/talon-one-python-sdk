@@ -56,7 +56,9 @@ class TestRewardCatalogItem(unittest.TestCase):
                         talon_one.models.reward_eligibility_failure_details.RewardEligibilityFailureDetails(
                             failure_code = 'CONDITION_NOT_MET', 
                             condition_index = 0, )
-                        ], )
+                        ], ),
+                validity_duration = '3M_U',
+                expiry_date = '2026-12-31T00:00:00Z'
             )
         else:
             return RewardCatalogItem(

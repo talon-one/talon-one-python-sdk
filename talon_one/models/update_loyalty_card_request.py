@@ -28,7 +28,8 @@ class UpdateLoyaltyCardRequest(BaseModel):
     UpdateLoyaltyCardRequest
     """ # noqa: E501
     status: Optional[StrictStr] = Field(default=None, description="Status of the loyalty card. Can be `active` or `inactive`. ", json_schema_extra={"examples": ["active"]})
-    __properties: ClassVar[List[str]] = ["status"]
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint. ", json_schema_extra={"examples": [{"PIN": 1234, "Language": "DE"}]})
+    __properties: ClassVar[List[str]] = ["status", "attributes"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -81,7 +82,8 @@ class UpdateLoyaltyCardRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status")
+            "status": obj.get("status"),
+            "attributes": obj.get("attributes")
         })
         return _obj
 

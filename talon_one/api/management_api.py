@@ -15772,7 +15772,7 @@ class ManagementApi:
     ) -> str:
         """Export customer sessions
 
-        Download a CSV file containing the customer sessions that match the request.  > [!important] Archived sessions cannot be exported. See the [retention > policy](https://docs.talon.one/docs/dev/server-infrastructure-and-data-retention).  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  - `id`: The internal ID of the session. - `firstsession`: Whether this is a first session. - `integrationid`: The integration ID of the session. - `applicationid`: The ID of the Application. - `profileid`: The internal ID of the customer profile. - `profileintegrationid`: The integration ID of the customer profile. - `created`: The timestamp when the session was created. - `state`: The [state](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states)    of the session. - `cartitems`: The cart items in the session. - `discounts`: The discounts in the session. - `total`: The total value of cart items and additional costs in the session, before any discounts are applied. - `attributes`: The attributes set in the session. - `closedat`: Timestamp when the session was closed. - `cancelledat`: Timestamp when the session was cancelled. - `referral`: The referral code in the session. - `identifiers`: The identifiers in the session. - `additional_costs`: The [additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs)    in the session. - `updated`: Timestamp of the last session update. - `store_integration_id`: The integration ID of the store. - `coupons`: Coupon codes in the session. 
+        Download a CSV file containing the customer sessions that match the request.  > [!important] Archived sessions cannot be exported. See the [retention > policy](https://docs.talon.one/docs/dev/server-infrastructure-and-data-retention).  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  - `id`: The internal ID of the session. - `firstsession`: Whether this is a first session. - `integrationid`: The integration ID of the session. - `applicationid`: The ID of the Application. - `profileid`: The internal ID of the customer profile. - `profileintegrationid`: The integration ID of the customer profile. - `created`: The timestamp when the session was created. - `state`: The [state](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states)    of the session. - `cartitems`: The cart items in the session. - `discounts`: The discounts in the session. - `total`: The total value of cart items and additional costs in the session, before any discounts are applied. - `attributes`: The attributes set in the session. - `closedat`: Timestamp when the session was closed. - `cancelledat`: Timestamp when the session was cancelled. - `referral`: The referral code in the session. - `identifiers`: The identifiers in the session. - `additional_costs`: The [additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs)    in the session. - `updated`: Timestamp of the last session update. - `store_integration_id`: The integration ID of the store. - `loyaltycards`: The identifier of the loyalty card used in the session. A session can have only one loyalty card. - `updatecount`: The number of times the session was updated. When the session is created, this value is initialized to `1`. - `coupons`: Coupon codes in the session. - `rewards`: The integration IDs of the unlocked rewards that can be used in the session. 
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -15867,7 +15867,7 @@ class ManagementApi:
     ) -> ApiResponse[str]:
         """Export customer sessions
 
-        Download a CSV file containing the customer sessions that match the request.  > [!important] Archived sessions cannot be exported. See the [retention > policy](https://docs.talon.one/docs/dev/server-infrastructure-and-data-retention).  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  - `id`: The internal ID of the session. - `firstsession`: Whether this is a first session. - `integrationid`: The integration ID of the session. - `applicationid`: The ID of the Application. - `profileid`: The internal ID of the customer profile. - `profileintegrationid`: The integration ID of the customer profile. - `created`: The timestamp when the session was created. - `state`: The [state](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states)    of the session. - `cartitems`: The cart items in the session. - `discounts`: The discounts in the session. - `total`: The total value of cart items and additional costs in the session, before any discounts are applied. - `attributes`: The attributes set in the session. - `closedat`: Timestamp when the session was closed. - `cancelledat`: Timestamp when the session was cancelled. - `referral`: The referral code in the session. - `identifiers`: The identifiers in the session. - `additional_costs`: The [additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs)    in the session. - `updated`: Timestamp of the last session update. - `store_integration_id`: The integration ID of the store. - `coupons`: Coupon codes in the session. 
+        Download a CSV file containing the customer sessions that match the request.  > [!important] Archived sessions cannot be exported. See the [retention > policy](https://docs.talon.one/docs/dev/server-infrastructure-and-data-retention).  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  - `id`: The internal ID of the session. - `firstsession`: Whether this is a first session. - `integrationid`: The integration ID of the session. - `applicationid`: The ID of the Application. - `profileid`: The internal ID of the customer profile. - `profileintegrationid`: The integration ID of the customer profile. - `created`: The timestamp when the session was created. - `state`: The [state](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states)    of the session. - `cartitems`: The cart items in the session. - `discounts`: The discounts in the session. - `total`: The total value of cart items and additional costs in the session, before any discounts are applied. - `attributes`: The attributes set in the session. - `closedat`: Timestamp when the session was closed. - `cancelledat`: Timestamp when the session was cancelled. - `referral`: The referral code in the session. - `identifiers`: The identifiers in the session. - `additional_costs`: The [additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs)    in the session. - `updated`: Timestamp of the last session update. - `store_integration_id`: The integration ID of the store. - `loyaltycards`: The identifier of the loyalty card used in the session. A session can have only one loyalty card. - `updatecount`: The number of times the session was updated. When the session is created, this value is initialized to `1`. - `coupons`: Coupon codes in the session. - `rewards`: The integration IDs of the unlocked rewards that can be used in the session. 
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -15962,7 +15962,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Export customer sessions
 
-        Download a CSV file containing the customer sessions that match the request.  > [!important] Archived sessions cannot be exported. See the [retention > policy](https://docs.talon.one/docs/dev/server-infrastructure-and-data-retention).  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  - `id`: The internal ID of the session. - `firstsession`: Whether this is a first session. - `integrationid`: The integration ID of the session. - `applicationid`: The ID of the Application. - `profileid`: The internal ID of the customer profile. - `profileintegrationid`: The integration ID of the customer profile. - `created`: The timestamp when the session was created. - `state`: The [state](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states)    of the session. - `cartitems`: The cart items in the session. - `discounts`: The discounts in the session. - `total`: The total value of cart items and additional costs in the session, before any discounts are applied. - `attributes`: The attributes set in the session. - `closedat`: Timestamp when the session was closed. - `cancelledat`: Timestamp when the session was cancelled. - `referral`: The referral code in the session. - `identifiers`: The identifiers in the session. - `additional_costs`: The [additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs)    in the session. - `updated`: Timestamp of the last session update. - `store_integration_id`: The integration ID of the store. - `coupons`: Coupon codes in the session. 
+        Download a CSV file containing the customer sessions that match the request.  > [!important] Archived sessions cannot be exported. See the [retention > policy](https://docs.talon.one/docs/dev/server-infrastructure-and-data-retention).  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  - `id`: The internal ID of the session. - `firstsession`: Whether this is a first session. - `integrationid`: The integration ID of the session. - `applicationid`: The ID of the Application. - `profileid`: The internal ID of the customer profile. - `profileintegrationid`: The integration ID of the customer profile. - `created`: The timestamp when the session was created. - `state`: The [state](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states)    of the session. - `cartitems`: The cart items in the session. - `discounts`: The discounts in the session. - `total`: The total value of cart items and additional costs in the session, before any discounts are applied. - `attributes`: The attributes set in the session. - `closedat`: Timestamp when the session was closed. - `cancelledat`: Timestamp when the session was cancelled. - `referral`: The referral code in the session. - `identifiers`: The identifiers in the session. - `additional_costs`: The [additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs)    in the session. - `updated`: Timestamp of the last session update. - `store_integration_id`: The integration ID of the store. - `loyaltycards`: The identifier of the loyalty card used in the session. A session can have only one loyalty card. - `updatecount`: The number of times the session was updated. When the session is created, this value is initialized to `1`. - `coupons`: Coupon codes in the session. - `rewards`: The integration IDs of the unlocked rewards that can be used in the session. 
 
         :param application_id: The ID of the Application. It is displayed in your Talon.One deployment URL. (required)
         :type application_id: int
@@ -17765,6 +17765,7 @@ class ManagementApi:
         range_start: Annotated[datetime, Field(description="Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")],
         range_end: Annotated[datetime, Field(description="Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")],
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially  when no date filter is applied to a large transaction history.         ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -17780,7 +17781,7 @@ class ManagementApi:
     ) -> str:
         """Export card's ledger log
 
-        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
+        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files). The file contains the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityduration`: The duration for which the points remain active, relative to the activation date. - `remainingamount`: The current unused amount of points, when applicable to `addition` transactions. - `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -17792,6 +17793,8 @@ class ManagementApi:
         :type range_end: datetime
         :param date_format: Determines the format of dates in the export document.
         :type date_format: str
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially  when no date filter is applied to a large transaction history.         
+        :type include_references: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -17820,6 +17823,7 @@ class ManagementApi:
             range_start=range_start,
             range_end=range_end,
             date_format=date_format,
+            include_references=include_references,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -17850,6 +17854,7 @@ class ManagementApi:
         range_start: Annotated[datetime, Field(description="Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")],
         range_end: Annotated[datetime, Field(description="Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")],
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially  when no date filter is applied to a large transaction history.         ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -17865,7 +17870,7 @@ class ManagementApi:
     ) -> ApiResponse[str]:
         """Export card's ledger log
 
-        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
+        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files). The file contains the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityduration`: The duration for which the points remain active, relative to the activation date. - `remainingamount`: The current unused amount of points, when applicable to `addition` transactions. - `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -17877,6 +17882,8 @@ class ManagementApi:
         :type range_end: datetime
         :param date_format: Determines the format of dates in the export document.
         :type date_format: str
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially  when no date filter is applied to a large transaction history.         
+        :type include_references: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -17905,6 +17912,7 @@ class ManagementApi:
             range_start=range_start,
             range_end=range_end,
             date_format=date_format,
+            include_references=include_references,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -17935,6 +17943,7 @@ class ManagementApi:
         range_start: Annotated[datetime, Field(description="Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")],
         range_end: Annotated[datetime, Field(description="Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. ")],
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially  when no date filter is applied to a large transaction history.         ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -17950,7 +17959,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Export card's ledger log
 
-        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
+        Download a CSV file containing a loyalty card ledger log of the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files). The file contains the following columns:  - `cardidentifier`: The identifier of the loyalty card. - `applicationid`: The ID of the Application. - `sessionid`: The ID of the session. - `customersessionid`: The integration ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the points. - `expirydate`: The expiration date of the points. - `id`: The ID of the transaction. - `created`: The timestamp of the transaction creation. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityduration`: The duration for which the points remain active, relative to the activation date. - `remainingamount`: The current unused amount of points, when applicable to `addition` transactions. - `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`. 
 
         :param loyalty_program_id: Identifier of the card-based loyalty program containing the loyalty card. You can get the ID with the [List loyalty programs](https://docs.talon.one/management-api#tag/Loyalty/operation/getLoyaltyPrograms) endpoint.  (required)
         :type loyalty_program_id: int
@@ -17962,6 +17971,8 @@ class ManagementApi:
         :type range_end: datetime
         :param date_format: Determines the format of dates in the export document.
         :type date_format: str
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially  when no date filter is applied to a large transaction history.         
+        :type include_references: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -17990,6 +18001,7 @@ class ManagementApi:
             range_start=range_start,
             range_end=range_end,
             date_format=date_format,
+            include_references=include_references,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -18015,6 +18027,7 @@ class ManagementApi:
         range_start,
         range_end,
         date_format,
+        include_references,
         _request_auth,
         _content_type,
         _headers,
@@ -18070,6 +18083,10 @@ class ManagementApi:
         if date_format is not None:
             
             _query_params.append(('dateFormat', date_format))
+            
+        if include_references is not None:
+            
+            _query_params.append(('includeReferences', include_references))
             
         # process the header parameters
         # process the form parameters
@@ -18736,6 +18753,7 @@ class ManagementApi:
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -18751,7 +18769,7 @@ class ManagementApi:
     ) -> str:
         """Export customer's transaction logs
 
-        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
+        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The file contains the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityduration`: The duration for which the points remain active, relative to the activation date. - `remainingamount`: The current unused amount of points, when applicable to `addition` transactions. - `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`. 
 
         :param range_start: Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (required)
         :type range_start: datetime
@@ -18763,6 +18781,8 @@ class ManagementApi:
         :type integration_id: str
         :param date_format: Determines the format of dates in the export document.
         :type date_format: str
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. 
+        :type include_references: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -18791,6 +18811,7 @@ class ManagementApi:
             loyalty_program_id=loyalty_program_id,
             integration_id=integration_id,
             date_format=date_format,
+            include_references=include_references,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -18819,6 +18840,7 @@ class ManagementApi:
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -18834,7 +18856,7 @@ class ManagementApi:
     ) -> ApiResponse[str]:
         """Export customer's transaction logs
 
-        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
+        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The file contains the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityduration`: The duration for which the points remain active, relative to the activation date. - `remainingamount`: The current unused amount of points, when applicable to `addition` transactions. - `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`. 
 
         :param range_start: Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (required)
         :type range_start: datetime
@@ -18846,6 +18868,8 @@ class ManagementApi:
         :type integration_id: str
         :param date_format: Determines the format of dates in the export document.
         :type date_format: str
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. 
+        :type include_references: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -18874,6 +18898,7 @@ class ManagementApi:
             loyalty_program_id=loyalty_program_id,
             integration_id=integration_id,
             date_format=date_format,
+            include_references=include_references,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -18902,6 +18927,7 @@ class ManagementApi:
         loyalty_program_id: Annotated[StrictStr, Field(description="The identifier for the loyalty program.")],
         integration_id: Annotated[StrictStr, Field(description="The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. ")],
         date_format: Annotated[Optional[StrictStr], Field(description="Determines the format of dates in the export document.")] = None,
+        include_references: Annotated[Optional[StrictBool], Field(description="Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -18917,7 +18943,7 @@ class ManagementApi:
     ) -> RESTResponseType:
         """Export customer's transaction logs
 
-        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The generated file can contain the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityDuration`: The duration for which the points remain active, relative to the activation date. - `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions. 
+        Download a CSV file containing a customer's transaction logs in the loyalty program.  > [!tip] If the exported CSV file is too large to view, you can > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).  The file contains the following columns:  - `customerprofileid`: The ID of the profile. - `customersessionid`: The ID of the customer session. - `rulesetid`: The ID of the rule set. - `rulename`: The name of the rule. - `programid`: The ID of the loyalty program. - `type`: The transaction type, such as `addition` or `subtraction`. - `name`: The reason for the transaction. - `subledgerid`: The ID of the subledger, when applicable. - `startdate`: The start date of the program. - `expirydate`: The expiration date of the program. - `id`: The ID of the transaction. - `created`: The timestamp of the creation of the loyalty program. - `amount`: The number of points in that transaction. - `archived`: Whether the session related to the transaction is archived. - `campaignid`: The ID of the campaign. - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance. - `transactionUUID`: Unique identifier of the transaction in the UUID format. - `validityduration`: The duration for which the points remain active, relative to the activation date. - `remainingamount`: The current unused amount of points, when applicable to `addition` transactions. - `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`. 
 
         :param range_start: Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered.  (required)
         :type range_start: datetime
@@ -18929,6 +18955,8 @@ class ManagementApi:
         :type integration_id: str
         :param date_format: Determines the format of dates in the export document.
         :type date_format: str
+        :param include_references: Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history. 
+        :type include_references: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -18957,6 +18985,7 @@ class ManagementApi:
             loyalty_program_id=loyalty_program_id,
             integration_id=integration_id,
             date_format=date_format,
+            include_references=include_references,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -18980,6 +19009,7 @@ class ManagementApi:
         loyalty_program_id,
         integration_id,
         date_format,
+        include_references,
         _request_auth,
         _content_type,
         _headers,
@@ -19035,6 +19065,10 @@ class ManagementApi:
         if date_format is not None:
             
             _query_params.append(('dateFormat', date_format))
+            
+        if include_references is not None:
+            
+            _query_params.append(('includeReferences', include_references))
             
         # process the header parameters
         # process the form parameters

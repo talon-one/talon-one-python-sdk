@@ -53,10 +53,7 @@ class TestEffectUseReward(unittest.TestCase):
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
                 reward_integration_id = 'reward-unlock-123',
-                props = talon_one.models.use_reward.useReward(
-                    integration_id = '5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90', 
-                    reward_id = 5, 
-                    application_id = 1, )
+                props = {integrationId=5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90, rewardId=5, applicationId=1}
             )
         else:
             return EffectUseReward(
@@ -65,10 +62,7 @@ class TestEffectUseReward(unittest.TestCase):
                 rule_index = 2,
                 rule_name = 'Give 20% discount',
                 effect_type = 'useReward',
-                props = talon_one.models.use_reward.useReward(
-                    integration_id = '5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90', 
-                    reward_id = 5, 
-                    application_id = 1, ),
+                props = {integrationId=5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90, rewardId=5, applicationId=1},
         )
         """
 

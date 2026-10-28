@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.21.0"
+__version__ = "26.22.0"
 
 # Define package exports
 __all__ = [
@@ -371,6 +371,7 @@ __all__ = [
     "EmailEntity",
     "EmbeddedAnalyticsConfiguration",
     "EmbeddedAnalyticsConfigurationDashboards",
+    "EmbeddedAnalyticsToken",
     "EmbeddedDashboardConfiguration",
     "Endpoint",
     "Entity",
@@ -1346,6 +1347,7 @@ from talon_one.models.effect_will_award_giveaway import EffectWillAwardGiveaway 
 from talon_one.models.email_entity import EmailEntity as EmailEntity
 from talon_one.models.embedded_analytics_configuration import EmbeddedAnalyticsConfiguration as EmbeddedAnalyticsConfiguration
 from talon_one.models.embedded_analytics_configuration_dashboards import EmbeddedAnalyticsConfigurationDashboards as EmbeddedAnalyticsConfigurationDashboards
+from talon_one.models.embedded_analytics_token import EmbeddedAnalyticsToken as EmbeddedAnalyticsToken
 from talon_one.models.embedded_dashboard_configuration import EmbeddedDashboardConfiguration as EmbeddedDashboardConfiguration
 from talon_one.models.endpoint import Endpoint as Endpoint
 from talon_one.models.entity import Entity as Entity

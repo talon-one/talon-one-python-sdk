@@ -29,19 +29,19 @@ from pydantic_core import to_jsonable_python
 
 class OutboundLog(BaseModel):
     """
-    Log of an outbound notification or webhook request.
+    OutboundLog
     """ # noqa: E501
     uuid: UUID = Field(description="UUID of the outbound message.", json_schema_extra={"examples": ["67e55044-10b1-426f-9247-bb680e5fe0c8"]})
-    notification_id: Optional[StrictInt] = Field(default=None, description="ID of the notification that produced the outbound request.", alias="notificationId", json_schema_extra={"examples": [1]})
-    notification_name: Optional[StrictStr] = Field(default=None, description="Name of the notification that produced the outbound request.", alias="notificationName", json_schema_extra={"examples": ["Notification name"]})
-    webhook_id: Optional[StrictInt] = Field(default=None, description="ID of the webhook that produced the outbound request.", alias="webhookId", json_schema_extra={"examples": [101]})
-    webhook_name: Optional[StrictStr] = Field(default=None, description="The name of the webhook that produced the outbound request.", alias="webhookName", json_schema_extra={"examples": ["My webhook"]})
-    notification_type: StrictStr = Field(description="Type of notification that produced the outbound request.", alias="notificationType", json_schema_extra={"examples": ["CampaignNotification"]})
-    application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application associated with the outbound request.", alias="applicationId", json_schema_extra={"examples": [1]})
-    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program associated with the outbound request.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
+    notification_id: Optional[StrictInt] = Field(default=None, description="ID of the notification that triggered the outbound message.", alias="notificationId", json_schema_extra={"examples": [1]})
+    notification_name: Optional[StrictStr] = Field(default=None, description="Name of the notification that triggered the outbound message.", alias="notificationName", json_schema_extra={"examples": ["Notification name"]})
+    webhook_id: Optional[StrictInt] = Field(default=None, description="ID of the webhook that triggered the outbound message.", alias="webhookId", json_schema_extra={"examples": [101]})
+    webhook_name: Optional[StrictStr] = Field(default=None, description="Name of the webhook that triggered the outbound message.", alias="webhookName", json_schema_extra={"examples": ["My webhook"]})
+    notification_type: StrictStr = Field(description="Type of notification that triggered the outbound message.", alias="notificationType", json_schema_extra={"examples": ["CampaignNotification"]})
+    application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application associated with the outbound message.", alias="applicationId", json_schema_extra={"examples": [1]})
+    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program associated with the outbound message.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
     request: Optional[OutboundLogRequest] = None
-    created_at: datetime = Field(description="Timestamp when the log entry was created.", alias="createdAt", json_schema_extra={"examples": ["2026-08-17T14:32:05Z"]})
-    processing_time_ms: StrictInt = Field(description="Processing time of the outbound request in milliseconds.", alias="processingTimeMs", json_schema_extra={"examples": [180]})
+    created_at: datetime = Field(description="Timestamp when the log was created.", alias="createdAt", json_schema_extra={"examples": ["2026-08-17T14:32:05Z"]})
+    processing_time_ms: StrictInt = Field(description="Time in milliseconds between sending the outbound request and receiving the response.", alias="processingTimeMs", json_schema_extra={"examples": [180]})
     response: Optional[OutboundLogResponse] = None
     __properties: ClassVar[List[str]] = ["uuid", "notificationId", "notificationName", "webhookId", "webhookName", "notificationType", "applicationId", "loyaltyProgramId", "request", "createdAt", "processingTimeMs", "response"]
 

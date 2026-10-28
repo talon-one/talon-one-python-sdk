@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **number_of_cards** | **int** | Number of loyalty cards in the batch. | 
 **batch_id** | **str** | ID of the loyalty card batch. | [optional] 
 **status** | **str** | Status of the loyalty cards in the batch. | [optional] [default to 'active']
+**attributes** | **object** | Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint.  | [optional] 
 **card_code_settings** | [**CodeGeneratorSettings**](CodeGeneratorSettings.md) |  | [optional] 
 
 ## Example

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **status** | **str** | Status of the loyalty card. | [optional] [default to 'active']
 **customer_profile_ids** | **List[str]** | Integration IDs of the customer profiles linked to the card. | [optional] 
 **card_identifier** | **str** | The identifier of the loyalty card, which must match the regular expression &#x60;^[A-Za-z0-9._%+@-]+$&#x60;.  | [optional] 
+**attributes** | **object** | Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint.  | [optional] 
 
 ## Example
 

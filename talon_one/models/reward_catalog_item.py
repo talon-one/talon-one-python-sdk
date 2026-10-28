@@ -17,8 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from talon_one.models.reward_eligibility import RewardEligibility
 from talon_one.models.reward_points_required import RewardPointsRequired
 from talon_one.models.rule_metadata import RuleMetadata
@@ -36,7 +38,19 @@ class RewardCatalogItem(BaseModel):
     points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate the reward.", alias="pointsRequired")
     rule: RuleMetadata = Field(description="Customer-facing rule metadata for the reward.")
     eligibility: Optional[RewardEligibility] = Field(default=None, description="The customer's eligibility for the reward. Returned only when the request includes a `profileIntegrationId` or `loyaltyCardId`. ")
-    __properties: ClassVar[List[str]] = ["id", "name", "description", "pointsRequired", "rule", "eligibility"]
+    validity_duration: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="The duration for which the customer rewards unlocked from this reward remain active, relative to when the customer reward was unlocked.  The time format is an **integer** followed by one letter indicating the time unit.  Examples: `30m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  Certain units can be rounded up or down: - `_D` for rounding down days only. Signifies the start of the day. - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year.  This field is not returned in combination with `expiryDate`. If both `validityDuration` and `expiryDate` are not returned, customer rewards have unlimited validity. ", alias="validityDuration", json_schema_extra={"examples": ["3M_U"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="Expiry date of the customer rewards unlocked from this reward. Customer rewards never expire if this is omitted and `validityDuration` is not set.  **Note:** - This field is not returned in combination with `validityDuration`. ", alias="expiryDate", json_schema_extra={"examples": ["2026-12-31T00:00:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "pointsRequired", "rule", "eligibility", "validityDuration", "expiryDate"]
+
+    @field_validator('validity_duration', mode="before")
+    def validity_duration_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if isinstance(value, str) and not re.match(r"^[1-9][0-9]*([mh]|D(_[DU])?|[WMY](_U)?)$", value):
+            raise ValueError(r"must validate the regular expression /^[1-9][0-9]*([mh]|D(_[DU])?|[WMY](_U)?)$/")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -106,7 +120,9 @@ class RewardCatalogItem(BaseModel):
             "description": obj.get("description"),
             "pointsRequired": [RewardPointsRequired.from_dict(_item) for _item in obj["pointsRequired"]] if obj.get("pointsRequired") is not None else None,
             "rule": RuleMetadata.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
-            "eligibility": RewardEligibility.from_dict(obj["eligibility"]) if obj.get("eligibility") is not None else None
+            "eligibility": RewardEligibility.from_dict(obj["eligibility"]) if obj.get("eligibility") is not None else None,
+            "validityDuration": obj.get("validityDuration"),
+            "expiryDate": obj.get("expiryDate")
         })
         return _obj
 
