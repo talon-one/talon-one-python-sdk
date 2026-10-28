@@ -50,7 +50,9 @@ class TestIntegrationRewardsCatalog200Response(unittest.TestCase):
                                     subledger_id = 'mysubledger', )
                                 ], 
                             rule = null, 
-                            eligibility = null, )
+                            eligibility = null, 
+                            validity_duration = '3M_U', 
+                            expiry_date = '2026-12-31T00:00:00Z', )
                         ], ),
                 loyalty = {
                     'key' : talon_one.models.loyalty_balances.LoyaltyBalances(
@@ -75,7 +77,9 @@ class TestIntegrationRewardsCatalog200Response(unittest.TestCase):
                                     subledger_id = 'mysubledger', )
                                 ], 
                             rule = null, 
-                            eligibility = null, )
+                            eligibility = null, 
+                            validity_duration = '3M_U', 
+                            expiry_date = '2026-12-31T00:00:00Z', )
                         ], ),
         )
         """

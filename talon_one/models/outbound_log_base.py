@@ -27,16 +27,16 @@ from pydantic_core import to_jsonable_python
 
 class OutboundLogBase(BaseModel):
     """
-    Shared details of an outbound notification or webhook message.
+    OutboundLogBase
     """ # noqa: E501
     uuid: UUID = Field(description="UUID of the outbound message.", json_schema_extra={"examples": ["67e55044-10b1-426f-9247-bb680e5fe0c8"]})
-    notification_id: Optional[StrictInt] = Field(default=None, description="ID of the notification that produced the outbound request.", alias="notificationId", json_schema_extra={"examples": [1]})
-    notification_name: Optional[StrictStr] = Field(default=None, description="Name of the notification that produced the outbound request.", alias="notificationName", json_schema_extra={"examples": ["Notification name"]})
-    webhook_id: Optional[StrictInt] = Field(default=None, description="ID of the webhook that produced the outbound request.", alias="webhookId", json_schema_extra={"examples": [101]})
-    webhook_name: Optional[StrictStr] = Field(default=None, description="The name of the webhook that produced the outbound request.", alias="webhookName", json_schema_extra={"examples": ["My webhook"]})
-    notification_type: StrictStr = Field(description="Type of notification that produced the outbound request.", alias="notificationType", json_schema_extra={"examples": ["CampaignNotification"]})
-    application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application associated with the outbound request.", alias="applicationId", json_schema_extra={"examples": [1]})
-    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program associated with the outbound request.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
+    notification_id: Optional[StrictInt] = Field(default=None, description="ID of the notification that triggered the outbound message.", alias="notificationId", json_schema_extra={"examples": [1]})
+    notification_name: Optional[StrictStr] = Field(default=None, description="Name of the notification that triggered the outbound message.", alias="notificationName", json_schema_extra={"examples": ["Notification name"]})
+    webhook_id: Optional[StrictInt] = Field(default=None, description="ID of the webhook that triggered the outbound message.", alias="webhookId", json_schema_extra={"examples": [101]})
+    webhook_name: Optional[StrictStr] = Field(default=None, description="Name of the webhook that triggered the outbound message.", alias="webhookName", json_schema_extra={"examples": ["My webhook"]})
+    notification_type: StrictStr = Field(description="Type of notification that triggered the outbound message.", alias="notificationType", json_schema_extra={"examples": ["CampaignNotification"]})
+    application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application associated with the outbound message.", alias="applicationId", json_schema_extra={"examples": [1]})
+    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program associated with the outbound message.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
     request: Optional[OutboundLogRequest] = None
     __properties: ClassVar[List[str]] = ["uuid", "notificationId", "notificationName", "webhookId", "webhookName", "notificationType", "applicationId", "loyaltyProgramId", "request"]
 

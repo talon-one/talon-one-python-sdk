@@ -35,7 +35,8 @@ class TestUpdateLoyaltyCardRequest(unittest.TestCase):
         model = UpdateLoyaltyCardRequest()
         if include_optional:
             return UpdateLoyaltyCardRequest(
-                status = 'active'
+                status = 'active',
+                attributes = {PIN=1234, Language=DE}
             )
         else:
             return UpdateLoyaltyCardRequest(

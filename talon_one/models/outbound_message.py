@@ -29,23 +29,23 @@ from pydantic_core import to_jsonable_python
 
 class OutboundMessage(BaseModel):
     """
-    Outbound notification or webhook message with its shared request details.
+    OutboundMessage
     """ # noqa: E501
     uuid: UUID = Field(description="UUID of the outbound message.", json_schema_extra={"examples": ["67e55044-10b1-426f-9247-bb680e5fe0c8"]})
-    notification_id: Optional[StrictInt] = Field(default=None, description="ID of the notification that produced the outbound request.", alias="notificationId", json_schema_extra={"examples": [1]})
-    notification_name: Optional[StrictStr] = Field(default=None, description="Name of the notification that produced the outbound request.", alias="notificationName", json_schema_extra={"examples": ["Notification name"]})
-    webhook_id: Optional[StrictInt] = Field(default=None, description="ID of the webhook that produced the outbound request.", alias="webhookId", json_schema_extra={"examples": [101]})
-    webhook_name: Optional[StrictStr] = Field(default=None, description="The name of the webhook that produced the outbound request.", alias="webhookName", json_schema_extra={"examples": ["My webhook"]})
-    notification_type: StrictStr = Field(description="Type of notification that produced the outbound request.", alias="notificationType", json_schema_extra={"examples": ["CampaignNotification"]})
-    application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application associated with the outbound request.", alias="applicationId", json_schema_extra={"examples": [1]})
-    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program associated with the outbound request.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
+    notification_id: Optional[StrictInt] = Field(default=None, description="ID of the notification that triggered the outbound message.", alias="notificationId", json_schema_extra={"examples": [1]})
+    notification_name: Optional[StrictStr] = Field(default=None, description="Name of the notification that triggered the outbound message.", alias="notificationName", json_schema_extra={"examples": ["Notification name"]})
+    webhook_id: Optional[StrictInt] = Field(default=None, description="ID of the webhook that triggered the outbound message.", alias="webhookId", json_schema_extra={"examples": [101]})
+    webhook_name: Optional[StrictStr] = Field(default=None, description="Name of the webhook that triggered the outbound message.", alias="webhookName", json_schema_extra={"examples": ["My webhook"]})
+    notification_type: StrictStr = Field(description="Type of notification that triggered the outbound message.", alias="notificationType", json_schema_extra={"examples": ["CampaignNotification"]})
+    application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application associated with the outbound message.", alias="applicationId", json_schema_extra={"examples": [1]})
+    loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program associated with the outbound message.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
     request: Optional[OutboundLogRequest] = None
     first_log_at: datetime = Field(description="Timestamp of the first log entry for this message.", alias="firstLogAt", json_schema_extra={"examples": ["2026-08-17T14:32:05Z"]})
     last_log_at: datetime = Field(description="Timestamp of the last log entry for this message.", alias="lastLogAt", json_schema_extra={"examples": ["2026-08-17T14:32:05Z"]})
     last_response_code: Optional[StrictInt] = Field(default=None, description="HTTP status code from the latest response.", alias="lastResponseCode", json_schema_extra={"examples": [200]})
     status: StrictStr = Field(json_schema_extra={"examples": ["pending"]})
     retry_count: Optional[StrictInt] = Field(default=None, description="Number of retries.", alias="retryCount", json_schema_extra={"examples": [1]})
-    responses: Optional[List[OutboundMessageResponse]] = Field(default=None, description="Log entries for this message. Omitted when `includeLogs=false`.")
+    responses: Optional[List[OutboundMessageResponse]] = Field(default=None, description="Log entries for this message. One entry per delivery attempt. Empty when `includeLogs=false`.")
     __properties: ClassVar[List[str]] = ["uuid", "notificationId", "notificationName", "webhookId", "webhookName", "notificationType", "applicationId", "loyaltyProgramId", "request", "firstLogAt", "lastLogAt", "lastResponseCode", "status", "retryCount", "responses"]
 
     model_config = ConfigDict(

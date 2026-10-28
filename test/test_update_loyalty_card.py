@@ -36,7 +36,8 @@ class TestUpdateLoyaltyCard(unittest.TestCase):
         if include_optional:
             return UpdateLoyaltyCard(
                 status = 'active',
-                block_reason = 'Current card lost. Customer needs a new card.'
+                block_reason = 'Current card lost. Customer needs a new card.',
+                attributes = {PIN=1234, Language=DE}
             )
         else:
             return UpdateLoyaltyCard(

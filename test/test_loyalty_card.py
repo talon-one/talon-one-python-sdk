@@ -42,6 +42,7 @@ class TestLoyaltyCard(unittest.TestCase):
                 program_title = 'Loyalty program',
                 status = 'active',
                 block_reason = 'Current card lost. Customer needs a new card.',
+                attributes = {PIN=1234, Language=DE},
                 identifier = 'summer-loyalty-card-0543',
                 users_per_card_limit = 111,
                 profiles = [

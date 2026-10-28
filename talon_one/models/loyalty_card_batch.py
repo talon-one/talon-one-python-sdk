@@ -32,8 +32,9 @@ class LoyaltyCardBatch(BaseModel):
     number_of_cards: Annotated[int, Field(le=20000, strict=True, ge=1)] = Field(description="Number of loyalty cards in the batch.", alias="numberOfCards", json_schema_extra={"examples": [5000]})
     batch_id: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=20)]] = Field(default=None, description="ID of the loyalty card batch.", alias="batchId", json_schema_extra={"examples": ["hwernpjz"]})
     status: Optional[StrictStr] = Field(default='active', description="Status of the loyalty cards in the batch.", json_schema_extra={"examples": ["active"]})
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint. ", json_schema_extra={"examples": ["{PIN=1234, Language=DE}"]})
     card_code_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="cardCodeSettings")
-    __properties: ClassVar[List[str]] = ["numberOfCards", "batchId", "status", "cardCodeSettings"]
+    __properties: ClassVar[List[str]] = ["numberOfCards", "batchId", "status", "attributes", "cardCodeSettings"]
 
     @field_validator('batch_id', mode="before")
     def batch_id_validate_regular_expression(cls, value):
@@ -112,6 +113,7 @@ class LoyaltyCardBatch(BaseModel):
             "numberOfCards": obj.get("numberOfCards"),
             "batchId": obj.get("batchId"),
             "status": obj.get("status") if obj.get("status") is not None else 'active',
+            "attributes": obj.get("attributes"),
             "cardCodeSettings": CodeGeneratorSettings.from_dict(obj["cardCodeSettings"]) if obj.get("cardCodeSettings") is not None else None
         })
         return _obj

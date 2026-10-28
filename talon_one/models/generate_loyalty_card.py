@@ -31,7 +31,8 @@ class GenerateLoyaltyCard(BaseModel):
     status: Optional[StrictStr] = Field(default='active', description="Status of the loyalty card.", json_schema_extra={"examples": ["active"]})
     customer_profile_ids: Optional[List[StrictStr]] = Field(default=None, description="Integration IDs of the customer profiles linked to the card.", alias="customerProfileIds", json_schema_extra={"examples": [["R195412", "G244519"]]})
     card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
-    __properties: ClassVar[List[str]] = ["status", "customerProfileIds", "cardIdentifier"]
+    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint. ", json_schema_extra={"examples": [{"preferredReward": "discount"}]})
+    __properties: ClassVar[List[str]] = ["status", "customerProfileIds", "cardIdentifier", "attributes"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -106,7 +107,8 @@ class GenerateLoyaltyCard(BaseModel):
         _obj = cls.model_validate({
             "status": obj.get("status") if obj.get("status") is not None else 'active',
             "customerProfileIds": obj.get("customerProfileIds"),
-            "cardIdentifier": obj.get("cardIdentifier")
+            "cardIdentifier": obj.get("cardIdentifier"),
+            "attributes": obj.get("attributes")
         })
         return _obj
 

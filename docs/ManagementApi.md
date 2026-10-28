@@ -4723,7 +4723,10 @@ Download a CSV file containing the customer sessions that match the request.
    in the session.
 - `updated`: Timestamp of the last session update.
 - `store_integration_id`: The integration ID of the store.
+- `loyaltycards`: The identifier of the loyalty card used in the session. A session can have only one loyalty card.
+- `updatecount`: The number of times the session was updated. When the session is created, this value is initialized to `1`.
 - `coupons`: Coupon codes in the session.
+- `rewards`: The integration IDs of the unlocked rewards that can be used in the session.
 
 
 ### Example
@@ -5317,7 +5320,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_loyalty_card_ledger**
-> str export_loyalty_card_ledger(loyalty_program_id, loyalty_card_id, range_start, range_end, date_format=date_format)
+> str export_loyalty_card_ledger(loyalty_program_id, loyalty_card_id, range_start, range_end, date_format=date_format, include_references=include_references)
 
 Export card's ledger log
 
@@ -5326,8 +5329,7 @@ program.
 
 > [!tip] If the exported CSV file is too large to view, you can
 > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
-
-The generated file can contain the following columns:
+The file contains the following columns:
 
 - `cardidentifier`: The identifier of the loyalty card.
 - `applicationid`: The ID of the Application.
@@ -5347,8 +5349,9 @@ The generated file can contain the following columns:
 - `archived`: Whether the session related to the transaction is archived.
 - `campaignid`: The ID of the campaign.
 - `transactionUUID`: Unique identifier of the transaction in the UUID format.
-- `validityDuration`: The duration for which the points remain active, relative to the activation date.
-- `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions.
+- `validityduration`: The duration for which the points remain active, relative to the activation date.
+- `remainingamount`: The current unused amount of points, when applicable to `addition` transactions.
+- `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`.
 
 
 ### Example
@@ -5386,10 +5389,11 @@ with talon_one.ApiClient(configuration) as api_client:
     range_start = '2013-10-20T19:20:30+01:00' # datetime | Only return results from after this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     range_end = '2013-10-20T19:20:30+01:00' # datetime | Only return results from before this timestamp.  > [!note] **Note** > - This must be an RFC3339 timestamp string. > - You can include a time component in your string, for example, `T23:59:59` to specify the end of the day. The time zone setting >   considered is `UTC`. If you do not include a time component, a default time value of `T00:00:00` (midnight) in `UTC` is considered. 
     date_format = 'date_format_example' # str | Determines the format of dates in the export document. (optional)
+    include_references = False # bool | Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially  when no date filter is applied to a large transaction history.          (optional) (default to False)
 
     try:
         # Export card's ledger log
-        api_response = api_instance.export_loyalty_card_ledger(loyalty_program_id, loyalty_card_id, range_start, range_end, date_format=date_format)
+        api_response = api_instance.export_loyalty_card_ledger(loyalty_program_id, loyalty_card_id, range_start, range_end, date_format=date_format, include_references=include_references)
         print("The response of ManagementApi->export_loyalty_card_ledger:\n")
         pprint(api_response)
     except Exception as e:
@@ -5408,6 +5412,7 @@ Name | Type | Description  | Notes
  **range_start** | **datetime**| Only return results from after this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **range_end** | **datetime**| Only return results from before this timestamp.  &gt; [!note] **Note** &gt; - This must be an RFC3339 timestamp string. &gt; - You can include a time component in your string, for example, &#x60;T23:59:59&#x60; to specify the end of the day. The time zone setting &gt;   considered is &#x60;UTC&#x60;. If you do not include a time component, a default time value of &#x60;T00:00:00&#x60; (midnight) in &#x60;UTC&#x60; is considered.  | 
  **date_format** | **str**| Determines the format of dates in the export document. | [optional] 
+ **include_references** | **bool**| Whether to include the UUIDs of transactions referenced by deductions. When set to &#x60;true&#x60;, the UUIDs are included in the &#x60;referencetransactionuuids&#x60; column of the export CSV.  **Note:** Enabling this can decrease query performance, especially  when no date filter is applied to a large transaction history.          | [optional] [default to False]
 
 ### Return type
 
@@ -5628,7 +5633,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_loyalty_ledger**
-> str export_loyalty_ledger(range_start, range_end, loyalty_program_id, integration_id, date_format=date_format)
+> str export_loyalty_ledger(range_start, range_end, loyalty_program_id, integration_id, date_format=date_format, include_references=include_references)
 
 Export customer's transaction logs
 
@@ -5638,7 +5643,7 @@ program.
 > [!tip] If the exported CSV file is too large to view, you can
 > [split it into multiple files](https://www.google.com/search?q=split+CSV+into+multiple+files).
 
-The generated file can contain the following columns:
+The file contains the following columns:
 
 - `customerprofileid`: The ID of the profile.
 - `customersessionid`: The ID of the customer session.
@@ -5657,8 +5662,9 @@ The generated file can contain the following columns:
 - `campaignid`: The ID of the campaign.
 - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance.
 - `transactionUUID`: Unique identifier of the transaction in the UUID format.
-- `validityDuration`: The duration for which the points remain active, relative to the activation date.
-- `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions.
+- `validityduration`: The duration for which the points remain active, relative to the activation date.
+- `remainingamount`: The current unused amount of points, when applicable to `addition` transactions.
+- `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`.
 
 
 ### Example
@@ -5696,10 +5702,11 @@ with talon_one.ApiClient(configuration) as api_client:
     loyalty_program_id = 'loyalty_program_id_example' # str | The identifier for the loyalty program.
     integration_id = 'integration_id_example' # str | The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier. 
     date_format = 'date_format_example' # str | Determines the format of dates in the export document. (optional)
+    include_references = False # bool | Whether to include the UUIDs of transactions referenced by deductions. When set to `true`, the UUIDs are included in the `referencetransactionuuids` column of the export CSV.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history.  (optional) (default to False)
 
     try:
         # Export customer's transaction logs
-        api_response = api_instance.export_loyalty_ledger(range_start, range_end, loyalty_program_id, integration_id, date_format=date_format)
+        api_response = api_instance.export_loyalty_ledger(range_start, range_end, loyalty_program_id, integration_id, date_format=date_format, include_references=include_references)
         print("The response of ManagementApi->export_loyalty_ledger:\n")
         pprint(api_response)
     except Exception as e:
@@ -5718,6 +5725,7 @@ Name | Type | Description  | Notes
  **loyalty_program_id** | **str**| The identifier for the loyalty program. | 
  **integration_id** | **str**| The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  | 
  **date_format** | **str**| Determines the format of dates in the export document. | [optional] 
+ **include_references** | **bool**| Whether to include the UUIDs of transactions referenced by deductions. When set to &#x60;true&#x60;, the UUIDs are included in the &#x60;referencetransactionuuids&#x60; column of the export CSV.  **Note:** Enabling this can decrease query performance, especially when no date filter is applied to a large transaction history.  | [optional] [default to False]
 
 ### Return type
 

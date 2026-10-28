@@ -183,6 +183,7 @@ Class | Method | HTTP request | Description
 *IntegrationApi* | [**get_reserved_customers**](docs/IntegrationApi.md#get_reserved_customers) | **GET** /v1/coupon_reservations/customerprofiles/{couponValue} | List customers that have this coupon reserved
 *IntegrationApi* | [**integration_get_all_campaigns**](docs/IntegrationApi.md#integration_get_all_campaigns) | **GET** /v1/integration/campaigns | List all running campaigns
 *IntegrationApi* | [**integration_rewards_catalog**](docs/IntegrationApi.md#integration_rewards_catalog) | **GET** /v1/rewards/catalog | List rewards in the catalog
+*IntegrationApi* | [**integration_update_loyalty_card**](docs/IntegrationApi.md#integration_update_loyalty_card) | **PUT** /v1/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/update | Update loyalty card
 *IntegrationApi* | [**join_loyalty_program**](docs/IntegrationApi.md#join_loyalty_program) | **POST** /v1/loyalty_programs/{loyaltyProgramId}/profile/{integrationId}/join | Join customer profile to loyalty program
 *IntegrationApi* | [**link_loyalty_card_to_profile**](docs/IntegrationApi.md#link_loyalty_card_to_profile) | **POST** /v2/loyalty_programs/{loyaltyProgramId}/cards/{loyaltyCardId}/link_profile | Link customer profile to card
 *IntegrationApi* | [**reopen_customer_session**](docs/IntegrationApi.md#reopen_customer_session) | **PUT** /v2/customer_sessions/{customerSessionId}/reopen | Reopen customer session
@@ -742,6 +743,7 @@ Class | Method | HTTP request | Description
 - [EmailEntity](docs/EmailEntity.md)
 - [EmbeddedAnalyticsConfiguration](docs/EmbeddedAnalyticsConfiguration.md)
 - [EmbeddedAnalyticsConfigurationDashboards](docs/EmbeddedAnalyticsConfigurationDashboards.md)
+- [EmbeddedAnalyticsToken](docs/EmbeddedAnalyticsToken.md)
 - [EmbeddedDashboardConfiguration](docs/EmbeddedDashboardConfiguration.md)
 - [Endpoint](docs/Endpoint.md)
 - [Entity](docs/Entity.md)

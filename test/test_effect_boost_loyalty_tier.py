@@ -53,13 +53,7 @@ class TestEffectBoostLoyaltyTier(unittest.TestCase):
                 adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b',
                 reward_id = 7,
                 reward_integration_id = 'reward-unlock-123',
-                props = talon_one.models.boost_loyalty_tier.boostLoyaltyTier(
-                    program_id = 56, 
-                    sub_ledger_id = '', 
-                    tier_name = '', 
-                    reason = '', 
-                    expiry_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    boost_uuid = '27b16dbb-fbc7-4c02-99b1-b21b8a94c186', )
+                props = {programId=5, subLedgerId=main, tierName=Gold, reason=Summer promotion, expiryDate=2025-01-01T00:00:00Z, boostUuid=27b16dbb-fbc7-4c02-99b1-b21b8a94c186}
             )
         else:
             return EffectBoostLoyaltyTier(
@@ -68,13 +62,7 @@ class TestEffectBoostLoyaltyTier(unittest.TestCase):
                 rule_index = 2,
                 rule_name = 'Give 20% discount',
                 effect_type = 'boostLoyaltyTier',
-                props = talon_one.models.boost_loyalty_tier.boostLoyaltyTier(
-                    program_id = 56, 
-                    sub_ledger_id = '', 
-                    tier_name = '', 
-                    reason = '', 
-                    expiry_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    boost_uuid = '27b16dbb-fbc7-4c02-99b1-b21b8a94c186', ),
+                props = {programId=5, subLedgerId=main, tierName=Gold, reason=Summer promotion, expiryDate=2025-01-01T00:00:00Z, boostUuid=27b16dbb-fbc7-4c02-99b1-b21b8a94c186},
         )
         """
 
