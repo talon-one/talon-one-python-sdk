@@ -35,7 +35,7 @@ class TestUpdateReferralBatch(unittest.TestCase):
         model = UpdateReferralBatch()
         if include_optional:
             return UpdateReferralBatch(
-                attributes = None,
+                attributes = { },
                 batch_id = '32535-43255',
                 start_date = '2020-11-10T23:00:00Z',
                 expiry_date = '2021-11-10T23:00:00Z',

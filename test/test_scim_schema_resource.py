@@ -39,7 +39,7 @@ class TestScimSchemaResource(unittest.TestCase):
                 name = '',
                 description = '',
                 attributes = [
-                    None
+                    { }
                     ]
             )
         else:

@@ -42,6 +42,7 @@ class TestExperimentVariant(unittest.TestCase):
                 ruleset = None,
                 weight = 12,
                 is_primary = True,
+                order = 0,
                 audience_id = 55
             )
         else:
@@ -49,7 +50,6 @@ class TestExperimentVariant(unittest.TestCase):
                 id = 6,
                 created = '2020-06-10T09:05:27.993483Z',
                 name = 'Variant A',
-                is_primary = True,
         )
         """
 

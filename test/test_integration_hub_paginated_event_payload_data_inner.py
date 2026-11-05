@@ -71,7 +71,7 @@ class TestIntegrationHubPaginatedEventPayloadDataInner(unittest.TestCase):
                 recipient_integration_id = '',
                 import_id = 56,
                 batch_id = '',
-                attributes = None,
+                attributes = { },
                 limits = [
                     talon_one.models.integration_hub_event_payload_coupon_based_notifications_limits.IntegrationHubEventPayloadCouponBasedNotificationsLimits(
                         action = '', 

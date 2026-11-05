@@ -38,7 +38,7 @@ class TestScimBaseUser(unittest.TestCase):
                 active = True,
                 display_name = 'John Doe',
                 user_name = 'john.doe@example.com',
-                name = talon_one.models.scim_base_user_name.ScimBaseUser_name(
+                name = talon_one.models.scim_base_user_name.ScimBaseUserName(
                     formatted = 'Mr. John J Doe', )
             )
         else:

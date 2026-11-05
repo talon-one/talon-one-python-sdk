@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from talon_one.models.ruleset import Ruleset
 from typing import Optional, Set
 from typing_extensions import Self
@@ -35,9 +36,10 @@ class ExperimentVariant(BaseModel):
     experiment_id: Optional[StrictInt] = Field(default=None, alias="experimentId", json_schema_extra={"examples": [10]})
     ruleset: Optional[Ruleset] = None
     weight: Optional[StrictInt] = Field(default=None, json_schema_extra={"examples": [12]})
-    is_primary: StrictBool = Field(alias="isPrimary", json_schema_extra={"examples": [True]})
+    is_primary: Optional[StrictBool] = Field(default=None, description="**Deprecated.** Use `order` instead. Indicates whether this is the primary variant. This is computed as `order == 0`. ", alias="isPrimary", json_schema_extra={"examples": [True]})
+    order: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="The position of this variant in the experiment. The variant with `order: 0` is the primary variant. ", json_schema_extra={"examples": [0]})
     audience_id: Optional[StrictInt] = Field(default=None, description="The ID of the audience this variant targets. Only used when the experiment `assignmentType` is `audience`. ", alias="audienceId", json_schema_extra={"examples": [55]})
-    __properties: ClassVar[List[str]] = ["id", "created", "name", "experimentId", "ruleset", "weight", "isPrimary", "audienceId"]
+    __properties: ClassVar[List[str]] = ["id", "created", "name", "experimentId", "ruleset", "weight", "isPrimary", "order", "audienceId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -100,6 +102,7 @@ class ExperimentVariant(BaseModel):
             "ruleset": Ruleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
             "weight": obj.get("weight"),
             "isPrimary": obj.get("isPrimary"),
+            "order": obj.get("order"),
             "audienceId": obj.get("audienceId")
         })
         return _obj

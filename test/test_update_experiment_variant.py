@@ -82,6 +82,7 @@ class TestUpdateExperimentVariant(unittest.TestCase):
                     rb_version = 'v2', 
                     activate = True, ),
                 weight = 13,
+                order = 0,
                 audience_id = 55
             )
         else:

@@ -39,7 +39,7 @@ class TestRevisionVersion(unittest.TestCase):
                 name = 'Summer promotions',
                 start_time = '2021-07-20T22:00:00Z',
                 end_time = '2021-09-22T22:00:00Z',
-                attributes = talon_one.models.attributes.attributes(),
+                attributes = { },
                 description = 'Campaign for all summer 2021 promotions',
                 active_ruleset_id = 5,
                 tags = [
@@ -62,7 +62,7 @@ class TestRevisionVersion(unittest.TestCase):
                 features = [
                     'coupons'
                     ],
-                coupon_attributes = talon_one.models.coupon_attributes.couponAttributes(),
+                coupon_attributes = { },
                 account_id = 3886,
                 application_id = 42,
                 campaign_id = 18,

@@ -36,7 +36,7 @@ class TestExperimentCopy(unittest.TestCase):
         if include_optional:
             return ExperimentCopy(
                 target_application_id = 56,
-                experiment = talon_one.models.experiment_copy_experiment.ExperimentCopy_experiment(
+                experiment = talon_one.models.experiment_copy_experiment.ExperimentCopyExperiment(
                     assignment_type = 'random', 
                     is_variant_assignment_external = True, 
                     campaign = talon_one.models.experiment_campaign_copy.ExperimentCampaignCopy(
@@ -52,7 +52,7 @@ class TestExperimentCopy(unittest.TestCase):
         else:
             return ExperimentCopy(
                 target_application_id = 56,
-                experiment = talon_one.models.experiment_copy_experiment.ExperimentCopy_experiment(
+                experiment = talon_one.models.experiment_copy_experiment.ExperimentCopyExperiment(
                     assignment_type = 'random', 
                     is_variant_assignment_external = True, 
                     campaign = talon_one.models.experiment_campaign_copy.ExperimentCampaignCopy(

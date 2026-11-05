@@ -40,7 +40,7 @@ class TestExport(unittest.TestCase):
                 account_id = 3886,
                 user_id = 388,
                 entity = 'Coupon',
-                filter = None
+                filter = { }
             )
         else:
             return Export(
@@ -49,7 +49,7 @@ class TestExport(unittest.TestCase):
                 account_id = 3886,
                 user_id = 388,
                 entity = 'Coupon',
-                filter = None,
+                filter = { },
         )
         """
 

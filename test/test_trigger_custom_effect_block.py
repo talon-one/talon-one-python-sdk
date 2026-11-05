@@ -42,7 +42,7 @@ class TestTriggerCustomEffectBlock(unittest.TestCase):
                     ],
                 custom_effect = None,
                 params = {template_id=TPL-10293},
-                target = talon_one.models.trigger_custom_effect_block_1_target.TriggerCustomEffectBlock_1_target(
+                target = talon_one.models.trigger_custom_effect_block1_target.TriggerCustomEffectBlock1Target(
                     type = 'cart', 
                     name = 'giftBundle', ),
                 on_error = {
@@ -55,7 +55,7 @@ class TestTriggerCustomEffectBlock(unittest.TestCase):
             return TriggerCustomEffectBlock(
                 type = '',
                 custom_effect = None,
-                target = talon_one.models.trigger_custom_effect_block_1_target.TriggerCustomEffectBlock_1_target(
+                target = talon_one.models.trigger_custom_effect_block1_target.TriggerCustomEffectBlock1Target(
                     type = 'cart', 
                     name = 'giftBundle', ),
         )

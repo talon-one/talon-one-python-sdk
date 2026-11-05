@@ -44,7 +44,7 @@ class TestApplication(unittest.TestCase):
                 timezone = 'Europe/Berlin',
                 currency = 'EUR',
                 case_sensitivity = 'sensitive',
-                attributes = talon_one.models.attributes.attributes(),
+                attributes = { },
                 limits = [
                     talon_one.models.limit_config.LimitConfig(
                         action = 'createCoupon', 

@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | The ID of the historical price. | 
-**observed_at** | **datetime** | The date and time when the price was observed. | 
-**context_ids** | **List[str]** | The identifiers of the relevant context (the sales events, e.g. \&quot;Spring Sale\&quot;, \&quot;Summer Sale\&quot;) at the time the price was observed. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price.  | 
+**id** | **int** | The ID of the price record. | 
+**observed_at** | **datetime** | The date and time from which the price record is effective. | 
+**context_ids** | **List[str]** | The identifiers of the relevant context (the sales events, e.g. \&quot;Spring Sale\&quot;, \&quot;Summer Sale\&quot;) at the time from which the price record is effective. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price.  | 
 **price** | **float** | Price of the item. | 
 **metadata** | [**BestPriorPriceMetadata**](BestPriorPriceMetadata.md) |  | 
 **target** | [**LabelTarget**](LabelTarget.md) |  | 
-**excluded_at** | **datetime** | The date and time when the historical price ID was excluded. | [optional] 
-**exclusion_reason** | **str** | The reason for excluding this historical price ID. | [optional] 
+**excluded_at** | **datetime** | The date and time when the price record was excluded. | [optional] 
+**exclusion_reason** | **str** | The reason for excluding this price record. | [optional] 
 
 ## Example
 

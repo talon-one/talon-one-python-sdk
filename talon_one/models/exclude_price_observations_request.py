@@ -28,8 +28,8 @@ class ExcludePriceObservationsRequest(BaseModel):
     """
     ExcludePriceObservationsRequest
     """ # noqa: E501
-    ids: Annotated[List[Annotated[int, Field(strict=True, ge=1)]], Field(min_length=1, max_length=1000)] = Field(description="A list of historical price IDs to exclude from best prior price calculation. Must contain between 1 and 1000 IDs. All IDs must be valid `id` values obtained from the [Get summary of price history](https://docs.talon.one/management-api#tag/Catalogs/operation/priceHistory.responses.200.history) endpoint, must belong to the specified Application, and must not already be excluded from best prior price calculation. ")
-    reason: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The reason for excluding these historical price IDs. Applies to all IDs in the batch. ", json_schema_extra={"examples": ["Incorrect contextID value."]})
+    ids: Annotated[List[Annotated[int, Field(strict=True, ge=1)]], Field(min_length=1, max_length=1000)] = Field(description="A list of price record IDs to exclude from best prior price calculation. Must contain between 1 and 1000 IDs. All IDs must be valid `id` values obtained from the [Get summary of price history](https://docs.talon.one/management-api#tag/Catalogs/operation/priceHistory.responses.200.history) endpoint, must belong to the specified Application, and must not already be excluded from best prior price calculation. ")
+    reason: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The reason for excluding these IDs. Applies to all IDs in the batch. ", json_schema_extra={"examples": ["Incorrect contextID value."]})
     __properties: ClassVar[List[str]] = ["ids", "reason"]
 
     model_config = ConfigDict(

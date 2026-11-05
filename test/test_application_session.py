@@ -74,7 +74,7 @@ class TestApplicationSession(unittest.TestCase):
                     },
                 total_discounts = 100,
                 total = 200,
-                attributes = None
+                attributes = { }
             )
         else:
             return ApplicationSession(

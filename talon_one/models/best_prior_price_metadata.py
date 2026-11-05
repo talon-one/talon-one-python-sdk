@@ -27,7 +27,7 @@ from pydantic_core import to_jsonable_python
 
 class BestPriorPriceMetadata(BaseModel):
     """
-    Auxiliary data for found price observation.
+    Auxiliary data for the found price record.
     """ # noqa: E501
     influencing_campaign_details: List[InfluencingCampaignDetails] = Field(description="Details about campaigns that influenced the final price.", alias="influencingCampaignDetails")
     adjustment_details: Optional[AdjustmentDetails] = Field(default=None, description="Details about the applied price adjustment.", alias="adjustmentDetails")

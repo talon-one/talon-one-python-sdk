@@ -40,7 +40,7 @@ class TestUpdateUser(unittest.TestCase):
                 is_admin = False,
                 policy = '{Role=127}',
                 roles = [1, 3],
-                application_notification_subscriptions = None
+                application_notification_subscriptions = { }
             )
         else:
             return UpdateUser(

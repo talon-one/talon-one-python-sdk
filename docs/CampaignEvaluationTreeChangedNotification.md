@@ -1,14 +1,13 @@
 # CampaignEvaluationTreeChangedNotification
 
-Notification about an Application whose campaign evaluation tree changed.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**application_id** | **int** | The ID of the Application whose campaign evaluation tree changed. | 
-**old_evaluation_tree** | [**CampaignSet**](CampaignSet.md) | The previous campaign evaluation tree. | [optional] 
-**evaluation_tree** | [**CampaignSet**](CampaignSet.md) | The new campaign evaluation tree. | 
+**notification_type** | **str** | The type of the notification | 
+**total_result_size** | **int** | The total size of the result set. | 
+**data** | [**List[CampaignEvaluationTreeChangedNotificationData]**](CampaignEvaluationTreeChangedNotificationData.md) | The array of changes. | 
 
 ## Example
 

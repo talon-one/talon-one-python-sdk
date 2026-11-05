@@ -35,8 +35,8 @@ class TestMeta(unittest.TestCase):
         model = Meta()
         if include_optional:
             return Meta(
-                campaigns = None,
-                coupons = None,
+                campaigns = { },
+                coupons = { },
                 coupon_rejection_reason = talon_one.models.coupon_rejection_reason.CouponRejectionReason(
                     campaign_id = 244, 
                     coupon_id = 4928, 
@@ -45,7 +45,7 @@ class TestMeta(unittest.TestCase):
                     campaign_id = 56, 
                     referral_id = 56, 
                     reason = 'ReferralNotFound', ),
-                warnings = None
+                warnings = { }
             )
         else:
             return Meta(

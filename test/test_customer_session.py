@@ -68,7 +68,7 @@ class TestCustomerSession(unittest.TestCase):
                     ],
                 identifiers = [91.11.156.141],
                 total = 1.337,
-                attributes = None,
+                attributes = { },
                 first_session = True,
                 update_count = 3,
                 discounts = {

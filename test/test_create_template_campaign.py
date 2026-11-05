@@ -38,7 +38,7 @@ class TestCreateTemplateCampaign(unittest.TestCase):
                 name = 'Discount campaign',
                 description = 'This template is for discount campaigns.',
                 template_id = 4,
-                campaign_attributes_overrides = None,
+                campaign_attributes_overrides = { },
                 template_param_values = [
                     talon_one.models.binding.Binding(
                         name = 'Discount percentage', 

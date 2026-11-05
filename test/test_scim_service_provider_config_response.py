@@ -35,22 +35,22 @@ class TestScimServiceProviderConfigResponse(unittest.TestCase):
         model = ScimServiceProviderConfigResponse()
         if include_optional:
             return ScimServiceProviderConfigResponse(
-                bulk = talon_one.models.scim_service_provider_config_response_bulk.ScimServiceProviderConfigResponse_bulk(
+                bulk = talon_one.models.scim_service_provider_config_response_bulk.ScimServiceProviderConfigResponseBulk(
                     max_operations = 56, 
                     max_payload_size = 56, 
                     supported = True, ),
-                change_password = talon_one.models.scim_service_provider_config_response_change_password.ScimServiceProviderConfigResponse_changePassword(
+                change_password = talon_one.models.scim_service_provider_config_response_change_password.ScimServiceProviderConfigResponseChangePassword(
                     supported = True, ),
                 documentation_uri = '',
-                filter = talon_one.models.scim_service_provider_config_response_filter.ScimServiceProviderConfigResponse_filter(
+                filter = talon_one.models.scim_service_provider_config_response_filter.ScimServiceProviderConfigResponseFilter(
                     max_results = 56, 
                     supported = True, ),
-                patch = talon_one.models.scim_service_provider_config_response_patch.ScimServiceProviderConfigResponse_patch(
+                patch = talon_one.models.scim_service_provider_config_response_patch.ScimServiceProviderConfigResponsePatch(
                     supported = True, ),
                 schemas = [
                     ''
                     ],
-                sort = talon_one.models.scim_service_provider_config_response_sort.ScimServiceProviderConfigResponse_sort(
+                sort = talon_one.models.scim_service_provider_config_response_sort.ScimServiceProviderConfigResponseSort(
                     supported = True, )
             )
         else:
