@@ -65,7 +65,7 @@ class TestNewCustomerSession(unittest.TestCase):
                     ],
                 identifiers = [91.11.156.141],
                 total = 1.337,
-                attributes = None
+                attributes = { }
             )
         else:
             return NewCustomerSession(

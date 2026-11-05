@@ -39,7 +39,7 @@ class TestCatalogActionPatch(unittest.TestCase):
                 payload = talon_one.models.patch_item_catalog_action.PatchItemCatalogAction(
                     sku = '', 
                     price = 99.99, 
-                    attributes = talon_one.models.attributes.attributes(), 
+                    attributes = { }, 
                     product = talon_one.models.product.Product(
                         name = 'sample_product', ), 
                     create_if_not_exists = True, )
@@ -50,7 +50,7 @@ class TestCatalogActionPatch(unittest.TestCase):
                 payload = talon_one.models.patch_item_catalog_action.PatchItemCatalogAction(
                     sku = '', 
                     price = 99.99, 
-                    attributes = talon_one.models.attributes.attributes(), 
+                    attributes = { }, 
                     product = talon_one.models.product.Product(
                         name = 'sample_product', ), 
                     create_if_not_exists = True, ),

@@ -35,7 +35,7 @@ class TestIntegrationRewardsCatalog200Response(unittest.TestCase):
         model = IntegrationRewardsCatalog200Response()
         if include_optional:
             return IntegrationRewardsCatalog200Response(
-                catalog = talon_one.models.integration_rewards_catalog_200_response_catalog.integrationRewardsCatalog_200_response_catalog(
+                catalog = talon_one.models.integration_rewards_catalog200_response_catalog.IntegrationRewardsCatalog200ResponseCatalog(
                     has_more = True, 
                     data = [
                         talon_one.models.reward_catalog_item.RewardCatalogItem(
@@ -62,7 +62,7 @@ class TestIntegrationRewardsCatalog200Response(unittest.TestCase):
             )
         else:
             return IntegrationRewardsCatalog200Response(
-                catalog = talon_one.models.integration_rewards_catalog_200_response_catalog.integrationRewardsCatalog_200_response_catalog(
+                catalog = talon_one.models.integration_rewards_catalog200_response_catalog.IntegrationRewardsCatalog200ResponseCatalog(
                     has_more = True, 
                     data = [
                         talon_one.models.reward_catalog_item.RewardCatalogItem(

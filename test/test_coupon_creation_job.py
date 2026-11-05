@@ -49,7 +49,7 @@ class TestCouponCreationJob(unittest.TestCase):
                 coupon_settings = talon_one.models.code_generator_settings.CodeGeneratorSettings(
                     valid_characters = [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
                     coupon_pattern = 'SUMMER-####-####', ),
-                attributes = None,
+                attributes = { },
                 is_reservation_mandatory = False,
                 batch_id = 'tqyrgahe',
                 status = 'pending',
@@ -70,7 +70,7 @@ class TestCouponCreationJob(unittest.TestCase):
                 account_id = 3886,
                 usage_limit = 100,
                 number_of_coupons = 200000,
-                attributes = None,
+                attributes = { },
                 batch_id = 'tqyrgahe',
                 status = 'pending',
                 created_amount = 1000000,

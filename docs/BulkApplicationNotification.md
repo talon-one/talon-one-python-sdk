@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **total_result_size** | **int** |  | 
-**data** | [**List[CampaignEvaluationTreeChangedNotification]**](CampaignEvaluationTreeChangedNotification.md) |  | 
+**data** | [**List[CampaignEvaluationTreeChangedNotificationData]**](CampaignEvaluationTreeChangedNotificationData.md) |  | 
 
 ## Example
 

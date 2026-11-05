@@ -33,8 +33,9 @@ class UpdateExperimentVariant(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The name of this variant.", json_schema_extra={"examples": ["Variant A"]})
     ruleset: NewRuleset
     weight: Annotated[int, Field(le=99, strict=True, ge=0)] = Field(description="The percentage split of this variant. For `random` assignment, the split must be between 1 and 99 and the sum across all variants must equal 100. Ignored for `audience` and `external` assignment. ", json_schema_extra={"examples": [13]})
+    order: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="The position of this variant in the experiment. The variant with `order: 0` is the primary variant. ", json_schema_extra={"examples": [0]})
     audience_id: Optional[StrictInt] = Field(default=None, description="The ID of the audience this variant targets. Only used when the experiment `assignmentType` is `audience`. ", alias="audienceId", json_schema_extra={"examples": [55]})
-    __properties: ClassVar[List[str]] = ["id", "name", "ruleset", "weight", "audienceId"]
+    __properties: ClassVar[List[str]] = ["id", "name", "ruleset", "weight", "order", "audienceId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -94,6 +95,7 @@ class UpdateExperimentVariant(BaseModel):
             "name": obj.get("name"),
             "ruleset": NewRuleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
             "weight": obj.get("weight"),
+            "order": obj.get("order"),
             "audienceId": obj.get("audienceId")
         })
         return _obj

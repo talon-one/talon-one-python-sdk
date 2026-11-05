@@ -41,7 +41,7 @@ class TestAwardLoyaltyPointsBlock(unittest.TestCase):
                     ''
                     ],
                 name = 'Bonus',
-                program = talon_one.models.award_loyalty_points_block_1_program.AwardLoyaltyPointsBlock_1_program(
+                program = talon_one.models.award_loyalty_points_block1_program.AwardLoyaltyPointsBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),
@@ -60,7 +60,7 @@ class TestAwardLoyaltyPointsBlock(unittest.TestCase):
             return AwardLoyaltyPointsBlock(
                 type = '',
                 name = 'Bonus',
-                program = talon_one.models.award_loyalty_points_block_1_program.AwardLoyaltyPointsBlock_1_program(
+                program = talon_one.models.award_loyalty_points_block1_program.AwardLoyaltyPointsBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),

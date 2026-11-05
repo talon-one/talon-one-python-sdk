@@ -35,11 +35,11 @@ class TestCampaignSearch(unittest.TestCase):
         model = CampaignSearch()
         if include_optional:
             return CampaignSearch(
-                attributes = None
+                attributes = { }
             )
         else:
             return CampaignSearch(
-                attributes = None,
+                attributes = { },
         )
         """
 

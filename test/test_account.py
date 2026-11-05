@@ -52,7 +52,7 @@ class TestAccount(unittest.TestCase):
                 user_count = 56,
                 campaigns_active_count = 56,
                 campaigns_inactive_count = 56,
-                attributes = None
+                attributes = { }
             )
         else:
             return Account(

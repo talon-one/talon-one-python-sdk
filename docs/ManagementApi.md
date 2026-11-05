@@ -3637,7 +3637,11 @@ void (empty response body)
 
 Exclude price records from price history
 
-Select a batch of historical price IDs to exclude from [best prior price calculation](https://docs.talon.one/integration-api#tag/Catalogs/operation/bestPriorPrice). All IDs in the batch must be valid `id` values obtained from the [Get summary of price history](https://docs.talon.one/management-api#tag/Catalogs/operation/priceHistory.responses.200.history) endpoint, must belong to the specified Application, must not already be excluded from best prior price calculation, and must not be associated with a scheduled strikethrough pricing notification.
+Select a batch of price records (historical price data) to exclude from [best prior price calculation](https://docs.talon.one/integration-api#tag/Catalogs/operation/bestPriorPrice).
+
+All IDs in the batch must be valid `id` values obtained from the [Get summary of price history](https://docs.talon.one/management-api#tag/Catalogs/operation/priceHistory.responses.200.history) endpoint, must belong to the specified Application, must not already be excluded from best prior price calculation, and must not be associated with a scheduled strikethrough pricing notification.
+
+For more information, see [Best prior price](https://docs.talon.one/docs/dev/integration-guides/best-prior-price).
 
 
 ### Example
@@ -4629,7 +4633,7 @@ with talon_one.ApiClient(configuration) as api_client:
     batch_id = 'batch_id_example' # str | Filter results by batches of coupons (optional)
     exact_match = False # bool | Filter results to an exact case-insensitive matching against the coupon code. (optional) (default to False)
     date_format = 'date_format_example' # str | Determines the format of dates in the export document. (optional)
-    campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
+    campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (active), or expired. - `running`: Campaigns that are running (active). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
     values_only = False # bool | Filter results to only return the coupon codes (`value` column) without the associated coupon data. (optional) (default to False)
     deleted_before = '2013-10-20T19:20:30+01:00' # datetime | Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results. (optional)
     deleted_after = '2013-10-20T19:20:30+01:00' # datetime | Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results. (optional)
@@ -4663,7 +4667,7 @@ Name | Type | Description  | Notes
  **batch_id** | **str**| Filter results by batches of coupons | [optional] 
  **exact_match** | **bool**| Filter results to an exact case-insensitive matching against the coupon code. | [optional] [default to False]
  **date_format** | **str**| Determines the format of dates in the export document. | [optional] 
- **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (activated), or expired. - &#x60;running&#x60;: Campaigns that are running (activated). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
+ **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (active), or expired. - &#x60;running&#x60;: Campaigns that are running (active). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
  **values_only** | **bool**| Filter results to only return the coupon codes (&#x60;value&#x60; column) without the associated coupon data. | [optional] [default to False]
  **deleted_before** | **datetime**| Timestamp that filters the results to only contain coupons deleted before this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results. | [optional] 
  **deleted_after** | **datetime**| Timestamp that filters the results to only contain coupons deleted after this date. Must be an RFC3339 timestamp string. You can use any time zone setting. Talon.One will convert to UTC internally.  **Note:** Only coupons deleted in the last 7 days will appear in the results. | [optional] 
@@ -5349,8 +5353,8 @@ The file contains the following columns:
 - `archived`: Whether the session related to the transaction is archived.
 - `campaignid`: The ID of the campaign.
 - `transactionUUID`: Unique identifier of the transaction in the UUID format.
-- `validityduration`: The duration for which the points remain active, relative to the activation date.
-- `remainingamount`: The current unused amount of points, when applicable to `addition` transactions.
+- `validityDuration`: The duration for which the points remain active, relative to the activation date.
+- `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions.
 - `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`.
 
 
@@ -5662,8 +5666,8 @@ The file contains the following columns:
 - `campaignid`: The ID of the campaign.
 - `flags`: The flags of the transaction, when applicable. The `createsNegativeBalance` flag indicates whether the transaction results in a negative balance.
 - `transactionUUID`: Unique identifier of the transaction in the UUID format.
-- `validityduration`: The duration for which the points remain active, relative to the activation date.
-- `remainingamount`: The current unused amount of points, when applicable to `addition` transactions.
+- `validityDuration`: The duration for which the points remain active, relative to the activation date.
+- `remainingAmount`: The current unused amount of points, when applicable to `addition` transactions.
 - `referencetransactionuuids`: The UUIDs of the addition transactions from which points were deducted by the subtraction, separated by semicolons. Included only when `includeReferences` is `true`.
 
 
@@ -8522,7 +8526,7 @@ with talon_one.ApiClient(configuration) as api_client:
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
-    campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
+    campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (active), or expired. - `running`: Campaigns that are running (active). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
 
     try:
         # List campaigns that match the given attributes
@@ -8545,7 +8549,7 @@ Name | Type | Description  | Notes
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
- **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (activated), or expired. - &#x60;running&#x60;: Campaigns that are running (activated). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
+ **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (active), or expired. - &#x60;running&#x60;: Campaigns that are running (active). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
 
 ### Return type
 
@@ -8864,7 +8868,7 @@ with talon_one.ApiClient(configuration) as api_client:
     page_size = 1000 # int | The number of items in the response. (optional) (default to 1000)
     skip = 56 # int | The number of items to skip when paging through large result sets. (optional)
     sort = 'sort_example' # str | The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with `-`.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  (optional)
-    campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
+    campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (active), or expired. - `running`: Campaigns that are running (active). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
     name = 'name_example' # str | Filter results performing case-insensitive matching against the name of the campaign. (optional)
     tags = ['tags_example'] # List[str] | Filter results performing case-insensitive matching against the tags of the campaign.  (optional)
     created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. (optional)
@@ -8897,7 +8901,7 @@ Name | Type | Description  | Notes
  **page_size** | **int**| The number of items in the response. | [optional] [default to 1000]
  **skip** | **int**| The number of items to skip when paging through large result sets. | [optional] 
  **sort** | **str**| The field by which results should be sorted. By default, results are sorted in ascending order. To sort them in descending order, prefix the field name with &#x60;-&#x60;.  **Note:** You may not be able to use all fields for sorting. This is due to performance limitations.  | [optional] 
- **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (activated), or expired. - &#x60;running&#x60;: Campaigns that are running (activated). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
+ **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (active), or expired. - &#x60;running&#x60;: Campaigns that are running (active). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
  **name** | **str**| Filter results performing case-insensitive matching against the name of the campaign. | [optional] 
  **tags** | [**List[str]**](str.md)| Filter results performing case-insensitive matching against the tags of the campaign.  | [optional] 
  **created_before** | **datetime**| Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the campaign creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally. | [optional] 
@@ -15079,7 +15083,11 @@ void (empty response body)
 
 Get summary of price history
 
-Fetch the historical price data for a given SKU within a defined timeframe.
+Fetch the price records (historical price data) for a given SKU within a defined timeframe.
+
+You can use this endpoint for auditing purposes and for ensuring that evaluation produced correct price records.
+
+For more information, see [Best prior price](https://docs.talon.one/docs/dev/integration-guides/best-prior-price).
 
 
 ### Example
@@ -16585,7 +16593,7 @@ with talon_one.ApiClient(configuration) as api_client:
     recipient_integration_id = 'recipient_integration_id_example' # str | Filter results by match with a profile ID specified in the coupon's RecipientIntegrationId field. (optional)
     batch_id = 'batch_id_example' # str | Filter results by batches of coupons (optional)
     exact_match = False # bool | Filter results to an exact case-insensitive matching against the coupon code. (optional) (default to False)
-    campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (activated), or expired. - `running`: Campaigns that are running (activated). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
+    campaign_state = 'campaign_state_example' # str | Filter results by the state of the campaign.  - `enabled`: Campaigns that are scheduled, running (active), or expired. - `running`: Campaigns that are running (active). - `disabled`: Campaigns that are disabled. - `expired`: Campaigns that are expired. - `archived`: Campaigns that are archived.  (optional)
 
     try:
         # List coupons that match the given attributes (without total count)
@@ -16617,7 +16625,7 @@ Name | Type | Description  | Notes
  **recipient_integration_id** | **str**| Filter results by match with a profile ID specified in the coupon&#39;s RecipientIntegrationId field. | [optional] 
  **batch_id** | **str**| Filter results by batches of coupons | [optional] 
  **exact_match** | **bool**| Filter results to an exact case-insensitive matching against the coupon code. | [optional] [default to False]
- **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (activated), or expired. - &#x60;running&#x60;: Campaigns that are running (activated). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
+ **campaign_state** | **str**| Filter results by the state of the campaign.  - &#x60;enabled&#x60;: Campaigns that are scheduled, running (active), or expired. - &#x60;running&#x60;: Campaigns that are running (active). - &#x60;disabled&#x60;: Campaigns that are disabled. - &#x60;expired&#x60;: Campaigns that are expired. - &#x60;archived&#x60;: Campaigns that are archived.  | [optional] 
 
 ### Return type
 

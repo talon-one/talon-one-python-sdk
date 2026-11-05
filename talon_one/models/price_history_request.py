@@ -28,9 +28,9 @@ class PriceHistoryRequest(BaseModel):
     """
     PriceHistoryRequest
     """ # noqa: E501
-    sku: StrictStr = Field(description="The SKU of the item for which the historical prices are being retrieved.", json_schema_extra={"examples": ["SKU1241028"]})
-    start_date: datetime = Field(description="The start date of the period for which historical prices should be retrieved.", alias="startDate", json_schema_extra={"examples": ["2020-11-10T23:00:00Z"]})
-    end_date: datetime = Field(description="The end date of the period for which historical prices should be retrieved.", alias="endDate", json_schema_extra={"examples": ["2020-12-10T23:00:00Z"]})
+    sku: StrictStr = Field(description="The SKU of the item for which the price records are being retrieved.", json_schema_extra={"examples": ["SKU1241028"]})
+    start_date: datetime = Field(description="The start date of the period for which price records should be retrieved.", alias="startDate", json_schema_extra={"examples": ["2020-11-10T23:00:00Z"]})
+    end_date: datetime = Field(description="The end date of the period for which price records should be retrieved.", alias="endDate", json_schema_extra={"examples": ["2020-12-10T23:00:00Z"]})
     __properties: ClassVar[List[str]] = ["sku", "startDate", "endDate"]
 
     model_config = ConfigDict(

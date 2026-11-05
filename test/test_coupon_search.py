@@ -35,11 +35,11 @@ class TestCouponSearch(unittest.TestCase):
         model = CouponSearch()
         if include_optional:
             return CouponSearch(
-                attributes = None
+                attributes = { }
             )
         else:
             return CouponSearch(
-                attributes = None,
+                attributes = { },
         )
         """
 

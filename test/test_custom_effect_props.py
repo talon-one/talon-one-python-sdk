@@ -41,13 +41,13 @@ class TestCustomEffectProps(unittest.TestCase):
                 cart_item_sub_position = 2,
                 bundle_index = 1,
                 bundle_name = 'my_bundle',
-                payload = None
+                payload = { }
             )
         else:
             return CustomEffectProps(
                 effect_id = 1,
                 name = 'my_custom_effect',
-                payload = None,
+                payload = { },
         )
         """
 

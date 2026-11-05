@@ -37,7 +37,7 @@ class TestBulkApplicationNotification(unittest.TestCase):
             return BulkApplicationNotification(
                 total_result_size = 1,
                 data = [
-                    talon_one.models.campaign_evaluation_tree_changed_notification.CampaignEvaluationTreeChangedNotification(
+                    talon_one.models.campaign_evaluation_tree_changed_notification_data.CampaignEvaluationTreeChangedNotificationData(
                         application_id = 78, 
                         old_evaluation_tree = null, 
                         evaluation_tree = null, )
@@ -47,7 +47,7 @@ class TestBulkApplicationNotification(unittest.TestCase):
             return BulkApplicationNotification(
                 total_result_size = 1,
                 data = [
-                    talon_one.models.campaign_evaluation_tree_changed_notification.CampaignEvaluationTreeChangedNotification(
+                    talon_one.models.campaign_evaluation_tree_changed_notification_data.CampaignEvaluationTreeChangedNotificationData(
                         application_id = 78, 
                         old_evaluation_tree = null, 
                         evaluation_tree = null, )

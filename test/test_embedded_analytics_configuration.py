@@ -35,12 +35,12 @@ class TestEmbeddedAnalyticsConfiguration(unittest.TestCase):
         model = EmbeddedAnalyticsConfiguration()
         if include_optional:
             return EmbeddedAnalyticsConfiguration(
-                dashboards = talon_one.models.embedded_analytics_configuration_dashboards.EmbeddedAnalyticsConfiguration_dashboards(
+                dashboards = talon_one.models.embedded_analytics_configuration_dashboards.EmbeddedAnalyticsConfigurationDashboards(
                     campaign_insights = null, )
             )
         else:
             return EmbeddedAnalyticsConfiguration(
-                dashboards = talon_one.models.embedded_analytics_configuration_dashboards.EmbeddedAnalyticsConfiguration_dashboards(
+                dashboards = talon_one.models.embedded_analytics_configuration_dashboards.EmbeddedAnalyticsConfigurationDashboards(
                     campaign_insights = null, ),
         )
         """
