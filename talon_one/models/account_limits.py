@@ -41,6 +41,7 @@ class AccountLimits(BaseModel):
     promotion_types: List[StrictStr] = Field(description="Array of promotion types that are employed in the account.", alias="promotionTypes")
     secondary_deployment_price: StrictInt = Field(description="The price for a secondary deployment according to contractual agreements.", alias="SecondaryDeploymentPrice")
     currency_code: StrictStr = Field(description="The currency of the contract.", alias="currencyCode")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["liveApplications", "sandboxApplications", "activeCampaigns", "coupons", "referralCodes", "activeRules", "liveLoyaltyPrograms", "sandboxLoyaltyPrograms", "webhooks", "users", "apiVolume", "promotionTypes", "SecondaryDeploymentPrice", "currencyCode"]
 
     model_config = ConfigDict(
@@ -73,8 +74,10 @@ class AccountLimits(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,6 +85,11 @@ class AccountLimits(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -109,6 +117,11 @@ class AccountLimits(BaseModel):
             "SecondaryDeploymentPrice": obj.get("SecondaryDeploymentPrice"),
             "currencyCode": obj.get("currencyCode")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

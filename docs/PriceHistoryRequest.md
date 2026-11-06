@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sku** | **str** | The SKU of the item for which the historical prices are being retrieved. | 
-**start_date** | **datetime** | The start date of the period for which historical prices should be retrieved. | 
-**end_date** | **datetime** | The end date of the period for which historical prices should be retrieved. | 
+**sku** | **str** | The SKU of the item for which the price records are being retrieved. | 
+**start_date** | **datetime** | The start date of the period for which price records should be retrieved. | 
+**end_date** | **datetime** | The end date of the period for which price records should be retrieved. | 
 
 ## Example
 

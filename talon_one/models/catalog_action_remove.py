@@ -30,6 +30,7 @@ class CatalogActionRemove(BaseModel):
     """ # noqa: E501
     type: StrictStr = Field(description="A catalog sync action discriminator of type `REMOVE`.")
     payload: RemoveItemCatalogAction = Field(description="The payload of sync action.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "payload"]
 
     @field_validator('type')
@@ -69,8 +70,10 @@ class CatalogActionRemove(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class CatalogActionRemove(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of payload
         if self.payload:
             _dict['payload'] = self.payload.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class CatalogActionRemove(BaseModel):
             "type": obj.get("type"),
             "payload": RemoveItemCatalogAction.from_dict(obj["payload"]) if obj.get("payload") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

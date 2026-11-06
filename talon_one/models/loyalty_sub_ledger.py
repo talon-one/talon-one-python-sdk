@@ -41,6 +41,7 @@ class LoyaltySubLedger(BaseModel):
     pending_points: Optional[List[LoyaltyLedgerEntry]] = Field(default=None, description="List of all points pending activation.", alias="pendingPoints")
     expired_points: Optional[List[LoyaltyLedgerEntry]] = Field(default=None, description="List of expired points.", alias="expiredPoints")
     current_tier: Optional[Tier] = Field(default=None, description="Tier for which the ledger is eligible.", alias="currentTier")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["total", "totalActivePoints", "totalPendingPoints", "totalSpentPoints", "totalExpiredPoints", "totalNegativePoints", "transactions", "expiringPoints", "activePoints", "pendingPoints", "expiredPoints", "currentTier"]
 
     model_config = ConfigDict(
@@ -73,8 +74,10 @@ class LoyaltySubLedger(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -115,6 +118,11 @@ class LoyaltySubLedger(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of current_tier
         if self.current_tier:
             _dict['currentTier'] = self.current_tier.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -140,6 +148,11 @@ class LoyaltySubLedger(BaseModel):
             "expiredPoints": [LoyaltyLedgerEntry.from_dict(_item) for _item in obj["expiredPoints"]] if obj.get("expiredPoints") is not None else None,
             "currentTier": Tier.from_dict(obj["currentTier"]) if obj.get("currentTier") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

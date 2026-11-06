@@ -48,6 +48,7 @@ class Reward(BaseModel):
     expiry_date: Optional[datetime] = Field(default=None, description="Expiry date of the customer rewards unlocked from this reward. Customer rewards never expire if this is omitted and `validityDuration` is not set.  **Note:** - The date must be in the future. - This field cannot be used in combination with `validityDuration`. ", alias="expiryDate", json_schema_extra={"examples": ["2026-12-31T00:00:00Z"]})
     modified: Optional[datetime] = Field(default=None, description="The timestamp when the reward was last updated in RFC3339 format.")
     status: StrictStr = Field(description="The status of the reward.", json_schema_extra={"examples": ["active"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "name", "apiName", "description", "applicationIds", "sandbox", "eligibilityConditions", "rule", "bindings", "pointsRequired", "validityDuration", "expiryDate", "modified", "status"]
 
     @field_validator('status')
@@ -87,8 +88,10 @@ class Reward(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -114,6 +117,11 @@ class Reward(BaseModel):
             for _item_points_required in self.points_required:
                 _items.append(_item_points_required.to_dict() if _item_points_required is not None else None)
             _dict['pointsRequired'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -143,6 +151,11 @@ class Reward(BaseModel):
             "modified": obj.get("modified"),
             "status": obj.get("status")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

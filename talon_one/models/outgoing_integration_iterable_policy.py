@@ -29,6 +29,7 @@ class OutgoingIntegrationIterablePolicy(BaseModel):
     """ # noqa: E501
     base_url: StrictStr = Field(description="The base URL that is based on the region key of your Iterable account.", alias="baseUrl", json_schema_extra={"examples": ["https://api.iterable.com"]})
     api_key: StrictStr = Field(description="The API key generated from your Iterable account. See [Iterable API Key Guide](https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys-)", alias="apiKey", json_schema_extra={"examples": ["1234df4ba16940ca59c9352936d080a8"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["baseUrl", "apiKey"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class OutgoingIntegrationIterablePolicy(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class OutgoingIntegrationIterablePolicy(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class OutgoingIntegrationIterablePolicy(BaseModel):
             "baseUrl": obj.get("baseUrl"),
             "apiKey": obj.get("apiKey")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

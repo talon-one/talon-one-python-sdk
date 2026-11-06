@@ -37,6 +37,7 @@ class Role(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="Description of the role.", json_schema_extra={"examples": ["Reviews the campaigns"]})
     members: Optional[List[StrictInt]] = Field(default=None, description="A list of user identifiers assigned to this role.", json_schema_extra={"examples": [[48, 562, 475, 18]]})
     acl: Dict[str, Any] = Field(description="The `Access Control List` json defining the role of the user. This represents the access control on the user level.", json_schema_extra={"examples": ["{\"Role\":127,\"Applications\":null}"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "campaignGroupID", "name", "description", "members", "acl"]
 
     model_config = ConfigDict(
@@ -69,8 +70,10 @@ class Role(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class Role(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -100,6 +108,11 @@ class Role(BaseModel):
             "members": obj.get("members"),
             "acl": obj.get("acl")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

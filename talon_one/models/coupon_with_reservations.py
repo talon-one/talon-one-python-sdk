@@ -54,6 +54,7 @@ class CouponWithReservations(BaseModel):
     is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory", json_schema_extra={"examples": [False]})
     implicitly_reserved: Optional[StrictBool] = Field(default=None, description="An indication of whether the coupon is implicitly reserved for all customers.", alias="implicitlyReserved", json_schema_extra={"examples": [False]})
     reservations: Optional[List[CouponReservation]] = Field(default=None, description="The customer profile and timestamp of each reservation.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "campaignId", "value", "usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "limits", "usageCounter", "discountCounter", "discountRemainder", "reservationCounter", "attributes", "referralId", "recipientIntegrationId", "importId", "reservation", "batchId", "isReservationMandatory", "implicitlyReserved", "reservations"]
 
     model_config = ConfigDict(
@@ -86,8 +87,10 @@ class CouponWithReservations(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -107,6 +110,11 @@ class CouponWithReservations(BaseModel):
             for _item_reservations in self.reservations:
                 _items.append(_item_reservations.to_dict() if _item_reservations is not None else None)
             _dict['reservations'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -143,6 +151,11 @@ class CouponWithReservations(BaseModel):
             "implicitlyReserved": obj.get("implicitlyReserved"),
             "reservations": [CouponReservation.from_dict(_item) for _item in obj["reservations"]] if obj.get("reservations") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

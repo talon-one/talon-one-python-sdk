@@ -32,6 +32,7 @@ class IntegrationHubFlow(BaseModel):
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program the flow is registered for.", alias="LoyaltyProgramID", json_schema_extra={"examples": [12]})
     event_type: IntegrationHubEventType = Field(alias="EventType")
     integration_hub_flow_url: StrictStr = Field(description="The URL of the integration hub flow that we want to trigger for the event.", alias="IntegrationHubFlowUrl")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["ApplicationID", "LoyaltyProgramID", "EventType", "IntegrationHubFlowUrl"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class IntegrationHubFlow(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class IntegrationHubFlow(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class IntegrationHubFlow(BaseModel):
             "EventType": obj.get("EventType"),
             "IntegrationHubFlowUrl": obj.get("IntegrationHubFlowUrl")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

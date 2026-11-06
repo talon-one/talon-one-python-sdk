@@ -56,6 +56,7 @@ class CustomerSessionV2(BaseModel):
     additional_cost_total: Union[StrictFloat, StrictInt] = Field(description="The total value of additional costs, before any discounts are applied.", alias="additionalCostTotal", json_schema_extra={"examples": [20]})
     cart_item_additional_cost_total: Union[StrictFloat, StrictInt] = Field(description="The total value of additional costs applied to individual items, before any discounts are applied.", alias="cartItemAdditionalCostTotal", json_schema_extra={"examples": [15]})
     updated: datetime = Field(description="Timestamp of the most recent event received on this session.", json_schema_extra={"examples": ["2020-02-08T14:15:22Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "applicationId", "profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "rewardIntegrationIds", "state", "cartItems", "experimentVariantAllocations", "additionalCosts", "identifiers", "attributes", "firstSession", "updateCount", "total", "cartItemTotal", "additionalCostTotal", "cartItemAdditionalCostTotal", "updated"]
 
     @field_validator('state')
@@ -99,9 +100,11 @@ class CustomerSessionV2(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "cart_item_additional_cost_total",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -127,6 +130,11 @@ class CustomerSessionV2(BaseModel):
             for _key_additional_costs in self.additional_costs:
                 _field_dict[_key_additional_costs] = self.additional_costs[_key_additional_costs].to_dict() if self.additional_costs[_key_additional_costs] is not None else None
             _dict['additionalCosts'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -169,6 +177,11 @@ class CustomerSessionV2(BaseModel):
             "cartItemAdditionalCostTotal": obj.get("cartItemAdditionalCostTotal"),
             "updated": obj.get("updated")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -31,6 +31,7 @@ class OneTimeCode(BaseModel):
     account_id: StrictInt = Field(description="The ID of the account.", alias="accountId", json_schema_extra={"examples": [31]})
     token: StrictStr = Field(description="The two-factor authentication token created during sign-in. This token is used to ensure that the correct user is trying to sign in with a given one-time security code.", json_schema_extra={"examples": ["dy_Fa_lQ4iDAnqldJFvV"]})
     code: Optional[StrictStr] = Field(default=None, description="The one-time security code used for signing in.", json_schema_extra={"examples": ["552917"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["userId", "accountId", "token", "code"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class OneTimeCode(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class OneTimeCode(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class OneTimeCode(BaseModel):
             "token": obj.get("token"),
             "code": obj.get("code")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

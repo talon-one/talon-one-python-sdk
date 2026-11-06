@@ -39,7 +39,7 @@ class TestNewCampaign(unittest.TestCase):
                 description = 'Campaign for all summer 2021 promotions',
                 start_time = '2021-07-20T22:00:00Z',
                 end_time = '2021-09-22T22:00:00Z',
-                attributes = talon_one.models.attributes.attributes(),
+                attributes = { },
                 state = 'enabled',
                 active_ruleset_id = 6,
                 tags = [summer],
@@ -61,7 +61,7 @@ class TestNewCampaign(unittest.TestCase):
                 campaign_groups = [1, 3],
                 type = 'advanced',
                 linked_store_ids = [1, 2, 3],
-                coupon_attributes = talon_one.models.coupon_attributes.couponAttributes(),
+                coupon_attributes = { },
                 evaluation_group_id = 2
             )
         else:

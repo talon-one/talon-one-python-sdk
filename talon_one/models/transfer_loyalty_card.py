@@ -30,6 +30,7 @@ class TransferLoyaltyCard(BaseModel):
     """ # noqa: E501
     new_card_identifier: Annotated[str, Field(min_length=4, strict=True, max_length=108)] = Field(description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="newCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason", json_schema_extra={"examples": ["Current card lost. Customer needs a new card."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["newCardIdentifier", "blockReason"]
 
     @field_validator('new_card_identifier', mode="before")
@@ -69,8 +70,10 @@ class TransferLoyaltyCard(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class TransferLoyaltyCard(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class TransferLoyaltyCard(BaseModel):
             "newCardIdentifier": obj.get("newCardIdentifier"),
             "blockReason": obj.get("blockReason")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

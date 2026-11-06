@@ -48,6 +48,7 @@ class AchievementStatusEntry(BaseModel):
     campaign_ids: Optional[List[StrictInt]] = Field(default=None, description="The IDs of the campaigns that reference this achievement, in ascending order.", alias="campaignIds", json_schema_extra={"examples": [[1, 14, 27]]})
     status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.", json_schema_extra={"examples": ["active"]})
     current_progress: Optional[AchievementProgress] = Field(default=None, alias="currentProgress")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "periodEndOverride", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "campaignId", "campaignIds", "status", "currentProgress"]
 
     @field_validator('name', mode="before")
@@ -117,8 +118,10 @@ class AchievementStatusEntry(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -132,6 +135,11 @@ class AchievementStatusEntry(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of current_progress
         if self.current_progress:
             _dict['currentProgress'] = self.current_progress.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -162,6 +170,11 @@ class AchievementStatusEntry(BaseModel):
             "status": obj.get("status"),
             "currentProgress": AchievementProgress.from_dict(obj["currentProgress"]) if obj.get("currentProgress") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -30,6 +30,7 @@ class NewOutgoingIntegrationWebhook(BaseModel):
     title: StrictStr = Field(description="Webhook title.", json_schema_extra={"examples": ["Send email to customer via Braze"]})
     description: Optional[StrictStr] = Field(default=None, description="A description of the webhook.", json_schema_extra={"examples": ["A webhook to send a coupon to the user."]})
     application_ids: List[StrictInt] = Field(description="IDs of the Applications to which a webhook must be linked.", alias="applicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "description", "applicationIds"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class NewOutgoingIntegrationWebhook(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class NewOutgoingIntegrationWebhook(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class NewOutgoingIntegrationWebhook(BaseModel):
             "description": obj.get("description"),
             "applicationIds": obj.get("applicationIds")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

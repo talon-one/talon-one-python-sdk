@@ -32,6 +32,7 @@ class ExperimentSegmentInsights(BaseModel):
     total_segments_tested: StrictInt = Field(description="Total number of segment-metric combinations that were tested for statistical significance. ", alias="totalSegmentsTested", json_schema_extra={"examples": [24]})
     dimensions_tested: StrictInt = Field(description="Number of segmentation dimensions that had sufficient data variance to test. Dimensions where all sessions fall into a single bucket are excluded. ", alias="dimensionsTested", json_schema_extra={"examples": [3]})
     reason: StrictStr = Field(description="Empty string when segment insights are available. Contains a reason code when insights could not be computed (e.g., \"insufficient_data\" when the experiment has fewer than 100 sessions per variant). ", json_schema_extra={"examples": [""]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["metrics", "totalSegmentsTested", "dimensionsTested", "reason"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class ExperimentSegmentInsights(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class ExperimentSegmentInsights(BaseModel):
             for _item_metrics in self.metrics:
                 _items.append(_item_metrics.to_dict() if _item_metrics is not None else None)
             _dict['metrics'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class ExperimentSegmentInsights(BaseModel):
             "dimensionsTested": obj.get("dimensionsTested"),
             "reason": obj.get("reason")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

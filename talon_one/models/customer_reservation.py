@@ -43,6 +43,7 @@ class CustomerReservation(BaseModel):
     last_activity: datetime = Field(description="Timestamp of the most recent event received from this customer. This field is updated on calls that trigger the Rule Engine and that are not [dry requests](https://docs.talon.one/docs/dev/integration-api/dry-requests/#overlay).  For example, [reserving a coupon](https://docs.talon.one/integration-api#tag/Coupons/operation/createCouponReservation) for a customer doesn't impact this field. ", alias="lastActivity", json_schema_extra={"examples": ["2020-02-08T14:15:20Z"]})
     sandbox: Optional[StrictBool] = Field(default=None, description="An indicator of whether the customer is part of a sandbox or live Application. See the [docs](https://docs.talon.one/docs/product/applications/overview#application-environments). ", json_schema_extra={"examples": [False]})
     reserved_at: Optional[datetime] = Field(default=None, description="Timestamp when the coupon reservation was created.", alias="reservedAt", json_schema_extra={"examples": ["2026-08-10T10:00:00Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "attributes", "accountId", "closedSessions", "totalSales", "loyaltyMemberships", "audienceMemberships", "lastActivity", "sandbox", "reservedAt"]
 
     model_config = ConfigDict(
@@ -75,8 +76,10 @@ class CustomerReservation(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -96,6 +99,11 @@ class CustomerReservation(BaseModel):
             for _item_audience_memberships in self.audience_memberships:
                 _items.append(_item_audience_memberships.to_dict() if _item_audience_memberships is not None else None)
             _dict['audienceMemberships'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -121,6 +129,11 @@ class CustomerReservation(BaseModel):
             "sandbox": obj.get("sandbox"),
             "reservedAt": obj.get("reservedAt")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -31,6 +31,7 @@ class DiscardRisksRequest(BaseModel):
     risk_ids: Annotated[List[StrictInt], Field(min_length=1, max_length=1000)] = Field(description="The IDs of the risks to discard.", alias="riskIds", json_schema_extra={"examples": [[1, 2, 3]]})
     reason: StrictStr = Field(description="The reason the risks are being discarded.", json_schema_extra={"examples": ["expected_behavior"]})
     comment: Optional[StrictStr] = Field(default=None, description="Free-text description of why the risks are being discarded. Required when `reason` is `other`, optional for `expected_behavior`. ", json_schema_extra={"examples": ["Duplicate of a risk already being handled."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["riskIds", "reason", "comment"]
 
     @field_validator('reason')
@@ -70,8 +71,10 @@ class DiscardRisksRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class DiscardRisksRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class DiscardRisksRequest(BaseModel):
             "reason": obj.get("reason"),
             "comment": obj.get("comment")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

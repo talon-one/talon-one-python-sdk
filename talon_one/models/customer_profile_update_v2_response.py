@@ -29,6 +29,7 @@ class CustomerProfileUpdateV2Response(BaseModel):
     Contains the updated customer profiles entities. This is the response type returned by the V2 PUT customer_profiles endpoint 
     """ # noqa: E501
     customer_profile: CustomerProfile = Field(alias="customerProfile")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["customerProfile"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class CustomerProfileUpdateV2Response(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class CustomerProfileUpdateV2Response(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of customer_profile
         if self.customer_profile:
             _dict['customerProfile'] = self.customer_profile.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class CustomerProfileUpdateV2Response(BaseModel):
         _obj = cls.model_validate({
             "customerProfile": CustomerProfile.from_dict(obj["customerProfile"]) if obj.get("customerProfile") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

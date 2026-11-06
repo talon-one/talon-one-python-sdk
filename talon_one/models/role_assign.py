@@ -29,6 +29,7 @@ class RoleAssign(BaseModel):
     """ # noqa: E501
     users: List[StrictInt] = Field(description="An array of user IDs.", json_schema_extra={"examples": [[48, 562, 475, 18]]})
     roles: List[StrictInt] = Field(description="An array of role IDs.", json_schema_extra={"examples": [[128, 147]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["users", "roles"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class RoleAssign(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class RoleAssign(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class RoleAssign(BaseModel):
             "users": obj.get("users"),
             "roles": obj.get("roles")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

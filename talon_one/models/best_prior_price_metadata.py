@@ -27,10 +27,11 @@ from pydantic_core import to_jsonable_python
 
 class BestPriorPriceMetadata(BaseModel):
     """
-    Auxiliary data for found price observation.
+    Auxiliary data for the found price record.
     """ # noqa: E501
     influencing_campaign_details: List[InfluencingCampaignDetails] = Field(description="Details about campaigns that influenced the final price.", alias="influencingCampaignDetails")
     adjustment_details: Optional[AdjustmentDetails] = Field(default=None, description="Details about the applied price adjustment.", alias="adjustmentDetails")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["influencingCampaignDetails", "adjustmentDetails"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class BestPriorPriceMetadata(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class BestPriorPriceMetadata(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of adjustment_details
         if self.adjustment_details:
             _dict['adjustmentDetails'] = self.adjustment_details.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class BestPriorPriceMetadata(BaseModel):
             "influencingCampaignDetails": [InfluencingCampaignDetails.from_dict(_item) for _item in obj["influencingCampaignDetails"]] if obj.get("influencingCampaignDetails") is not None else None,
             "adjustmentDetails": AdjustmentDetails.from_dict(obj["adjustmentDetails"]) if obj.get("adjustmentDetails") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

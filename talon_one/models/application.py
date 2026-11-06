@@ -56,6 +56,7 @@ class Application(BaseModel):
     enable_campaign_state_management: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign staging and revisions feature is enabled for the Application.  **Important:** After this feature is enabled, it cannot be disabled. ", alias="enableCampaignStateManagement", json_schema_extra={"examples": [False]})
     best_prior_price_settings: Optional[BestPriorPriceSettings] = Field(default=None, alias="bestPriorPriceSettings")
     loyalty_programs: List[LoyaltyProgram] = Field(description="An array containing all the loyalty programs to which this application is subscribed.", alias="loyaltyPrograms")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "accountId", "name", "description", "timezone", "currency", "caseSensitivity", "attributes", "limits", "defaultDiscountScope", "enableCascadingDiscounts", "enableFlattenedCartItems", "attributesSettings", "sandbox", "enablePartialDiscounts", "defaultDiscountAdditionalCostPerItemScope", "defaultEvaluationGroupId", "defaultCartItemFilterId", "enableCampaignStateManagement", "bestPriorPriceSettings", "loyaltyPrograms"]
 
     @field_validator('case_sensitivity')
@@ -118,8 +119,10 @@ class Application(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -145,6 +148,11 @@ class Application(BaseModel):
             for _item_loyalty_programs in self.loyalty_programs:
                 _items.append(_item_loyalty_programs.to_dict() if _item_loyalty_programs is not None else None)
             _dict['loyaltyPrograms'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -181,6 +189,11 @@ class Application(BaseModel):
             "bestPriorPriceSettings": BestPriorPriceSettings.from_dict(obj["bestPriorPriceSettings"]) if obj.get("bestPriorPriceSettings") is not None else None,
             "loyaltyPrograms": [LoyaltyProgram.from_dict(_item) for _item in obj["loyaltyPrograms"]] if obj.get("loyaltyPrograms") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

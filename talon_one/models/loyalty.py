@@ -31,6 +31,7 @@ class Loyalty(BaseModel):
     """ # noqa: E501
     cards: Optional[List[LoyaltyCard]] = Field(default=None, description="Displays information about the balances of the loyalty cards.")
     programs: Dict[str, LoyaltyProgramLedgers] = Field(description="Displays information about point balances in profile-based programs.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["cards", "programs"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class Loyalty(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -84,6 +87,11 @@ class Loyalty(BaseModel):
             for _key_programs in self.programs:
                 _field_dict[_key_programs] = self.programs[_key_programs].to_dict() if self.programs[_key_programs] is not None else None
             _dict['programs'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -104,6 +112,11 @@ class Loyalty(BaseModel):
             if obj.get("programs") is not None
             else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

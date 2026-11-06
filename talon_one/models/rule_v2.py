@@ -33,6 +33,7 @@ class RuleV2(BaseModel):
     title: StrictStr = Field(description="A short description of the rule.", json_schema_extra={"examples": ["10% off for loyalty members"]})
     description: Optional[StrictStr] = Field(default=None, description="A longer description of the rule.")
     blocks: List[Block] = Field(description="The condition and effect blocks that make up this rule.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "parentId", "title", "description", "blocks"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class RuleV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class RuleV2(BaseModel):
             for _item_blocks in self.blocks:
                 _items.append(_item_blocks.to_dict() if _item_blocks is not None else None)
             _dict['blocks'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +106,11 @@ class RuleV2(BaseModel):
             "description": obj.get("description"),
             "blocks": [Block.from_dict(_item) for _item in obj["blocks"]] if obj.get("blocks") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

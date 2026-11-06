@@ -28,6 +28,7 @@ class RoleV2Readonly(BaseModel):
     RoleV2Readonly
     """ # noqa: E501
     is_readonly: Optional[StrictBool] = Field(default=False, description="Identifies if the role is read-only. For read-only roles, you can only assign or unassign users. You cannot edit any other properties, such as the name, description, or permissions. This property cannot be set for new or existing roles. It is reserved for predefined roles, such as the Talon.One support role.", alias="isReadonly", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["isReadonly"]
 
     model_config = ConfigDict(
@@ -60,8 +61,10 @@ class RoleV2Readonly(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +72,11 @@ class RoleV2Readonly(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -83,6 +91,11 @@ class RoleV2Readonly(BaseModel):
         _obj = cls.model_validate({
             "isReadonly": obj.get("isReadonly") if obj.get("isReadonly") is not None else False
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

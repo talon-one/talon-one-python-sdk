@@ -30,6 +30,7 @@ class UpdatePicklist(BaseModel):
     """ # noqa: E501
     type: StrictStr = Field(description="The type of allowed values in the picklist. If the type `time` is chosen, it must be an RFC3339 timestamp string.", json_schema_extra={"examples": ["string"]})
     values: Annotated[List[StrictStr], Field(max_length=50)] = Field(description="The list of allowed values provided by this picklist.", json_schema_extra={"examples": [["Jeans", "Shirt", "Coat"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "values"]
 
     @field_validator('type')
@@ -69,8 +70,10 @@ class UpdatePicklist(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class UpdatePicklist(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class UpdatePicklist(BaseModel):
             "type": obj.get("type"),
             "values": obj.get("values")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -33,8 +33,9 @@ class BestPriorPriceRequest(BaseModel):
     skus: Annotated[List[StrictStr], Field(min_length=1)] = Field(description="List of product SKUs to check when determining the best prior price.", json_schema_extra={"examples": [["SKU1241028", "SKU7345278"]]})
     timeframe_end_date: datetime = Field(description="The end date and time that defines the latest time for retrieving historical SKU prices.", alias="timeframeEndDate", json_schema_extra={"examples": ["2020-11-10T23:00:00Z"]})
     timeframe: StrictStr = Field(description="The number of days prior to the timeframeEndDate. Only prices within this look back period are considered for the best prior price evaluation.", json_schema_extra={"examples": ["30"]})
-    timeframe_end_date_type: StrictStr = Field(description="Sets the timeframe for retrieving historical pricing data. Can be one of the following values: - `strict`: The timeframe ends at the `timeframeEndDate` value. - `price`: The timeframe ends at the start of current price value and takes the prices prior to the start of the current price value into account. - `sale`:  The timeframe ends at the start of the current sales event, as defined by the `contextId`. It takes the prices prior to the current sale event into account. ", alias="timeframeEndDateType", json_schema_extra={"examples": ["sale"]})
+    timeframe_end_date_type: StrictStr = Field(description="Sets the timeframe for retrieving historical pricing data. Can be one of the following values: - `strict`: The timeframe ends at the `timeframeEndDate` value. - `price`: The timeframe ends at the start of current price value and takes the prices prior to the start of the current price value into account. - `sale`:  The timeframe ends at the start of the current sales event, as defined by the `contextId`. It takes the prices prior to the current sale event into account.  For an example, see [Best prior price](https://docs.talon.one/docs/dev/integration-guides/best-prior-price#best-prior-price-timeframe-selection).  ", alias="timeframeEndDateType", json_schema_extra={"examples": ["sale"]})
     target: Optional[BestPriorTarget] = None
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["skus", "timeframeEndDate", "timeframe", "timeframeEndDateType", "target"]
 
     @field_validator('timeframe_end_date_type')
@@ -74,8 +75,10 @@ class BestPriorPriceRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -86,6 +89,11 @@ class BestPriorPriceRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of target
         if self.target:
             _dict['target'] = self.target.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -104,6 +112,11 @@ class BestPriorPriceRequest(BaseModel):
             "timeframeEndDateType": obj.get("timeframeEndDateType"),
             "target": BestPriorTarget.from_dict(obj["target"]) if obj.get("target") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

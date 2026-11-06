@@ -33,6 +33,7 @@ class CampaignLogSummary(BaseModel):
     created: datetime = Field(description="Date and time the change was performed.", json_schema_extra={"examples": ["2022-01-02T15:04:05Z07:00"]})
     action: StrictStr = Field(description="Action performed by the user.", json_schema_extra={"examples": ["create"]})
     summary: StrictStr = Field(description="AI-generated summary of the action performed.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "email", "created", "action", "summary"]
 
     @field_validator('action')
@@ -72,8 +73,10 @@ class CampaignLogSummary(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class CampaignLogSummary(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class CampaignLogSummary(BaseModel):
             "action": obj.get("action"),
             "summary": obj.get("summary")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

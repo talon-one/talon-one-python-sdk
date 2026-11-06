@@ -82,6 +82,7 @@ class TestNewExperimentVariant(unittest.TestCase):
                     rb_version = 'v2', 
                     activate = True, ),
                 is_primary = True,
+                order = 0,
                 audience_id = 55
             )
         else:
@@ -132,7 +133,6 @@ class TestNewExperimentVariant(unittest.TestCase):
                     bindings = [], 
                     rb_version = 'v2', 
                     activate = True, ),
-                is_primary = True,
         )
         """
 

@@ -34,6 +34,7 @@ class NewDigitalPass(BaseModel):
     loyalty_card_id: Optional[StrictStr] = Field(default=None, description="The identifier of the loyalty card the pass is issued for.  **Note**: Only applicable for card-based loyalty programs. ", alias="loyaltyCardId", json_schema_extra={"examples": ["summer-loyalty-0e2f"]})
     platform: StrictStr = Field(description="The wallet platform the pass is generated for. Possible values:  - `apple`: The digital pass is generated for Apple Wallet. - `google`: The digital pass is generated for Google Wallet. ", json_schema_extra={"examples": ["google"]})
     attributes: Optional[Dict[str, StrictStr]] = Field(default=None, description="A map of placeholder values that you provide to fill in the pass template. These values are not validated against the template. ", json_schema_extra={"examples": [{"hm_member_name": "Jane Doe"}]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["loyaltyProgramId", "passTemplateId", "profileId", "loyaltyCardId", "platform", "attributes"]
 
     @field_validator('platform')
@@ -73,8 +74,10 @@ class NewDigitalPass(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,6 +85,11 @@ class NewDigitalPass(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -101,6 +109,11 @@ class NewDigitalPass(BaseModel):
             "platform": obj.get("platform"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

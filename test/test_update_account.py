@@ -35,7 +35,7 @@ class TestUpdateAccount(unittest.TestCase):
         model = UpdateAccount()
         if include_optional:
             return UpdateAccount(
-                attributes = None,
+                attributes = { },
                 company_name = '0',
                 billing_email = '',
                 state = 'active',

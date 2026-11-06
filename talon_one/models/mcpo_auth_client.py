@@ -32,6 +32,7 @@ class MCPOAuthClient(BaseModel):
     client_name: StrictStr = Field(description="Human-readable name for the OAuth2 client.", json_schema_extra={"examples": ["My MCP Integration"]})
     redirect_uris: List[StrictStr] = Field(description="List of allowed redirect URIs for the authorization code flow.", json_schema_extra={"examples": [["https://example.com/callback", "http://localhost:3000/callback"]]})
     created_at: datetime = Field(description="Timestamp of when the client was registered.", json_schema_extra={"examples": ["2026-06-12T10:00:00Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["client_id", "client_name", "redirect_uris", "created_at"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class MCPOAuthClient(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class MCPOAuthClient(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class MCPOAuthClient(BaseModel):
             "redirect_uris": obj.get("redirect_uris"),
             "created_at": obj.get("created_at")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

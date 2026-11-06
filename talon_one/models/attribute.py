@@ -46,6 +46,7 @@ class Attribute(BaseModel):
     subscribed_catalogs_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the catalogs where this attribute is available.", alias="subscribedCatalogsIds", json_schema_extra={"examples": [[2, 5]]})
     allowed_subscriptions: Optional[Annotated[List[StrictStr], Field(max_length=2)]] = Field(default=None, description="A list of allowed subscription types for this attribute.  **Note:** This only applies to attributes associated with the `CartItem` entity. ", alias="allowedSubscriptions", json_schema_extra={"examples": [["application", "catalog"]]})
     event_type_id: Optional[StrictInt] = Field(default=None, alias="eventTypeId", json_schema_extra={"examples": [22]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "entity", "eventType", "name", "title", "type", "description", "suggestions", "hasAllowedList", "restrictedBySuggestions", "editable", "subscribedApplicationsIds", "subscribedCatalogsIds", "allowedSubscriptions", "eventTypeId"]
 
     @field_validator('entity')
@@ -117,8 +118,10 @@ class Attribute(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -126,6 +129,11 @@ class Attribute(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -156,6 +164,11 @@ class Attribute(BaseModel):
             "allowedSubscriptions": obj.get("allowedSubscriptions"),
             "eventTypeId": obj.get("eventTypeId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

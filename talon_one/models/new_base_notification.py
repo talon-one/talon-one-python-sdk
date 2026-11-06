@@ -32,6 +32,7 @@ class NewBaseNotification(BaseModel):
     policy: BaseNotificationPolicy
     enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.")
     webhook: NewNotificationWebhook
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["policy", "enabled", "webhook"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class NewBaseNotification(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class NewBaseNotification(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of webhook
         if self.webhook:
             _dict['webhook'] = self.webhook.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class NewBaseNotification(BaseModel):
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
             "webhook": NewNotificationWebhook.from_dict(obj["webhook"]) if obj.get("webhook") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -36,6 +36,7 @@ class RollbackAddedLoyaltyPointsEffectProps(BaseModel):
     cart_item_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="(_Add points per cart item_ only.) The index of the item in the `cartItem` object for which these points were rolled back.", alias="cartItemPosition")
     cart_item_sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="(_Add points per cart item_ ) The index of the item unit in its line item.", alias="cartItemSubPosition")
     card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card on which these points were originally added.", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["programId", "subLedgerId", "value", "recipientIntegrationId", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier"]
 
     @field_validator('card_identifier', mode="before")
@@ -78,8 +79,10 @@ class RollbackAddedLoyaltyPointsEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -87,6 +90,11 @@ class RollbackAddedLoyaltyPointsEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -108,6 +116,11 @@ class RollbackAddedLoyaltyPointsEffectProps(BaseModel):
             "cartItemSubPosition": obj.get("cartItemSubPosition"),
             "cardIdentifier": obj.get("cardIdentifier")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

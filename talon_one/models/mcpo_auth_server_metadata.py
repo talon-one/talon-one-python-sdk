@@ -34,6 +34,7 @@ class MCPOAuthServerMetadata(BaseModel):
     response_types_supported: List[StrictStr] = Field(description="List of supported OAuth2 response types.", json_schema_extra={"examples": [["code"]]})
     grant_types_supported: List[StrictStr] = Field(description="List of supported OAuth2 grant types.", json_schema_extra={"examples": [["authorization_code"]]})
     code_challenge_methods_supported: List[StrictStr] = Field(description="List of supported PKCE code challenge methods.", json_schema_extra={"examples": [["S256"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["issuer", "authorization_endpoint", "token_endpoint", "registration_endpoint", "response_types_supported", "grant_types_supported", "code_challenge_methods_supported"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class MCPOAuthServerMetadata(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class MCPOAuthServerMetadata(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class MCPOAuthServerMetadata(BaseModel):
             "grant_types_supported": obj.get("grant_types_supported"),
             "code_challenge_methods_supported": obj.get("code_challenge_methods_supported")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

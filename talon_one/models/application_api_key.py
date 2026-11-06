@@ -38,6 +38,7 @@ class ApplicationAPIKey(BaseModel):
     account_id: StrictInt = Field(description="ID of account the key is used for.", alias="accountID", json_schema_extra={"examples": [13]})
     application_id: StrictInt = Field(description="ID of application the key is used for.", alias="applicationID", json_schema_extra={"examples": [54]})
     created: datetime = Field(description="The date the API key was created.", json_schema_extra={"examples": ["2022-03-02T16:46:17.758585Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "expires", "platform", "type", "timeOffset", "id", "createdBy", "accountID", "applicationID", "created"]
 
     @field_validator('platform')
@@ -90,8 +91,10 @@ class ApplicationAPIKey(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -99,6 +102,11 @@ class ApplicationAPIKey(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -122,6 +130,11 @@ class ApplicationAPIKey(BaseModel):
             "applicationID": obj.get("applicationID"),
             "created": obj.get("created")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

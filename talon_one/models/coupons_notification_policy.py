@@ -33,6 +33,7 @@ class CouponsNotificationPolicy(BaseModel):
     batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled", json_schema_extra={"examples": [True]})
     include_data: Optional[StrictBool] = Field(default=None, description="Indicates whether to include all generated coupons. If `false`, only the `batchId` of the generated coupons is included.", alias="includeData", json_schema_extra={"examples": [True]})
     batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize", json_schema_extra={"examples": [1000]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "scopes", "batchingEnabled", "includeData", "batchSize"]
 
     @field_validator('scopes')
@@ -73,8 +74,10 @@ class CouponsNotificationPolicy(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,6 +85,11 @@ class CouponsNotificationPolicy(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -100,6 +108,11 @@ class CouponsNotificationPolicy(BaseModel):
             "includeData": obj.get("includeData"),
             "batchSize": obj.get("batchSize") if obj.get("batchSize") is not None else 1000
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

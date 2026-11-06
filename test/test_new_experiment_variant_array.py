@@ -84,6 +84,7 @@ class TestNewExperimentVariantArray(unittest.TestCase):
                             rb_version = 'v2', 
                             activate = True, ), 
                         is_primary = True, 
+                        order = 0, 
                         audience_id = 55, )
                     ]
             )
@@ -138,6 +139,7 @@ class TestNewExperimentVariantArray(unittest.TestCase):
                             rb_version = 'v2', 
                             activate = True, ), 
                         is_primary = True, 
+                        order = 0, 
                         audience_id = 55, )
                     ],
         )

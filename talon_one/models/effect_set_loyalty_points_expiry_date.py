@@ -48,6 +48,7 @@ class EffectSetLoyaltyPointsExpiryDate(BaseModel):
     reward_id: Optional[StrictInt] = Field(default=None, description="The ID of the reward that was being evaluated when this effect was triggered.", alias="rewardId", json_schema_extra={"examples": [7]})
     reward_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the specific customer reward whose usage produced this effect.", alias="rewardIntegrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
     props: SetLoyaltyPointsExpiryDateEffectProps
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "rewardId", "rewardIntegrationId", "props"]
 
     @field_validator('effect_type')
@@ -87,8 +88,10 @@ class EffectSetLoyaltyPointsExpiryDate(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -99,6 +102,11 @@ class EffectSetLoyaltyPointsExpiryDate(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of props
         if self.props:
             _dict['props'] = self.props.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -131,6 +139,11 @@ class EffectSetLoyaltyPointsExpiryDate(BaseModel):
             "rewardIntegrationId": obj.get("rewardIntegrationId"),
             "props": SetLoyaltyPointsExpiryDateEffectProps.from_dict(obj["props"]) if obj.get("props") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

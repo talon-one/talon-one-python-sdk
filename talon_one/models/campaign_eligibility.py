@@ -45,6 +45,7 @@ class CampaignEligibility(BaseModel):
     eligibility: List[CampaignEligibilityDetails] = Field(description="The customer's eligibility for each campaign in the current customer session.")
     rules: List[RuleMetadataEligibility] = Field(description="A list of rules containing customer-facing details of the rewards defined in the campaign.")
     experiment: Optional[CampaignEligibilityExperiment] = None
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features", "eligibility", "rules", "experiment"]
 
     @field_validator('state')
@@ -92,8 +93,10 @@ class CampaignEligibility(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -116,6 +119,11 @@ class CampaignEligibility(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of experiment
         if self.experiment:
             _dict['experiment'] = self.experiment.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -142,6 +150,11 @@ class CampaignEligibility(BaseModel):
             "rules": [RuleMetadataEligibility.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None,
             "experiment": CampaignEligibilityExperiment.from_dict(obj["experiment"]) if obj.get("experiment") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

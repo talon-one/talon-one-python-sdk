@@ -32,6 +32,7 @@ class ScimNewUser(BaseModel):
     display_name: Optional[StrictStr] = Field(default=None, description="Display name of the user.", alias="displayName", json_schema_extra={"examples": ["John Doe"]})
     user_name: StrictStr = Field(description="Unique identifier of the user. This is usually an email address.", alias="userName", json_schema_extra={"examples": ["john.doe@example.com"]})
     name: Optional[ScimBaseUserName] = None
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["active", "displayName", "userName", "name"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class ScimNewUser(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class ScimNewUser(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of name
         if self.name:
             _dict['name'] = self.name.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class ScimNewUser(BaseModel):
             "userName": obj.get("userName"),
             "name": ScimBaseUserName.from_dict(obj["name"]) if obj.get("name") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

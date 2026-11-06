@@ -32,6 +32,7 @@ class LoyaltyBalance(BaseModel):
     spent_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points already spent by this customer.", alias="spentPoints", json_schema_extra={"examples": [150]})
     expired_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of points awarded but never redeemed. They cannot be used anymore.", alias="expiredPoints", json_schema_extra={"examples": [286]})
     negative_points: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of negative points. This implies that `activePoints` is `0`.", alias="negativePoints", json_schema_extra={"examples": [286]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["activePoints", "pendingPoints", "spentPoints", "expiredPoints", "negativePoints"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class LoyaltyBalance(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class LoyaltyBalance(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -91,6 +99,11 @@ class LoyaltyBalance(BaseModel):
             "expiredPoints": obj.get("expiredPoints"),
             "negativePoints": obj.get("negativePoints")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

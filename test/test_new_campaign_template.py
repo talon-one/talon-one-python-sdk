@@ -38,8 +38,8 @@ class TestNewCampaignTemplate(unittest.TestCase):
                 name = '0',
                 description = '',
                 instructions = '',
-                campaign_attributes = None,
-                coupon_attributes = None,
+                campaign_attributes = { },
+                coupon_attributes = { },
                 state = 'draft',
                 tags = [
                     '0'

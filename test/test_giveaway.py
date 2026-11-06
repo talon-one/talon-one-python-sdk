@@ -41,7 +41,7 @@ class TestGiveaway(unittest.TestCase):
                 pool_id = 1,
                 start_date = '2022-01-02T15:04:05Z07:00',
                 end_date = '2023-01-02T15:04:05Z07:00',
-                attributes = None,
+                attributes = { },
                 used = True,
                 import_id = 4,
                 profile_integration_id = 'R195412',

@@ -30,6 +30,7 @@ class ErrorResponse(BaseModel):
     """ # noqa: E501
     message: StrictStr = Field(description="A message describing the error.")
     errors: Optional[List[APIError]] = Field(default=None, description="An array of individual problems encountered during the request.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["message", "errors"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class ErrorResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class ErrorResponse(BaseModel):
             for _item_errors in self.errors:
                 _items.append(_item_errors.to_dict() if _item_errors is not None else None)
             _dict['errors'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class ErrorResponse(BaseModel):
             "message": obj.get("message"),
             "errors": [APIError.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

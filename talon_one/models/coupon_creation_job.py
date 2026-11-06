@@ -53,6 +53,7 @@ class CouponCreationJob(BaseModel):
     communicated: StrictBool = Field(description="Whether or not the user that created this job was notified of its final state.", json_schema_extra={"examples": [False]})
     chunk_execution_count: StrictInt = Field(description="The number of times an attempt to create a chunk of coupons was made during the processing of the job.", alias="chunkExecutionCount", json_schema_extra={"examples": [0]})
     chunk_size: Optional[StrictInt] = Field(default=None, description="The number of coupons that will be created in a single transactions. Coupons will be created in chunks until arriving at the requested amount.", alias="chunkSize", json_schema_extra={"examples": [20000]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "campaignId", "applicationId", "accountId", "usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "numberOfCoupons", "couponSettings", "attributes", "isReservationMandatory", "batchId", "status", "createdAmount", "failCount", "errors", "createdBy", "communicated", "chunkExecutionCount", "chunkSize"]
 
     model_config = ConfigDict(
@@ -85,8 +86,10 @@ class CouponCreationJob(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -97,6 +100,11 @@ class CouponCreationJob(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of coupon_settings
         if self.coupon_settings:
             _dict['couponSettings'] = self.coupon_settings.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -133,6 +141,11 @@ class CouponCreationJob(BaseModel):
             "chunkExecutionCount": obj.get("chunkExecutionCount"),
             "chunkSize": obj.get("chunkSize")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

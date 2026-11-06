@@ -32,6 +32,7 @@ class ExperimentVerdict(BaseModel):
     key_findings: List[StrictStr] = Field(description="A bullet point stating the most important finding, including the metric, the percentage change, and the confidence.", alias="keyFindings")
     ai_confidence_level: StrictStr = Field(description="Your confidence in this overall verdict, from 0 to 100.", alias="aiConfidenceLevel")
     recommendation: StrictStr = Field(description="A short, actionable recommendation based on the findings. If inconclusive, suggest running the test longer. If there is a clear winner, recommend promoting it.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["winnerVariantName", "verdictSummary", "keyFindings", "aiConfidenceLevel", "recommendation"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class ExperimentVerdict(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class ExperimentVerdict(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -91,6 +99,11 @@ class ExperimentVerdict(BaseModel):
             "aiConfidenceLevel": obj.get("aiConfidenceLevel"),
             "recommendation": obj.get("recommendation")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

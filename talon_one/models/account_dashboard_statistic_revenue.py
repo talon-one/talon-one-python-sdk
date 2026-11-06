@@ -31,6 +31,7 @@ class AccountDashboardStatisticRevenue(BaseModel):
     total: Union[StrictFloat, StrictInt] = Field(description="All revenue that went through the client's shop (including purchases that didn’t trigger an effect).")
     influenced: Union[StrictFloat, StrictInt] = Field(description="The revenue that was created by a purchase that triggered an effect (excluding web hooks, notifications).")
     datetime: datetime_module.datetime = Field(description="Values aggregated for the specified date.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["total", "influenced", "datetime"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class AccountDashboardStatisticRevenue(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class AccountDashboardStatisticRevenue(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +96,11 @@ class AccountDashboardStatisticRevenue(BaseModel):
             "influenced": obj.get("influenced"),
             "datetime": obj.get("datetime")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

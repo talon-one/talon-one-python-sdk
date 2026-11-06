@@ -37,13 +37,13 @@ class TestStrikethroughCustomEffectPerItemProps(unittest.TestCase):
             return StrikethroughCustomEffectPerItemProps(
                 effect_id = 1,
                 name = 'my_custom_effect',
-                payload = None
+                payload = { }
             )
         else:
             return StrikethroughCustomEffectPerItemProps(
                 effect_id = 1,
                 name = 'my_custom_effect',
-                payload = None,
+                payload = { },
         )
         """
 

@@ -33,6 +33,7 @@ class SlotDef(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="A short description of the slot.")
     help: Optional[StrictStr] = Field(default=None, description="Extended help text for the slot.")
     writable: StrictBool = Field(description="Whether or not this slot can be updated by rule effects.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "type", "title", "description", "help", "writable"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class SlotDef(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +77,11 @@ class SlotDef(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class SlotDef(BaseModel):
             "help": obj.get("help"),
             "writable": obj.get("writable")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

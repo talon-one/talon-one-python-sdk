@@ -30,6 +30,7 @@ class OutgoingIntegrationCleverTapPolicy(BaseModel):
     base_url: StrictStr = Field(description="The base URL that is based on the region key of your CleverTap account.", alias="baseUrl", json_schema_extra={"examples": ["your-clevertap-url.com"]})
     account_id: StrictStr = Field(description="The CleverTap Project ID.", alias="accountId", json_schema_extra={"examples": ["A9X-7A6-4A6B"]})
     passcode: StrictStr = Field(description="The CleverTap Project passcode.", json_schema_extra={"examples": ["ABB-BAF-AWZP"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["baseUrl", "accountId", "passcode"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class OutgoingIntegrationCleverTapPolicy(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class OutgoingIntegrationCleverTapPolicy(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class OutgoingIntegrationCleverTapPolicy(BaseModel):
             "accountId": obj.get("accountId"),
             "passcode": obj.get("passcode")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

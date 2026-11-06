@@ -40,6 +40,7 @@ class LedgerPointsEntryIntegrationAPI(BaseModel):
     subledger_id: Annotated[str, Field(strict=True, max_length=64)] = Field(description="ID of the subledger.", alias="subledgerId", json_schema_extra={"examples": ["sub-123"]})
     amount: Union[StrictFloat, StrictInt] = Field(description="Amount of loyalty points added in the transaction.", json_schema_extra={"examples": [10.25]})
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "transactionUUID", "created", "programId", "customerSessionId", "name", "startDate", "expiryDate", "subledgerId", "amount", "validityDuration"]
 
     model_config = ConfigDict(
@@ -72,8 +73,10 @@ class LedgerPointsEntryIntegrationAPI(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class LedgerPointsEntryIntegrationAPI(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -105,6 +113,11 @@ class LedgerPointsEntryIntegrationAPI(BaseModel):
             "amount": obj.get("amount"),
             "validityDuration": obj.get("validityDuration")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

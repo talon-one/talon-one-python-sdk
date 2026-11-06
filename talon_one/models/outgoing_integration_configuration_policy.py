@@ -145,7 +145,7 @@ class OutgoingIntegrationConfigurationPolicy(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
     def to_dict(self) -> Optional[Union[Dict[str, Any], OutgoingIntegrationBrazePolicy, OutgoingIntegrationCleverTapPolicy, OutgoingIntegrationIterablePolicy, OutgoingIntegrationMoEngagePolicy]]:
         """Returns the dict representation of the actual instance"""
@@ -155,7 +155,9 @@ class OutgoingIntegrationConfigurationPolicy(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:

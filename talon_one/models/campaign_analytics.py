@@ -53,6 +53,7 @@ class CampaignAnalytics(BaseModel):
     total_added_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of added loyalty points in the campaign since it began.", alias="totalAddedLoyaltyPoints", json_schema_extra={"examples": [340]})
     deducted_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of deducted loyalty points in the campaign in a specific interval.", alias="deductedLoyaltyPoints", json_schema_extra={"examples": [120]})
     total_deducted_loyalty_points: Union[StrictFloat, StrictInt] = Field(description="Number of deducted loyalty points in the campaign since it began.", alias="totalDeductedLoyaltyPoints", json_schema_extra={"examples": [220]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["date", "campaignRevenue", "totalCampaignRevenue", "campaignRefund", "totalCampaignRefund", "campaignDiscountCosts", "totalCampaignDiscountCosts", "campaignRefundedDiscounts", "totalCampaignRefundedDiscounts", "campaignFreeItems", "totalCampaignFreeItems", "couponRedemptions", "totalCouponRedemptions", "couponRolledbackRedemptions", "totalCouponRolledbackRedemptions", "referralRedemptions", "totalReferralRedemptions", "couponsCreated", "totalCouponsCreated", "referralsCreated", "totalReferralsCreated", "addedLoyaltyPoints", "totalAddedLoyaltyPoints", "deductedLoyaltyPoints", "totalDeductedLoyaltyPoints"]
 
     model_config = ConfigDict(
@@ -85,8 +86,10 @@ class CampaignAnalytics(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -94,6 +97,11 @@ class CampaignAnalytics(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -132,6 +140,11 @@ class CampaignAnalytics(BaseModel):
             "deductedLoyaltyPoints": obj.get("deductedLoyaltyPoints"),
             "totalDeductedLoyaltyPoints": obj.get("totalDeductedLoyaltyPoints")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

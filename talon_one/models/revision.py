@@ -39,6 +39,7 @@ class Revision(BaseModel):
     activated_at: Optional[datetime] = Field(default=None, description="Timestamp when this revision was activated.", alias="activatedAt", json_schema_extra={"examples": ["2026-10-08T09:30:00Z"]})
     activated_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who activated this revision.", alias="activatedBy", json_schema_extra={"examples": [334]})
     current_version: Optional[RevisionVersion] = Field(default=None, description="The current version of this revision.", alias="currentVersion")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "activateAt", "accountId", "applicationId", "campaignId", "created", "createdBy", "activatedAt", "activatedBy", "currentVersion"]
 
     model_config = ConfigDict(
@@ -71,8 +72,10 @@ class Revision(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -83,6 +86,11 @@ class Revision(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of current_version
         if self.current_version:
             _dict['currentVersion'] = self.current_version.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -106,6 +114,11 @@ class Revision(BaseModel):
             "activatedBy": obj.get("activatedBy"),
             "currentVersion": RevisionVersion.from_dict(obj["currentVersion"]) if obj.get("currentVersion") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -33,6 +33,7 @@ class OutgoingIntegrationType(BaseModel):
     description: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="Description of the outgoing integration.", json_schema_extra={"examples": ["Braze is a customer data platform"]})
     category: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=64)]] = Field(default=None, description="Category of the outgoing integration.", json_schema_extra={"examples": ["customer engagement platform"]})
     documentation_link: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=255)]] = Field(default=None, description="Http link to the outgoing integration's documentation.", alias="documentationLink", json_schema_extra={"examples": ["https://docs.talon.one/docs/dev/technology-partners/braze"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "description", "category", "documentationLink"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class OutgoingIntegrationType(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +77,11 @@ class OutgoingIntegrationType(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class OutgoingIntegrationType(BaseModel):
             "category": obj.get("category"),
             "documentationLink": obj.get("documentationLink")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -31,6 +31,7 @@ class AchievementBlockReference(BaseModel):
     title: Optional[StrictStr] = Field(default=None, description="The display name for the achievement in the Campaign Manager.", json_schema_extra={"examples": ["50% off on 50th purchase."]})
     name: Optional[StrictStr] = Field(default=None, description="The internal name of the achievement used in API requests.", json_schema_extra={"examples": ["Order50Discount"]})
     target: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The required number of actions or the transactional milestone to complete the achievement.", json_schema_extra={"examples": [50]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "title", "name", "target"]
 
     model_config = ConfigDict(
@@ -66,11 +67,13 @@ class AchievementBlockReference(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "title",
             "name",
             "target",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class AchievementBlockReference(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class AchievementBlockReference(BaseModel):
             "name": obj.get("name"),
             "target": obj.get("target")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

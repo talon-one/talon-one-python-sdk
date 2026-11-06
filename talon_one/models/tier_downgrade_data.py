@@ -39,6 +39,7 @@ class TierDowngradeData(BaseModel):
     timestamp_of_tier_change: datetime = Field(description="The exact date and time the tier was changed.", alias="TimestampOfTierChange", json_schema_extra={"examples": ["2023-10-26T12:23:00+02:00"]})
     source: Optional[StrictStr] = Field(default='points', description="The source of the tier change, whether from a points change or boost. ", alias="Source")
     reason: Optional[StrictStr] = Field(default=None, description="The reason for the tier change. ", alias="Reason")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["CustomerProfileID", "LoyaltyProgramID", "SubledgerID", "CurrentTier", "CurrentPoints", "OldTier", "TierExpirationDate", "TimestampOfTierChange", "Source", "Reason"]
 
     @field_validator('source')
@@ -81,8 +82,10 @@ class TierDowngradeData(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -90,6 +93,11 @@ class TierDowngradeData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -113,6 +121,11 @@ class TierDowngradeData(BaseModel):
             "Source": obj.get("Source") if obj.get("Source") is not None else 'points',
             "Reason": obj.get("Reason")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

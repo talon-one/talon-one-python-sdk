@@ -36,6 +36,7 @@ class AwardDiscountBlock(BaseModel):
     value: AwardDiscountBlock1Value
     partial: StrictBool = Field(description="Whether to apply a partial discount when the requested value exceeds the configured budget.", json_schema_extra={"examples": [False]})
     target: AwardDiscountTarget
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "name", "value", "partial", "target"]
 
     model_config = ConfigDict(
@@ -70,10 +71,12 @@ class AwardDiscountBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -87,6 +90,11 @@ class AwardDiscountBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of target
         if self.target:
             _dict['target'] = self.target.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -107,6 +115,11 @@ class AwardDiscountBlock(BaseModel):
             "partial": obj.get("partial"),
             "target": AwardDiscountTarget.from_dict(obj["target"]) if obj.get("target") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

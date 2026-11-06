@@ -45,6 +45,7 @@ class User(BaseModel):
     last_accessed: Optional[datetime] = Field(default=None, description="Timestamp of the user's last activity after signing in to Talon.One.", alias="lastAccessed", json_schema_extra={"examples": ["2021-09-12T10:14:42Z"]})
     latest_feed_timestamp: Optional[datetime] = Field(default=None, description="Timestamp when the user was notified for feed.", alias="latestFeedTimestamp", json_schema_extra={"examples": ["2020-06-01T00:00:00Z"]})
     additional_attributes: Optional[Dict[str, Any]] = Field(default=None, description="Additional user attributes, created and used by external identity providers.", alias="additionalAttributes", json_schema_extra={"examples": ["{}"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "email", "accountId", "name", "state", "inviteToken", "isAdmin", "policy", "roles", "authMethod", "applicationNotificationSubscriptions", "lastSignedIn", "lastAccessed", "latestFeedTimestamp", "additionalAttributes"]
 
     @field_validator('state')
@@ -84,8 +85,10 @@ class User(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -93,6 +96,11 @@ class User(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -123,6 +131,11 @@ class User(BaseModel):
             "latestFeedTimestamp": obj.get("latestFeedTimestamp"),
             "additionalAttributes": obj.get("additionalAttributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

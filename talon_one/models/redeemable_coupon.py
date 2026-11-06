@@ -32,6 +32,7 @@ class RedeemableCoupon(BaseModel):
     usage_counter: StrictInt = Field(description="The number of times the coupon has been successfully redeemed.", alias="usageCounter", json_schema_extra={"examples": [3]})
     usage_limit: StrictInt = Field(description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits still apply.", alias="usageLimit", json_schema_extra={"examples": [10]})
     campaign_name: StrictStr = Field(description="The name of the campaign that owns the coupon.", alias="campaignName", json_schema_extra={"examples": ["Summer Sale 2026"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["couponId", "couponCode", "usageCounter", "usageLimit", "campaignName"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class RedeemableCoupon(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class RedeemableCoupon(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -91,6 +99,11 @@ class RedeemableCoupon(BaseModel):
             "usageLimit": obj.get("usageLimit"),
             "campaignName": obj.get("campaignName")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

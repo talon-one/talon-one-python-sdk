@@ -39,7 +39,7 @@ class TestUpdateReferral(unittest.TestCase):
                 start_date = '2020-11-10T23:00:00Z',
                 expiry_date = '2021-11-10T23:00:00Z',
                 usage_limit = 1,
-                attributes = None
+                attributes = { }
             )
         else:
             return UpdateReferral(

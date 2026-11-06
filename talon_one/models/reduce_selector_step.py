@@ -29,6 +29,7 @@ class ReduceSelectorStep(BaseModel):
     """ # noqa: E501
     type: StrictStr = Field(description="A step discriminator of type `reduce`.", json_schema_extra={"examples": ["reduce"]})
     operator: StrictStr = Field(description="The aggregation operator applied to the items produced by the preceding step: - `max`, `min`, and `sum` operate on numeric values. - `count` returns the number of items. - `empty` reports whether the list is empty. ", json_schema_extra={"examples": ["sum"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "operator"]
 
     @field_validator('type')
@@ -75,8 +76,10 @@ class ReduceSelectorStep(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -84,6 +87,11 @@ class ReduceSelectorStep(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class ReduceSelectorStep(BaseModel):
             "type": obj.get("type"),
             "operator": obj.get("operator")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

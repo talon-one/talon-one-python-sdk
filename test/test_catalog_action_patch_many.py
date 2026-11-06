@@ -44,7 +44,7 @@ class TestCatalogActionPatchMany(unittest.TestCase):
                             op = 'EQ', 
                             value = null, )
                         ], 
-                    attributes = talon_one.models.attributes.attributes(), )
+                    attributes = { }, )
             )
         else:
             return CatalogActionPatchMany(
@@ -57,7 +57,7 @@ class TestCatalogActionPatchMany(unittest.TestCase):
                             op = 'EQ', 
                             value = null, )
                         ], 
-                    attributes = talon_one.models.attributes.attributes(), ),
+                    attributes = { }, ),
         )
         """
 

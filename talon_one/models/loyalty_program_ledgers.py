@@ -35,6 +35,7 @@ class LoyaltyProgramLedgers(BaseModel):
     join_date: Optional[datetime] = Field(default=None, description="The date on which the customer joined the loyalty program in RFC3339.  **Note**: This is in the loyalty program's time zone. ", alias="joinDate", json_schema_extra={"examples": ["2024-04-30T15:04:05Z07:00"]})
     ledger: LedgerInfo = Field(description="Information about the main ledger in the loyalty program.")
     sub_ledgers: Optional[Dict[str, LedgerInfo]] = Field(default=None, description="A map containing information about each loyalty subledger. Subledgers for which all balances are zero are excluded from the response.", alias="subLedgers")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "title", "name", "joinDate", "ledger", "subLedgers"]
 
     model_config = ConfigDict(
@@ -67,8 +68,10 @@ class LoyaltyProgramLedgers(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class LoyaltyProgramLedgers(BaseModel):
             for _key_sub_ledgers in self.sub_ledgers:
                 _field_dict[_key_sub_ledgers] = self.sub_ledgers[_key_sub_ledgers].to_dict() if self.sub_ledgers[_key_sub_ledgers] is not None else None
             _dict['subLedgers'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -109,6 +117,11 @@ class LoyaltyProgramLedgers(BaseModel):
             if obj.get("subLedgers") is not None
             else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

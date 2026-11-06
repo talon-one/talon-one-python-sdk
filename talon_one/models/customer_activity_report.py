@@ -42,6 +42,7 @@ class CustomerActivityReport(BaseModel):
     total_orders: StrictInt = Field(description="Number of orders in all customer campaigns.", alias="totalOrders")
     total_orders_no_coupon: StrictInt = Field(description="Number of orders without coupon used in all customer campaigns.", alias="totalOrdersNoCoupon")
     campaign_name: StrictStr = Field(description="The name of the campaign this customer belongs to.", alias="campaignName")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["integrationId", "created", "name", "customerId", "lastActivity", "couponRedemptions", "couponUseAttempts", "couponFailedAttempts", "accruedDiscounts", "accruedRevenue", "totalOrders", "totalOrdersNoCoupon", "campaignName"]
 
     model_config = ConfigDict(
@@ -74,8 +75,10 @@ class CustomerActivityReport(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -83,6 +86,11 @@ class CustomerActivityReport(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -109,6 +117,11 @@ class CustomerActivityReport(BaseModel):
             "totalOrdersNoCoupon": obj.get("totalOrdersNoCoupon"),
             "campaignName": obj.get("campaignName")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

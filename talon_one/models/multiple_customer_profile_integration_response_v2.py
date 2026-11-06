@@ -29,6 +29,7 @@ class MultipleCustomerProfileIntegrationResponseV2(BaseModel):
     MultipleCustomerProfileIntegrationResponseV2
     """ # noqa: E501
     integration_states: Optional[List[CustomerProfileUpdateV2Response]] = Field(default=None, alias="integrationStates")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["integrationStates"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class MultipleCustomerProfileIntegrationResponseV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class MultipleCustomerProfileIntegrationResponseV2(BaseModel):
             for _item_integration_states in self.integration_states:
                 _items.append(_item_integration_states.to_dict() if _item_integration_states is not None else None)
             _dict['integrationStates'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class MultipleCustomerProfileIntegrationResponseV2(BaseModel):
         _obj = cls.model_validate({
             "integrationStates": [CustomerProfileUpdateV2Response.from_dict(_item) for _item in obj["integrationStates"]] if obj.get("integrationStates") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

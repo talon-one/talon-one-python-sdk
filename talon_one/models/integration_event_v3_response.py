@@ -53,6 +53,7 @@ class IntegrationEventV3Response(BaseModel):
     rewards: Optional[List[RewardWithUnlocks]] = Field(default=None, description="The unlocked rewards for the customer profile.")
     advanced_event: Optional[EventV3] = Field(default=None, description="The advanced event that was processed.", alias="advancedEvent")
     referral: Optional[InventoryReferral] = Field(default=None, description="The referral that was processed.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "rewards", "advancedEvent", "referral"]
 
     model_config = ConfigDict(
@@ -85,8 +86,10 @@ class IntegrationEventV3Response(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -160,6 +163,11 @@ class IntegrationEventV3Response(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of referral
         if self.referral:
             _dict['referral'] = self.referral.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -186,6 +194,11 @@ class IntegrationEventV3Response(BaseModel):
             "advancedEvent": EventV3.from_dict(obj["advancedEvent"]) if obj.get("advancedEvent") is not None else None,
             "referral": InventoryReferral.from_dict(obj["referral"]) if obj.get("referral") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

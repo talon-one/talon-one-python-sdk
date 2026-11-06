@@ -17,17 +17,17 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from talon_one.models.added_deducted_points_balances_notification_policy import AddedDeductedPointsBalancesNotificationPolicy
-from talon_one.models.added_deducted_points_notification_policy import AddedDeductedPointsNotificationPolicy
 from talon_one.models.campaign_notification_policy import CampaignNotificationPolicy
-from talon_one.models.card_added_deducted_points_balances_notification_policy import CardAddedDeductedPointsBalancesNotificationPolicy
-from talon_one.models.card_added_deducted_points_notification_policy import CardAddedDeductedPointsNotificationPolicy
-from talon_one.models.card_expiring_points_notification_policy import CardExpiringPointsNotificationPolicy
-from talon_one.models.catalogs_strikethrough_notification_policy import CatalogsStrikethroughNotificationPolicy
+from talon_one.models.coupon_code_expiring_notification_policy import CouponCodeExpiringNotificationPolicy
 from talon_one.models.coupons_notification_policy import CouponsNotificationPolicy
-from talon_one.models.expiring_coupons_notification_policy import ExpiringCouponsNotificationPolicy
-from talon_one.models.expiring_points_notification_policy import ExpiringPointsNotificationPolicy
-from talon_one.models.pending_points_notification_policy import PendingPointsNotificationPolicy
+from talon_one.models.loyalty_added_deducted_points_balances_notification_policy import LoyaltyAddedDeductedPointsBalancesNotificationPolicy
+from talon_one.models.loyalty_card_added_deducted_points_balances_notification_policy import LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy
+from talon_one.models.loyalty_card_points_added_deducted_notification_policy import LoyaltyCardPointsAddedDeductedNotificationPolicy
+from talon_one.models.loyalty_card_points_expiring_notification_policy import LoyaltyCardPointsExpiringNotificationPolicy
+from talon_one.models.loyalty_points_added_deducted_notification_policy import LoyaltyPointsAddedDeductedNotificationPolicy
+from talon_one.models.loyalty_points_expiring_notification_policy import LoyaltyPointsExpiringNotificationPolicy
+from talon_one.models.loyalty_points_pending_to_active_notification_policy import LoyaltyPointsPendingToActiveNotificationPolicy
+from talon_one.models.strikethrough_price_notification_policy import StrikethroughPriceNotificationPolicy
 from talon_one.models.tier_downgrade_notification_policy import TierDowngradeNotificationPolicy
 from talon_one.models.tier_upgrade_notification_policy import TierUpgradeNotificationPolicy
 from talon_one.models.tier_will_downgrade_notification_policy import TierWillDowngradeNotificationPolicy
@@ -35,32 +35,32 @@ from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-BASENOTIFICATIONPOLICY_ONE_OF_SCHEMAS = ["AddedDeductedPointsBalancesNotificationPolicy", "AddedDeductedPointsNotificationPolicy", "CampaignNotificationPolicy", "CardAddedDeductedPointsBalancesNotificationPolicy", "CardAddedDeductedPointsNotificationPolicy", "CardExpiringPointsNotificationPolicy", "CatalogsStrikethroughNotificationPolicy", "CouponsNotificationPolicy", "ExpiringCouponsNotificationPolicy", "ExpiringPointsNotificationPolicy", "PendingPointsNotificationPolicy", "TierDowngradeNotificationPolicy", "TierUpgradeNotificationPolicy", "TierWillDowngradeNotificationPolicy"]
+BASENOTIFICATIONPOLICY_ONE_OF_SCHEMAS = ["CampaignNotificationPolicy", "CouponCodeExpiringNotificationPolicy", "CouponsNotificationPolicy", "LoyaltyAddedDeductedPointsBalancesNotificationPolicy", "LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy", "LoyaltyCardPointsAddedDeductedNotificationPolicy", "LoyaltyCardPointsExpiringNotificationPolicy", "LoyaltyPointsAddedDeductedNotificationPolicy", "LoyaltyPointsExpiringNotificationPolicy", "LoyaltyPointsPendingToActiveNotificationPolicy", "StrikethroughPriceNotificationPolicy", "TierDowngradeNotificationPolicy", "TierUpgradeNotificationPolicy", "TierWillDowngradeNotificationPolicy"]
 
 class BaseNotificationPolicy(BaseModel):
     """
     Indicates which notification properties to apply.
     """
-    # data type: ExpiringCouponsNotificationPolicy
-    oneof_schema_1_validator: Optional[ExpiringCouponsNotificationPolicy] = None
-    # data type: CardExpiringPointsNotificationPolicy
-    oneof_schema_2_validator: Optional[CardExpiringPointsNotificationPolicy] = None
-    # data type: ExpiringPointsNotificationPolicy
-    oneof_schema_3_validator: Optional[ExpiringPointsNotificationPolicy] = None
-    # data type: AddedDeductedPointsNotificationPolicy
-    oneof_schema_4_validator: Optional[AddedDeductedPointsNotificationPolicy] = None
-    # data type: CardAddedDeductedPointsNotificationPolicy
-    oneof_schema_5_validator: Optional[CardAddedDeductedPointsNotificationPolicy] = None
-    # data type: AddedDeductedPointsBalancesNotificationPolicy
-    oneof_schema_6_validator: Optional[AddedDeductedPointsBalancesNotificationPolicy] = None
-    # data type: CardAddedDeductedPointsBalancesNotificationPolicy
-    oneof_schema_7_validator: Optional[CardAddedDeductedPointsBalancesNotificationPolicy] = None
+    # data type: CouponCodeExpiringNotificationPolicy
+    oneof_schema_1_validator: Optional[CouponCodeExpiringNotificationPolicy] = None
+    # data type: LoyaltyCardPointsExpiringNotificationPolicy
+    oneof_schema_2_validator: Optional[LoyaltyCardPointsExpiringNotificationPolicy] = None
+    # data type: LoyaltyPointsExpiringNotificationPolicy
+    oneof_schema_3_validator: Optional[LoyaltyPointsExpiringNotificationPolicy] = None
+    # data type: LoyaltyPointsAddedDeductedNotificationPolicy
+    oneof_schema_4_validator: Optional[LoyaltyPointsAddedDeductedNotificationPolicy] = None
+    # data type: LoyaltyCardPointsAddedDeductedNotificationPolicy
+    oneof_schema_5_validator: Optional[LoyaltyCardPointsAddedDeductedNotificationPolicy] = None
+    # data type: LoyaltyAddedDeductedPointsBalancesNotificationPolicy
+    oneof_schema_6_validator: Optional[LoyaltyAddedDeductedPointsBalancesNotificationPolicy] = None
+    # data type: LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy
+    oneof_schema_7_validator: Optional[LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy] = None
     # data type: CouponsNotificationPolicy
     oneof_schema_8_validator: Optional[CouponsNotificationPolicy] = None
-    # data type: CatalogsStrikethroughNotificationPolicy
-    oneof_schema_9_validator: Optional[CatalogsStrikethroughNotificationPolicy] = None
-    # data type: PendingPointsNotificationPolicy
-    oneof_schema_10_validator: Optional[PendingPointsNotificationPolicy] = None
+    # data type: StrikethroughPriceNotificationPolicy
+    oneof_schema_9_validator: Optional[StrikethroughPriceNotificationPolicy] = None
+    # data type: LoyaltyPointsPendingToActiveNotificationPolicy
+    oneof_schema_10_validator: Optional[LoyaltyPointsPendingToActiveNotificationPolicy] = None
     # data type: CampaignNotificationPolicy
     oneof_schema_11_validator: Optional[CampaignNotificationPolicy] = None
     # data type: TierDowngradeNotificationPolicy
@@ -69,8 +69,8 @@ class BaseNotificationPolicy(BaseModel):
     oneof_schema_13_validator: Optional[TierUpgradeNotificationPolicy] = None
     # data type: TierWillDowngradeNotificationPolicy
     oneof_schema_14_validator: Optional[TierWillDowngradeNotificationPolicy] = None
-    actual_instance: Optional[Union[AddedDeductedPointsBalancesNotificationPolicy, AddedDeductedPointsNotificationPolicy, CampaignNotificationPolicy, CardAddedDeductedPointsBalancesNotificationPolicy, CardAddedDeductedPointsNotificationPolicy, CardExpiringPointsNotificationPolicy, CatalogsStrikethroughNotificationPolicy, CouponsNotificationPolicy, ExpiringCouponsNotificationPolicy, ExpiringPointsNotificationPolicy, PendingPointsNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy]] = None
-    one_of_schemas: Set[str] = { "AddedDeductedPointsBalancesNotificationPolicy", "AddedDeductedPointsNotificationPolicy", "CampaignNotificationPolicy", "CardAddedDeductedPointsBalancesNotificationPolicy", "CardAddedDeductedPointsNotificationPolicy", "CardExpiringPointsNotificationPolicy", "CatalogsStrikethroughNotificationPolicy", "CouponsNotificationPolicy", "ExpiringCouponsNotificationPolicy", "ExpiringPointsNotificationPolicy", "PendingPointsNotificationPolicy", "TierDowngradeNotificationPolicy", "TierUpgradeNotificationPolicy", "TierWillDowngradeNotificationPolicy" }
+    actual_instance: Optional[Union[CampaignNotificationPolicy, CouponCodeExpiringNotificationPolicy, CouponsNotificationPolicy, LoyaltyAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardPointsAddedDeductedNotificationPolicy, LoyaltyCardPointsExpiringNotificationPolicy, LoyaltyPointsAddedDeductedNotificationPolicy, LoyaltyPointsExpiringNotificationPolicy, LoyaltyPointsPendingToActiveNotificationPolicy, StrikethroughPriceNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy]] = None
+    one_of_schemas: Set[str] = { "CampaignNotificationPolicy", "CouponCodeExpiringNotificationPolicy", "CouponsNotificationPolicy", "LoyaltyAddedDeductedPointsBalancesNotificationPolicy", "LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy", "LoyaltyCardPointsAddedDeductedNotificationPolicy", "LoyaltyCardPointsExpiringNotificationPolicy", "LoyaltyPointsAddedDeductedNotificationPolicy", "LoyaltyPointsExpiringNotificationPolicy", "LoyaltyPointsPendingToActiveNotificationPolicy", "StrikethroughPriceNotificationPolicy", "TierDowngradeNotificationPolicy", "TierUpgradeNotificationPolicy", "TierWillDowngradeNotificationPolicy" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -93,39 +93,39 @@ class BaseNotificationPolicy(BaseModel):
         instance = BaseNotificationPolicy.model_construct()
         error_messages = []
         match = 0
-        # validate data type: ExpiringCouponsNotificationPolicy
-        if not isinstance(v, ExpiringCouponsNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ExpiringCouponsNotificationPolicy`")
+        # validate data type: CouponCodeExpiringNotificationPolicy
+        if not isinstance(v, CouponCodeExpiringNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `CouponCodeExpiringNotificationPolicy`")
         else:
             match += 1
-        # validate data type: CardExpiringPointsNotificationPolicy
-        if not isinstance(v, CardExpiringPointsNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CardExpiringPointsNotificationPolicy`")
+        # validate data type: LoyaltyCardPointsExpiringNotificationPolicy
+        if not isinstance(v, LoyaltyCardPointsExpiringNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LoyaltyCardPointsExpiringNotificationPolicy`")
         else:
             match += 1
-        # validate data type: ExpiringPointsNotificationPolicy
-        if not isinstance(v, ExpiringPointsNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ExpiringPointsNotificationPolicy`")
+        # validate data type: LoyaltyPointsExpiringNotificationPolicy
+        if not isinstance(v, LoyaltyPointsExpiringNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LoyaltyPointsExpiringNotificationPolicy`")
         else:
             match += 1
-        # validate data type: AddedDeductedPointsNotificationPolicy
-        if not isinstance(v, AddedDeductedPointsNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AddedDeductedPointsNotificationPolicy`")
+        # validate data type: LoyaltyPointsAddedDeductedNotificationPolicy
+        if not isinstance(v, LoyaltyPointsAddedDeductedNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LoyaltyPointsAddedDeductedNotificationPolicy`")
         else:
             match += 1
-        # validate data type: CardAddedDeductedPointsNotificationPolicy
-        if not isinstance(v, CardAddedDeductedPointsNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CardAddedDeductedPointsNotificationPolicy`")
+        # validate data type: LoyaltyCardPointsAddedDeductedNotificationPolicy
+        if not isinstance(v, LoyaltyCardPointsAddedDeductedNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LoyaltyCardPointsAddedDeductedNotificationPolicy`")
         else:
             match += 1
-        # validate data type: AddedDeductedPointsBalancesNotificationPolicy
-        if not isinstance(v, AddedDeductedPointsBalancesNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AddedDeductedPointsBalancesNotificationPolicy`")
+        # validate data type: LoyaltyAddedDeductedPointsBalancesNotificationPolicy
+        if not isinstance(v, LoyaltyAddedDeductedPointsBalancesNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LoyaltyAddedDeductedPointsBalancesNotificationPolicy`")
         else:
             match += 1
-        # validate data type: CardAddedDeductedPointsBalancesNotificationPolicy
-        if not isinstance(v, CardAddedDeductedPointsBalancesNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CardAddedDeductedPointsBalancesNotificationPolicy`")
+        # validate data type: LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy
+        if not isinstance(v, LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy`")
         else:
             match += 1
         # validate data type: CouponsNotificationPolicy
@@ -133,14 +133,14 @@ class BaseNotificationPolicy(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `CouponsNotificationPolicy`")
         else:
             match += 1
-        # validate data type: CatalogsStrikethroughNotificationPolicy
-        if not isinstance(v, CatalogsStrikethroughNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CatalogsStrikethroughNotificationPolicy`")
+        # validate data type: StrikethroughPriceNotificationPolicy
+        if not isinstance(v, StrikethroughPriceNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `StrikethroughPriceNotificationPolicy`")
         else:
             match += 1
-        # validate data type: PendingPointsNotificationPolicy
-        if not isinstance(v, PendingPointsNotificationPolicy):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PendingPointsNotificationPolicy`")
+        # validate data type: LoyaltyPointsPendingToActiveNotificationPolicy
+        if not isinstance(v, LoyaltyPointsPendingToActiveNotificationPolicy):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `LoyaltyPointsPendingToActiveNotificationPolicy`")
         else:
             match += 1
         # validate data type: CampaignNotificationPolicy
@@ -165,10 +165,10 @@ class BaseNotificationPolicy(BaseModel):
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in BaseNotificationPolicy with oneOf schemas: AddedDeductedPointsBalancesNotificationPolicy, AddedDeductedPointsNotificationPolicy, CampaignNotificationPolicy, CardAddedDeductedPointsBalancesNotificationPolicy, CardAddedDeductedPointsNotificationPolicy, CardExpiringPointsNotificationPolicy, CatalogsStrikethroughNotificationPolicy, CouponsNotificationPolicy, ExpiringCouponsNotificationPolicy, ExpiringPointsNotificationPolicy, PendingPointsNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in BaseNotificationPolicy with oneOf schemas: CampaignNotificationPolicy, CouponCodeExpiringNotificationPolicy, CouponsNotificationPolicy, LoyaltyAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardPointsAddedDeductedNotificationPolicy, LoyaltyCardPointsExpiringNotificationPolicy, LoyaltyPointsAddedDeductedNotificationPolicy, LoyaltyPointsExpiringNotificationPolicy, LoyaltyPointsPendingToActiveNotificationPolicy, StrikethroughPriceNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in BaseNotificationPolicy with oneOf schemas: AddedDeductedPointsBalancesNotificationPolicy, AddedDeductedPointsNotificationPolicy, CampaignNotificationPolicy, CardAddedDeductedPointsBalancesNotificationPolicy, CardAddedDeductedPointsNotificationPolicy, CardExpiringPointsNotificationPolicy, CatalogsStrikethroughNotificationPolicy, CouponsNotificationPolicy, ExpiringCouponsNotificationPolicy, ExpiringPointsNotificationPolicy, PendingPointsNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in BaseNotificationPolicy with oneOf schemas: CampaignNotificationPolicy, CouponCodeExpiringNotificationPolicy, CouponsNotificationPolicy, LoyaltyAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardPointsAddedDeductedNotificationPolicy, LoyaltyCardPointsExpiringNotificationPolicy, LoyaltyPointsAddedDeductedNotificationPolicy, LoyaltyPointsExpiringNotificationPolicy, LoyaltyPointsPendingToActiveNotificationPolicy, StrikethroughPriceNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -183,45 +183,45 @@ class BaseNotificationPolicy(BaseModel):
         error_messages = []
         match = 0
 
-        # deserialize data into ExpiringCouponsNotificationPolicy
+        # deserialize data into CouponCodeExpiringNotificationPolicy
         try:
-            instance.actual_instance = ExpiringCouponsNotificationPolicy.from_json(json_str)
+            instance.actual_instance = CouponCodeExpiringNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CardExpiringPointsNotificationPolicy
+        # deserialize data into LoyaltyCardPointsExpiringNotificationPolicy
         try:
-            instance.actual_instance = CardExpiringPointsNotificationPolicy.from_json(json_str)
+            instance.actual_instance = LoyaltyCardPointsExpiringNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into ExpiringPointsNotificationPolicy
+        # deserialize data into LoyaltyPointsExpiringNotificationPolicy
         try:
-            instance.actual_instance = ExpiringPointsNotificationPolicy.from_json(json_str)
+            instance.actual_instance = LoyaltyPointsExpiringNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into AddedDeductedPointsNotificationPolicy
+        # deserialize data into LoyaltyPointsAddedDeductedNotificationPolicy
         try:
-            instance.actual_instance = AddedDeductedPointsNotificationPolicy.from_json(json_str)
+            instance.actual_instance = LoyaltyPointsAddedDeductedNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CardAddedDeductedPointsNotificationPolicy
+        # deserialize data into LoyaltyCardPointsAddedDeductedNotificationPolicy
         try:
-            instance.actual_instance = CardAddedDeductedPointsNotificationPolicy.from_json(json_str)
+            instance.actual_instance = LoyaltyCardPointsAddedDeductedNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into AddedDeductedPointsBalancesNotificationPolicy
+        # deserialize data into LoyaltyAddedDeductedPointsBalancesNotificationPolicy
         try:
-            instance.actual_instance = AddedDeductedPointsBalancesNotificationPolicy.from_json(json_str)
+            instance.actual_instance = LoyaltyAddedDeductedPointsBalancesNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CardAddedDeductedPointsBalancesNotificationPolicy
+        # deserialize data into LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy
         try:
-            instance.actual_instance = CardAddedDeductedPointsBalancesNotificationPolicy.from_json(json_str)
+            instance.actual_instance = LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
@@ -231,15 +231,15 @@ class BaseNotificationPolicy(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into CatalogsStrikethroughNotificationPolicy
+        # deserialize data into StrikethroughPriceNotificationPolicy
         try:
-            instance.actual_instance = CatalogsStrikethroughNotificationPolicy.from_json(json_str)
+            instance.actual_instance = StrikethroughPriceNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into PendingPointsNotificationPolicy
+        # deserialize data into LoyaltyPointsPendingToActiveNotificationPolicy
         try:
-            instance.actual_instance = PendingPointsNotificationPolicy.from_json(json_str)
+            instance.actual_instance = LoyaltyPointsPendingToActiveNotificationPolicy.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
@@ -270,10 +270,10 @@ class BaseNotificationPolicy(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into BaseNotificationPolicy with oneOf schemas: AddedDeductedPointsBalancesNotificationPolicy, AddedDeductedPointsNotificationPolicy, CampaignNotificationPolicy, CardAddedDeductedPointsBalancesNotificationPolicy, CardAddedDeductedPointsNotificationPolicy, CardExpiringPointsNotificationPolicy, CatalogsStrikethroughNotificationPolicy, CouponsNotificationPolicy, ExpiringCouponsNotificationPolicy, ExpiringPointsNotificationPolicy, PendingPointsNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into BaseNotificationPolicy with oneOf schemas: CampaignNotificationPolicy, CouponCodeExpiringNotificationPolicy, CouponsNotificationPolicy, LoyaltyAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardPointsAddedDeductedNotificationPolicy, LoyaltyCardPointsExpiringNotificationPolicy, LoyaltyPointsAddedDeductedNotificationPolicy, LoyaltyPointsExpiringNotificationPolicy, LoyaltyPointsPendingToActiveNotificationPolicy, StrikethroughPriceNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into BaseNotificationPolicy with oneOf schemas: AddedDeductedPointsBalancesNotificationPolicy, AddedDeductedPointsNotificationPolicy, CampaignNotificationPolicy, CardAddedDeductedPointsBalancesNotificationPolicy, CardAddedDeductedPointsNotificationPolicy, CardExpiringPointsNotificationPolicy, CatalogsStrikethroughNotificationPolicy, CouponsNotificationPolicy, ExpiringCouponsNotificationPolicy, ExpiringPointsNotificationPolicy, PendingPointsNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into BaseNotificationPolicy with oneOf schemas: CampaignNotificationPolicy, CouponCodeExpiringNotificationPolicy, CouponsNotificationPolicy, LoyaltyAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardPointsAddedDeductedNotificationPolicy, LoyaltyCardPointsExpiringNotificationPolicy, LoyaltyPointsAddedDeductedNotificationPolicy, LoyaltyPointsExpiringNotificationPolicy, LoyaltyPointsPendingToActiveNotificationPolicy, StrikethroughPriceNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -285,9 +285,9 @@ class BaseNotificationPolicy(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AddedDeductedPointsBalancesNotificationPolicy, AddedDeductedPointsNotificationPolicy, CampaignNotificationPolicy, CardAddedDeductedPointsBalancesNotificationPolicy, CardAddedDeductedPointsNotificationPolicy, CardExpiringPointsNotificationPolicy, CatalogsStrikethroughNotificationPolicy, CouponsNotificationPolicy, ExpiringCouponsNotificationPolicy, ExpiringPointsNotificationPolicy, PendingPointsNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], CampaignNotificationPolicy, CouponCodeExpiringNotificationPolicy, CouponsNotificationPolicy, LoyaltyAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy, LoyaltyCardPointsAddedDeductedNotificationPolicy, LoyaltyCardPointsExpiringNotificationPolicy, LoyaltyPointsAddedDeductedNotificationPolicy, LoyaltyPointsExpiringNotificationPolicy, LoyaltyPointsPendingToActiveNotificationPolicy, StrikethroughPriceNotificationPolicy, TierDowngradeNotificationPolicy, TierUpgradeNotificationPolicy, TierWillDowngradeNotificationPolicy]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None
@@ -295,7 +295,9 @@ class BaseNotificationPolicy(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:

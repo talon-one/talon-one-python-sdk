@@ -30,14 +30,15 @@ class History(BaseModel):
     """
     History
     """ # noqa: E501
-    id: StrictInt = Field(description="The ID of the historical price.", json_schema_extra={"examples": [1]})
-    observed_at: datetime = Field(description="The date and time when the price was observed.", alias="observedAt", json_schema_extra={"examples": ["2025-11-10T23:00:00Z"]})
-    context_ids: List[StrictStr] = Field(description="The identifiers of the relevant context (the sales events, e.g. \"Spring Sale\", \"Summer Sale\") at the time the price was observed. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price. ", alias="contextIds", json_schema_extra={"examples": [["SpringSale", "SummerSale2025"]]})
+    id: StrictInt = Field(description="The ID of the price record.", json_schema_extra={"examples": [1]})
+    observed_at: datetime = Field(description="The date and time from which the price record is effective.", alias="observedAt", json_schema_extra={"examples": ["2025-11-10T23:00:00Z"]})
+    context_ids: List[StrictStr] = Field(description="The identifiers of the relevant context (the sales events, e.g. \"Spring Sale\", \"Summer Sale\") at the time from which the price record is effective. Includes the context IDs of any price adjustments and of the campaigns that influenced the final price. ", alias="contextIds", json_schema_extra={"examples": [["SpringSale", "SummerSale2025"]]})
     price: Union[StrictFloat, StrictInt] = Field(description="Price of the item.", json_schema_extra={"examples": [99.99]})
     metadata: BestPriorPriceMetadata
     target: LabelTarget
-    excluded_at: Optional[datetime] = Field(default=None, description="The date and time when the historical price ID was excluded.", alias="excludedAt", json_schema_extra={"examples": ["2025-11-10T23:00:00Z"]})
-    exclusion_reason: Optional[StrictStr] = Field(default=None, description="The reason for excluding this historical price ID.", alias="exclusionReason", json_schema_extra={"examples": ["Incorrect contextID value"]})
+    excluded_at: Optional[datetime] = Field(default=None, description="The date and time when the price record was excluded.", alias="excludedAt", json_schema_extra={"examples": ["2025-11-10T23:00:00Z"]})
+    exclusion_reason: Optional[StrictStr] = Field(default=None, description="The reason for excluding this price record.", alias="exclusionReason", json_schema_extra={"examples": ["Incorrect contextID value"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "observedAt", "contextIds", "price", "metadata", "target", "excludedAt", "exclusionReason"]
 
     model_config = ConfigDict(
@@ -70,8 +71,10 @@ class History(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class History(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of target
         if self.target:
             _dict['target'] = self.target.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -106,6 +114,11 @@ class History(BaseModel):
             "excludedAt": obj.get("excludedAt"),
             "exclusionReason": obj.get("exclusionReason")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

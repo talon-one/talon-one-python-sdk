@@ -32,6 +32,7 @@ class GenerateLoyaltyCard(BaseModel):
     customer_profile_ids: Optional[List[StrictStr]] = Field(default=None, description="Integration IDs of the customer profiles linked to the card.", alias="customerProfileIds", json_schema_extra={"examples": [["R195412", "G244519"]]})
     card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card, which must match the regular expression `^[A-Za-z0-9._%+@-]+$`. ", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint. ", json_schema_extra={"examples": [{"preferredReward": "discount"}]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["status", "customerProfileIds", "cardIdentifier", "attributes"]
 
     @field_validator('status')
@@ -84,8 +85,10 @@ class GenerateLoyaltyCard(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -93,6 +96,11 @@ class GenerateLoyaltyCard(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -110,6 +118,11 @@ class GenerateLoyaltyCard(BaseModel):
             "cardIdentifier": obj.get("cardIdentifier"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

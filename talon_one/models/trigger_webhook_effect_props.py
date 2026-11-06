@@ -29,6 +29,7 @@ class TriggerWebhookEffectProps(BaseModel):
     """ # noqa: E501
     webhook_id: Union[StrictFloat, StrictInt] = Field(description="The internal ID of the webhook.", alias="webhookId")
     webhook_name: StrictStr = Field(description="The name of the webhook.", alias="webhookName")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["webhookId", "webhookName"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class TriggerWebhookEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class TriggerWebhookEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class TriggerWebhookEffectProps(BaseModel):
             "webhookId": obj.get("webhookId"),
             "webhookName": obj.get("webhookName")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

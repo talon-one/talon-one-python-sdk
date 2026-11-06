@@ -29,6 +29,7 @@ class SSOConfig(BaseModel):
     """ # noqa: E501
     enforced: StrictBool = Field(description="An indication of whether single sign-on is enforced for the account. When enforced, users cannot use their email and password to sign in to Talon.One. It is not possible to change this to `false` after it is set to `true`. ", json_schema_extra={"examples": [True]})
     new_acs_url: Optional[StrictStr] = Field(default=None, description="Assertion Consumer Service (ACS) URL for setting up a new SAML connection with an identity provider like Okta or Microsoft Entra ID. ", alias="newAcsUrl", json_schema_extra={"examples": ["https://yourdeployment.talon.one/v1/saml_connections/5/saml_callback"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["enforced", "newAcsUrl"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class SSOConfig(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class SSOConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class SSOConfig(BaseModel):
             "enforced": obj.get("enforced"),
             "newAcsUrl": obj.get("newAcsUrl")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -37,6 +37,7 @@ class NewCustomerSession(BaseModel):
     identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers). ", json_schema_extra={"examples": [["91.11.156.141"]]})
     total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total sum of the cart in one session.")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="A key-value map of the sessions attributes. The potentially valid attributes are configured in your accounts developer settings. ")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["profileId", "coupon", "referral", "state", "cartItems", "identifiers", "total", "attributes"]
 
     @field_validator('state')
@@ -79,8 +80,10 @@ class NewCustomerSession(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -94,6 +97,11 @@ class NewCustomerSession(BaseModel):
             for _item_cart_items in self.cart_items:
                 _items.append(_item_cart_items.to_dict() if _item_cart_items is not None else None)
             _dict['cartItems'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +123,11 @@ class NewCustomerSession(BaseModel):
             "total": obj.get("total"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

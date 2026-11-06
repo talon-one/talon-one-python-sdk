@@ -32,6 +32,7 @@ class MCPOAuthSessionInfo(BaseModel):
     session_id: StrictStr = Field(description="The identifier of the authorization session.", json_schema_extra={"examples": ["a3f8c1e2b4d567890123456789abcdef"]})
     expires_at: Optional[datetime] = Field(default=None, description="The date and time at which the session expires. Date and time. Follows RFC3339 format.", json_schema_extra={"examples": ["2016-03-28T08:34:32.000Z"]})
     client: MCPOAuthClient = Field(description="The MCP OAuth client requesting authorization.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["session_id", "expires_at", "client"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class MCPOAuthSessionInfo(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class MCPOAuthSessionInfo(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of client
         if self.client:
             _dict['client'] = self.client.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class MCPOAuthSessionInfo(BaseModel):
             "expires_at": obj.get("expires_at"),
             "client": MCPOAuthClient.from_dict(obj["client"]) if obj.get("client") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

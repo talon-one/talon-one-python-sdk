@@ -31,6 +31,7 @@ class AccountDashboardStatisticDiscount(BaseModel):
     total: Union[StrictFloat, StrictInt] = Field(description="Total discount value redeemed by users.")
     average: Union[StrictFloat, StrictInt] = Field(description="Average discount percentage.")
     datetime: datetime_module.datetime = Field(description="Values aggregated for the specified date.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["total", "average", "datetime"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class AccountDashboardStatisticDiscount(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class AccountDashboardStatisticDiscount(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +96,11 @@ class AccountDashboardStatisticDiscount(BaseModel):
             "average": obj.get("average"),
             "datetime": obj.get("datetime")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

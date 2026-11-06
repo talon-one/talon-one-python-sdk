@@ -35,6 +35,7 @@ class SelectSelectorStep(BaseModel):
     count: Optional[StrictInt] = Field(default=None, description="The maximum number of items to select for the `many` operator.", json_schema_extra={"examples": [5]})
     index: Optional[StrictInt] = Field(default=None, description="The exact position of the item to select for the `one` operator.", json_schema_extra={"examples": [0]})
     partial: Optional[StrictBool] = Field(default=None, description="Indicates if the step returns fewer items than requested when the source list is shorter than the range needs. Always `true` for the `many` and `between` operators; not present for `one`, which fails instead of returning a partial result.", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "operator", "from", "to", "count", "index", "partial"]
 
     @field_validator('type')
@@ -81,8 +82,10 @@ class SelectSelectorStep(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -93,6 +96,11 @@ class SelectSelectorStep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of var_from
         if self.var_from:
             _dict['from'] = self.var_from.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -113,6 +121,11 @@ class SelectSelectorStep(BaseModel):
             "index": obj.get("index"),
             "partial": obj.get("partial")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

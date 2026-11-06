@@ -40,7 +40,7 @@ class TestStrikethroughEffect(unittest.TestCase):
                 rule_index = 2,
                 rule_name = 'Add 2 points',
                 type = 'setDiscountPerItem',
-                props = None,
+                props = { },
                 start_time = '2021-07-20T22:00:00Z',
                 end_time = '2021-10-01T02:00:00Z',
                 selected_price_type = 'member',
@@ -57,7 +57,7 @@ class TestStrikethroughEffect(unittest.TestCase):
                 rule_index = 2,
                 rule_name = 'Add 2 points',
                 type = 'setDiscountPerItem',
-                props = None,
+                props = { },
         )
         """
 

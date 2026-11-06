@@ -43,6 +43,7 @@ class ApplicationEvent(BaseModel):
     attributes: Dict[str, Any] = Field(description="Additional JSON serialized data associated with the event.")
     effects: List[Effect] = Field(description="An array containing the effects that were applied as a result of this event.")
     rule_failure_reasons: Optional[List[RuleFailureReason]] = Field(default=None, description="An array containing the rule failure reasons which happened during this event.", alias="ruleFailureReasons")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "profileId", "storeId", "storeIntegrationId", "integrationId", "sessionId", "type", "attributes", "effects", "ruleFailureReasons"]
 
     model_config = ConfigDict(
@@ -75,8 +76,10 @@ class ApplicationEvent(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -96,6 +99,11 @@ class ApplicationEvent(BaseModel):
             for _item_rule_failure_reasons in self.rule_failure_reasons:
                 _items.append(_item_rule_failure_reasons.to_dict() if _item_rule_failure_reasons is not None else None)
             _dict['ruleFailureReasons'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -121,6 +129,11 @@ class ApplicationEvent(BaseModel):
             "effects": [Effect.from_dict(_item) for _item in obj["effects"]] if obj.get("effects") is not None else None,
             "ruleFailureReasons": [RuleFailureReason.from_dict(_item) for _item in obj["ruleFailureReasons"]] if obj.get("ruleFailureReasons") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

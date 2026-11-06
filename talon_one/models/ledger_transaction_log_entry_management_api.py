@@ -47,6 +47,7 @@ class LedgerTransactionLogEntryManagementAPI(BaseModel):
     flags: Optional[LoyaltyLedgerEntryFlags] = Field(default=None, description="The flags of the transaction, when applicable. The `createsNegativeBalance`  flag indicates whether the transaction results in a negative balance.")
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
     reference_transaction_uuids: Optional[List[StrictStr]] = Field(default=None, description="UUIDs of the addition transactions from which this subtraction deducted loyalty points. Only returned when `includeReferences` is `true` and the transaction has references. ", alias="referenceTransactionUUIDs", json_schema_extra={"examples": [["a36bca2c-a24a-41ce-9f69-314d20c3373d", "7a8e2d7b-521f-48f2-bc4d-67c01f9cf27b"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "customerSessionId", "storeIntegrationId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "flags", "validityDuration", "referenceTransactionUUIDs"]
 
     @field_validator('type')
@@ -86,8 +87,10 @@ class LedgerTransactionLogEntryManagementAPI(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -98,6 +101,11 @@ class LedgerTransactionLogEntryManagementAPI(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of flags
         if self.flags:
             _dict['flags'] = self.flags.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -128,6 +136,11 @@ class LedgerTransactionLogEntryManagementAPI(BaseModel):
             "validityDuration": obj.get("validityDuration"),
             "referenceTransactionUUIDs": obj.get("referenceTransactionUUIDs")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

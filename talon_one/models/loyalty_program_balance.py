@@ -35,6 +35,7 @@ class LoyaltyProgramBalance(BaseModel):
     tentative_current_balance: Union[StrictFloat, StrictInt] = Field(description="The tentative points balance, reflecting the `currentBalance` and all point additions and deductions within the current open customer session. When the session is closed, the effects are applied and the `currentBalance` is updated to this value.  **Note:** Tentative balances are specific to the current session and do not take into account other open sessions for the given customer. ", alias="tentativeCurrentBalance", json_schema_extra={"examples": [100]})
     tentative_pending_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The tentative points balance, reflecting the `pendingBalance` and all point additions with a future activation date within the current open customer session. When the session is closed, the effects are applied and the `pendingBalance` is updated to this value.  **Note:** Tentative balances are specific to the current session and do not take into account other open sessions for the given customer. ", alias="tentativePendingBalance", json_schema_extra={"examples": [20]})
     tentative_negative_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The tentative negative balance after all additions and deductions from the current customer session are applied to `negativeBalance`. When the session is closed, the tentative effects are applied and `negativeBalance` is updated to this value.  **Note:** Tentative balances are specific to the current session and do not take into account other open sessions for the given customer. ", alias="tentativeNegativeBalance", json_schema_extra={"examples": [100]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["currentBalance", "pendingBalance", "negativeBalance", "expiredBalance", "spentBalance", "tentativeCurrentBalance", "tentativePendingBalance", "tentativeNegativeBalance"]
 
     model_config = ConfigDict(
@@ -67,8 +68,10 @@ class LoyaltyProgramBalance(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class LoyaltyProgramBalance(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -97,6 +105,11 @@ class LoyaltyProgramBalance(BaseModel):
             "tentativePendingBalance": obj.get("tentativePendingBalance"),
             "tentativeNegativeBalance": obj.get("tentativeNegativeBalance")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

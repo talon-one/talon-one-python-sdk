@@ -31,6 +31,7 @@ class SetDiscountEffectProps(BaseModel):
     value: Union[StrictFloat, StrictInt] = Field(description="The monetary value of the effective discount.")
     scope: Optional[StrictStr] = Field(default=None, description="What the discount applies to. Possible values:  - `cartItems`: Discount on the price of the items. - `additionalCosts`: Discount on the [additional costs](https://docs.talon.one/docs/product/account/dev-tools/manage-additional-costs) of the items. - `sessionTotal`: Discount on the total value of the customer session.  **Note:** [Cascading discounts](https://docs.talon.one/docs/product/applications/manage-general-settings#cascading-discounts) must be enabled for this property to be returned.")
     desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Partial discounts enabled only)_ The monetary value of the discount to be applied without considering budget limitations.", alias="desiredValue")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "value", "scope", "desiredValue"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class SetDiscountEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class SetDiscountEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class SetDiscountEffectProps(BaseModel):
             "scope": obj.get("scope"),
             "desiredValue": obj.get("desiredValue")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

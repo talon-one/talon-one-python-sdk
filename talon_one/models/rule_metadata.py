@@ -31,6 +31,7 @@ class RuleMetadata(BaseModel):
     display_name: Optional[StrictStr] = Field(default=None, description="A customer-facing name for the rule.", alias="displayName", json_schema_extra={"examples": ["20% off all shoes!"]})
     display_description: Optional[StrictStr] = Field(default=None, description="A customer-facing description that explains the details of the rule.   For example, this property can contain details about eligibility requirements, reward timelines, or terms and conditions. ", alias="displayDescription", json_schema_extra={"examples": ["Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only."]})
     related_data: Optional[StrictStr] = Field(default=None, description="Any additional data associated with the rule, such as an image URL, vendor name, or a content management system (CMS) ID. ", alias="relatedData", json_schema_extra={"examples": ["https://example.com/discounts/20-off-shoes.png"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "displayName", "displayDescription", "relatedData"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class RuleMetadata(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class RuleMetadata(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class RuleMetadata(BaseModel):
             "displayDescription": obj.get("displayDescription"),
             "relatedData": obj.get("relatedData")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

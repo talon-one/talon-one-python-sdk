@@ -45,6 +45,7 @@ class CustomerSession(BaseModel):
     update_count: StrictInt = Field(description="The number of times the session was updated. When the session is created, this value is initialized to `1`.", alias="updateCount", json_schema_extra={"examples": [3]})
     discounts: Dict[str, Union[StrictFloat, StrictInt]] = Field(description="A map of labelled discount values, values will be in the same currency as the application associated with the session.")
     updated: datetime = Field(description="Timestamp of the most recent event received on this session.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["integrationId", "created", "applicationId", "profileId", "coupon", "referral", "state", "cartItems", "identifiers", "total", "attributes", "firstSession", "updateCount", "discounts", "updated"]
 
     @field_validator('state')
@@ -87,8 +88,10 @@ class CustomerSession(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -102,6 +105,11 @@ class CustomerSession(BaseModel):
             for _item_cart_items in self.cart_items:
                 _items.append(_item_cart_items.to_dict() if _item_cart_items is not None else None)
             _dict['cartItems'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -130,6 +138,11 @@ class CustomerSession(BaseModel):
             "discounts": obj.get("discounts"),
             "updated": obj.get("updated")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -33,9 +33,10 @@ class NewPriceAdjustment(BaseModel):
     price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the price type applied to the SKU. When set to `null`, the defined price type no longer applies to the SKU.", json_schema_extra={"examples": [100]})
     reference_id: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A unique reference identifier, e.g. a UUID.", alias="referenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
     calculated_at: Optional[datetime] = Field(default=None, description="The time at which this price was calculated. If provided, this is used to determine the most recent price adjustment to choose if price adjustments overlap. Defaults to internal creation time if not provided.", alias="calculatedAt", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
-    effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective.", alias="effectiveFrom", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
-    effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective.", alias="effectiveUntil", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective.  **Note**: If no timeframe is defined, the price adjustment is applied immediately and is effective until another, more recent, price adjustment is synced with the catalog. ", alias="effectiveFrom", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective.  **Note**: If no timeframe is defined, the price adjustment is applied immediately and is effective until another, more recent, price adjustment is synced with the catalog. ", alias="effectiveUntil", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     context_id: Optional[StrictStr] = Field(default=None, description="Identifier of the context of this price adjustment (the sales event, e.g. \"Summer Sale\").", alias="contextId", json_schema_extra={"examples": ["Summer2025"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["priceType", "price", "referenceId", "calculatedAt", "effectiveFrom", "effectiveUntil", "contextId"]
 
     model_config = ConfigDict(
@@ -68,8 +69,10 @@ class NewPriceAdjustment(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class NewPriceAdjustment(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if price (nullable) is None
         # and model_fields_set contains the field
         if self.price is None and "price" in self.model_fields_set:
@@ -102,6 +110,11 @@ class NewPriceAdjustment(BaseModel):
             "effectiveUntil": obj.get("effectiveUntil"),
             "contextId": obj.get("contextId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -31,6 +31,7 @@ class NewGiveawaysPool(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="The description of this giveaway pool.", json_schema_extra={"examples": ["Generic pool"]})
     subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that this giveaway pool is enabled for.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[2, 4]]})
     sandbox: StrictBool = Field(description="Indicates if this program is a live or sandbox program. Programs of a given type can only be connected to Applications of the same type.", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description", "subscribedApplicationsIds", "sandbox"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class NewGiveawaysPool(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class NewGiveawaysPool(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class NewGiveawaysPool(BaseModel):
             "subscribedApplicationsIds": obj.get("subscribedApplicationsIds"),
             "sandbox": obj.get("sandbox")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

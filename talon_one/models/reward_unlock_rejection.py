@@ -30,6 +30,7 @@ class RewardUnlockRejection(BaseModel):
     """ # noqa: E501
     message: StrictStr = Field(description="A human-readable summary of why the reward unlock was rejected.", json_schema_extra={"examples": ["reward unlock rejected"]})
     rule_failure_reasons: List[RuleFailureReason] = Field(description="The reasons why the reward could not be unlocked.", alias="ruleFailureReasons")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["message", "ruleFailureReasons"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class RewardUnlockRejection(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class RewardUnlockRejection(BaseModel):
             for _item_rule_failure_reasons in self.rule_failure_reasons:
                 _items.append(_item_rule_failure_reasons.to_dict() if _item_rule_failure_reasons is not None else None)
             _dict['ruleFailureReasons'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class RewardUnlockRejection(BaseModel):
             "message": obj.get("message"),
             "ruleFailureReasons": [RuleFailureReason.from_dict(_item) for _item in obj["ruleFailureReasons"]] if obj.get("ruleFailureReasons") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

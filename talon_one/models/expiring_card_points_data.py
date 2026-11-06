@@ -39,6 +39,7 @@ class ExpiringCardPointsData(BaseModel):
     created: Optional[datetime] = Field(default=None, description="The timestamp when the loyalty transaction occurred.", alias="Created", json_schema_extra={"examples": ["2023-01-24T14:15:22Z"]})
     awaits_activation: Optional[StrictBool] = Field(default=None, description="Indicates whether the points have an action-based start date. This property is returned only for point transactions with an action-based start date.", alias="AwaitsActivation", json_schema_extra={"examples": [False]})
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the activation date.  **Note**: This only applies to points for which `AwaitsActivation` is `true` and `ExpiryDate` is not set. ", alias="ValidityDuration", json_schema_extra={"examples": ["30D"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["ExpiryDate", "LoyaltyProgramID", "AmountOfExpiringPoints", "SubledgerID", "CardIdentifier", "UsersPerCardLimit", "Profiles", "Created", "AwaitsActivation", "ValidityDuration"]
 
     model_config = ConfigDict(
@@ -71,8 +72,10 @@ class ExpiringCardPointsData(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class ExpiringCardPointsData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -103,6 +111,11 @@ class ExpiringCardPointsData(BaseModel):
             "AwaitsActivation": obj.get("AwaitsActivation"),
             "ValidityDuration": obj.get("ValidityDuration")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

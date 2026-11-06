@@ -57,6 +57,7 @@ class LoyaltyProgram(BaseModel):
     can_update_tier_expiration_policy: Optional[StrictBool] = Field(default=None, description="`True` if the tier expiration policy can be updated. ", alias="canUpdateTierExpirationPolicy", json_schema_extra={"examples": [True]})
     can_upgrade_to_advanced_tiers: Optional[StrictBool] = Field(default=False, description="`True` if the program can be upgraded to use the `tiersExpireIn` and `tiersDowngradePolicy` properties. ", alias="canUpgradeToAdvancedTiers", json_schema_extra={"examples": [True]})
     can_update_subledgers: Optional[StrictBool] = Field(default=False, description="`True` if the `allowSubledger` property can be updated in the loyalty program. ", alias="canUpdateSubledgers", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "title", "description", "subscribedApplications", "defaultValidity", "defaultPending", "allowSubledger", "usersPerCardLimit", "sandbox", "programJoinPolicy", "tiersExpirationPolicy", "tierCycleStartDate", "tiersExpireIn", "tiersDowngradePolicy", "cardCodeSettings", "returnPolicy", "accountID", "name", "tiers", "timezone", "cardBased", "canUpdateTiers", "canUpdateTierExpirationPolicy", "canUpgradeToAdvancedTiers", "canUpdateSubledgers"]
 
     @field_validator('program_join_policy')
@@ -129,8 +130,10 @@ class LoyaltyProgram(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -147,6 +150,11 @@ class LoyaltyProgram(BaseModel):
             for _item_tiers in self.tiers:
                 _items.append(_item_tiers.to_dict() if _item_tiers is not None else None)
             _dict['tiers'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -186,6 +194,11 @@ class LoyaltyProgram(BaseModel):
             "canUpgradeToAdvancedTiers": obj.get("canUpgradeToAdvancedTiers") if obj.get("canUpgradeToAdvancedTiers") is not None else False,
             "canUpdateSubledgers": obj.get("canUpdateSubledgers") if obj.get("canUpdateSubledgers") is not None else False
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

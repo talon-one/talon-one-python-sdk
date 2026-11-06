@@ -45,6 +45,7 @@ class AwardLoyaltyPointsBlock(BaseModel):
     validity_duration: Optional[StrictStr] = Field(default=None, description="Relative duration (e.g. `30D`) after which the awarded points expire. Mutually exclusive with `expiryDate`.", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
     expiry_date: Optional[Any] = Field(default=None, description="Timestamp at which the awarded points expire. Mutually exclusive with `validityDuration`.", alias="expiryDate", json_schema_extra={"examples": ["2026-12-31T00:00:00Z"]})
     pending_duration: Optional[StrictStr] = Field(default=None, description="Relative duration (e.g. `3D`) the awarded points remain pending before activation.", alias="pendingDuration", json_schema_extra={"examples": ["3D"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "name", "program", "recipient", "subledger", "target", "value", "partial", "awaitsActivation", "startDate", "validityDuration", "expiryDate", "pendingDuration"]
 
     @field_validator('recipient')
@@ -86,10 +87,12 @@ class AwardLoyaltyPointsBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -106,6 +109,11 @@ class AwardLoyaltyPointsBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of value
         if self.value:
             _dict['value'] = self.value.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if start_date (nullable) is None
         # and model_fields_set contains the field
         if self.start_date is None and "start_date" in self.model_fields_set:
@@ -144,6 +152,11 @@ class AwardLoyaltyPointsBlock(BaseModel):
             "expiryDate": obj.get("expiryDate"),
             "pendingDuration": obj.get("pendingDuration")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

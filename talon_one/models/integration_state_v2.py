@@ -62,6 +62,7 @@ class IntegrationStateV2(BaseModel):
     customer_session: Optional[CustomerSessionV2] = Field(default=None, description="The session that was processed.", alias="customerSession")
     var_return: Optional[ModelReturn] = Field(default=None, description="The return that was processed.", alias="return")
     previous_returns: Optional[List[ModelReturn]] = Field(default=None, description="The previous returns associated with the event.", alias="previousReturns")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "rewards", "referral", "coupons", "event", "advancedEvent", "customerSession", "return", "previousReturns"]
 
     model_config = ConfigDict(
@@ -94,8 +95,10 @@ class IntegrationStateV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -190,6 +193,11 @@ class IntegrationStateV2(BaseModel):
             for _item_previous_returns in self.previous_returns:
                 _items.append(_item_previous_returns.to_dict() if _item_previous_returns is not None else None)
             _dict['previousReturns'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -221,6 +229,11 @@ class IntegrationStateV2(BaseModel):
             "return": ModelReturn.from_dict(obj["return"]) if obj.get("return") is not None else None,
             "previousReturns": [ModelReturn.from_dict(_item) for _item in obj["previousReturns"]] if obj.get("previousReturns") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

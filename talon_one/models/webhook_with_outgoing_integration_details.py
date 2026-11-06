@@ -47,6 +47,7 @@ class WebhookWithOutgoingIntegrationDetails(BaseModel):
     outgoing_integration_template_id: Optional[StrictInt] = Field(default=None, description="Identifier of the outgoing integration template.", alias="outgoingIntegrationTemplateId", json_schema_extra={"examples": [1]})
     outgoing_integration_type_id: Optional[StrictInt] = Field(default=None, description="Identifier of the outgoing integration type.", alias="outgoingIntegrationTypeId", json_schema_extra={"examples": [1]})
     outgoing_integration_type_name: Optional[StrictStr] = Field(default=None, description="Name of the outgoing integration.", alias="outgoingIntegrationTypeName", json_schema_extra={"examples": ["Braze"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "applicationIds", "title", "description", "draft", "verb", "url", "headers", "payload", "params", "enabled", "authenticationId", "outgoingIntegrationTemplateId", "outgoingIntegrationTypeId", "outgoingIntegrationTypeName"]
 
     @field_validator('title', mode="before")
@@ -93,8 +94,10 @@ class WebhookWithOutgoingIntegrationDetails(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -108,6 +111,11 @@ class WebhookWithOutgoingIntegrationDetails(BaseModel):
             for _item_params in self.params:
                 _items.append(_item_params.to_dict() if _item_params is not None else None)
             _dict['params'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -138,6 +146,11 @@ class WebhookWithOutgoingIntegrationDetails(BaseModel):
             "outgoingIntegrationTypeId": obj.get("outgoingIntegrationTypeId"),
             "outgoingIntegrationTypeName": obj.get("outgoingIntegrationTypeName")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

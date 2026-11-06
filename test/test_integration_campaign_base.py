@@ -41,7 +41,7 @@ class TestIntegrationCampaignBase(unittest.TestCase):
                 description = 'Campaign for all summer 2021 promotions',
                 start_time = '2021-07-20T22:00:00Z',
                 end_time = '2021-09-22T22:00:00Z',
-                attributes = None,
+                attributes = { },
                 state = 'enabled',
                 tags = [summer],
                 features = [coupons, referrals]

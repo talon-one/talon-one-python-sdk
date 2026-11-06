@@ -55,7 +55,7 @@ class TestIntegrationCoupon(unittest.TestCase):
                 discount_counter = 10,
                 discount_remainder = 5,
                 reservation_counter = 1,
-                attributes = talon_one.models.attributes_of_coupon.Attributes of coupon(),
+                attributes = { },
                 referral_id = 326632952,
                 recipient_integration_id = 'URNGV8294NV',
                 import_id = 4,

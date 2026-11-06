@@ -45,6 +45,7 @@ class ApplicationSession(BaseModel):
     total_discounts: Union[StrictFloat, StrictInt] = Field(description="The total sum of the discounts applied to this session.  **Note:** If more than one session is returned, this value is displayed as `0`. ", alias="totalDiscounts", json_schema_extra={"examples": [100]})
     total: Union[StrictFloat, StrictInt] = Field(description="The total sum of the session before any discounts applied.", json_schema_extra={"examples": [200]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "storeIntegrationId", "applicationId", "profileId", "profileintegrationid", "coupon", "referral", "state", "cartItems", "discounts", "totalDiscounts", "total", "attributes"]
 
     @field_validator('state')
@@ -84,8 +85,10 @@ class ApplicationSession(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -99,6 +102,11 @@ class ApplicationSession(BaseModel):
             for _item_cart_items in self.cart_items:
                 _items.append(_item_cart_items.to_dict() if _item_cart_items is not None else None)
             _dict['cartItems'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -127,6 +135,11 @@ class ApplicationSession(BaseModel):
             "total": obj.get("total"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

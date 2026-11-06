@@ -1,14 +1,26 @@
 # BetweenCheckAttributeBlock
 
-Variant of `CheckAttributeBlock` for the `between` operator, which requires both a minimum and maximum value.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**operator** | **str** | The range comparison operator. Must be &#x60;between&#x60;. | [optional] 
+**id** | **str** | Unique identifier for this block. | [optional] [readonly] 
+**type** | **str** | A block discriminator of type &#x60;checkAttribute&#x60;. | 
+**tags** | **List[str]** | Semantic labels attached to this block. | [optional] [readonly] 
+**operator** | **str** | The range comparison operator. Must be &#x60;between&#x60;. | 
+**attribute** | **object** | The attribute path identifier (e.g. \&quot;$Session.Total\&quot;). | 
+**value** | **object** | The comparison value for scalar operators. | [optional] 
 **min** | **object** | The minimum value allowed for the &#x60;between&#x60; operator. | 
 **max** | **object** | The maximum value allowed for the &#x60;between&#x60; operator. | 
+**start** | **object** | The start value for the &#x60;within&#x60; operator. | [optional] 
+**end** | **object** | The end value for the &#x60;within&#x60; operator. | [optional] 
+**start_inclusive** | **bool** | When &#x60;true&#x60;, the &#x60;start&#x60; value is included in the range for the &#x60;within&#x60; operator. | [optional] 
+**end_inclusive** | **bool** | When &#x60;true&#x60;, the &#x60;end&#x60; value is included in the range for the &#x60;within&#x60; operator. | [optional] 
+**timezone_insensitive** | **bool** | Indicates whether the &#x60;within&#x60; operator ignores time zones and compares the wall-clock time only. When &#x60;false&#x60;, time zones are taken into account. | [optional] 
+**values** | **object** | The set of values to match against for list operators. For location operators (&#x60;in&#x60;, &#x60;not(in)&#x60;), an array of objects with a &#x60;geometry&#x60; (see &#x60;GeoJSONGeometry&#x60;) and an optional &#x60;name&#x60;, or a string reference to a list attribute. | [optional] 
+**count** | **object** | The count threshold for &#x60;containsAtLeast&#x60; and &#x60;containsExactly&#x60; operators. | [optional] 
+**on_failure** | [**List[Block]**](Block.md) | Promotion blocks evaluated when this block fails or returns false. | [optional] 
 
 ## Example
 

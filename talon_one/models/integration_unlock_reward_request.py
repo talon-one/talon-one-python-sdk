@@ -34,6 +34,7 @@ class IntegrationUnlockRewardRequest(BaseModel):
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="The ID of the loyalty program from which points will be deducted. Required when the reward has `pointsRequired` configured.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
     subledger_id: Optional[StrictStr] = Field(default=None, description="The ID of the subledger from which points will be deducted. Required when the reward has `pointsRequired` configured.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerId", json_schema_extra={"examples": ["sub1"]})
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Determines which data is included in the response. Add any of the following optional values to the array to get that data in the response: `customerProfile`, `ruleFailureReasons`, `loyalty`. `effects` is always returned regardless of whether it is included here.", alias="responseContent", json_schema_extra={"examples": [["customerProfile", "loyalty"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["integrationId", "profileIntegrationId", "loyaltyCardId", "loyaltyProgramId", "subledgerId", "responseContent"]
 
     @field_validator('loyalty_card_id', mode="before")
@@ -87,8 +88,10 @@ class IntegrationUnlockRewardRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -96,6 +99,11 @@ class IntegrationUnlockRewardRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +123,11 @@ class IntegrationUnlockRewardRequest(BaseModel):
             "subledgerId": obj.get("subledgerId"),
             "responseContent": obj.get("responseContent")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

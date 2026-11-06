@@ -29,6 +29,7 @@ class SortSelectorStepField(BaseModel):
     """ # noqa: E501
     expression: StrictStr = Field(description="The attribute path the items are sorted by.", json_schema_extra={"examples": ["$Item.Price"]})
     direction: StrictStr = Field(description="The sort direction for this field.", json_schema_extra={"examples": ["asc"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["expression", "direction"]
 
     @field_validator('direction')
@@ -68,8 +69,10 @@ class SortSelectorStepField(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class SortSelectorStepField(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class SortSelectorStepField(BaseModel):
             "expression": obj.get("expression"),
             "direction": obj.get("direction")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -50,6 +50,7 @@ class NewLoyaltyProgram(BaseModel):
     tiers: Optional[List[NewLoyaltyTier]] = Field(default=None, description="The tiers in this loyalty program.")
     timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.")
     card_based: StrictBool = Field(description="Defines the type of loyalty program: - `true`: the program is a card-based. - `false`: the program is profile-based. ", alias="cardBased", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "description", "subscribedApplications", "defaultValidity", "defaultPending", "allowSubledger", "usersPerCardLimit", "sandbox", "programJoinPolicy", "tiersExpirationPolicy", "tierCycleStartDate", "tiersExpireIn", "tiersDowngradePolicy", "cardCodeSettings", "returnPolicy", "name", "tiers", "timezone", "cardBased"]
 
     @field_validator('program_join_policy')
@@ -122,8 +123,10 @@ class NewLoyaltyProgram(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -140,6 +143,11 @@ class NewLoyaltyProgram(BaseModel):
             for _item_tiers in self.tiers:
                 _items.append(_item_tiers.to_dict() if _item_tiers is not None else None)
             _dict['tiers'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -172,6 +180,11 @@ class NewLoyaltyProgram(BaseModel):
             "timezone": obj.get("timezone"),
             "cardBased": obj.get("cardBased") if obj.get("cardBased") is not None else False
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

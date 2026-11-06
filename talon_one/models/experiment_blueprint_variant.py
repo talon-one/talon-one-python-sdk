@@ -33,6 +33,7 @@ class ExperimentBlueprintVariant(BaseModel):
     weight: Annotated[int, Field(le=99, strict=True, ge=0)] = Field(description="The percentage split of this variant. For `random` assignment, the split must be between 1 and 99 and the sum across all variants must equal 100. Ignored for `audience` and `external` assignment. ", json_schema_extra={"examples": [50]})
     ruleset: CatalogRuleset
     is_primary: StrictBool = Field(description="Indicates whether this variant is the primary variant of the experiment.", alias="isPrimary", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "weight", "ruleset", "isPrimary"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class ExperimentBlueprintVariant(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class ExperimentBlueprintVariant(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of ruleset
         if self.ruleset:
             _dict['ruleset'] = self.ruleset.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -94,6 +102,11 @@ class ExperimentBlueprintVariant(BaseModel):
             "ruleset": CatalogRuleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
             "isPrimary": obj.get("isPrimary")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

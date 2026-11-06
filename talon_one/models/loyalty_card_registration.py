@@ -28,6 +28,7 @@ class LoyaltyCardRegistration(BaseModel):
     LoyaltyCardRegistration
     """ # noqa: E501
     integration_id: StrictStr = Field(description="The integrationId of the customer profile.", alias="integrationId", json_schema_extra={"examples": ["R195412"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["integrationId"]
 
     model_config = ConfigDict(
@@ -60,8 +61,10 @@ class LoyaltyCardRegistration(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +72,11 @@ class LoyaltyCardRegistration(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -83,6 +91,11 @@ class LoyaltyCardRegistration(BaseModel):
         _obj = cls.model_validate({
             "integrationId": obj.get("integrationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

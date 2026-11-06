@@ -34,6 +34,7 @@ class GroupBlock(BaseModel):
     blocks: List[Block] = Field(description="Child blocks evaluated according to the operator.")
     on_failure: Optional[List[Block]] = Field(default=None, description="Blocks evaluated when this block fails or returns false.", alias="onFailure")
     on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "blocks", "onFailure", "onError"]
 
     @field_validator('operator')
@@ -75,10 +76,12 @@ class GroupBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -106,6 +109,11 @@ class GroupBlock(BaseModel):
                     _item.to_dict() if _item is not None else None for _item in self.on_error[_key_on_error]
                 ] if self.on_error[_key_on_error] is not None else None
             _dict['onError'] = _field_dict_of_array
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -131,6 +139,11 @@ class GroupBlock(BaseModel):
             if obj.get("onError") is not None
             else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 from talon_one.models.block import Block

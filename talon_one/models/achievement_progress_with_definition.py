@@ -48,6 +48,7 @@ class AchievementProgressWithDefinition(BaseModel):
     achievement_fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `achievementActivationPolicy` is equal to `fixed_schedule`.  **Note:** It is an RFC3339 timestamp string. ", alias="achievementFixedStartDate", json_schema_extra={"examples": ["2024-01-15T15:04:05Z07:00"]})
     achievement_end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It is an RFC3339 timestamp string. ", alias="achievementEndDate", json_schema_extra={"examples": ["2024-02-15T15:04:05Z07:00"]})
     achievement_allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="achievementAllowRollbackAfterCompletion", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["status", "progress", "startDate", "completionDate", "endDate", "achievementId", "name", "title", "description", "campaignId", "campaignIds", "referencedByCampaigns", "target", "achievementRecurrencePolicy", "achievementActivationPolicy", "achievementFixedStartDate", "achievementEndDate", "achievementAllowRollbackAfterCompletion"]
 
     @field_validator('status')
@@ -108,8 +109,10 @@ class AchievementProgressWithDefinition(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -123,6 +126,11 @@ class AchievementProgressWithDefinition(BaseModel):
             for _item_referenced_by_campaigns in self.referenced_by_campaigns:
                 _items.append(_item_referenced_by_campaigns.to_dict() if _item_referenced_by_campaigns is not None else None)
             _dict['referencedByCampaigns'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -154,6 +162,11 @@ class AchievementProgressWithDefinition(BaseModel):
             "achievementEndDate": obj.get("achievementEndDate"),
             "achievementAllowRollbackAfterCompletion": obj.get("achievementAllowRollbackAfterCompletion")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

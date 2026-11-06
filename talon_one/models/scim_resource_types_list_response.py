@@ -29,6 +29,7 @@ class ScimResourceTypesListResponse(BaseModel):
     List of resource types supported by the SCIM provisioning protocol.
     """ # noqa: E501
     resources: List[ScimResource] = Field(alias="Resources")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["Resources"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class ScimResourceTypesListResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class ScimResourceTypesListResponse(BaseModel):
             for _item_resources in self.resources:
                 _items.append(_item_resources.to_dict() if _item_resources is not None else None)
             _dict['Resources'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class ScimResourceTypesListResponse(BaseModel):
         _obj = cls.model_validate({
             "Resources": [ScimResource.from_dict(_item) for _item in obj["Resources"]] if obj.get("Resources") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

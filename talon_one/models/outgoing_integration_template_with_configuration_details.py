@@ -38,6 +38,7 @@ class OutgoingIntegrationTemplateWithConfigurationDetails(BaseModel):
     relative_url: StrictStr = Field(description="The relative URL corresponding to each integration template.", alias="relativeUrl", json_schema_extra={"examples": ["/campaigns/trigger/send"]})
     headers: List[Annotated[str, Field(strict=True)]] = Field(description="The list of HTTP headers for this integration template.", json_schema_extra={"examples": [["{\"Content-Type\": \"application/json\"}"]]})
     policy: OutgoingIntegrationConfigurationPolicy
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "integrationType", "title", "description", "payload", "method", "relativeUrl", "headers", "policy"]
 
     @field_validator('method')
@@ -77,8 +78,10 @@ class OutgoingIntegrationTemplateWithConfigurationDetails(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -89,6 +92,11 @@ class OutgoingIntegrationTemplateWithConfigurationDetails(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of policy
         if self.policy:
             _dict['policy'] = self.policy.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -111,6 +119,11 @@ class OutgoingIntegrationTemplateWithConfigurationDetails(BaseModel):
             "headers": obj.get("headers"),
             "policy": OutgoingIntegrationConfigurationPolicy.from_dict(obj["policy"]) if obj.get("policy") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

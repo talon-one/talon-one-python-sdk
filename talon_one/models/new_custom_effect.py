@@ -37,6 +37,7 @@ class NewCustomEffect(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="The description of this effect.")
     enabled: StrictBool = Field(description="Determines if this effect is active.")
     params: Optional[List[TemplateArgDef]] = Field(default=None, description="Array of template argument definitions.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applicationIds", "isPerItem", "name", "title", "payload", "description", "enabled", "params"]
 
     @field_validator('name', mode="before")
@@ -83,8 +84,10 @@ class NewCustomEffect(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -98,6 +101,11 @@ class NewCustomEffect(BaseModel):
             for _item_params in self.params:
                 _items.append(_item_params.to_dict() if _item_params is not None else None)
             _dict['params'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -119,6 +127,11 @@ class NewCustomEffect(BaseModel):
             "enabled": obj.get("enabled"),
             "params": [TemplateArgDef.from_dict(_item) for _item in obj["params"]] if obj.get("params") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

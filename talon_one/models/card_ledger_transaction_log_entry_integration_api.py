@@ -44,6 +44,7 @@ class CardLedgerTransactionLogEntryIntegrationAPI(BaseModel):
     ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset containing the rule that triggered this effect.", alias="rulesetId", json_schema_extra={"examples": [11]})
     rule_name: Optional[StrictStr] = Field(default=None, description="The name of the rule that triggered this effect.", alias="ruleName", json_schema_extra={"examples": ["Add 2 points"]})
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "cardIdentifier", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id", "rulesetId", "ruleName", "validityDuration"]
 
     @field_validator('card_identifier', mode="before")
@@ -90,8 +91,10 @@ class CardLedgerTransactionLogEntryIntegrationAPI(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -99,6 +102,11 @@ class CardLedgerTransactionLogEntryIntegrationAPI(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -127,6 +135,11 @@ class CardLedgerTransactionLogEntryIntegrationAPI(BaseModel):
             "ruleName": obj.get("ruleName"),
             "validityDuration": obj.get("validityDuration")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

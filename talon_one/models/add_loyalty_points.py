@@ -37,6 +37,7 @@ class AddLoyaltyPoints(BaseModel):
     pending_until: Optional[datetime] = Field(default=None, description="Date and time after the points are considered valid. The value should be provided in RFC 3339 format. If passed, `pendingDuration` should be omitted. ", alias="pendingUntil", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
     subledger_id: Optional[StrictStr] = Field(default=None, description="ID of the subledger the points are added to. If there is no existing subledger with this ID, the subledger is created automatically.", alias="subledgerId", json_schema_extra={"examples": ["sub-123"]})
     application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application that is connected to the loyalty program. It is displayed in your Talon.One deployment URL.", alias="applicationId", json_schema_extra={"examples": [322]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["points", "name", "validityDuration", "validUntil", "pendingDuration", "pendingUntil", "subledgerId", "applicationId"]
 
     model_config = ConfigDict(
@@ -69,8 +70,10 @@ class AddLoyaltyPoints(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class AddLoyaltyPoints(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class AddLoyaltyPoints(BaseModel):
             "subledgerId": obj.get("subledgerId"),
             "applicationId": obj.get("applicationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

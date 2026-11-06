@@ -34,6 +34,7 @@ class RollbackDiscountEffectProps(BaseModel):
     additional_cost_id: Optional[StrictInt] = Field(default=None, description="_Only when rolling back [setDiscountPerAdditionalCost](https://docs.talon.one/docs/dev/integration-api/api-effects#setdiscountperadditionalcost) and [setDiscountPerAdditionalCostPerItem](https://docs.talon.one/docs/dev/integration-api/api-effects#setdiscountperadditionalcostperitem)_ The ID of the additional cost to be discounted.", alias="additionalCostId")
     additional_cost: Optional[StrictStr] = Field(default=None, description="The API name of the additional cost whose discount was rolled back.", alias="additionalCost")
     scope: Optional[StrictStr] = Field(default=None, description="The scope of the rolled back discount.  - For a discount per session, it can be one of `cartItems`, `additionalCosts` or `sessionTotal` - For a discount per item, it can be one of `price`, `additionalCosts` or `itemTotal`")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "value", "cartItemPosition", "cartItemSubPosition", "additionalCostId", "additionalCost", "scope"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class RollbackDiscountEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class RollbackDiscountEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class RollbackDiscountEffectProps(BaseModel):
             "additionalCost": obj.get("additionalCost"),
             "scope": obj.get("scope")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

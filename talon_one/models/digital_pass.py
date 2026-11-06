@@ -31,6 +31,7 @@ class DigitalPass(BaseModel):
     pass_template_id: StrictStr = Field(description="The ID of the digital pass template used to generate the pass.", alias="passTemplateId", json_schema_extra={"examples": ["tmpl_summer_loyalty"]})
     status: StrictStr = Field(description="The status of the digital pass.  `created` indicates that the pass was generated and is ready to be added to a wallet. ", json_schema_extra={"examples": ["created"]})
     pass_url: StrictStr = Field(description="The URL you can use to let the customer add the digital pass to their wallet.", alias="passUrl", json_schema_extra={"examples": ["https://wallet.example.com/passes/pass_9c3f1a2b"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["passId", "passTemplateId", "status", "passUrl"]
 
     @field_validator('status')
@@ -70,8 +71,10 @@ class DigitalPass(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class DigitalPass(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class DigitalPass(BaseModel):
             "status": obj.get("status"),
             "passUrl": obj.get("passUrl")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -32,6 +32,7 @@ class CatalogRuleset(BaseModel):
     rules: List[CatalogRule] = Field(description="Array of rule templates in this ruleset. Rules only contain title (no description, as description is at the catalog entry level).")
     bindings: Optional[List[Binding]] = Field(default=None, description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.", json_schema_extra={"examples": [[]]})
     rb_version: Optional[StrictStr] = Field(default=None, description="The version of the rulebuilder used to create this ruleset.", alias="rbVersion", json_schema_extra={"examples": ["v2"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["rules", "bindings", "rbVersion"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class CatalogRuleset(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class CatalogRuleset(BaseModel):
             for _item_bindings in self.bindings:
                 _items.append(_item_bindings.to_dict() if _item_bindings is not None else None)
             _dict['bindings'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -101,6 +109,11 @@ class CatalogRuleset(BaseModel):
             "bindings": [Binding.from_dict(_item) for _item in obj["bindings"]] if obj.get("bindings") is not None else None,
             "rbVersion": obj.get("rbVersion")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

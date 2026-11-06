@@ -29,6 +29,7 @@ class LoyaltyCardBatchResponse(BaseModel):
     """ # noqa: E501
     number_of_cards_generated: StrictInt = Field(description="Number of loyalty cards in the batch.", alias="numberOfCardsGenerated", json_schema_extra={"examples": [5000]})
     batch_id: StrictStr = Field(description="ID of the loyalty card batch.", alias="batchId", json_schema_extra={"examples": ["hwernpjz"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["numberOfCardsGenerated", "batchId"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class LoyaltyCardBatchResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class LoyaltyCardBatchResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class LoyaltyCardBatchResponse(BaseModel):
             "numberOfCardsGenerated": obj.get("numberOfCardsGenerated"),
             "batchId": obj.get("batchId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

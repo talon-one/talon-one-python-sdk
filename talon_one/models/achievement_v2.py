@@ -53,6 +53,7 @@ class AchievementV2(BaseModel):
     timezone: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A string containing an IANA timezone descriptor.", json_schema_extra={"examples": ["Europe/Berlin"]})
     campaign_id: Optional[StrictInt] = Field(default=None, description="This property is **deprecated**. Use `referencedByCampaigns` instead. This field contains the first campaign ID from the related `referencedByCampaigns`, and is omitted when `referencedByCampaigns` is empty.", alias="campaignId", json_schema_extra={"examples": [3]})
     referenced_by_campaigns: List[CampaignReference] = Field(description="The campaigns that reference this achievement. They are sorted in ascending order by their id.", alias="referencedByCampaigns")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "name", "title", "description", "target", "period", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion", "subscribedApplications", "userId", "createdBy", "periodEndOverride", "hasProgress", "status", "sandbox", "timezone", "campaignId", "referencedByCampaigns"]
 
     @field_validator('name', mode="before")
@@ -125,8 +126,10 @@ class AchievementV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -143,6 +146,11 @@ class AchievementV2(BaseModel):
             for _item_referenced_by_campaigns in self.referenced_by_campaigns:
                 _items.append(_item_referenced_by_campaigns.to_dict() if _item_referenced_by_campaigns is not None else None)
             _dict['referencedByCampaigns'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -178,6 +186,11 @@ class AchievementV2(BaseModel):
             "campaignId": obj.get("campaignId"),
             "referencedByCampaigns": [CampaignReference.from_dict(_item) for _item in obj["referencedByCampaigns"]] if obj.get("referencedByCampaigns") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

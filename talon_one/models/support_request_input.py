@@ -36,6 +36,7 @@ class SupportRequestInput(BaseModel):
     request_type: StrictStr = Field(description="Type of reward requested, including gift cards, personal coupons, and loyalty point additions or deductions.", alias="requestType", json_schema_extra={"examples": ["personal_coupon"]})
     request_value: Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]] = Field(default=None, description="Requested monetary balance of the gift card or the number of loyalty points to be added or deducted.", alias="requestValue", json_schema_extra={"examples": [20.5]})
     request_note: StrictStr = Field(description="Notes attached to the support request.", alias="requestNote", json_schema_extra={"examples": ["Support request for coupon failure."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applicationId", "campaignId", "loyaltyProgramId", "subledgerId", "customerProfileId", "requestType", "requestValue", "requestNote"]
 
     @field_validator('request_type')
@@ -75,8 +76,10 @@ class SupportRequestInput(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -84,6 +87,11 @@ class SupportRequestInput(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -105,6 +113,11 @@ class SupportRequestInput(BaseModel):
             "requestValue": obj.get("requestValue"),
             "requestNote": obj.get("requestNote")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

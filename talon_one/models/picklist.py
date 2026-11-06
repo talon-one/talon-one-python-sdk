@@ -37,6 +37,7 @@ class Picklist(BaseModel):
     created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy", json_schema_extra={"examples": [134]})
     account_id: Optional[StrictInt] = Field(default=None, description="The ID of the account that owns this entity.", alias="accountId", json_schema_extra={"examples": [3886]})
     imported: Optional[StrictBool] = Field(default=None, description="Imported flag shows that a picklist is imported by a CSV file or not", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "type", "values", "modifiedBy", "createdBy", "accountId", "imported"]
 
     @field_validator('type')
@@ -76,8 +77,10 @@ class Picklist(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class Picklist(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -106,6 +114,11 @@ class Picklist(BaseModel):
             "accountId": obj.get("accountId"),
             "imported": obj.get("imported")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

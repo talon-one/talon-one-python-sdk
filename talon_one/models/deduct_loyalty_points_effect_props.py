@@ -35,6 +35,7 @@ class DeductLoyaltyPointsEffectProps(BaseModel):
     transaction_uuid: StrictStr = Field(description="The identifier of this loyalty point transaction.", alias="transactionUUID")
     name: StrictStr = Field(description="The reason of this loyalty points deduction.")
     card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card from which these points were deducted.", alias="cardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["ruleTitle", "programId", "subLedgerId", "value", "transactionUUID", "name", "cardIdentifier"]
 
     @field_validator('card_identifier', mode="before")
@@ -77,8 +78,10 @@ class DeductLoyaltyPointsEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -86,6 +89,11 @@ class DeductLoyaltyPointsEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -106,6 +114,11 @@ class DeductLoyaltyPointsEffectProps(BaseModel):
             "name": obj.get("name"),
             "cardIdentifier": obj.get("cardIdentifier")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

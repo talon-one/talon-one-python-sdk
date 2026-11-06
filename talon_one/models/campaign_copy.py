@@ -36,6 +36,7 @@ class CampaignCopy(BaseModel):
     end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime", json_schema_extra={"examples": ["2021-09-10T01:00:00.993483Z"]})
     tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign.", json_schema_extra={"examples": [["Summer", "Shoes"]]})
     evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign evaluation group the campaign belongs to.", alias="evaluationGroupId", json_schema_extra={"examples": [2]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "applicationIds", "description", "startTime", "endTime", "tags", "evaluationGroupId"]
 
     model_config = ConfigDict(
@@ -68,8 +69,10 @@ class CampaignCopy(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class CampaignCopy(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -97,6 +105,11 @@ class CampaignCopy(BaseModel):
             "tags": obj.get("tags"),
             "evaluationGroupId": obj.get("evaluationGroupId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -85,6 +85,7 @@ class Campaign(BaseModel):
     current_revision_id: Optional[StrictInt] = Field(default=None, description="ID of the revision currently being modified for the campaign. ", alias="currentRevisionId", json_schema_extra={"examples": [6]})
     current_revision_version_id: Optional[StrictInt] = Field(default=None, description="ID of the latest version applied on the current revision. ", alias="currentRevisionVersionId", json_schema_extra={"examples": [6]})
     stage_revision: Optional[StrictBool] = Field(default=False, description="Flag for determining whether we use current revision when sending requests with staging API key. ", alias="stageRevision", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "userId", "name", "description", "startTime", "endTime", "attributes", "state", "activeRulesetId", "tags", "reevaluateOnReturn", "features", "couponSettings", "referralSettings", "limits", "campaignGroups", "type", "linkedStoreIds", "couponAttributes", "budgets", "couponRedemptionCount", "referralRedemptionCount", "discountCount", "discountEffectCount", "couponCreationCount", "customEffectCount", "referralCreationCount", "addFreeItemEffectCount", "awardedGiveawaysCount", "createdLoyaltyPointsCount", "createdLoyaltyPointsEffectCount", "redeemedLoyaltyPointsCount", "redeemedLoyaltyPointsEffectCount", "callApiEffectCount", "reservecouponEffectCount", "lastActivity", "updated", "createdBy", "updatedBy", "templateId", "frontendState", "storesImported", "valueMapsIds", "experimentId", "revisionFrontendState", "activeRevisionId", "activeRevisionVersionId", "version", "currentRevisionId", "currentRevisionVersionId", "stageRevision"]
 
     @field_validator('state')
@@ -159,8 +160,10 @@ class Campaign(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -186,6 +189,11 @@ class Campaign(BaseModel):
             for _item_budgets in self.budgets:
                 _items.append(_item_budgets.to_dict() if _item_budgets is not None else None)
             _dict['budgets'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -252,6 +260,11 @@ class Campaign(BaseModel):
             "currentRevisionVersionId": obj.get("currentRevisionVersionId"),
             "stageRevision": obj.get("stageRevision") if obj.get("stageRevision") is not None else False
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -29,6 +29,7 @@ class ActivateLoyaltyPointsResponse(BaseModel):
     ActivateLoyaltyPointsResponse
     """ # noqa: E501
     ledger_entries: Optional[List[LoyaltyLedgerEntry]] = Field(default=None, description="Updated ledger entries after activation.", alias="ledgerEntries")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["ledgerEntries"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class ActivateLoyaltyPointsResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class ActivateLoyaltyPointsResponse(BaseModel):
             for _item_ledger_entries in self.ledger_entries:
                 _items.append(_item_ledger_entries.to_dict() if _item_ledger_entries is not None else None)
             _dict['ledgerEntries'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class ActivateLoyaltyPointsResponse(BaseModel):
         _obj = cls.model_validate({
             "ledgerEntries": [LoyaltyLedgerEntry.from_dict(_item) for _item in obj["ledgerEntries"]] if obj.get("ledgerEntries") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

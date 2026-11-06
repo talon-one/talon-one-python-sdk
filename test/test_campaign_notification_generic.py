@@ -38,7 +38,7 @@ class TestCampaignNotificationGeneric(unittest.TestCase):
                 notification_type = 'CampaignNotification',
                 total_result_size = 56,
                 data = [
-                    None
+                    { }
                     ]
             )
         else:
@@ -46,7 +46,7 @@ class TestCampaignNotificationGeneric(unittest.TestCase):
                 notification_type = 'CampaignNotification',
                 total_result_size = 56,
                 data = [
-                    None
+                    { }
                     ],
         )
         """

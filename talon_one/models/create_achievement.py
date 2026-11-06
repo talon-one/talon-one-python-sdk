@@ -41,6 +41,7 @@ class CreateAchievement(BaseModel):
     fixed_start_date: Optional[datetime] = Field(default=None, description="The achievement's start date when `activationPolicy` is set to `fixed_schedule`.  **Note:** It must be an RFC3339 timestamp string. ", alias="fixedStartDate", json_schema_extra={"examples": ["2024-01-15T15:04:05Z07:00"]})
     end_date: Optional[datetime] = Field(default=None, description="The achievement's end date. If defined, customers cannot participate in the achievement after this date.  **Note:** It must be an RFC3339 timestamp string. ", alias="endDate", json_schema_extra={"examples": ["2024-02-15T15:04:05Z07:00"]})
     allow_rollback_after_completion: Optional[StrictBool] = Field(default=None, description="When `true`, customer progress can be rolled back in completed achievements.", alias="allowRollbackAfterCompletion", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "title", "description", "target", "period", "periodEndOverride", "recurrencePolicy", "activationPolicy", "fixedStartDate", "endDate", "allowRollbackAfterCompletion"]
 
     @field_validator('name', mode="before")
@@ -100,8 +101,10 @@ class CreateAchievement(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -112,6 +115,11 @@ class CreateAchievement(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of period_end_override
         if self.period_end_override:
             _dict['periodEndOverride'] = self.period_end_override.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -136,6 +144,11 @@ class CreateAchievement(BaseModel):
             "endDate": obj.get("endDate"),
             "allowRollbackAfterCompletion": obj.get("allowRollbackAfterCompletion")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

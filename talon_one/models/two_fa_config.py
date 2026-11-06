@@ -29,6 +29,7 @@ class TwoFAConfig(BaseModel):
     """ # noqa: E501
     enabled: StrictBool = Field(description="An indication of whether two-factor authentication is enabled for the account.", json_schema_extra={"examples": [True]})
     require_every_sign_in: Optional[StrictBool] = Field(default=None, description="Can be `true` or `false`. - `true`: Two-factor authentication is required each time a user signs in to their Talon.One account. - `false`: Two-factor authentication is only required when a user signs in to their Talon.One account on a new device, and every 30 days after that. ", alias="requireEverySignIn", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["enabled", "requireEverySignIn"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class TwoFAConfig(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class TwoFAConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class TwoFAConfig(BaseModel):
             "enabled": obj.get("enabled"),
             "requireEverySignIn": obj.get("requireEverySignIn")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

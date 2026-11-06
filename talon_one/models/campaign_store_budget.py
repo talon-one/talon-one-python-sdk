@@ -34,6 +34,7 @@ class CampaignStoreBudget(BaseModel):
     campaign_id: StrictInt = Field(description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [322]})
     store_id: StrictInt = Field(description="The ID of the store.", alias="storeId")
     limits: List[CampaignStoreBudgetLimitConfig] = Field(description="The set of budget limits for stores linked to the campaign.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "campaignId", "storeId", "limits"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class CampaignStoreBudget(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class CampaignStoreBudget(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class CampaignStoreBudget(BaseModel):
             "storeId": obj.get("storeId"),
             "limits": [CampaignStoreBudgetLimitConfig.from_dict(_item) for _item in obj["limits"]] if obj.get("limits") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

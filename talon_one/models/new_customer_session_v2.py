@@ -44,6 +44,7 @@ class NewCustomerSessionV2(BaseModel):
     additional_costs: Optional[Dict[str, AdditionalCost]] = Field(default=None, description="Use this property to set a value for the additional costs of this session, such as a shipping cost.  They must be created in the Campaign Manager before you set them with this property. See [Managing additional costs](https://docs.talon.one/docs/product/account/dev-tools/managing-additional-costs). ", alias="additionalCosts", json_schema_extra={"examples": [{"shipping": {"price": 9}}]})
     identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers).  **Important**: Ensure the session contains an identifier by the time you close it if: - You [create a unique identifier budget](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-budgets/#budget-types) for your campaign. - Your campaign has [coupons](https://docs.talon.one/docs/product/campaigns/coupons/coupon-page-overview). - We recommend passing an anonymized (hashed) version of the identifier value. ", json_schema_extra={"examples": [["d41306257915f83fe01e54092ae470f631161ea16fcf4415842eed41470386ea"]]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Use this property to set a value for the attributes of your choice. Attributes represent any information to attach to your session, like the shipping city.  You can use [built-in attributes](https://docs.talon.one/docs/dev/concepts/attributes#built-in-attributes) or [custom ones](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes). Custom attributes must be created in the Campaign Manager before you set them with this property. ", json_schema_extra={"examples": [{"ShippingCity": "Berlin"}]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "couponCodes", "referralCode", "loyaltyCards", "rewardIntegrationIds", "state", "cartItems", "experimentVariantAllocations", "additionalCosts", "identifiers", "attributes"]
 
     @field_validator('state')
@@ -86,8 +87,10 @@ class NewCustomerSessionV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -113,6 +116,11 @@ class NewCustomerSessionV2(BaseModel):
             for _key_additional_costs in self.additional_costs:
                 _field_dict[_key_additional_costs] = self.additional_costs[_key_additional_costs].to_dict() if self.additional_costs[_key_additional_costs] is not None else None
             _dict['additionalCosts'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -144,6 +152,11 @@ class NewCustomerSessionV2(BaseModel):
             "identifiers": obj.get("identifiers"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

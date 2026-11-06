@@ -31,6 +31,7 @@ class ExperimentResults(BaseModel):
     """ # noqa: E501
     variants: List[ExperimentVariantResult]
     confidence: ExperimentVariantResultConfidence
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["variants", "confidence"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class ExperimentResults(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class ExperimentResults(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of confidence
         if self.confidence:
             _dict['confidence'] = self.confidence.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class ExperimentResults(BaseModel):
             "variants": [ExperimentVariantResult.from_dict(_item) for _item in obj["variants"]] if obj.get("variants") is not None else None,
             "confidence": ExperimentVariantResultConfidence.from_dict(obj["confidence"]) if obj.get("confidence") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

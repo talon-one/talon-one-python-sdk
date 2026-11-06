@@ -19,7 +19,6 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, f
 from typing import Any, List, Optional
 from talon_one.models.award_discount_block import AwardDiscountBlock
 from talon_one.models.award_loyalty_points_block import AwardLoyaltyPointsBlock
-from talon_one.models.check_attribute_block import CheckAttributeBlock
 from talon_one.models.create_coupon_block import CreateCouponBlock
 from talon_one.models.create_referral_block import CreateReferralBlock
 from talon_one.models.passthrough_block import PassthroughBlock
@@ -274,6 +273,147 @@ class Block(BaseModel):
         error_messages = []
         match = 0
 
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "type"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `AwardDiscountBlock`
+        if _data_type == "awardDiscount":
+            instance.actual_instance = AwardDiscountBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardGiveawayBlock`
+        if _data_type == "awardGiveaway":
+            instance.actual_instance = AwardGiveawayBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardItemBlock`
+        if _data_type == "awardItem":
+            instance.actual_instance = AwardItemBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardLoyaltyPointsBlock`
+        if _data_type == "awardLoyaltyPoints":
+            instance.actual_instance = AwardLoyaltyPointsBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckAchievementBlock`
+        if _data_type == "checkAchievement":
+            instance.actual_instance = CheckAchievementBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckAttributeBlock`
+        if _data_type == "checkAttribute":
+            instance.actual_instance = CheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckAudienceBlock`
+        if _data_type == "checkAudience":
+            instance.actual_instance = CheckAudienceBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckBudgetBlock`
+        if _data_type == "checkBudget":
+            instance.actual_instance = CheckBudgetBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckCouponBlock`
+        if _data_type == "checkCoupon":
+            instance.actual_instance = CheckCouponBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckEventBlock`
+        if _data_type == "checkEvent":
+            instance.actual_instance = CheckEventBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckLoyaltyBalanceBlock`
+        if _data_type == "checkLoyaltyBalance":
+            instance.actual_instance = CheckLoyaltyBalanceBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckLoyaltyCardBlock`
+        if _data_type == "checkLoyaltyCard":
+            instance.actual_instance = CheckLoyaltyCardBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckReferralBlock`
+        if _data_type == "checkReferral":
+            instance.actual_instance = CheckReferralBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CheckTierBlock`
+        if _data_type == "checkTier":
+            instance.actual_instance = CheckTierBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CreateCouponBlock`
+        if _data_type == "createCoupon":
+            instance.actual_instance = CreateCouponBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `CreateReferralBlock`
+        if _data_type == "createReferral":
+            instance.actual_instance = CreateReferralBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `GroupBlock`
+        if _data_type == "group":
+            instance.actual_instance = GroupBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `PassthroughBlock`
+        if _data_type == "passthrough":
+            instance.actual_instance = PassthroughBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `RedeemLoyaltyPointsBlock`
+        if _data_type == "redeemLoyaltyPoints":
+            instance.actual_instance = RedeemLoyaltyPointsBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ReserveCouponBlock`
+        if _data_type == "reserveCoupon":
+            instance.actual_instance = ReserveCouponBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ShowNotificationBlock`
+        if _data_type == "showNotification":
+            instance.actual_instance = ShowNotificationBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `TriggerCustomEffectBlock`
+        if _data_type == "triggerCustomEffect":
+            instance.actual_instance = TriggerCustomEffectBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `TriggerWebhookBlock`
+        if _data_type == "triggerWebhook":
+            instance.actual_instance = TriggerWebhookBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UpdateAchievementProgressBlock`
+        if _data_type == "updateAchievementProgress":
+            instance.actual_instance = UpdateAchievementProgressBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UpdateAttributeValueBlock`
+        if _data_type == "updateAttributeValue":
+            instance.actual_instance = UpdateAttributeValueBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UpdateAudienceMembershipBlock`
+        if _data_type == "updateAudienceMembership":
+            instance.actual_instance = UpdateAudienceMembershipBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UpdateLoyaltyPointsExpiryBlock`
+        if _data_type == "updateLoyaltyPointsExpiry":
+            instance.actual_instance = UpdateLoyaltyPointsExpiryBlock.from_json(json_str)
+            return instance
+
         # deserialize data into GroupBlock
         try:
             instance.actual_instance = GroupBlock.from_json(json_str)
@@ -454,7 +594,7 @@ class Block(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
     def to_dict(self) -> Optional[Union[Dict[str, Any], AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock]]:
         """Returns the dict representation of the actual instance"""
@@ -464,7 +604,9 @@ class Block(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:
@@ -474,6 +616,7 @@ class Block(BaseModel):
 from talon_one.models.award_giveaway_block import AwardGiveawayBlock
 from talon_one.models.award_item_block import AwardItemBlock
 from talon_one.models.check_achievement_block import CheckAchievementBlock
+from talon_one.models.check_attribute_block import CheckAttributeBlock
 from talon_one.models.check_audience_block import CheckAudienceBlock
 from talon_one.models.check_budget_block import CheckBudgetBlock
 from talon_one.models.check_coupon_block import CheckCouponBlock

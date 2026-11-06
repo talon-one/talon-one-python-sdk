@@ -30,6 +30,7 @@ class NewRiskNotification(BaseModel):
     entity: StrictStr = Field(description="The entity type to analyze within the given time frame.", json_schema_extra={"examples": ["customer_profile"]})
     activity: StrictStr = Field(description="The activity metric to analyze within the given entity.", json_schema_extra={"examples": ["loyalty_points_earned"]})
     time_frame: StrictStr = Field(description="The rolling time window for risk evaluation.", alias="timeFrame", json_schema_extra={"examples": ["7D"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["entity", "activity", "timeFrame"]
 
     @field_validator('entity')
@@ -83,8 +84,10 @@ class NewRiskNotification(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -92,6 +95,11 @@ class NewRiskNotification(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -108,6 +116,11 @@ class NewRiskNotification(BaseModel):
             "activity": obj.get("activity"),
             "timeFrame": obj.get("timeFrame")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -31,6 +31,7 @@ class CampaignLoyaltyProgram(BaseModel):
     name: StrictStr = Field(description="The name of the loyalty program.", json_schema_extra={"examples": ["My program"]})
     tiers: List[StrictStr] = Field(description="The names of the tiers in the loyalty program.", json_schema_extra={"examples": [["Silver", "Gold", "Platinum"]]})
     card_based: StrictBool = Field(description="Whether the loyalty program is card-based.", alias="cardBased", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "tiers", "cardBased"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class CampaignLoyaltyProgram(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class CampaignLoyaltyProgram(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class CampaignLoyaltyProgram(BaseModel):
             "tiers": obj.get("tiers"),
             "cardBased": obj.get("cardBased")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

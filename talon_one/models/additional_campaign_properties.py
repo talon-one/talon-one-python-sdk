@@ -54,6 +54,7 @@ class AdditionalCampaignProperties(BaseModel):
     stores_imported: StrictBool = Field(description="Indicates whether the linked stores were imported via a CSV file.", alias="storesImported", json_schema_extra={"examples": [True]})
     value_maps_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of value map IDs for the campaign.", alias="valueMapsIds", json_schema_extra={"examples": [[100, 215]]})
     experiment_id: Optional[StrictInt] = Field(default=None, description="The ID of the Experiment this Campaign is part of.", alias="experimentId", json_schema_extra={"examples": [1]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["budgets", "couponRedemptionCount", "referralRedemptionCount", "discountCount", "discountEffectCount", "couponCreationCount", "customEffectCount", "referralCreationCount", "addFreeItemEffectCount", "awardedGiveawaysCount", "createdLoyaltyPointsCount", "createdLoyaltyPointsEffectCount", "redeemedLoyaltyPointsCount", "redeemedLoyaltyPointsEffectCount", "callApiEffectCount", "reservecouponEffectCount", "lastActivity", "updated", "createdBy", "updatedBy", "templateId", "frontendState", "storesImported", "valueMapsIds", "experimentId"]
 
     @field_validator('frontend_state')
@@ -93,8 +94,10 @@ class AdditionalCampaignProperties(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -108,6 +111,11 @@ class AdditionalCampaignProperties(BaseModel):
             for _item_budgets in self.budgets:
                 _items.append(_item_budgets.to_dict() if _item_budgets is not None else None)
             _dict['budgets'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -146,6 +154,11 @@ class AdditionalCampaignProperties(BaseModel):
             "valueMapsIds": obj.get("valueMapsIds"),
             "experimentId": obj.get("experimentId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

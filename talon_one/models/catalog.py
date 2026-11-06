@@ -37,6 +37,7 @@ class Catalog(BaseModel):
     subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this catalog.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
     version: StrictInt = Field(description="The current version of this catalog.", json_schema_extra={"examples": [6]})
     created_by: StrictInt = Field(description="The ID of user who created this catalog.", alias="createdBy", json_schema_extra={"examples": [6]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "name", "description", "subscribedApplicationsIds", "version", "createdBy"]
 
     model_config = ConfigDict(
@@ -69,8 +70,10 @@ class Catalog(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class Catalog(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -100,6 +108,11 @@ class Catalog(BaseModel):
             "version": obj.get("version"),
             "createdBy": obj.get("createdBy")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

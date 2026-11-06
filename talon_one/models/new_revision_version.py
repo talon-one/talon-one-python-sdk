@@ -44,6 +44,7 @@ class NewRevisionVersion(BaseModel):
     reevaluate_on_return: Optional[StrictBool] = Field(default=None, description="Indicates whether this campaign should be reevaluated when a customer returns an item.", alias="reevaluateOnReturn", json_schema_extra={"examples": [True]})
     features: Optional[List[StrictStr]] = Field(default=None, description="A list of features for the campaign.")
     coupon_attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with coupons in this campaign.", alias="couponAttributes")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "startTime", "endTime", "attributes", "description", "activeRulesetId", "tags", "couponSettings", "referralSettings", "limits", "reevaluateOnReturn", "features", "couponAttributes"]
 
     @field_validator('features')
@@ -87,8 +88,10 @@ class NewRevisionVersion(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -108,6 +111,11 @@ class NewRevisionVersion(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if start_time (nullable) is None
         # and model_fields_set contains the field
         if self.start_time is None and "start_time" in self.model_fields_set:
@@ -154,6 +162,11 @@ class NewRevisionVersion(BaseModel):
             "features": obj.get("features"),
             "couponAttributes": obj.get("couponAttributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

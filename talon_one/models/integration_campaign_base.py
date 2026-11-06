@@ -39,6 +39,7 @@ class IntegrationCampaignBase(BaseModel):
     state: StrictStr = Field(description="The state of the campaign. ", json_schema_extra={"examples": ["enabled"]})
     tags: Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)] = Field(description="A list of tags for the campaign.", json_schema_extra={"examples": [["summer"]]})
     features: List[StrictStr] = Field(description="The features enabled in this campaign.", json_schema_extra={"examples": [["coupons", "referrals"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applicationId", "id", "name", "description", "startTime", "endTime", "attributes", "state", "tags", "features"]
 
     @field_validator('state')
@@ -86,8 +87,10 @@ class IntegrationCampaignBase(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -95,6 +98,11 @@ class IntegrationCampaignBase(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -118,6 +126,11 @@ class IntegrationCampaignBase(BaseModel):
             "tags": obj.get("tags"),
             "features": obj.get("features")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

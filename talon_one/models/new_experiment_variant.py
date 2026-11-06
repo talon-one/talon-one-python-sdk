@@ -32,9 +32,11 @@ class NewExperimentVariant(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True, max_length=255)] = Field(description="The name of this variant.", json_schema_extra={"examples": ["Variant A"]})
     weight: Annotated[int, Field(le=99, strict=True, ge=0)] = Field(description="The percentage split of this variant. For `random` assignment, the split must be between 1 and 99 and the sum across all variants must equal 100. Ignored for `audience` and `external` assignment. ", json_schema_extra={"examples": [13]})
     ruleset: NewRuleset
-    is_primary: StrictBool = Field(alias="isPrimary", json_schema_extra={"examples": [True]})
+    is_primary: Optional[StrictBool] = Field(default=None, description="**Deprecated.** Use `order` instead. Indicates whether this is the primary variant. This is computed as `order == 0`. ", alias="isPrimary", json_schema_extra={"examples": [True]})
+    order: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="The position of this variant in the experiment. The variant with `order: 0` is the primary variant. When omitted, the backend assigns order based on the array position. ", json_schema_extra={"examples": [0]})
     audience_id: Optional[StrictInt] = Field(default=None, description="The ID of the audience this variant targets. Only used when the experiment `assignmentType` is `audience`. ", alias="audienceId", json_schema_extra={"examples": [55]})
-    __properties: ClassVar[List[str]] = ["name", "weight", "ruleset", "isPrimary", "audienceId"]
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["name", "weight", "ruleset", "isPrimary", "order", "audienceId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -66,8 +68,10 @@ class NewExperimentVariant(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +82,11 @@ class NewExperimentVariant(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of ruleset
         if self.ruleset:
             _dict['ruleset'] = self.ruleset.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -94,8 +103,14 @@ class NewExperimentVariant(BaseModel):
             "weight": obj.get("weight"),
             "ruleset": NewRuleset.from_dict(obj["ruleset"]) if obj.get("ruleset") is not None else None,
             "isPrimary": obj.get("isPrimary"),
+            "order": obj.get("order"),
             "audienceId": obj.get("audienceId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

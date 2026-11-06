@@ -54,6 +54,7 @@ class CartItem(BaseModel):
     adjustment_effective_from: Optional[datetime] = Field(default=None, description="The date and time from which the price adjustment is effective. Only returned if the selected price resulted from a price adjustment that contains this field.", alias="adjustmentEffectiveFrom", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     adjustment_effective_until: Optional[datetime] = Field(default=None, description="The date and time until which the price adjustment is effective. Only returned if the selected price resulted from a price adjustment that contains this field.", alias="adjustmentEffectiveUntil", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
     prices: Optional[Dict[str, PriceDetail]] = Field(default=None, description="A map of keys and values representing the price types and related price adjustment details for this cart item. The keys correspond to the `priceType` names. ", json_schema_extra={"examples": [{"member": {"price": 90, "adjustmentReferenceId": "68851723-e6fa-488f-ace9-112581e6c19b", "effectiveFrom": "2025-05-25T00:00:00Z", "effectiveUntil": "2025-05-30T00:00:00Z"}, "base": {"price": 100}}]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "sku", "quantity", "returnedQuantity", "remainingQuantity", "price", "category", "product", "weight", "height", "width", "length", "position", "attributes", "additionalCosts", "catalogItemID", "selectedPriceType", "adjustmentReferenceId", "adjustmentEffectiveFrom", "adjustmentEffectiveUntil", "prices"]
 
     model_config = ConfigDict(
@@ -95,6 +96,7 @@ class CartItem(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "returned_quantity",
@@ -106,6 +108,7 @@ class CartItem(BaseModel):
             "adjustment_effective_from",
             "adjustment_effective_until",
             "prices",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -128,6 +131,11 @@ class CartItem(BaseModel):
             for _key_prices in self.prices:
                 _field_dict[_key_prices] = self.prices[_key_prices].to_dict() if self.prices[_key_prices] is not None else None
             _dict['prices'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -172,6 +180,11 @@ class CartItem(BaseModel):
             if obj.get("prices") is not None
             else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

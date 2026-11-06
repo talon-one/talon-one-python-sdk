@@ -30,6 +30,7 @@ class ShowBundleMetadataEffectProps(BaseModel):
     description: StrictStr = Field(description="Description of the product bundle.")
     bundle_attributes: List[StrictStr] = Field(description="The cart item attributes that determined which items are being bundled together.", alias="bundleAttributes")
     items_indices: List[Union[StrictFloat, StrictInt]] = Field(description="The indices in the cart items array of the bundled items.", alias="itemsIndices")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["description", "bundleAttributes", "itemsIndices"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class ShowBundleMetadataEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class ShowBundleMetadataEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class ShowBundleMetadataEffectProps(BaseModel):
             "bundleAttributes": obj.get("bundleAttributes"),
             "itemsIndices": obj.get("itemsIndices")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

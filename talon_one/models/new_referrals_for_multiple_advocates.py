@@ -37,6 +37,7 @@ class NewReferralsForMultipleAdvocates(BaseModel):
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this referral code.", json_schema_extra={"examples": ["{channel=web}"]})
     valid_characters: Optional[List[StrictStr]] = Field(default=None, description="List of characters used to generate the random parts of a code. By default, the list of characters is equivalent to the `[A-Z, 0-9]` regular expression. ", alias="validCharacters", json_schema_extra={"examples": [["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]]})
     referral_pattern: Optional[Annotated[str, Field(min_length=3, strict=True, max_length=100)]] = Field(default=None, description="The pattern used to generate referrals. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="referralPattern", json_schema_extra={"examples": ["REF-###-###"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["startDate", "expiryDate", "usageLimit", "campaignId", "advocateProfileIntegrationIds", "attributes", "validCharacters", "referralPattern"]
 
     model_config = ConfigDict(
@@ -69,8 +70,10 @@ class NewReferralsForMultipleAdvocates(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class NewReferralsForMultipleAdvocates(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class NewReferralsForMultipleAdvocates(BaseModel):
             "validCharacters": obj.get("validCharacters"),
             "referralPattern": obj.get("referralPattern")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

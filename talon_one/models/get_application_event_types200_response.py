@@ -29,6 +29,7 @@ class GetApplicationEventTypes200Response(BaseModel):
     """ # noqa: E501
     total_result_size: StrictInt = Field(alias="totalResultSize", json_schema_extra={"examples": [1]})
     data: List[StrictStr]
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["totalResultSize", "data"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class GetApplicationEventTypes200Response(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class GetApplicationEventTypes200Response(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class GetApplicationEventTypes200Response(BaseModel):
             "totalResultSize": obj.get("totalResultSize"),
             "data": obj.get("data")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

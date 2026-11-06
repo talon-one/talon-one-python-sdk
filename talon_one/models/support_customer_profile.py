@@ -34,6 +34,7 @@ class SupportCustomerProfile(BaseModel):
     integration_id: StrictStr = Field(description="The integration ID set by your integration layer.", alias="integrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
     attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with this item.", json_schema_extra={"examples": [{"Language": "english", "ShippingCountry": "DE"}]})
     application_memberships: List[ApplicationMembership] = Field(description="The applications the customer belongs to.", alias="applicationMemberships")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "attributes", "applicationMemberships"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class SupportCustomerProfile(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class SupportCustomerProfile(BaseModel):
             for _item_application_memberships in self.application_memberships:
                 _items.append(_item_application_memberships.to_dict() if _item_application_memberships is not None else None)
             _dict['applicationMemberships'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class SupportCustomerProfile(BaseModel):
             "attributes": obj.get("attributes"),
             "applicationMemberships": [ApplicationMembership.from_dict(_item) for _item in obj["applicationMemberships"]] if obj.get("applicationMemberships") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

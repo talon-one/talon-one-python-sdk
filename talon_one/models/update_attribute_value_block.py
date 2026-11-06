@@ -36,6 +36,7 @@ class UpdateAttributeValueBlock(BaseModel):
     attribute: AttributeBlockReference = Field(description="The attribute being updated.")
     value: Optional[Any] = Field(default=None, description="The value of the attribute. Omitted when operator is set to `toggle`.", json_schema_extra={"examples": [10]})
     target: UpdateAttributeValueBlock1Target
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "target"]
 
     @field_validator('operator')
@@ -76,9 +77,11 @@ class UpdateAttributeValueBlock(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -92,6 +95,11 @@ class UpdateAttributeValueBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of target
         if self.target:
             _dict['target'] = self.target.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if value (nullable) is None
         # and model_fields_set contains the field
         if self.value is None and "value" in self.model_fields_set:
@@ -117,6 +125,11 @@ class UpdateAttributeValueBlock(BaseModel):
             "value": obj.get("value"),
             "target": UpdateAttributeValueBlock1Target.from_dict(obj["target"]) if obj.get("target") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

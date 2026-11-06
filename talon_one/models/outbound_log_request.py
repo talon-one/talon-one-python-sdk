@@ -31,6 +31,7 @@ class OutboundLogRequest(BaseModel):
     url: StrictStr = Field(description="Target URL of the outbound request.", json_schema_extra={"examples": ["https://example.com/webhook"]})
     headers: List[StrictStr] = Field(description="HTTP headers sent with the outbound request.", json_schema_extra={"examples": [["content-type: application/json"]]})
     body: Dict[str, Any] = Field(description="JSON request payload.", json_schema_extra={"examples": [{"ProfileIntegrationID": "URNGV8294NV", "LoyaltyProgramID": 5, "SubledgerID": "sub-123", "Amount": 10.99, "Reason": "Compensation", "TypeOfChange": "campaign_manager", "EmployeeName": "Franziska Schneider", "UserID": 25, "Operation": "addition", "StartDate": "2023-01-24T14:15:22Z", "ExpiryDate": "2024-01-24T14:15:22Z", "SessionIntegrationID": "cc53e4fa-547f-4f5e-8333-76e05c381f67", "NotificationType": "LoyaltyPointsDeducted", "TransactionUUID": "1a6a7599-2622-4489-9034-5a62da3944e0"}]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["method", "url", "headers", "body"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class OutboundLogRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class OutboundLogRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class OutboundLogRequest(BaseModel):
             "headers": obj.get("headers"),
             "body": obj.get("body")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

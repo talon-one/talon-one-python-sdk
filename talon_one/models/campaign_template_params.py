@@ -32,6 +32,7 @@ class CampaignTemplateParams(BaseModel):
     type: StrictStr = Field(description="Defines the type of parameter value.", json_schema_extra={"examples": ["number"]})
     description: StrictStr = Field(description="Explains the meaning of this template parameter and the placeholder value that will define it. It is used on campaign creation from this template.", json_schema_extra={"examples": ["This is a template parameter of type `number`."]})
     attribute_id: Optional[StrictInt] = Field(default=None, description="ID of the corresponding attribute.", alias="attributeId", json_schema_extra={"examples": [42]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "type", "description", "attributeId"]
 
     @field_validator('type')
@@ -71,8 +72,10 @@ class CampaignTemplateParams(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class CampaignTemplateParams(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -97,6 +105,11 @@ class CampaignTemplateParams(BaseModel):
             "description": obj.get("description"),
             "attributeId": obj.get("attributeId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

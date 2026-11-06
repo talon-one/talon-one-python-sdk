@@ -31,6 +31,7 @@ class CatalogSyncRequest(BaseModel):
     """ # noqa: E501
     actions: Annotated[List[CatalogAction], Field(min_length=1, max_length=1000)]
     version: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="The version number of the catalog to apply the actions on.", json_schema_extra={"examples": [244]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["actions", "version"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class CatalogSyncRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class CatalogSyncRequest(BaseModel):
             for _item_actions in self.actions:
                 _items.append(_item_actions.to_dict() if _item_actions is not None else None)
             _dict['actions'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class CatalogSyncRequest(BaseModel):
             "actions": [CatalogAction.from_dict(_item) for _item in obj["actions"]] if obj.get("actions") is not None else None,
             "version": obj.get("version")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

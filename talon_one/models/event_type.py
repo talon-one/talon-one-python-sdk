@@ -34,6 +34,7 @@ class EventType(BaseModel):
     title: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly name for this event type.", json_schema_extra={"examples": ["Survey Completed"]})
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The integration name for this event type. This will be used in URLs and cannot be changed after an event type has been created.", json_schema_extra={"examples": ["surveyCompleted"]})
     description: Optional[StrictStr] = Field(default=None, description="A description of what the event represents. ", json_schema_extra={"examples": ["The survey was submitted by the customer."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "title", "name", "description"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class EventType(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class EventType(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class EventType(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

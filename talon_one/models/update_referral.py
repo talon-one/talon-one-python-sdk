@@ -34,6 +34,7 @@ class UpdateReferral(BaseModel):
     expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the referral code. Referral never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2021-11-10T23:00:00Z"]})
     usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times a referral code can be used. This can be set to 0 for no limit, but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [1]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["friendProfileIntegrationId", "startDate", "expiryDate", "usageLimit", "attributes"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class UpdateReferral(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class UpdateReferral(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class UpdateReferral(BaseModel):
             "usageLimit": obj.get("usageLimit"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

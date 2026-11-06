@@ -39,6 +39,7 @@ class LoyaltyDashboardData(BaseModel):
     new_members: Union[StrictFloat, StrictInt] = Field(description="Number of members who joined on this day.", alias="newMembers", json_schema_extra={"examples": [3]})
     spent_points: LoyaltyDashboardPointsBreakdown = Field(description="Points spent on this day.", alias="spentPoints")
     earned_points: LoyaltyDashboardPointsBreakdown = Field(description="Points that were earned on this day.", alias="earnedPoints")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["date", "totalActivePoints", "totalPendingPoints", "totalSpentPoints", "totalExpiredPoints", "totalNegativePoints", "totalMembers", "newMembers", "spentPoints", "earnedPoints"]
 
     model_config = ConfigDict(
@@ -71,8 +72,10 @@ class LoyaltyDashboardData(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -86,6 +89,11 @@ class LoyaltyDashboardData(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of earned_points
         if self.earned_points:
             _dict['earnedPoints'] = self.earned_points.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -109,6 +117,11 @@ class LoyaltyDashboardData(BaseModel):
             "spentPoints": LoyaltyDashboardPointsBreakdown.from_dict(obj["spentPoints"]) if obj.get("spentPoints") is not None else None,
             "earnedPoints": LoyaltyDashboardPointsBreakdown.from_dict(obj["earnedPoints"]) if obj.get("earnedPoints") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

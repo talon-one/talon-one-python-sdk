@@ -49,6 +49,7 @@ class UpdateCampaign(BaseModel):
     type: Optional[StrictStr] = Field(default='advanced', description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", json_schema_extra={"examples": ["advanced"]})
     linked_store_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of store IDs that you want to link to the campaign.  > [!note] **Note** > - Campaigns with linked store IDs will only be evaluated when there is a >   [customer session update](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) >   that references a linked store. > - If you linked stores to the campaign by uploading a CSV file, you cannot use this property and it should be empty. > - Use of this property is limited to 50 stores. To link more than 50 stores, upload them via a CSV file. ", alias="linkedStoreIds", json_schema_extra={"examples": [[1, 2, 3]]})
     coupon_attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with coupons in this campaign.", alias="couponAttributes")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description", "startTime", "endTime", "attributes", "state", "activeRulesetId", "tags", "reevaluateOnReturn", "features", "couponSettings", "referralSettings", "limits", "campaignGroups", "evaluationGroupId", "type", "linkedStoreIds", "couponAttributes"]
 
     @field_validator('state')
@@ -109,8 +110,10 @@ class UpdateCampaign(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -130,6 +133,11 @@ class UpdateCampaign(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -161,6 +169,11 @@ class UpdateCampaign(BaseModel):
             "linkedStoreIds": obj.get("linkedStoreIds"),
             "couponAttributes": obj.get("couponAttributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

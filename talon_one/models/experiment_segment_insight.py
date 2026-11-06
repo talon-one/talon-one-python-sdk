@@ -34,6 +34,7 @@ class ExperimentSegmentInsight(BaseModel):
     confidence: Union[Annotated[float, Field(le=100, strict=True, ge=95)], Annotated[int, Field(le=100, strict=True, ge=95)]] = Field(description="The raw (unadjusted) confidence score expressed as a percentage. Only segments with a confidence score greater than or equal to 95% are returned. ", json_schema_extra={"examples": [99.2]})
     winner_variant_id: StrictInt = Field(description="The ID of the variant that performed better in this segment.", alias="winnerVariantId", json_schema_extra={"examples": [42]})
     variants: List[ExperimentSegmentInsightVariant] = Field(description="Per-variant metric values for this segment.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["dimension", "bucket", "confidence", "winnerVariantId", "variants"]
 
     @field_validator('dimension')
@@ -80,8 +81,10 @@ class ExperimentSegmentInsight(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -95,6 +98,11 @@ class ExperimentSegmentInsight(BaseModel):
             for _item_variants in self.variants:
                 _items.append(_item_variants.to_dict() if _item_variants is not None else None)
             _dict['variants'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -113,6 +121,11 @@ class ExperimentSegmentInsight(BaseModel):
             "winnerVariantId": obj.get("winnerVariantId"),
             "variants": [ExperimentSegmentInsightVariant.from_dict(_item) for _item in obj["variants"]] if obj.get("variants") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

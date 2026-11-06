@@ -35,6 +35,7 @@ class Tier(BaseModel):
     downgrade_policy: Optional[StrictStr] = Field(default=None, description="The policy that defines how customer tiers are downgraded in the loyalty program after tier reevaluation.  - `one_down`: If the customer doesn't have enough points to stay in the current tier, they are downgraded by one tier.  - `balance_based`: The customer's tier is reevaluated based on the amount of active points they have at the moment. ", alias="downgradePolicy", json_schema_extra={"examples": ["one_down"]})
     source: Optional[StrictStr] = Field(default='points', description="Indicates whether the customer's current tier was determined based on their points balance or a temporary boost.  - `points`: The tier reflects the customer's current point balance. - `boost`: A temporary tier boost is in effect where the customer is in a higher tier than their points-based tier. The boost expires after a set duration and the customer returns to their points-based tier. ", json_schema_extra={"examples": ["points"]})
     reason: Optional[StrictStr] = Field(default=None, description="The reason for the tier assignment. ", json_schema_extra={"examples": ["Subscription to newsletter"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "startDate", "expiryDate", "downgradePolicy", "source", "reason"]
 
     @field_validator('downgrade_policy')
@@ -87,8 +88,10 @@ class Tier(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -96,6 +99,11 @@ class Tier(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -116,6 +124,11 @@ class Tier(BaseModel):
             "source": obj.get("source") if obj.get("source") is not None else 'points',
             "reason": obj.get("reason")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

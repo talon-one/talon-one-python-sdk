@@ -29,6 +29,7 @@ class UpdateCollection(BaseModel):
     """ # noqa: E501
     description: Optional[StrictStr] = Field(default=None, description="A short description of the purpose of this collection.", json_schema_extra={"examples": ["My collection of SKUs"]})
     subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications where this collection is enabled.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["description", "subscribedApplicationsIds"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class UpdateCollection(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class UpdateCollection(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class UpdateCollection(BaseModel):
             "description": obj.get("description"),
             "subscribedApplicationsIds": obj.get("subscribedApplicationsIds")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

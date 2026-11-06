@@ -29,6 +29,7 @@ class MapSelectorStep(BaseModel):
     """ # noqa: E501
     type: StrictStr = Field(description="A step discriminator of type `map`.", json_schema_extra={"examples": ["map"]})
     expression: StrictStr = Field(description="The attribute path each item is mapped to.", json_schema_extra={"examples": ["$Item.Price"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "expression"]
 
     @field_validator('type')
@@ -68,8 +69,10 @@ class MapSelectorStep(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class MapSelectorStep(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class MapSelectorStep(BaseModel):
             "type": obj.get("type"),
             "expression": obj.get("expression")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

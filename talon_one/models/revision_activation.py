@@ -29,6 +29,7 @@ class RevisionActivation(BaseModel):
     RevisionActivation
     """ # noqa: E501
     activate_at: Optional[datetime] = Field(default=None, description="Timestamp when the revision will be activated.", alias="activateAt", json_schema_extra={"examples": ["2026-10-08T09:30:00Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["activateAt"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class RevisionActivation(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class RevisionActivation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -84,6 +92,11 @@ class RevisionActivation(BaseModel):
         _obj = cls.model_validate({
             "activateAt": obj.get("activateAt")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

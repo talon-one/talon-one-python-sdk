@@ -37,6 +37,7 @@ class IntegrationState(BaseModel):
     event: Event
     loyalty: Optional[Loyalty] = None
     coupon: Optional[Coupon] = None
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["session", "profile", "event", "loyalty", "coupon"]
 
     model_config = ConfigDict(
@@ -69,8 +70,10 @@ class IntegrationState(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -93,6 +96,11 @@ class IntegrationState(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of coupon
         if self.coupon:
             _dict['coupon'] = self.coupon.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -111,6 +119,11 @@ class IntegrationState(BaseModel):
             "loyalty": Loyalty.from_dict(obj["loyalty"]) if obj.get("loyalty") is not None else None,
             "coupon": Coupon.from_dict(obj["coupon"]) if obj.get("coupon") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

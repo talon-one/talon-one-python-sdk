@@ -31,6 +31,7 @@ class Session(BaseModel):
     user_id: StrictInt = Field(description="The ID of the user of this session.", alias="userId", json_schema_extra={"examples": [109]})
     token: StrictStr = Field(description="The token to use as a bearer token to query Management API endpoints.", json_schema_extra={"examples": ["dy_Fa_lQ4iDAnqldJFvVEmnsN8xDTxej19l0LZDBJhQ"]})
     created: datetime = Field(description="Unix timestamp indicating when the session was first created.", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["userId", "token", "created"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class Session(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class Session(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +96,11 @@ class Session(BaseModel):
             "token": obj.get("token"),
             "created": obj.get("created")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

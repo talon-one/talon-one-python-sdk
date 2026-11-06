@@ -33,6 +33,7 @@ class RollbackIncreasedAchievementProgressEffectProps(BaseModel):
     decrease_progress_by: Union[StrictFloat, StrictInt] = Field(description="The value by which the customer's current progress in the achievement has decreased.", alias="decreaseProgressBy")
     current_progress: Union[StrictFloat, StrictInt] = Field(description="The current progress of the customer in the achievement.", alias="currentProgress")
     target: Union[StrictFloat, StrictInt] = Field(description="The target value to complete the achievement.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["achievementId", "achievementName", "progressTrackerId", "decreaseProgressBy", "currentProgress", "target"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class RollbackIncreasedAchievementProgressEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +77,11 @@ class RollbackIncreasedAchievementProgressEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class RollbackIncreasedAchievementProgressEffectProps(BaseModel):
             "currentProgress": obj.get("currentProgress"),
             "target": obj.get("target")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

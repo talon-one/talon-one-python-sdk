@@ -33,6 +33,7 @@ class RuleMetadataEligibility(BaseModel):
     display_description: Optional[StrictStr] = Field(default=None, description="A customer-facing description that explains the details of the rule.   For example, this property can contain details about eligibility requirements, reward timelines, or terms and conditions. ", alias="displayDescription", json_schema_extra={"examples": ["Get a 20% discount on all shoes during Thanksgiving! Offer valid till Dec 5 only."]})
     related_data: Optional[StrictStr] = Field(default=None, description="Any additional data associated with the rule, such as an image URL, vendor name, or a content management system (CMS) ID. ", alias="relatedData", json_schema_extra={"examples": ["https://example.com/discounts/20-off-shoes.png"]})
     eligibility: List[RuleEligibility]
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "displayName", "displayDescription", "relatedData", "eligibility"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class RuleMetadataEligibility(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class RuleMetadataEligibility(BaseModel):
             for _item_eligibility in self.eligibility:
                 _items.append(_item_eligibility.to_dict() if _item_eligibility is not None else None)
             _dict['eligibility'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +106,11 @@ class RuleMetadataEligibility(BaseModel):
             "relatedData": obj.get("relatedData"),
             "eligibility": [RuleEligibility.from_dict(_item) for _item in obj["eligibility"]] if obj.get("eligibility") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

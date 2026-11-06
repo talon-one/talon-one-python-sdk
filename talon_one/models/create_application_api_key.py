@@ -33,6 +33,7 @@ class CreateApplicationAPIKey(BaseModel):
     platform: Optional[StrictStr] = Field(default=None, description="The third-party platform the API key is valid for. Use `none` for a generic API key to be used from your own integration layer. ", json_schema_extra={"examples": ["none"]})
     type: Optional[StrictStr] = Field(default=None, description="The API key type. Can be empty or `staging`.  Staging API keys can only be used for dry requests with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint, [Update customer profile](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/updateCustomerProfileV2) endpoint, and [Track event](https://docs.talon.one/integration-api#tag/Events/operation/trackEventV2) endpoint.  When using the _Update customer profile_ endpoint with a staging API key, the query parameter `runRuleEngine` must be `true`. ", json_schema_extra={"examples": ["staging"]})
     time_offset: Optional[StrictInt] = Field(default=None, description="A time offset in nanoseconds associated with the API key. When making a request using the API key, rule evaluation is based on a date that is calculated by adding the offset to the current date. ", alias="timeOffset", json_schema_extra={"examples": [100000]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "expires", "platform", "type", "timeOffset"]
 
     @field_validator('platform')
@@ -85,8 +86,10 @@ class CreateApplicationAPIKey(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -94,6 +97,11 @@ class CreateApplicationAPIKey(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -112,6 +120,11 @@ class CreateApplicationAPIKey(BaseModel):
             "type": obj.get("type"),
             "timeOffset": obj.get("timeOffset")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

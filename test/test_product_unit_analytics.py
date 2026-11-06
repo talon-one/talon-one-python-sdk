@@ -43,7 +43,7 @@ class TestProductUnitAnalytics(unittest.TestCase):
                         product_id = 1, 
                         product_name = 'MyProduct', )
                     ],
-                totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
+                totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalyticsTotals(
                     units_sold = null, )
             )
         else:
@@ -56,7 +56,7 @@ class TestProductUnitAnalytics(unittest.TestCase):
                         product_id = 1, 
                         product_name = 'MyProduct', )
                     ],
-                totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
+                totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalyticsTotals(
                     units_sold = null, ),
         )
         """

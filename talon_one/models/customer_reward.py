@@ -33,6 +33,7 @@ class CustomerReward(BaseModel):
     integration_id: StrictStr = Field(description="The integration ID assigned to this reward unlock.", alias="integrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
     unlocked_at: datetime = Field(description="The date and time when the reward was unlocked.", alias="unlockedAt", json_schema_extra={"examples": ["2024-01-01T00:00:00Z"]})
     used_at: Optional[datetime] = Field(default=None, description="The date and time when the reward was used.", alias="usedAt", json_schema_extra={"examples": ["2024-01-02T00:00:00Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applicationId", "profileIntegrationId", "integrationId", "unlockedAt", "usedAt"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class CustomerReward(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +77,11 @@ class CustomerReward(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class CustomerReward(BaseModel):
             "unlockedAt": obj.get("unlockedAt"),
             "usedAt": obj.get("usedAt")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -40,6 +40,7 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(Bas
     tier_expiration_date: Optional[datetime] = Field(default=None, alias="TierExpirationDate")
     timestamp_of_tier_change: Optional[datetime] = Field(default=None, alias="TimestampOfTierChange")
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["EventId", "ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "CurrentPoints", "OldTier", "TierExpirationDate", "TimestampOfTierChange", "PublishedAt"]
 
     model_config = ConfigDict(
@@ -72,8 +73,10 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(Bas
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(Bas
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -106,6 +114,11 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedTierDowngradeNotification(Bas
             "TimestampOfTierChange": obj.get("TimestampOfTierChange"),
             "PublishedAt": obj.get("PublishedAt")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

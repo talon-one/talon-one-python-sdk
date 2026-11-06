@@ -31,6 +31,7 @@ class CampaignBudget(BaseModel):
     action: StrictStr = Field(description="The limitable action to which this limit applies. For example: - `setDiscount` - `setDiscountEffect` - `redeemCoupon` - `createCoupon` ", json_schema_extra={"examples": ["createCoupon"]})
     limit: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="The value to set for the limit.", json_schema_extra={"examples": [1000]})
     counter: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="The number of occurrences of the limited action in the context of the campaign.", json_schema_extra={"examples": [42]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["action", "limit", "counter"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class CampaignBudget(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class CampaignBudget(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +96,11 @@ class CampaignBudget(BaseModel):
             "limit": obj.get("limit"),
             "counter": obj.get("counter")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

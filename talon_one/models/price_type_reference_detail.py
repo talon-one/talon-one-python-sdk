@@ -31,6 +31,7 @@ class PriceTypeReferenceDetail(BaseModel):
     referencing_id: StrictInt = Field(description="The ID of the entity that references the price type.", alias="referencingId", json_schema_extra={"examples": [1]})
     referencing_name: StrictStr = Field(description="The name of the entity that references the price type.", alias="referencingName", json_schema_extra={"examples": ["Summer promotions"]})
     application_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application that contains the entity that references the price type.", alias="applicationId", json_schema_extra={"examples": [322]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["referencingType", "referencingId", "referencingName", "applicationId"]
 
     @field_validator('referencing_type')
@@ -70,8 +71,10 @@ class PriceTypeReferenceDetail(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class PriceTypeReferenceDetail(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class PriceTypeReferenceDetail(BaseModel):
             "referencingName": obj.get("referencingName"),
             "applicationId": obj.get("applicationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

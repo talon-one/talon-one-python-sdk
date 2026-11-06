@@ -42,6 +42,7 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
     current_points: Union[StrictFloat, StrictInt] = Field(alias="CurrentPoints")
     actions: Optional[List[IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction]] = Field(default=None, alias="Actions")
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["EventId", "ProfileIntegrationID", "LoyaltyProgramID", "LoyaltyProgramName", "SubledgerID", "SourceOfEvent", "CurrentTier", "SessionIntegrationID", "EmployeeName", "UserID", "CurrentPoints", "Actions", "PublishedAt"]
 
     model_config = ConfigDict(
@@ -74,8 +75,10 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -89,6 +92,11 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
             for _item_actions in self.actions:
                 _items.append(_item_actions.to_dict() if _item_actions is not None else None)
             _dict['Actions'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +123,11 @@ class IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotification(Bas
             "Actions": [IntegrationHubEventPayloadLoyaltyProfileBasedPointsChangedNotificationAction.from_dict(_item) for _item in obj["Actions"]] if obj.get("Actions") is not None else None,
             "PublishedAt": obj.get("PublishedAt")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

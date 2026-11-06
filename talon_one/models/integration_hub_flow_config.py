@@ -34,6 +34,7 @@ class IntegrationHubFlowConfig(BaseModel):
     max_retries: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=10, description="Maximum number of retries for a IntegrationHub event before it is ignored.", alias="MaxRetries")
     instance_name: Optional[StrictStr] = Field(default=None, description="Name of the Prismatic instance that registered this flow.", alias="InstanceName")
     integration_name: Optional[StrictStr] = Field(default=None, description="Name of the Prismatic integration that registered this flow.", alias="IntegrationName")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["ApiKey", "WorkerCount", "MaxEventsPerMessage", "MaxRetries", "InstanceName", "IntegrationName"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class IntegrationHubFlowConfig(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class IntegrationHubFlowConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -94,6 +102,11 @@ class IntegrationHubFlowConfig(BaseModel):
             "InstanceName": obj.get("InstanceName"),
             "IntegrationName": obj.get("IntegrationName")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

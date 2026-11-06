@@ -29,6 +29,7 @@ class MultipleCustomerProfileIntegrationRequest(BaseModel):
     MultipleCustomerProfileIntegrationRequest
     """ # noqa: E501
     customer_profiles: Optional[List[MultipleCustomerProfileIntegrationRequestItem]] = Field(default=None, alias="customerProfiles")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["customerProfiles"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class MultipleCustomerProfileIntegrationRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class MultipleCustomerProfileIntegrationRequest(BaseModel):
             for _item_customer_profiles in self.customer_profiles:
                 _items.append(_item_customer_profiles.to_dict() if _item_customer_profiles is not None else None)
             _dict['customerProfiles'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class MultipleCustomerProfileIntegrationRequest(BaseModel):
         _obj = cls.model_validate({
             "customerProfiles": [MultipleCustomerProfileIntegrationRequestItem.from_dict(_item) for _item in obj["customerProfiles"]] if obj.get("customerProfiles") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

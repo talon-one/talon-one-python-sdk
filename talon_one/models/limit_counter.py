@@ -43,6 +43,7 @@ class LimitCounter(BaseModel):
     period: Optional[StrictStr] = Field(default=None, description="The time period for which this limit counter is used.", json_schema_extra={"examples": ["Y2021M8"]})
     limit: Union[StrictFloat, StrictInt] = Field(description="The highest possible value for this limit counter.", json_schema_extra={"examples": [10]})
     counter: Union[StrictFloat, StrictInt] = Field(description="The current value for this limit counter.", json_schema_extra={"examples": [5]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["campaignId", "applicationId", "accountId", "id", "action", "profileId", "profileIntegrationId", "couponId", "couponValue", "referralId", "referralValue", "identifier", "period", "limit", "counter"]
 
     model_config = ConfigDict(
@@ -75,8 +76,10 @@ class LimitCounter(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -84,6 +87,11 @@ class LimitCounter(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -112,6 +120,11 @@ class LimitCounter(BaseModel):
             "limit": obj.get("limit"),
             "counter": obj.get("counter")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

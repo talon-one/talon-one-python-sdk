@@ -30,6 +30,7 @@ class ScimPatchRequest(BaseModel):
     """ # noqa: E501
     schemas: Optional[List[StrictStr]] = Field(default=None, description="SCIM schema for the given resource.")
     operations: List[ScimPatchOperation] = Field(alias="Operations")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["schemas", "Operations"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class ScimPatchRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class ScimPatchRequest(BaseModel):
             for _item_operations in self.operations:
                 _items.append(_item_operations.to_dict() if _item_operations is not None else None)
             _dict['Operations'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class ScimPatchRequest(BaseModel):
             "schemas": obj.get("schemas"),
             "Operations": [ScimPatchOperation.from_dict(_item) for _item in obj["Operations"]] if obj.get("Operations") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

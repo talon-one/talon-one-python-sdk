@@ -34,6 +34,7 @@ class NewExperimentBlueprint(BaseModel):
     category: Optional[StrictStr] = Field(default='custom', description="Category used to group experiment blueprints.", json_schema_extra={"examples": ["custom"]})
     variants: Optional[List[ExperimentBlueprintVariant]] = Field(default=None, description="Array of experiment variant templates to store in this experiment blueprint. At least one variant or cart item filter is required.")
     cart_item_filters: Optional[List[CartItemFilterTemplate]] = Field(default=None, description="Array of cart item filters to store in this experiment blueprint. If not provided, will be extracted from the variant rulesets. Cart item filters should only contain name (no description, as description is at the experiment blueprint level).", alias="cartItemFilters")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "description", "category", "variants", "cartItemFilters"]
 
     @field_validator('category')
@@ -76,8 +77,10 @@ class NewExperimentBlueprint(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -97,6 +100,11 @@ class NewExperimentBlueprint(BaseModel):
             for _item_cart_item_filters in self.cart_item_filters:
                 _items.append(_item_cart_item_filters.to_dict() if _item_cart_item_filters is not None else None)
             _dict['cartItemFilters'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +123,11 @@ class NewExperimentBlueprint(BaseModel):
             "variants": [ExperimentBlueprintVariant.from_dict(_item) for _item in obj["variants"]] if obj.get("variants") is not None else None,
             "cartItemFilters": [CartItemFilterTemplate.from_dict(_item) for _item in obj["cartItemFilters"]] if obj.get("cartItemFilters") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

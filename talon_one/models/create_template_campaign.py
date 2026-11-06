@@ -40,6 +40,7 @@ class CreateTemplateCampaign(BaseModel):
     tags: Optional[Annotated[List[Annotated[str, Field(min_length=1, strict=True, max_length=50)]], Field(max_length=50)]] = Field(default=None, description="A list of tags for the campaign. If the campaign template has tags, they will be overridden by this list.", json_schema_extra={"examples": [["summer"]]})
     evaluation_group_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign evaluation group the campaign belongs to.", alias="evaluationGroupId", json_schema_extra={"examples": [2]})
     linked_store_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of store IDs that are linked to the campaign.  **Note:** Campaigns with linked store IDs will only be evaluated when there is a [customer session update](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) that references a linked store. ", alias="linkedStoreIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description", "templateId", "campaignAttributesOverrides", "templateParamValues", "limitOverrides", "campaignGroups", "tags", "evaluationGroupId", "linkedStoreIds"]
 
     model_config = ConfigDict(
@@ -72,8 +73,10 @@ class CreateTemplateCampaign(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -93,6 +96,11 @@ class CreateTemplateCampaign(BaseModel):
             for _item_limit_overrides in self.limit_overrides:
                 _items.append(_item_limit_overrides.to_dict() if _item_limit_overrides is not None else None)
             _dict['limitOverrides'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -116,6 +124,11 @@ class CreateTemplateCampaign(BaseModel):
             "evaluationGroupId": obj.get("evaluationGroupId"),
             "linkedStoreIds": obj.get("linkedStoreIds")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

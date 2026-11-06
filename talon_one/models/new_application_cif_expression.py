@@ -30,6 +30,7 @@ class NewApplicationCIFExpression(BaseModel):
     cart_item_filter_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application cart item filter.", alias="cartItemFilterId", json_schema_extra={"examples": [216]})
     created_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who created the Application cart item filter.", alias="createdBy", json_schema_extra={"examples": [216]})
     expression: Optional[List[Any]] = Field(default=None, description="Arbitrary additional JSON data associated with the Application cart item filter.", json_schema_extra={"examples": [{"expr": ["filter", [".", "Session", "CartItems"], [["Item"], ["catch", False, ["contains", [".", "Item", "Category"], "Kitchen"]]]]}]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["cartItemFilterId", "createdBy", "expression"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class NewApplicationCIFExpression(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class NewApplicationCIFExpression(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class NewApplicationCIFExpression(BaseModel):
             "createdBy": obj.get("createdBy"),
             "expression": obj.get("expression")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

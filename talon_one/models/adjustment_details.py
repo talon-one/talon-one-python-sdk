@@ -30,6 +30,7 @@ class AdjustmentDetails(BaseModel):
     reference_id: StrictStr = Field(description="The reference identifier used during an `ADD_PRICE_ADJUSTMENT` action.", alias="referenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
     selected_price_type: StrictStr = Field(description="The selected price type for the SKU targeted by this effect.", alias="selectedPriceType", json_schema_extra={"examples": ["member"]})
     value: Union[StrictFloat, StrictInt] = Field(description="The value of the applied price adjustment.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["referenceId", "selectedPriceType", "value"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class AdjustmentDetails(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class AdjustmentDetails(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class AdjustmentDetails(BaseModel):
             "selectedPriceType": obj.get("selectedPriceType"),
             "value": obj.get("value")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 
