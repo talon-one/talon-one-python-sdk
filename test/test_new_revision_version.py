@@ -38,7 +38,7 @@ class TestNewRevisionVersion(unittest.TestCase):
                 name = 'Summer promotions',
                 start_time = '2021-07-20T22:00:00Z',
                 end_time = '2021-09-22T22:00:00Z',
-                attributes = None,
+                attributes = { },
                 description = 'Campaign for all summer 2021 promotions',
                 active_ruleset_id = 5,
                 tags = [
@@ -61,7 +61,7 @@ class TestNewRevisionVersion(unittest.TestCase):
                 features = [
                     'coupons'
                     ],
-                coupon_attributes = None
+                coupon_attributes = { }
             )
         else:
             return NewRevisionVersion(

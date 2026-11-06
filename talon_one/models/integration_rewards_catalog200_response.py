@@ -31,6 +31,7 @@ class IntegrationRewardsCatalog200Response(BaseModel):
     """ # noqa: E501
     catalog: IntegrationRewardsCatalog200ResponseCatalog
     loyalty: Optional[Dict[str, LoyaltyBalances]] = Field(default=None, description="The customer's loyalty balances for the specified loyalty program. Returned only when `loyaltyProgramId` is provided together with `profileIntegrationId` or `loyaltyCardId`. ")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["catalog", "loyalty"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class IntegrationRewardsCatalog200Response(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class IntegrationRewardsCatalog200Response(BaseModel):
             for _key_loyalty in self.loyalty:
                 _field_dict[_key_loyalty] = self.loyalty[_key_loyalty].to_dict() if self.loyalty[_key_loyalty] is not None else None
             _dict['loyalty'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -101,6 +109,11 @@ class IntegrationRewardsCatalog200Response(BaseModel):
             if obj.get("loyalty") is not None
             else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -33,6 +33,7 @@ class GenerateCouponFailureDetailedSummary(BaseModel):
     event_id: StrictInt = Field(description="The ID of the event for which the coupon redemption failed.", alias="eventID")
     coupon: StrictStr = Field(description="The coupon code that could not be redeemed.", json_schema_extra={"examples": ["BKDB946"]})
     language: Optional[StrictStr] = Field(default=None, description="The language of the summary.", json_schema_extra={"examples": ["en"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applicationID", "sessionID", "eventID", "coupon", "language"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class GenerateCouponFailureDetailedSummary(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +77,11 @@ class GenerateCouponFailureDetailedSummary(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class GenerateCouponFailureDetailedSummary(BaseModel):
             "coupon": obj.get("coupon"),
             "language": obj.get("language")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -33,6 +33,7 @@ class AddItemCatalogAction(BaseModel):
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the item to add.", json_schema_extra={"examples": [{"origin": "germany", "color": "blue"}]})
     product: Optional[Product] = None
     replace_if_exists: Optional[StrictBool] = Field(default=False, description="Indicates whether to replace the attributes of the item if the same SKU exists.  **Note**: When set to `true`:   - If you do not provide a new `price` value, the existing `price` value is retained.   - If you do not provide a new `product` value, the `product` value is set to `null`. ", alias="replaceIfExists", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["sku", "price", "attributes", "product", "replaceIfExists"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class AddItemCatalogAction(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class AddItemCatalogAction(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of product
         if self.product:
             _dict['product'] = self.product.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class AddItemCatalogAction(BaseModel):
             "product": Product.from_dict(obj["product"]) if obj.get("product") is not None else None,
             "replaceIfExists": obj.get("replaceIfExists") if obj.get("replaceIfExists") is not None else False
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -32,6 +32,7 @@ class ExtendLoyaltyPointsExpiryDateEffectProps(BaseModel):
     sub_ledger_id: StrictStr = Field(description="API name of the loyalty program subledger that contains these points.", alias="subLedgerId")
     extension_duration: StrictStr = Field(description="Time frame by which the expiry date extends.  The time format is either: - immediate, or - an **integer** followed by a letter indicating the time unit.  Examples: `immediate`, `30s`, `40m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `s`: seconds - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can round certain units up or down: - `_D` for rounding down days only. Signifies the start of the day. - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year. ", alias="extensionDuration", json_schema_extra={"examples": ["12h"]})
     affected_transactions: Optional[List[LoyaltyLedgerEntryExpiryDateChange]] = Field(default=None, description="List of transactions affected by the expiry date update.", alias="affectedTransactions")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["programId", "subLedgerId", "extensionDuration", "affectedTransactions"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class ExtendLoyaltyPointsExpiryDateEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class ExtendLoyaltyPointsExpiryDateEffectProps(BaseModel):
             for _item_affected_transactions in self.affected_transactions:
                 _items.append(_item_affected_transactions.to_dict() if _item_affected_transactions is not None else None)
             _dict['affectedTransactions'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class ExtendLoyaltyPointsExpiryDateEffectProps(BaseModel):
             "extensionDuration": obj.get("extensionDuration"),
             "affectedTransactions": [LoyaltyLedgerEntryExpiryDateChange.from_dict(_item) for _item in obj["affectedTransactions"]] if obj.get("affectedTransactions") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -30,6 +30,7 @@ class AddPriceAdjustmentCatalogAction(BaseModel):
     """ # noqa: E501
     sku: StrictStr = Field(description="The SKU of the item for which the price is being adjusted.", json_schema_extra={"examples": ["SKU1241028"]})
     adjustments: List[NewPriceAdjustment] = Field(description="A list of adjustments to apply to a given item.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["sku", "adjustments"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class AddPriceAdjustmentCatalogAction(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class AddPriceAdjustmentCatalogAction(BaseModel):
             for _item_adjustments in self.adjustments:
                 _items.append(_item_adjustments.to_dict() if _item_adjustments is not None else None)
             _dict['adjustments'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class AddPriceAdjustmentCatalogAction(BaseModel):
             "sku": obj.get("sku"),
             "adjustments": [NewPriceAdjustment.from_dict(_item) for _item in obj["adjustments"]] if obj.get("adjustments") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -30,6 +30,7 @@ class ExperimentVariantResultConfidence(BaseModel):
     avg_session_value: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the average customer session value.", alias="avgSessionValue", json_schema_extra={"examples": [100]})
     avg_discounted_session_value: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the average customer discounted session value.", alias="avgDiscountedSessionValue", json_schema_extra={"examples": [100]})
     avg_items_per_session: Union[StrictFloat, StrictInt] = Field(description="The calculated confidence value of the number of items from sessions value.", alias="avgItemsPerSession", json_schema_extra={"examples": [100]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["avgSessionValue", "avgDiscountedSessionValue", "avgItemsPerSession"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class ExperimentVariantResultConfidence(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class ExperimentVariantResultConfidence(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class ExperimentVariantResultConfidence(BaseModel):
             "avgDiscountedSessionValue": obj.get("avgDiscountedSessionValue"),
             "avgItemsPerSession": obj.get("avgItemsPerSession")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

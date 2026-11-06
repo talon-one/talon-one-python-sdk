@@ -29,6 +29,7 @@ class CouponLimitConfigs(BaseModel):
     CouponLimitConfigs
     """ # noqa: E501
     limits: Optional[List[LimitConfig]] = Field(default=None, description="Limits configuration for a coupon. These limits will override the limits set from the campaign.  **Note:** Only usable when creating a single coupon which is not tied to a specific recipient. Only per-profile limits are allowed to be configured. ")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["limits"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class CouponLimitConfigs(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class CouponLimitConfigs(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class CouponLimitConfigs(BaseModel):
         _obj = cls.model_validate({
             "limits": [LimitConfig.from_dict(_item) for _item in obj["limits"]] if obj.get("limits") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

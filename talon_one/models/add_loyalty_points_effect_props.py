@@ -45,6 +45,7 @@ class AddLoyaltyPointsEffectProps(BaseModel):
     bundle_name: Optional[StrictStr] = Field(default=None, description="_(With bundles only)_ The name of the bundle definition.", alias="bundleName")
     awaits_activation: Optional[StrictBool] = Field(default=None, description="Indicates whether the points have an action-based start date. This property is returned only for point transactions with an action-based start date.", alias="awaitsActivation")
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, calculated relative to their start date.", alias="validityDuration")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "programId", "subLedgerId", "value", "desiredValue", "recipientIntegrationId", "startDate", "expiryDate", "transactionUUID", "cartItemPosition", "cartItemSubPosition", "cardIdentifier", "bundleIndex", "bundleName", "awaitsActivation", "validityDuration"]
 
     @field_validator('card_identifier', mode="before")
@@ -87,8 +88,10 @@ class AddLoyaltyPointsEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -96,6 +99,11 @@ class AddLoyaltyPointsEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -125,6 +133,11 @@ class AddLoyaltyPointsEffectProps(BaseModel):
             "awaitsActivation": obj.get("awaitsActivation"),
             "validityDuration": obj.get("validityDuration")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

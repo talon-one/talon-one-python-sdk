@@ -62,7 +62,7 @@ class TestUpdateCampaign(unittest.TestCase):
                 evaluation_group_id = 2,
                 type = 'advanced',
                 linked_store_ids = [1, 2, 3],
-                coupon_attributes = None
+                coupon_attributes = { }
             )
         else:
             return UpdateCampaign(

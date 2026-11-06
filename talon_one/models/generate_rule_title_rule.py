@@ -30,6 +30,7 @@ class GenerateRuleTitleRule(BaseModel):
     """ # noqa: E501
     effects: Optional[List[Dict[str, Any]]] = Field(default=None, description="An array of effectful Talang expressions in arrays that will be evaluated when a rule matches.", json_schema_extra={"examples": [["catch", ["noop"], ["setDiscount", "10% off", ["*", [".", "Session", "Total"], ["/", 10, 100]]]]]})
     condition: Optional[Annotated[List[Any], Field(min_length=1)]] = Field(default=None, description="A Talang expression that will be evaluated in the context of the given event.", json_schema_extra={"examples": [["and", ["couponValid"]]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["effects", "condition"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class GenerateRuleTitleRule(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class GenerateRuleTitleRule(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -86,6 +94,11 @@ class GenerateRuleTitleRule(BaseModel):
             "effects": obj.get("effects"),
             "condition": obj.get("condition")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

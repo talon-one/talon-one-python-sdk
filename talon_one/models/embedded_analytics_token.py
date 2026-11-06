@@ -29,6 +29,7 @@ class EmbeddedAnalyticsToken(BaseModel):
     """ # noqa: E501
     token: StrictStr = Field(description="JWT for embedded analytics.", json_schema_extra={"examples": ["eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJleGFtcGxlLXVzZXIiLCJpc3MiOiJ0YWxvbi5vbmUiLCJpYXQiOjE3NjcyMjU2MDAsImV4cCI6MTc2NzIyOTIwMH0.ZXhhbXBsZS1zaWduYXR1cmUtbm90LXZhbGlk"]})
     hostname: StrictStr = Field(description="Base URL of the embedded analytics instance.", json_schema_extra={"examples": ["https://talon-sg.cloud.analyticsprovider.com"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["token", "hostname"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class EmbeddedAnalyticsToken(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class EmbeddedAnalyticsToken(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class EmbeddedAnalyticsToken(BaseModel):
             "token": obj.get("token"),
             "hostname": obj.get("hostname")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

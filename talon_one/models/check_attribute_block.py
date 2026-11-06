@@ -17,18 +17,11 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from talon_one.models.between_check_attribute_block import BetweenCheckAttributeBlock
-from talon_one.models.list_check_attribute_block import ListCheckAttributeBlock
-from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock
-from talon_one.models.location_check_attribute_block import LocationCheckAttributeBlock
-from talon_one.models.scalar_check_attribute_block import ScalarCheckAttributeBlock
-from talon_one.models.unary_check_attribute_block import UnaryCheckAttributeBlock
-from talon_one.models.within_check_attribute_block import WithinCheckAttributeBlock
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-CHECKATTRIBUTEBLOCK_ONE_OF_SCHEMAS = ["CheckAttributeBlockBase", "object"]
+CHECKATTRIBUTEBLOCK_ONE_OF_SCHEMAS = ["BetweenCheckAttributeBlock", "ListCheckAttributeBlock", "ListWithCountCheckAttributeBlock", "LocationCheckAttributeBlock", "ScalarCheckAttributeBlock", "UnaryCheckAttributeBlock", "WithinCheckAttributeBlock"]
 
 class CheckAttributeBlock(BaseModel):
     """
@@ -48,8 +41,8 @@ class CheckAttributeBlock(BaseModel):
     oneof_schema_6_validator: Optional[WithinCheckAttributeBlock] = None
     # data type: LocationCheckAttributeBlock
     oneof_schema_7_validator: Optional[LocationCheckAttributeBlock] = None
-    actual_instance: Optional[Union[CheckAttributeBlockBase, object]] = None
-    one_of_schemas: Set[str] = { "CheckAttributeBlockBase", "object" }
+    actual_instance: Optional[Union[BetweenCheckAttributeBlock, ListCheckAttributeBlock, ListWithCountCheckAttributeBlock, LocationCheckAttributeBlock, ScalarCheckAttributeBlock, UnaryCheckAttributeBlock, WithinCheckAttributeBlock]] = None
+    one_of_schemas: Set[str] = { "BetweenCheckAttributeBlock", "ListCheckAttributeBlock", "ListWithCountCheckAttributeBlock", "LocationCheckAttributeBlock", "ScalarCheckAttributeBlock", "UnaryCheckAttributeBlock", "WithinCheckAttributeBlock" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -112,10 +105,10 @@ class CheckAttributeBlock(BaseModel):
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: BetweenCheckAttributeBlock, ListCheckAttributeBlock, ListWithCountCheckAttributeBlock, LocationCheckAttributeBlock, ScalarCheckAttributeBlock, UnaryCheckAttributeBlock, WithinCheckAttributeBlock. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in CheckAttributeBlock with oneOf schemas: BetweenCheckAttributeBlock, ListCheckAttributeBlock, ListWithCountCheckAttributeBlock, LocationCheckAttributeBlock, ScalarCheckAttributeBlock, UnaryCheckAttributeBlock, WithinCheckAttributeBlock. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -129,6 +122,177 @@ class CheckAttributeBlock(BaseModel):
         instance = cls.model_construct()
         error_messages = []
         match = 0
+
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "operator"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "after":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "before":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `BetweenCheckAttributeBlock`
+        if _data_type == "between":
+            instance.actual_instance = BetweenCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "contains":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ListCheckAttributeBlock`
+        if _data_type == "containsAllOf":
+            instance.actual_instance = ListCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ListWithCountCheckAttributeBlock`
+        if _data_type == "containsAtLeast":
+            instance.actual_instance = ListWithCountCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ListWithCountCheckAttributeBlock`
+        if _data_type == "containsExactly":
+            instance.actual_instance = ListWithCountCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ListCheckAttributeBlock`
+        if _data_type == "containsNoneOf":
+            instance.actual_instance = ListCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ListCheckAttributeBlock`
+        if _data_type == "containsOneOf":
+            instance.actual_instance = ListCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UnaryCheckAttributeBlock`
+        if _data_type == "empty":
+            instance.actual_instance = UnaryCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "endsWith":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "equals":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UnaryCheckAttributeBlock`
+        if _data_type == "exists":
+            instance.actual_instance = UnaryCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "greaterThan":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "greaterThanOrEqual":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `LocationCheckAttributeBlock`
+        if _data_type == "in":
+            instance.actual_instance = LocationCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "inCollection":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UnaryCheckAttributeBlock`
+        if _data_type == "isFalse":
+            instance.actual_instance = UnaryCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UnaryCheckAttributeBlock`
+        if _data_type == "isTrue":
+            instance.actual_instance = UnaryCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "lessThan":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "lessThanOrEqual":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "matchesRegexp":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "not(contains)":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UnaryCheckAttributeBlock`
+        if _data_type == "not(empty)":
+            instance.actual_instance = UnaryCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "not(equals)":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `UnaryCheckAttributeBlock`
+        if _data_type == "not(exists)":
+            instance.actual_instance = UnaryCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `LocationCheckAttributeBlock`
+        if _data_type == "not(in)":
+            instance.actual_instance = LocationCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "not(inCollection)":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "not(oneOf)":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `WithinCheckAttributeBlock`
+        if _data_type == "not(within)":
+            instance.actual_instance = WithinCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "oneOf":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `ScalarCheckAttributeBlock`
+        if _data_type == "startsWith":
+            instance.actual_instance = ScalarCheckAttributeBlock.from_json(json_str)
+            return instance
+
+        # check if data type is `WithinCheckAttributeBlock`
+        if _data_type == "within":
+            instance.actual_instance = WithinCheckAttributeBlock.from_json(json_str)
+            return instance
 
         # deserialize data into ScalarCheckAttributeBlock
         try:
@@ -175,10 +339,10 @@ class CheckAttributeBlock(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into CheckAttributeBlock with oneOf schemas: BetweenCheckAttributeBlock, ListCheckAttributeBlock, ListWithCountCheckAttributeBlock, LocationCheckAttributeBlock, ScalarCheckAttributeBlock, UnaryCheckAttributeBlock, WithinCheckAttributeBlock. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into CheckAttributeBlock with oneOf schemas: CheckAttributeBlockBase, object. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into CheckAttributeBlock with oneOf schemas: BetweenCheckAttributeBlock, ListCheckAttributeBlock, ListWithCountCheckAttributeBlock, LocationCheckAttributeBlock, ScalarCheckAttributeBlock, UnaryCheckAttributeBlock, WithinCheckAttributeBlock. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -190,9 +354,9 @@ class CheckAttributeBlock(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], CheckAttributeBlockBase, object]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], BetweenCheckAttributeBlock, ListCheckAttributeBlock, ListWithCountCheckAttributeBlock, LocationCheckAttributeBlock, ScalarCheckAttributeBlock, UnaryCheckAttributeBlock, WithinCheckAttributeBlock]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None
@@ -200,11 +364,22 @@ class CheckAttributeBlock(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
 
+from talon_one.models.between_check_attribute_block import BetweenCheckAttributeBlock
+from talon_one.models.list_check_attribute_block import ListCheckAttributeBlock
+from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock
+from talon_one.models.location_check_attribute_block import LocationCheckAttributeBlock
+from talon_one.models.scalar_check_attribute_block import ScalarCheckAttributeBlock
+from talon_one.models.unary_check_attribute_block import UnaryCheckAttributeBlock
+from talon_one.models.within_check_attribute_block import WithinCheckAttributeBlock
+# TODO: Rewrite to not use raise_errors
+CheckAttributeBlock.model_rebuild(raise_errors=False)
 

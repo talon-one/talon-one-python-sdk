@@ -44,6 +44,7 @@ class ApplicationCustomer(BaseModel):
     sandbox: Optional[StrictBool] = Field(default=None, description="An indicator of whether the customer is part of a sandbox or live Application. See the [docs](https://docs.talon.one/docs/product/applications/overview#application-environments). ", json_schema_extra={"examples": [False]})
     advocate_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The Integration ID of the Customer Profile that referred this Customer in the Application.", alias="advocateIntegrationId")
     loyalty_program_join_dates: Optional[List[LoyaltyMembership]] = Field(default=None, description="The dates on which the customer joined the profile-based loyalty programs they are part of. Returned only when the `withLoyaltyMemberships` query parameter is `true`.", alias="loyaltyProgramJoinDates")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "attributes", "accountId", "closedSessions", "totalSales", "loyaltyMemberships", "audienceMemberships", "lastActivity", "sandbox", "advocateIntegrationId", "loyaltyProgramJoinDates"]
 
     model_config = ConfigDict(
@@ -76,8 +77,10 @@ class ApplicationCustomer(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -103,6 +106,11 @@ class ApplicationCustomer(BaseModel):
             for _item_loyalty_program_join_dates in self.loyalty_program_join_dates:
                 _items.append(_item_loyalty_program_join_dates.to_dict() if _item_loyalty_program_join_dates is not None else None)
             _dict['loyaltyProgramJoinDates'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -129,6 +137,11 @@ class ApplicationCustomer(BaseModel):
             "advocateIntegrationId": obj.get("advocateIntegrationId"),
             "loyaltyProgramJoinDates": [LoyaltyMembership.from_dict(_item) for _item in obj["loyaltyProgramJoinDates"]] if obj.get("loyaltyProgramJoinDates") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

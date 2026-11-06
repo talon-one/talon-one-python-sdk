@@ -50,6 +50,7 @@ class NewCampaignTemplate(BaseModel):
     campaign_collections: Optional[List[CampaignTemplateCollection]] = Field(default=None, description="The campaign collections from the blueprint campaign for the template.", alias="campaignCollections")
     default_campaign_group_id: Optional[StrictInt] = Field(default=None, description="The default campaign group ID.", alias="defaultCampaignGroupId", json_schema_extra={"examples": [42]})
     campaign_type: StrictStr = Field(description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", alias="campaignType", json_schema_extra={"examples": ["advanced"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description", "instructions", "campaignAttributes", "couponAttributes", "state", "tags", "reevaluateOnReturn", "features", "couponSettings", "couponReservationSettings", "referralSettings", "limits", "templateParams", "campaignCollections", "defaultCampaignGroupId", "campaignType"]
 
     @field_validator('state')
@@ -107,8 +108,10 @@ class NewCampaignTemplate(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -143,6 +146,11 @@ class NewCampaignTemplate(BaseModel):
             for _item_campaign_collections in self.campaign_collections:
                 _items.append(_item_campaign_collections.to_dict() if _item_campaign_collections is not None else None)
             _dict['campaignCollections'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -173,6 +181,11 @@ class NewCampaignTemplate(BaseModel):
             "defaultCampaignGroupId": obj.get("defaultCampaignGroupId"),
             "campaignType": obj.get("campaignType") if obj.get("campaignType") is not None else 'advanced'
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

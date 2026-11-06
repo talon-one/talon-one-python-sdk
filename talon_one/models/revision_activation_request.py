@@ -31,6 +31,7 @@ class RevisionActivationRequest(BaseModel):
     """ # noqa: E501
     user_ids: Annotated[List[StrictInt], Field(max_length=5)] = Field(description="The list of IDs of the users who will receive the activation request.", alias="userIds", json_schema_extra={"examples": [[1, 2, 3]]})
     activate_at: Optional[datetime] = Field(default=None, description="Time when the revisions are finalized after the `activate_revision` operation. The current time is used when left blank.  **Note:** It must be an RFC3339 timestamp string. ", alias="activateAt", json_schema_extra={"examples": ["2025-10-01T16:00:05Z07:00"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["userIds", "activateAt"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class RevisionActivationRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class RevisionActivationRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class RevisionActivationRequest(BaseModel):
             "userIds": obj.get("userIds"),
             "activateAt": obj.get("activateAt")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

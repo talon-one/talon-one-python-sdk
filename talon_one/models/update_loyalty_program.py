@@ -47,6 +47,7 @@ class UpdateLoyaltyProgram(BaseModel):
     card_code_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="cardCodeSettings")
     return_policy: Optional[StrictStr] = Field(default=None, description="The policy that defines the rollback of points in case of a partially returned, cancelled, or reopened [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions). - `only_pending`: Only pending points can be rolled back. - `within_balance`: Available active points can be rolled back if there aren't enough pending points. The active balance of the customer cannot be negative. - `unlimited`: Allows negative balance without any limit. ", alias="returnPolicy")
     tiers: Optional[List[NewLoyaltyTier]] = Field(default=None, description="The tiers in this loyalty program.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "description", "subscribedApplications", "defaultValidity", "defaultPending", "allowSubledger", "usersPerCardLimit", "sandbox", "programJoinPolicy", "tiersExpirationPolicy", "tierCycleStartDate", "tiersExpireIn", "tiersDowngradePolicy", "cardCodeSettings", "returnPolicy", "tiers"]
 
     @field_validator('program_join_policy')
@@ -119,8 +120,10 @@ class UpdateLoyaltyProgram(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -137,6 +140,11 @@ class UpdateLoyaltyProgram(BaseModel):
             for _item_tiers in self.tiers:
                 _items.append(_item_tiers.to_dict() if _item_tiers is not None else None)
             _dict['tiers'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -166,6 +174,11 @@ class UpdateLoyaltyProgram(BaseModel):
             "returnPolicy": obj.get("returnPolicy"),
             "tiers": [NewLoyaltyTier.from_dict(_item) for _item in obj["tiers"]] if obj.get("tiers") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

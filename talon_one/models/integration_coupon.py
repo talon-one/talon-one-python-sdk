@@ -53,6 +53,7 @@ class IntegrationCoupon(BaseModel):
     is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory", json_schema_extra={"examples": [False]})
     implicitly_reserved: Optional[StrictBool] = Field(default=None, description="An indication of whether the coupon is implicitly reserved for all customers.", alias="implicitlyReserved", json_schema_extra={"examples": [False]})
     profile_redemption_count: StrictInt = Field(description="The number of times the coupon was redeemed by the profile.", alias="profileRedemptionCount", json_schema_extra={"examples": [5]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "campaignId", "value", "usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "limits", "usageCounter", "discountCounter", "discountRemainder", "reservationCounter", "attributes", "referralId", "recipientIntegrationId", "importId", "reservation", "batchId", "isReservationMandatory", "implicitlyReserved", "profileRedemptionCount"]
 
     model_config = ConfigDict(
@@ -85,8 +86,10 @@ class IntegrationCoupon(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -100,6 +103,11 @@ class IntegrationCoupon(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -136,6 +144,11 @@ class IntegrationCoupon(BaseModel):
             "implicitlyReserved": obj.get("implicitlyReserved"),
             "profileRedemptionCount": obj.get("profileRedemptionCount")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

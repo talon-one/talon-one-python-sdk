@@ -29,6 +29,7 @@ class MessageTest(BaseModel):
     """ # noqa: E501
     http_response: StrictStr = Field(description="The returned http response.", alias="httpResponse", json_schema_extra={"examples": ["HTTP/1.1 200 OK\nContent-Type: application/json\nContent-Length: 256\n\n{\n  \"message\": \"Hello, world!\",\n  \"status\": \"success\"\n}\n"]})
     http_status: StrictInt = Field(description="The returned http status code.", alias="httpStatus", json_schema_extra={"examples": [200]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["httpResponse", "httpStatus"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class MessageTest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class MessageTest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class MessageTest(BaseModel):
             "httpResponse": obj.get("httpResponse"),
             "httpStatus": obj.get("httpStatus")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

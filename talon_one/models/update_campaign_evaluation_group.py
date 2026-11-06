@@ -34,6 +34,7 @@ class UpdateCampaignEvaluationGroup(BaseModel):
     evaluation_mode: StrictStr = Field(description="The mode by which campaigns in the campaign evaluation group are evaluated.", alias="evaluationMode")
     evaluation_scope: StrictStr = Field(description="The evaluation scope of the campaign evaluation group.", alias="evaluationScope")
     locked: StrictBool = Field(description="An indicator of whether the campaign evaluation group is locked for modification.", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "parentId", "description", "evaluationMode", "evaluationScope", "locked"]
 
     @field_validator('evaluation_mode')
@@ -80,8 +81,10 @@ class UpdateCampaignEvaluationGroup(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -89,6 +92,11 @@ class UpdateCampaignEvaluationGroup(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -108,6 +116,11 @@ class UpdateCampaignEvaluationGroup(BaseModel):
             "evaluationScope": obj.get("evaluationScope"),
             "locked": obj.get("locked")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

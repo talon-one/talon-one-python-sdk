@@ -64,7 +64,7 @@ class TestUpdateExperiment(unittest.TestCase):
                     evaluation_group_id = 2, 
                     type = 'advanced', 
                     linked_store_ids = [1, 2, 3], 
-                    coupon_attributes = talon_one.models.coupon_attributes.couponAttributes(), ),
+                    coupon_attributes = { }, ),
                 goal_type = 'other',
                 goal_description = 'Offering free shipping will increase average order revenue more than a 10% discount'
             )
@@ -98,7 +98,7 @@ class TestUpdateExperiment(unittest.TestCase):
                     evaluation_group_id = 2, 
                     type = 'advanced', 
                     linked_store_ids = [1, 2, 3], 
-                    coupon_attributes = talon_one.models.coupon_attributes.couponAttributes(), ),
+                    coupon_attributes = { }, ),
         )
         """
 

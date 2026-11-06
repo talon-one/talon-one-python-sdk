@@ -31,6 +31,7 @@ class UpdateLoyaltyProgramTier(BaseModel):
     id: StrictInt = Field(description="The internal ID of the tier.", json_schema_extra={"examples": [6]})
     name: Optional[StrictStr] = Field(default=None, description="The name of the tier.", json_schema_extra={"examples": ["Gold"]})
     min_points: Optional[Union[Annotated[float, Field(le=999999999999.99, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="The minimum amount of points required to enter the tier.", alias="minPoints", json_schema_extra={"examples": [300]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "minPoints"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class UpdateLoyaltyProgramTier(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class UpdateLoyaltyProgramTier(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +96,11 @@ class UpdateLoyaltyProgramTier(BaseModel):
             "name": obj.get("name"),
             "minPoints": obj.get("minPoints")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

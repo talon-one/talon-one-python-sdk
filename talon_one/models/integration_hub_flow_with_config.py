@@ -34,6 +34,7 @@ class IntegrationHubFlowWithConfig(BaseModel):
     event_type: IntegrationHubEventType = Field(alias="EventType")
     integration_hub_flow_url: StrictStr = Field(description="The URL of the integration hub flow that we want to trigger for the event.", alias="IntegrationHubFlowUrl")
     config: IntegrationHubFlowConfig = Field(alias="Config")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["ApplicationID", "LoyaltyProgramID", "EventType", "IntegrationHubFlowUrl", "Config"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class IntegrationHubFlowWithConfig(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class IntegrationHubFlowWithConfig(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of config
         if self.config:
             _dict['Config'] = self.config.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class IntegrationHubFlowWithConfig(BaseModel):
             "IntegrationHubFlowUrl": obj.get("IntegrationHubFlowUrl"),
             "Config": IntegrationHubFlowConfig.from_dict(obj["Config"]) if obj.get("Config") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

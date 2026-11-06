@@ -33,6 +33,7 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data back as needed from one request instead of sending extra requests to other endpoints. ", alias="responseContent", json_schema_extra={"examples": [["triggeredCampaigns", "customerProfile"]]})
     audiences_changes: Optional[ProfileAudiencesChanges] = Field(default=None, description="Audiences memberships changes for this profile.", alias="audiencesChanges")
     reward_integration_ids: Optional[List[StrictStr]] = Field(default=None, description="The integration IDs of the unlocked rewards that can be used in this request. ", alias="rewardIntegrationIds", json_schema_extra={"examples": [["5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["attributes", "evaluableCampaignIds", "responseContent", "audiencesChanges", "rewardIntegrationIds"]
 
     @field_validator('response_content')
@@ -76,8 +77,10 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -88,6 +91,11 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of audiences_changes
         if self.audiences_changes:
             _dict['audiencesChanges'] = self.audiences_changes.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -106,6 +114,11 @@ class CustomerProfileIntegrationRequestV2(BaseModel):
             "audiencesChanges": ProfileAudiencesChanges.from_dict(obj["audiencesChanges"]) if obj.get("audiencesChanges") is not None else None,
             "rewardIntegrationIds": obj.get("rewardIntegrationIds")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -42,6 +42,7 @@ class CouponDeletionFilters(BaseModel):
     referral_id: Optional[StrictInt] = Field(default=None, description="Filter the results by matching them with the ID of a referral. This filter shows the coupons created by redeeming a referral code.", alias="referralId")
     expires_after: Optional[datetime] = Field(default=None, description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the coupon creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.", alias="expiresAfter")
     expires_before: Optional[datetime] = Field(default=None, description="Filter results comparing the parameter value, expected to be an RFC3339 timestamp string, to the coupon creation timestamp. You can use any time zone setting. Talon.One will convert to UTC internally.", alias="expiresBefore")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["createdBefore", "createdAfter", "startsAfter", "startsBefore", "valid", "usable", "redeemed", "recipientIntegrationId", "exactMatch", "value", "batchId", "referralId", "expiresAfter", "expiresBefore"]
 
     @field_validator('valid')
@@ -84,8 +85,10 @@ class CouponDeletionFilters(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -93,6 +96,11 @@ class CouponDeletionFilters(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -120,6 +128,11 @@ class CouponDeletionFilters(BaseModel):
             "expiresAfter": obj.get("expiresAfter"),
             "expiresBefore": obj.get("expiresBefore")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

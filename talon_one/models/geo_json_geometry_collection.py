@@ -29,6 +29,7 @@ class GeoJSONGeometryCollection(BaseModel):
     """ # noqa: E501
     type: StrictStr = Field(description="The geometry type discriminator.")
     geometries: List[GeoJSONGeometry] = Field(description="The shapes contained in this group.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "geometries"]
 
     @field_validator('type')
@@ -68,8 +69,10 @@ class GeoJSONGeometryCollection(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -83,6 +86,11 @@ class GeoJSONGeometryCollection(BaseModel):
             for _item_geometries in self.geometries:
                 _items.append(_item_geometries.to_dict() if _item_geometries is not None else None)
             _dict['geometries'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +106,11 @@ class GeoJSONGeometryCollection(BaseModel):
             "type": obj.get("type"),
             "geometries": [GeoJSONGeometry.from_dict(_item) for _item in obj["geometries"]] if obj.get("geometries") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 from talon_one.models.geo_json_geometry import GeoJSONGeometry

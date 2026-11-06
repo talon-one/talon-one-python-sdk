@@ -30,6 +30,7 @@ class ApplicationApiHealth(BaseModel):
     """ # noqa: E501
     summary: StrictStr = Field(description="One-word summary of the health of the API connection of an application. Possible values are: - `OK`: The Application has received only successful API requests in the last 5 minutes. - `WARNING`: The Application received at least one failed request in the last 5 minutes. - `ERROR`: More than 50% of received requests failed. - `CRITICAL`: All received requests failed. - `NONE`: During the last 5 minutes, the Application hasn't recorded any integration API requests. ")
     last_used: datetime = Field(description="time of last request relevant to the API health test.", alias="lastUsed", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["summary", "lastUsed"]
 
     @field_validator('summary')
@@ -69,8 +70,10 @@ class ApplicationApiHealth(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class ApplicationApiHealth(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class ApplicationApiHealth(BaseModel):
             "summary": obj.get("summary"),
             "lastUsed": obj.get("lastUsed")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

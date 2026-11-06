@@ -30,6 +30,7 @@ class MessageLogRequest(BaseModel):
     """ # noqa: E501
     created_at: datetime = Field(description="Timestamp when the request was made.", alias="createdAt", json_schema_extra={"examples": ["2021-07-20T21:59:00Z"]})
     request: Union[StrictBytes, StrictStr] = Field(description="Raw request data.", json_schema_extra={"examples": ["SGVsbG8sIHdvcmxkIQ=="]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["createdAt", "request"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class MessageLogRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class MessageLogRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -86,6 +94,11 @@ class MessageLogRequest(BaseModel):
             "createdAt": obj.get("createdAt"),
             "request": obj.get("request")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

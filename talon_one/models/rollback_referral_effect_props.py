@@ -28,6 +28,7 @@ class RollbackReferralEffectProps(BaseModel):
     This effect indicates that the redemption of the referral code has been rolled back. It triggers when a closed session that redeemed a referral is gets cancelled. The code becomes redeemable again.  For more information about session states, see [Managing states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states).
     """ # noqa: E501
     value: StrictStr = Field(description="The referral code to be rolled back.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["value"]
 
     model_config = ConfigDict(
@@ -60,8 +61,10 @@ class RollbackReferralEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +72,11 @@ class RollbackReferralEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -83,6 +91,11 @@ class RollbackReferralEffectProps(BaseModel):
         _obj = cls.model_validate({
             "value": obj.get("value")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

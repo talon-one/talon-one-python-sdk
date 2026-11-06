@@ -30,6 +30,7 @@ class CodeGeneratorSettings(BaseModel):
     """ # noqa: E501
     valid_characters: List[StrictStr] = Field(description="List of characters used to generate the random parts of a code. ", alias="validCharacters", json_schema_extra={"examples": [["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]]})
     coupon_pattern: Annotated[str, Field(min_length=3, strict=True, max_length=100)] = Field(description="The pattern used to generate codes, such as coupon codes, referral codes, and loyalty cards. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", alias="couponPattern", json_schema_extra={"examples": ["SUMMER-####-####"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["validCharacters", "couponPattern"]
 
     @field_validator('coupon_pattern', mode="before")
@@ -69,8 +70,10 @@ class CodeGeneratorSettings(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class CodeGeneratorSettings(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class CodeGeneratorSettings(BaseModel):
             "validCharacters": obj.get("validCharacters"),
             "couponPattern": obj.get("couponPattern")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

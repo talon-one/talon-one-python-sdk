@@ -51,6 +51,7 @@ class IntegrationHubEventPayloadCouponBasedNotifications(BaseModel):
     published_at: datetime = Field(description="Timestamp when the event was published.", alias="PublishedAt")
     source_of_event: StrictStr = Field(alias="SourceOfEvent")
     employee_name: StrictStr = Field(alias="EmployeeName")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["EventId", "Id", "Created", "CampaignId", "Value", "UsageLimit", "DiscountLimit", "ReservationLimit", "StartDate", "ExpiryDate", "UsageCounter", "DiscountCounter", "DiscountRemainder", "ReferralId", "RecipientIntegrationId", "ImportId", "BatchId", "Attributes", "Limits", "PublishedAt", "SourceOfEvent", "EmployeeName"]
 
     model_config = ConfigDict(
@@ -83,8 +84,10 @@ class IntegrationHubEventPayloadCouponBasedNotifications(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -98,6 +101,11 @@ class IntegrationHubEventPayloadCouponBasedNotifications(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['Limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -133,6 +141,11 @@ class IntegrationHubEventPayloadCouponBasedNotifications(BaseModel):
             "SourceOfEvent": obj.get("SourceOfEvent"),
             "EmployeeName": obj.get("EmployeeName")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -34,6 +34,7 @@ class Meta(BaseModel):
     coupon_rejection_reason: Optional[CouponRejectionReason] = Field(default=None, alias="couponRejectionReason")
     referral_rejection_reason: Optional[ReferralRejectionReason] = Field(default=None, alias="referralRejectionReason")
     warnings: Optional[Dict[str, Any]] = Field(default=None, description="Contains warnings about possible misuse.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["campaigns", "coupons", "couponRejectionReason", "referralRejectionReason", "warnings"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class Meta(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class Meta(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of referral_rejection_reason
         if self.referral_rejection_reason:
             _dict['referralRejectionReason'] = self.referral_rejection_reason.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class Meta(BaseModel):
             "referralRejectionReason": ReferralRejectionReason.from_dict(obj["referralRejectionReason"]) if obj.get("referralRejectionReason") is not None else None,
             "warnings": obj.get("warnings")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

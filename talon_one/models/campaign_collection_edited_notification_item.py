@@ -36,6 +36,7 @@ class CampaignCollectionEditedNotificationItem(BaseModel):
     ruleset: Optional[Ruleset] = Field(default=None, description="The current ruleset.")
     placeholders: Optional[List[PlaceholderDetails]] = Field(default=None, description="The current details of the [placeholders](https://docs.talon.one/docs/product/campaigns/templates/create-templates#use-placeholders) in the campaign.")
     collection: CollectionWithoutPayload = Field(description="The collection that was edited.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["Event", "campaign", "ruleset", "placeholders", "collection"]
 
     model_config = ConfigDict(
@@ -68,8 +69,10 @@ class CampaignCollectionEditedNotificationItem(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -92,6 +95,11 @@ class CampaignCollectionEditedNotificationItem(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of collection
         if self.collection:
             _dict['collection'] = self.collection.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -110,6 +118,11 @@ class CampaignCollectionEditedNotificationItem(BaseModel):
             "placeholders": [PlaceholderDetails.from_dict(_item) for _item in obj["placeholders"]] if obj.get("placeholders") is not None else None,
             "collection": CollectionWithoutPayload.from_dict(obj["collection"]) if obj.get("collection") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

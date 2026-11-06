@@ -34,6 +34,7 @@ class StartAchievementProgressEffectProps(BaseModel):
     target: Union[StrictFloat, StrictInt] = Field(description="The target value to complete the achievement.", json_schema_extra={"examples": [10]})
     start_date: datetime = Field(description="Timestamp at which the customer's progress started.", alias="startDate", json_schema_extra={"examples": ["2026-04-16T15:25:37Z"]})
     end_date: Optional[datetime] = Field(default=None, description="Timestamp at which this progress period ends.  Only returned for achievements that have a fixed end date. [On-completion achievements](https://docs.talon.one/docs/product/achievements/overview#recurring-on-completion-achievements) have no end date.", alias="endDate", json_schema_extra={"examples": ["2026-04-30T11:24:59Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["achievementId", "achievementName", "progressTrackerId", "target", "startDate", "endDate"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class StartAchievementProgressEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class StartAchievementProgressEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -94,6 +102,11 @@ class StartAchievementProgressEffectProps(BaseModel):
             "startDate": obj.get("startDate"),
             "endDate": obj.get("endDate")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

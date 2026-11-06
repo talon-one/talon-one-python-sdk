@@ -37,6 +37,7 @@ class ApplicationAnalyticsDataPoint(BaseModel):
     avg_session_value: Optional[AnalyticsDataPoint] = Field(default=None, description="The average customer session value, calculated by dividing the revenue value by the number of sessions. The `influenced` value includes only sessions with at least one applied effect.", alias="avgSessionValue")
     total_discounts: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total value of discounts given for cart items in influenced sessions.", alias="totalDiscounts", json_schema_extra={"examples": [10]})
     coupons_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of times a coupon was successfully redeemed in influenced sessions.", alias="couponsCount", json_schema_extra={"examples": [12]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["startTime", "endTime", "totalRevenue", "sessionsCount", "avgItemsPerSession", "avgSessionValue", "totalDiscounts", "couponsCount"]
 
     model_config = ConfigDict(
@@ -69,8 +70,10 @@ class ApplicationAnalyticsDataPoint(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -90,6 +93,11 @@ class ApplicationAnalyticsDataPoint(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of avg_session_value
         if self.avg_session_value:
             _dict['avgSessionValue'] = self.avg_session_value.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -111,6 +119,11 @@ class ApplicationAnalyticsDataPoint(BaseModel):
             "totalDiscounts": obj.get("totalDiscounts"),
             "couponsCount": obj.get("couponsCount")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

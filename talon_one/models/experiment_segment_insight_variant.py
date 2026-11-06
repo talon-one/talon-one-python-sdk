@@ -31,6 +31,7 @@ class ExperimentSegmentInsightVariant(BaseModel):
     variant_name: StrictStr = Field(description="The name of the experiment variant.", alias="variantName", json_schema_extra={"examples": ["Control"]})
     sessions_count: StrictInt = Field(description="The number of sessions in this segment for this variant.", alias="sessionsCount", json_schema_extra={"examples": [161]})
     value: Union[StrictFloat, StrictInt] = Field(description="The metric value for this variant in the segment.", json_schema_extra={"examples": [13.13]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["variantId", "variantName", "sessionsCount", "value"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class ExperimentSegmentInsightVariant(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class ExperimentSegmentInsightVariant(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class ExperimentSegmentInsightVariant(BaseModel):
             "sessionsCount": obj.get("sessionsCount"),
             "value": obj.get("value")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

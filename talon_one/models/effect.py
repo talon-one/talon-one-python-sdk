@@ -442,6 +442,242 @@ class Effect(BaseModel):
         error_messages = []
         match = 0
 
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "effectType"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `EffectAcceptCoupon`
+        if _data_type == "acceptCoupon":
+            instance.actual_instance = EffectAcceptCoupon.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectAcceptReferral`
+        if _data_type == "acceptReferral":
+            instance.actual_instance = EffectAcceptReferral.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectAddFreeItem`
+        if _data_type == "addFreeItem":
+            instance.actual_instance = EffectAddFreeItem.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectAddLoyaltyPoints`
+        if _data_type == "addLoyaltyPoints":
+            instance.actual_instance = EffectAddLoyaltyPoints.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectAddNegativeLoyaltyPoints`
+        if _data_type == "addNegativeLoyaltyPoints":
+            instance.actual_instance = EffectAddNegativeLoyaltyPoints.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectAddToAudience`
+        if _data_type == "addToAudience":
+            instance.actual_instance = EffectAddToAudience.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectAwardGiveaway`
+        if _data_type == "awardGiveaway":
+            instance.actual_instance = EffectAwardGiveaway.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectBoostLoyaltyTier`
+        if _data_type == "boostLoyaltyTier":
+            instance.actual_instance = EffectBoostLoyaltyTier.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectCallApi`
+        if _data_type == "callApi":
+            instance.actual_instance = EffectCallApi.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectChangeLoyaltyTierLevel`
+        if _data_type == "changeLoyaltyTierLevel":
+            instance.actual_instance = EffectChangeLoyaltyTierLevel.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectCouponCreated`
+        if _data_type == "couponCreated":
+            instance.actual_instance = EffectCouponCreated.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectCustomEffect`
+        if _data_type == "customEffect":
+            instance.actual_instance = EffectCustomEffect.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectDeductLoyaltyPoints`
+        if _data_type == "deductLoyaltyPoints":
+            instance.actual_instance = EffectDeductLoyaltyPoints.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectError`
+        if _data_type == "error":
+            instance.actual_instance = EffectError.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectExtendLoyaltyPointsExpiryDate`
+        if _data_type == "extendLoyaltyPointsExpiryDate":
+            instance.actual_instance = EffectExtendLoyaltyPointsExpiryDate.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectIncreaseAchievementProgress`
+        if _data_type == "increaseAchievementProgress":
+            instance.actual_instance = EffectIncreaseAchievementProgress.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectIncreaseAchievementProgressPerItem`
+        if _data_type == "increaseAchievementProgressPerItem":
+            instance.actual_instance = EffectIncreaseAchievementProgressPerItem.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectJoinLoyaltyProgram`
+        if _data_type == "joinLoyaltyProgram":
+            instance.actual_instance = EffectJoinLoyaltyProgram.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectOffsetNegativeLoyaltyPoints`
+        if _data_type == "offsetNegativeLoyaltyPoints":
+            instance.actual_instance = EffectOffsetNegativeLoyaltyPoints.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRedeemReferral`
+        if _data_type == "redeemReferral":
+            instance.actual_instance = EffectRedeemReferral.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectReferralCreated`
+        if _data_type == "referralCreated":
+            instance.actual_instance = EffectReferralCreated.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRejectCoupon`
+        if _data_type == "rejectCoupon":
+            instance.actual_instance = EffectRejectCoupon.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRejectReferral`
+        if _data_type == "rejectReferral":
+            instance.actual_instance = EffectRejectReferral.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRemoveFromAudience`
+        if _data_type == "removeFromAudience":
+            instance.actual_instance = EffectRemoveFromAudience.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectReserveCoupon`
+        if _data_type == "reserveCoupon":
+            instance.actual_instance = EffectReserveCoupon.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackAddedLoyaltyPoints`
+        if _data_type == "rollbackAddedLoyaltyPoints":
+            instance.actual_instance = EffectRollbackAddedLoyaltyPoints.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackCoupon`
+        if _data_type == "rollbackCoupon":
+            instance.actual_instance = EffectRollbackCoupon.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackDeductedLoyaltyPoints`
+        if _data_type == "rollbackDeductedLoyaltyPoints":
+            instance.actual_instance = EffectRollbackDeductedLoyaltyPoints.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackDiscount`
+        if _data_type == "rollbackDiscount":
+            instance.actual_instance = EffectRollbackDiscount.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackIncreasedAchievementProgress`
+        if _data_type == "rollbackIncreasedAchievementProgress":
+            instance.actual_instance = EffectRollbackIncreasedAchievementProgress.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackIncreasedAchievementProgressPerItem`
+        if _data_type == "rollbackIncreasedAchievementProgressPerItem":
+            instance.actual_instance = EffectRollbackIncreasedAchievementProgressPerItem.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackReferral`
+        if _data_type == "rollbackReferral":
+            instance.actual_instance = EffectRollbackReferral.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackTierBoost`
+        if _data_type == "rollbackTierBoost":
+            instance.actual_instance = EffectRollbackTierBoost.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectRollbackUseReward`
+        if _data_type == "rollbackUseReward":
+            instance.actual_instance = EffectRollbackUseReward.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectSet`
+        if _data_type == "set":
+            instance.actual_instance = EffectSet.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectSetDiscount`
+        if _data_type == "setDiscount":
+            instance.actual_instance = EffectSetDiscount.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectSetDiscountPerAdditionalCost`
+        if _data_type == "setDiscountPerAdditionalCost":
+            instance.actual_instance = EffectSetDiscountPerAdditionalCost.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectSetDiscountPerAdditionalCostPerItem`
+        if _data_type == "setDiscountPerAdditionalCostPerItem":
+            instance.actual_instance = EffectSetDiscountPerAdditionalCostPerItem.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectSetDiscountPerItem`
+        if _data_type == "setDiscountPerItem":
+            instance.actual_instance = EffectSetDiscountPerItem.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectSetLoyaltyPointsExpiryDate`
+        if _data_type == "setLoyaltyPointsExpiryDate":
+            instance.actual_instance = EffectSetLoyaltyPointsExpiryDate.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectShowBundleMetadata`
+        if _data_type == "showBundleMetadata":
+            instance.actual_instance = EffectShowBundleMetadata.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectShowNotification`
+        if _data_type == "showNotification":
+            instance.actual_instance = EffectShowNotification.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectStartAchievementProgress`
+        if _data_type == "startAchievementProgress":
+            instance.actual_instance = EffectStartAchievementProgress.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectUnlockReward`
+        if _data_type == "unlockReward":
+            instance.actual_instance = EffectUnlockReward.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectUseReward`
+        if _data_type == "useReward":
+            instance.actual_instance = EffectUseReward.from_json(json_str)
+            return instance
+
+        # check if data type is `EffectWillAwardGiveaway`
+        if _data_type == "willAwardGiveaway":
+            instance.actual_instance = EffectWillAwardGiveaway.from_json(json_str)
+            return instance
+
         # deserialize data into EffectAcceptCoupon
         try:
             instance.actual_instance = EffectAcceptCoupon.from_json(json_str)
@@ -736,7 +972,7 @@ class Effect(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
     def to_dict(self) -> Optional[Union[Dict[str, Any], EffectAcceptCoupon, EffectAcceptReferral, EffectAddFreeItem, EffectAddLoyaltyPoints, EffectAddNegativeLoyaltyPoints, EffectAddToAudience, EffectAwardGiveaway, EffectBoostLoyaltyTier, EffectCallApi, EffectChangeLoyaltyTierLevel, EffectCouponCreated, EffectCustomEffect, EffectDeductLoyaltyPoints, EffectError, EffectExtendLoyaltyPointsExpiryDate, EffectIncreaseAchievementProgress, EffectIncreaseAchievementProgressPerItem, EffectJoinLoyaltyProgram, EffectOffsetNegativeLoyaltyPoints, EffectRedeemReferral, EffectReferralCreated, EffectRejectCoupon, EffectRejectReferral, EffectRemoveFromAudience, EffectReserveCoupon, EffectRollbackAddedLoyaltyPoints, EffectRollbackCoupon, EffectRollbackDeductedLoyaltyPoints, EffectRollbackDiscount, EffectRollbackIncreasedAchievementProgress, EffectRollbackIncreasedAchievementProgressPerItem, EffectRollbackReferral, EffectRollbackTierBoost, EffectRollbackUseReward, EffectSet, EffectSetDiscount, EffectSetDiscountPerAdditionalCost, EffectSetDiscountPerAdditionalCostPerItem, EffectSetDiscountPerItem, EffectSetLoyaltyPointsExpiryDate, EffectShowBundleMetadata, EffectShowNotification, EffectStartAchievementProgress, EffectUnlockReward, EffectUseReward, EffectWillAwardGiveaway]]:
         """Returns the dict representation of the actual instance"""
@@ -746,7 +982,9 @@ class Effect(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:

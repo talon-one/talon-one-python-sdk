@@ -33,6 +33,7 @@ class CreateManagementKey(BaseModel):
     expiry_date: datetime = Field(description="The date the management key expires.", alias="expiryDate", json_schema_extra={"examples": ["2023-08-24T14:00:00Z"]})
     endpoints: List[Endpoint] = Field(description="The list of endpoints that can be accessed with the key")
     allowed_application_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of Application IDs that you can access with the management key. An empty or missing list means the management key can be used for all Applications in the account. ", alias="allowedApplicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "expiryDate", "endpoints", "allowedApplicationIds"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class CreateManagementKey(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class CreateManagementKey(BaseModel):
             for _item_endpoints in self.endpoints:
                 _items.append(_item_endpoints.to_dict() if _item_endpoints is not None else None)
             _dict['endpoints'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -97,6 +105,11 @@ class CreateManagementKey(BaseModel):
             "endpoints": [Endpoint.from_dict(_item) for _item in obj["endpoints"]] if obj.get("endpoints") is not None else None,
             "allowedApplicationIds": obj.get("allowedApplicationIds")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

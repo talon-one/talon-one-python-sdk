@@ -33,6 +33,7 @@ class NewAdditionalCost(BaseModel):
     description: StrictStr = Field(description="A description of this additional cost.", json_schema_extra={"examples": ["A shipping fee"]})
     subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the applications that are subscribed to this additional cost.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[3, 13]]})
     type: Optional[StrictStr] = Field(default='session', description="The type of additional cost. Possible value: - `session`: Additional cost will be added per session. - `item`: Additional cost will be added per item. - `both`: Additional cost will be added per item and session. ", json_schema_extra={"examples": ["session"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "title", "description", "subscribedApplicationsIds", "type"]
 
     @field_validator('name', mode="before")
@@ -89,8 +90,10 @@ class NewAdditionalCost(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -98,6 +101,11 @@ class NewAdditionalCost(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -116,6 +124,11 @@ class NewAdditionalCost(BaseModel):
             "subscribedApplicationsIds": obj.get("subscribedApplicationsIds"),
             "type": obj.get("type") if obj.get("type") is not None else 'session'
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

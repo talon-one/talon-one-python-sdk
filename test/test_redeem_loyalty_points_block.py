@@ -40,7 +40,7 @@ class TestRedeemLoyaltyPointsBlock(unittest.TestCase):
                 tags = [
                     ''
                     ],
-                program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
+                program = talon_one.models.redeem_loyalty_points_block1_program.RedeemLoyaltyPointsBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),
@@ -51,7 +51,7 @@ class TestRedeemLoyaltyPointsBlock(unittest.TestCase):
         else:
             return RedeemLoyaltyPointsBlock(
                 type = '',
-                program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
+                program = talon_one.models.redeem_loyalty_points_block1_program.RedeemLoyaltyPointsBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),

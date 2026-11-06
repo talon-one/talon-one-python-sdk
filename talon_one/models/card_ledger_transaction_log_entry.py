@@ -43,6 +43,7 @@ class CardLedgerTransactionLogEntry(BaseModel):
     subledger_id: Annotated[str, Field(strict=True, max_length=64)] = Field(description="ID of the subledger.", alias="subledgerId", json_schema_extra={"examples": ["sub-123"]})
     amount: Union[StrictFloat, StrictInt] = Field(description="Amount of loyalty points added or deducted in the transaction.", json_schema_extra={"examples": [10.25]})
     id: StrictInt = Field(description="ID of the loyalty ledger entry.", json_schema_extra={"examples": [123]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["transactionUUID", "created", "programId", "cardIdentifier", "applicationId", "sessionId", "customerSessionId", "type", "name", "startDate", "expiryDate", "subledgerId", "amount", "id"]
 
     @field_validator('card_identifier', mode="before")
@@ -89,8 +90,10 @@ class CardLedgerTransactionLogEntry(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -98,6 +101,11 @@ class CardLedgerTransactionLogEntry(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -125,6 +133,11 @@ class CardLedgerTransactionLogEntry(BaseModel):
             "amount": obj.get("amount"),
             "id": obj.get("id")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -33,6 +33,7 @@ class SkuUnitAnalyticsDataPoint(BaseModel):
     end_time: datetime = Field(description="The end of the aggregation time frame in UTC.", alias="endTime", json_schema_extra={"examples": ["2024-02-01T23:59:99Z"]})
     units_sold: AnalyticsDataPointWithTrend = Field(description="The number of times the product or SKU was purchased.", alias="unitsSold")
     sku: StrictStr = Field(description="The SKU linked to the application.", json_schema_extra={"examples": ["SKU-123"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["startTime", "endTime", "unitsSold", "sku"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class SkuUnitAnalyticsDataPoint(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class SkuUnitAnalyticsDataPoint(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of units_sold
         if self.units_sold:
             _dict['unitsSold'] = self.units_sold.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -94,6 +102,11 @@ class SkuUnitAnalyticsDataPoint(BaseModel):
             "unitsSold": AnalyticsDataPointWithTrend.from_dict(obj["unitsSold"]) if obj.get("unitsSold") is not None else None,
             "sku": obj.get("sku")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

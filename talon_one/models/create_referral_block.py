@@ -41,6 +41,7 @@ class CreateReferralBlock(BaseModel):
     attributes: Optional[Any] = Field(default=None, description="Custom attributes associated with this referral code.")
     valid_characters: Optional[StrictStr] = Field(default=None, description="Characters used to generate the random parts of a code.", alias="validCharacters", json_schema_extra={"examples": ["ABC"]})
     pattern: Optional[StrictStr] = Field(default=None, description="The pattern used to generate codes, such as coupon codes, referral codes, and loyalty cards. The character `#` is a placeholder and is replaced by a random character from the `validCharacters` set. ", json_schema_extra={"examples": ["SUMMER-####-####"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "campaignId", "friendId", "storeInSession", "usageLimit", "startDate", "expiryDate", "attributes", "validCharacters", "pattern"]
 
     model_config = ConfigDict(
@@ -75,10 +76,12 @@ class CreateReferralBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -92,6 +95,11 @@ class CreateReferralBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of usage_limit
         if self.usage_limit:
             _dict['usageLimit'] = self.usage_limit.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if start_date (nullable) is None
         # and model_fields_set contains the field
         if self.start_date is None and "start_date" in self.model_fields_set:
@@ -132,6 +140,11 @@ class CreateReferralBlock(BaseModel):
             "validCharacters": obj.get("validCharacters"),
             "pattern": obj.get("pattern")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

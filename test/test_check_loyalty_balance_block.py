@@ -41,7 +41,7 @@ class TestCheckLoyaltyBalanceBlock(unittest.TestCase):
                     ''
                     ],
                 operator = 'greaterThanOrEqual',
-                program = talon_one.models.check_loyalty_balance_block_1_program.CheckLoyaltyBalanceBlock_1_program(
+                program = talon_one.models.check_loyalty_balance_block1_program.CheckLoyaltyBalanceBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),
@@ -56,7 +56,7 @@ class TestCheckLoyaltyBalanceBlock(unittest.TestCase):
             return CheckLoyaltyBalanceBlock(
                 type = '',
                 operator = 'greaterThanOrEqual',
-                program = talon_one.models.check_loyalty_balance_block_1_program.CheckLoyaltyBalanceBlock_1_program(
+                program = talon_one.models.check_loyalty_balance_block1_program.CheckLoyaltyBalanceBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),

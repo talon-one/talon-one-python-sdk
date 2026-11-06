@@ -31,6 +31,7 @@ class IntegrationCustomerProfileAudienceRequestItem(BaseModel):
     action: StrictStr = Field(description="Defines the action to perform: - `add`: Adds the customer profile to the audience.    **Note**: If the customer profile does not exist, it will be created. The profile will not be visible in any Application   until a session or profile update is received for that profile. - `delete`: Removes the customer profile from the audience. ", json_schema_extra={"examples": ["add"]})
     profile_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The ID of this customer profile in the third-party integration.", alias="profileIntegrationId", json_schema_extra={"examples": ["R195412"]})
     integration_id: StrictStr = Field(description="The ID of this audience in the third-party integration.", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["action", "profileIntegrationId", "integrationId"]
 
     @field_validator('action')
@@ -70,8 +71,10 @@ class IntegrationCustomerProfileAudienceRequestItem(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class IntegrationCustomerProfileAudienceRequestItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class IntegrationCustomerProfileAudienceRequestItem(BaseModel):
             "profileIntegrationId": obj.get("profileIntegrationId"),
             "integrationId": obj.get("integrationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

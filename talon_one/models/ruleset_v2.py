@@ -43,6 +43,7 @@ class RulesetV2(BaseModel):
     selectors: Optional[List[Selector]] = Field(default=None, description="Variable bindings of type selector.")
     bundles: Optional[List[Bundle]] = Field(default=None, description="Variable bindings of type bundle.")
     parameters: Optional[List[TemplateParameter]] = Field(default=None, description="Variable bindings of type template parameter.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "userId", "campaignId", "templateId", "activatedAt", "promotionRules", "strikethroughRules", "selectors", "bundles", "parameters"]
 
     model_config = ConfigDict(
@@ -82,6 +83,7 @@ class RulesetV2(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
@@ -91,6 +93,7 @@ class RulesetV2(BaseModel):
             "template_id",
             "activated_at",
             "selectors",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -128,6 +131,11 @@ class RulesetV2(BaseModel):
             for _item_parameters in self.parameters:
                 _items.append(_item_parameters.to_dict() if _item_parameters is not None else None)
             _dict['parameters'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -152,6 +160,11 @@ class RulesetV2(BaseModel):
             "bundles": [Bundle.from_dict(_item) for _item in obj["bundles"]] if obj.get("bundles") is not None else None,
             "parameters": [TemplateParameter.from_dict(_item) for _item in obj["parameters"]] if obj.get("parameters") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

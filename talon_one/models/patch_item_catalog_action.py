@@ -33,6 +33,7 @@ class PatchItemCatalogAction(BaseModel):
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the item to patch.")
     product: Optional[Product] = None
     create_if_not_exists: Optional[StrictBool] = Field(default=False, description="Indicates whether to create an item if the SKU does not exist.", alias="createIfNotExists")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["sku", "price", "attributes", "product", "createIfNotExists"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class PatchItemCatalogAction(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class PatchItemCatalogAction(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of product
         if self.product:
             _dict['product'] = self.product.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class PatchItemCatalogAction(BaseModel):
             "product": Product.from_dict(obj["product"]) if obj.get("product") is not None else None,
             "createIfNotExists": obj.get("createIfNotExists") if obj.get("createIfNotExists") is not None else False
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

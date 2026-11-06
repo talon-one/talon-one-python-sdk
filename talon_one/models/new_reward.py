@@ -43,6 +43,7 @@ class NewReward(BaseModel):
     points_required: Optional[List[RewardPointsRequired]] = Field(default=None, description="The loyalty points required to activate the reward. Each object defines the specific loyalty program and subledger from which points are deducted when activating the reward.  **Note:** When creating a reward, the `id` of each entry is ignored and a new entry is always created. ", alias="pointsRequired")
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the customer rewards unlocked from this reward remain active, relative to when the customer reward was unlocked.  The time format is an **integer** followed by one letter indicating the time unit.  Examples: `30m`, `1h`, `5D`, `7W`, `10M`, `15Y`.  Available units:  - `m`: minutes - `h`: hours - `D`: days - `W`: weeks - `M`: months - `Y`: years  You can round certain units up or down: - `_D` for rounding down days only. Signifies the start of the day. - `_U` for rounding up days, weeks, months and years. Signifies the end of the day, week, month or year.  This field cannot be used in combination with `expiryDate`. If both `validityDuration` and `expiryDate` are not set, customer rewards have unlimited validity. ", alias="validityDuration", json_schema_extra={"examples": ["3M_U"]})
     expiry_date: Optional[datetime] = Field(default=None, description="Expiry date of the customer rewards unlocked from this reward. Customer rewards never expire if this is omitted and `validityDuration` is not set.  **Note:** - The date must be in the future. - This field cannot be used in combination with `validityDuration`. ", alias="expiryDate", json_schema_extra={"examples": ["2026-12-31T00:00:00Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "apiName", "description", "applicationIds", "sandbox", "eligibilityConditions", "rule", "bindings", "pointsRequired", "validityDuration", "expiryDate"]
 
     model_config = ConfigDict(
@@ -75,8 +76,10 @@ class NewReward(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -102,6 +105,11 @@ class NewReward(BaseModel):
             for _item_points_required in self.points_required:
                 _items.append(_item_points_required.to_dict() if _item_points_required is not None else None)
             _dict['pointsRequired'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -126,6 +134,11 @@ class NewReward(BaseModel):
             "validityDuration": obj.get("validityDuration"),
             "expiryDate": obj.get("expiryDate")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

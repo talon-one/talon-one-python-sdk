@@ -130,6 +130,47 @@ class SelectorStep(BaseModel):
         error_messages = []
         match = 0
 
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "type"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `FilterSelectorStep`
+        if _data_type == "filter":
+            instance.actual_instance = FilterSelectorStep.from_json(json_str)
+            return instance
+
+        # check if data type is `FilterAndMapValuesSelectorStep`
+        if _data_type == "filterAndMapValues":
+            instance.actual_instance = FilterAndMapValuesSelectorStep.from_json(json_str)
+            return instance
+
+        # check if data type is `MapSelectorStep`
+        if _data_type == "map":
+            instance.actual_instance = MapSelectorStep.from_json(json_str)
+            return instance
+
+        # check if data type is `ReduceSelectorStep`
+        if _data_type == "reduce":
+            instance.actual_instance = ReduceSelectorStep.from_json(json_str)
+            return instance
+
+        # check if data type is `ReverseSelectorStep`
+        if _data_type == "reverse":
+            instance.actual_instance = ReverseSelectorStep.from_json(json_str)
+            return instance
+
+        # check if data type is `SelectSelectorStep`
+        if _data_type == "select":
+            instance.actual_instance = SelectSelectorStep.from_json(json_str)
+            return instance
+
+        # check if data type is `SortSelectorStep`
+        if _data_type == "sort":
+            instance.actual_instance = SortSelectorStep.from_json(json_str)
+            return instance
+
         # deserialize data into FilterSelectorStep
         try:
             instance.actual_instance = FilterSelectorStep.from_json(json_str)
@@ -190,7 +231,7 @@ class SelectorStep(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
     def to_dict(self) -> Optional[Union[Dict[str, Any], FilterAndMapValuesSelectorStep, FilterSelectorStep, MapSelectorStep, ReduceSelectorStep, ReverseSelectorStep, SelectSelectorStep, SortSelectorStep]]:
         """Returns the dict representation of the actual instance"""
@@ -200,7 +241,9 @@ class SelectorStep(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:

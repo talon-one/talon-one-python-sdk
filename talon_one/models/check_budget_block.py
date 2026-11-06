@@ -34,6 +34,7 @@ class CheckBudgetBlock(BaseModel):
     action: StrictStr = Field(description="The limitable action to check.", json_schema_extra={"examples": ["setDiscount"]})
     value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value to check against when using the `enoughFor` operator.", json_schema_extra={"examples": [5]})
     on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "action", "value", "onFailure"]
 
     @field_validator('operator')
@@ -82,10 +83,12 @@ class CheckBudgetBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -99,6 +102,11 @@ class CheckBudgetBlock(BaseModel):
             for _item_on_failure in self.on_failure:
                 _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
             _dict['onFailure'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -119,6 +127,11 @@ class CheckBudgetBlock(BaseModel):
             "value": obj.get("value"),
             "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 from talon_one.models.block import Block

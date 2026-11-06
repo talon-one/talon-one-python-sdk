@@ -30,6 +30,7 @@ class CampaignEvaluationPosition(BaseModel):
     group_id: StrictInt = Field(description="The ID of the campaign evaluation group the campaign belongs to.", alias="groupId", json_schema_extra={"examples": [2]})
     group_name: StrictStr = Field(description="The name of the campaign evaluation group the campaign belongs to.", alias="groupName", json_schema_extra={"examples": ["Summer campaigns"]})
     position: StrictInt = Field(description="The position of the campaign node in its parent group.", json_schema_extra={"examples": [2]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["groupId", "groupName", "position"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class CampaignEvaluationPosition(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class CampaignEvaluationPosition(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class CampaignEvaluationPosition(BaseModel):
             "groupName": obj.get("groupName"),
             "position": obj.get("position")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

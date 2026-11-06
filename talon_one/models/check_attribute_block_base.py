@@ -44,6 +44,7 @@ class CheckAttributeBlockBase(BaseModel):
     values: Optional[Any] = Field(default=None, description="The set of values to match against for list operators. For location operators (`in`, `not(in)`), an array of objects with a `geometry` (see `GeoJSONGeometry`) and an optional `name`, or a string reference to a list attribute.", json_schema_extra={"examples": [[{"name": "Berlin district", "geometry": {"type": "Point", "coordinates": [13.405, 52.52]}}]]})
     count: Optional[Any] = Field(default=None, description="The count threshold for `containsAtLeast` and `containsExactly` operators.", json_schema_extra={"examples": [2]})
     on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "min", "max", "start", "end", "startInclusive", "endInclusive", "timezoneInsensitive", "values", "count", "onFailure"]
 
     @field_validator('operator')
@@ -85,10 +86,12 @@ class CheckAttributeBlockBase(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -102,6 +105,11 @@ class CheckAttributeBlockBase(BaseModel):
             for _item_on_failure in self.on_failure:
                 _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
             _dict['onFailure'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if attribute (nullable) is None
         # and model_fields_set contains the field
         if self.attribute is None and "attribute" in self.model_fields_set:
@@ -171,6 +179,11 @@ class CheckAttributeBlockBase(BaseModel):
             "count": obj.get("count"),
             "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -31,6 +31,7 @@ class UpdateStore(BaseModel):
     name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name of the store.", json_schema_extra={"examples": ["South US store"]})
     description: StrictStr = Field(description="The description of the store.", json_schema_extra={"examples": ["This is the description of the store in south US."]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="The attributes of the store.", json_schema_extra={"examples": [{"country": "USA", "code": 1234}]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description", "attributes"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class UpdateStore(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class UpdateStore(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +96,11 @@ class UpdateStore(BaseModel):
             "description": obj.get("description"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

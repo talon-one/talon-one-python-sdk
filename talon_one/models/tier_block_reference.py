@@ -31,6 +31,7 @@ class TierBlockReference(BaseModel):
     name: StrictStr = Field(description="The display name of the tier.", json_schema_extra={"examples": ["Bronze"]})
     min_points: Union[StrictFloat, StrictInt] = Field(description="The minimum amount of points required to enter the tier.", alias="minPoints", json_schema_extra={"examples": [150]})
     upper_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="upperLimit")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "minPoints", "upperLimit"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class TierBlockReference(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class TierBlockReference(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class TierBlockReference(BaseModel):
             "minPoints": obj.get("minPoints"),
             "upperLimit": obj.get("upperLimit")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

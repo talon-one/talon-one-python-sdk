@@ -46,6 +46,7 @@ class LoyaltyLedgerEntry(BaseModel):
     flags: Optional[LoyaltyLedgerEntryFlags] = Field(default=None, description="A map of flags providing additional details about the entry.")
     validity_duration: Optional[StrictStr] = Field(default=None, description="The duration for which the points remain active, relative to the  activation date.  **Note**: This only applies to points for which `awaitsActivation` is `true` and `expiryDate` is not set. ", alias="validityDuration", json_schema_extra={"examples": ["30D"]})
     awaits_activation: Optional[StrictBool] = Field(default=None, description="Indicates whether the points have an action-based start date. This property is returned only for point transactions with an action-based start date.", alias="awaitsActivation", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["created", "programID", "customerProfileID", "cardID", "customerSessionID", "eventID", "type", "amount", "startDate", "expiryDate", "name", "subLedgerID", "userID", "archived", "flags", "validityDuration", "awaitsActivation"]
 
     model_config = ConfigDict(
@@ -78,8 +79,10 @@ class LoyaltyLedgerEntry(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -90,6 +93,11 @@ class LoyaltyLedgerEntry(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of flags
         if self.flags:
             _dict['flags'] = self.flags.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -120,6 +128,11 @@ class LoyaltyLedgerEntry(BaseModel):
             "validityDuration": obj.get("validityDuration"),
             "awaitsActivation": obj.get("awaitsActivation")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

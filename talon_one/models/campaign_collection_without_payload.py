@@ -39,6 +39,7 @@ class CampaignCollectionWithoutPayload(BaseModel):
     created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy", json_schema_extra={"examples": [134]})
     application_id: Optional[StrictInt] = Field(default=None, description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [1]})
     campaign_id: Optional[StrictInt] = Field(default=None, description="The ID of the campaign that owns this entity.", alias="campaignId", json_schema_extra={"examples": [7]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "description", "name", "modifiedBy", "createdBy", "applicationId", "campaignId"]
 
     @field_validator('name', mode="before")
@@ -78,8 +79,10 @@ class CampaignCollectionWithoutPayload(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -87,6 +90,11 @@ class CampaignCollectionWithoutPayload(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -110,6 +118,11 @@ class CampaignCollectionWithoutPayload(BaseModel):
             "applicationId": obj.get("applicationId"),
             "campaignId": obj.get("campaignId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

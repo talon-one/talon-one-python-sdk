@@ -34,6 +34,7 @@ class UpdateAudienceMembershipBlock(BaseModel):
     operator: StrictStr = Field(description="The action to perform.", json_schema_extra={"examples": ["add"]})
     profile: StrictStr = Field(description="The customer profile to add or remove from the audience. `Current` targets the customer in the current session; `Advocate` targets the person who invited their friend via referral program.", json_schema_extra={"examples": ["Current"]})
     audience: AudienceBlockReference = Field(description="The audience to add the customer to or remove them from.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "profile", "audience"]
 
     @field_validator('operator')
@@ -82,10 +83,12 @@ class UpdateAudienceMembershipBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -96,6 +99,11 @@ class UpdateAudienceMembershipBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of audience
         if self.audience:
             _dict['audience'] = self.audience.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +123,11 @@ class UpdateAudienceMembershipBlock(BaseModel):
             "profile": obj.get("profile"),
             "audience": AudienceBlockReference.from_dict(obj["audience"]) if obj.get("audience") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

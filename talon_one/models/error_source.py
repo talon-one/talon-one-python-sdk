@@ -31,6 +31,7 @@ class ErrorSource(BaseModel):
     parameter: Optional[StrictStr] = Field(default=None, description="Query parameter that caused this error.")
     line: Optional[StrictStr] = Field(default=None, description="Line number in uploaded multipart file that caused this error. 'N/A' if unknown.")
     resource: Optional[StrictStr] = Field(default=None, description="Pointer to the resource that caused this error.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["pointer", "parameter", "line", "resource"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class ErrorSource(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class ErrorSource(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class ErrorSource(BaseModel):
             "line": obj.get("line"),
             "resource": obj.get("resource")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

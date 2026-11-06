@@ -29,6 +29,7 @@ class EmbeddedAnalyticsConfigurationDashboards(BaseModel):
     EmbeddedAnalyticsConfigurationDashboards
     """ # noqa: E501
     campaign_insights: Optional[EmbeddedDashboardConfiguration] = Field(default=None, description="The configuration of the embedded Insights dashboard for campaigns.", alias="campaignInsights")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["campaignInsights"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class EmbeddedAnalyticsConfigurationDashboards(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class EmbeddedAnalyticsConfigurationDashboards(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of campaign_insights
         if self.campaign_insights:
             _dict['campaignInsights'] = self.campaign_insights.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class EmbeddedAnalyticsConfigurationDashboards(BaseModel):
         _obj = cls.model_validate({
             "campaignInsights": EmbeddedDashboardConfiguration.from_dict(obj["campaignInsights"]) if obj.get("campaignInsights") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

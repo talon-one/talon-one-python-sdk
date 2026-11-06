@@ -26,10 +26,11 @@ from pydantic_core import to_jsonable_python
 
 class LabelTargetAudience(BaseModel):
     """
-    Target type when a specific audience is selected. 
+    Target type when a specific audience is selected.  Talon.One logs a separate price record per audience. You can use this object to compare the price records of a price type to those of a [base price](https://docs.talon.one/docs/dev/integration-guides/best-prior-price#price-history), for example. 
     """ # noqa: E501
     type: StrictStr
     audience: AudienceReference
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "audience"]
 
     @field_validator('type')
@@ -69,8 +70,10 @@ class LabelTargetAudience(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class LabelTargetAudience(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of audience
         if self.audience:
             _dict['audience'] = self.audience.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class LabelTargetAudience(BaseModel):
             "type": obj.get("type"),
             "audience": AudienceReference.from_dict(obj["audience"]) if obj.get("audience") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

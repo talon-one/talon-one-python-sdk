@@ -56,6 +56,7 @@ class Environment(BaseModel):
     collections: Optional[List[Collection]] = Field(default=None, description="The account-level collections that the application is subscribed to.")
     application_cart_item_filters: Optional[List[ApplicationCIF]] = Field(default=None, description="The cart item filters belonging to the Application.", alias="applicationCartItemFilters")
     price_types: Optional[List[PriceType]] = Field(default=None, description="The price types that this Application can use.", alias="priceTypes")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "slots", "functions", "templates", "variables", "giveawaysPools", "loyaltyPrograms", "achievements", "attributes", "additionalCosts", "audiences", "collections", "applicationCartItemFilters", "priceTypes"]
 
     model_config = ConfigDict(
@@ -88,8 +89,10 @@ class Environment(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -169,6 +172,11 @@ class Environment(BaseModel):
             for _item_price_types in self.price_types:
                 _items.append(_item_price_types.to_dict() if _item_price_types is not None else None)
             _dict['priceTypes'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -198,6 +206,11 @@ class Environment(BaseModel):
             "applicationCartItemFilters": [ApplicationCIF.from_dict(_item) for _item in obj["applicationCartItemFilters"]] if obj.get("applicationCartItemFilters") is not None else None,
             "priceTypes": [PriceType.from_dict(_item) for _item in obj["priceTypes"]] if obj.get("priceTypes") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

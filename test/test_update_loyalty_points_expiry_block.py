@@ -41,7 +41,7 @@ class TestUpdateLoyaltyPointsExpiryBlock(unittest.TestCase):
                     ''
                     ],
                 operator = 'setTo',
-                program = talon_one.models.update_loyalty_points_expiry_block_1_program.UpdateLoyaltyPointsExpiryBlock_1_program(
+                program = talon_one.models.update_loyalty_points_expiry_block1_program.UpdateLoyaltyPointsExpiryBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),
@@ -56,7 +56,7 @@ class TestUpdateLoyaltyPointsExpiryBlock(unittest.TestCase):
             return UpdateLoyaltyPointsExpiryBlock(
                 type = '',
                 operator = 'setTo',
-                program = talon_one.models.update_loyalty_points_expiry_block_1_program.UpdateLoyaltyPointsExpiryBlock_1_program(
+                program = talon_one.models.update_loyalty_points_expiry_block1_program.UpdateLoyaltyPointsExpiryBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),

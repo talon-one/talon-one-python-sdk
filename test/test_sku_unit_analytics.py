@@ -42,7 +42,7 @@ class TestSkuUnitAnalytics(unittest.TestCase):
                         units_sold = null, 
                         sku = 'SKU-123', )
                     ],
-                totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
+                totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalyticsTotals(
                     units_sold = null, )
             )
         else:
@@ -54,7 +54,7 @@ class TestSkuUnitAnalytics(unittest.TestCase):
                         units_sold = null, 
                         sku = 'SKU-123', )
                     ],
-                totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalytics_totals(
+                totals = talon_one.models.product_unit_analytics_totals.ProductUnitAnalyticsTotals(
                     units_sold = null, ),
         )
         """

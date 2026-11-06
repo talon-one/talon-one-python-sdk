@@ -32,6 +32,7 @@ class LoyaltyCardBalances(BaseModel):
     balance: Optional[LoyaltyBalance] = None
     subledger_balances: Optional[Dict[str, LoyaltyBalance]] = Field(default=None, description="Map of the loyalty balances of the subledgers of a ledger.", alias="subledgerBalances", json_schema_extra={"examples": [{"mysubledger": {"activePoints": 286, "pendingPoints": 50, "spentPoints": 150, "expiredPoints": 25, "negativePoints": 0}}]})
     profiles: Optional[List[LoyaltyCardProfileRegistration]] = Field(default=None, description="Customer profiles linked to the loyalty card.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["balance", "subledgerBalances", "profiles"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class LoyaltyCardBalances(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -88,6 +91,11 @@ class LoyaltyCardBalances(BaseModel):
             for _item_profiles in self.profiles:
                 _items.append(_item_profiles.to_dict() if _item_profiles is not None else None)
             _dict['profiles'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -109,6 +117,11 @@ class LoyaltyCardBalances(BaseModel):
             else None,
             "profiles": [LoyaltyCardProfileRegistration.from_dict(_item) for _item in obj["profiles"]] if obj.get("profiles") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

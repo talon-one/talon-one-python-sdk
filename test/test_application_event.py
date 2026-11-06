@@ -44,7 +44,7 @@ class TestApplicationEvent(unittest.TestCase):
                 integration_id = '175KJPS947296',
                 session_id = 56,
                 type = '',
-                attributes = None,
+                attributes = { },
                 effects = [
                     talon_one.models.effect.Effect()
                     ],
@@ -74,7 +74,7 @@ class TestApplicationEvent(unittest.TestCase):
                 created = '2020-06-10T09:05:27.993483Z',
                 application_id = 322,
                 type = '',
-                attributes = None,
+                attributes = { },
                 effects = [
                     talon_one.models.effect.Effect()
                     ],

@@ -30,6 +30,7 @@ class MultipleCustomerProfileIntegrationRequestItem(BaseModel):
     """ # noqa: E501
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": [{"Language": "english", "ShippingCountry": "DE"}]})
     integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The identifier of this profile, set by your integration layer. It must be unique within the account.  To get the `integrationId` of the profile from a `sessionId`, use the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2). ", alias="integrationId", json_schema_extra={"examples": ["R195412"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["attributes", "integrationId"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class MultipleCustomerProfileIntegrationRequestItem(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class MultipleCustomerProfileIntegrationRequestItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -86,6 +94,11 @@ class MultipleCustomerProfileIntegrationRequestItem(BaseModel):
             "attributes": obj.get("attributes"),
             "integrationId": obj.get("integrationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

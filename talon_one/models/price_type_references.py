@@ -30,6 +30,7 @@ class PriceTypeReferences(BaseModel):
     """ # noqa: E501
     price_type_id: StrictInt = Field(description="The ID of the price type.", alias="priceTypeId", json_schema_extra={"examples": [6]})
     references: Optional[List[PriceTypeReferenceDetail]] = Field(default=None, description="A list of entities that reference the price type, including details about the entities.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["priceTypeId", "references"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class PriceTypeReferences(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class PriceTypeReferences(BaseModel):
             for _item_references in self.references:
                 _items.append(_item_references.to_dict() if _item_references is not None else None)
             _dict['references'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class PriceTypeReferences(BaseModel):
             "priceTypeId": obj.get("priceTypeId"),
             "references": [PriceTypeReferenceDetail.from_dict(_item) for _item in obj["references"]] if obj.get("references") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

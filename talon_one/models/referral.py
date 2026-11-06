@@ -42,6 +42,7 @@ class Referral(BaseModel):
     code: Annotated[str, Field(min_length=4, strict=True)] = Field(description="The referral code.", json_schema_extra={"examples": ["27G47Y54VH9L"]})
     usage_counter: StrictInt = Field(description="The number of times this referral code has been successfully used.", alias="usageCounter", json_schema_extra={"examples": [1]})
     batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch the referrals belong to.", alias="batchId", json_schema_extra={"examples": ["tqyrgahe"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "startDate", "expiryDate", "usageLimit", "campaignId", "advocateProfileIntegrationId", "friendProfileIntegrationId", "attributes", "importId", "code", "usageCounter", "batchId"]
 
     model_config = ConfigDict(
@@ -74,8 +75,10 @@ class Referral(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -83,6 +86,11 @@ class Referral(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -109,6 +117,11 @@ class Referral(BaseModel):
             "usageCounter": obj.get("usageCounter"),
             "batchId": obj.get("batchId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

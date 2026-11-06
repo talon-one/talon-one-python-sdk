@@ -30,6 +30,7 @@ class RollbackUseRewardEffectProps(BaseModel):
     integration_id: StrictStr = Field(description="The integration ID of the customer reward that was rolled back.", alias="integrationId", json_schema_extra={"examples": ["5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90"]})
     reward_id: StrictInt = Field(description="The ID of the reward that was rolled back.", alias="rewardId", json_schema_extra={"examples": [5]})
     application_id: StrictInt = Field(description="The ID of the Application the reward belongs to.", alias="applicationId", json_schema_extra={"examples": [1]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["integrationId", "rewardId", "applicationId"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class RollbackUseRewardEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class RollbackUseRewardEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class RollbackUseRewardEffectProps(BaseModel):
             "rewardId": obj.get("rewardId"),
             "applicationId": obj.get("applicationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

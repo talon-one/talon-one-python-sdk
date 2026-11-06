@@ -30,6 +30,7 @@ class UpdateCustomerSessionV2409Response(BaseModel):
     message: Optional[StrictStr] = Field(default=None, json_schema_extra={"examples": ["Too many requests are updating this session at the same time"]})
     errors: Optional[List[Any]] = None
     status_code: Optional[StrictInt] = Field(default=None, alias="StatusCode", json_schema_extra={"examples": [409]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["message", "errors", "StatusCode"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class UpdateCustomerSessionV2409Response(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class UpdateCustomerSessionV2409Response(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class UpdateCustomerSessionV2409Response(BaseModel):
             "errors": obj.get("errors"),
             "StatusCode": obj.get("StatusCode")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

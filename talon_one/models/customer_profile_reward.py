@@ -44,6 +44,7 @@ class CustomerProfileReward(BaseModel):
     used_by_profile_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that used the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card.   Only returned when the reward has been used. ", alias="usedByProfileIntegrationId", json_schema_extra={"examples": ["customer2840"]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="The ID of the loyalty program that the loyalty card belongs to. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyProgramId", json_schema_extra={"examples": [9]})
     loyalty_card_id: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that the reward was unlocked with. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyCardId", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "integrationId", "rewardId", "rewardIntegrationId", "rewardName", "description", "rule", "status", "unlockedAt", "unlockedByProfileIntegrationId", "usedAt", "usedByProfileIntegrationId", "loyaltyProgramId", "loyaltyCardId"]
 
     @field_validator('status')
@@ -93,8 +94,10 @@ class CustomerProfileReward(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -105,6 +108,11 @@ class CustomerProfileReward(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of rule
         if self.rule:
             _dict['rule'] = self.rule.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -132,6 +140,11 @@ class CustomerProfileReward(BaseModel):
             "loyaltyProgramId": obj.get("loyaltyProgramId"),
             "loyaltyCardId": obj.get("loyaltyCardId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

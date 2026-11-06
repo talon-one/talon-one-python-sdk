@@ -30,6 +30,7 @@ class UpdateLoyaltyCard(BaseModel):
     status: StrictStr = Field(description="Status of the loyalty card. Can be `active` or `inactive`. ", json_schema_extra={"examples": ["active"]})
     block_reason: Optional[StrictStr] = Field(default=None, description="Reason for transferring and blocking the loyalty card. ", alias="blockReason", json_schema_extra={"examples": ["Current card lost. Customer needs a new card."]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint. ", json_schema_extra={"examples": [{"PIN": 1234, "Language": "DE"}]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["status", "blockReason", "attributes"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class UpdateLoyaltyCard(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class UpdateLoyaltyCard(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class UpdateLoyaltyCard(BaseModel):
             "blockReason": obj.get("blockReason"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

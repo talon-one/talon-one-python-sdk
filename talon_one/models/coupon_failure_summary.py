@@ -38,6 +38,7 @@ class CouponFailureSummary(BaseModel):
     summary: StrictStr = Field(description="A summary of the reasons for coupon redemption failure.", json_schema_extra={"examples": ["Session total was less than the required total."]})
     created_at: datetime = Field(description="Timestamp when the request was made.", alias="createdAt", json_schema_extra={"examples": ["2021-07-20T21:59:00Z"]})
     updated_at: datetime = Field(description="Timestamp when the request was last updated.", alias="updatedAt", json_schema_extra={"examples": ["2021-07-20T21:59:00Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "eventID", "sessionID", "profileID", "status", "couponCode", "language", "summary", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(
@@ -70,8 +71,10 @@ class CouponFailureSummary(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class CouponFailureSummary(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -102,6 +110,11 @@ class CouponFailureSummary(BaseModel):
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

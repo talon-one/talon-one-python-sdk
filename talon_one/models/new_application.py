@@ -48,6 +48,7 @@ class NewApplication(BaseModel):
     key: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Hex key for HMAC-signing API calls as coming from this application (16 hex digits).")
     enable_campaign_state_management: Optional[StrictBool] = Field(default=None, description="Indicates whether the campaign staging and revisions feature is enabled for the Application.  **Important:** After this feature is enabled, it cannot be disabled. ", alias="enableCampaignStateManagement", json_schema_extra={"examples": [False]})
     best_prior_price_settings: Optional[BestPriorPriceSettings] = Field(default=None, alias="bestPriorPriceSettings")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description", "timezone", "currency", "caseSensitivity", "attributes", "limits", "defaultDiscountScope", "enableCascadingDiscounts", "enableFlattenedCartItems", "attributesSettings", "sandbox", "enablePartialDiscounts", "defaultDiscountAdditionalCostPerItemScope", "key", "enableCampaignStateManagement", "bestPriorPriceSettings"]
 
     @field_validator('case_sensitivity')
@@ -120,8 +121,10 @@ class NewApplication(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -141,6 +144,11 @@ class NewApplication(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of best_prior_price_settings
         if self.best_prior_price_settings:
             _dict['bestPriorPriceSettings'] = self.best_prior_price_settings.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -171,6 +179,11 @@ class NewApplication(BaseModel):
             "enableCampaignStateManagement": obj.get("enableCampaignStateManagement"),
             "bestPriorPriceSettings": BestPriorPriceSettings.from_dict(obj["bestPriorPriceSettings"]) if obj.get("bestPriorPriceSettings") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

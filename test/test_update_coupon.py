@@ -48,7 +48,7 @@ class TestUpdateCoupon(unittest.TestCase):
                         entities = [Coupon], )
                     ],
                 recipient_integration_id = 'URNGV8294NV',
-                attributes = None,
+                attributes = { },
                 is_reservation_mandatory = False,
                 implicitly_reserved = False
             )

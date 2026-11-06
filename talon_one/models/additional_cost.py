@@ -28,6 +28,7 @@ class AdditionalCost(BaseModel):
     AdditionalCost
     """ # noqa: E501
     price: Union[StrictFloat, StrictInt] = Field(json_schema_extra={"examples": [4.5]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["price"]
 
     model_config = ConfigDict(
@@ -60,8 +61,10 @@ class AdditionalCost(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +72,11 @@ class AdditionalCost(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -83,6 +91,11 @@ class AdditionalCost(BaseModel):
         _obj = cls.model_validate({
             "price": obj.get("price")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

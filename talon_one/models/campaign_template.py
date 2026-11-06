@@ -62,6 +62,7 @@ class CampaignTemplate(BaseModel):
     updated_by: Optional[StrictStr] = Field(default=None, description="Name of the user who last updated this campaign template, if available.", alias="updatedBy", json_schema_extra={"examples": ["Jane Doe"]})
     valid_application_ids: List[StrictInt] = Field(description="The IDs of the Applications that are related to this entity.", alias="validApplicationIds", json_schema_extra={"examples": [[1, 2, 3]]})
     is_user_favorite: Optional[StrictBool] = Field(default=False, description="A flag indicating whether the user marked the template as a favorite.", alias="isUserFavorite", json_schema_extra={"examples": [False]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "userId", "name", "description", "instructions", "campaignAttributes", "couponAttributes", "state", "activeRulesetId", "tags", "reevaluateOnReturn", "features", "couponSettings", "couponReservationSettings", "referralSettings", "limits", "templateParams", "applicationsIds", "campaignCollections", "defaultCampaignGroupId", "campaignType", "campaignsCount", "updated", "updatedBy", "validApplicationIds", "isUserFavorite"]
 
     @field_validator('state')
@@ -122,8 +123,10 @@ class CampaignTemplate(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -158,6 +161,11 @@ class CampaignTemplate(BaseModel):
             for _item_campaign_collections in self.campaign_collections:
                 _items.append(_item_campaign_collections.to_dict() if _item_campaign_collections is not None else None)
             _dict['campaignCollections'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -199,6 +207,11 @@ class CampaignTemplate(BaseModel):
             "validApplicationIds": obj.get("validApplicationIds"),
             "isUserFavorite": obj.get("isUserFavorite") if obj.get("isUserFavorite") is not None else False
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

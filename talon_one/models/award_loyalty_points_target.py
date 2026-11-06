@@ -114,6 +114,37 @@ class AwardLoyaltyPointsTarget(BaseModel):
         error_messages = []
         match = 0
 
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "type"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `AwardLoyaltyPointsAllItemsTarget`
+        if _data_type == "allItems":
+            instance.actual_instance = AwardLoyaltyPointsAllItemsTarget.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardLoyaltyPointsBundleTarget`
+        if _data_type == "bundle":
+            instance.actual_instance = AwardLoyaltyPointsBundleTarget.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardLoyaltyPointsCartTarget`
+        if _data_type == "cart":
+            instance.actual_instance = AwardLoyaltyPointsCartTarget.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardLoyaltyPointsGlobalFilterTarget`
+        if _data_type == "globalFilter":
+            instance.actual_instance = AwardLoyaltyPointsGlobalFilterTarget.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardLoyaltyPointsSelectorTarget`
+        if _data_type == "selector":
+            instance.actual_instance = AwardLoyaltyPointsSelectorTarget.from_json(json_str)
+            return instance
+
         # deserialize data into AwardLoyaltyPointsCartTarget
         try:
             instance.actual_instance = AwardLoyaltyPointsCartTarget.from_json(json_str)
@@ -162,7 +193,7 @@ class AwardLoyaltyPointsTarget(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
     def to_dict(self) -> Optional[Union[Dict[str, Any], AwardLoyaltyPointsAllItemsTarget, AwardLoyaltyPointsBundleTarget, AwardLoyaltyPointsCartTarget, AwardLoyaltyPointsGlobalFilterTarget, AwardLoyaltyPointsSelectorTarget]]:
         """Returns the dict representation of the actual instance"""
@@ -172,7 +203,9 @@ class AwardLoyaltyPointsTarget(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:

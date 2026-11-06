@@ -29,6 +29,7 @@ class UpdateExperimentVariantArray(BaseModel):
     UpdateExperimentVariantArray
     """ # noqa: E501
     variants: List[UpdateExperimentVariant] = Field(description="Array of experiment variants to update")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["variants"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class UpdateExperimentVariantArray(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class UpdateExperimentVariantArray(BaseModel):
             for _item_variants in self.variants:
                 _items.append(_item_variants.to_dict() if _item_variants is not None else None)
             _dict['variants'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class UpdateExperimentVariantArray(BaseModel):
         _obj = cls.model_validate({
             "variants": [UpdateExperimentVariant.from_dict(_item) for _item in obj["variants"]] if obj.get("variants") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

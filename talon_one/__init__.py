@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.22.0"
+__version__ = "26.22.1"
 
 # Define package exports
 __all__ = [
@@ -66,10 +66,6 @@ __all__ = [
     "AddPriceAdjustmentCatalogAction",
     "AddToAudienceEffectProps",
     "AddedDeductedPointsBalancesAction",
-    "AddedDeductedPointsBalancesNotification",
-    "AddedDeductedPointsBalancesNotificationPolicy",
-    "AddedDeductedPointsNotification",
-    "AddedDeductedPointsNotificationPolicy",
     "AdditionalCampaignProperties",
     "AdditionalCost",
     "AdditionalCostReference",
@@ -100,7 +96,7 @@ __all__ = [
     "ApplicationStoreEntity",
     "AsyncCouponCreationResponse",
     "AsyncCouponDeletionJobResponse",
-    "AsyncCouponsData",
+    "AsyncCouponsCreatedNotification",
     "Attribute",
     "AttributeBlockReference",
     "AttributesMandatory",
@@ -183,8 +179,8 @@ __all__ = [
     "CampaignEntity",
     "CampaignEvaluationGroup",
     "CampaignEvaluationPosition",
-    "CampaignEvaluationTreeChangedMessage",
     "CampaignEvaluationTreeChangedNotification",
+    "CampaignEvaluationTreeChangedNotificationData",
     "CampaignGroup",
     "CampaignGroupEntity",
     "CampaignLogSummary",
@@ -210,12 +206,6 @@ __all__ = [
     "CampaignTemplateCouponReservationSettings",
     "CampaignTemplateParams",
     "CampaignVersions",
-    "CardAddedDeductedPointsBalancesNotification",
-    "CardAddedDeductedPointsBalancesNotificationPolicy",
-    "CardAddedDeductedPointsNotification",
-    "CardAddedDeductedPointsNotificationPolicy",
-    "CardExpiringPointsNotificationPolicy",
-    "CardExpiringPointsNotificationTrigger",
     "CardLedgerPointsEntryIntegrationAPI",
     "CardLedgerTransactionLogEntry",
     "CardLedgerTransactionLogEntryIntegrationAPI",
@@ -234,7 +224,6 @@ __all__ = [
     "CatalogRule",
     "CatalogRuleset",
     "CatalogSyncRequest",
-    "CatalogsStrikethroughNotificationPolicy",
     "Change",
     "ChangeLoyaltyTierLevelEffectProps",
     "ChangeProfilePassword",
@@ -256,8 +245,13 @@ __all__ = [
     "CollectionWithoutPayload",
     "ConfirmRisksRequest",
     "Coupon",
+    "CouponCodeExpiringNotification",
+    "CouponCodeExpiringNotificationData",
+    "CouponCodeExpiringNotificationPolicy",
+    "CouponCodeExpiringNotificationTrigger",
     "CouponConstraints",
     "CouponCreatedEffectProps",
+    "CouponCreatedNotification",
     "CouponCreationJob",
     "CouponDeletionFilters",
     "CouponDeletionJob",
@@ -269,11 +263,13 @@ __all__ = [
     "CouponReservation",
     "CouponReservations",
     "CouponSearch",
+    "CouponUpdatedDeletedNotification",
     "CouponValue",
     "CouponWithApplication",
     "CouponWithReservations",
-    "CouponsNotificationData",
+    "CouponsDeletedNotification",
     "CouponsNotificationPolicy",
+    "CouponsUpdatedNotification",
     "CreateAchievement",
     "CreateAchievementV2",
     "CreateApplicationAPIKey",
@@ -281,7 +277,6 @@ __all__ = [
     "CreateCouponBlock1CampaignId",
     "CreateCouponBlock1DiscountLimit",
     "CreateCouponBlock1UsageLimit",
-    "CreateCouponData",
     "CreateCoupons200Response",
     "CreateMCPKey",
     "CreateManagementKey",
@@ -315,7 +310,6 @@ __all__ = [
     "DeactivateUserRequest",
     "DeductLoyaltyPoints",
     "DeductLoyaltyPointsEffectProps",
-    "DeleteCouponsData",
     "DeleteLoyaltyTransactionsRequest",
     "DeleteUserRequest",
     "DigitalPass",
@@ -415,15 +409,7 @@ __all__ = [
     "ExperimentVerdict",
     "ExperimentVerdictResponse",
     "ExpiringCardPointsData",
-    "ExpiringCardPointsNotification",
-    "ExpiringCouponsData",
-    "ExpiringCouponsNotification",
-    "ExpiringCouponsNotificationPolicy",
-    "ExpiringCouponsNotificationTrigger",
     "ExpiringPointsData",
-    "ExpiringPointsNotification",
-    "ExpiringPointsNotificationPolicy",
-    "ExpiringPointsNotificationTrigger",
     "Export",
     "ExtendLoyaltyPointsExpiryDateEffectProps",
     "ExtendedCoupon",
@@ -582,18 +568,27 @@ __all__ = [
     "ListStores200Response",
     "ListWithCountCheckAttributeBlock",
     "LocationCheckAttributeBlock",
-    "LocationCheckAttributeBlockValues",
-    "LocationCheckAttributeBlockValuesOneOfInner",
+    "LocationCheckAttributeBlock1Values",
+    "LocationCheckAttributeBlock1ValuesOneOfInner",
     "LoginParams",
     "Loyalty",
+    "LoyaltyAddedDeductedPointsBalancesNotification",
+    "LoyaltyAddedDeductedPointsBalancesNotificationPolicy",
     "LoyaltyBalance",
     "LoyaltyBalanceWithTier",
     "LoyaltyBalances",
     "LoyaltyBalancesWithTiers",
     "LoyaltyCard",
+    "LoyaltyCardAddedDeductedPointsBalancesNotification",
+    "LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy",
     "LoyaltyCardBalances",
     "LoyaltyCardBatch",
     "LoyaltyCardBatchResponse",
+    "LoyaltyCardPointsAddedDeductedNotification",
+    "LoyaltyCardPointsAddedDeductedNotificationPolicy",
+    "LoyaltyCardPointsExpiringNotification",
+    "LoyaltyCardPointsExpiringNotificationPolicy",
+    "LoyaltyCardPointsExpiringNotificationTrigger",
     "LoyaltyCardProfileRegistration",
     "LoyaltyCardRegistration",
     "LoyaltyDashboardData",
@@ -604,6 +599,13 @@ __all__ = [
     "LoyaltyLedgerEntryFlags",
     "LoyaltyLedgerTransactions",
     "LoyaltyMembership",
+    "LoyaltyPointsAddedDeductedNotification",
+    "LoyaltyPointsAddedDeductedNotificationPolicy",
+    "LoyaltyPointsExpiringNotification",
+    "LoyaltyPointsExpiringNotificationPolicy",
+    "LoyaltyPointsExpiringNotificationTrigger",
+    "LoyaltyPointsPendingToActiveNotification",
+    "LoyaltyPointsPendingToActiveNotificationPolicy",
     "LoyaltyProgram",
     "LoyaltyProgramBalance",
     "LoyaltyProgramEntity",
@@ -746,8 +748,6 @@ __all__ = [
     "PatchItemCatalogAction",
     "PatchManyItemsCatalogAction",
     "PendingActivePointsData",
-    "PendingActivePointsNotification",
-    "PendingPointsNotificationPolicy",
     "Picklist",
     "PlaceholderDetails",
     "PriceDetail",
@@ -780,6 +780,8 @@ __all__ = [
     "RemoveItemCatalogAction",
     "RemoveManyItemsCatalogAction",
     "ReopenSessionResponse",
+    "RequestStatus",
+    "RequestType",
     "ReserveCouponBlock",
     "ReserveCouponEffectProps",
     "ResponseContentObject",
@@ -885,7 +887,8 @@ __all__ = [
     "StrikethroughCustomEffectPerItemProps",
     "StrikethroughDebugResponse",
     "StrikethroughEffect",
-    "StrikethroughLabelingNotification",
+    "StrikethroughPriceNotification",
+    "StrikethroughPriceNotificationPolicy",
     "StrikethroughSetDiscountPerItemEffectProps",
     "StrikethroughSetDiscountPerItemMemberEffectProps",
     "StrikethroughTrigger",
@@ -945,7 +948,6 @@ __all__ = [
     "UpdateCollection",
     "UpdateCoupon",
     "UpdateCouponBatch",
-    "UpdateCouponsData",
     "UpdateCustomEffect",
     "UpdateCustomerProfileV2409Response",
     "UpdateCustomerSessionV2409Response",
@@ -1042,10 +1044,6 @@ from talon_one.models.add_loyalty_points_support import AddLoyaltyPointsSupport 
 from talon_one.models.add_price_adjustment_catalog_action import AddPriceAdjustmentCatalogAction as AddPriceAdjustmentCatalogAction
 from talon_one.models.add_to_audience_effect_props import AddToAudienceEffectProps as AddToAudienceEffectProps
 from talon_one.models.added_deducted_points_balances_action import AddedDeductedPointsBalancesAction as AddedDeductedPointsBalancesAction
-from talon_one.models.added_deducted_points_balances_notification import AddedDeductedPointsBalancesNotification as AddedDeductedPointsBalancesNotification
-from talon_one.models.added_deducted_points_balances_notification_policy import AddedDeductedPointsBalancesNotificationPolicy as AddedDeductedPointsBalancesNotificationPolicy
-from talon_one.models.added_deducted_points_notification import AddedDeductedPointsNotification as AddedDeductedPointsNotification
-from talon_one.models.added_deducted_points_notification_policy import AddedDeductedPointsNotificationPolicy as AddedDeductedPointsNotificationPolicy
 from talon_one.models.additional_campaign_properties import AdditionalCampaignProperties as AdditionalCampaignProperties
 from talon_one.models.additional_cost import AdditionalCost as AdditionalCost
 from talon_one.models.additional_cost_reference import AdditionalCostReference as AdditionalCostReference
@@ -1076,7 +1074,7 @@ from talon_one.models.application_session_entity import ApplicationSessionEntity
 from talon_one.models.application_store_entity import ApplicationStoreEntity as ApplicationStoreEntity
 from talon_one.models.async_coupon_creation_response import AsyncCouponCreationResponse as AsyncCouponCreationResponse
 from talon_one.models.async_coupon_deletion_job_response import AsyncCouponDeletionJobResponse as AsyncCouponDeletionJobResponse
-from talon_one.models.async_coupons_data import AsyncCouponsData as AsyncCouponsData
+from talon_one.models.async_coupons_created_notification import AsyncCouponsCreatedNotification as AsyncCouponsCreatedNotification
 from talon_one.models.attribute import Attribute as Attribute
 from talon_one.models.attribute_block_reference import AttributeBlockReference as AttributeBlockReference
 from talon_one.models.attributes_mandatory import AttributesMandatory as AttributesMandatory
@@ -1159,8 +1157,8 @@ from talon_one.models.campaign_eligibility_failure_details import CampaignEligib
 from talon_one.models.campaign_entity import CampaignEntity as CampaignEntity
 from talon_one.models.campaign_evaluation_group import CampaignEvaluationGroup as CampaignEvaluationGroup
 from talon_one.models.campaign_evaluation_position import CampaignEvaluationPosition as CampaignEvaluationPosition
-from talon_one.models.campaign_evaluation_tree_changed_message import CampaignEvaluationTreeChangedMessage as CampaignEvaluationTreeChangedMessage
 from talon_one.models.campaign_evaluation_tree_changed_notification import CampaignEvaluationTreeChangedNotification as CampaignEvaluationTreeChangedNotification
+from talon_one.models.campaign_evaluation_tree_changed_notification_data import CampaignEvaluationTreeChangedNotificationData as CampaignEvaluationTreeChangedNotificationData
 from talon_one.models.campaign_group import CampaignGroup as CampaignGroup
 from talon_one.models.campaign_group_entity import CampaignGroupEntity as CampaignGroupEntity
 from talon_one.models.campaign_log_summary import CampaignLogSummary as CampaignLogSummary
@@ -1186,12 +1184,6 @@ from talon_one.models.campaign_template_collection import CampaignTemplateCollec
 from talon_one.models.campaign_template_coupon_reservation_settings import CampaignTemplateCouponReservationSettings as CampaignTemplateCouponReservationSettings
 from talon_one.models.campaign_template_params import CampaignTemplateParams as CampaignTemplateParams
 from talon_one.models.campaign_versions import CampaignVersions as CampaignVersions
-from talon_one.models.card_added_deducted_points_balances_notification import CardAddedDeductedPointsBalancesNotification as CardAddedDeductedPointsBalancesNotification
-from talon_one.models.card_added_deducted_points_balances_notification_policy import CardAddedDeductedPointsBalancesNotificationPolicy as CardAddedDeductedPointsBalancesNotificationPolicy
-from talon_one.models.card_added_deducted_points_notification import CardAddedDeductedPointsNotification as CardAddedDeductedPointsNotification
-from talon_one.models.card_added_deducted_points_notification_policy import CardAddedDeductedPointsNotificationPolicy as CardAddedDeductedPointsNotificationPolicy
-from talon_one.models.card_expiring_points_notification_policy import CardExpiringPointsNotificationPolicy as CardExpiringPointsNotificationPolicy
-from talon_one.models.card_expiring_points_notification_trigger import CardExpiringPointsNotificationTrigger as CardExpiringPointsNotificationTrigger
 from talon_one.models.card_ledger_points_entry_integration_api import CardLedgerPointsEntryIntegrationAPI as CardLedgerPointsEntryIntegrationAPI
 from talon_one.models.card_ledger_transaction_log_entry import CardLedgerTransactionLogEntry as CardLedgerTransactionLogEntry
 from talon_one.models.card_ledger_transaction_log_entry_integration_api import CardLedgerTransactionLogEntryIntegrationAPI as CardLedgerTransactionLogEntryIntegrationAPI
@@ -1210,7 +1202,6 @@ from talon_one.models.catalog_item import CatalogItem as CatalogItem
 from talon_one.models.catalog_rule import CatalogRule as CatalogRule
 from talon_one.models.catalog_ruleset import CatalogRuleset as CatalogRuleset
 from talon_one.models.catalog_sync_request import CatalogSyncRequest as CatalogSyncRequest
-from talon_one.models.catalogs_strikethrough_notification_policy import CatalogsStrikethroughNotificationPolicy as CatalogsStrikethroughNotificationPolicy
 from talon_one.models.change import Change as Change
 from talon_one.models.change_loyalty_tier_level_effect_props import ChangeLoyaltyTierLevelEffectProps as ChangeLoyaltyTierLevelEffectProps
 from talon_one.models.change_profile_password import ChangeProfilePassword as ChangeProfilePassword
@@ -1232,8 +1223,13 @@ from talon_one.models.collection_item import CollectionItem as CollectionItem
 from talon_one.models.collection_without_payload import CollectionWithoutPayload as CollectionWithoutPayload
 from talon_one.models.confirm_risks_request import ConfirmRisksRequest as ConfirmRisksRequest
 from talon_one.models.coupon import Coupon as Coupon
+from talon_one.models.coupon_code_expiring_notification import CouponCodeExpiringNotification as CouponCodeExpiringNotification
+from talon_one.models.coupon_code_expiring_notification_data import CouponCodeExpiringNotificationData as CouponCodeExpiringNotificationData
+from talon_one.models.coupon_code_expiring_notification_policy import CouponCodeExpiringNotificationPolicy as CouponCodeExpiringNotificationPolicy
+from talon_one.models.coupon_code_expiring_notification_trigger import CouponCodeExpiringNotificationTrigger as CouponCodeExpiringNotificationTrigger
 from talon_one.models.coupon_constraints import CouponConstraints as CouponConstraints
 from talon_one.models.coupon_created_effect_props import CouponCreatedEffectProps as CouponCreatedEffectProps
+from talon_one.models.coupon_created_notification import CouponCreatedNotification as CouponCreatedNotification
 from talon_one.models.coupon_creation_job import CouponCreationJob as CouponCreationJob
 from talon_one.models.coupon_deletion_filters import CouponDeletionFilters as CouponDeletionFilters
 from talon_one.models.coupon_deletion_job import CouponDeletionJob as CouponDeletionJob
@@ -1245,11 +1241,13 @@ from talon_one.models.coupon_rejection_reason import CouponRejectionReason as Co
 from talon_one.models.coupon_reservation import CouponReservation as CouponReservation
 from talon_one.models.coupon_reservations import CouponReservations as CouponReservations
 from talon_one.models.coupon_search import CouponSearch as CouponSearch
+from talon_one.models.coupon_updated_deleted_notification import CouponUpdatedDeletedNotification as CouponUpdatedDeletedNotification
 from talon_one.models.coupon_value import CouponValue as CouponValue
 from talon_one.models.coupon_with_application import CouponWithApplication as CouponWithApplication
 from talon_one.models.coupon_with_reservations import CouponWithReservations as CouponWithReservations
-from talon_one.models.coupons_notification_data import CouponsNotificationData as CouponsNotificationData
+from talon_one.models.coupons_deleted_notification import CouponsDeletedNotification as CouponsDeletedNotification
 from talon_one.models.coupons_notification_policy import CouponsNotificationPolicy as CouponsNotificationPolicy
+from talon_one.models.coupons_updated_notification import CouponsUpdatedNotification as CouponsUpdatedNotification
 from talon_one.models.create_achievement import CreateAchievement as CreateAchievement
 from talon_one.models.create_achievement_v2 import CreateAchievementV2 as CreateAchievementV2
 from talon_one.models.create_application_api_key import CreateApplicationAPIKey as CreateApplicationAPIKey
@@ -1257,7 +1255,6 @@ from talon_one.models.create_coupon_block import CreateCouponBlock as CreateCoup
 from talon_one.models.create_coupon_block1_campaign_id import CreateCouponBlock1CampaignId as CreateCouponBlock1CampaignId
 from talon_one.models.create_coupon_block1_discount_limit import CreateCouponBlock1DiscountLimit as CreateCouponBlock1DiscountLimit
 from talon_one.models.create_coupon_block1_usage_limit import CreateCouponBlock1UsageLimit as CreateCouponBlock1UsageLimit
-from talon_one.models.create_coupon_data import CreateCouponData as CreateCouponData
 from talon_one.models.create_coupons200_response import CreateCoupons200Response as CreateCoupons200Response
 from talon_one.models.create_mcp_key import CreateMCPKey as CreateMCPKey
 from talon_one.models.create_management_key import CreateManagementKey as CreateManagementKey
@@ -1291,7 +1288,6 @@ from talon_one.models.customer_session_v2 import CustomerSessionV2 as CustomerSe
 from talon_one.models.deactivate_user_request import DeactivateUserRequest as DeactivateUserRequest
 from talon_one.models.deduct_loyalty_points import DeductLoyaltyPoints as DeductLoyaltyPoints
 from talon_one.models.deduct_loyalty_points_effect_props import DeductLoyaltyPointsEffectProps as DeductLoyaltyPointsEffectProps
-from talon_one.models.delete_coupons_data import DeleteCouponsData as DeleteCouponsData
 from talon_one.models.delete_loyalty_transactions_request import DeleteLoyaltyTransactionsRequest as DeleteLoyaltyTransactionsRequest
 from talon_one.models.delete_user_request import DeleteUserRequest as DeleteUserRequest
 from talon_one.models.digital_pass import DigitalPass as DigitalPass
@@ -1391,15 +1387,7 @@ from talon_one.models.experiment_variant_result_confidence import ExperimentVari
 from talon_one.models.experiment_verdict import ExperimentVerdict as ExperimentVerdict
 from talon_one.models.experiment_verdict_response import ExperimentVerdictResponse as ExperimentVerdictResponse
 from talon_one.models.expiring_card_points_data import ExpiringCardPointsData as ExpiringCardPointsData
-from talon_one.models.expiring_card_points_notification import ExpiringCardPointsNotification as ExpiringCardPointsNotification
-from talon_one.models.expiring_coupons_data import ExpiringCouponsData as ExpiringCouponsData
-from talon_one.models.expiring_coupons_notification import ExpiringCouponsNotification as ExpiringCouponsNotification
-from talon_one.models.expiring_coupons_notification_policy import ExpiringCouponsNotificationPolicy as ExpiringCouponsNotificationPolicy
-from talon_one.models.expiring_coupons_notification_trigger import ExpiringCouponsNotificationTrigger as ExpiringCouponsNotificationTrigger
 from talon_one.models.expiring_points_data import ExpiringPointsData as ExpiringPointsData
-from talon_one.models.expiring_points_notification import ExpiringPointsNotification as ExpiringPointsNotification
-from talon_one.models.expiring_points_notification_policy import ExpiringPointsNotificationPolicy as ExpiringPointsNotificationPolicy
-from talon_one.models.expiring_points_notification_trigger import ExpiringPointsNotificationTrigger as ExpiringPointsNotificationTrigger
 from talon_one.models.export import Export as Export
 from talon_one.models.extend_loyalty_points_expiry_date_effect_props import ExtendLoyaltyPointsExpiryDateEffectProps as ExtendLoyaltyPointsExpiryDateEffectProps
 from talon_one.models.extended_coupon import ExtendedCoupon as ExtendedCoupon
@@ -1558,18 +1546,27 @@ from talon_one.models.list_giveaways_pool200_response import ListGiveawaysPool20
 from talon_one.models.list_stores200_response import ListStores200Response as ListStores200Response
 from talon_one.models.list_with_count_check_attribute_block import ListWithCountCheckAttributeBlock as ListWithCountCheckAttributeBlock
 from talon_one.models.location_check_attribute_block import LocationCheckAttributeBlock as LocationCheckAttributeBlock
-from talon_one.models.location_check_attribute_block_values import LocationCheckAttributeBlockValues as LocationCheckAttributeBlockValues
-from talon_one.models.location_check_attribute_block_values_one_of_inner import LocationCheckAttributeBlockValuesOneOfInner as LocationCheckAttributeBlockValuesOneOfInner
+from talon_one.models.location_check_attribute_block1_values import LocationCheckAttributeBlock1Values as LocationCheckAttributeBlock1Values
+from talon_one.models.location_check_attribute_block1_values_one_of_inner import LocationCheckAttributeBlock1ValuesOneOfInner as LocationCheckAttributeBlock1ValuesOneOfInner
 from talon_one.models.login_params import LoginParams as LoginParams
 from talon_one.models.loyalty import Loyalty as Loyalty
+from talon_one.models.loyalty_added_deducted_points_balances_notification import LoyaltyAddedDeductedPointsBalancesNotification as LoyaltyAddedDeductedPointsBalancesNotification
+from talon_one.models.loyalty_added_deducted_points_balances_notification_policy import LoyaltyAddedDeductedPointsBalancesNotificationPolicy as LoyaltyAddedDeductedPointsBalancesNotificationPolicy
 from talon_one.models.loyalty_balance import LoyaltyBalance as LoyaltyBalance
 from talon_one.models.loyalty_balance_with_tier import LoyaltyBalanceWithTier as LoyaltyBalanceWithTier
 from talon_one.models.loyalty_balances import LoyaltyBalances as LoyaltyBalances
 from talon_one.models.loyalty_balances_with_tiers import LoyaltyBalancesWithTiers as LoyaltyBalancesWithTiers
 from talon_one.models.loyalty_card import LoyaltyCard as LoyaltyCard
+from talon_one.models.loyalty_card_added_deducted_points_balances_notification import LoyaltyCardAddedDeductedPointsBalancesNotification as LoyaltyCardAddedDeductedPointsBalancesNotification
+from talon_one.models.loyalty_card_added_deducted_points_balances_notification_policy import LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy as LoyaltyCardAddedDeductedPointsBalancesNotificationPolicy
 from talon_one.models.loyalty_card_balances import LoyaltyCardBalances as LoyaltyCardBalances
 from talon_one.models.loyalty_card_batch import LoyaltyCardBatch as LoyaltyCardBatch
 from talon_one.models.loyalty_card_batch_response import LoyaltyCardBatchResponse as LoyaltyCardBatchResponse
+from talon_one.models.loyalty_card_points_added_deducted_notification import LoyaltyCardPointsAddedDeductedNotification as LoyaltyCardPointsAddedDeductedNotification
+from talon_one.models.loyalty_card_points_added_deducted_notification_policy import LoyaltyCardPointsAddedDeductedNotificationPolicy as LoyaltyCardPointsAddedDeductedNotificationPolicy
+from talon_one.models.loyalty_card_points_expiring_notification import LoyaltyCardPointsExpiringNotification as LoyaltyCardPointsExpiringNotification
+from talon_one.models.loyalty_card_points_expiring_notification_policy import LoyaltyCardPointsExpiringNotificationPolicy as LoyaltyCardPointsExpiringNotificationPolicy
+from talon_one.models.loyalty_card_points_expiring_notification_trigger import LoyaltyCardPointsExpiringNotificationTrigger as LoyaltyCardPointsExpiringNotificationTrigger
 from talon_one.models.loyalty_card_profile_registration import LoyaltyCardProfileRegistration as LoyaltyCardProfileRegistration
 from talon_one.models.loyalty_card_registration import LoyaltyCardRegistration as LoyaltyCardRegistration
 from talon_one.models.loyalty_dashboard_data import LoyaltyDashboardData as LoyaltyDashboardData
@@ -1580,6 +1577,13 @@ from talon_one.models.loyalty_ledger_entry_expiry_date_change import LoyaltyLedg
 from talon_one.models.loyalty_ledger_entry_flags import LoyaltyLedgerEntryFlags as LoyaltyLedgerEntryFlags
 from talon_one.models.loyalty_ledger_transactions import LoyaltyLedgerTransactions as LoyaltyLedgerTransactions
 from talon_one.models.loyalty_membership import LoyaltyMembership as LoyaltyMembership
+from talon_one.models.loyalty_points_added_deducted_notification import LoyaltyPointsAddedDeductedNotification as LoyaltyPointsAddedDeductedNotification
+from talon_one.models.loyalty_points_added_deducted_notification_policy import LoyaltyPointsAddedDeductedNotificationPolicy as LoyaltyPointsAddedDeductedNotificationPolicy
+from talon_one.models.loyalty_points_expiring_notification import LoyaltyPointsExpiringNotification as LoyaltyPointsExpiringNotification
+from talon_one.models.loyalty_points_expiring_notification_policy import LoyaltyPointsExpiringNotificationPolicy as LoyaltyPointsExpiringNotificationPolicy
+from talon_one.models.loyalty_points_expiring_notification_trigger import LoyaltyPointsExpiringNotificationTrigger as LoyaltyPointsExpiringNotificationTrigger
+from talon_one.models.loyalty_points_pending_to_active_notification import LoyaltyPointsPendingToActiveNotification as LoyaltyPointsPendingToActiveNotification
+from talon_one.models.loyalty_points_pending_to_active_notification_policy import LoyaltyPointsPendingToActiveNotificationPolicy as LoyaltyPointsPendingToActiveNotificationPolicy
 from talon_one.models.loyalty_program import LoyaltyProgram as LoyaltyProgram
 from talon_one.models.loyalty_program_balance import LoyaltyProgramBalance as LoyaltyProgramBalance
 from talon_one.models.loyalty_program_entity import LoyaltyProgramEntity as LoyaltyProgramEntity
@@ -1722,8 +1726,6 @@ from talon_one.models.passthrough_block import PassthroughBlock as PassthroughBl
 from talon_one.models.patch_item_catalog_action import PatchItemCatalogAction as PatchItemCatalogAction
 from talon_one.models.patch_many_items_catalog_action import PatchManyItemsCatalogAction as PatchManyItemsCatalogAction
 from talon_one.models.pending_active_points_data import PendingActivePointsData as PendingActivePointsData
-from talon_one.models.pending_active_points_notification import PendingActivePointsNotification as PendingActivePointsNotification
-from talon_one.models.pending_points_notification_policy import PendingPointsNotificationPolicy as PendingPointsNotificationPolicy
 from talon_one.models.picklist import Picklist as Picklist
 from talon_one.models.placeholder_details import PlaceholderDetails as PlaceholderDetails
 from talon_one.models.price_detail import PriceDetail as PriceDetail
@@ -1756,6 +1758,8 @@ from talon_one.models.remove_from_audience_effect_props import RemoveFromAudienc
 from talon_one.models.remove_item_catalog_action import RemoveItemCatalogAction as RemoveItemCatalogAction
 from talon_one.models.remove_many_items_catalog_action import RemoveManyItemsCatalogAction as RemoveManyItemsCatalogAction
 from talon_one.models.reopen_session_response import ReopenSessionResponse as ReopenSessionResponse
+from talon_one.models.request_status import RequestStatus as RequestStatus
+from talon_one.models.request_type import RequestType as RequestType
 from talon_one.models.reserve_coupon_block import ReserveCouponBlock as ReserveCouponBlock
 from talon_one.models.reserve_coupon_effect_props import ReserveCouponEffectProps as ReserveCouponEffectProps
 from talon_one.models.response_content_object import ResponseContentObject as ResponseContentObject
@@ -1861,7 +1865,8 @@ from talon_one.models.strikethrough_changed_item import StrikethroughChangedItem
 from talon_one.models.strikethrough_custom_effect_per_item_props import StrikethroughCustomEffectPerItemProps as StrikethroughCustomEffectPerItemProps
 from talon_one.models.strikethrough_debug_response import StrikethroughDebugResponse as StrikethroughDebugResponse
 from talon_one.models.strikethrough_effect import StrikethroughEffect as StrikethroughEffect
-from talon_one.models.strikethrough_labeling_notification import StrikethroughLabelingNotification as StrikethroughLabelingNotification
+from talon_one.models.strikethrough_price_notification import StrikethroughPriceNotification as StrikethroughPriceNotification
+from talon_one.models.strikethrough_price_notification_policy import StrikethroughPriceNotificationPolicy as StrikethroughPriceNotificationPolicy
 from talon_one.models.strikethrough_set_discount_per_item_effect_props import StrikethroughSetDiscountPerItemEffectProps as StrikethroughSetDiscountPerItemEffectProps
 from talon_one.models.strikethrough_set_discount_per_item_member_effect_props import StrikethroughSetDiscountPerItemMemberEffectProps as StrikethroughSetDiscountPerItemMemberEffectProps
 from talon_one.models.strikethrough_trigger import StrikethroughTrigger as StrikethroughTrigger
@@ -1921,7 +1926,6 @@ from talon_one.models.update_catalog import UpdateCatalog as UpdateCatalog
 from talon_one.models.update_collection import UpdateCollection as UpdateCollection
 from talon_one.models.update_coupon import UpdateCoupon as UpdateCoupon
 from talon_one.models.update_coupon_batch import UpdateCouponBatch as UpdateCouponBatch
-from talon_one.models.update_coupons_data import UpdateCouponsData as UpdateCouponsData
 from talon_one.models.update_custom_effect import UpdateCustomEffect as UpdateCustomEffect
 from talon_one.models.update_customer_profile_v2409_response import UpdateCustomerProfileV2409Response as UpdateCustomerProfileV2409Response
 from talon_one.models.update_customer_session_v2409_response import UpdateCustomerSessionV2409Response as UpdateCustomerSessionV2409Response

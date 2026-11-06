@@ -29,6 +29,7 @@ class EmbeddedDashboardConfiguration(BaseModel):
     """ # noqa: E501
     workspace_id: StrictStr = Field(description="The ID of the workspace that contains dashboards.", alias="workspaceId", json_schema_extra={"examples": ["main_workspace"]})
     dashboard_id: StrictStr = Field(description="The ID of the dashboard that contains metrics.", alias="dashboardId", json_schema_extra={"examples": ["campaign_insights_metrics"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["workspaceId", "dashboardId"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class EmbeddedDashboardConfiguration(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class EmbeddedDashboardConfiguration(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -85,6 +93,11 @@ class EmbeddedDashboardConfiguration(BaseModel):
             "workspaceId": obj.get("workspaceId"),
             "dashboardId": obj.get("dashboardId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

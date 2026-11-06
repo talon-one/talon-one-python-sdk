@@ -48,6 +48,7 @@ class AccountAnalytics(BaseModel):
     loyalty_programs: StrictInt = Field(description="Total number of all loyalty programs in the account.", alias="loyaltyPrograms", json_schema_extra={"examples": [5]})
     live_loyalty_programs: StrictInt = Field(description="Total number of live loyalty programs in the account.", alias="liveLoyaltyPrograms", json_schema_extra={"examples": [5]})
     last_updated_at: datetime = Field(description="The point in time when the analytics numbers were updated last.", alias="lastUpdatedAt", json_schema_extra={"examples": ["2022-12-12T12:12:12Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applications", "liveApplications", "sandboxApplications", "campaigns", "activeCampaigns", "liveActiveCampaigns", "coupons", "activeCoupons", "expiredCoupons", "referralCodes", "activeReferralCodes", "expiredReferralCodes", "activeRules", "users", "roles", "customAttributes", "webhooks", "loyaltyPrograms", "liveLoyaltyPrograms", "lastUpdatedAt"]
 
     model_config = ConfigDict(
@@ -80,8 +81,10 @@ class AccountAnalytics(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -89,6 +92,11 @@ class AccountAnalytics(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -122,6 +130,11 @@ class AccountAnalytics(BaseModel):
             "liveLoyaltyPrograms": obj.get("liveLoyaltyPrograms"),
             "lastUpdatedAt": obj.get("lastUpdatedAt")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -29,6 +29,7 @@ class AwardDiscountAllItemsTarget(BaseModel):
     """ # noqa: E501
     type: StrictStr = Field(description="A target discriminator of type `allItems`.")
     prorated: Optional[StrictBool] = Field(default=None, description="Whether to distribute the discount proportionally across the targeted items.", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "prorated"]
 
     @field_validator('type')
@@ -68,8 +69,10 @@ class AwardDiscountAllItemsTarget(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class AwardDiscountAllItemsTarget(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class AwardDiscountAllItemsTarget(BaseModel):
             "type": obj.get("type"),
             "prorated": obj.get("prorated")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -49,6 +49,7 @@ class IntegrationResponse(BaseModel):
     awarded_giveaways: Optional[List[Giveaway]] = Field(default=None, description="The giveaways that were awarded during the event processing.", alias="awardedGiveaways")
     achievements: Optional[List[CustomerAchievement]] = Field(default=None, description="The achievements progress of the customer.")
     rewards: Optional[List[RewardWithUnlocks]] = Field(default=None, description="The unlocked rewards for the customer profile.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "triggeredCampaigns", "campaignEligibility", "effects", "ruleFailureReasons", "createdCoupons", "createdReferrals", "awardedGiveaways", "achievements", "rewards"]
 
     model_config = ConfigDict(
@@ -81,8 +82,10 @@ class IntegrationResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -150,6 +153,11 @@ class IntegrationResponse(BaseModel):
             for _item_rewards in self.rewards:
                 _items.append(_item_rewards.to_dict() if _item_rewards is not None else None)
             _dict['rewards'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -174,6 +182,11 @@ class IntegrationResponse(BaseModel):
             "achievements": [CustomerAchievement.from_dict(_item) for _item in obj["achievements"]] if obj.get("achievements") is not None else None,
             "rewards": [RewardWithUnlocks.from_dict(_item) for _item in obj["rewards"]] if obj.get("rewards") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

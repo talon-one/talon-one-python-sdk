@@ -33,6 +33,7 @@ class IntegrationUnlockRewardResponse(BaseModel):
     customer_profile: Optional[CustomerProfile] = Field(default=None, description="The customer profile that unlocked the reward.", alias="customerProfile")
     loyalty: Optional[Loyalty] = Field(default=None, description="The loyalty information of the customer profile or loyalty card that unlocked the reward.")
     effects: List[Effect] = Field(description="The effects generated when evaluating this reward unlock, after the reward's eligibility conditions are met. See [API effects](https://docs.talon.one/docs/dev/integration-api/api-effects).")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["customerProfile", "loyalty", "effects"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class IntegrationUnlockRewardResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -86,6 +89,11 @@ class IntegrationUnlockRewardResponse(BaseModel):
             for _item_effects in self.effects:
                 _items.append(_item_effects.to_dict() if _item_effects is not None else None)
             _dict['effects'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -102,6 +110,11 @@ class IntegrationUnlockRewardResponse(BaseModel):
             "loyalty": Loyalty.from_dict(obj["loyalty"]) if obj.get("loyalty") is not None else None,
             "effects": [Effect.from_dict(_item) for _item in obj["effects"]] if obj.get("effects") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -36,6 +36,7 @@ class MCPKey(BaseModel):
     created: datetime = Field(description="The date the MCP key was created.", json_schema_extra={"examples": ["2026-03-02T16:46:17.758585Z"]})
     disabled: Optional[StrictBool] = Field(default=None, description="The MCP key is disabled (this property is set to `true`) when the user who created the key is disabled or deleted.", json_schema_extra={"examples": [True]})
     last_used: Optional[datetime] = Field(default=None, description="The last time the MCP key was used.", alias="lastUsed", json_schema_extra={"examples": ["2026-03-02T16:46:17.758585Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "expiryDate", "id", "createdBy", "accountID", "created", "disabled", "lastUsed"]
 
     model_config = ConfigDict(
@@ -68,8 +69,10 @@ class MCPKey(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class MCPKey(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +106,11 @@ class MCPKey(BaseModel):
             "disabled": obj.get("disabled"),
             "lastUsed": obj.get("lastUsed")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

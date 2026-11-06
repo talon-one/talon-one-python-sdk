@@ -44,6 +44,7 @@ class AudienceCustomer(BaseModel):
     sandbox: Optional[StrictBool] = Field(default=None, description="An indicator of whether the customer is part of a sandbox or live Application. See the [docs](https://docs.talon.one/docs/product/applications/overview#application-environments). ", json_schema_extra={"examples": [False]})
     connected_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this customer profile.", alias="connectedApplicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
     connected_audiences: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the audiences that are connected to this customer profile.", alias="connectedAudiences", json_schema_extra={"examples": [[1, 2, 3]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "integrationId", "attributes", "accountId", "closedSessions", "totalSales", "loyaltyMemberships", "audienceMemberships", "lastActivity", "sandbox", "connectedApplicationsIds", "connectedAudiences"]
 
     model_config = ConfigDict(
@@ -76,8 +77,10 @@ class AudienceCustomer(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -97,6 +100,11 @@ class AudienceCustomer(BaseModel):
             for _item_audience_memberships in self.audience_memberships:
                 _items.append(_item_audience_memberships.to_dict() if _item_audience_memberships is not None else None)
             _dict['audienceMemberships'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -123,6 +131,11 @@ class AudienceCustomer(BaseModel):
             "connectedApplicationsIds": obj.get("connectedApplicationsIds"),
             "connectedAudiences": obj.get("connectedAudiences")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

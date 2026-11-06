@@ -30,6 +30,7 @@ class UpdateLoyaltyPointsExpiryBlock1Program(BaseModel):
     id: StrictInt = Field(description="The ID of the loyalty program.", json_schema_extra={"examples": [10]})
     name: Optional[StrictStr] = Field(default=None, description="The internal name of the loyalty program.", json_schema_extra={"examples": ["MainProgram"]})
     title: Optional[StrictStr] = Field(default=None, description="The display name of the loyalty program.", json_schema_extra={"examples": ["Main Loyalty Program"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "title"]
 
     model_config = ConfigDict(
@@ -64,10 +65,12 @@ class UpdateLoyaltyPointsExpiryBlock1Program(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "name",
             "title",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class UpdateLoyaltyPointsExpiryBlock1Program(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -91,6 +99,11 @@ class UpdateLoyaltyPointsExpiryBlock1Program(BaseModel):
             "name": obj.get("name"),
             "title": obj.get("title")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -25,19 +25,37 @@ from pydantic_core import to_jsonable_python
 
 class BetweenCheckAttributeBlock(BaseModel):
     """
-    Variant of `CheckAttributeBlock` for the `between` operator, which requires both a minimum and maximum value.
+    BetweenCheckAttributeBlock
     """ # noqa: E501
-    operator: Optional[StrictStr] = Field(default=None, description="The range comparison operator. Must be `between`.")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this block.", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
+    type: StrictStr = Field(description="A block discriminator of type `checkAttribute`.", json_schema_extra={"examples": ["checkAttribute"]})
+    tags: Optional[List[StrictStr]] = Field(default=None, description="Semantic labels attached to this block.")
+    operator: StrictStr = Field(description="The range comparison operator. Must be `between`.")
+    attribute: Optional[Any] = Field(description="The attribute path identifier (e.g. \"$Session.Total\").", json_schema_extra={"examples": ["$Session.Total"]})
+    value: Optional[Any] = Field(default=None, description="The comparison value for scalar operators.", json_schema_extra={"examples": [100]})
     min: Optional[Any] = Field(description="The minimum value allowed for the `between` operator.", json_schema_extra={"examples": [10]})
     max: Optional[Any] = Field(description="The maximum value allowed for the `between` operator.", json_schema_extra={"examples": [100]})
-    __properties: ClassVar[List[str]] = ["operator", "min", "max"]
+    start: Optional[Any] = Field(default=None, description="The start value for the `within` operator.", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
+    end: Optional[Any] = Field(default=None, description="The end value for the `within` operator.", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
+    start_inclusive: Optional[StrictBool] = Field(default=None, description="When `true`, the `start` value is included in the range for the `within` operator.", alias="startInclusive", json_schema_extra={"examples": [True]})
+    end_inclusive: Optional[StrictBool] = Field(default=None, description="When `true`, the `end` value is included in the range for the `within` operator.", alias="endInclusive", json_schema_extra={"examples": [True]})
+    timezone_insensitive: Optional[StrictBool] = Field(default=None, description="Indicates whether the `within` operator ignores time zones and compares the wall-clock time only. When `false`, time zones are taken into account.", alias="timezoneInsensitive", json_schema_extra={"examples": [False]})
+    values: Optional[Any] = Field(default=None, description="The set of values to match against for list operators. For location operators (`in`, `not(in)`), an array of objects with a `geometry` (see `GeoJSONGeometry`) and an optional `name`, or a string reference to a list attribute.", json_schema_extra={"examples": [[{"name": "Berlin district", "geometry": {"type": "Point", "coordinates": [13.405, 52.52]}}]]})
+    count: Optional[Any] = Field(default=None, description="The count threshold for `containsAtLeast` and `containsExactly` operators.", json_schema_extra={"examples": [2]})
+    on_failure: Optional[List[Block]] = Field(default=None, description="Promotion blocks evaluated when this block fails or returns false.", alias="onFailure")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "attribute", "value", "min", "max", "start", "end", "startInclusive", "endInclusive", "timezoneInsensitive", "values", "count", "onFailure"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['checkAttribute']):
+            raise ValueError("must be one of enum values ('checkAttribute')")
+        return value
 
     @field_validator('operator')
     def operator_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in set(['between']):
             raise ValueError("must be one of enum values ('between')")
         return value
@@ -72,8 +90,14 @@ class BetweenCheckAttributeBlock(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +105,27 @@ class BetweenCheckAttributeBlock(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in on_failure (list)
+        _items = []
+        if self.on_failure:
+            for _item_on_failure in self.on_failure:
+                _items.append(_item_on_failure.to_dict() if _item_on_failure is not None else None)
+            _dict['onFailure'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        # set to None if attribute (nullable) is None
+        # and model_fields_set contains the field
+        if self.attribute is None and "attribute" in self.model_fields_set:
+            _dict['attribute'] = None
+
+        # set to None if value (nullable) is None
+        # and model_fields_set contains the field
+        if self.value is None and "value" in self.model_fields_set:
+            _dict['value'] = None
+
         # set to None if min (nullable) is None
         # and model_fields_set contains the field
         if self.min is None and "min" in self.model_fields_set:
@@ -90,6 +135,26 @@ class BetweenCheckAttributeBlock(BaseModel):
         # and model_fields_set contains the field
         if self.max is None and "max" in self.model_fields_set:
             _dict['max'] = None
+
+        # set to None if start (nullable) is None
+        # and model_fields_set contains the field
+        if self.start is None and "start" in self.model_fields_set:
+            _dict['start'] = None
+
+        # set to None if end (nullable) is None
+        # and model_fields_set contains the field
+        if self.end is None and "end" in self.model_fields_set:
+            _dict['end'] = None
+
+        # set to None if values (nullable) is None
+        # and model_fields_set contains the field
+        if self.values is None and "values" in self.model_fields_set:
+            _dict['values'] = None
+
+        # set to None if count (nullable) is None
+        # and model_fields_set contains the field
+        if self.count is None and "count" in self.model_fields_set:
+            _dict['count'] = None
 
         return _dict
 
@@ -103,10 +168,31 @@ class BetweenCheckAttributeBlock(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "type": obj.get("type"),
+            "tags": obj.get("tags"),
             "operator": obj.get("operator"),
+            "attribute": obj.get("attribute"),
+            "value": obj.get("value"),
             "min": obj.get("min"),
-            "max": obj.get("max")
+            "max": obj.get("max"),
+            "start": obj.get("start"),
+            "end": obj.get("end"),
+            "startInclusive": obj.get("startInclusive"),
+            "endInclusive": obj.get("endInclusive"),
+            "timezoneInsensitive": obj.get("timezoneInsensitive"),
+            "values": obj.get("values"),
+            "count": obj.get("count"),
+            "onFailure": [Block.from_dict(_item) for _item in obj["onFailure"]] if obj.get("onFailure") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
+from talon_one.models.block import Block
+# TODO: Rewrite to not use raise_errors
+BetweenCheckAttributeBlock.model_rebuild(raise_errors=False)
 

@@ -44,6 +44,7 @@ class CustomEffect(BaseModel):
     params: Optional[List[TemplateArgDef]] = Field(default=None, description="Array of template argument definitions.")
     modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated this effect if available.", alias="modifiedBy", json_schema_extra={"examples": [334]})
     created_by: StrictInt = Field(description="ID of the user who created this effect.", alias="createdBy", json_schema_extra={"examples": [216]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "accountId", "modified", "applicationIds", "isPerItem", "name", "title", "payload", "description", "enabled", "params", "modifiedBy", "createdBy"]
 
     @field_validator('name', mode="before")
@@ -90,8 +91,10 @@ class CustomEffect(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -105,6 +108,11 @@ class CustomEffect(BaseModel):
             for _item_params in self.params:
                 _items.append(_item_params.to_dict() if _item_params is not None else None)
             _dict['params'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -132,6 +140,11 @@ class CustomEffect(BaseModel):
             "modifiedBy": obj.get("modifiedBy"),
             "createdBy": obj.get("createdBy")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -31,6 +31,7 @@ class OutgoingIntegrationMoEngagePolicy(BaseModel):
     app_id: StrictStr = Field(description="MoEngage APP ID. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="appId", json_schema_extra={"examples": ["LDUBEU9PLTPYXV30SMTYAAAA"]})
     data_api_id: StrictStr = Field(description="MoEngage DATA API ID. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="dataApiId", json_schema_extra={"examples": ["LDUBEU9PLTPYXV30SMTYAAAA"]})
     data_api_key: StrictStr = Field(description="MoEngage DATA API Key. See [MoEngage Developer Guide](https://developers.moengage.com/hc/en-us/articles/4404674776724-Overview).", alias="dataApiKey", json_schema_extra={"examples": ["R95crrAAdZ747QLXe8LwnGLX"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["baseUrl", "appId", "dataApiId", "dataApiKey"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class OutgoingIntegrationMoEngagePolicy(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class OutgoingIntegrationMoEngagePolicy(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class OutgoingIntegrationMoEngagePolicy(BaseModel):
             "dataApiId": obj.get("dataApiId"),
             "dataApiKey": obj.get("dataApiKey")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

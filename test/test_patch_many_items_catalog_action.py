@@ -42,7 +42,7 @@ class TestPatchManyItemsCatalogAction(unittest.TestCase):
                         op = 'EQ', 
                         value = null, )
                     ],
-                attributes = None
+                attributes = { }
             )
         else:
             return PatchManyItemsCatalogAction(

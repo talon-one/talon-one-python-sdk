@@ -40,6 +40,7 @@ class NewManagementKey(BaseModel):
     disabled: Optional[StrictBool] = Field(default=None, description="The management key is disabled (this property is set to `true`) when the user who created the key is disabled or deleted.", json_schema_extra={"examples": [True]})
     last_used: Optional[datetime] = Field(default=None, description="The last time the management key was used.", alias="lastUsed", json_schema_extra={"examples": ["2022-03-02T16:46:17.758585Z"]})
     key: StrictStr = Field(description="The management key.", json_schema_extra={"examples": ["f45f90d21dcd9bac965c45e547e9754a3196891d09948e35adbcbedc4e9e4b01"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "expiryDate", "endpoints", "allowedApplicationIds", "id", "createdBy", "accountID", "created", "disabled", "lastUsed", "key"]
 
     model_config = ConfigDict(
@@ -72,8 +73,10 @@ class NewManagementKey(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -87,6 +90,11 @@ class NewManagementKey(BaseModel):
             for _item_endpoints in self.endpoints:
                 _items.append(_item_endpoints.to_dict() if _item_endpoints is not None else None)
             _dict['endpoints'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -111,6 +119,11 @@ class NewManagementKey(BaseModel):
             "lastUsed": obj.get("lastUsed"),
             "key": obj.get("key")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

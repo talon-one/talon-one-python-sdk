@@ -32,6 +32,7 @@ class RoleV2RolesGroup(BaseModel):
     loyalty_programs: Optional[Dict[str, StrictStr]] = Field(default=None, description="A map of the link between the loyalty program-related permission set and the loyalty program ID the permissions apply to.", alias="loyaltyPrograms", json_schema_extra={"examples": [{"10": "Loyalty program manager permission set"}]})
     campaign_access_groups: Optional[Dict[str, StrictStr]] = Field(default=None, description="A map of the link between the campaign access group-related permission set and the campaign access group ID the permissions apply to.", alias="campaignAccessGroups", json_schema_extra={"examples": [{"5": "Campaign access group manager permission set"}]})
     account: Optional[StrictStr] = Field(default=None, description="Name of the account-level permission set.", json_schema_extra={"examples": ["Account administration permission set"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applications", "loyaltyPrograms", "campaignAccessGroups", "account"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class RoleV2RolesGroup(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class RoleV2RolesGroup(BaseModel):
             for _key_applications in self.applications:
                 _field_dict[_key_applications] = self.applications[_key_applications].to_dict() if self.applications[_key_applications] is not None else None
             _dict['applications'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -101,6 +109,11 @@ class RoleV2RolesGroup(BaseModel):
             "campaignAccessGroups": obj.get("campaignAccessGroups"),
             "account": obj.get("account")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -38,6 +38,7 @@ class IntegrationHubFlowResponse(BaseModel):
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program the flow is registered for.", alias="loyaltyProgramId", json_schema_extra={"examples": [12]})
     event_type: StrictStr = Field(description="The event type we want to register a flow for.", alias="eventType")
     config: IntegrationHubFlowConfigResponse
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "integrationName", "instanceName", "createdAt", "disabledUntil", "applicationId", "loyaltyProgramId", "eventType", "config"]
 
     model_config = ConfigDict(
@@ -70,8 +71,10 @@ class IntegrationHubFlowResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,6 +85,11 @@ class IntegrationHubFlowResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of config
         if self.config:
             _dict['config'] = self.config.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if disabled_until (nullable) is None
         # and model_fields_set contains the field
         if self.disabled_until is None and "disabled_until" in self.model_fields_set:
@@ -109,6 +117,11 @@ class IntegrationHubFlowResponse(BaseModel):
             "eventType": obj.get("eventType"),
             "config": IntegrationHubFlowConfigResponse.from_dict(obj["config"]) if obj.get("config") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

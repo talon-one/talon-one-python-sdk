@@ -30,6 +30,7 @@ class GenerateCampaignSummary(BaseModel):
     campaign_id: StrictInt = Field(description="ID of a campaign.", alias="campaignID")
     ruleset_id: StrictInt = Field(description="ID of a ruleset.", alias="rulesetID")
     currency: StrictStr = Field(description="Currency for the campaign.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["campaignID", "rulesetID", "currency"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class GenerateCampaignSummary(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class GenerateCampaignSummary(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class GenerateCampaignSummary(BaseModel):
             "rulesetID": obj.get("rulesetID"),
             "currency": obj.get("currency")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

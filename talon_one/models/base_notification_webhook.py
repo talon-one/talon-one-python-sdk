@@ -35,6 +35,7 @@ class BaseNotificationWebhook(BaseModel):
     url: StrictStr = Field(description="API URL for the given webhook-based notification.", json_schema_extra={"examples": ["www.my-company.com/my-endpoint-name"]})
     headers: List[Annotated[str, Field(strict=True)]] = Field(description="List of API HTTP headers for the given webhook-based notification.")
     enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether the notification is activated.", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "modified", "url", "headers", "enabled"]
 
     model_config = ConfigDict(
@@ -67,8 +68,10 @@ class BaseNotificationWebhook(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class BaseNotificationWebhook(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class BaseNotificationWebhook(BaseModel):
             "headers": obj.get("headers"),
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else True
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

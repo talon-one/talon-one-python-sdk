@@ -29,6 +29,7 @@ class GiveawayPoolBlockReference(BaseModel):
     """ # noqa: E501
     id: StrictInt = Field(description="The unique identifier of the giveaway pool.", json_schema_extra={"examples": [42]})
     name: Optional[StrictStr] = Field(default=None, description="The display name of the giveaway pool.", json_schema_extra={"examples": ["Summer Campaign Pool"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name"]
 
     model_config = ConfigDict(
@@ -62,9 +63,11 @@ class GiveawayPoolBlockReference(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "name",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class GiveawayPoolBlockReference(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class GiveawayPoolBlockReference(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

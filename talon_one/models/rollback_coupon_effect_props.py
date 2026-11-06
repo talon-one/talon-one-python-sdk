@@ -28,6 +28,7 @@ class RollbackCouponEffectProps(BaseModel):
     This effect indicates that a coupon code redemption has been rolled back. The coupon becomes redeemable again.  This effect is triggered in the following cases:  - A session where a coupon was accepted is [cancelled](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#manage-the-sessions-state). See an example of use in the [cancelling a session tutorial](https://docs.talon.one/docs/dev/tutorials/roll-back-effects). - A session where a coupon was accepted is [reopened](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/reopenCustomerSession).
     """ # noqa: E501
     value: StrictStr = Field(description="The coupon code whose redemption has been rolled back.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["value"]
 
     model_config = ConfigDict(
@@ -60,8 +61,10 @@ class RollbackCouponEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -69,6 +72,11 @@ class RollbackCouponEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -83,6 +91,11 @@ class RollbackCouponEffectProps(BaseModel):
         _obj = cls.model_validate({
             "value": obj.get("value")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

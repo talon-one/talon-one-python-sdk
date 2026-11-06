@@ -34,6 +34,7 @@ class NewRuleset(BaseModel):
     bindings: List[Binding] = Field(description="An array that provides objects with variable names (name) and talang expressions to whose result they are bound (expression) during rule evaluation. The order of the evaluation is decided by the position in the array.", json_schema_extra={"examples": [[]]})
     rb_version: Optional[StrictStr] = Field(default=None, description="The version of the rulebuilder used to create this ruleset.", alias="rbVersion", json_schema_extra={"examples": ["v2"]})
     activate: Optional[StrictBool] = Field(default=None, description="Indicates whether this created ruleset should be activated for the campaign that owns it.", json_schema_extra={"examples": [True]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["rules", "strikethroughRules", "bindings", "rbVersion", "activate"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class NewRuleset(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -93,6 +96,11 @@ class NewRuleset(BaseModel):
             for _item_bindings in self.bindings:
                 _items.append(_item_bindings.to_dict() if _item_bindings is not None else None)
             _dict['bindings'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -111,6 +119,11 @@ class NewRuleset(BaseModel):
             "rbVersion": obj.get("rbVersion"),
             "activate": obj.get("activate")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

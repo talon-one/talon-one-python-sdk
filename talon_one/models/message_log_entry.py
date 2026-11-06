@@ -46,6 +46,7 @@ class MessageLogEntry(BaseModel):
     application_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the Application.", alias="applicationId", json_schema_extra={"examples": [5]})
     loyalty_program_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the loyalty program.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
     campaign_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Identifier of the campaign.", alias="campaignId", json_schema_extra={"examples": [2]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "service", "changeType", "notificationId", "notificationName", "webhookId", "webhookName", "request", "response", "createdAt", "entityType", "url", "applicationId", "loyaltyProgramId", "campaignId"]
 
     @field_validator('entity_type')
@@ -85,8 +86,10 @@ class MessageLogEntry(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -100,6 +103,11 @@ class MessageLogEntry(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of response
         if self.response:
             _dict['response'] = self.response.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -128,6 +136,11 @@ class MessageLogEntry(BaseModel):
             "loyaltyProgramId": obj.get("loyaltyProgramId"),
             "campaignId": obj.get("campaignId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -31,6 +31,7 @@ class IntegrationHubFlowConfigResponse(BaseModel):
     worker_count: Optional[Annotated[int, Field(le=500, strict=True, ge=1)]] = Field(default=None, description="Number of IntegrationHub workers to run in parallel for this flow (maximum 500).", alias="WorkerCount")
     max_events_per_message: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Maximum number of events to send in a single message to IntegrationHub.", alias="MaxEventsPerMessage")
     max_retries: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Maximum number of retries for a IntegrationHub event before it is ignored.", alias="MaxRetries")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["WorkerCount", "MaxEventsPerMessage", "MaxRetries"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class IntegrationHubFlowConfigResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class IntegrationHubFlowConfigResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +96,11 @@ class IntegrationHubFlowConfigResponse(BaseModel):
             "MaxEventsPerMessage": obj.get("MaxEventsPerMessage"),
             "MaxRetries": obj.get("MaxRetries")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

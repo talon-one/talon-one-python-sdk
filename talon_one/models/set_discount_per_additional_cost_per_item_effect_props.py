@@ -34,6 +34,7 @@ class SetDiscountPerAdditionalCostPerItemEffectProps(BaseModel):
     sub_position: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The index of the item unit in its line item.", alias="subPosition")
     additional_cost: StrictStr = Field(description="The API name of the additional cost to be discounted.", alias="additionalCost")
     desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_[(Partial discounts enabled only)](https://docs.talon.one/docs/product/applications/manage-general-settings#partial-discounts)_. The monetary value of the discount to be applied to the additional cost without considering budget limitations.", alias="desiredValue")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "additionalCostId", "value", "position", "subPosition", "additionalCost", "desiredValue"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class SetDiscountPerAdditionalCostPerItemEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class SetDiscountPerAdditionalCostPerItemEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -95,6 +103,11 @@ class SetDiscountPerAdditionalCostPerItemEffectProps(BaseModel):
             "additionalCost": obj.get("additionalCost"),
             "desiredValue": obj.get("desiredValue")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

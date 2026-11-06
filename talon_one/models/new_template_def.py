@@ -36,6 +36,7 @@ class NewTemplateDef(BaseModel):
     expr: List[Any] = Field(description="A Talang expression that contains variable bindings referring to args.")
     args: List[TemplateArgDef] = Field(description="An array of argument definitions.")
     expose: Optional[StrictBool] = Field(default=False, description="A flag to control exposure in Rule Builder.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "description", "help", "category", "expr", "args", "expose"]
 
     model_config = ConfigDict(
@@ -68,8 +69,10 @@ class NewTemplateDef(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -83,6 +86,11 @@ class NewTemplateDef(BaseModel):
             for _item_args in self.args:
                 _items.append(_item_args.to_dict() if _item_args is not None else None)
             _dict['args'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -103,6 +111,11 @@ class NewTemplateDef(BaseModel):
             "args": [TemplateArgDef.from_dict(_item) for _item in obj["args"]] if obj.get("args") is not None else None,
             "expose": obj.get("expose") if obj.get("expose") is not None else False
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

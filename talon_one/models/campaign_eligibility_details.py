@@ -31,6 +31,7 @@ class CampaignEligibilityDetails(BaseModel):
     passed: StrictBool = Field(description="Indicates whether the customer was eligible for the campaign in the current session.", json_schema_extra={"examples": [False]})
     coupon_code: Optional[StrictStr] = Field(default=None, description="The coupon code used to check a customer's eligibility for the campaign in the current session, if applicable.", alias="couponCode", json_schema_extra={"examples": ["XMAS-20-2021"]})
     details: Optional[CampaignEligibilityFailureDetails] = Field(default=None, description="The details about why the customer was not eligible for the campaign in the current session. Only returned when `passed` is `false`.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["passed", "couponCode", "details"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class CampaignEligibilityDetails(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class CampaignEligibilityDetails(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -91,6 +99,11 @@ class CampaignEligibilityDetails(BaseModel):
             "couponCode": obj.get("couponCode"),
             "details": CampaignEligibilityFailureDetails.from_dict(obj["details"]) if obj.get("details") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

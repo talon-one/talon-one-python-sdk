@@ -39,6 +39,7 @@ class Giveaway(BaseModel):
     import_id: Optional[StrictInt] = Field(default=None, description="The ID of the Import which created this giveaway.", alias="importId", json_schema_extra={"examples": [4]})
     profile_integration_id: Optional[StrictStr] = Field(default=None, description="The third-party integration ID of the customer profile that was awarded the giveaway, if the giveaway was awarded.", alias="profileIntegrationId", json_schema_extra={"examples": ["R195412"]})
     profile_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the customer profile that was awarded the giveaway, if the giveaway was awarded and an internal ID exists.", alias="profileId", json_schema_extra={"examples": [1]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "code", "poolId", "startDate", "endDate", "attributes", "used", "importId", "profileIntegrationId", "profileId"]
 
     model_config = ConfigDict(
@@ -71,8 +72,10 @@ class Giveaway(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class Giveaway(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -104,6 +112,11 @@ class Giveaway(BaseModel):
             "profileIntegrationId": obj.get("profileIntegrationId"),
             "profileId": obj.get("profileId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

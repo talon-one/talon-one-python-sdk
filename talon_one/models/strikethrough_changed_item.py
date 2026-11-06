@@ -39,6 +39,7 @@ class StrikethroughChangedItem(BaseModel):
     prices: Optional[Dict[str, PriceDetail]] = Field(default=None, description="A map of keys and values representing the price types and related price adjustment details for this cart item.       The keys correspond to the `priceType` names. ", json_schema_extra={"examples": [{"member": {"price": 90, "adjustmentReferenceId": "68851723-e6fa-488f-ace9-112581e6c19b", "adjustmentEffectiveFrom": "2025-05-25T00:00:00Z", "adjustmentEffectiveUntil": "2025-05-30T00:00:00Z"}, "base": {"price": 100}}]})
     evaluated_at: datetime = Field(description="The evaluation time of the changed item.", alias="evaluatedAt", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     effects: Optional[List[StrikethroughEffect]] = None
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "catalogId", "sku", "version", "price", "prices", "evaluatedAt", "effects"]
 
     model_config = ConfigDict(
@@ -71,8 +72,10 @@ class StrikethroughChangedItem(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -92,6 +95,11 @@ class StrikethroughChangedItem(BaseModel):
             for _item_effects in self.effects:
                 _items.append(_item_effects.to_dict() if _item_effects is not None else None)
             _dict['effects'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -118,6 +126,11 @@ class StrikethroughChangedItem(BaseModel):
             "evaluatedAt": obj.get("evaluatedAt"),
             "effects": [StrikethroughEffect.from_dict(_item) for _item in obj["effects"]] if obj.get("effects") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

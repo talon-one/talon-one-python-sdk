@@ -32,6 +32,7 @@ class Selector(BaseModel):
     type: StrictStr = Field(description="A binding of type `selector`.", json_schema_extra={"examples": ["selector"]})
     source: StrictStr = Field(description="The attribute path the pipeline draws items from.", json_schema_extra={"examples": ["$Session.CartItems"]})
     steps: List[SelectorStep] = Field(description="Ordered pipeline steps applied to the source items.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "type", "source", "steps"]
 
     @field_validator('type')
@@ -71,8 +72,10 @@ class Selector(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -86,6 +89,11 @@ class Selector(BaseModel):
             for _item_steps in self.steps:
                 _items.append(_item_steps.to_dict() if _item_steps is not None else None)
             _dict['steps'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -103,6 +111,11 @@ class Selector(BaseModel):
             "source": obj.get("source"),
             "steps": [SelectorStep.from_dict(_item) for _item in obj["steps"]] if obj.get("steps") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

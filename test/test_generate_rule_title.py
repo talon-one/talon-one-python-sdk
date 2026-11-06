@@ -35,14 +35,14 @@ class TestGenerateRuleTitle(unittest.TestCase):
         model = GenerateRuleTitle()
         if include_optional:
             return GenerateRuleTitle(
-                rule = talon_one.models.generate_rule_title_rule.GenerateRuleTitle_rule(
+                rule = talon_one.models.generate_rule_title_rule.GenerateRuleTitleRule(
                     effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], 
                     condition = [and, [couponValid]], ),
                 currency = ''
             )
         else:
             return GenerateRuleTitle(
-                rule = talon_one.models.generate_rule_title_rule.GenerateRuleTitle_rule(
+                rule = talon_one.models.generate_rule_title_rule.GenerateRuleTitleRule(
                     effects = [catch, [noop], [setDiscount, 10% off, [*, [., Session, Total], [/, 10, 100]]]], 
                     condition = [and, [couponValid]], ),
                 currency = '',

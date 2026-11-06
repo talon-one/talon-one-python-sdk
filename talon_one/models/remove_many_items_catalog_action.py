@@ -29,6 +29,7 @@ class RemoveManyItemsCatalogAction(BaseModel):
     The specific properties of the \"REMOVE_MANY\" catalog sync action.
     """ # noqa: E501
     filters: Optional[List[CatalogActionFilter]] = Field(default=None, description="The list of filters used to select the items to patch, joined by `AND`.  **Note:** Every item in the catalog will be removed if there are no filters. ")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["filters"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class RemoveManyItemsCatalogAction(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class RemoveManyItemsCatalogAction(BaseModel):
             for _item_filters in self.filters:
                 _items.append(_item_filters.to_dict() if _item_filters is not None else None)
             _dict['filters'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class RemoveManyItemsCatalogAction(BaseModel):
         _obj = cls.model_validate({
             "filters": [CatalogActionFilter.from_dict(_item) for _item in obj["filters"]] if obj.get("filters") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

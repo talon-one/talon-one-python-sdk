@@ -36,6 +36,7 @@ class CampaignSetBranchNode(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="A description of the campaign set.")
     evaluation_mode: StrictStr = Field(description="The mode by which campaigns in the campaign evaluation group are evaluated.", alias="evaluationMode")
     evaluation_scope: StrictStr = Field(description="The evaluation scope of the campaign evaluation group.", alias="evaluationScope")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "name", "operator", "elements", "groupId", "locked", "description", "evaluationMode", "evaluationScope"]
 
     @field_validator('type')
@@ -96,8 +97,10 @@ class CampaignSetBranchNode(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -111,6 +114,11 @@ class CampaignSetBranchNode(BaseModel):
             for _item_elements in self.elements:
                 _items.append(_item_elements.to_dict() if _item_elements is not None else None)
             _dict['elements'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -133,6 +141,11 @@ class CampaignSetBranchNode(BaseModel):
             "evaluationMode": obj.get("evaluationMode"),
             "evaluationScope": obj.get("evaluationScope")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 from talon_one.models.campaign_set_node import CampaignSetNode

@@ -45,14 +45,14 @@ class TestEvent(unittest.TestCase):
                 integration_id = '175KJPS947296',
                 session_id = '175KJPS947296',
                 effects = [
-                    None
+                    { }
                     ],
                 ledger_entries = [
                     null
                     ],
                 meta = talon_one.models.meta.Meta(
-                    campaigns = talon_one.models.campaigns.campaigns(), 
-                    coupons = talon_one.models.coupons.coupons(), 
+                    campaigns = { }, 
+                    coupons = { }, 
                     coupon_rejection_reason = talon_one.models.coupon_rejection_reason.CouponRejectionReason(
                         campaign_id = 244, 
                         coupon_id = 4928, 
@@ -61,7 +61,7 @@ class TestEvent(unittest.TestCase):
                         campaign_id = 56, 
                         referral_id = 56, 
                         reason = 'ReferralNotFound', ), 
-                    warnings = talon_one.models.warnings.warnings(), )
+                    warnings = { }, )
             )
         else:
             return Event(
@@ -71,7 +71,7 @@ class TestEvent(unittest.TestCase):
                 type = 'pageViewed',
                 attributes = {myAttribute=myValue},
                 effects = [
-                    None
+                    { }
                     ],
         )
         """

@@ -52,6 +52,7 @@ class RevisionVersion(BaseModel):
     created_by: StrictInt = Field(description="The ID of the user who created this revision.", alias="createdBy", json_schema_extra={"examples": [134]})
     revision_id: StrictInt = Field(description="The ID of the revision.", alias="revisionId", json_schema_extra={"examples": [6]})
     version: StrictInt = Field(description="Incrementing number representing how many revisions have been activated on this campaign. Starts from `0` for a new campaign. ")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "startTime", "endTime", "attributes", "description", "activeRulesetId", "tags", "couponSettings", "referralSettings", "limits", "reevaluateOnReturn", "features", "couponAttributes", "accountId", "applicationId", "campaignId", "created", "createdBy", "revisionId", "version"]
 
     @field_validator('features')
@@ -95,8 +96,10 @@ class RevisionVersion(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -116,6 +119,11 @@ class RevisionVersion(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if start_time (nullable) is None
         # and model_fields_set contains the field
         if self.start_time is None and "start_time" in self.model_fields_set:
@@ -170,6 +178,11 @@ class RevisionVersion(BaseModel):
             "revisionId": obj.get("revisionId"),
             "version": obj.get("version")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

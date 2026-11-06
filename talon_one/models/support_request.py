@@ -34,7 +34,7 @@ class SupportRequest(BaseModel):
     campaign_id: Optional[StrictInt] = Field(default=None, description="Identifier of the campaign where the coupon or gift card is created.", alias="campaignId", json_schema_extra={"examples": [100]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="Identifier of the loyalty program where the points are added or deducted.", alias="loyaltyProgramId", json_schema_extra={"examples": [8]})
     subledger_id: Optional[StrictStr] = Field(default=None, description="ID of the subledger the points are added to or deducted from. Must be combined with `loyaltyProgramId`. The subledger must already exist in the given loyalty program.", alias="subledgerId", json_schema_extra={"examples": ["sub-123"]})
-    created_by_user: StrictStr = Field(description="Email address of the customer support agent who created the support request.", alias="createdByUser", json_schema_extra={"examples": ["support.agent.name@company.com"]})
+    created_by_user: StrictStr = Field(description="Email address of the customer support agent who created the support request.", alias="createdByUser", json_schema_extra={"examples": ["jane.smith@example.com"]})
     created_at: datetime = Field(description="Timestamp when the request was made.", alias="createdAt", json_schema_extra={"examples": ["2025-07-20T22:00:00Z"]})
     customer_profile_id: StrictStr = Field(description="Integration ID of the customer profile linked to the support request.", alias="customerProfileId", json_schema_extra={"examples": ["URNGV8294NV"]})
     request_type: StrictStr = Field(description="Type of reward requested, including gift cards, personal coupons, and loyalty point additions or deductions.", alias="requestType", json_schema_extra={"examples": ["personal_coupon"]})
@@ -43,8 +43,9 @@ class SupportRequest(BaseModel):
     request_status: StrictStr = Field(description="Current status of the support request.", alias="requestStatus", json_schema_extra={"examples": ["approved"]})
     processed_at: Optional[datetime] = Field(default=None, description="Timestamp when the request was approved or rejected.", alias="processedAt", json_schema_extra={"examples": ["2025-07-20T22:10:00Z"]})
     processing_note: Optional[StrictStr] = Field(default=None, description="Notes attached by the admin when rejecting or approving a request.", alias="processingNote", json_schema_extra={"examples": ["Rejected as the customer was awarded points already."]})
-    processed_by_user: Optional[StrictStr] = Field(default=None, description="Email address of the admin who approved or rejected the support request.", alias="processedByUser", json_schema_extra={"examples": ["admin.name@company.com"]})
+    processed_by_user: Optional[StrictStr] = Field(default=None, description="Email address of the admin who approved or rejected the support request.", alias="processedByUser", json_schema_extra={"examples": ["john.doe@example.com"]})
     coupon_code: Optional[StrictStr] = Field(default=None, description="Coupon code associated with the approved support request.", alias="couponCode", json_schema_extra={"examples": ["SUMMER-2025-XYZ"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "applicationId", "campaignId", "loyaltyProgramId", "subledgerId", "createdByUser", "createdAt", "customerProfileId", "requestType", "requestValue", "requestNote", "requestStatus", "processedAt", "processingNote", "processedByUser", "couponCode"]
 
     @field_validator('request_type')
@@ -91,8 +92,10 @@ class SupportRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -100,6 +103,11 @@ class SupportRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -129,6 +137,11 @@ class SupportRequest(BaseModel):
             "processedByUser": obj.get("processedByUser"),
             "couponCode": obj.get("couponCode")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

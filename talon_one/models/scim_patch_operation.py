@@ -30,6 +30,7 @@ class ScimPatchOperation(BaseModel):
     op: StrictStr = Field(description="The method that should be used in the operation.")
     path: Optional[StrictStr] = Field(default=None, description="The path specifying the attribute that should be updated.")
     value: Optional[StrictStr] = Field(default=None, description="The value that should be updated. Required if `op` is `add` or `replace`.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["op", "path", "value"]
 
     @field_validator('op')
@@ -69,8 +70,10 @@ class ScimPatchOperation(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class ScimPatchOperation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -94,6 +102,11 @@ class ScimPatchOperation(BaseModel):
             "path": obj.get("path"),
             "value": obj.get("value")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

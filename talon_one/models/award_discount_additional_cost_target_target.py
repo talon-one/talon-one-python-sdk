@@ -106,6 +106,32 @@ class AwardDiscountAdditionalCostTargetTarget(BaseModel):
         error_messages = []
         match = 0
 
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "type"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `AwardDiscountAllItemsTarget`
+        if _data_type == "allItems":
+            instance.actual_instance = AwardDiscountAllItemsTarget.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardDiscountCartTarget`
+        if _data_type == "cart":
+            instance.actual_instance = AwardDiscountCartTarget.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardDiscountGlobalFilterTarget`
+        if _data_type == "globalFilter":
+            instance.actual_instance = AwardDiscountGlobalFilterTarget.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardDiscountSelectorTarget`
+        if _data_type == "selector":
+            instance.actual_instance = AwardDiscountSelectorTarget.from_json(json_str)
+            return instance
+
         # deserialize data into AwardDiscountCartTarget
         try:
             instance.actual_instance = AwardDiscountCartTarget.from_json(json_str)
@@ -148,7 +174,7 @@ class AwardDiscountAdditionalCostTargetTarget(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
     def to_dict(self) -> Optional[Union[Dict[str, Any], AwardDiscountAllItemsTarget, AwardDiscountCartTarget, AwardDiscountGlobalFilterTarget, AwardDiscountSelectorTarget]]:
         """Returns the dict representation of the actual instance"""
@@ -158,7 +184,9 @@ class AwardDiscountAdditionalCostTargetTarget(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:

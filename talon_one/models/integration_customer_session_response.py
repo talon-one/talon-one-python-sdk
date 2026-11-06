@@ -31,6 +31,7 @@ class IntegrationCustomerSessionResponse(BaseModel):
     """ # noqa: E501
     customer_session: Optional[CustomerSessionV2] = Field(default=None, alias="customerSession")
     effects: Optional[List[Effect]] = Field(default=None, description="The returned effects.  **Note:** This endpoint returns only the effects that are valid after any rollback effects and their corresponding non-rollback effects are removed. ")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["customerSession", "effects"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class IntegrationCustomerSessionResponse(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class IntegrationCustomerSessionResponse(BaseModel):
             for _item_effects in self.effects:
                 _items.append(_item_effects.to_dict() if _item_effects is not None else None)
             _dict['effects'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class IntegrationCustomerSessionResponse(BaseModel):
             "customerSession": CustomerSessionV2.from_dict(obj["customerSession"]) if obj.get("customerSession") is not None else None,
             "effects": [Effect.from_dict(_item) for _item in obj["effects"]] if obj.get("effects") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

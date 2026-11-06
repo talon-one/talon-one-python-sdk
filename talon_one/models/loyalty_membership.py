@@ -30,6 +30,7 @@ class LoyaltyMembership(BaseModel):
     """ # noqa: E501
     joined: Optional[datetime] = Field(default=None, description="The moment in which the loyalty program was joined.", json_schema_extra={"examples": ["2012-03-20T14:15:22Z"]})
     loyalty_program_id: StrictInt = Field(description="The ID of the loyalty program belonging to this entity.", alias="loyaltyProgramId", json_schema_extra={"examples": [323414846]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["joined", "loyaltyProgramId"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class LoyaltyMembership(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class LoyaltyMembership(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -86,6 +94,11 @@ class LoyaltyMembership(BaseModel):
             "joined": obj.get("joined"),
             "loyaltyProgramId": obj.get("loyaltyProgramId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

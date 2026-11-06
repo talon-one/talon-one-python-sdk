@@ -43,7 +43,7 @@ class TestUpdateAttributeValueBlock(unittest.TestCase):
                 operator = 'setTo',
                 attribute = None,
                 value = 10,
-                target = talon_one.models.update_attribute_value_block_1_target.UpdateAttributeValueBlock_1_target(
+                target = talon_one.models.update_attribute_value_block1_target.UpdateAttributeValueBlock1Target(
                     type = 'profile', 
                     name = 'Filter items by product', )
             )
@@ -52,7 +52,7 @@ class TestUpdateAttributeValueBlock(unittest.TestCase):
                 type = '',
                 operator = 'setTo',
                 attribute = None,
-                target = talon_one.models.update_attribute_value_block_1_target.UpdateAttributeValueBlock_1_target(
+                target = talon_one.models.update_attribute_value_block1_target.UpdateAttributeValueBlock1Target(
                     type = 'profile', 
                     name = 'Filter items by product', ),
         )

@@ -31,6 +31,7 @@ class AudienceBlockReference(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="The display name of the audience.", json_schema_extra={"examples": ["Travel audience"]})
     integration: Optional[StrictStr] = Field(default=None, description="The Talon.One-supported [3rd-party platform](https://docs.talon.one/docs/dev/technology-partners/overview) that this audience was created in.  For example, `mParticle`, `Segment`, `Shopify`, `Braze`, or `Iterable`.  **Note:** If you do not integrate with any of these platforms, do not use this property. ", json_schema_extra={"examples": ["mparticle"]})
     integration_id: Optional[StrictStr] = Field(default=None, description="The ID of this audience in the third-party integration.  **Note:** To create an audience that doesn't come from a 3rd party platform, do not use this property. ", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "integration", "integrationId"]
 
     model_config = ConfigDict(
@@ -64,9 +65,11 @@ class AudienceBlockReference(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "name",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +77,11 @@ class AudienceBlockReference(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -91,6 +99,11 @@ class AudienceBlockReference(BaseModel):
             "integration": obj.get("integration"),
             "integrationId": obj.get("integrationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

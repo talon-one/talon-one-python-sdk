@@ -38,6 +38,7 @@ class LoyaltyBalanceWithTier(BaseModel):
     projected_tier: Optional[ProjectedTier] = Field(default=None, alias="projectedTier")
     points_to_next_tier: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of points required to move up a tier.", alias="pointsToNextTier", json_schema_extra={"examples": [20]})
     next_tier_name: Optional[StrictStr] = Field(default=None, description="The name of the next higher tier level in the loyalty program.  **Note**: - Returns `null` if the customer has reached the highest available tier. - Returns the lowest level tier name if the customer is not currently assigned to any tier. ", alias="nextTierName", json_schema_extra={"examples": ["Silver"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["activePoints", "pendingPoints", "spentPoints", "expiredPoints", "negativePoints", "currentTier", "projectedTier", "pointsToNextTier", "nextTierName"]
 
     model_config = ConfigDict(
@@ -70,8 +71,10 @@ class LoyaltyBalanceWithTier(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class LoyaltyBalanceWithTier(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of projected_tier
         if self.projected_tier:
             _dict['projectedTier'] = self.projected_tier.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -107,6 +115,11 @@ class LoyaltyBalanceWithTier(BaseModel):
             "pointsToNextTier": obj.get("pointsToNextTier"),
             "nextTierName": obj.get("nextTierName")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

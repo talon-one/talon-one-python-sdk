@@ -46,6 +46,7 @@ class OutboundMessage(BaseModel):
     status: StrictStr = Field(json_schema_extra={"examples": ["pending"]})
     retry_count: Optional[StrictInt] = Field(default=None, description="Number of retries.", alias="retryCount", json_schema_extra={"examples": [1]})
     responses: Optional[List[OutboundMessageResponse]] = Field(default=None, description="Log entries for this message. One entry per delivery attempt. Empty when `includeLogs=false`.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["uuid", "notificationId", "notificationName", "webhookId", "webhookName", "notificationType", "applicationId", "loyaltyProgramId", "request", "firstLogAt", "lastLogAt", "lastResponseCode", "status", "retryCount", "responses"]
 
     model_config = ConfigDict(
@@ -78,8 +79,10 @@ class OutboundMessage(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -96,6 +99,11 @@ class OutboundMessage(BaseModel):
             for _item_responses in self.responses:
                 _items.append(_item_responses.to_dict() if _item_responses is not None else None)
             _dict['responses'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -124,6 +132,11 @@ class OutboundMessage(BaseModel):
             "retryCount": obj.get("retryCount"),
             "responses": [OutboundMessageResponse.from_dict(_item) for _item in obj["responses"]] if obj.get("responses") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

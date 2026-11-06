@@ -37,6 +37,7 @@ class NewAudience(BaseModel):
     integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.  **Note:** To create an audience that doesn't come from a 3rd party platform, do not use this property. ", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
     created_in3rd_party: Optional[StrictBool] = Field(default=None, description="Determines if this audience is a 3rd party audience or not.", alias="createdIn3rdParty", json_schema_extra={"examples": [False]})
     last_update: Optional[datetime] = Field(default=None, description="The last time that the audience memberships changed.", alias="lastUpdate", json_schema_extra={"examples": ["2022-04-26T11:02:38Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "sandbox", "description", "subscribedApplicationsIds", "integration", "integrationId", "createdIn3rdParty", "lastUpdate"]
 
     model_config = ConfigDict(
@@ -69,8 +70,10 @@ class NewAudience(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class NewAudience(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class NewAudience(BaseModel):
             "createdIn3rdParty": obj.get("createdIn3rdParty"),
             "lastUpdate": obj.get("lastUpdate")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

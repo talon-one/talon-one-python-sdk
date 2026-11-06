@@ -31,6 +31,7 @@ class ReturnedCartItem(BaseModel):
     position: Optional[StrictInt] = Field(default=None, description="The index of the cart item in the provided customer session's `cartItems` property.", json_schema_extra={"examples": [2]})
     quantity: Optional[StrictInt] = Field(default=None, description="Number of cart items to return. ", json_schema_extra={"examples": [1]})
     sku: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="The SKU of the cart item in the provided customer session's `cartItems` property.", json_schema_extra={"examples": ["SKU1241028"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["position", "quantity", "sku"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class ReturnedCartItem(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class ReturnedCartItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -88,6 +96,11 @@ class ReturnedCartItem(BaseModel):
             "quantity": obj.get("quantity"),
             "sku": obj.get("sku")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

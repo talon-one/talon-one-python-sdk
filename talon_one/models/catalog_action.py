@@ -122,6 +122,42 @@ class CatalogAction(BaseModel):
         error_messages = []
         match = 0
 
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "type"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `CatalogActionAdd`
+        if _data_type == "ADD":
+            instance.actual_instance = CatalogActionAdd.from_json(json_str)
+            return instance
+
+        # check if data type is `CatalogActionAddPriceAdjustment`
+        if _data_type == "ADD_PRICE_ADJUSTMENT":
+            instance.actual_instance = CatalogActionAddPriceAdjustment.from_json(json_str)
+            return instance
+
+        # check if data type is `CatalogActionPatch`
+        if _data_type == "PATCH":
+            instance.actual_instance = CatalogActionPatch.from_json(json_str)
+            return instance
+
+        # check if data type is `CatalogActionPatchMany`
+        if _data_type == "PATCH_MANY":
+            instance.actual_instance = CatalogActionPatchMany.from_json(json_str)
+            return instance
+
+        # check if data type is `CatalogActionRemove`
+        if _data_type == "REMOVE":
+            instance.actual_instance = CatalogActionRemove.from_json(json_str)
+            return instance
+
+        # check if data type is `CatalogActionRemoveMany`
+        if _data_type == "REMOVE_MANY":
+            instance.actual_instance = CatalogActionRemoveMany.from_json(json_str)
+            return instance
+
         # deserialize data into CatalogActionAdd
         try:
             instance.actual_instance = CatalogActionAdd.from_json(json_str)
@@ -176,7 +212,7 @@ class CatalogAction(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
     def to_dict(self) -> Optional[Union[Dict[str, Any], CatalogActionAdd, CatalogActionAddPriceAdjustment, CatalogActionPatch, CatalogActionPatchMany, CatalogActionRemove, CatalogActionRemoveMany]]:
         """Returns the dict representation of the actual instance"""
@@ -186,7 +222,9 @@ class CatalogAction(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:

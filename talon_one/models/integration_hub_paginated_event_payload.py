@@ -34,6 +34,7 @@ class IntegrationHubPaginatedEventPayload(BaseModel):
     batched_at: Optional[datetime] = Field(default=None, description="Timestamp when the batch was created.", alias="BatchedAt")
     event_type: IntegrationHubEventType = Field(alias="EventType")
     data: List[IntegrationHubPaginatedEventPayloadDataInner] = Field(alias="Data")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["TotalResultSize", "BatchedAt", "EventType", "Data"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class IntegrationHubPaginatedEventPayload(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class IntegrationHubPaginatedEventPayload(BaseModel):
             for _item_data in self.data:
                 _items.append(_item_data.to_dict() if _item_data is not None else None)
             _dict['Data'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +106,11 @@ class IntegrationHubPaginatedEventPayload(BaseModel):
             "EventType": obj.get("EventType"),
             "Data": [IntegrationHubPaginatedEventPayloadDataInner.from_dict(_item) for _item in obj["Data"]] if obj.get("Data") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -41,6 +41,7 @@ class SamlConnection(BaseModel):
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     assertion_consumer_service_url: StrictStr = Field(description="The location where the SAML assertion is sent with a HTTP POST.", alias="assertionConsumerServiceURL")
     certificate_expiry: Optional[datetime] = Field(default=None, description="The expiry date of the X.509 certificate.", alias="certificateExpiry", json_schema_extra={"examples": ["2021-07-20T21:59:00Z"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["accountId", "name", "enabled", "issuer", "signOnURL", "signOutURL", "metadataURL", "audienceURI", "id", "created", "assertionConsumerServiceURL", "certificateExpiry"]
 
     model_config = ConfigDict(
@@ -73,8 +74,10 @@ class SamlConnection(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -82,6 +85,11 @@ class SamlConnection(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -107,6 +115,11 @@ class SamlConnection(BaseModel):
             "assertionConsumerServiceURL": obj.get("assertionConsumerServiceURL"),
             "certificateExpiry": obj.get("certificateExpiry")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

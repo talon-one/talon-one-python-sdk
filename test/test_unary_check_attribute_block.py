@@ -35,10 +35,32 @@ class TestUnaryCheckAttributeBlock(unittest.TestCase):
         model = UnaryCheckAttributeBlock()
         if include_optional:
             return UnaryCheckAttributeBlock(
-                operator = 'empty'
+                id = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+                type = 'checkAttribute',
+                tags = [
+                    ''
+                    ],
+                operator = 'empty',
+                attribute = $Session.Total,
+                value = 100,
+                min = 10,
+                max = 100,
+                start = 2021-09-22T22:00:00Z,
+                end = 2021-09-22T22:00:00Z,
+                start_inclusive = True,
+                end_inclusive = True,
+                timezone_insensitive = False,
+                values = [{name=Berlin district, geometry={type=Point, coordinates=[13.405, 52.52]}}],
+                count = 2,
+                on_failure = [
+                    null
+                    ]
             )
         else:
             return UnaryCheckAttributeBlock(
+                type = 'checkAttribute',
+                operator = 'empty',
+                attribute = $Session.Total,
         )
         """
 

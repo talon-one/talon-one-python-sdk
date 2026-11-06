@@ -30,6 +30,7 @@ class ExperimentSegmentInsightMetric(BaseModel):
     """ # noqa: E501
     metric: StrictStr = Field(description="The metric being measured.", json_schema_extra={"examples": ["avg_session_value"]})
     segments: List[ExperimentSegmentInsight] = Field(description="Segments with statistically significant results for this metric. An empty array means no significant segments were found. Segments are sorted by confidence score from highest to lowest. ")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["metric", "segments"]
 
     @field_validator('metric')
@@ -69,8 +70,10 @@ class ExperimentSegmentInsightMetric(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -84,6 +87,11 @@ class ExperimentSegmentInsightMetric(BaseModel):
             for _item_segments in self.segments:
                 _items.append(_item_segments.to_dict() if _item_segments is not None else None)
             _dict['segments'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class ExperimentSegmentInsightMetric(BaseModel):
             "metric": obj.get("metric"),
             "segments": [ExperimentSegmentInsight.from_dict(_item) for _item in obj["segments"]] if obj.get("segments") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

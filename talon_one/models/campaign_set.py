@@ -34,6 +34,7 @@ class CampaignSet(BaseModel):
     version: Annotated[int, Field(strict=True, ge=1)] = Field(description="Version of the campaign set.", json_schema_extra={"examples": [3]})
     set: CampaignSetBranchNode
     updated_by: Optional[StrictStr] = Field(default=None, description="Name of the user who last updated this campaign set, if available.", alias="updatedBy", json_schema_extra={"examples": ["Jane Doe"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["applicationId", "id", "version", "set", "updatedBy"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class CampaignSet(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class CampaignSet(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of set
         if self.set:
             _dict['set'] = self.set.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -96,6 +104,11 @@ class CampaignSet(BaseModel):
             "set": CampaignSetBranchNode.from_dict(obj["set"]) if obj.get("set") is not None else None,
             "updatedBy": obj.get("updatedBy")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

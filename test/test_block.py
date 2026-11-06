@@ -67,7 +67,7 @@ class TestBlock(unittest.TestCase):
                 giveaway_pool = None,
                 profile = 'Current',
                 audience = None,
-                program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
+                program = talon_one.models.redeem_loyalty_points_block1_program.RedeemLoyaltyPointsBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),
@@ -123,7 +123,7 @@ class TestBlock(unittest.TestCase):
                 giveaway_pool = None,
                 profile = 'Current',
                 audience = None,
-                program = talon_one.models.redeem_loyalty_points_block_1_program.RedeemLoyaltyPointsBlock_1_program(
+                program = talon_one.models.redeem_loyalty_points_block1_program.RedeemLoyaltyPointsBlock1Program(
                     id = 10, 
                     name = 'MainProgram', 
                     title = 'Main Loyalty Program', ),

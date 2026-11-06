@@ -33,6 +33,7 @@ class AwardGiveawayEffectProps(BaseModel):
     recipient_integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID of the customer that receives the giveaway.", alias="recipientIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
     giveaway_id: StrictInt = Field(description="The internal ID of the giveaway.", alias="giveawayId", json_schema_extra={"examples": [5]})
     code: StrictStr = Field(description="The giveaway code to be rewarded.", json_schema_extra={"examples": ["57638t-67439hty"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["poolId", "poolName", "recipientIntegrationId", "giveawayId", "code"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class AwardGiveawayEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +77,11 @@ class AwardGiveawayEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class AwardGiveawayEffectProps(BaseModel):
             "giveawayId": obj.get("giveawayId"),
             "code": obj.get("code")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

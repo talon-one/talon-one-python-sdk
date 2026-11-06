@@ -32,6 +32,7 @@ class IntegrationEvent(BaseModel):
     store_integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the store. You choose this ID when you create a store.", alias="storeIntegrationId", json_schema_extra={"examples": ["STORE-001"]})
     type: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The name of the event. Must be a [custom event](https://docs.talon.one/docs/dev/concepts/entities/events#custom-events), not a built-in event.", json_schema_extra={"examples": ["pageViewed"]})
     attributes: Dict[str, Any] = Field(description="Arbitrary additional JSON data associated with the event.", json_schema_extra={"examples": ["{myAttribute=myValue}"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "type", "attributes"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class IntegrationEvent(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class IntegrationEvent(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class IntegrationEvent(BaseModel):
             "type": obj.get("type"),
             "attributes": obj.get("attributes")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

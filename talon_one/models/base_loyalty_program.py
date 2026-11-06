@@ -45,6 +45,7 @@ class BaseLoyaltyProgram(BaseModel):
     tiers_downgrade_policy: Optional[StrictStr] = Field(default=None, description="The policy that defines how customer tiers are downgraded in the loyalty program after tier reevaluation.  - `one_down`: If the customer doesn't have enough points to stay in the current tier, they are downgraded by one tier.  - `balance_based`: The customer's tier is reevaluated based on the amount of active points they have at the moment. ", alias="tiersDowngradePolicy")
     card_code_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="cardCodeSettings")
     return_policy: Optional[StrictStr] = Field(default=None, description="The policy that defines the rollback of points in case of a partially returned, cancelled, or reopened [customer session](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions). - `only_pending`: Only pending points can be rolled back. - `within_balance`: Available active points can be rolled back if there aren't enough pending points. The active balance of the customer cannot be negative. - `unlimited`: Allows negative balance without any limit. ", alias="returnPolicy")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "description", "subscribedApplications", "defaultValidity", "defaultPending", "allowSubledger", "usersPerCardLimit", "sandbox", "programJoinPolicy", "tiersExpirationPolicy", "tierCycleStartDate", "tiersExpireIn", "tiersDowngradePolicy", "cardCodeSettings", "returnPolicy"]
 
     @field_validator('program_join_policy')
@@ -117,8 +118,10 @@ class BaseLoyaltyProgram(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -129,6 +132,11 @@ class BaseLoyaltyProgram(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of card_code_settings
         if self.card_code_settings:
             _dict['cardCodeSettings'] = self.card_code_settings.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -157,6 +165,11 @@ class BaseLoyaltyProgram(BaseModel):
             "cardCodeSettings": CodeGeneratorSettings.from_dict(obj["cardCodeSettings"]) if obj.get("cardCodeSettings") is not None else None,
             "returnPolicy": obj.get("returnPolicy")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -29,6 +29,7 @@ class DeleteLoyaltyTransactionsRequest(BaseModel):
     """ # noqa: E501
     scope: StrictStr = Field(description="`AllSubledgers` deletes all transactions for the specified customer profile from all ledgers in the loyalty program.  `SelectedSubledgers` deletes all transactions for the specified customer profile only from the given ledgers in the loyalty program. ", json_schema_extra={"examples": ["SelectedSubledgers"]})
     subledger_ids: Optional[List[StrictStr]] = Field(default=None, description="The IDs of the ledgers from which to delete the customer's transactions. This parameter is required if the `scope` is set to `SelectedSubledgers`.  To specify the main ledger, provide an empty string (\"\"). ", alias="subledgerIds", json_schema_extra={"examples": [["subledger1", "subledger2"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["scope", "subledgerIds"]
 
     @field_validator('scope')
@@ -68,8 +69,10 @@ class DeleteLoyaltyTransactionsRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class DeleteLoyaltyTransactionsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if subledger_ids (nullable) is None
         # and model_fields_set contains the field
         if self.subledger_ids is None and "subledger_ids" in self.model_fields_set:
@@ -97,6 +105,11 @@ class DeleteLoyaltyTransactionsRequest(BaseModel):
             "scope": obj.get("scope"),
             "subledgerIds": obj.get("subledgerIds")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

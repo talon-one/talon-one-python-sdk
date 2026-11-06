@@ -31,6 +31,7 @@ class HiddenConditionsEffects(BaseModel):
     conditions: Optional[List[StrictStr]] = Field(default=None, description="List of hidden conditions.", json_schema_extra={"examples": [["checkAttributeValue", "couponCodeIsValid"]]})
     custom_effects: Optional[List[StrictInt]] = Field(default=None, description="List of the IDs of hidden custom effects.", alias="customEffects", json_schema_extra={"examples": [[1, 2]]})
     webhooks: Optional[List[StrictInt]] = Field(default=None, description="List of the IDs of hidden webhooks.", json_schema_extra={"examples": [[3, 4]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["builtInEffects", "conditions", "customEffects", "webhooks"]
 
     model_config = ConfigDict(
@@ -63,8 +64,10 @@ class HiddenConditionsEffects(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class HiddenConditionsEffects(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -89,6 +97,11 @@ class HiddenConditionsEffects(BaseModel):
             "customEffects": obj.get("customEffects"),
             "webhooks": obj.get("webhooks")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -35,7 +35,7 @@ class TestCustomerProfileSearchQuery(unittest.TestCase):
         model = CustomerProfileSearchQuery()
         if include_optional:
             return CustomerProfileSearchQuery(
-                attributes = None,
+                attributes = { },
                 integration_ids = [
                     ''
                     ],

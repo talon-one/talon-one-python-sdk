@@ -32,6 +32,7 @@ class MCPOAuthToken(BaseModel):
     expires_in: StrictInt = Field(description="Seconds until the access token expires.", json_schema_extra={"examples": [3600]})
     refresh_token: StrictStr = Field(description="Refresh token for obtaining a new access token.", json_schema_extra={"examples": ["mcpor:9f8e7d6c..."]})
     refresh_token_expires_in: StrictInt = Field(description="Seconds until the refresh token expires.", json_schema_extra={"examples": [2592000]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["access_token", "token_type", "expires_in", "refresh_token", "refresh_token_expires_in"]
 
     @field_validator('token_type')
@@ -71,8 +72,10 @@ class MCPOAuthToken(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class MCPOAuthToken(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +106,11 @@ class MCPOAuthToken(BaseModel):
             "refresh_token": obj.get("refresh_token"),
             "refresh_token_expires_in": obj.get("refresh_token_expires_in")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

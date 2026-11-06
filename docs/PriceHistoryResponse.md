@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sku** | **str** | The SKU of the item for which historical prices should be retrieved. | 
+**sku** | **str** | The SKU of the item for which price records should be retrieved. | 
 **history** | [**List[History]**](History.md) |  | 
 
 ## Example

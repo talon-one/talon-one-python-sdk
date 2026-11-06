@@ -32,6 +32,7 @@ class AchievementAdditionalProperties(BaseModel):
     created_by: Optional[StrictStr] = Field(default=None, description="Name of the user that created the achievement.  **Note**: This is not available if the user has been deleted. ", alias="createdBy", json_schema_extra={"examples": ["John Doe"]})
     has_progress: Optional[StrictBool] = Field(default=None, description="Indicates if a customer has made progress in the achievement.", alias="hasProgress")
     status: Optional[StrictStr] = Field(default=None, description="The status of the achievement.", json_schema_extra={"examples": ["inprogress"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["campaignId", "userId", "createdBy", "hasProgress", "status"]
 
     @field_validator('status')
@@ -74,8 +75,10 @@ class AchievementAdditionalProperties(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -83,6 +86,11 @@ class AchievementAdditionalProperties(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -101,6 +109,11 @@ class AchievementAdditionalProperties(BaseModel):
             "hasProgress": obj.get("hasProgress"),
             "status": obj.get("status")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

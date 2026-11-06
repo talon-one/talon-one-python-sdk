@@ -43,6 +43,7 @@ class OutboundLog(BaseModel):
     created_at: datetime = Field(description="Timestamp when the log was created.", alias="createdAt", json_schema_extra={"examples": ["2026-08-17T14:32:05Z"]})
     processing_time_ms: StrictInt = Field(description="Time in milliseconds between sending the outbound request and receiving the response.", alias="processingTimeMs", json_schema_extra={"examples": [180]})
     response: Optional[OutboundLogResponse] = None
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["uuid", "notificationId", "notificationName", "webhookId", "webhookName", "notificationType", "applicationId", "loyaltyProgramId", "request", "createdAt", "processingTimeMs", "response"]
 
     model_config = ConfigDict(
@@ -75,8 +76,10 @@ class OutboundLog(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -90,6 +93,11 @@ class OutboundLog(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of response
         if self.response:
             _dict['response'] = self.response.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +123,11 @@ class OutboundLog(BaseModel):
             "processingTimeMs": obj.get("processingTimeMs"),
             "response": OutboundLogResponse.from_dict(obj["response"]) if obj.get("response") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

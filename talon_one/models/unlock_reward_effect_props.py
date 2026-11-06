@@ -35,6 +35,7 @@ class UnlockRewardEffectProps(BaseModel):
     profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile that unlocked the reward.", alias="profileIntegrationId", json_schema_extra={"examples": ["customer1"]})
     unlocked_at: datetime = Field(description="The time the reward was unlocked.", alias="unlockedAt", json_schema_extra={"examples": ["2024-05-29T15:04:05Z"]})
     loyalty_card_id: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that unlocked the reward. Only returned when the reward was unlocked with a loyalty card, in which case the reward belongs to the card and is available to all customer profiles linked to it. ", alias="loyaltyCardId", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["integrationId", "rewardId", "applicationId", "profileIntegrationId", "unlockedAt", "loyaltyCardId"]
 
     @field_validator('loyalty_card_id', mode="before")
@@ -77,8 +78,10 @@ class UnlockRewardEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -86,6 +89,11 @@ class UnlockRewardEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -105,6 +113,11 @@ class UnlockRewardEffectProps(BaseModel):
             "unlockedAt": obj.get("unlockedAt"),
             "loyaltyCardId": obj.get("loyaltyCardId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -34,6 +34,7 @@ class TimePoint(BaseModel):
     hour: StrictInt = Field(description="The achievement ends and resets at this hour.", json_schema_extra={"examples": [23]})
     minute: StrictInt = Field(description="The achievement ends and resets at this minute.", json_schema_extra={"examples": [59]})
     second: StrictInt = Field(description="The achievement ends and resets at this second.", json_schema_extra={"examples": [59]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["month", "dayOfMonth", "dayOfWeek", "hour", "minute", "second"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class TimePoint(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -75,6 +78,11 @@ class TimePoint(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -94,6 +102,11 @@ class TimePoint(BaseModel):
             "minute": obj.get("minute"),
             "second": obj.get("second")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -32,6 +32,7 @@ class RiskAffectedEntityItem(BaseModel):
     threshold: Union[StrictFloat, StrictInt] = Field(description="The anomaly threshold computed for the entity's Application group.", json_schema_extra={"examples": [60]})
     severity_ratio: Union[StrictFloat, StrictInt] = Field(description="The ratio of the observed value to the threshold.", alias="severityRatio", json_schema_extra={"examples": [48.3]})
     criticality: StrictStr = Field(description="The critical classification bucket of this entity.", json_schema_extra={"examples": ["critical"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["entityId", "activityValue", "threshold", "severityRatio", "criticality"]
 
     @field_validator('criticality')
@@ -71,8 +72,10 @@ class RiskAffectedEntityItem(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class RiskAffectedEntityItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +106,11 @@ class RiskAffectedEntityItem(BaseModel):
             "severityRatio": obj.get("severityRatio"),
             "criticality": obj.get("criticality")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

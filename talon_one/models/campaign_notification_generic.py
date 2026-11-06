@@ -30,6 +30,7 @@ class CampaignNotificationGeneric(BaseModel):
     notification_type: StrictStr = Field(description="The type of the notification", alias="NotificationType", json_schema_extra={"examples": ["CampaignNotification"]})
     total_result_size: StrictInt = Field(description="The total size of the result set.", alias="TotalResultSize")
     data: List[Dict[str, Any]] = Field(description="A list of campaign notification data.", alias="Data")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["NotificationType", "TotalResultSize", "Data"]
 
     @field_validator('notification_type')
@@ -69,8 +70,10 @@ class CampaignNotificationGeneric(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -78,6 +81,11 @@ class CampaignNotificationGeneric(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -94,6 +102,11 @@ class CampaignNotificationGeneric(BaseModel):
             "TotalResultSize": obj.get("TotalResultSize"),
             "Data": obj.get("Data")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

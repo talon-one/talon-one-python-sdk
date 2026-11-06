@@ -28,8 +28,9 @@ class ExcludePriceObservationsRequest(BaseModel):
     """
     ExcludePriceObservationsRequest
     """ # noqa: E501
-    ids: Annotated[List[Annotated[int, Field(strict=True, ge=1)]], Field(min_length=1, max_length=1000)] = Field(description="A list of historical price IDs to exclude from best prior price calculation. Must contain between 1 and 1000 IDs. All IDs must be valid `id` values obtained from the [Get summary of price history](https://docs.talon.one/management-api#tag/Catalogs/operation/priceHistory.responses.200.history) endpoint, must belong to the specified Application, and must not already be excluded from best prior price calculation. ")
-    reason: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The reason for excluding these historical price IDs. Applies to all IDs in the batch. ", json_schema_extra={"examples": ["Incorrect contextID value."]})
+    ids: Annotated[List[Annotated[int, Field(strict=True, ge=1)]], Field(min_length=1, max_length=1000)] = Field(description="A list of price record IDs to exclude from best prior price calculation. Must contain between 1 and 1000 IDs. All IDs must be valid `id` values obtained from the [Get summary of price history](https://docs.talon.one/management-api#tag/Catalogs/operation/priceHistory.responses.200.history) endpoint, must belong to the specified Application, and must not already be excluded from best prior price calculation. ")
+    reason: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The reason for excluding these IDs. Applies to all IDs in the batch. ", json_schema_extra={"examples": ["Incorrect contextID value."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["ids", "reason"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class ExcludePriceObservationsRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class ExcludePriceObservationsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -86,6 +94,11 @@ class ExcludePriceObservationsRequest(BaseModel):
             "ids": obj.get("ids"),
             "reason": obj.get("reason")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

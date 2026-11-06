@@ -29,6 +29,7 @@ class EventV3ReferralEntity(BaseModel):
     EventV3ReferralEntity
     """ # noqa: E501
     referral_code: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="The referral code submitted with the event. The endpoint does not validate the code, and submitting a code does not redeem it. Use the \"Referral code is valid\" condition in the Rule Builder to validate and redeem the code, or \"Referral code is valid (without redemption)\" to validate without redeeming. ", alias="referralCode", json_schema_extra={"examples": ["NT2K54D9"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["referralCode"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class EventV3ReferralEntity(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -70,6 +73,11 @@ class EventV3ReferralEntity(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -84,6 +92,11 @@ class EventV3ReferralEntity(BaseModel):
         _obj = cls.model_validate({
             "referralCode": obj.get("referralCode")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

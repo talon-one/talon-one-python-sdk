@@ -48,6 +48,7 @@ class LoyaltyCard(BaseModel):
     old_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card from which the points were transferred.", alias="oldCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     new_card_identifier: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the card to which the points were transferred.", alias="newCardIdentifier", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     batch_id: Optional[StrictStr] = Field(default=None, description="The ID of the batch in which the loyalty card was created.", alias="batchId", json_schema_extra={"examples": ["wdefpov"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "programID", "programName", "programTitle", "status", "blockReason", "attributes", "identifier", "usersPerCardLimit", "profiles", "ledger", "subledgers", "modified", "oldCardIdentifier", "newCardIdentifier", "batchId"]
 
     @field_validator('identifier', mode="before")
@@ -107,8 +108,10 @@ class LoyaltyCard(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -131,6 +134,11 @@ class LoyaltyCard(BaseModel):
             for _key_subledgers in self.subledgers:
                 _field_dict[_key_subledgers] = self.subledgers[_key_subledgers].to_dict() if self.subledgers[_key_subledgers] is not None else None
             _dict['subledgers'] = _field_dict
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -166,6 +174,11 @@ class LoyaltyCard(BaseModel):
             "newCardIdentifier": obj.get("newCardIdentifier"),
             "batchId": obj.get("batchId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

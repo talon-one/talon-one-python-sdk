@@ -33,6 +33,7 @@ class AchievementReference(BaseModel):
     campaign_id: StrictInt = Field(description="The ID of the campaign that references this achievement.", alias="campaignId", json_schema_extra={"examples": [4501]})
     campaign_name: StrictStr = Field(description="The name of the campaign that references this achievement.", alias="campaignName", json_schema_extra={"examples": ["Summer promotions"]})
     campaign_state: StrictStr = Field(description="The state of the campaign that references this achievement.", alias="campaignState", json_schema_extra={"examples": ["enabled"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["achievementId", "applicationId", "applicationName", "campaignId", "campaignName", "campaignState"]
 
     @field_validator('campaign_state')
@@ -72,8 +73,10 @@ class AchievementReference(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class AchievementReference(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -100,6 +108,11 @@ class AchievementReference(BaseModel):
             "campaignName": obj.get("campaignName"),
             "campaignState": obj.get("campaignState")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

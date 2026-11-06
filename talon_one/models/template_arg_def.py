@@ -35,6 +35,7 @@ class TemplateArgDef(BaseModel):
     key: Optional[StrictStr] = Field(default=None, description="The identifier for the associated value within the JSON object.")
     picklist_id: Optional[StrictInt] = Field(default=None, description="ID of the picklist linked to a template.", alias="picklistID")
     restricted_by_picklist: Optional[StrictBool] = Field(default=None, description="Whether or not this attribute's value is restricted by picklist (`picklist` property)", alias="restrictedByPicklist")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "description", "title", "ui", "key", "picklistID", "restrictedByPicklist"]
 
     @field_validator('type')
@@ -74,8 +75,10 @@ class TemplateArgDef(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -83,6 +86,11 @@ class TemplateArgDef(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -103,6 +111,11 @@ class TemplateArgDef(BaseModel):
             "picklistID": obj.get("picklistID"),
             "restrictedByPicklist": obj.get("restrictedByPicklist")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

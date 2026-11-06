@@ -33,6 +33,7 @@ class Bundle(BaseModel):
     sources: List[StrictStr] = Field(description="The selector sources of bundle items. Each source is expressed as a `{{$selectorName}}` reference.", json_schema_extra={"examples": [["{{$mains}}", "{{$drinks}}"]]})
     counts: List[StrictInt] = Field(description="The number of items to retrieve from each corresponding source in `sources`.", json_schema_extra={"examples": [[1, 2]]})
     matchers: Optional[List[StrictStr]] = Field(default=None, description="Attribute names that the bundled items must share.", json_schema_extra={"examples": [["color"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "type", "sources", "counts", "matchers"]
 
     @field_validator('type')
@@ -73,9 +74,11 @@ class Bundle(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -83,6 +86,11 @@ class Bundle(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -102,6 +110,11 @@ class Bundle(BaseModel):
             "counts": obj.get("counts"),
             "matchers": obj.get("matchers")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

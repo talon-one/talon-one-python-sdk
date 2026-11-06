@@ -36,6 +36,7 @@ class Change(BaseModel):
     old: Optional[Dict[str, Any]] = Field(default=None, description="Resource before the change occurred.", json_schema_extra={"examples": ["{}"]})
     new: Optional[Dict[str, Any]] = Field(default=None, description="Resource after the change occurred.", json_schema_extra={"examples": ["{applicationId\"=359, attributes\"={}, campaignGroups\"=[], created\"=2022-07-08T13:04:02.972762328Z, description\"=, features\"=[referrals, loyalty], id=6727}"]})
     management_key_id: Optional[StrictInt] = Field(default=None, description="ID of management key used to perform changes.", alias="managementKeyId", json_schema_extra={"examples": [3]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "userId", "applicationId", "entity", "old", "new", "managementKeyId"]
 
     model_config = ConfigDict(
@@ -68,8 +69,10 @@ class Change(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class Change(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -98,6 +106,11 @@ class Change(BaseModel):
             "new": obj.get("new"),
             "managementKeyId": obj.get("managementKeyId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

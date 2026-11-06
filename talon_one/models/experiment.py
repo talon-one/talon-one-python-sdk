@@ -42,6 +42,7 @@ class Experiment(BaseModel):
     goal_type: StrictStr = Field(description="The goal of the experiment. Determines which single metric is used to decide the winning variant. When set to `other`, multiple metrics are used. ", alias="goalType")
     goal_description: Optional[StrictStr] = Field(default=None, description="A description of the experiment goal. Provides context for the AI summary and helps it interpret the outcome of the experiment against the stated goal. ", alias="goalDescription", json_schema_extra={"examples": ["Offering free shipping will increase average order revenue more than a 10% discount"]})
     deletedat: Optional[datetime] = Field(default=None, description="The date and time the experiment was deleted. ")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "assignmentType", "isVariantAssignmentExternal", "campaign", "activated", "state", "variants", "goalType", "goalDescription", "deletedat"]
 
     @field_validator('assignment_type')
@@ -98,8 +99,10 @@ class Experiment(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -116,6 +119,11 @@ class Experiment(BaseModel):
             for _item_variants in self.variants:
                 _items.append(_item_variants.to_dict() if _item_variants is not None else None)
             _dict['variants'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -141,6 +149,11 @@ class Experiment(BaseModel):
             "goalDescription": obj.get("goalDescription"),
             "deletedat": obj.get("deletedat")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

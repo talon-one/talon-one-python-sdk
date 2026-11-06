@@ -34,6 +34,7 @@ class RoleV2Permissions(BaseModel):
     permission_sets: Optional[Annotated[List[RoleV2PermissionSet], Field(max_length=500)]] = Field(default=None, description="List of grouped logical operations referenced by roles.", alias="permissionSets", json_schema_extra={"examples": [[{"name": "Application permission set", "logicalOperations": ["getApplicationOperations", "editApplicationOperations"]}, {"name": "Campaign manager permission set", "logicalOperations": ["getCampaignOperations", "createCampaignOperations", "updateCampaignOperations"]}, {"name": "Campaign read-only permission set", "logicalOperations": ["getCampaignOperations"]}, {"name": "Loyalty program read-only permission set", "logicalOperations": ["getLoyaltyProgramOperations"]}, {"name": "Campaign access group manager permission set", "logicalOperations": ["getCampaignAccessGroupOperations", "updateCampaignAccessGroupOperations", "deleteCampaignAccessGroupOperations"]}]]})
     roles: Optional[RoleV2RolesGroup] = None
     thresholds: Optional[List[RolesV2Thresholds]] = Field(default=None, description="Support user limits for actions that require admin approval within the given application.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["permissionSets", "roles", "thresholds"]
 
     model_config = ConfigDict(
@@ -66,8 +67,10 @@ class RoleV2Permissions(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -90,6 +93,11 @@ class RoleV2Permissions(BaseModel):
             for _item_thresholds in self.thresholds:
                 _items.append(_item_thresholds.to_dict() if _item_thresholds is not None else None)
             _dict['thresholds'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -106,6 +114,11 @@ class RoleV2Permissions(BaseModel):
             "roles": RoleV2RolesGroup.from_dict(obj["roles"]) if obj.get("roles") is not None else None,
             "thresholds": [RolesV2Thresholds.from_dict(_item) for _item in obj["thresholds"]] if obj.get("thresholds") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -33,6 +33,7 @@ class MCPOAuthTokenRequest(BaseModel):
     redirect_uri: Optional[StrictStr] = Field(default=None, description="Redirect URI. Required for `authorization_code` grant.", json_schema_extra={"examples": ["http://localhost:3000/callback"]})
     code_verifier: Optional[StrictStr] = Field(default=None, description="PKCE code verifier. Required for `authorization_code` grant.", json_schema_extra={"examples": ["dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"]})
     refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token. Required for `refresh_token` grant.", json_schema_extra={"examples": ["mcpor:9f8e7d6c"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["grant_type", "code", "client_id", "redirect_uri", "code_verifier", "refresh_token"]
 
     @field_validator('grant_type')
@@ -72,8 +73,10 @@ class MCPOAuthTokenRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class MCPOAuthTokenRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -100,6 +108,11 @@ class MCPOAuthTokenRequest(BaseModel):
             "code_verifier": obj.get("code_verifier"),
             "refresh_token": obj.get("refresh_token")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

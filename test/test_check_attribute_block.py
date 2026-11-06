@@ -40,7 +40,7 @@ class TestCheckAttributeBlock(unittest.TestCase):
                 tags = [
                     ''
                     ],
-                operator = 'greaterThan',
+                operator = 'in',
                 attribute = $Session.Total,
                 value = 100,
                 min = 10,
@@ -50,7 +50,7 @@ class TestCheckAttributeBlock(unittest.TestCase):
                 start_inclusive = True,
                 end_inclusive = True,
                 timezone_insensitive = False,
-                values = [{name=Berlin district, geometry={type=Point, coordinates=[13.405, 52.52]}}],
+                values = None,
                 count = 2,
                 on_failure = [
                     null
@@ -59,8 +59,15 @@ class TestCheckAttributeBlock(unittest.TestCase):
         else:
             return CheckAttributeBlock(
                 type = 'checkAttribute',
-                operator = 'greaterThan',
+                operator = 'in',
                 attribute = $Session.Total,
+                value = 100,
+                min = 10,
+                max = 100,
+                start = 2021-09-22T22:00:00Z,
+                end = 2021-09-22T22:00:00Z,
+                values = None,
+                count = 2,
         )
         """
 

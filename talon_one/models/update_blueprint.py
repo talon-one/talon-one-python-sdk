@@ -34,6 +34,7 @@ class UpdateBlueprint(BaseModel):
     category: Optional[StrictStr] = Field(default=None, description="Category used to group blueprints.")
     rules: Optional[List[CatalogRule]] = Field(default=None, description="Replaces the stored rules. Rules should only contain title (no description, as description is at the blueprint level).")
     cart_item_filters: Optional[List[CartItemFilterTemplate]] = Field(default=None, description="Replaces the stored cart item filters. Cart item filters should only contain name (no description, as description is at the blueprint level).", alias="cartItemFilters")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "description", "category", "rules", "cartItemFilters"]
 
     @field_validator('category')
@@ -76,8 +77,10 @@ class UpdateBlueprint(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -97,6 +100,11 @@ class UpdateBlueprint(BaseModel):
             for _item_cart_item_filters in self.cart_item_filters:
                 _items.append(_item_cart_item_filters.to_dict() if _item_cart_item_filters is not None else None)
             _dict['cartItemFilters'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +123,11 @@ class UpdateBlueprint(BaseModel):
             "rules": [CatalogRule.from_dict(_item) for _item in obj["rules"]] if obj.get("rules") is not None else None,
             "cartItemFilters": [CartItemFilterTemplate.from_dict(_item) for _item in obj["cartItemFilters"]] if obj.get("cartItemFilters") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

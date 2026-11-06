@@ -30,6 +30,7 @@ class RewardEligibility(BaseModel):
     """ # noqa: E501
     passed: StrictBool = Field(description="Indicates whether the customer is eligible for the reward.", json_schema_extra={"examples": [False]})
     details: Optional[List[RewardEligibilityFailureDetails]] = Field(default=None, description="The reasons the customer is not eligible for the reward. Empty when `passed` is `true`.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["passed", "details"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class RewardEligibility(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -77,6 +80,11 @@ class RewardEligibility(BaseModel):
             for _item_details in self.details:
                 _items.append(_item_details.to_dict() if _item_details is not None else None)
             _dict['details'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -92,6 +100,11 @@ class RewardEligibility(BaseModel):
             "passed": obj.get("passed"),
             "details": [RewardEligibilityFailureDetails.from_dict(_item) for _item in obj["details"]] if obj.get("details") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

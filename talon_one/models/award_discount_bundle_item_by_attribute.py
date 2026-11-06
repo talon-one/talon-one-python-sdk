@@ -30,6 +30,7 @@ class AwardDiscountBundleItemByAttribute(BaseModel):
     type: StrictStr = Field(description="A bundle-item selector of type `byAttribute`.")
     attribute: StrictStr = Field(description="A per-item attribute expression used to rank bundle items.", json_schema_extra={"examples": ["{{$Item.Price}}"]})
     direction: StrictStr = Field(description="Ranking direction. `highest` picks the item with the largest attribute value, `lowest` the smallest.", json_schema_extra={"examples": ["highest"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "attribute", "direction"]
 
     @field_validator('type')
@@ -76,8 +77,10 @@ class AwardDiscountBundleItemByAttribute(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class AwardDiscountBundleItemByAttribute(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -101,6 +109,11 @@ class AwardDiscountBundleItemByAttribute(BaseModel):
             "attribute": obj.get("attribute"),
             "direction": obj.get("direction")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

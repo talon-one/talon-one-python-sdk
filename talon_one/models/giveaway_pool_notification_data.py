@@ -38,6 +38,7 @@ class GiveawayPoolNotificationData(BaseModel):
     used_codes: StrictInt = Field(description="The number of codes that have been used.", alias="UsedCodes", json_schema_extra={"examples": [920]})
     remaining_codes: StrictInt = Field(description="The number of codes remaining in the giveaway pool.", alias="RemainingCodes", json_schema_extra={"examples": [80]})
     threshold_percent: StrictInt = Field(description="The percentage threshold for the notification. The notification is triggered when the number of codes drops below this threshold.", alias="ThresholdPercent", json_schema_extra={"examples": [10]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["Event", "PoolId", "PoolName", "PoolDescription", "AccountId", "ApplicationId", "TotalCodes", "UsedCodes", "RemainingCodes", "ThresholdPercent"]
 
     model_config = ConfigDict(
@@ -70,8 +71,10 @@ class GiveawayPoolNotificationData(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -79,6 +82,11 @@ class GiveawayPoolNotificationData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -102,6 +110,11 @@ class GiveawayPoolNotificationData(BaseModel):
             "RemainingCodes": obj.get("RemainingCodes"),
             "ThresholdPercent": obj.get("ThresholdPercent")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

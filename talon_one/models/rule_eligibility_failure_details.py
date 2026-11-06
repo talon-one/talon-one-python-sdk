@@ -37,6 +37,7 @@ class RuleEligibilityFailureDetails(BaseModel):
     rule_index: Optional[StrictInt] = Field(default=None, description="The index of the rule that failed within the ruleset.", alias="ruleIndex", json_schema_extra={"examples": [0]})
     ruleset_id: Optional[StrictInt] = Field(default=None, description="The ID of the ruleset containing the rule that failed.", alias="rulesetId", json_schema_extra={"examples": [123]})
     details: StrictStr = Field(description="Additional details about the failure.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["failureCode", "couponID", "couponValue", "referralID", "referralValue", "conditionIndex", "effectIndex", "ruleIndex", "rulesetId", "details"]
 
     @field_validator('failure_code')
@@ -76,8 +77,10 @@ class RuleEligibilityFailureDetails(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class RuleEligibilityFailureDetails(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -108,6 +116,11 @@ class RuleEligibilityFailureDetails(BaseModel):
             "rulesetId": obj.get("rulesetId"),
             "details": obj.get("details")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

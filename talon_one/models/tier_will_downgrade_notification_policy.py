@@ -33,6 +33,7 @@ class TierWillDowngradeNotificationPolicy(BaseModel):
     batching_enabled: Optional[StrictBool] = Field(default=True, description="Indicates whether batching is activated.", alias="batchingEnabled", json_schema_extra={"examples": [False]})
     batch_size: Optional[StrictInt] = Field(default=1000, description="The required size of each batch of data. This value applies only when `batchingEnabled` is `true`.", alias="batchSize", json_schema_extra={"examples": [1000]})
     triggers: Annotated[List[TierWillDowngradeNotificationTrigger], Field(min_length=1, max_length=3)]
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "batchingEnabled", "batchSize", "triggers"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class TierWillDowngradeNotificationPolicy(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class TierWillDowngradeNotificationPolicy(BaseModel):
             for _item_triggers in self.triggers:
                 _items.append(_item_triggers.to_dict() if _item_triggers is not None else None)
             _dict['triggers'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -97,6 +105,11 @@ class TierWillDowngradeNotificationPolicy(BaseModel):
             "batchSize": obj.get("batchSize") if obj.get("batchSize") is not None else 1000,
             "triggers": [TierWillDowngradeNotificationTrigger.from_dict(_item) for _item in obj["triggers"]] if obj.get("triggers") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

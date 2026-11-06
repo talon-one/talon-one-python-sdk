@@ -36,6 +36,7 @@ class RedeemLoyaltyPointsBlock(BaseModel):
     subledger: StrictStr = Field(description="The name of the subledger to deduct points from. Can be empty if this block deducts from the loyalty program's main ledger instead of a subledger.", json_schema_extra={"examples": ["main"]})
     value: RedeemLoyaltyPointsBlock1Value
     name: Optional[StrictStr] = Field(default=None, description="A custom description recorded as the reason for the point deduction.", json_schema_extra={"examples": ["Purchase Deduction"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "program", "subledger", "value", "name"]
 
     model_config = ConfigDict(
@@ -70,10 +71,12 @@ class RedeemLoyaltyPointsBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -87,6 +90,11 @@ class RedeemLoyaltyPointsBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of value
         if self.value:
             _dict['value'] = self.value.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -107,6 +115,11 @@ class RedeemLoyaltyPointsBlock(BaseModel):
             "value": RedeemLoyaltyPointsBlock1Value.from_dict(obj["value"]) if obj.get("value") is not None else None,
             "name": obj.get("name")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

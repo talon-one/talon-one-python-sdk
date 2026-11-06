@@ -90,6 +90,22 @@ class AwardDiscountBundleItem(BaseModel):
         error_messages = []
         match = 0
 
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "type"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `AwardDiscountBundleItemByAttribute`
+        if _data_type == "byAttribute":
+            instance.actual_instance = AwardDiscountBundleItemByAttribute.from_json(json_str)
+            return instance
+
+        # check if data type is `AwardDiscountBundleItemByIndex`
+        if _data_type == "byIndex":
+            instance.actual_instance = AwardDiscountBundleItemByIndex.from_json(json_str)
+            return instance
+
         # deserialize data into AwardDiscountBundleItemByIndex
         try:
             instance.actual_instance = AwardDiscountBundleItemByIndex.from_json(json_str)
@@ -120,7 +136,7 @@ class AwardDiscountBundleItem(BaseModel):
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
-            return json.dumps(self.actual_instance)
+            return json.dumps(self.to_dict())
 
     def to_dict(self) -> Optional[Union[Dict[str, Any], AwardDiscountBundleItemByAttribute, AwardDiscountBundleItemByIndex]]:
         """Returns the dict representation of the actual instance"""
@@ -130,7 +146,9 @@ class AwardDiscountBundleItem(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            # primitive type
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
             return self.actual_instance
 
     def to_str(self) -> str:

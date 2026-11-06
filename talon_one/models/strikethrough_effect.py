@@ -41,6 +41,7 @@ class StrikethroughEffect(BaseModel):
     selected_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The value of the selected price type to apply to the SKU targeted by this effect, before any discounts are applied.", alias="selectedPrice", json_schema_extra={"examples": [100]})
     adjustment_reference_id: Optional[StrictStr] = Field(default=None, description="The reference identifier of the selected price adjustment for this cart item.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
     targets: Optional[List[LabelTarget]] = Field(default=None, description="A list of entities (e.g. audiences) targeted by this effect.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["campaignId", "rulesetId", "ruleIndex", "ruleName", "type", "props", "startTime", "endTime", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "targets"]
 
     model_config = ConfigDict(
@@ -73,8 +74,10 @@ class StrikethroughEffect(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -88,6 +91,11 @@ class StrikethroughEffect(BaseModel):
             for _item_targets in self.targets:
                 _items.append(_item_targets.to_dict() if _item_targets is not None else None)
             _dict['targets'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -113,6 +121,11 @@ class StrikethroughEffect(BaseModel):
             "adjustmentReferenceId": obj.get("adjustmentReferenceId"),
             "targets": [LabelTarget.from_dict(_item) for _item in obj["targets"]] if obj.get("targets") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

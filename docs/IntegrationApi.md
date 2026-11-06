@@ -145,7 +145,9 @@ Name | Type | Description  | Notes
 
 Fetch best prior price
 
-Returns the best prior price based on historical pricing data for the specified SKUs within a defined timeframe.
+Returns the best prior price based on price records (historical price data) for the specified SKUs within a defined timeframe.
+
+For more information, see the [docs](https://docs.talon.one/docs/dev/integration-guides/best-prior-price).
 
 
 ### Example
@@ -3138,16 +3140,20 @@ Perform the following actions for a given cart item catalog:
 - Update the attributes of multiple items in the catalog.
 - Remove an item from the catalog.
 - Remove multiple items from the catalog.
+- Add a [price adjustment](https://docs.talon.one/docs/dev/integration-guides/set-up-price-types#price-adjustments)
+  to an item in the catalog.
 
 You can either add, update, or delete up to 1000 cart items in a single
 request. Each item synced to a catalog must have a unique `SKU`.
+
+For examples of each action, see the request body.
 
 > [!important] You can perform only one type of action in a single sync
 request. Syncing items with duplicate `SKU` values in a single request
 returns an error message with a `400` status code.
 
-For more information, read [managing cart item
-catalogs](https://docs.talon.one/docs/product/account/dev-tools/managing-cart-item-catalogs).
+
+For more information, see [Sync a cart item catalog best practices](https://docs.talon.one/docs/dev/integration-guides/sync-cic#best-practices) and [Managing cart item catalogs](https://docs.talon.one/docs/product/account/dev-tools/managing-cart-item-catalogs).
 
 ### Filtering cart items
 
@@ -3174,8 +3180,6 @@ The `filters` array contains an object with the following properties:
 
   **Note:** `GE`, `LE`, `GT`, `LT` are for numeric values only.
 - `value`: The value of the attribute selected in `attr`.
-
-For request examples of each action, see the **Request Body** examples.
 
 
 ### Example

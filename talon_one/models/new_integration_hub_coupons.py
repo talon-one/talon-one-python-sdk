@@ -48,6 +48,7 @@ class NewIntegrationHubCoupons(BaseModel):
     recipient_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The integration ID for this coupon's beneficiary's profile.", alias="recipientIntegrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
     support_request_id: Optional[StrictInt] = Field(default=None, description="The identifier of the support request to link to the coupon creation. The request must exist and not yet be processed.", alias="supportRequestId", json_schema_extra={"examples": [42]})
     support_request_note: Optional[StrictStr] = Field(default=None, description="A note recorded when the linked support request is approved or rejected. Applied when `supportRequestId` is provided.", alias="supportRequestNote", json_schema_extra={"examples": ["Approved as compensation for the delayed order."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "limits", "applicationId", "campaignId", "batchId", "numberOfCoupons", "attributes", "validCharacters", "couponPattern", "isReservationMandatory", "implicitlyReserved", "recipientIntegrationId", "supportRequestId", "supportRequestNote"]
 
     model_config = ConfigDict(
@@ -80,8 +81,10 @@ class NewIntegrationHubCoupons(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -95,6 +98,11 @@ class NewIntegrationHubCoupons(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -126,6 +134,11 @@ class NewIntegrationHubCoupons(BaseModel):
             "supportRequestId": obj.get("supportRequestId"),
             "supportRequestNote": obj.get("supportRequestNote")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

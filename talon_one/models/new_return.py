@@ -29,6 +29,7 @@ class NewReturn(BaseModel):
     NewReturn
     """ # noqa: E501
     returned_cart_items: List[ReturnedCartItem] = Field(description="List of cart items to be returned.", alias="returnedCartItems")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["returnedCartItems"]
 
     model_config = ConfigDict(
@@ -61,8 +62,10 @@ class NewReturn(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class NewReturn(BaseModel):
             for _item_returned_cart_items in self.returned_cart_items:
                 _items.append(_item_returned_cart_items.to_dict() if _item_returned_cart_items is not None else None)
             _dict['returnedCartItems'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -90,6 +98,11 @@ class NewReturn(BaseModel):
         _obj = cls.model_validate({
             "returnedCartItems": [ReturnedCartItem.from_dict(_item) for _item in obj["returnedCartItems"]] if obj.get("returnedCartItems") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -41,6 +41,7 @@ class ModelReturn(BaseModel):
     profile_id: Optional[StrictInt] = Field(default=None, description="The internal ID of the profile this return was requested on.", alias="profileId", json_schema_extra={"examples": [123]})
     profile_integration_id: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="The integration ID of the profile this return was requested on.", alias="profileIntegrationId", json_schema_extra={"examples": ["0c0e0207-eb30-4e06-a56c-2b7c8a64953c"]})
     created_by: Optional[StrictInt] = Field(default=None, description="ID of the user who requested this return.", alias="createdBy", json_schema_extra={"examples": [123]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "applicationId", "accountId", "returnedCartItems", "eventId", "sessionId", "sessionIntegrationId", "profileId", "profileIntegrationId", "createdBy"]
 
     model_config = ConfigDict(
@@ -73,8 +74,10 @@ class ModelReturn(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -88,6 +91,11 @@ class ModelReturn(BaseModel):
             for _item_returned_cart_items in self.returned_cart_items:
                 _items.append(_item_returned_cart_items.to_dict() if _item_returned_cart_items is not None else None)
             _dict['returnedCartItems'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -112,6 +120,11 @@ class ModelReturn(BaseModel):
             "profileIntegrationId": obj.get("profileIntegrationId"),
             "createdBy": obj.get("createdBy")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -40,7 +40,7 @@ class TestUpdateCouponBatch(unittest.TestCase):
                 reservation_limit = 45,
                 start_date = '2020-01-24T14:15:22Z',
                 expiry_date = '2023-08-24T14:15:22Z',
-                attributes = None,
+                attributes = { },
                 batch_id = ''
             )
         else:

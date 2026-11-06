@@ -33,6 +33,7 @@ class AchievementProgress(BaseModel):
     start_date: Optional[datetime] = Field(default=None, description="Timestamp at which the customer started the achievement.", alias="startDate", json_schema_extra={"examples": ["2024-01-01T15:04:05Z07:00"]})
     completion_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the customer completed the achievement.", alias="completionDate", json_schema_extra={"examples": ["2024-01-15T15:04:05Z07:00"]})
     end_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the achievement ends and resets for the customer.", alias="endDate", json_schema_extra={"examples": ["2024-02-01T15:04:05Z07:00"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["status", "progress", "startDate", "completionDate", "endDate"]
 
     @field_validator('status')
@@ -72,8 +73,10 @@ class AchievementProgress(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -81,6 +84,11 @@ class AchievementProgress(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -99,6 +107,11 @@ class AchievementProgress(BaseModel):
             "completionDate": obj.get("completionDate"),
             "endDate": obj.get("endDate")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

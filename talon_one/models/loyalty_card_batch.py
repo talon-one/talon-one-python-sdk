@@ -34,6 +34,7 @@ class LoyaltyCardBatch(BaseModel):
     status: Optional[StrictStr] = Field(default='active', description="Status of the loyalty cards in the batch.", json_schema_extra={"examples": ["active"]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Set values for the [custom attributes](https://docs.talon.one/docs/dev/concepts/attributes#custom-attributes) of a loyalty card. These attributes must be created in the Campaign Manager before their values can be updated through this endpoint. ", json_schema_extra={"examples": ["{PIN=1234, Language=DE}"]})
     card_code_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="cardCodeSettings")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["numberOfCards", "batchId", "status", "attributes", "cardCodeSettings"]
 
     @field_validator('batch_id', mode="before")
@@ -86,8 +87,10 @@ class LoyaltyCardBatch(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -98,6 +101,11 @@ class LoyaltyCardBatch(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of card_code_settings
         if self.card_code_settings:
             _dict['cardCodeSettings'] = self.card_code_settings.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -116,6 +124,11 @@ class LoyaltyCardBatch(BaseModel):
             "attributes": obj.get("attributes"),
             "cardCodeSettings": CodeGeneratorSettings.from_dict(obj["cardCodeSettings"]) if obj.get("cardCodeSettings") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -39,6 +39,7 @@ class AddLoyaltyPointsSupport(BaseModel):
     application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application that is connected to the loyalty program. It is displayed in your Talon.One deployment URL.", alias="applicationId", json_schema_extra={"examples": [322]})
     support_request_id: Optional[StrictInt] = Field(default=None, description="ID of the support request to approve. When provided by an admin, the points are added on behalf of the support user who created the request.", alias="supportRequestId", json_schema_extra={"examples": [42]})
     processing_note: Optional[StrictStr] = Field(default=None, description="Note from the admin approving the support request. Stored as the processing note on the support request record. This is only used when a supportRequestId is passed.", alias="processingNote", json_schema_extra={"examples": ["Approved after manual review."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["points", "name", "validityDuration", "validUntil", "pendingDuration", "pendingUntil", "subledgerId", "applicationId", "supportRequestId", "processingNote"]
 
     model_config = ConfigDict(
@@ -71,8 +72,10 @@ class AddLoyaltyPointsSupport(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -80,6 +83,11 @@ class AddLoyaltyPointsSupport(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -103,6 +111,11 @@ class AddLoyaltyPointsSupport(BaseModel):
             "supportRequestId": obj.get("supportRequestId"),
             "processingNote": obj.get("processingNote")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

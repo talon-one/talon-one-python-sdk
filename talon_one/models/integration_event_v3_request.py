@@ -39,6 +39,7 @@ class IntegrationEventV3Request(BaseModel):
     loyalty_cards: Optional[Annotated[List[StrictStr], Field(max_length=1)]] = Field(default=None, description="Identifiers of the loyalty cards used during this event.", alias="loyaltyCards", json_schema_extra={"examples": [["loyalty-card-1"]]})
     reward_integration_ids: Optional[List[StrictStr]] = Field(default=None, description="The integration IDs of the unlocked rewards that can be used in this event. ", alias="rewardIntegrationIds", json_schema_extra={"examples": [["5c0b5e6d-3f8a-4c2b-9f1e-2a7d6b4c8e90"]]})
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Optional list of requested information to be present on the response related to the tracking custom event. ", alias="responseContent", json_schema_extra={"examples": [["triggeredCampaigns", "customerProfile"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["profileId", "storeIntegrationId", "evaluableCampaignIds", "type", "attributes", "integrationId", "connectedSessionId", "referralCode", "loyaltyCards", "rewardIntegrationIds", "responseContent"]
 
     @field_validator('response_content')
@@ -82,8 +83,10 @@ class IntegrationEventV3Request(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -91,6 +94,11 @@ class IntegrationEventV3Request(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -115,6 +123,11 @@ class IntegrationEventV3Request(BaseModel):
             "rewardIntegrationIds": obj.get("rewardIntegrationIds"),
             "responseContent": obj.get("responseContent")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

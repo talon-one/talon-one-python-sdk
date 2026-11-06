@@ -53,6 +53,7 @@ class ExtendedCoupon(BaseModel):
     is_reservation_mandatory: Optional[StrictBool] = Field(default=False, description="An indication of whether the code can be redeemed only if it has been reserved first.", alias="isReservationMandatory", json_schema_extra={"examples": [False]})
     implicitly_reserved: Optional[StrictBool] = Field(default=None, description="An indication of whether the coupon is implicitly reserved for all customers.", alias="implicitlyReserved", json_schema_extra={"examples": [False]})
     application_id: StrictInt = Field(description="The ID of the application.", alias="ApplicationId")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "campaignId", "value", "usageLimit", "discountLimit", "reservationLimit", "startDate", "expiryDate", "limits", "usageCounter", "discountCounter", "discountRemainder", "reservationCounter", "attributes", "referralId", "recipientIntegrationId", "importId", "reservation", "batchId", "isReservationMandatory", "implicitlyReserved", "ApplicationId"]
 
     model_config = ConfigDict(
@@ -85,8 +86,10 @@ class ExtendedCoupon(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -100,6 +103,11 @@ class ExtendedCoupon(BaseModel):
             for _item_limits in self.limits:
                 _items.append(_item_limits.to_dict() if _item_limits is not None else None)
             _dict['limits'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -136,6 +144,11 @@ class ExtendedCoupon(BaseModel):
             "implicitlyReserved": obj.get("implicitlyReserved"),
             "ApplicationId": obj.get("ApplicationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

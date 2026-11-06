@@ -34,6 +34,7 @@ class ShowNotificationBlock(BaseModel):
     title: StrictStr = Field(description="The notification heading shown to the customer.", json_schema_extra={"examples": ["You earned a reward!"]})
     body: StrictStr = Field(description="The notification body text. Supports template placeholders (e.g. \"{{$Session.Total}}\") evaluated at rule execution time.", json_schema_extra={"examples": ["You saved $10 on your order."]})
     on_error: Optional[Dict[str, List[Block]]] = Field(default=None, description="Named error handlers evaluated when a specific error occurs.", alias="onError")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "notificationType", "title", "body", "onError"]
 
     model_config = ConfigDict(
@@ -68,10 +69,12 @@ class ShowNotificationBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -87,6 +90,11 @@ class ShowNotificationBlock(BaseModel):
                     _item.to_dict() if _item is not None else None for _item in self.on_error[_key_on_error]
                 ] if self.on_error[_key_on_error] is not None else None
             _dict['onError'] = _field_dict_of_array
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -112,6 +120,11 @@ class ShowNotificationBlock(BaseModel):
             if obj.get("onError") is not None
             else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 from talon_one.models.block import Block

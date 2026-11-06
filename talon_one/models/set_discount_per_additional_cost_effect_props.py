@@ -32,6 +32,7 @@ class SetDiscountPerAdditionalCostEffectProps(BaseModel):
     additional_cost: StrictStr = Field(description="The API name of the additional cost.", alias="additionalCost")
     value: Union[StrictFloat, StrictInt] = Field(description="The monetary value of the discount to apply.")
     desired_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="_(Partial discounts enabled only)_ The monetary value of the discount to be applied without considering budget limitations.", alias="desiredValue")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "additionalCostId", "additionalCost", "value", "desiredValue"]
 
     model_config = ConfigDict(
@@ -64,8 +65,10 @@ class SetDiscountPerAdditionalCostEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,11 @@ class SetDiscountPerAdditionalCostEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -91,6 +99,11 @@ class SetDiscountPerAdditionalCostEffectProps(BaseModel):
             "value": obj.get("value"),
             "desiredValue": obj.get("desiredValue")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

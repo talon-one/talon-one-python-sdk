@@ -30,6 +30,7 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
     name: StrictStr = Field(description="The effect name.", json_schema_extra={"examples": ["1EuroOff"]})
     value: Optional[Any] = Field(description="The discount value.", json_schema_extra={"examples": [1]})
     excluded_from_price_history: Optional[StrictBool] = Field(default=None, description="When set to `true`, the applied discount is excluded from the item's price history.", alias="excludedFromPriceHistory")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "value", "excludedFromPriceHistory"]
 
     model_config = ConfigDict(
@@ -62,8 +63,10 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -71,6 +74,11 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if value (nullable) is None
         # and model_fields_set contains the field
         if self.value is None and "value" in self.model_fields_set:
@@ -92,6 +100,11 @@ class StrikethroughSetDiscountPerItemEffectProps(BaseModel):
             "value": obj.get("value"),
             "excludedFromPriceHistory": obj.get("excludedFromPriceHistory")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

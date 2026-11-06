@@ -46,6 +46,7 @@ class EffectEntity(BaseModel):
     adjustment_reference_id: Optional[UUID] = Field(default=None, description="The reference identifier of the selected price adjustment for this SKU. This is only returned if the `selectedPrice` resulted from a price adjustment.", alias="adjustmentReferenceId", json_schema_extra={"examples": ["68851723-e6fa-488f-ace9-112581e6c19b"]})
     reward_id: Optional[StrictInt] = Field(default=None, description="The ID of the reward that was being evaluated when this effect was triggered.", alias="rewardId", json_schema_extra={"examples": [7]})
     reward_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the specific customer reward whose usage produced this effect.", alias="rewardIntegrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["experimentId", "campaignId", "rulesetId", "ruleIndex", "ruleName", "effectType", "triggeredByCoupon", "triggeredForCatalogItem", "conditionIndex", "evaluationGroupID", "evaluationGroupMode", "campaignRevisionId", "campaignRevisionVersionId", "selectedPriceType", "selectedPrice", "adjustmentReferenceId", "rewardId", "rewardIntegrationId"]
 
     model_config = ConfigDict(
@@ -78,8 +79,10 @@ class EffectEntity(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -87,6 +90,11 @@ class EffectEntity(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -118,6 +126,11 @@ class EffectEntity(BaseModel):
             "rewardId": obj.get("rewardId"),
             "rewardIntegrationId": obj.get("rewardIntegrationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

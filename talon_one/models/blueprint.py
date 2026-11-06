@@ -43,6 +43,7 @@ class Blueprint(BaseModel):
     created_by: StrictInt = Field(description="ID of the user who created the blueprint.", alias="createdBy")
     modified: Optional[datetime] = Field(default=None, description="Timestamp when the blueprint was last updated.")
     modified_by: Optional[StrictInt] = Field(default=None, description="ID of the user who last updated the blueprint.", alias="modifiedBy")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "accountId", "applicationId", "title", "description", "category", "source", "rules", "cartItemFilters", "created", "createdBy", "modified", "modifiedBy"]
 
     @field_validator('category')
@@ -89,8 +90,10 @@ class Blueprint(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -110,6 +113,11 @@ class Blueprint(BaseModel):
             for _item_cart_item_filters in self.cart_item_filters:
                 _items.append(_item_cart_item_filters.to_dict() if _item_cart_item_filters is not None else None)
             _dict['cartItemFilters'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -136,6 +144,11 @@ class Blueprint(BaseModel):
             "modified": obj.get("modified"),
             "modifiedBy": obj.get("modifiedBy")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

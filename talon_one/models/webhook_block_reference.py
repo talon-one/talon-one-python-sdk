@@ -29,6 +29,7 @@ class WebhookBlockReference(BaseModel):
     """ # noqa: E501
     id: StrictInt = Field(description="The unique identifier of the webhook.", json_schema_extra={"examples": [1]})
     title: Optional[StrictStr] = Field(default=None, description="The display name of the webhook.", json_schema_extra={"examples": ["Thank you for your order."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "title"]
 
     model_config = ConfigDict(
@@ -62,9 +63,11 @@ class WebhookBlockReference(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "title",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -72,6 +75,11 @@ class WebhookBlockReference(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -87,6 +95,11 @@ class WebhookBlockReference(BaseModel):
             "id": obj.get("id"),
             "title": obj.get("title")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

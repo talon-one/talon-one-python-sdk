@@ -39,6 +39,7 @@ class CatalogItem(BaseModel):
     version: Annotated[int, Field(strict=True, ge=1)] = Field(description="The version of the catalog item.", json_schema_extra={"examples": [5]})
     attributes: Optional[List[ItemAttribute]] = None
     product: Optional[Product] = None
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "sku", "price", "catalogid", "version", "attributes", "product"]
 
     model_config = ConfigDict(
@@ -71,8 +72,10 @@ class CatalogItem(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -89,6 +92,11 @@ class CatalogItem(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of product
         if self.product:
             _dict['product'] = self.product.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -110,6 +118,11 @@ class CatalogItem(BaseModel):
             "attributes": [ItemAttribute.from_dict(_item) for _item in obj["attributes"]] if obj.get("attributes") is not None else None,
             "product": Product.from_dict(obj["product"]) if obj.get("product") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

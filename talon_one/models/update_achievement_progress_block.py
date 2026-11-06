@@ -35,6 +35,7 @@ class UpdateAchievementProgressBlock(BaseModel):
     operator: StrictStr = Field(json_schema_extra={"examples": ["increaseBy"]})
     value: UpdateAchievementProgressBlock1Value
     achievement: AchievementBlockReference = Field(description="The achievement to update.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "tags", "operator", "value", "achievement"]
 
     @field_validator('operator')
@@ -76,10 +77,12 @@ class UpdateAchievementProgressBlock(BaseModel):
           are ignored.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
             "tags",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -93,6 +96,11 @@ class UpdateAchievementProgressBlock(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of achievement
         if self.achievement:
             _dict['achievement'] = self.achievement.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -112,6 +120,11 @@ class UpdateAchievementProgressBlock(BaseModel):
             "value": UpdateAchievementProgressBlock1Value.from_dict(obj["value"]) if obj.get("value") is not None else None,
             "achievement": AchievementBlockReference.from_dict(obj["achievement"]) if obj.get("achievement") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

@@ -35,6 +35,7 @@ class RewardWithUnlocks(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="Customer-facing description of the reward.", json_schema_extra={"examples": ["Applies to next order"]})
     rule: RuleMetadata = Field(description="Customer-facing rule metadata for the reward.")
     unlocked: Optional[List[CustomerReward]] = Field(default=None, description="The customer profile's unlocks of this reward that are not yet `used`.")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "integrationId", "name", "description", "rule", "unlocked"]
 
     model_config = ConfigDict(
@@ -67,8 +68,10 @@ class RewardWithUnlocks(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class RewardWithUnlocks(BaseModel):
             for _item_unlocked in self.unlocked:
                 _items.append(_item_unlocked.to_dict() if _item_unlocked is not None else None)
             _dict['unlocked'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -104,6 +112,11 @@ class RewardWithUnlocks(BaseModel):
             "rule": RuleMetadata.from_dict(obj["rule"]) if obj.get("rule") is not None else None,
             "unlocked": [CustomerReward.from_dict(_item) for _item in obj["unlocked"]] if obj.get("unlocked") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

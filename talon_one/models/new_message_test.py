@@ -35,6 +35,7 @@ class NewMessageTest(BaseModel):
     params: Optional[List[TemplateArgDef]] = Field(default=None, description="Array of template argument definitions.", json_schema_extra={"examples": [[]]})
     application_ids: Optional[List[StrictInt]] = Field(default=None, description="The IDs of the Applications in which this webhook is available. An empty array means the webhook is available in `All Applications`. ", alias="applicationIds")
     authentication_id: Optional[StrictInt] = Field(default=None, description="The ID of the credential that this webhook is using.", alias="authenticationId", json_schema_extra={"examples": [1]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["headers", "verb", "url", "payload", "params", "applicationIds", "authenticationId"]
 
     @field_validator('verb')
@@ -74,8 +75,10 @@ class NewMessageTest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -89,6 +92,11 @@ class NewMessageTest(BaseModel):
             for _item_params in self.params:
                 _items.append(_item_params.to_dict() if _item_params is not None else None)
             _dict['params'] = _items
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -109,6 +117,11 @@ class NewMessageTest(BaseModel):
             "applicationIds": obj.get("applicationIds"),
             "authenticationId": obj.get("authenticationId")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

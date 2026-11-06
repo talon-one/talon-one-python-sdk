@@ -33,6 +33,7 @@ class RejectCouponEffectProps(BaseModel):
     effect_index: Optional[StrictInt] = Field(default=None, description="The index of the effect that caused the rejection of the coupon.", alias="effectIndex")
     details: Optional[StrictStr] = Field(default=None, description="More details about the failure.")
     campaign_exclusion_reason: Optional[StrictStr] = Field(default=None, description="The reason why the campaign the coupon belongs to was excluded during [campaign evaluation](https://docs.talon.one/docs/product/applications/manage-campaign-evaluation), when `rejectionReason` was `CouponPartOfNotTriggeredCampaign`. Its possible values are:  - `CampaignGaveLowerDiscount`: The required campaign and coupon conditions were met, but another campaign in a [Highest discount value](https://docs.talon.one/docs/product/applications/manage-campaign-evaluation#set-campaign-evaluation-mode) group offered a higher discount value. - `CampaignIsNotFirst`: The campaign was not evaluated because another campaign in a [First campaign](https://docs.talon.one/docs/product/applications/manage-campaign-evaluation#set-campaign-evaluation-mode) group was picked and evaluated first. - `CampaignNotInEvaluationSet`: The campaign did not meet other evaluation requirements, for example, because the coupon is part of an archived campaign.", alias="campaignExclusionReason", json_schema_extra={"examples": ["CampaignGaveLowerDiscount"]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["value", "rejectionReason", "conditionIndex", "effectIndex", "details", "campaignExclusionReason"]
 
     model_config = ConfigDict(
@@ -65,8 +66,10 @@ class RejectCouponEffectProps(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -74,6 +77,11 @@ class RejectCouponEffectProps(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -93,6 +101,11 @@ class RejectCouponEffectProps(BaseModel):
             "details": obj.get("details"),
             "campaignExclusionReason": obj.get("campaignExclusionReason")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

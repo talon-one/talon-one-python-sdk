@@ -30,6 +30,7 @@ class IntegrationRequest(BaseModel):
     """ # noqa: E501
     customer_session: NewCustomerSessionV2 = Field(description="The customer session update details.", alias="customerSession")
     response_content: Optional[List[StrictStr]] = Field(default=None, description="Extends the response with the chosen data entities. Use this property to get as much data as you need in one _Update customer session_ request instead of sending extra requests to other endpoints.  **Note:** To retrieve loyalty card details, your request must include a loyalty card ID. ", alias="responseContent", json_schema_extra={"examples": [["customerSession", "customerProfile"]]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["customerSession", "responseContent"]
 
     @field_validator('response_content')
@@ -73,8 +74,10 @@ class IntegrationRequest(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -85,6 +88,11 @@ class IntegrationRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of customer_session
         if self.customer_session:
             _dict['customerSession'] = self.customer_session.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -100,6 +108,11 @@ class IntegrationRequest(BaseModel):
             "customerSession": NewCustomerSessionV2.from_dict(obj["customerSession"]) if obj.get("customerSession") is not None else None,
             "responseContent": obj.get("responseContent")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

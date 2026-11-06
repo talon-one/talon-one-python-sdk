@@ -35,6 +35,7 @@ class Binding(BaseModel):
     max_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The maximum value allowed for this placeholder.", alias="maxValue", json_schema_extra={"examples": [19.9]})
     attribute_id: Optional[StrictInt] = Field(default=None, description="Identifier of the attribute attached to the placeholder.", alias="attributeId", json_schema_extra={"examples": [100]})
     description: Optional[StrictStr] = Field(default=None, description="Description of the placeholder field and its value in the template. This text can be shown when creating campaigns from this template.", json_schema_extra={"examples": ["The percentage discount applied to the cart total."]})
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "type", "expression", "valueType", "minValue", "maxValue", "attributeId", "description"]
 
     model_config = ConfigDict(
@@ -67,8 +68,10 @@ class Binding(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -76,6 +79,11 @@ class Binding(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -97,6 +105,11 @@ class Binding(BaseModel):
             "attributeId": obj.get("attributeId"),
             "description": obj.get("description")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

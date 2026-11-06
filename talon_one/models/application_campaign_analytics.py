@@ -44,6 +44,7 @@ class ApplicationCampaignAnalytics(BaseModel):
     avg_session_value: Optional[AnalyticsDataPointWithTrendAndUplift] = Field(default=None, description="The average customer session value, calculated by dividing the revenue value by the number of sessions. The `influenced` value includes only sessions with at least one applied effect.", alias="avgSessionValue")
     total_discounts: Optional[AnalyticsDataPointWithTrend] = Field(default=None, description="The total value of discounts given for cart items in influenced sessions.", alias="totalDiscounts")
     coupons_count: Optional[AnalyticsDataPointWithTrend] = Field(default=None, description="The number of times a coupon was successfully redeemed in influenced sessions.", alias="couponsCount")
+    additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["startTime", "endTime", "campaignId", "campaignName", "campaignTags", "campaignState", "totalRevenue", "sessionsCount", "avgItemsPerSession", "avgSessionValue", "totalDiscounts", "couponsCount"]
 
     @field_validator('campaign_state')
@@ -83,8 +84,10 @@ class ApplicationCampaignAnalytics(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -110,6 +113,11 @@ class ApplicationCampaignAnalytics(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of coupons_count
         if self.coupons_count:
             _dict['couponsCount'] = self.coupons_count.to_dict()
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         return _dict
 
     @classmethod
@@ -135,6 +143,11 @@ class ApplicationCampaignAnalytics(BaseModel):
             "totalDiscounts": AnalyticsDataPointWithTrend.from_dict(obj["totalDiscounts"]) if obj.get("totalDiscounts") is not None else None,
             "couponsCount": AnalyticsDataPointWithTrend.from_dict(obj["couponsCount"]) if obj.get("couponsCount") is not None else None
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 
