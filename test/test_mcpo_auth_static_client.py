@@ -14,10 +14,10 @@
 
 import unittest
 
-from talon_one.models.webhook_authentication_all_of_data import WebhookAuthenticationAllOfData
+from talon_one.models.mcpo_auth_static_client import MCPOAuthStaticClient
 
-class TestWebhookAuthenticationAllOfData(unittest.TestCase):
-    """WebhookAuthenticationAllOfData unit test stubs"""
+class TestMCPOAuthStaticClient(unittest.TestCase):
+    """MCPOAuthStaticClient unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,34 +25,37 @@ class TestWebhookAuthenticationAllOfData(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> WebhookAuthenticationAllOfData:
-        """Test WebhookAuthenticationAllOfData
+    def make_instance(self, include_optional) -> MCPOAuthStaticClient:
+        """Test MCPOAuthStaticClient
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `WebhookAuthenticationAllOfData`
+        # uncomment below to create an instance of `MCPOAuthStaticClient`
         """
-        model = WebhookAuthenticationAllOfData()
+        model = MCPOAuthStaticClient()
         if include_optional:
-            return WebhookAuthenticationAllOfData(
-                username = '',
-                password = '',
-                headers = {
-                    'key' : ''
-                    }
+            return MCPOAuthStaticClient(
+                client_id = 'a3f8c1e2b4d56789',
+                client_name = 'My MCP Integration',
+                redirect_uris = [https://example.com/callback, http://localhost:3000/callback],
+                created_at = '2026-06-12T10:00:00Z',
+                id = 34,
+                created_by = 280,
+                expiry_date = '2027-01-01T00:00:00Z'
             )
         else:
-            return WebhookAuthenticationAllOfData(
-                username = '',
-                password = '',
-                headers = {
-                    'key' : ''
-                    },
+            return MCPOAuthStaticClient(
+                client_id = 'a3f8c1e2b4d56789',
+                client_name = 'My MCP Integration',
+                redirect_uris = [https://example.com/callback, http://localhost:3000/callback],
+                created_at = '2026-06-12T10:00:00Z',
+                id = 34,
+                created_by = 280,
         )
         """
 
-    def testWebhookAuthenticationAllOfData(self):
-        """Test WebhookAuthenticationAllOfData"""
+    def testMCPOAuthStaticClient(self):
+        """Test MCPOAuthStaticClient"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

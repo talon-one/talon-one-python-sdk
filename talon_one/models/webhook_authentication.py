@@ -13,124 +13,146 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from talon_one.models.webhook_authentication_basic import WebhookAuthenticationBasic
+from talon_one.models.webhook_authentication_custom import WebhookAuthenticationCustom
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
-from talon_one.models.webhook_authentication_all_of_data import WebhookAuthenticationAllOfData
-from talon_one.models.webhook_authentication_webhook_ref import WebhookAuthenticationWebhookRef
-from typing import Optional, Set
-from typing_extensions import Self
-from pydantic_core import to_jsonable_python
+WEBHOOKAUTHENTICATION_ONE_OF_SCHEMAS = ["WebhookAuthenticationBasic", "WebhookAuthenticationCustom"]
 
 class WebhookAuthentication(BaseModel):
     """
-    WebhookAuthentication
-    """ # noqa: E501
-    id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
-    created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
-    modified: datetime = Field(description="The time this entity was last modified.", json_schema_extra={"examples": ["2021-09-12T10:12:42Z"]})
-    created_by: StrictStr = Field(description="The name of the user who created the webhook authentication.", alias="createdBy")
-    modified_by: StrictStr = Field(description="The name of the user who last modified the webhook authentication.", alias="modifiedBy")
-    webhooks: List[WebhookAuthenticationWebhookRef]
-    name: StrictStr = Field(description="The name of the webhook authentication.", json_schema_extra={"examples": ["My basic auth"]})
-    type: StrictStr
-    data: WebhookAuthenticationAllOfData
-    additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "created", "modified", "createdBy", "modifiedBy", "webhooks", "name", "type", "data"]
-
-    @field_validator('type')
-    def type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['basic', 'custom']):
-            raise ValueError("must be one of enum values ('basic', 'custom')")
-        return value
+    A webhook authentication. The `type` field selects the concrete authentication variant.
+    """
+    # data type: WebhookAuthenticationBasic
+    oneof_schema_1_validator: Optional[WebhookAuthenticationBasic] = None
+    # data type: WebhookAuthenticationCustom
+    oneof_schema_2_validator: Optional[WebhookAuthenticationCustom] = None
+    actual_instance: Optional[Union[WebhookAuthenticationBasic, WebhookAuthenticationCustom]] = None
+    one_of_schemas: Set[str] = { "WebhookAuthenticationBasic", "WebhookAuthenticationCustom" }
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
 
-    def to_str(self) -> str:
-        """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
+    discriminator_value_class_map: Dict[str, str] = {
+    }
+
+    def __init__(self, *args, **kwargs) -> None:
+        if args:
+            if len(args) > 1:
+                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
+            if kwargs:
+                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
+            super().__init__(actual_instance=args[0])
+        else:
+            super().__init__(**kwargs)
+
+    @field_validator('actual_instance')
+    def actual_instance_must_validate_oneof(cls, v):
+        instance = WebhookAuthentication.model_construct()
+        error_messages = []
+        match = 0
+        # validate data type: WebhookAuthenticationBasic
+        if not isinstance(v, WebhookAuthenticationBasic):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `WebhookAuthenticationBasic`")
+        else:
+            match += 1
+        # validate data type: WebhookAuthenticationCustom
+        if not isinstance(v, WebhookAuthenticationCustom):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `WebhookAuthenticationCustom`")
+        else:
+            match += 1
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when setting `actual_instance` in WebhookAuthentication with oneOf schemas: WebhookAuthenticationBasic, WebhookAuthenticationCustom. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when setting `actual_instance` in WebhookAuthentication with oneOf schemas: WebhookAuthenticationBasic, WebhookAuthenticationCustom. Details: " + ", ".join(error_messages))
+        else:
+            return v
+
+    @classmethod
+    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
+        return cls.from_json(json.dumps(obj))
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        """Returns the object represented by the json string"""
+        instance = cls.model_construct()
+        error_messages = []
+        match = 0
+
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "type"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `WebhookAuthenticationBasic`
+        if _data_type == "basic":
+            instance.actual_instance = WebhookAuthenticationBasic.from_json(json_str)
+            return instance
+
+        # check if data type is `WebhookAuthenticationCustom`
+        if _data_type == "custom":
+            instance.actual_instance = WebhookAuthenticationCustom.from_json(json_str)
+            return instance
+
+        # deserialize data into WebhookAuthenticationBasic
+        try:
+            instance.actual_instance = WebhookAuthenticationBasic.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+        # deserialize data into WebhookAuthenticationCustom
+        try:
+            instance.actual_instance = WebhookAuthenticationCustom.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
+
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when deserializing the JSON string into WebhookAuthentication with oneOf schemas: WebhookAuthenticationBasic, WebhookAuthenticationCustom. Details: " + ", ".join(error_messages))
+        elif match == 0:
+            # no match
+            raise ValueError("No match found when deserializing the JSON string into WebhookAuthentication with oneOf schemas: WebhookAuthenticationBasic, WebhookAuthenticationCustom. Details: " + ", ".join(error_messages))
+        else:
+            return instance
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        """Returns the JSON representation of the actual instance"""
+        if self.actual_instance is None:
+            return "null"
 
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of WebhookAuthentication from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
+        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
+            return self.actual_instance.to_json()
+        else:
+            return json.dumps(self.to_dict())
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        * Fields in `self.additional_properties` are added to the output dict.
-        """
-        excluded_fields: Set[str] = set([
-            "additional_properties",
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
-        )
-        # override the default output from pydantic by calling `to_dict()` of each item in webhooks (list)
-        _items = []
-        if self.webhooks:
-            for _item_webhooks in self.webhooks:
-                _items.append(_item_webhooks.to_dict() if _item_webhooks is not None else None)
-            _dict['webhooks'] = _items
-        # override the default output from pydantic by calling `to_dict()` of data
-        if self.data:
-            _dict['data'] = self.data.to_dict()
-        # puts key-value pairs in additional_properties in the top level
-        if self.additional_properties is not None:
-            for _key, _value in self.additional_properties.items():
-                _dict[_key] = _value
-
-        return _dict
-
-    @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of WebhookAuthentication from a dict"""
-        if obj is None:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], WebhookAuthenticationBasic, WebhookAuthenticationCustom]]:
+        """Returns the dict representation of the actual instance"""
+        if self.actual_instance is None:
             return None
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
+        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
+            return self.actual_instance.to_dict()
+        else:
+            # Arrays of models must expose wire dictionaries, not BaseModel objects.
+            if isinstance(self.actual_instance, list):
+                return [item.to_dict() if hasattr(item, "to_dict") else item for item in self.actual_instance]
+            return self.actual_instance
 
-        _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "created": obj.get("created"),
-            "modified": obj.get("modified"),
-            "createdBy": obj.get("createdBy"),
-            "modifiedBy": obj.get("modifiedBy"),
-            "webhooks": [WebhookAuthenticationWebhookRef.from_dict(_item) for _item in obj["webhooks"]] if obj.get("webhooks") is not None else None,
-            "name": obj.get("name"),
-            "type": obj.get("type"),
-            "data": WebhookAuthenticationAllOfData.from_dict(obj["data"]) if obj.get("data") is not None else None
-        })
-        # store additional fields in additional_properties
-        for _key in obj.keys():
-            if _key not in cls.__properties:
-                _obj.additional_properties[_key] = obj.get(_key)
-
-        return _obj
+    def to_str(self) -> str:
+        """Returns the string representation of the actual instance"""
+        return pprint.pformat(self.model_dump())
 
 

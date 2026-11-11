@@ -36,12 +36,12 @@ class TestNewMCPOAuthClient(unittest.TestCase):
         if include_optional:
             return NewMCPOAuthClient(
                 client_name = 'My MCP Integration',
-                redirect_uris = ["http://localhost:3000/callback"]
+                redirect_uris = [http://localhost:3000/callback]
             )
         else:
             return NewMCPOAuthClient(
                 client_name = 'My MCP Integration',
-                redirect_uris = ["http://localhost:3000/callback"],
+                redirect_uris = [http://localhost:3000/callback],
         )
         """
 
