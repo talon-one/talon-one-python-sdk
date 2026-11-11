@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.22.1"
+__version__ = "26.23.0"
 
 # Define package exports
 __all__ = [
@@ -620,6 +620,8 @@ __all__ = [
     "MCPOAuthProtectedResource",
     "MCPOAuthServerMetadata",
     "MCPOAuthSessionInfo",
+    "MCPOAuthStaticClient",
+    "MCPOAuthStaticClientWithSecret",
     "MCPOAuthToken",
     "MCPOAuthTokenError",
     "MCPOAuthTokenRequest",
@@ -692,6 +694,7 @@ __all__ = [
     "NewLoyaltyTier",
     "NewMCPKey",
     "NewMCPOAuthClient",
+    "NewMCPOAuthStaticClient",
     "NewManagementKey",
     "NewMessageTest",
     "NewMultipleAudiencesItem",
@@ -729,7 +732,16 @@ __all__ = [
     "OutboundLogBase",
     "OutboundLogRequest",
     "OutboundLogResponse",
+    "OutboundLogStreamCursor",
+    "OutboundLogStreamCursorEntry",
+    "OutboundLogStreamEntry",
+    "OutboundLogStreamEntryType",
+    "OutboundLogStreamError",
+    "OutboundLogStreamErrorEntry",
+    "OutboundLogStreamLogEntry",
     "OutboundLogs",
+    "OutboundLogsDataInner",
+    "OutboundLogsFormat",
     "OutboundMessage",
     "OutboundMessageResponse",
     "OutboundMessages",
@@ -978,12 +990,14 @@ __all__ = [
     "ValueMap",
     "Webhook",
     "WebhookAuthentication",
-    "WebhookAuthenticationAllOfData",
     "WebhookAuthenticationBase",
     "WebhookAuthenticationBaseBasic",
     "WebhookAuthenticationBaseCustom",
+    "WebhookAuthenticationBasic",
+    "WebhookAuthenticationCustom",
     "WebhookAuthenticationDataBasic",
     "WebhookAuthenticationDataCustom",
+    "WebhookAuthenticationEntity",
     "WebhookAuthenticationWebhookRef",
     "WebhookBlockReference",
     "WebhookWithOutgoingIntegrationDetails",
@@ -1598,6 +1612,8 @@ from talon_one.models.mcpo_auth_complete_result import MCPOAuthCompleteResult as
 from talon_one.models.mcpo_auth_protected_resource import MCPOAuthProtectedResource as MCPOAuthProtectedResource
 from talon_one.models.mcpo_auth_server_metadata import MCPOAuthServerMetadata as MCPOAuthServerMetadata
 from talon_one.models.mcpo_auth_session_info import MCPOAuthSessionInfo as MCPOAuthSessionInfo
+from talon_one.models.mcpo_auth_static_client import MCPOAuthStaticClient as MCPOAuthStaticClient
+from talon_one.models.mcpo_auth_static_client_with_secret import MCPOAuthStaticClientWithSecret as MCPOAuthStaticClientWithSecret
 from talon_one.models.mcpo_auth_token import MCPOAuthToken as MCPOAuthToken
 from talon_one.models.mcpo_auth_token_error import MCPOAuthTokenError as MCPOAuthTokenError
 from talon_one.models.mcpo_auth_token_request import MCPOAuthTokenRequest as MCPOAuthTokenRequest
@@ -1670,6 +1686,7 @@ from talon_one.models.new_loyalty_program import NewLoyaltyProgram as NewLoyalty
 from talon_one.models.new_loyalty_tier import NewLoyaltyTier as NewLoyaltyTier
 from talon_one.models.new_mcp_key import NewMCPKey as NewMCPKey
 from talon_one.models.new_mcpo_auth_client import NewMCPOAuthClient as NewMCPOAuthClient
+from talon_one.models.new_mcpo_auth_static_client import NewMCPOAuthStaticClient as NewMCPOAuthStaticClient
 from talon_one.models.new_management_key import NewManagementKey as NewManagementKey
 from talon_one.models.new_message_test import NewMessageTest as NewMessageTest
 from talon_one.models.new_multiple_audiences_item import NewMultipleAudiencesItem as NewMultipleAudiencesItem
@@ -1707,7 +1724,16 @@ from talon_one.models.outbound_log import OutboundLog as OutboundLog
 from talon_one.models.outbound_log_base import OutboundLogBase as OutboundLogBase
 from talon_one.models.outbound_log_request import OutboundLogRequest as OutboundLogRequest
 from talon_one.models.outbound_log_response import OutboundLogResponse as OutboundLogResponse
+from talon_one.models.outbound_log_stream_cursor import OutboundLogStreamCursor as OutboundLogStreamCursor
+from talon_one.models.outbound_log_stream_cursor_entry import OutboundLogStreamCursorEntry as OutboundLogStreamCursorEntry
+from talon_one.models.outbound_log_stream_entry import OutboundLogStreamEntry as OutboundLogStreamEntry
+from talon_one.models.outbound_log_stream_entry_type import OutboundLogStreamEntryType as OutboundLogStreamEntryType
+from talon_one.models.outbound_log_stream_error import OutboundLogStreamError as OutboundLogStreamError
+from talon_one.models.outbound_log_stream_error_entry import OutboundLogStreamErrorEntry as OutboundLogStreamErrorEntry
+from talon_one.models.outbound_log_stream_log_entry import OutboundLogStreamLogEntry as OutboundLogStreamLogEntry
 from talon_one.models.outbound_logs import OutboundLogs as OutboundLogs
+from talon_one.models.outbound_logs_data_inner import OutboundLogsDataInner as OutboundLogsDataInner
+from talon_one.models.outbound_logs_format import OutboundLogsFormat as OutboundLogsFormat
 from talon_one.models.outbound_message import OutboundMessage as OutboundMessage
 from talon_one.models.outbound_message_response import OutboundMessageResponse as OutboundMessageResponse
 from talon_one.models.outbound_messages import OutboundMessages as OutboundMessages
@@ -1956,12 +1982,14 @@ from talon_one.models.user_entity import UserEntity as UserEntity
 from talon_one.models.value_map import ValueMap as ValueMap
 from talon_one.models.webhook import Webhook as Webhook
 from talon_one.models.webhook_authentication import WebhookAuthentication as WebhookAuthentication
-from talon_one.models.webhook_authentication_all_of_data import WebhookAuthenticationAllOfData as WebhookAuthenticationAllOfData
 from talon_one.models.webhook_authentication_base import WebhookAuthenticationBase as WebhookAuthenticationBase
 from talon_one.models.webhook_authentication_base_basic import WebhookAuthenticationBaseBasic as WebhookAuthenticationBaseBasic
 from talon_one.models.webhook_authentication_base_custom import WebhookAuthenticationBaseCustom as WebhookAuthenticationBaseCustom
+from talon_one.models.webhook_authentication_basic import WebhookAuthenticationBasic as WebhookAuthenticationBasic
+from talon_one.models.webhook_authentication_custom import WebhookAuthenticationCustom as WebhookAuthenticationCustom
 from talon_one.models.webhook_authentication_data_basic import WebhookAuthenticationDataBasic as WebhookAuthenticationDataBasic
 from talon_one.models.webhook_authentication_data_custom import WebhookAuthenticationDataCustom as WebhookAuthenticationDataCustom
+from talon_one.models.webhook_authentication_entity import WebhookAuthenticationEntity as WebhookAuthenticationEntity
 from talon_one.models.webhook_authentication_webhook_ref import WebhookAuthenticationWebhookRef as WebhookAuthenticationWebhookRef
 from talon_one.models.webhook_block_reference import WebhookBlockReference as WebhookBlockReference
 from talon_one.models.webhook_with_outgoing_integration_details import WebhookWithOutgoingIntegrationDetails as WebhookWithOutgoingIntegrationDetails

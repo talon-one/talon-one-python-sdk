@@ -17,24 +17,24 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from talon_one.models.webhook_authentication_data_basic import WebhookAuthenticationDataBasic
-from talon_one.models.webhook_authentication_data_custom import WebhookAuthenticationDataCustom
+from talon_one.models.outbound_log import OutboundLog
+from talon_one.models.outbound_log_stream_error import OutboundLogStreamError
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-WEBHOOKAUTHENTICATIONALLOFDATA_ONE_OF_SCHEMAS = ["WebhookAuthenticationDataBasic", "WebhookAuthenticationDataCustom"]
+OUTBOUNDLOGSDATAINNER_ONE_OF_SCHEMAS = ["OutboundLog", "OutboundLogStreamError"]
 
-class WebhookAuthenticationAllOfData(BaseModel):
+class OutboundLogsDataInner(BaseModel):
     """
-    WebhookAuthenticationAllOfData
+    OutboundLogsDataInner
     """
-    # data type: WebhookAuthenticationDataBasic
-    oneof_schema_1_validator: Optional[WebhookAuthenticationDataBasic] = None
-    # data type: WebhookAuthenticationDataCustom
-    oneof_schema_2_validator: Optional[WebhookAuthenticationDataCustom] = None
-    actual_instance: Optional[Union[WebhookAuthenticationDataBasic, WebhookAuthenticationDataCustom]] = None
-    one_of_schemas: Set[str] = { "WebhookAuthenticationDataBasic", "WebhookAuthenticationDataCustom" }
+    # data type: OutboundLog
+    oneof_schema_1_validator: Optional[OutboundLog] = None
+    # data type: OutboundLogStreamError
+    oneof_schema_2_validator: Optional[OutboundLogStreamError] = None
+    actual_instance: Optional[Union[OutboundLog, OutboundLogStreamError]] = None
+    one_of_schemas: Set[str] = { "OutboundLog", "OutboundLogStreamError" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -54,25 +54,25 @@ class WebhookAuthenticationAllOfData(BaseModel):
 
     @field_validator('actual_instance')
     def actual_instance_must_validate_oneof(cls, v):
-        instance = WebhookAuthenticationAllOfData.model_construct()
+        instance = OutboundLogsDataInner.model_construct()
         error_messages = []
         match = 0
-        # validate data type: WebhookAuthenticationDataBasic
-        if not isinstance(v, WebhookAuthenticationDataBasic):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `WebhookAuthenticationDataBasic`")
+        # validate data type: OutboundLog
+        if not isinstance(v, OutboundLog):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `OutboundLog`")
         else:
             match += 1
-        # validate data type: WebhookAuthenticationDataCustom
-        if not isinstance(v, WebhookAuthenticationDataCustom):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `WebhookAuthenticationDataCustom`")
+        # validate data type: OutboundLogStreamError
+        if not isinstance(v, OutboundLogStreamError):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `OutboundLogStreamError`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in WebhookAuthenticationAllOfData with oneOf schemas: WebhookAuthenticationDataBasic, WebhookAuthenticationDataCustom. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in OutboundLogsDataInner with oneOf schemas: OutboundLog, OutboundLogStreamError. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in WebhookAuthenticationAllOfData with oneOf schemas: WebhookAuthenticationDataBasic, WebhookAuthenticationDataCustom. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in OutboundLogsDataInner with oneOf schemas: OutboundLog, OutboundLogStreamError. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -87,25 +87,25 @@ class WebhookAuthenticationAllOfData(BaseModel):
         error_messages = []
         match = 0
 
-        # deserialize data into WebhookAuthenticationDataBasic
+        # deserialize data into OutboundLog
         try:
-            instance.actual_instance = WebhookAuthenticationDataBasic.from_json(json_str)
+            instance.actual_instance = OutboundLog.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into WebhookAuthenticationDataCustom
+        # deserialize data into OutboundLogStreamError
         try:
-            instance.actual_instance = WebhookAuthenticationDataCustom.from_json(json_str)
+            instance.actual_instance = OutboundLogStreamError.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into WebhookAuthenticationAllOfData with oneOf schemas: WebhookAuthenticationDataBasic, WebhookAuthenticationDataCustom. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into OutboundLogsDataInner with oneOf schemas: OutboundLog, OutboundLogStreamError. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into WebhookAuthenticationAllOfData with oneOf schemas: WebhookAuthenticationDataBasic, WebhookAuthenticationDataCustom. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into OutboundLogsDataInner with oneOf schemas: OutboundLog, OutboundLogStreamError. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -119,7 +119,7 @@ class WebhookAuthenticationAllOfData(BaseModel):
         else:
             return json.dumps(self.to_dict())
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], WebhookAuthenticationDataBasic, WebhookAuthenticationDataCustom]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], OutboundLog, OutboundLogStreamError]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

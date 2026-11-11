@@ -35,9 +35,12 @@ class TestWebhookAuthentication(unittest.TestCase):
         model = WebhookAuthentication()
         if include_optional:
             return WebhookAuthentication(
-                id = 6,
-                created = '2020-06-10T09:05:27.993483Z',
-                modified = '2021-09-12T10:12:42Z',
+                name = 'My custom auth',
+                type = 'basic',
+                data = talon_one.models.webhook_authentication_data_custom.WebhookAuthenticationDataCustom(
+                    headers = {
+                        'key' : ''
+                        }, ),
                 created_by = '',
                 modified_by = '',
                 webhooks = [
@@ -46,15 +49,18 @@ class TestWebhookAuthentication(unittest.TestCase):
                         title = 'Send message', 
                         description = 'A webhook to send a coupon to the user.', )
                     ],
-                name = 'My basic auth',
-                type = 'basic',
-                data = None
+                id = 6,
+                created = '2020-06-10T09:05:27.993483Z',
+                modified = '2021-09-12T10:12:42Z'
             )
         else:
             return WebhookAuthentication(
-                id = 6,
-                created = '2020-06-10T09:05:27.993483Z',
-                modified = '2021-09-12T10:12:42Z',
+                name = 'My custom auth',
+                type = 'basic',
+                data = talon_one.models.webhook_authentication_data_custom.WebhookAuthenticationDataCustom(
+                    headers = {
+                        'key' : ''
+                        }, ),
                 created_by = '',
                 modified_by = '',
                 webhooks = [
@@ -63,9 +69,9 @@ class TestWebhookAuthentication(unittest.TestCase):
                         title = 'Send message', 
                         description = 'A webhook to send a coupon to the user.', )
                     ],
-                name = 'My basic auth',
-                type = 'basic',
-                data = None,
+                id = 6,
+                created = '2020-06-10T09:05:27.993483Z',
+                modified = '2021-09-12T10:12:42Z',
         )
         """
 

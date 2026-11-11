@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBytes, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
-from talon_one.models.outbound_log import OutboundLog
+from talon_one.models.outbound_logs_data_inner import OutboundLogsDataInner
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +29,7 @@ class OutboundLogs(BaseModel):
     OutboundLogs
     """ # noqa: E501
     next_cursor: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="Cursor for the next page of results. Omitted when there are no more results.", alias="nextCursor", json_schema_extra={"examples": ["SmJlNERRMHdyNWFsTmRDZDVYU0c="]})
-    data: List[OutboundLog] = Field(description="List of outbound logs.")
+    data: List[OutboundLogsDataInner] = Field(description="List of outbound logs. When an error ends the response, an `OutboundLogStreamError` is the last item and the response is incomplete.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["nextCursor", "data"]
 
@@ -98,7 +98,7 @@ class OutboundLogs(BaseModel):
 
         _obj = cls.model_validate({
             "nextCursor": obj.get("nextCursor"),
-            "data": [OutboundLog.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "data": [OutboundLogsDataInner.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
