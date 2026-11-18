@@ -56,6 +56,7 @@ class TestBlock(unittest.TestCase):
                 value = None,
                 partial = False,
                 target = None,
+                excluded_from_price_history = False,
                 expression = [
                     null
                     ],

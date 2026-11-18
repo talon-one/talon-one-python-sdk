@@ -39,8 +39,8 @@ class CustomerInventory(BaseModel):
     referrals: Optional[List[InventoryReferral]] = None
     coupons: Optional[List[InventoryCoupon]] = Field(default=None, description="The coupons reserved by this profile. This array includes hard and soft reservations. ")
     giveaways: Optional[List[Giveaway]] = None
-    achievements: Optional[List[AchievementProgressWithDefinition]] = None
-    rewards: Optional[List[RewardWithUnlocks]] = Field(default=None, description="The customer rewards that are `unlocked` and not yet `used`.")
+    achievements: Optional[List[AchievementProgressWithDefinition]] = Field(default=None, description="The customer's progress in each achievement they have participated in.  Only achievements the customer has started are included, whether they  are in progress, completed, or expired. Recurring achievements can appear  more than once, once per iteration. ")
+    rewards: Optional[List[RewardWithUnlocks]] = Field(default=None, description="The rewards that the customer has unlocked but not used. Expired customer rewards are not returned.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["profile", "loyalty", "referrals", "coupons", "giveaways", "achievements", "rewards"]
 

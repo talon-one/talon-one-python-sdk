@@ -1,10 +1,11 @@
 [project]
 name = "talon_one"
-version = "26.23.0"
+version = "99.99.98"
 description = "Talon.One API"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
 ]
+license = { text = "MIT" }
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Talon.One API"]
 requires-python = ">=3.11"

@@ -36,8 +36,8 @@ class TestNewDigitalPass(unittest.TestCase):
         if include_optional:
             return NewDigitalPass(
                 loyalty_program_id = 42,
-                pass_template_id = 'tmpl_summer_loyalty',
-                profile_id = '12412412421',
+                pass_template_id = '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                profile_integration_id = '12412412421',
                 loyalty_card_id = 'summer-loyalty-0e2f',
                 platform = 'google',
                 attributes = {hm_member_name=Jane Doe}
@@ -45,8 +45,8 @@ class TestNewDigitalPass(unittest.TestCase):
         else:
             return NewDigitalPass(
                 loyalty_program_id = 42,
-                pass_template_id = 'tmpl_summer_loyalty',
-                profile_id = '12412412421',
+                pass_template_id = '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                profile_integration_id = '12412412421',
                 platform = 'google',
         )
         """

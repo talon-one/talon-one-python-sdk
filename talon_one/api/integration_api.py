@@ -3948,7 +3948,7 @@ class IntegrationApi:
     ) -> GetCustomerAchievements200Response:
         """List customer's available achievements
 
-        Retrieve all the achievements available to a given customer and their progress in them. 
+        Retrieve all the achievements available to a given customer and their progress  in them. Use this endpoint to build an achievements page where customers can  browse the achievements they can participate in and see the details of each one.   The response contains one entry for each active achievement connected to  the Application, whether or not the customer has started it. Each entry  includes the achievement's details such as `target` and `period`, and the  customer's progress in the achievement. If the customer has not started  the achievement, `currentProgress.status` is `not_started`.   > [!note] The [List customer data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory) > endpoint also returns achievement data when `achievements=true`, but with a > different scope and structure: > - It returns only the achievements the customer has started, completed, or >  that have expired for them, one entry per progress record. Achievements the >  customer has not started are not returned. > - The results cannot be filtered or paginated. > > Use this endpoint when you need the customer's achievement progress > together with other customer data, such as loyalty or coupons, in a single request. 
 
         :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  (required)
         :type integration_id: str
@@ -4042,7 +4042,7 @@ class IntegrationApi:
     ) -> ApiResponse[GetCustomerAchievements200Response]:
         """List customer's available achievements
 
-        Retrieve all the achievements available to a given customer and their progress in them. 
+        Retrieve all the achievements available to a given customer and their progress  in them. Use this endpoint to build an achievements page where customers can  browse the achievements they can participate in and see the details of each one.   The response contains one entry for each active achievement connected to  the Application, whether or not the customer has started it. Each entry  includes the achievement's details such as `target` and `period`, and the  customer's progress in the achievement. If the customer has not started  the achievement, `currentProgress.status` is `not_started`.   > [!note] The [List customer data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory) > endpoint also returns achievement data when `achievements=true`, but with a > different scope and structure: > - It returns only the achievements the customer has started, completed, or >  that have expired for them, one entry per progress record. Achievements the >  customer has not started are not returned. > - The results cannot be filtered or paginated. > > Use this endpoint when you need the customer's achievement progress > together with other customer data, such as loyalty or coupons, in a single request. 
 
         :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  (required)
         :type integration_id: str
@@ -4136,7 +4136,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """List customer's available achievements
 
-        Retrieve all the achievements available to a given customer and their progress in them. 
+        Retrieve all the achievements available to a given customer and their progress  in them. Use this endpoint to build an achievements page where customers can  browse the achievements they can participate in and see the details of each one.   The response contains one entry for each active achievement connected to  the Application, whether or not the customer has started it. Each entry  includes the achievement's details such as `target` and `period`, and the  customer's progress in the achievement. If the customer has not started  the achievement, `currentProgress.status` is `not_started`.   > [!note] The [List customer data](https://docs.talon.one/integration-api#tag/Customer-profiles/operation/getCustomerInventory) > endpoint also returns achievement data when `achievements=true`, but with a > different scope and structure: > - It returns only the achievements the customer has started, completed, or >  that have expired for them, one entry per progress record. Achievements the >  customer has not started are not returned. > - The results cannot be filtered or paginated. > > Use this endpoint when you need the customer's achievement progress > together with other customer data, such as loyalty or coupons, in a single request. 
 
         :param integration_id: The integration identifier for this customer profile. Must be: - Unique within the deployment. - Stable for the customer. Do not use an ID that the customer can update themselves. For example, you can use a database ID.  Once set, you cannot update this identifier.  (required)
         :type integration_id: str
@@ -4308,8 +4308,8 @@ class IntegrationApi:
         coupons: Annotated[Optional[StrictBool], Field(description="Set to `true` to include coupon information in the response.")] = None,
         loyalty: Annotated[Optional[StrictBool], Field(description="Set to `true` to include loyalty information in the response.")] = None,
         giveaways: Annotated[Optional[StrictBool], Field(description="Set to `true` to include giveaways information in the response.")] = None,
-        achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include achievement information in the response.")] = None,
-        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="Set to `true` to include `unlocked` rewards that have not been `used` in the response.")] = None,
+        achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include the customer's progress in achievements in the  response. Only achievements the customer has started are returned, whether  they are in progress, completed, or expired.  Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated. ")] = None,
+        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="The instances of this reward that the customer has unlocked but not used. Expired customer rewards are not returned.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4325,7 +4325,7 @@ class IntegrationApi:
     ) -> CustomerInventory:
         """List customer data
 
-        Return the customer inventory regarding entities referencing this customer profile's `integrationId`.  Typical entities returned are: customer profile information, referral codes, loyalty points, loyalty cards and reserved coupons. Reserved coupons also include redeemed coupons. 
+        Return a snapshot of the customer profile including the entities referencing this customer profile's `integrationId`. Typical entities returned are: customer profile information, referral codes, loyalty points, loyalty cards, reserved coupons and achievements.   > [!note] Reserved coupons also include redeemed coupons.  When `achievements=true`, the `achievements` array contains the customer's progress  in the achievements they have participated in. Only achievements the customer  has started are returned, whether they are in progress, completed, or expired.   Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated.  > [!note] To list all the achievements available to the customer, including the ones > they have not started, and to filter or paginate the results, use the [List customer's available achievements](https://docs.talon.one/integration-api#tag/Achievements/operation/getCustomerAchievements) > endpoint. 
 
         :param integration_id: The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  (required)
         :type integration_id: str
@@ -4339,9 +4339,9 @@ class IntegrationApi:
         :type loyalty: bool
         :param giveaways: Set to `true` to include giveaways information in the response.
         :type giveaways: bool
-        :param achievements: Set to `true` to include achievement information in the response.
+        :param achievements: Set to `true` to include the customer's progress in achievements in the  response. Only achievements the customer has started are returned, whether  they are in progress, completed, or expired.  Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated. 
         :type achievements: bool
-        :param unlocked_rewards: Set to `true` to include `unlocked` rewards that have not been `used` in the response.
+        :param unlocked_rewards: The instances of this reward that the customer has unlocked but not used. Expired customer rewards are not returned.
         :type unlocked_rewards: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4405,8 +4405,8 @@ class IntegrationApi:
         coupons: Annotated[Optional[StrictBool], Field(description="Set to `true` to include coupon information in the response.")] = None,
         loyalty: Annotated[Optional[StrictBool], Field(description="Set to `true` to include loyalty information in the response.")] = None,
         giveaways: Annotated[Optional[StrictBool], Field(description="Set to `true` to include giveaways information in the response.")] = None,
-        achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include achievement information in the response.")] = None,
-        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="Set to `true` to include `unlocked` rewards that have not been `used` in the response.")] = None,
+        achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include the customer's progress in achievements in the  response. Only achievements the customer has started are returned, whether  they are in progress, completed, or expired.  Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated. ")] = None,
+        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="The instances of this reward that the customer has unlocked but not used. Expired customer rewards are not returned.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4422,7 +4422,7 @@ class IntegrationApi:
     ) -> ApiResponse[CustomerInventory]:
         """List customer data
 
-        Return the customer inventory regarding entities referencing this customer profile's `integrationId`.  Typical entities returned are: customer profile information, referral codes, loyalty points, loyalty cards and reserved coupons. Reserved coupons also include redeemed coupons. 
+        Return a snapshot of the customer profile including the entities referencing this customer profile's `integrationId`. Typical entities returned are: customer profile information, referral codes, loyalty points, loyalty cards, reserved coupons and achievements.   > [!note] Reserved coupons also include redeemed coupons.  When `achievements=true`, the `achievements` array contains the customer's progress  in the achievements they have participated in. Only achievements the customer  has started are returned, whether they are in progress, completed, or expired.   Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated.  > [!note] To list all the achievements available to the customer, including the ones > they have not started, and to filter or paginate the results, use the [List customer's available achievements](https://docs.talon.one/integration-api#tag/Achievements/operation/getCustomerAchievements) > endpoint. 
 
         :param integration_id: The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  (required)
         :type integration_id: str
@@ -4436,9 +4436,9 @@ class IntegrationApi:
         :type loyalty: bool
         :param giveaways: Set to `true` to include giveaways information in the response.
         :type giveaways: bool
-        :param achievements: Set to `true` to include achievement information in the response.
+        :param achievements: Set to `true` to include the customer's progress in achievements in the  response. Only achievements the customer has started are returned, whether  they are in progress, completed, or expired.  Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated. 
         :type achievements: bool
-        :param unlocked_rewards: Set to `true` to include `unlocked` rewards that have not been `used` in the response.
+        :param unlocked_rewards: The instances of this reward that the customer has unlocked but not used. Expired customer rewards are not returned.
         :type unlocked_rewards: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -4502,8 +4502,8 @@ class IntegrationApi:
         coupons: Annotated[Optional[StrictBool], Field(description="Set to `true` to include coupon information in the response.")] = None,
         loyalty: Annotated[Optional[StrictBool], Field(description="Set to `true` to include loyalty information in the response.")] = None,
         giveaways: Annotated[Optional[StrictBool], Field(description="Set to `true` to include giveaways information in the response.")] = None,
-        achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include achievement information in the response.")] = None,
-        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="Set to `true` to include `unlocked` rewards that have not been `used` in the response.")] = None,
+        achievements: Annotated[Optional[StrictBool], Field(description="Set to `true` to include the customer's progress in achievements in the  response. Only achievements the customer has started are returned, whether  they are in progress, completed, or expired.  Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated. ")] = None,
+        unlocked_rewards: Annotated[Optional[StrictBool], Field(description="The instances of this reward that the customer has unlocked but not used. Expired customer rewards are not returned.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4519,7 +4519,7 @@ class IntegrationApi:
     ) -> RESTResponseType:
         """List customer data
 
-        Return the customer inventory regarding entities referencing this customer profile's `integrationId`.  Typical entities returned are: customer profile information, referral codes, loyalty points, loyalty cards and reserved coupons. Reserved coupons also include redeemed coupons. 
+        Return a snapshot of the customer profile including the entities referencing this customer profile's `integrationId`. Typical entities returned are: customer profile information, referral codes, loyalty points, loyalty cards, reserved coupons and achievements.   > [!note] Reserved coupons also include redeemed coupons.  When `achievements=true`, the `achievements` array contains the customer's progress  in the achievements they have participated in. Only achievements the customer  has started are returned, whether they are in progress, completed, or expired.   Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated.  > [!note] To list all the achievements available to the customer, including the ones > they have not started, and to filter or paginate the results, use the [List customer's available achievements](https://docs.talon.one/integration-api#tag/Achievements/operation/getCustomerAchievements) > endpoint. 
 
         :param integration_id: The integration ID of the customer profile. You can get the `integrationId` of a profile using: - A customer session integration ID with the [Update customer session](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) endpoint. - The Management API with the [List application's customers](https://docs.talon.one/management-api#tag/Customer-data/operation/getApplicationCustomers) endpoint.  (required)
         :type integration_id: str
@@ -4533,9 +4533,9 @@ class IntegrationApi:
         :type loyalty: bool
         :param giveaways: Set to `true` to include giveaways information in the response.
         :type giveaways: bool
-        :param achievements: Set to `true` to include achievement information in the response.
+        :param achievements: Set to `true` to include the customer's progress in achievements in the  response. Only achievements the customer has started are returned, whether  they are in progress, completed, or expired.  Recurring achievements can appear more than once, once per iteration. The  achievements cannot be filtered or paginated. 
         :type achievements: bool
-        :param unlocked_rewards: Set to `true` to include `unlocked` rewards that have not been `used` in the response.
+        :param unlocked_rewards: The instances of this reward that the customer has unlocked but not used. Expired customer rewards are not returned.
         :type unlocked_rewards: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
