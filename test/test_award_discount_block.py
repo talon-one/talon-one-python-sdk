@@ -43,7 +43,8 @@ class TestAwardDiscountBlock(unittest.TestCase):
                 name = '10% Off',
                 value = None,
                 partial = False,
-                target = None
+                target = None,
+                excluded_from_price_history = False
             )
         else:
             return AwardDiscountBlock(

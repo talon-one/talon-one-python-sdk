@@ -39,9 +39,9 @@ class TestCatalogActionRemoveMany(unittest.TestCase):
                 payload = talon_one.models.remove_many_items_catalog_action.RemoveManyItemsCatalogAction(
                     filters = [
                         talon_one.models.catalog_action_filter.CatalogActionFilter(
-                            attr = '', 
+                            attr = 'color', 
                             op = 'EQ', 
-                            value = null, )
+                            value = blue, )
                         ], )
             )
         else:
@@ -50,9 +50,9 @@ class TestCatalogActionRemoveMany(unittest.TestCase):
                 payload = talon_one.models.remove_many_items_catalog_action.RemoveManyItemsCatalogAction(
                     filters = [
                         talon_one.models.catalog_action_filter.CatalogActionFilter(
-                            attr = '', 
+                            attr = 'color', 
                             op = 'EQ', 
-                            value = null, )
+                            value = blue, )
                         ], ),
         )
         """

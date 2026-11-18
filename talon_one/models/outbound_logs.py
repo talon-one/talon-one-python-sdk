@@ -29,7 +29,7 @@ class OutboundLogs(BaseModel):
     OutboundLogs
     """ # noqa: E501
     next_cursor: Optional[Union[StrictBytes, StrictStr]] = Field(default=None, description="Cursor for the next page of results. Omitted when there are no more results.", alias="nextCursor", json_schema_extra={"examples": ["SmJlNERRMHdyNWFsTmRDZDVYU0c="]})
-    data: List[OutboundLogsDataInner] = Field(description="List of outbound logs. When an error ends the response, an `OutboundLogStreamError` is the last item and the response is incomplete.")
+    data: List[OutboundLogsDataInner] = Field(description="List of outbound log entries. The `type` field determines the kind of entry. When an error ends the response, an `OutboundLogStreamErrorEntry` is the last item and the response is incomplete.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["nextCursor", "data"]
 

@@ -27,7 +27,7 @@ from pydantic_core import to_jsonable_python
 
 class OutboundLogStreamLogEntry(BaseModel):
     """
-    An outbound log entry in an `ndjson` stream.
+    An outbound log entry in a stream of outbound logs.
     """ # noqa: E501
     type: OutboundLogStreamEntryType
     data: OutboundLog

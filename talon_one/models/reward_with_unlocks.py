@@ -34,7 +34,7 @@ class RewardWithUnlocks(BaseModel):
     name: StrictStr = Field(description="The customer-facing name of the reward.", json_schema_extra={"examples": ["10% Off Coupon"]})
     description: Optional[StrictStr] = Field(default=None, description="Customer-facing description of the reward.", json_schema_extra={"examples": ["Applies to next order"]})
     rule: RuleMetadata = Field(description="Customer-facing rule metadata for the reward.")
-    unlocked: Optional[List[CustomerReward]] = Field(default=None, description="The customer profile's unlocks of this reward that are not yet `used`.")
+    unlocked: Optional[List[CustomerReward]] = Field(default=None, description="The instances of this reward that the customer has unlocked but not used. Expired customer rewards are not returned.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "integrationId", "name", "description", "rule", "unlocked"]
 

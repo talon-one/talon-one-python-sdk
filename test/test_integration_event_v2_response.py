@@ -127,6 +127,7 @@ class TestIntegrationEventV2Response(unittest.TestCase):
                                 profile_integration_id = 'customer1', 
                                 integration_id = 'reward-unlock-123', 
                                 unlocked_at = '2024-01-01T00:00:00Z', 
+                                expiry_date = '2024-03-31T23:59:59Z', 
                                 used_at = '2024-01-02T00:00:00Z', )
                             ], )
                     ],

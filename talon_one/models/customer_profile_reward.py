@@ -37,21 +37,22 @@ class CustomerProfileReward(BaseModel):
     reward_name: StrictStr = Field(description="The name of the reward.", alias="rewardName", json_schema_extra={"examples": ["Free coffee"]})
     description: Optional[StrictStr] = Field(default=None, description="The customer-facing description of the reward.", json_schema_extra={"examples": ["One free coffee of any size"]})
     rule: Optional[RuleMetadata] = Field(default=None, description="Customer-facing rule metadata for the reward. Only returned when the reward defines a rule.")
-    status: StrictStr = Field(description="The status of the customer reward: - `unlocked`: The reward is available for use. - `used`: The reward has been used. ", json_schema_extra={"examples": ["unlocked"]})
+    status: StrictStr = Field(description="The status of the customer reward: - `unlocked`: The reward is available for use. - `used`: The reward has been used. - `expired`: The reward was not used before its expiry date. ", json_schema_extra={"examples": ["unlocked"]})
     unlocked_at: datetime = Field(description="The date and time when the reward was unlocked.", alias="unlockedAt", json_schema_extra={"examples": ["2026-07-01T09:00:00Z"]})
     unlocked_by_profile_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that unlocked the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card. ", alias="unlockedByProfileIntegrationId", json_schema_extra={"examples": ["customer2839"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="The date and time when the customer reward expires, based on the  `validityDuration` or `expiryDate` of the reward when the reward was  unlocked. If the reward does not specify either property, the customer reward  has unlimited validity and this field is omitted.  **Note**: The expiry date is calculated using the time zone of the  Application connected to the reward. ", alias="expiryDate", json_schema_extra={"examples": ["2026-08-31T23:59:59Z"]})
     used_at: Optional[datetime] = Field(default=None, description="The date and time when the reward was used.", alias="usedAt", json_schema_extra={"examples": ["2026-07-02T10:30:00Z"]})
     used_by_profile_integration_id: Optional[StrictStr] = Field(default=None, description="The integration ID of the customer profile that used the reward.   For rewards unlocked with a loyalty card, this can be any customer profile  linked to that loyalty card.   Only returned when the reward has been used. ", alias="usedByProfileIntegrationId", json_schema_extra={"examples": ["customer2840"]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="The ID of the loyalty program that the loyalty card belongs to. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyProgramId", json_schema_extra={"examples": [9]})
     loyalty_card_id: Optional[Annotated[str, Field(min_length=4, strict=True, max_length=108)]] = Field(default=None, description="The identifier of the loyalty card that the reward was unlocked with. Only returned for rewards unlocked with a loyalty card.", alias="loyaltyCardId", json_schema_extra={"examples": ["summer-loyalty-card-0543"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "integrationId", "rewardId", "rewardIntegrationId", "rewardName", "description", "rule", "status", "unlockedAt", "unlockedByProfileIntegrationId", "usedAt", "usedByProfileIntegrationId", "loyaltyProgramId", "loyaltyCardId"]
+    __properties: ClassVar[List[str]] = ["id", "integrationId", "rewardId", "rewardIntegrationId", "rewardName", "description", "rule", "status", "unlockedAt", "unlockedByProfileIntegrationId", "expiryDate", "usedAt", "usedByProfileIntegrationId", "loyaltyProgramId", "loyaltyCardId"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['unlocked', 'used']):
-            raise ValueError("must be one of enum values ('unlocked', 'used')")
+        if value not in set(['unlocked', 'used', 'expired']):
+            raise ValueError("must be one of enum values ('unlocked', 'used', 'expired')")
         return value
 
     @field_validator('loyalty_card_id', mode="before")
@@ -135,6 +136,7 @@ class CustomerProfileReward(BaseModel):
             "status": obj.get("status"),
             "unlockedAt": obj.get("unlockedAt"),
             "unlockedByProfileIntegrationId": obj.get("unlockedByProfileIntegrationId"),
+            "expiryDate": obj.get("expiryDate"),
             "usedAt": obj.get("usedAt"),
             "usedByProfileIntegrationId": obj.get("usedByProfileIntegrationId"),
             "loyaltyProgramId": obj.get("loyaltyProgramId"),

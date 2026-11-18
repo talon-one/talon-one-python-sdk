@@ -36,8 +36,9 @@ class AwardDiscountBlock(BaseModel):
     value: AwardDiscountBlock1Value
     partial: StrictBool = Field(description="Whether to apply a partial discount when the requested value exceeds the configured budget.", json_schema_extra={"examples": [False]})
     target: AwardDiscountTarget
+    excluded_from_price_history: Optional[StrictBool] = Field(default=None, description="When set to `true`, the applied discount is excluded from the item's [price history](https://docs.talon.one/docs/dev/integration-guides/best-prior-price#price-history).", alias="excludedFromPriceHistory", json_schema_extra={"examples": [False]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "type", "tags", "name", "value", "partial", "target"]
+    __properties: ClassVar[List[str]] = ["id", "type", "tags", "name", "value", "partial", "target", "excludedFromPriceHistory"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -113,7 +114,8 @@ class AwardDiscountBlock(BaseModel):
             "name": obj.get("name"),
             "value": AwardDiscountBlock1Value.from_dict(obj["value"]) if obj.get("value") is not None else None,
             "partial": obj.get("partial"),
-            "target": AwardDiscountTarget.from_dict(obj["target"]) if obj.get("target") is not None else None
+            "target": AwardDiscountTarget.from_dict(obj["target"]) if obj.get("target") is not None else None,
+            "excludedFromPriceHistory": obj.get("excludedFromPriceHistory")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

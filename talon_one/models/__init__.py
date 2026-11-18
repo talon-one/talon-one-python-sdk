@@ -694,6 +694,7 @@ from talon_one.models.new_referrals_for_multiple_advocates import NewReferralsFo
 from talon_one.models.new_return import NewReturn
 from talon_one.models.new_revision_version import NewRevisionVersion
 from talon_one.models.new_reward import NewReward
+from talon_one.models.new_reward_budget import NewRewardBudget
 from talon_one.models.new_risk_notification import NewRiskNotification
 from talon_one.models.new_role import NewRole
 from talon_one.models.new_role_v2 import NewRoleV2
@@ -790,11 +791,15 @@ from talon_one.models.revision_activation import RevisionActivation
 from talon_one.models.revision_activation_request import RevisionActivationRequest
 from talon_one.models.revision_version import RevisionVersion
 from talon_one.models.reward import Reward
+from talon_one.models.reward_budget import RewardBudget
+from talon_one.models.reward_budget_limit_counter import RewardBudgetLimitCounter
+from talon_one.models.reward_budget_with_limit_counter import RewardBudgetWithLimitCounter
 from talon_one.models.reward_catalog_item import RewardCatalogItem
 from talon_one.models.reward_eligibility import RewardEligibility
 from talon_one.models.reward_eligibility_failure_details import RewardEligibilityFailureDetails
 from talon_one.models.reward_points_required import RewardPointsRequired
 from talon_one.models.reward_unlock_rejection import RewardUnlockRejection
+from talon_one.models.reward_with_budgets import RewardWithBudgets
 from talon_one.models.reward_with_unlocks import RewardWithUnlocks
 from talon_one.models.risk import Risk
 from talon_one.models.risk_affected_entity_item import RiskAffectedEntityItem
@@ -963,6 +968,7 @@ from talon_one.models.update_price_type import UpdatePriceType
 from talon_one.models.update_referral import UpdateReferral
 from talon_one.models.update_referral_batch import UpdateReferralBatch
 from talon_one.models.update_reward import UpdateReward
+from talon_one.models.update_reward_budget import UpdateRewardBudget
 from talon_one.models.update_risk_notification import UpdateRiskNotification
 from talon_one.models.update_role import UpdateRole
 from talon_one.models.update_store import UpdateStore

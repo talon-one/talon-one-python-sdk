@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **name** | **str** | The customer-facing name of the reward. | 
 **description** | **str** | Customer-facing description of the reward. | [optional] 
 **rule** | [**RuleMetadata**](RuleMetadata.md) | Customer-facing rule metadata for the reward. | 
-**unlocked** | [**List[CustomerReward]**](CustomerReward.md) | The customer profile&#39;s unlocks of this reward that are not yet &#x60;used&#x60;. | [optional] 
+**unlocked** | [**List[CustomerReward]**](CustomerReward.md) | The instances of this reward that the customer has unlocked but not used. Expired customer rewards are not returned. | [optional] 
 
 ## Example
 

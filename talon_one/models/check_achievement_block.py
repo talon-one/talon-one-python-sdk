@@ -40,8 +40,8 @@ class CheckAchievementBlock(BaseModel):
     @field_validator('operator')
     def operator_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['justCompleted', 'started', 'not(started)', 'inProgress', 'not(inProgress)', 'completed', 'not(completed)']):
-            raise ValueError("must be one of enum values ('justCompleted', 'started', 'not(started)', 'inProgress', 'not(inProgress)', 'completed', 'not(completed)')")
+        if value not in set(['justCompleted', 'started', 'not(started)', 'inProgress', 'not(inProgress)', 'completed', 'not(completed)', 'expired', 'not(expired)']):
+            raise ValueError("must be one of enum values ('justCompleted', 'started', 'not(started)', 'inProgress', 'not(inProgress)', 'completed', 'not(completed)', 'expired', 'not(expired)')")
         return value
 
     model_config = ConfigDict(
