@@ -1399,7 +1399,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_coupons**
-> CreateCoupons200Response create_coupons(application_id, campaign_id, new_coupons, silent=silent)
+> CreateCoupons200Response create_coupons(application_id, campaign_id, new_coupons, silent=silent, full=full)
 
 Create coupons
 
@@ -1440,11 +1440,12 @@ with talon_one.ApiClient(configuration) as api_client:
     application_id = 56 # int | The ID of the Application. It is displayed in your Talon.One deployment URL.
     campaign_id = 56 # int | The ID of the campaign. It is displayed in your Talon.One deployment URL.
     new_coupons = talon_one.NewCoupons() # NewCoupons | body
-    silent = 'yes' # str | Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles.  (optional) (default to 'yes')
+    silent = 'no' # str | Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. Requires `full` to be `no`; otherwise a 400 error is returned. - `no`: Returns a 200 response that contains the created coupons.  (optional) (default to 'no')
+    full = 'no' # str | Possible values: `yes` or `no`. - `yes`: Returns all created coupons. Requires `silent` to be `no`; otherwise a 400 error is returned. - `no`: Returns at most 1000 created coupons.  (optional) (default to 'no')
 
     try:
         # Create coupons
-        api_response = api_instance.create_coupons(application_id, campaign_id, new_coupons, silent=silent)
+        api_response = api_instance.create_coupons(application_id, campaign_id, new_coupons, silent=silent, full=full)
         print("The response of ManagementApi->create_coupons:\n")
         pprint(api_response)
     except Exception as e:
@@ -1461,7 +1462,8 @@ Name | Type | Description  | Notes
  **application_id** | **int**| The ID of the Application. It is displayed in your Talon.One deployment URL. | 
  **campaign_id** | **int**| The ID of the campaign. It is displayed in your Talon.One deployment URL. | 
  **new_coupons** | [**NewCoupons**](NewCoupons.md)| body | 
- **silent** | **str**| Possible values: &#x60;yes&#x60; or &#x60;no&#x60;. - &#x60;yes&#x60;: Increases the performance of the API call by returning a 204 response. - &#x60;no&#x60;: Returns a 200 response that contains the updated customer profiles.  | [optional] [default to &#39;yes&#39;]
+ **silent** | **str**| Possible values: &#x60;yes&#x60; or &#x60;no&#x60;. - &#x60;yes&#x60;: Increases the performance of the API call by returning a 204 response. Requires &#x60;full&#x60; to be &#x60;no&#x60;; otherwise a 400 error is returned. - &#x60;no&#x60;: Returns a 200 response that contains the created coupons.  | [optional] [default to &#39;no&#39;]
+ **full** | **str**| Possible values: &#x60;yes&#x60; or &#x60;no&#x60;. - &#x60;yes&#x60;: Returns all created coupons. Requires &#x60;silent&#x60; to be &#x60;no&#x60;; otherwise a 400 error is returned. - &#x60;no&#x60;: Returns at most 1000 created coupons.  | [optional] [default to &#39;no&#39;]
 
 ### Return type
 
@@ -1482,6 +1484,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | OK |  -  |
 **204** | No Content |  -  |
+**400** | Bad request |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

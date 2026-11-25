@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | The internal ID of this entity. | 
 **created** | **datetime** | The time this entity was created. | 
-**profile_id** | **str** | ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known &#x60;profileId&#x60;, we recommend you use a guest &#x60;profileId&#x60;.  | [optional] 
+**profile_id** | **str** | ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known &#x60;profileId&#x60;, we recommend you use a guest &#x60;profileId&#x60;.  | 
 **account_id** | **int** | The ID of the Talon.One account that owns this profile. | 
 **loyalty_program_id** | **int** | ID of the ledger. | 
 **event_id** | **int** | ID of the related event. | 

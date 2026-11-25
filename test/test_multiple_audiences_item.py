@@ -47,6 +47,7 @@ class TestMultipleAudiencesItem(unittest.TestCase):
                 id = 6,
                 created = '2020-06-10T09:05:27.993483Z',
                 name = 'Travel audience',
+                integration_id = '382370BKDB946',
                 status = 'new',
         )
         """

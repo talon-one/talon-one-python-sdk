@@ -61,6 +61,11 @@ class TestOutboundMessage(unittest.TestCase):
             return OutboundMessage(
                 uuid = '67e55044-10b1-426f-9247-bb680e5fe0c8',
                 notification_type = 'CampaignNotification',
+                request = talon_one.models.outbound_log_request.OutboundLogRequest(
+                    method = 'POST', 
+                    url = 'https://example.com/webhook', 
+                    headers = [content-type: application/json], 
+                    body = {ProfileIntegrationID=URNGV8294NV, LoyaltyProgramID=5, SubledgerID=sub-123, Amount=10.99, Reason=Compensation, TypeOfChange=campaign_manager, EmployeeName=Franziska Schneider, UserID=25, Operation=addition, StartDate=2023-01-24T14:15:22Z, ExpiryDate=2024-01-24T14:15:22Z, SessionIntegrationID=cc53e4fa-547f-4f5e-8333-76e05c381f67, NotificationType=LoyaltyPointsDeducted, TransactionUUID=1a6a7599-2622-4489-9034-5a62da3944e0}, ),
                 first_log_at = '2026-08-17T14:32:05Z',
                 last_log_at = '2026-08-17T14:32:05Z',
                 status = 'pending',

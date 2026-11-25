@@ -27,9 +27,9 @@ class CatalogActionFilter(BaseModel):
     """
     The properties for a single filtering condition in a catalog sync action.
     """ # noqa: E501
-    attr: StrictStr = Field(description="The name of the attribute to filter on.")
-    op: StrictStr = Field(description="The filtering operator.")
-    value: Optional[Any] = Field(description="The value to filter for.")
+    attr: StrictStr = Field(description="The name of the attribute to filter on. The attribute must exist in the catalog. For the `LT`, `LE`, `GT`, and `GE` comparison operators, the attribute must be of type `number`.", json_schema_extra={"examples": ["color"]})
+    op: StrictStr = Field(description="The filtering operator.", json_schema_extra={"examples": ["EQ"]})
+    value: Optional[Any] = Field(description="The value to filter for. For the `LT`, `LE`, `GT`, and `GE` comparison operators, the value must be a number or a numeric string.", json_schema_extra={"examples": ["blue"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["attr", "op", "value"]
 

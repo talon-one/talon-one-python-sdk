@@ -53,6 +53,7 @@ class TestReferral(unittest.TestCase):
             return Referral(
                 id = 6,
                 created = '2020-06-10T09:05:27.993483Z',
+                usage_limit = 1,
                 campaign_id = 78,
                 advocate_profile_integration_id = 'URNGV8294NV',
                 code = '27G47Y54VH9L',

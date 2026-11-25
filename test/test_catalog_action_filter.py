@@ -35,15 +35,15 @@ class TestCatalogActionFilter(unittest.TestCase):
         model = CatalogActionFilter()
         if include_optional:
             return CatalogActionFilter(
-                attr = '',
+                attr = 'color',
                 op = 'EQ',
-                value = None
+                value = blue
             )
         else:
             return CatalogActionFilter(
-                attr = '',
+                attr = 'color',
                 op = 'EQ',
-                value = None,
+                value = blue,
         )
         """
 

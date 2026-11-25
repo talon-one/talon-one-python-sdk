@@ -57,6 +57,8 @@ class TestTemplateDef(unittest.TestCase):
                 created = '2020-06-10T09:05:27.993483Z',
                 application_id = 322,
                 title = '0',
+                description = '',
+                help = '',
                 category = '0',
                 expr = [
                     null

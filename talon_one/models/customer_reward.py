@@ -32,9 +32,10 @@ class CustomerReward(BaseModel):
     profile_integration_id: StrictStr = Field(description="The integration ID of the customer profile that unlocked this reward.", alias="profileIntegrationId", json_schema_extra={"examples": ["customer1"]})
     integration_id: StrictStr = Field(description="The integration ID assigned to this reward unlock.", alias="integrationId", json_schema_extra={"examples": ["reward-unlock-123"]})
     unlocked_at: datetime = Field(description="The date and time when the reward was unlocked.", alias="unlockedAt", json_schema_extra={"examples": ["2024-01-01T00:00:00Z"]})
+    expiry_date: Optional[datetime] = Field(default=None, description="The date and time when the customer reward expires, based on the  `validityDuration` or `expiryDate` of the reward when the reward was  unlocked. If the reward does not specify either property, the customer reward  has unlimited validity and this field is omitted.  **Note**: The expiry date is calculated using the time zone of the  Application connected to the reward. ", alias="expiryDate", json_schema_extra={"examples": ["2024-03-31T23:59:59Z"]})
     used_at: Optional[datetime] = Field(default=None, description="The date and time when the reward was used.", alias="usedAt", json_schema_extra={"examples": ["2024-01-02T00:00:00Z"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["applicationId", "profileIntegrationId", "integrationId", "unlockedAt", "usedAt"]
+    __properties: ClassVar[List[str]] = ["applicationId", "profileIntegrationId", "integrationId", "unlockedAt", "expiryDate", "usedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -98,6 +99,7 @@ class CustomerReward(BaseModel):
             "profileIntegrationId": obj.get("profileIntegrationId"),
             "integrationId": obj.get("integrationId"),
             "unlockedAt": obj.get("unlockedAt"),
+            "expiryDate": obj.get("expiryDate"),
             "usedAt": obj.get("usedAt")
         })
         # store additional fields in additional_properties

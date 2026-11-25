@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **created** | **datetime** | The time this entity was created. | 
 **application_id** | **int** | The ID of the Application that owns this entity. | 
 **title** | **str** | Campaigner-friendly name for the template that will be shown in the rule editor. | 
-**description** | **str** | A short description of the template that will be shown in the rule editor. | [optional] 
-**help** | **str** | Extended help text for the template. | [optional] 
+**description** | **str** | A short description of the template that will be shown in the rule editor. | 
+**help** | **str** | Extended help text for the template. | 
 **category** | **str** | Used for grouping templates in the rule editor sidebar. | 
 **expr** | **List[object]** | A Talang expression that contains variable bindings referring to args. | 
 **args** | [**List[TemplateArgDef]**](TemplateArgDef.md) | An array of argument definitions. | 

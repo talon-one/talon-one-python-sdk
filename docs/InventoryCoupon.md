@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **id** | **int** | The internal ID of the coupon. | 
 **created** | **datetime** | The time the coupon was created. | 
 **campaign_id** | **int** | The ID of the campaign that owns this entity. | 
-**value** | **str** | The coupon code. | [optional] 
-**usage_limit** | **int** | The number of times the coupon code can be redeemed. &#x60;0&#x60; means unlimited redemptions but any campaign usage limits will still apply.  | [optional] 
+**value** | **str** | The coupon code. | 
+**usage_limit** | **int** | The number of times the coupon code can be redeemed. &#x60;0&#x60; means unlimited redemptions but any campaign usage limits will still apply.  | 
 **discount_limit** | **float** | The total discount value that the code can give. Typically used to represent a gift card value.  | [optional] 
 **reservation_limit** | **int** | The number of reservations that can be made with this coupon code.  | [optional] 
 **start_date** | **datetime** | Timestamp at which point the coupon becomes valid. | [optional] 

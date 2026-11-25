@@ -49,6 +49,7 @@ class TestNewCouponCreationJob(unittest.TestCase):
             )
         else:
             return NewCouponCreationJob(
+                usage_limit = 100,
                 number_of_coupons = 200000,
                 attributes = { },
         )

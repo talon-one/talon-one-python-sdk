@@ -68,6 +68,13 @@ class TestLoyaltyProgram(unittest.TestCase):
             return LoyaltyProgram(
                 id = 139,
                 created = '2020-06-10T09:05:27.993483Z',
+                title = 'Point collection',
+                description = 'Customers collect 10 points per 1$ spent',
+                subscribed_applications = [132, 97],
+                default_validity = '2W_U',
+                default_pending = 'immediate',
+                allow_subledger = False,
+                sandbox = True,
                 account_id = 1,
                 name = 'my_program',
                 timezone = 'Europe/Berlin',

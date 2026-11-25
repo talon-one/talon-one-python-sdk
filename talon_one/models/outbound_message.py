@@ -39,7 +39,7 @@ class OutboundMessage(BaseModel):
     notification_type: StrictStr = Field(description="Type of notification that triggered the outbound message.", alias="notificationType", json_schema_extra={"examples": ["CampaignNotification"]})
     application_id: Optional[StrictInt] = Field(default=None, description="ID of the Application associated with the outbound message.", alias="applicationId", json_schema_extra={"examples": [1]})
     loyalty_program_id: Optional[StrictInt] = Field(default=None, description="ID of the loyalty program associated with the outbound message.", alias="loyaltyProgramId", json_schema_extra={"examples": [2]})
-    request: Optional[OutboundLogRequest] = None
+    request: OutboundLogRequest
     first_log_at: datetime = Field(description="Timestamp of the first log entry for this message.", alias="firstLogAt", json_schema_extra={"examples": ["2026-08-17T14:32:05Z"]})
     last_log_at: datetime = Field(description="Timestamp of the last log entry for this message.", alias="lastLogAt", json_schema_extra={"examples": ["2026-08-17T14:32:05Z"]})
     last_response_code: Optional[StrictInt] = Field(default=None, description="HTTP status code from the latest response.", alias="lastResponseCode", json_schema_extra={"examples": [200]})

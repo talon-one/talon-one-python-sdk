@@ -46,6 +46,7 @@ class TestNewReferralsForMultipleAdvocates(unittest.TestCase):
             )
         else:
             return NewReferralsForMultipleAdvocates(
+                usage_limit = 1,
                 campaign_id = 45,
                 advocate_profile_integration_ids = [URNGV8294NV, DRPVV9476AF],
         )

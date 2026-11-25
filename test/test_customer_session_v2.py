@@ -69,7 +69,7 @@ class TestCustomerSessionV2(unittest.TestCase):
                         adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b', 
                         adjustment_effective_from = '2021-09-12T10:12:42Z', 
                         adjustment_effective_until = '2021-09-12T10:12:42Z', 
-                        prices = {member={price=90, adjustmentReferenceId=68851723-e6fa-488f-ace9-112581e6c19b, effectiveFrom=2025-05-25T00:00:00Z, effectiveUntil=2025-05-30T00:00:00Z}, base={price=100}}, )
+                        prices = {member={price=90, adjustmentReferenceId=68851723-e6fa-488f-ace9-112581e6c19b, adjustmentEffectiveFrom=2025-05-25T00:00:00Z, adjustmentEffectiveUntil=2025-05-30T00:00:00Z}, base={price=100}}, )
                     ],
                 experiment_variant_allocations = [
                     talon_one.models.experiment_variant_allocation.ExperimentVariantAllocation(
@@ -93,6 +93,33 @@ class TestCustomerSessionV2(unittest.TestCase):
                 created = '2020-02-07T08:15:22Z',
                 integration_id = 'URNGV8294NV',
                 application_id = 322,
+                profile_id = 'URNGV8294NV',
+                state = 'open',
+                cart_items = [
+                    talon_one.models.cart_item.CartItem(
+                        name = 'Air Glide', 
+                        sku = 'SKU1241028', 
+                        quantity = 1, 
+                        returned_quantity = 1, 
+                        remaining_quantity = 1, 
+                        price = 99.99, 
+                        category = 'shoes', 
+                        product = null, 
+                        weight = 1130, 
+                        height = 1.337, 
+                        width = 1.337, 
+                        length = 1.337, 
+                        position = 1.337, 
+                        attributes = {image=11.jpeg, material=leather}, 
+                        additional_costs = {shipping={price=9}}, 
+                        catalog_item_id = 56, 
+                        selected_price_type = 'member', 
+                        adjustment_reference_id = '68851723-e6fa-488f-ace9-112581e6c19b', 
+                        adjustment_effective_from = '2021-09-12T10:12:42Z', 
+                        adjustment_effective_until = '2021-09-12T10:12:42Z', 
+                        prices = {member={price=90, adjustmentReferenceId=68851723-e6fa-488f-ace9-112581e6c19b, adjustmentEffectiveFrom=2025-05-25T00:00:00Z, adjustmentEffectiveUntil=2025-05-30T00:00:00Z}, base={price=100}}, )
+                    ],
+                attributes = {ShippingCity=Berlin},
                 first_session = True,
                 update_count = 3,
                 total = 134.99,

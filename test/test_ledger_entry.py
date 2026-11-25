@@ -50,6 +50,7 @@ class TestLedgerEntry(unittest.TestCase):
             return LedgerEntry(
                 id = 6,
                 created = '2020-06-10T09:05:27.993483Z',
+                profile_id = 'URNGV8294NV',
                 account_id = 56,
                 loyalty_program_id = 323414846,
                 event_id = 3,

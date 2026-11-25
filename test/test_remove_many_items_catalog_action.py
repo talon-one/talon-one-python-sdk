@@ -37,9 +37,9 @@ class TestRemoveManyItemsCatalogAction(unittest.TestCase):
             return RemoveManyItemsCatalogAction(
                 filters = [
                     talon_one.models.catalog_action_filter.CatalogActionFilter(
-                        attr = '', 
+                        attr = 'color', 
                         op = 'EQ', 
-                        value = null, )
+                        value = blue, )
                     ]
             )
         else:

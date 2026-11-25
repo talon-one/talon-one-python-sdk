@@ -38,9 +38,9 @@ class TestPatchManyItemsCatalogAction(unittest.TestCase):
                 price = 99.99,
                 filters = [
                     talon_one.models.catalog_action_filter.CatalogActionFilter(
-                        attr = '', 
+                        attr = 'color', 
                         op = 'EQ', 
-                        value = null, )
+                        value = blue, )
                     ],
                 attributes = { }
             )

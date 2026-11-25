@@ -54,6 +54,7 @@ class TestRiskDetail(unittest.TestCase):
                 status_changed_by = 42,
                 status_changed_at = '2026-06-06T09:12:45.000000Z',
                 modified = '2026-06-05T06:26:13.698884Z',
+                application_name = 'My Application',
                 affected_entities = [
                     talon_one.models.risk_affected_entity_item.RiskAffectedEntityItem(
                         entity_id = '174165415', 

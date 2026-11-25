@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **status_changed_by** | **int** | The ID of the user who performed the latest reclassification action. | [optional] 
 **status_changed_at** | **datetime** | The time of the latest reclassification action. | [optional] 
 **modified** | **datetime** | Timestamp of the most recent update. | 
+**application_name** | **str** | The current name of the Application this risk belongs to. Shown even if the user does not have access to that Application. Omitted if the Application has been deleted or the risk is not associated with an Application.  | [optional] 
 **affected_entities** | [**List[RiskAffectedEntityItem]**](RiskAffectedEntityItem.md) | The affected entities with the highest severity ratios, in descending order. | 
 
 ## Example

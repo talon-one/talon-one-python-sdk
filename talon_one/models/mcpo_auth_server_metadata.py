@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -34,8 +34,9 @@ class MCPOAuthServerMetadata(BaseModel):
     response_types_supported: List[StrictStr] = Field(description="List of supported OAuth2 response types.", json_schema_extra={"examples": [["code"]]})
     grant_types_supported: List[StrictStr] = Field(description="List of supported OAuth2 grant types.", json_schema_extra={"examples": [["authorization_code"]]})
     code_challenge_methods_supported: List[StrictStr] = Field(description="List of supported PKCE code challenge methods.", json_schema_extra={"examples": [["S256"]]})
+    token_endpoint_auth_methods_supported: Optional[List[StrictStr]] = Field(default=None, description="List of supported client authentication methods at the token endpoint. Public clients use `none`; confidential clients use `client_secret_post` or `client_secret_basic`.", json_schema_extra={"examples": [["none", "client_secret_post", "client_secret_basic"]]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["issuer", "authorization_endpoint", "token_endpoint", "registration_endpoint", "response_types_supported", "grant_types_supported", "code_challenge_methods_supported"]
+    __properties: ClassVar[List[str]] = ["issuer", "authorization_endpoint", "token_endpoint", "registration_endpoint", "response_types_supported", "grant_types_supported", "code_challenge_methods_supported", "token_endpoint_auth_methods_supported"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -101,7 +102,8 @@ class MCPOAuthServerMetadata(BaseModel):
             "registration_endpoint": obj.get("registration_endpoint"),
             "response_types_supported": obj.get("response_types_supported"),
             "grant_types_supported": obj.get("grant_types_supported"),
-            "code_challenge_methods_supported": obj.get("code_challenge_methods_supported")
+            "code_challenge_methods_supported": obj.get("code_challenge_methods_supported"),
+            "token_endpoint_auth_methods_supported": obj.get("token_endpoint_auth_methods_supported")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

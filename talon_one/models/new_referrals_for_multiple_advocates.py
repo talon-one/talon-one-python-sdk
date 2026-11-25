@@ -31,7 +31,7 @@ class NewReferralsForMultipleAdvocates(BaseModel):
     """ # noqa: E501
     start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the referral code becomes valid.", alias="startDate", json_schema_extra={"examples": ["2020-11-10T23:00:00Z"]})
     expiry_date: Optional[datetime] = Field(default=None, description="Expiration date of the referral code. Referral never expires if this is omitted.", alias="expiryDate", json_schema_extra={"examples": ["2021-11-10T23:00:00Z"]})
-    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times a referral code can be used. `0` means no limit but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [1]})
+    usage_limit: Annotated[int, Field(le=999999, strict=True, ge=0)] = Field(description="The number of times a referral code can be used. `0` means no limit but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [1]})
     campaign_id: StrictInt = Field(description="The ID of the campaign from which the referral received the referral code.", alias="campaignId", json_schema_extra={"examples": [45]})
     advocate_profile_integration_ids: Annotated[List[StrictStr], Field(min_length=1, max_length=1000)] = Field(description="An array containing all the respective advocate profiles.", alias="advocateProfileIntegrationIds", json_schema_extra={"examples": [["URNGV8294NV", "DRPVV9476AF"]]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this referral code.", json_schema_extra={"examples": ["{channel=web}"]})

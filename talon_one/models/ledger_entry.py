@@ -30,7 +30,7 @@ class LedgerEntry(BaseModel):
     """ # noqa: E501
     id: StrictInt = Field(description="The internal ID of this entity.", json_schema_extra={"examples": [6]})
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
-    profile_id: Optional[StrictStr] = Field(default=None, description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    profile_id: StrictStr = Field(description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId", json_schema_extra={"examples": ["URNGV8294NV"]})
     account_id: StrictInt = Field(description="The ID of the Talon.One account that owns this profile.", alias="accountId")
     loyalty_program_id: StrictInt = Field(description="ID of the ledger.", alias="loyaltyProgramId", json_schema_extra={"examples": [323414846]})
     event_id: StrictInt = Field(description="ID of the related event.", alias="eventId", json_schema_extra={"examples": [3]})

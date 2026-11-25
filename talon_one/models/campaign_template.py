@@ -56,7 +56,7 @@ class CampaignTemplate(BaseModel):
     applications_ids: List[StrictInt] = Field(alias="applicationsIds", json_schema_extra={"examples": [[1, 2, 3]]})
     campaign_collections: Optional[List[CampaignTemplateCollection]] = Field(default=None, description="The campaign collections from the blueprint campaign for the template.", alias="campaignCollections")
     default_campaign_group_id: Optional[StrictInt] = Field(default=None, description="The default campaign group ID.", alias="defaultCampaignGroupId", json_schema_extra={"examples": [42]})
-    campaign_type: Optional[StrictStr] = Field(default='advanced', description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", alias="campaignType", json_schema_extra={"examples": ["advanced"]})
+    campaign_type: StrictStr = Field(description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", alias="campaignType", json_schema_extra={"examples": ["advanced"]})
     campaigns_count: Optional[StrictInt] = Field(default=None, description="The number of Campaigns created from this template.", alias="campaignsCount", json_schema_extra={"examples": [3]})
     updated: Optional[datetime] = Field(default=None, description="Timestamp of the most recent update to the campaign template or any of its elements.", json_schema_extra={"examples": ["2022-08-24T14:15:22Z"]})
     updated_by: Optional[StrictStr] = Field(default=None, description="Name of the user who last updated this campaign template, if available.", alias="updatedBy", json_schema_extra={"examples": ["Jane Doe"]})
@@ -86,9 +86,6 @@ class CampaignTemplate(BaseModel):
     @field_validator('campaign_type')
     def campaign_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in set(['cartItem', 'advanced']):
             raise ValueError("must be one of enum values ('cartItem', 'advanced')")
         return value
