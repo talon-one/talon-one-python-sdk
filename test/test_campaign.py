@@ -111,6 +111,7 @@ class TestCampaign(unittest.TestCase):
                 application_id = 322,
                 user_id = 388,
                 name = 'Summer promotions',
+                description = 'Campaign for all summer 2021 promotions',
                 state = 'enabled',
                 tags = [summer],
                 reevaluate_on_return = True,
@@ -122,6 +123,7 @@ class TestCampaign(unittest.TestCase):
                         period = 'yearly', 
                         entities = [Coupon], )
                     ],
+                type = 'advanced',
                 frontend_state = 'running',
                 stores_imported = True,
         )

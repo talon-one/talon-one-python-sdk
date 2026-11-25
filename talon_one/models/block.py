@@ -27,11 +27,12 @@ from talon_one.models.reserve_coupon_block import ReserveCouponBlock
 from talon_one.models.update_achievement_progress_block import UpdateAchievementProgressBlock
 from talon_one.models.update_attribute_value_block import UpdateAttributeValueBlock
 from talon_one.models.update_audience_membership_block import UpdateAudienceMembershipBlock
+from talon_one.models.update_loyalty_program_membership_block import UpdateLoyaltyProgramMembershipBlock
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-BLOCK_ONE_OF_SCHEMAS = ["AwardDiscountBlock", "AwardGiveawayBlock", "AwardItemBlock", "AwardLoyaltyPointsBlock", "CheckAchievementBlock", "CheckAttributeBlock", "CheckAudienceBlock", "CheckBudgetBlock", "CheckCouponBlock", "CheckEventBlock", "CheckLoyaltyBalanceBlock", "CheckLoyaltyCardBlock", "CheckReferralBlock", "CheckTierBlock", "CreateCouponBlock", "CreateReferralBlock", "GroupBlock", "PassthroughBlock", "RedeemLoyaltyPointsBlock", "ReserveCouponBlock", "ShowNotificationBlock", "TriggerCustomEffectBlock", "TriggerWebhookBlock", "UpdateAchievementProgressBlock", "UpdateAttributeValueBlock", "UpdateAudienceMembershipBlock", "UpdateLoyaltyPointsExpiryBlock"]
+BLOCK_ONE_OF_SCHEMAS = ["AwardDiscountBlock", "AwardGiveawayBlock", "AwardItemBlock", "AwardLoyaltyPointsBlock", "CheckAchievementBlock", "CheckAttributeBlock", "CheckAudienceBlock", "CheckBudgetBlock", "CheckCouponBlock", "CheckEventBlock", "CheckLoyaltyBalanceBlock", "CheckLoyaltyCardBlock", "CheckReferralBlock", "CheckTierBlock", "CreateCouponBlock", "CreateReferralBlock", "GroupBlock", "PassthroughBlock", "RedeemLoyaltyPointsBlock", "ReserveCouponBlock", "ShowNotificationBlock", "TriggerCustomEffectBlock", "TriggerWebhookBlock", "UpdateAchievementProgressBlock", "UpdateAttributeValueBlock", "UpdateAudienceMembershipBlock", "UpdateLoyaltyPointsExpiryBlock", "UpdateLoyaltyProgramMembershipBlock"]
 
 class Block(BaseModel):
     """
@@ -83,16 +84,18 @@ class Block(BaseModel):
     oneof_schema_22_validator: Optional[ReserveCouponBlock] = None
     # data type: UpdateLoyaltyPointsExpiryBlock
     oneof_schema_23_validator: Optional[UpdateLoyaltyPointsExpiryBlock] = None
+    # data type: UpdateLoyaltyProgramMembershipBlock
+    oneof_schema_24_validator: Optional[UpdateLoyaltyProgramMembershipBlock] = None
     # data type: CheckLoyaltyCardBlock
-    oneof_schema_24_validator: Optional[CheckLoyaltyCardBlock] = None
+    oneof_schema_25_validator: Optional[CheckLoyaltyCardBlock] = None
     # data type: CheckTierBlock
-    oneof_schema_25_validator: Optional[CheckTierBlock] = None
+    oneof_schema_26_validator: Optional[CheckTierBlock] = None
     # data type: AwardLoyaltyPointsBlock
-    oneof_schema_26_validator: Optional[AwardLoyaltyPointsBlock] = None
+    oneof_schema_27_validator: Optional[AwardLoyaltyPointsBlock] = None
     # data type: RedeemLoyaltyPointsBlock
-    oneof_schema_27_validator: Optional[RedeemLoyaltyPointsBlock] = None
-    actual_instance: Optional[Union[AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock]] = None
-    one_of_schemas: Set[str] = { "AwardDiscountBlock", "AwardGiveawayBlock", "AwardItemBlock", "AwardLoyaltyPointsBlock", "CheckAchievementBlock", "CheckAttributeBlock", "CheckAudienceBlock", "CheckBudgetBlock", "CheckCouponBlock", "CheckEventBlock", "CheckLoyaltyBalanceBlock", "CheckLoyaltyCardBlock", "CheckReferralBlock", "CheckTierBlock", "CreateCouponBlock", "CreateReferralBlock", "GroupBlock", "PassthroughBlock", "RedeemLoyaltyPointsBlock", "ReserveCouponBlock", "ShowNotificationBlock", "TriggerCustomEffectBlock", "TriggerWebhookBlock", "UpdateAchievementProgressBlock", "UpdateAttributeValueBlock", "UpdateAudienceMembershipBlock", "UpdateLoyaltyPointsExpiryBlock" }
+    oneof_schema_28_validator: Optional[RedeemLoyaltyPointsBlock] = None
+    actual_instance: Optional[Union[AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock, UpdateLoyaltyProgramMembershipBlock]] = None
+    one_of_schemas: Set[str] = { "AwardDiscountBlock", "AwardGiveawayBlock", "AwardItemBlock", "AwardLoyaltyPointsBlock", "CheckAchievementBlock", "CheckAttributeBlock", "CheckAudienceBlock", "CheckBudgetBlock", "CheckCouponBlock", "CheckEventBlock", "CheckLoyaltyBalanceBlock", "CheckLoyaltyCardBlock", "CheckReferralBlock", "CheckTierBlock", "CreateCouponBlock", "CreateReferralBlock", "GroupBlock", "PassthroughBlock", "RedeemLoyaltyPointsBlock", "ReserveCouponBlock", "ShowNotificationBlock", "TriggerCustomEffectBlock", "TriggerWebhookBlock", "UpdateAchievementProgressBlock", "UpdateAttributeValueBlock", "UpdateAudienceMembershipBlock", "UpdateLoyaltyPointsExpiryBlock", "UpdateLoyaltyProgramMembershipBlock" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -233,6 +236,11 @@ class Block(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `UpdateLoyaltyPointsExpiryBlock`")
         else:
             match += 1
+        # validate data type: UpdateLoyaltyProgramMembershipBlock
+        if not isinstance(v, UpdateLoyaltyProgramMembershipBlock):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `UpdateLoyaltyProgramMembershipBlock`")
+        else:
+            match += 1
         # validate data type: CheckLoyaltyCardBlock
         if not isinstance(v, CheckLoyaltyCardBlock):
             error_messages.append(f"Error! Input type `{type(v)}` is not `CheckLoyaltyCardBlock`")
@@ -255,10 +263,10 @@ class Block(BaseModel):
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in Block with oneOf schemas: AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in Block with oneOf schemas: AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock, UpdateLoyaltyProgramMembershipBlock. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in Block with oneOf schemas: AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in Block with oneOf schemas: AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock, UpdateLoyaltyProgramMembershipBlock. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -414,6 +422,11 @@ class Block(BaseModel):
             instance.actual_instance = UpdateLoyaltyPointsExpiryBlock.from_json(json_str)
             return instance
 
+        # check if data type is `UpdateLoyaltyProgramMembershipBlock`
+        if _data_type == "updateLoyaltyProgramMembership":
+            instance.actual_instance = UpdateLoyaltyProgramMembershipBlock.from_json(json_str)
+            return instance
+
         # deserialize data into GroupBlock
         try:
             instance.actual_instance = GroupBlock.from_json(json_str)
@@ -552,6 +565,12 @@ class Block(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
+        # deserialize data into UpdateLoyaltyProgramMembershipBlock
+        try:
+            instance.actual_instance = UpdateLoyaltyProgramMembershipBlock.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
         # deserialize data into CheckLoyaltyCardBlock
         try:
             instance.actual_instance = CheckLoyaltyCardBlock.from_json(json_str)
@@ -579,10 +598,10 @@ class Block(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into Block with oneOf schemas: AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into Block with oneOf schemas: AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock, UpdateLoyaltyProgramMembershipBlock. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into Block with oneOf schemas: AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into Block with oneOf schemas: AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock, UpdateLoyaltyProgramMembershipBlock. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -596,7 +615,7 @@ class Block(BaseModel):
         else:
             return json.dumps(self.to_dict())
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], AwardDiscountBlock, AwardGiveawayBlock, AwardItemBlock, AwardLoyaltyPointsBlock, CheckAchievementBlock, CheckAttributeBlock, CheckAudienceBlock, CheckBudgetBlock, CheckCouponBlock, CheckEventBlock, CheckLoyaltyBalanceBlock, CheckLoyaltyCardBlock, CheckReferralBlock, CheckTierBlock, CreateCouponBlock, CreateReferralBlock, GroupBlock, PassthroughBlock, RedeemLoyaltyPointsBlock, ReserveCouponBlock, ShowNotificationBlock, TriggerCustomEffectBlock, TriggerWebhookBlock, UpdateAchievementProgressBlock, UpdateAttributeValueBlock, UpdateAudienceMembershipBlock, UpdateLoyaltyPointsExpiryBlock, UpdateLoyaltyProgramMembershipBlock]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

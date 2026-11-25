@@ -70,6 +70,8 @@ class TestIntegrationCoupon(unittest.TestCase):
                 id = 6,
                 created = '2020-06-10T09:05:27.993483Z',
                 campaign_id = 211,
+                value = 'XMAS-20-2021',
+                usage_limit = 100,
                 usage_counter = 10,
                 profile_redemption_count = 5,
         )

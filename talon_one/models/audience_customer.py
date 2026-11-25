@@ -34,7 +34,7 @@ class AudienceCustomer(BaseModel):
     id: StrictInt = Field(description="The internal ID of the customer profile.", json_schema_extra={"examples": [6]})
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-02-07T08:15:22Z"]})
     integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The integration ID set by your integration layer.", alias="integrationId", json_schema_extra={"examples": ["URNGV8294NV"]})
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this item.", json_schema_extra={"examples": [{"Language": "english", "ShippingCountry": "DE"}]})
+    attributes: Dict[str, Any] = Field(description="Arbitrary properties associated with this item.", json_schema_extra={"examples": [{"Language": "english", "ShippingCountry": "DE"}]})
     account_id: StrictInt = Field(description="The ID of the Talon.One account that owns this profile.", alias="accountId", json_schema_extra={"examples": [31]})
     closed_sessions: StrictInt = Field(description="The total number of closed sessions. Does not include closed sessions that have been cancelled or reopened. See the [docs](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions#customer-session-states).", alias="closedSessions", json_schema_extra={"examples": [3]})
     total_sales: Union[StrictFloat, StrictInt] = Field(description="The total amount of money spent by the customer **before** discounts are applied.  The total sales amount excludes the following: - Cancelled or reopened sessions. - Returned items. ", alias="totalSales", json_schema_extra={"examples": [299.99]})

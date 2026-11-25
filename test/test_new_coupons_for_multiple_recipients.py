@@ -48,6 +48,7 @@ class TestNewCouponsForMultipleRecipients(unittest.TestCase):
             )
         else:
             return NewCouponsForMultipleRecipients(
+                usage_limit = 100,
                 recipients_integration_ids = [URNGV8294NV, BZGGC2454PA],
         )
         """

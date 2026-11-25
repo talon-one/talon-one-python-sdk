@@ -30,11 +30,12 @@ class MCPOAuthTokenRequest(BaseModel):
     grant_type: StrictStr = Field(description="OAuth2 grant type.", json_schema_extra={"examples": ["authorization_code"]})
     code: Optional[StrictStr] = Field(default=None, description="Authorization code. Required for `authorization_code` grant.", json_schema_extra={"examples": ["4a3b2c1d9e6f78901234567890abcdef"]})
     client_id: Optional[StrictStr] = Field(default=None, description="Client ID. Required for `authorization_code` grant.", json_schema_extra={"examples": ["a3f8c1e2b4d56789"]})
+    client_secret: Optional[StrictStr] = Field(default=None, description="Client secret for confidential (static) clients. May also be supplied via HTTP Basic authentication. Public clients registered via dynamic client registration omit it.", json_schema_extra={"examples": ["7b1f0c9d8e2a4f6b1c3d5e7f9a0b2c4d"]})
     redirect_uri: Optional[StrictStr] = Field(default=None, description="Redirect URI. Required for `authorization_code` grant.", json_schema_extra={"examples": ["http://localhost:3000/callback"]})
     code_verifier: Optional[StrictStr] = Field(default=None, description="PKCE code verifier. Required for `authorization_code` grant.", json_schema_extra={"examples": ["dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"]})
     refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token. Required for `refresh_token` grant.", json_schema_extra={"examples": ["mcpor:9f8e7d6c"]})
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["grant_type", "code", "client_id", "redirect_uri", "code_verifier", "refresh_token"]
+    __properties: ClassVar[List[str]] = ["grant_type", "code", "client_id", "client_secret", "redirect_uri", "code_verifier", "refresh_token"]
 
     @field_validator('grant_type')
     def grant_type_validate_enum(cls, value):
@@ -104,6 +105,7 @@ class MCPOAuthTokenRequest(BaseModel):
             "grant_type": obj.get("grant_type"),
             "code": obj.get("code"),
             "client_id": obj.get("client_id"),
+            "client_secret": obj.get("client_secret"),
             "redirect_uri": obj.get("redirect_uri"),
             "code_verifier": obj.get("code_verifier"),
             "refresh_token": obj.get("refresh_token")

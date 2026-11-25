@@ -66,6 +66,13 @@ class TestAchievementV2(unittest.TestCase):
             return AchievementV2(
                 id = 6,
                 created = '2020-06-10T09:05:27.993483Z',
+                name = 'Order50Discount',
+                title = '50% off on 50th purchase.',
+                description = '50% off for every 50th purchase in a year.',
+                target = 50,
+                recurrence_policy = 'no_recurrence',
+                activation_policy = 'fixed_schedule',
+                subscribed_applications = [132, 97],
                 user_id = 1234,
                 sandbox = True,
                 timezone = 'Europe/Berlin',

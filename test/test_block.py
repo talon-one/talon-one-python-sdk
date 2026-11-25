@@ -56,6 +56,7 @@ class TestBlock(unittest.TestCase):
                 value = None,
                 partial = False,
                 target = None,
+                excluded_from_price_history = False,
                 expression = [
                     null
                     ],
@@ -96,6 +97,7 @@ class TestBlock(unittest.TestCase):
                 pattern = 'SUMMER-####-####',
                 friend_id = '{{$Profile.IntegrationId}}',
                 recipient = 'Current',
+                join_date = {{$Now}},
                 tier = None,
                 awaits_activation = False,
                 validity_duration = '30D',
@@ -141,6 +143,7 @@ class TestBlock(unittest.TestCase):
                 store_in_session = True,
                 friend_id = '{{$Profile.IntegrationId}}',
                 recipient = 'Current',
+                join_date = {{$Now}},
                 tier = None,
         )
         """

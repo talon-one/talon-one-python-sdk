@@ -33,14 +33,14 @@ class CustomerSession(BaseModel):
     integration_id: Annotated[str, Field(strict=True, max_length=1000)] = Field(alias="integrationId")
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-02-07T08:15:22Z"]})
     application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
-    profile_id: Optional[StrictStr] = Field(default=None, description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId", json_schema_extra={"examples": ["URNGV8294NV"]})
-    coupon: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Any coupon code entered.", json_schema_extra={"examples": ["XMAS-2021"]})
-    referral: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Any referral code entered.", json_schema_extra={"examples": ["2740-tbjua-6720"]})
-    state: Optional[StrictStr] = Field(default='open', description="Indicates the current state of the session. Sessions can be created as `open` or `closed`. The state transitions are:  1. `open` -> `closed` 2. `open` -> `cancelled` 3. `closed` -> `cancelled` or `partially_returned` 4. `partially_returned` -> `cancelled`  For more information, see [Customer session states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions). ", json_schema_extra={"examples": ["open"]})
-    cart_items: Optional[List[CartItem]] = Field(default=None, description="Serialized JSON representation.", alias="cartItems")
+    profile_id: StrictStr = Field(description="ID of the customer profile set by your integration layer.  **Note:** If the customer does not yet have a known `profileId`, we recommend you use a guest `profileId`. ", alias="profileId", json_schema_extra={"examples": ["URNGV8294NV"]})
+    coupon: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Any coupon code entered.", json_schema_extra={"examples": ["XMAS-2021"]})
+    referral: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Any referral code entered.", json_schema_extra={"examples": ["2740-tbjua-6720"]})
+    state: StrictStr = Field(description="Indicates the current state of the session. Sessions can be created as `open` or `closed`. The state transitions are:  1. `open` -> `closed` 2. `open` -> `cancelled` 3. `closed` -> `cancelled` or `partially_returned` 4. `partially_returned` -> `cancelled`  For more information, see [Customer session states](https://docs.talon.one/docs/dev/concepts/entities/customer-sessions). ", json_schema_extra={"examples": ["open"]})
+    cart_items: List[CartItem] = Field(description="Serialized JSON representation.", alias="cartItems")
     identifiers: Optional[Annotated[List[StrictStr], Field(max_length=5)]] = Field(default=None, description="Session custom identifiers that you can set limits on or use inside your rules.  For example, you can use IP addresses as identifiers to potentially identify devices and limit discounts abuse in case of customers creating multiple accounts. See the [tutorial](https://docs.talon.one/docs/dev/tutorials/using-identifiers). ", json_schema_extra={"examples": [["91.11.156.141"]]})
-    total: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The total sum of the cart in one session.")
-    attributes: Optional[Dict[str, Any]] = Field(default=None, description="A key-value map of the sessions attributes. The potentially valid attributes are configured in your accounts developer settings. ")
+    total: Union[StrictFloat, StrictInt] = Field(description="The total sum of the cart in one session.")
+    attributes: Dict[str, Any] = Field(description="A key-value map of the sessions attributes. The potentially valid attributes are configured in your accounts developer settings. ")
     first_session: StrictBool = Field(description="Indicates whether this is the first session for the customer's profile. Will always be true for anonymous sessions.", alias="firstSession", json_schema_extra={"examples": [True]})
     update_count: StrictInt = Field(description="The number of times the session was updated. When the session is created, this value is initialized to `1`.", alias="updateCount", json_schema_extra={"examples": [3]})
     discounts: Dict[str, Union[StrictFloat, StrictInt]] = Field(description="A map of labelled discount values, values will be in the same currency as the application associated with the session.")
@@ -51,9 +51,6 @@ class CustomerSession(BaseModel):
     @field_validator('state')
     def state_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in set(['open', 'closed', 'partially_returned', 'cancelled']):
             raise ValueError("must be one of enum values ('open', 'closed', 'partially_returned', 'cancelled')")
         return value

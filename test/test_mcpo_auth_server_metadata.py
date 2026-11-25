@@ -41,7 +41,8 @@ class TestMCPOAuthServerMetadata(unittest.TestCase):
                 registration_endpoint = 'https://mycompany.talon.one/v1/mcp/auth/register',
                 response_types_supported = ["code"],
                 grant_types_supported = ["authorization_code"],
-                code_challenge_methods_supported = ["S256"]
+                code_challenge_methods_supported = ["S256"],
+                token_endpoint_auth_methods_supported = ["none","client_secret_post","client_secret_basic"]
             )
         else:
             return MCPOAuthServerMetadata(

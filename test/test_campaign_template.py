@@ -96,6 +96,7 @@ class TestCampaignTemplate(unittest.TestCase):
                 state = 'draft',
                 reevaluate_on_return = True,
                 applications_ids = [1, 2, 3],
+                campaign_type = 'advanced',
                 valid_application_ids = [1, 2, 3],
         )
         """

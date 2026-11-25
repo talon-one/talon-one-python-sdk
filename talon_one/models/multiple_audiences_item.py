@@ -33,7 +33,7 @@ class MultipleAudiencesItem(BaseModel):
     created: datetime = Field(description="The time this entity was created.", json_schema_extra={"examples": ["2020-06-10T09:05:27.993483Z"]})
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="The human-friendly display name for this audience.", json_schema_extra={"examples": ["Travel audience"]})
     subscribed_applications_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of the IDs of the Applications that are connected to this audience.", alias="subscribedApplicationsIds", json_schema_extra={"examples": [[3, 13]]})
-    integration_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The ID of this audience in the third-party integration.", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
+    integration_id: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="The ID of this audience in the third-party integration.", alias="integrationId", json_schema_extra={"examples": ["382370BKDB946"]})
     status: StrictStr = Field(description="Indicates whether the audience is new, updated or unmodified by the request. ", json_schema_extra={"examples": ["new"]})
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "created", "name", "subscribedApplicationsIds", "integrationId", "status"]

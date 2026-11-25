@@ -61,6 +61,7 @@ class TestNewCoupons(unittest.TestCase):
             )
         else:
             return NewCoupons(
+                usage_limit = 100,
                 number_of_coupons = 1,
         )
         """

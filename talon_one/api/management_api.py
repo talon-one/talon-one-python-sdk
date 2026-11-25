@@ -4299,7 +4299,8 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         new_coupons: Annotated[NewCoupons, Field(description="body")],
-        silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
+        silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. Requires `full` to be `no`; otherwise a 400 error is returned. - `no`: Returns a 200 response that contains the created coupons. ")] = None,
+        full: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Returns all created coupons. Requires `silent` to be `no`; otherwise a 400 error is returned. - `no`: Returns at most 1000 created coupons. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4323,8 +4324,10 @@ class ManagementApi:
         :type campaign_id: int
         :param new_coupons: body (required)
         :type new_coupons: NewCoupons
-        :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. 
+        :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. Requires `full` to be `no`; otherwise a 400 error is returned. - `no`: Returns a 200 response that contains the created coupons. 
         :type silent: str
+        :param full: Possible values: `yes` or `no`. - `yes`: Returns all created coupons. Requires `silent` to be `no`; otherwise a 400 error is returned. - `no`: Returns at most 1000 created coupons. 
+        :type full: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4352,6 +4355,7 @@ class ManagementApi:
             campaign_id=campaign_id,
             new_coupons=new_coupons,
             silent=silent,
+            full=full,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4361,6 +4365,7 @@ class ManagementApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateCoupons200Response",
             '204': None,
+            '400': "ErrorResponseWithStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4379,7 +4384,8 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         new_coupons: Annotated[NewCoupons, Field(description="body")],
-        silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
+        silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. Requires `full` to be `no`; otherwise a 400 error is returned. - `no`: Returns a 200 response that contains the created coupons. ")] = None,
+        full: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Returns all created coupons. Requires `silent` to be `no`; otherwise a 400 error is returned. - `no`: Returns at most 1000 created coupons. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4403,8 +4409,10 @@ class ManagementApi:
         :type campaign_id: int
         :param new_coupons: body (required)
         :type new_coupons: NewCoupons
-        :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. 
+        :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. Requires `full` to be `no`; otherwise a 400 error is returned. - `no`: Returns a 200 response that contains the created coupons. 
         :type silent: str
+        :param full: Possible values: `yes` or `no`. - `yes`: Returns all created coupons. Requires `silent` to be `no`; otherwise a 400 error is returned. - `no`: Returns at most 1000 created coupons. 
+        :type full: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4432,6 +4440,7 @@ class ManagementApi:
             campaign_id=campaign_id,
             new_coupons=new_coupons,
             silent=silent,
+            full=full,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4441,6 +4450,7 @@ class ManagementApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateCoupons200Response",
             '204': None,
+            '400': "ErrorResponseWithStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4459,7 +4469,8 @@ class ManagementApi:
         application_id: Annotated[StrictInt, Field(description="The ID of the Application. It is displayed in your Talon.One deployment URL.")],
         campaign_id: Annotated[StrictInt, Field(description="The ID of the campaign. It is displayed in your Talon.One deployment URL.")],
         new_coupons: Annotated[NewCoupons, Field(description="body")],
-        silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. ")] = None,
+        silent: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. Requires `full` to be `no`; otherwise a 400 error is returned. - `no`: Returns a 200 response that contains the created coupons. ")] = None,
+        full: Annotated[Optional[StrictStr], Field(description="Possible values: `yes` or `no`. - `yes`: Returns all created coupons. Requires `silent` to be `no`; otherwise a 400 error is returned. - `no`: Returns at most 1000 created coupons. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4483,8 +4494,10 @@ class ManagementApi:
         :type campaign_id: int
         :param new_coupons: body (required)
         :type new_coupons: NewCoupons
-        :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. - `no`: Returns a 200 response that contains the updated customer profiles. 
+        :param silent: Possible values: `yes` or `no`. - `yes`: Increases the performance of the API call by returning a 204 response. Requires `full` to be `no`; otherwise a 400 error is returned. - `no`: Returns a 200 response that contains the created coupons. 
         :type silent: str
+        :param full: Possible values: `yes` or `no`. - `yes`: Returns all created coupons. Requires `silent` to be `no`; otherwise a 400 error is returned. - `no`: Returns at most 1000 created coupons. 
+        :type full: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4512,6 +4525,7 @@ class ManagementApi:
             campaign_id=campaign_id,
             new_coupons=new_coupons,
             silent=silent,
+            full=full,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4521,6 +4535,7 @@ class ManagementApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateCoupons200Response",
             '204': None,
+            '400': "ErrorResponseWithStatus",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4535,6 +4550,7 @@ class ManagementApi:
         campaign_id,
         new_coupons,
         silent,
+        full,
         _request_auth,
         _content_type,
         _headers,
@@ -4564,6 +4580,10 @@ class ManagementApi:
         if silent is not None:
             
             _query_params.append(('silent', silent))
+            
+        if full is not None:
+            
+            _query_params.append(('full', full))
             
         # process the header parameters
         # process the form parameters

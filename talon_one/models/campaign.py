@@ -37,7 +37,7 @@ class Campaign(BaseModel):
     application_id: StrictInt = Field(description="The ID of the Application that owns this entity.", alias="applicationId", json_schema_extra={"examples": [322]})
     user_id: StrictInt = Field(description="The ID of the user associated with this entity.", alias="userId", json_schema_extra={"examples": [388]})
     name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="A user-facing name for this campaign.", json_schema_extra={"examples": ["Summer promotions"]})
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the campaign.", json_schema_extra={"examples": ["Campaign for all summer 2021 promotions"]})
+    description: StrictStr = Field(description="A detailed description of the campaign.", json_schema_extra={"examples": ["Campaign for all summer 2021 promotions"]})
     start_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become active.", alias="startTime", json_schema_extra={"examples": ["2021-07-20T22:00:00Z"]})
     end_time: Optional[datetime] = Field(default=None, description="Timestamp when the campaign will become inactive.", alias="endTime", json_schema_extra={"examples": ["2021-09-22T22:00:00Z"]})
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with this campaign.")
@@ -50,7 +50,7 @@ class Campaign(BaseModel):
     referral_settings: Optional[CodeGeneratorSettings] = Field(default=None, alias="referralSettings")
     limits: List[LimitConfig] = Field(description="The set of [budget limits](https://docs.talon.one/docs/product/campaigns/settings/managing-campaign-budgets) for this campaign. ")
     campaign_groups: Optional[List[StrictInt]] = Field(default=None, description="The IDs of the [campaign groups](https://docs.talon.one/docs/product/account/managing-campaign-groups) this campaign belongs to. ", alias="campaignGroups", json_schema_extra={"examples": [[1, 3]]})
-    type: Optional[StrictStr] = Field(default='advanced', description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", json_schema_extra={"examples": ["advanced"]})
+    type: StrictStr = Field(description="The campaign type. Possible type values:   - `cartItem`: Type of campaign that can apply effects only to cart items.   - `advanced`: Type of campaign that can apply effects to customer sessions and cart items. ", json_schema_extra={"examples": ["advanced"]})
     linked_store_ids: Optional[List[StrictInt]] = Field(default=None, description="A list of store IDs that you want to link to the campaign.  **Note:** Campaigns with linked store IDs will only be evaluated when there is a [customer session update](https://docs.talon.one/integration-api#tag/Customer-sessions/operation/updateCustomerSessionV2) that references a linked store. ", alias="linkedStoreIds", json_schema_extra={"examples": [[1, 2, 3]]})
     coupon_attributes: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary properties associated with coupons in this campaign.", alias="couponAttributes")
     budgets: Optional[List[CampaignBudget]] = Field(default=None, description="A list of all the budgets that are defined by this campaign and their usage.  **Note:** Budgets that are not defined do not appear in this list and their usage is not counted until they are defined. ")
@@ -106,9 +106,6 @@ class Campaign(BaseModel):
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in set(['cartItem', 'advanced']):
             raise ValueError("must be one of enum values ('cartItem', 'advanced')")
         return value

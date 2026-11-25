@@ -17,30 +17,33 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from talon_one.models.outbound_log import OutboundLog
-from talon_one.models.outbound_log_stream_error import OutboundLogStreamError
+from talon_one.models.outbound_log_stream_error_entry import OutboundLogStreamErrorEntry
+from talon_one.models.outbound_log_stream_log_entry import OutboundLogStreamLogEntry
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-OUTBOUNDLOGSDATAINNER_ONE_OF_SCHEMAS = ["OutboundLog", "OutboundLogStreamError"]
+OUTBOUNDLOGSDATAINNER_ONE_OF_SCHEMAS = ["OutboundLogStreamErrorEntry", "OutboundLogStreamLogEntry"]
 
 class OutboundLogsDataInner(BaseModel):
     """
     OutboundLogsDataInner
     """
-    # data type: OutboundLog
-    oneof_schema_1_validator: Optional[OutboundLog] = None
-    # data type: OutboundLogStreamError
-    oneof_schema_2_validator: Optional[OutboundLogStreamError] = None
-    actual_instance: Optional[Union[OutboundLog, OutboundLogStreamError]] = None
-    one_of_schemas: Set[str] = { "OutboundLog", "OutboundLogStreamError" }
+    # data type: OutboundLogStreamLogEntry
+    oneof_schema_1_validator: Optional[OutboundLogStreamLogEntry] = None
+    # data type: OutboundLogStreamErrorEntry
+    oneof_schema_2_validator: Optional[OutboundLogStreamErrorEntry] = None
+    actual_instance: Optional[Union[OutboundLogStreamErrorEntry, OutboundLogStreamLogEntry]] = None
+    one_of_schemas: Set[str] = { "OutboundLogStreamErrorEntry", "OutboundLogStreamLogEntry" }
 
     model_config = ConfigDict(
         validate_assignment=True,
         protected_namespaces=(),
     )
 
+
+    discriminator_value_class_map: Dict[str, str] = {
+    }
 
     def __init__(self, *args, **kwargs) -> None:
         if args:
@@ -57,22 +60,22 @@ class OutboundLogsDataInner(BaseModel):
         instance = OutboundLogsDataInner.model_construct()
         error_messages = []
         match = 0
-        # validate data type: OutboundLog
-        if not isinstance(v, OutboundLog):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `OutboundLog`")
+        # validate data type: OutboundLogStreamLogEntry
+        if not isinstance(v, OutboundLogStreamLogEntry):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `OutboundLogStreamLogEntry`")
         else:
             match += 1
-        # validate data type: OutboundLogStreamError
-        if not isinstance(v, OutboundLogStreamError):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `OutboundLogStreamError`")
+        # validate data type: OutboundLogStreamErrorEntry
+        if not isinstance(v, OutboundLogStreamErrorEntry):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `OutboundLogStreamErrorEntry`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in OutboundLogsDataInner with oneOf schemas: OutboundLog, OutboundLogStreamError. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in OutboundLogsDataInner with oneOf schemas: OutboundLogStreamErrorEntry, OutboundLogStreamLogEntry. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in OutboundLogsDataInner with oneOf schemas: OutboundLog, OutboundLogStreamError. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in OutboundLogsDataInner with oneOf schemas: OutboundLogStreamErrorEntry, OutboundLogStreamLogEntry. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -87,25 +90,41 @@ class OutboundLogsDataInner(BaseModel):
         error_messages = []
         match = 0
 
-        # deserialize data into OutboundLog
+        # use oneOf discriminator to lookup the data type
+        _discriminator_property = "type"
+        _data_type = json.loads(json_str).get(_discriminator_property)
+        if not _data_type:
+            raise ValueError(f"Failed to lookup data type from the field `{_discriminator_property}` in the input.")
+
+        # check if data type is `OutboundLogStreamErrorEntry`
+        if _data_type == "error":
+            instance.actual_instance = OutboundLogStreamErrorEntry.from_json(json_str)
+            return instance
+
+        # check if data type is `OutboundLogStreamLogEntry`
+        if _data_type == "log":
+            instance.actual_instance = OutboundLogStreamLogEntry.from_json(json_str)
+            return instance
+
+        # deserialize data into OutboundLogStreamLogEntry
         try:
-            instance.actual_instance = OutboundLog.from_json(json_str)
+            instance.actual_instance = OutboundLogStreamLogEntry.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into OutboundLogStreamError
+        # deserialize data into OutboundLogStreamErrorEntry
         try:
-            instance.actual_instance = OutboundLogStreamError.from_json(json_str)
+            instance.actual_instance = OutboundLogStreamErrorEntry.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into OutboundLogsDataInner with oneOf schemas: OutboundLog, OutboundLogStreamError. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into OutboundLogsDataInner with oneOf schemas: OutboundLogStreamErrorEntry, OutboundLogStreamLogEntry. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into OutboundLogsDataInner with oneOf schemas: OutboundLog, OutboundLogStreamError. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into OutboundLogsDataInner with oneOf schemas: OutboundLogStreamErrorEntry, OutboundLogStreamLogEntry. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -119,7 +138,7 @@ class OutboundLogsDataInner(BaseModel):
         else:
             return json.dumps(self.to_dict())
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], OutboundLog, OutboundLogStreamError]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], OutboundLogStreamErrorEntry, OutboundLogStreamLogEntry]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

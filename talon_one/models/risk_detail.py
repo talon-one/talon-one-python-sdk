@@ -48,9 +48,10 @@ class RiskDetail(BaseModel):
     status_changed_by: Optional[StrictInt] = Field(default=None, description="The ID of the user who performed the latest reclassification action.", alias="statusChangedBy", json_schema_extra={"examples": [42]})
     status_changed_at: Optional[datetime] = Field(default=None, description="The time of the latest reclassification action.", alias="statusChangedAt", json_schema_extra={"examples": ["2026-06-06T09:12:45.000000Z"]})
     modified: datetime = Field(description="Timestamp of the most recent update.", json_schema_extra={"examples": ["2026-06-05T06:26:13.698884Z"]})
+    application_name: Optional[StrictStr] = Field(default=None, description="The current name of the Application this risk belongs to. Shown even if the user does not have access to that Application. Omitted if the Application has been deleted or the risk is not associated with an Application. ", alias="applicationName", json_schema_extra={"examples": ["My Application"]})
     affected_entities: List[RiskAffectedEntityItem] = Field(description="The affected entities with the highest severity ratios, in descending order.", alias="affectedEntities")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "created", "notificationId", "featureDate", "groupKey", "applicationId", "status", "criticality", "entity", "activity", "timeFrame", "reportedDate", "affectedEntityCount", "description", "discardReason", "statusComment", "statusChangedBy", "statusChangedAt", "modified", "affectedEntities"]
+    __properties: ClassVar[List[str]] = ["id", "created", "notificationId", "featureDate", "groupKey", "applicationId", "status", "criticality", "entity", "activity", "timeFrame", "reportedDate", "affectedEntityCount", "description", "discardReason", "statusComment", "statusChangedBy", "statusChangedAt", "modified", "applicationName", "affectedEntities"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -180,6 +181,7 @@ class RiskDetail(BaseModel):
             "statusChangedBy": obj.get("statusChangedBy"),
             "statusChangedAt": obj.get("statusChangedAt"),
             "modified": obj.get("modified"),
+            "applicationName": obj.get("applicationName"),
             "affectedEntities": [RiskAffectedEntityItem.from_dict(_item) for _item in obj["affectedEntities"]] if obj.get("affectedEntities") is not None else None
         })
         # store additional fields in additional_properties

@@ -29,7 +29,7 @@ class NewCouponsForMultipleRecipients(BaseModel):
     """
     NewCouponsForMultipleRecipients
     """ # noqa: E501
-    usage_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [100]})
+    usage_limit: Annotated[int, Field(le=999999, strict=True, ge=0)] = Field(description="The number of times the coupon code can be redeemed. `0` means unlimited redemptions but any campaign usage limits will still apply. ", alias="usageLimit", json_schema_extra={"examples": [100]})
     discount_limit: Optional[Union[Annotated[float, Field(le=1000000000000000, strict=True, ge=0)], Annotated[int, Field(le=2147483647, strict=True, ge=0)]]] = Field(default=None, description="The total discount value that the code can give. Typically used to represent a gift card value. ", alias="discountLimit", json_schema_extra={"examples": [30]})
     reservation_limit: Optional[Annotated[int, Field(le=999999, strict=True, ge=0)]] = Field(default=None, description="The number of reservations that can be made with this coupon code. ", alias="reservationLimit", json_schema_extra={"examples": [45]})
     start_date: Optional[datetime] = Field(default=None, description="Timestamp at which point the coupon becomes valid.", alias="startDate", json_schema_extra={"examples": ["2020-01-24T14:15:22Z"]})

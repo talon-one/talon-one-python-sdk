@@ -52,6 +52,7 @@ class TestAchievementProgressWithDefinition(unittest.TestCase):
                         application_id = 2, )
                     ],
                 target = 10,
+                achievement_period = '1W',
                 achievement_recurrence_policy = 'no_recurrence',
                 achievement_activation_policy = 'fixed_schedule',
                 achievement_fixed_start_date = '2024-01-15T15:04:05Z07:00',

@@ -60,6 +60,7 @@ class TestCustomerProfile(unittest.TestCase):
                 id = 6,
                 created = '2020-02-07T08:15:22Z',
                 integration_id = 'URNGV8294NV',
+                attributes = {Language=english, ShippingCountry=DE},
                 account_id = 31,
                 closed_sessions = 3,
                 total_sales = 299.99,

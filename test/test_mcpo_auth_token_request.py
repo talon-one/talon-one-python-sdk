@@ -38,6 +38,7 @@ class TestMCPOAuthTokenRequest(unittest.TestCase):
                 grant_type = 'authorization_code',
                 code = '4a3b2c1d9e6f78901234567890abcdef',
                 client_id = 'a3f8c1e2b4d56789',
+                client_secret = '7b1f0c9d8e2a4f6b1c3d5e7f9a0b2c4d',
                 redirect_uri = 'http://localhost:3000/callback',
                 code_verifier = 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk',
                 refresh_token = 'mcpor:9f8e7d6c'
